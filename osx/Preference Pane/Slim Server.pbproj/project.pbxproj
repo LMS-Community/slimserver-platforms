@@ -689,6 +689,21 @@
 			settings = {
 			};
 		};
+		E7A160500563CACD00BE7791 = {
+			expectedFileType = text.script.sh;
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			name = Postflight.sh;
+			path = Installer/Postflight.sh;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		E7A160510563CACD00BE7791 = {
+			fileRef = E7A160500563CACD00BE7791;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		E7A8BC7B054C439400876841 = {
 			buildActionMask = 2147483647;
 			files = (
@@ -1017,6 +1032,7 @@
 				E74160220428EB9300A80172,
 				E7D4F10E054D98D0009AFDA0,
 				05F768F10560419D00A991D3,
+				E7A160510563CACD00BE7791,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1210,6 +1226,7 @@
 				E7C5E13E03C6161300A80172,
 				E77C98AA03F33E8500FE7493,
 				E74160210428EB9300A80172,
+				E7A160500563CACD00BE7791,
 			);
 			isa = PBXGroup;
 			name = "Other Sources";

@@ -280,7 +280,9 @@
 	**  Launch the new preference pane to let the user manipulate it.
 	*/
 	
-	[[NSWorkspace sharedWorkspace] openFile:fileInstalled];
+	NSTask *postflightTask = [NSTask launchedTaskWithLaunchPath:[[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"Postflight.sh"] arguments:[NSArray arrayWithObjects:fileInstalled,nil]];
+	
+	[postflightTask waitUntilExit];
 	[self performSelector:@selector(quitInstall:) withObject:nil afterDelay:0.1];
     }
     [fileInstalled release];
