@@ -250,6 +250,26 @@ begin
   	Result := false;
 end;
 
+function AddiTunesFilePath(Folder : String) : String;
+begin
+	Result := AddBackslash(Folder) + AddBackslash('iTunes') + 'iTunes Music Library.xml';
+end;
+
+function GetiTunesXMLPath() : String;
+var
+	FileName, Folder: String;
+begin
+	FileName := AddiTunesFilePath(MyMusicFolder);	
+	if (FileExists(FileName)) then
+		Result := FileName
+	else if (RegQueryStringValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','My Music', Folder) and FileExists(AddiTunesFilePath(Folder))) then
+		Result := AddiTunesFilePath(Folder)
+	else if (RegQueryStringValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','Personal', Folder) and FileExists(AddiTunesFilePath(AddBackslash(Folder) + 'My Music'))) then
+		Result := AddiTunesFilePath(AddBackslash(Folder) + 'My Music')
+	else 
+		Result := '';
+end;
+
 procedure CurStepChanged(CurStep: Integer);
 var
 	ErrorCode: Integer;
@@ -258,6 +278,7 @@ var
 	OldServerDir: String;
 	Uninstaller: String;
 	delPath: String;
+	PrefString, iTunesPath : String;
 begin
 	if CurStep = csCopy then
 		begin
@@ -318,6 +339,12 @@ begin
 
 	if CurStep = csFinished then
 		if not FileExists(FileName) then
-			SaveStringToFile(FileName, 'audiodir = ' + MyMusicFolder + #13#10 + 'playlistdir = ' + MyPlayListFolder + #13#10, False);
+			begin
+				PrefString := 'audiodir = ' + MyMusicFolder + #13#10 + 'playlistdir = ' + MyPlayListFolder + #13#10;
+				iTunesPath := GetiTunesXMLPath();
+				if iTunesPath <> '' then
+					PrefString := PrefString + 'itunes_library_xml_path = ' + iTunesPath + #13#10 + 'itunes_library_music_path = ' + MyMusicFolder + #13#10;
+				SaveStringToFile(FileName, PrefString, False);
+			end;
 	
 end;
