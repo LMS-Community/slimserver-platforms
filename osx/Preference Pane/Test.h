@@ -1,6 +1,6 @@
 //
 //  Test.h
-//  SliMP3 Preferences
+//  SlimServer Preference Tester
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
 //  Copyright (c) 2002-2003 Slim Devices, Inc. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  Test.m
-//  SliMP3 Preferences
+//  SlimServer Preference Tester
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
 //  Copyright (c) 2002-2003 Slim Devices, Inc. All rights reserved.
@@ -22,7 +22,7 @@ int main(int argc, const char *argv[])
     Class prefPaneClass;
     NSPreferencePane *prefPaneObject;
     NSView *prefView;
-    pathToPrefPaneBundle = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"SLIMP3 Server.prefPane"];
+    pathToPrefPaneBundle = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"SlimServer.prefPane"];
     prefBundle = [NSBundle bundleWithPath: pathToPrefPaneBundle];
     prefPaneClass = [prefBundle principalClass];
     prefPaneObject = [[prefPaneClass alloc] initWithBundle: prefBundle];
@@ -42,7 +42,7 @@ int main(int argc, const char *argv[])
     else
     {
 	/* Nothing much to do here */
-	NSLog(@"Error loading test prefPane.");
+	NSLog(@"Error loading SlimServer.prefPane.");
     }
 }
 @end
