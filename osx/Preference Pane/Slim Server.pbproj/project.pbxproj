@@ -5,6 +5,54 @@
 	};
 	objectVersion = 39;
 	objects = {
+		05286B0705D4480F00E88B81 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
+			name = French;
+			path = French.lproj/InfoPlist.strings;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		05286B0C05D4482600E88B81 = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
+			name = French;
+			path = French.lproj/Slim_ServerPref.nib;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		05286B1505D4483900E88B81 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
+			name = French;
+			path = French.lproj/Localizable.strings;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		05286B2005D4485900E88B81 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
+			name = French;
+			path = Installer/French.lproj/InfoPlist.strings;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		05286B2405D4486A00E88B81 = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
+			name = French;
+			path = Installer/French.lproj/MainMenu.nib;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		05286B2C05D4488400E88B81 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
+			name = French;
+			path = French.lproj/Localizable.strings;
+			refType = 4;
+			sourceTree = "<group>";
+		};
 		054032D203F42BC800000167 = {
 			isa = PBXFileReference;
 			lastKnownFileType = image.icns;
@@ -225,7 +273,7 @@
 	<key>CFBundleExecutable</key>
 	<string>SlimServer</string>
 	<key>CFBundleGetInfoString</key>
-	<string>SlimServer Preference Pane 5.0.1 - (c) 2002-2003 by Slim Devices, Inc. All rights reserved.</string>
+	<string>SlimServer 5.1.1, Copyright © 2002-2004 Slim Devices, Inc.</string>
 	<key>CFBundleIconFile</key>
 	<string>slimicon.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -237,11 +285,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.1</string>
+	<string>5.1.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>5.1</string>
+	<string>5.1.1</string>
 	<key>NSMainNibFile</key>
 	<string>Slim_ServerPref</string>
 	<key>NSPrefPaneIconFile</key>
@@ -326,6 +374,7 @@
 		089C167DFE841241C02AAC07 = {
 			children = (
 				089C167EFE841241C02AAC07,
+				05286B0705D4480F00E88B81,
 			);
 			isa = PBXVariantGroup;
 			name = InfoPlist.strings;
@@ -1162,6 +1211,7 @@
 		E7C5E14103C6163000A80172 = {
 			children = (
 				E7C5E14203C6163000A80172,
+				05286B2005D4485900E88B81,
 			);
 			isa = PBXVariantGroup;
 			name = InfoPlist.strings;
@@ -1181,6 +1231,7 @@
 		E7C5E14303C6163000A80172 = {
 			children = (
 				E7C5E14403C6163000A80172,
+				05286B2405D4486A00E88B81,
 			);
 			isa = PBXVariantGroup;
 			name = MainMenu.nib;
@@ -1236,6 +1287,7 @@
 		E7D4F10C054D98D0009AFDA0 = {
 			children = (
 				E7D4F10D054D98D0009AFDA0,
+				05286B2C05D4488400E88B81,
 			);
 			isa = PBXVariantGroup;
 			name = Localizable.strings;
@@ -1408,6 +1460,7 @@
 		F506C042013D9D8C01CA16C8 = {
 			children = (
 				F506C043013D9D8C01CA16C8,
+				05286B0C05D4482600E88B81,
 			);
 			isa = PBXVariantGroup;
 			name = Slim_ServerPref.nib;
@@ -1527,11 +1580,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.1</string>
+	<string>5.1.1</string>
 	<key>CFBundleSignature</key>
 	<string>SLIM</string>
 	<key>CFBundleVersion</key>
-	<string>5.1</string>
+	<string>5.1.1</string>
 	<key>LSBackgroundOnly</key>
 	<string>1</string>
 	<key>NSBackgroundOnly</key>
@@ -1739,6 +1792,7 @@
 		F56E7160035DB29001A80172 = {
 			children = (
 				F56E7161035DB29001A80172,
+				05286B1505D4483900E88B81,
 			);
 			isa = PBXVariantGroup;
 			name = Localizable.strings;
@@ -1847,11 +1901,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.1</string>
+	<string>5.1.1</string>
 	<key>CFBundleSignature</key>
 	<string>SLIM</string>
 	<key>CFBundleVersion</key>
-	<string>5.1</string>
+	<string>5.1.1</string>
 	<key>NSMainNibFile</key>
 	<string>Test</string>
 	<key>NSPrincipalClass</key>

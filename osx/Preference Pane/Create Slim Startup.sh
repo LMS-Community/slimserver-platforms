@@ -79,3 +79,18 @@ fi
 !!
 
 chmod +x /Library/StartupItems/Slim/Slim
+
+mkdir -p -m go-w /Library/StartupItems/Slim/Resources/French.lproj
+
+cat >/Library/StartupItems/Slim/Resources/French.lproj/Localizable.strings << '!!'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Starting SlimServer</key>
+	<string>Démarrage du SlimServer</string>
+	<key>Stopping SlimServer</key>
+	<string>Arrêt du SlimServer</string>
+</dict>
+</plist>
+!!

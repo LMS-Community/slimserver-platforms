@@ -47,11 +47,11 @@
 -(IBAction)installTypeChanged:(id)sender
 {
     if ([[installType selectedItem] tag] == kInstallGlobal && foundSlimGlobal)
-	[installButton setTitle:@"Update"];
+		[installButton setTitle:SLIMLocalizedPrefString(@"Update", "Update")];
     else if ([[installType selectedItem] tag] == kInstallLocal && foundSlimLocal)
-	[installButton setTitle:@"Update"];
+		[installButton setTitle:SLIMLocalizedPrefString(@"Update", "Update")];
     else
-	[installButton setTitle:@"Install"];	
+		[installButton setTitle:SLIMLocalizedPrefString(@"Install", "Install")];
 }
 
 -(bool)authorizeUser
@@ -260,7 +260,7 @@
 	    [fileInstalled release];
 	    fileInstalled = nil;
 	}
-	NSBeginAlertSheet (@"Install Results", @"OK", nil, nil, [[NSApplication sharedApplication] mainWindow], self, @selector (sheetDidEnd:returnCode:contextInfo:), nil, fileInstalled, @"%@", scriptOutput);
+		NSBeginAlertSheet (SLIMLocalizedPrefString(@"Install Results", "Install Results"), SLIMLocalizedPrefString(@"OK", "OK"), nil, nil, [[NSApplication sharedApplication] mainWindow], self, @selector (sheetDidEnd:returnCode:contextInfo:), nil, fileInstalled, @"%@", SLIMLocalizedPrefString(scriptOutput, scriptOutput));
     }
 
     [scriptOutput release];

@@ -1,1 +1,6 @@
+"Install" = "Install";
 "Update" = "Update";
+"Install Results" = "Install Results";
+"OK" = "OK";
+"SlimServer installed successfully.\n" = "SlimServer installed successfully.";
+"SlimServer install failed.\n" = "SlimServer install failed.";
