@@ -78,8 +78,8 @@ Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\Run; ValueType: st
 ;
 ; Only give the option to install as a service if running WinNT 4 at a minimum (any 'NT' system is ok - 2k, xp etc)
 ;
-Filename: {app}\server\slimserversvc.exe; Description: Install Slim Server as a Windows service; Flags: postinstall runminimized; MinVersion: 0,4.00.1381; Parameters: -install auto; WorkingDir: {app}\server
-Filename: net; Description: Start Slim Windows service; Parameters: start slimserversvc; Flags: postinstall runminimized; MinVersion: 0,4.00.1381
+Filename: {app}\server\slimsvc.exe; Description: Install Slim Server as a Windows service; Flags: postinstall runminimized; MinVersion: 0,4.00.1381; Parameters: -install auto; WorkingDir: {app}\server
+Filename: net; Description: Start Slim Windows service; Parameters: start slimsvc; Flags: postinstall runminimized; MinVersion: 0,4.00.1381
 Filename: {app}\Slim Server.exe; Description: Launch Slim Server application; Flags: nowait postinstall skipifsilent runmaximized
 ;Filename: {app}\Release Notes.html; Description: View Release Notes; Flags: nowait shellexec postinstall unchecked
 
@@ -90,8 +90,8 @@ Filename: {app}\Slim Server.exe; Description: Launch Slim Server application; Fl
 EnableISX=true
 
 [UninstallRun]
-Filename: net; Parameters: stop slimserversvc; Flags: runminimized skipifdoesntexist; MinVersion: 0,4.00.1381
-Filename: {app}\server\slimserversvc.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
+Filename: net; Parameters: stop slimsvc; Flags: runminimized skipifdoesntexist; MinVersion: 0,4.00.1381
+Filename: {app}\server\slimsvc.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
 
 [Code]
 {
@@ -242,9 +242,9 @@ begin
     begin
     if CurStep = csWizard then
       begin
-        InstExec('net', 'stop slimserversvc', '', True, True, SW_HIDE, ErrorCode);
+        InstExec('net', 'stop slimsvc', '', True, True, SW_HIDE, ErrorCode);
         ServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-        ServicePath:= ServerDir + AddBackslash('slimserversvc.exe');
+        ServicePath:= ServerDir + AddBackslash('slimsvc.exe');
 
         InstExec(ServicePath, '-remove', ServerDir, true, true, SW_HIDE, ErrorCode);
       end;
