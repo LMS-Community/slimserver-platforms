@@ -256,27 +256,47 @@ var
 	ServicePath: String;
 	ServerDir: String;
 	Uninstaller: String;
+	archPath: String;
 begin
 	if CurStep = csCopy then
 		begin
-			// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr. 
+			// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr.
 			// Returns True if successful. When False is returned, ResultStr is unmodified.
 			if  RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then
 				begin
 				if not InstExec(RemoveQuotes(Uninstaller), '/SILENT','', True, True, SW_SHOWNORMAL, ErrorCode) then
-					MsgBox('Problem uninstalling older SLIMP3 software: ' + SysErrorMessage(ErrorCode),mbError, MB_OK);
-			end;
-
-			if  RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SlimServer_is1','UninstallString', Uninstaller) then
-				begin
-				if not InstExec(RemoveQuotes(Uninstaller), '/SILENT','', True, True, SW_SHOWNORMAL, ErrorCode) then
-					MsgBox('Problem uninstalling older SlimServer software: ' + SysErrorMessage(ErrorCode),mbError, MB_OK);
+					MsgBox('Problem uninstalling SLIMP3 software: ' + SysErrorMessage(ErrorCode),mbError, MB_OK);
 			end;
 			
+			if UsingWinNT() then
+				begin
+					InstExec('net', 'stop slimsvc', '', true, false, SW_SHOWNORMAL, ErrorCode);
+
+					MsgBox('stopped slimsvc ' + SysErrorMessage(ErrorCode),mbError, MB_OK);
+
+					ServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
+					ServicePath:= ServerDir + 'slimsvc.exe';		
+					
+					if FileExists(ServicePath) then
+						begin	
+							InstExec(ServicePath, '-remove', ServerDir, true, false, SW_SHOWNORMAL, ErrorCode);		
+							DeleteFile(ServicePath);
+     				  MsgBox('removed and deleted ' + ServicePath + ' with error:' + SysErrorMessage(ErrorCode),mbError, MB_OK);
+						end
+					else
+						begin
+							ServicePath:= ServerDir + 'slim.exe';
+							InstExec(ServicePath, '-remove', ServerDir, true, false, SW_SHOWNORMAL, ErrorCode);
+     				  MsgBox('removed  ' + ServicePath +' with error:' + SysErrorMessage(ErrorCode),mbError, MB_OK);
+						end;
+					
+					archPath := ServerDir + AddBackslash('CPAN') + AddBackslash('arch');
+					DelTree(archPath, true, true, true);
+					MsgBox('deleted ' + archPath, mbError, MB_OK);
+				end;
 		end;
 
-
-	if CurStep = csFinished then 
+	if CurStep = csFinished then
 		if not FileExists(FileName) then
 			SaveStringToFile(FileName, 'mp3dir = ' + MyMusicFolder + #13#10 + 'playlistdir = ' + MyPlayListFolder + #13#10, False);
 	

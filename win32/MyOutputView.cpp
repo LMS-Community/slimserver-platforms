@@ -229,7 +229,7 @@ void CMyOutputView::OnDestroy()
 
 	KillTimer(TIMER_DEBUG); 
 
-	if (theApp.GetProfileInt(REGISTRY_VERSION, REGISTRY_STOP_SERVER_ON_EXIT,TRUE)!=0) {
+	if (DoneStarted() && theApp.GetProfileInt(REGISTRY_VERSION, REGISTRY_STOP_SERVER_ON_EXIT,TRUE)!=0) {
 		StopPerlServer();
 	}
 }
