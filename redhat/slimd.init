@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# slimp3      This shell script takes care of starting and stopping
-#             the SLIMP3 streaming MP3 server.
+# slimd.init  This shell script takes care of starting and stopping
+#             the Slim streaming MP3 server.
 #
 # chkconfig: 345 80 30
-# description: SLIMP3 streaming MP3 server
-# processname: slimp3.pl
-# config: /etc/slimp3.pref
+# description: Slim streaming MP3 server
+# processname: slimserver.pl
+# config: /etc/slimd.pref
 
 # Source function library.
 . /etc/rc.d/init.d/functions
@@ -14,36 +14,36 @@
 # Source networking configuration.
 . /etc/sysconfig/network
 
-if [ -f /etc/sysconfig/slimp3 ]; then
-	. /etc/sysconfig/slimp3
+if [ -f /etc/sysconfig/slimd ]; then
+	. /etc/sysconfig/slimd
 fi
 
 # Check that networking is up.
 [ ${NETWORKING} = "no" ] && exit 0
 
 RETVAL=0
-prog="SLIMP3"
+prog="SLIMD"
 
-SLIMP3_BIN="$SLIMP3_HOME/slimp3.pl"
+SLIMD_BIN="$SLIMD_HOME/slimserver.pl"
 
-[ -x $SLIMP3_BIN -a -f $SLIMP3_CFG ] || exit 5
+[ -x $SLIMD_BIN -a -f $SLIMD_CFG ] || exit 5
 
 start() {
-	echo -n "Starting SLIMP3 server: "
-	daemon --user $SLIMP3_USER $SLIMP3_BIN $SLIMP3_ARGS
+	echo -n "Starting Slim server: "
+	daemon --user $SLIMD_USER $SLIMD_BIN $SLIMD_ARGS
 	RETVAL=$?
 	echo
-	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/slimp3
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/slimd
 	return $RETVAL
 #	echo_success
 }
 
 stop() {
-	echo -n "Shutting down SLIMP3 server: "
-	killproc $SLIMP3_BIN
+	echo -n "Shutting down Slim server: "
+	killproc $SLIMD_BIN
 	RETVAL=$?
 	echo
-	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/slimp3
+	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/slimd
 	return $RETVAL
 }
 
@@ -61,7 +61,7 @@ case "$1" in
         RETVAL=$?
         ;;
   status)
-        status $SLIMP3_BIN
+        status $SLIMD_BIN
         RETVAL=$?
         ;;
   *)

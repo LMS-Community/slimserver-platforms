@@ -11,17 +11,17 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
-# init.d/slimp3
+# init.d/slimd
 #
-# System startup script for the SLIMP3 Server.
+# System startup script for the Slim Server.
 #
 ### BEGIN INIT INFO
-# Provides: slimp3
+# Provides: slimd
 # Required-Start: $network $remote_fs $netdaemons smbfs
 # Required-Stop:  
 # Default-Start:  3 5
 # Default-Stop:   0 1 2 6
-# Description:    Start the SLIMP3 Server and Web Front End
+# Description:    Start the Slim Server and Web Front End
 ### END INIT INFO
 
 # Source SuSE config
@@ -33,20 +33,20 @@ link=${base#*[SK][0-9][0-9]}
 
 # Force execution if not called by a runlevel directory.
 #
-# START_SLIMP3 harcoded to yes till I get round to adding it to rc.config
+# START_SLIMD harcoded to yes till I get round to adding it to rc.config
 #
-START_SLIMP3=yes
+START_SLIMD=yes
 
-test $link = $base && START_SLIMP3=yes
-test "$START_SLIMP3" = yes || exit 0
+test $link = $base && START_SLIMD=yes
+test "$START_SLIMD" = yes || exit 0
 
 #
 # Edit this to suit your setup
 # 
-SLIMP3_USER=slimp3
-SLIMP3_HOME=/home/slimp3
-SLIMP3_BIN=$SLIMP3_HOME/slimp3.pl
-test -x $SLIMP3_BIN || exit 5
+SLIMD_USER=slim
+SLIMD_HOME=/home/slim
+SLIMD_BIN=$SLIMD_HOME/slimserver.pl
+test -x $SLIMD_BIN || exit 5
 
 # read in system config vars
 . /etc/rc.status
@@ -56,23 +56,23 @@ rc_reset
 
 case "$1" in
     start)
-	echo -n "Starting SLIMP3 Server"
+	echo -n "Starting Slim Server"
 	
 	#
 	# Fire up the server script, redirecting errors to the bit bucket.
 	#
-	/bin/su - $SLIMP3_USER -c $SLIMP3_BIN &
+	/bin/su - $SLIMD_USER -c $SLIMD_BIN &
 
 	# Remember status and be verbose
 	rc_status -v
 	;;
     stop)
-	echo -n "Shutting down SLIMP3 Server"
+	echo -n "Shutting down Slim Server"
 	
-	SLIMP3_PID=`pidof -x $SLIMP3_BIN`
+	SLIMD_PID=`pidof -x $SLIMD_BIN`
 	
-	if test ! -z $SLIMP3_PID 
-	    then kill -TERM $SLIMP3_PID 2>/dev/null
+	if test ! -z $SLIMD_PID 
+	    then kill -TERM $SLIMD_PID 2>/dev/null
 	fi
 
 	# Remember status and be verbose
@@ -96,9 +96,9 @@ case "$1" in
 	rc_status
 	;;
     status)
-	echo -n "Checking for SLIMP3: "
+	echo -n "Checking for Slim Server: "
 
-	pidof -x $SLIMP3_BIN; rc=$?
+	pidof -x $SLIMD_BIN; rc=$?
 	if test $rc = 0; then echo "OK"
 	else echo "No process" 
 	fi
