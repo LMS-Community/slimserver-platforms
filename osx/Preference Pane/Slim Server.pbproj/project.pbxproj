@@ -5,6 +5,20 @@
 	};
 	objectVersion = 39;
 	objects = {
+		051887A2054C870600454EC2 = {
+			expectedFileType = image.icns;
+			isa = PBXFileReference;
+			name = slimp3updater.icns;
+			path = "SLIMP3 Firmware Updater/slimp3updater.icns";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		051887A3054C870600454EC2 = {
+			fileRef = 051887A2054C870600454EC2;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		054032D203F42BC800000167 = {
 			expectedFileType = image.icns;
 			isa = PBXFileReference;
@@ -656,6 +670,7 @@
 				E7A8BC91054C44C400876841,
 				E7A8BC92054C44C400876841,
 				E7A8BD24054C4F4E00876841,
+				051887A3054C870600454EC2,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -693,7 +708,6 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				INFOPLIST_FILE = "SLIMP3 Firmware Updater/SLIMP3 Firmware Updater-Info.plist";
 				INSTALL_PATH = "$(USER_APPS_DIR)";
-				OPTIMIZATION_CFLAGS = "";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-framework Foundation -framework AppKit -framework Cocoa -framework Security";
 				OTHER_REZFLAGS = "";
@@ -863,6 +877,7 @@
 		};
 		E7A8BCA3054C455900876841 = {
 			children = (
+				051887A2054C870600454EC2,
 				E7A8BD22054C4F4E00876841,
 				E7A8BC8A054C44C400876841,
 				E7A8BC8C054C44C400876841,
