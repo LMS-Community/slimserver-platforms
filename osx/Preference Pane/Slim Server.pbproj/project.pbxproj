@@ -226,7 +226,7 @@
 	<key>NSMainNibFile</key>
 	<string>Slim_ServerPref</string>
 	<key>NSPrefPaneIconFile</key>
-	<string>Slim_ServerPref.tiff</string>
+	<string>slimicon.icns</string>
 	<key>NSPrincipalClass</key>
 	<string>Slim_ServerPref</string>
 </dict>
