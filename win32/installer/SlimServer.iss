@@ -75,8 +75,8 @@ Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\Run; ValueType: st
 [Run]
 Filename: {app}\SlimServer.exe; Description: Launch SlimServer application; Flags: nowait postinstall skipifsilent runmaximized
 Filename: {app}\Getting Started.html; Description: Read Getting Started document; Flags: shellexec skipifsilent postinstall
-Filename: {app}\server\slimsvc.exe; Flags: runminimized; MinVersion: 0,4.00.1381; Parameters: -install auto -username={code:GetUsername|} -password={code:GetPassword|}; WorkingDir: {app}\server; Check: HavePassword
-Filename: net; Parameters: start slimsvc; Flags: runminimized; MinVersion: 0,4.00.1381; Check: HavePassword
+Filename: {app}\server\slimsvc.exe; Flags: runminimized; MinVersion: 0,4.00.1381; Parameters: "-install auto -username=""{code:GetUsername|}"" -password=""{code:GetPassword|}"""; WorkingDir: {app}\server; Check: ShouldAutostart
+Filename: net; Parameters: start slimsvc; Flags: runminimized; MinVersion: 0,4.00.1381; Check: ShouldAutostart
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
@@ -108,6 +108,7 @@ var
 	FileName: String;
 	Username: String;
 	Password: String;
+	AutoStart: String;
 
 function ScriptDlgPages(CurPage: Integer; BackClicked: Boolean): Boolean;
 var
@@ -115,6 +116,7 @@ var
 	Next: Boolean;
 begin
 	FileName:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'slimserver.pref';
+	Username := '.\' + GetUserNameString();
 	
 	if ((not FileExists(FileName) or UsingWinNT()) and ((not BackClicked and (CurPage = wpSelectDir)) or (BackClicked and (CurPage = wpSelectProgramGroup)))) then 
 		begin
@@ -126,7 +128,7 @@ begin
 		
 			ScriptDlgPageOpen();
 		
-			while(CurSubPage>=0) and (CurSubPage<=2) and not Terminated do begin
+			while(CurSubPage>=0) and (CurSubPage<=3) and not Terminated do begin
 				case CurSubPage of
 					0:
 						if not FileExists(FileName) then begin
@@ -170,10 +172,24 @@ begin
 						begin
 							if UsingWinNT() then 
 								begin
-									Username := '.\' + GetUserNameString();
+									ScriptDlgPageSetCaption('Automatic Startup');
+									ScriptDlgPageSetSubCaption1('');
+									ScriptDlgPageSetSubCaption2('You can set SlimServer to start automatically when your computer starts up.');
+				
+									Next := InputOption('Start Automatically', AutoStart);
+									
+									if (Next and (AutoStart <> '1')) then
+										CurSubPage := CurSubPage + 1;
+
+								end;
+						end;				
+					3:
+						begin
+							if UsingWinNT() then 
+								begin
 									ScriptDlgPageSetCaption('Enter Password');
 									ScriptDlgPageSetSubCaption1('');
-									ScriptDlgPageSetSubCaption2('The installer needs the password to the local user account "' + GetUserNameString() + '" to start automatically.  You can this leave this field blank to disable auto startup.');
+									ScriptDlgPageSetSubCaption2('The installer needs the password to the local user account "' + GetUserNameString() + '" to start automatically.');
 				
 									// Ask for a dir until the user has entered one or click Back or Cancel
 									Next := InputQuery('Enter the password for the account "' + GetUserNameString() + '".', Password);
@@ -219,6 +235,12 @@ begin
 	Result := MyMusicFolder;
 end;
 
+function InitializeSetup() : Boolean;
+begin
+	AutoStart := '1';
+	Result := True;
+end;
+
 
 function UpdateReadyMemo(Space, NewLine, MemoUserInfoInfo, MemoDirInfo, MemoTypeInfo,
  MemoComponentsInfo, MemoGroupInfo, MemoTasksInfo: String): String;
@@ -251,12 +273,12 @@ begin
 	Result := password;
 end;
 
-function HavePassword() : Boolean;
+function ShouldAutostart() : Boolean;
 begin
-  if (Password = '') then 
-  	Result := false
+  if (AutoStart = '1') then 
+  	Result := true
   else
-  	Result := true;
+  	Result := false;
 end;
 
 procedure CurStepChanged(CurStep: Integer);
