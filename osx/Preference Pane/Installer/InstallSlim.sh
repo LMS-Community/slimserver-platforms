@@ -11,6 +11,11 @@ if [ z"$SERVER_RUNNING" != z ] ; then
     exit 1
 fi
 
+# Check to see if the old preferences file is there. If so, and the new one
+# isn't, relocate.
+
+mv -n ~/Library/SlimDevices/slimd.pref ~/Library/SlimDevices/slimserver.pref
+
 if [ -e /Library/PreferencePanes/SLIMP3\ Server.prefPane ] ; then
     rm -r /Library/PreferencePanes/SLIMP3\ Server.prefPane 2>&1
 fi
