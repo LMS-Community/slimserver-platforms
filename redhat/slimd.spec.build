@@ -57,7 +57,7 @@ cd ..
 && rm -r $RPM_BUILD_DIR/Slim_Server_v%{version}
 
 %pre
-export SLIMD_USER=slim
+export SLIMD_USER=slimd
 # Someone might have changed the default.  Lets make sure we use it.
 if [ -f /etc/sysconfig/slimd ]; then . /etc/sysconfig/slimd; fi
 # Add the $SLIMD_USER if there is not one
