@@ -3,7 +3,7 @@
 //  SlimServer
 //
 //  Created by Dave Nanian on Sun Oct 26 2003.
-//  Copyright (c) 2003 Slim Devices, Inc. All rights reserved.
+//  Copyright (c) 2003-2004 Slim Devices, Inc. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

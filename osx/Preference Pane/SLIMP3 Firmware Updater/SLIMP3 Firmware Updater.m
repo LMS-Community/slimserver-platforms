@@ -3,7 +3,7 @@
 //  SlimServer 
 //
 //  Created by Dave "The Snake" Nanian on Sun Oct 26 2003.
-//  Copyright (c) 2003 Slim Devices, Inc. All rights reserved.
+//  Copyright (c) 2003-2004 Slim Devices, Inc. All rights reserved.
 //
 
 #include <Security/Authorization.h>
