@@ -1,5 +1,5 @@
 umask 022
-touch /etc/slimd.pref
-chown slim:slim /etc/slimd.pref
-/etc/init.d/slimd start
+touch /etc/slimserver.pref
+chown slim:slim /etc/slimserver.pref
+/etc/init.d/slimserver start
 #echo "Point your web browser to http://`uname -n`:9000/ to configure your server."

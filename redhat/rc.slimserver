@@ -11,12 +11,12 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
-# init.d/slimd
+# init.d/slimserver
 #
 # System startup script for the Slim Server.
 #
 ### BEGIN INIT INFO
-# Provides: slimd
+# Provides: slimserver
 # Required-Start: $network $remote_fs $netdaemons smbfs
 # Required-Stop:  
 # Default-Start:  3 5
@@ -33,20 +33,20 @@ link=${base#*[SK][0-9][0-9]}
 
 # Force execution if not called by a runlevel directory.
 #
-# START_SLIMD harcoded to yes till I get round to adding it to rc.config
+# START_SLIMSERVER harcoded to yes till I get round to adding it to rc.config
 #
-START_SLIMD=yes
+START_SLIMSERVER=yes
 
-test $link = $base && START_SLIMD=yes
-test "$START_SLIMD" = yes || exit 0
+test $link = $base && START_SLIMSERVER=yes
+test "$START_SLIMSERVER" = yes || exit 0
 
 #
 # Edit this to suit your setup
 # 
-SLIMD_USER=slimd
-SLIMD_HOME=/home/slimd
-SLIMD_BIN=$SLIMD_HOME/slimserver.pl
-test -x $SLIMD_BIN || exit 5
+SLIMSERVER_USER=slimserver
+SLIMSERVER_HOME=/home/slimserver
+SLIMSERVER_BIN=$SLIMSERVER_HOME/slimserver.pl
+test -x $SLIMSERVER_BIN || exit 5
 
 # read in system config vars
 . /etc/rc.status
@@ -61,7 +61,7 @@ case "$1" in
 	#
 	# Fire up the server script, redirecting errors to the bit bucket.
 	#
-	/bin/su - $SLIMD_USER -c $SLIMD_BIN &
+	/bin/su - $SLIMSERVER_USER -c $SLIMSERVER_BIN &
 
 	# Remember status and be verbose
 	rc_status -v
@@ -69,10 +69,10 @@ case "$1" in
     stop)
 	echo -n "Shutting down Slim Server"
 	
-	SLIMD_PID=`pidof -x $SLIMD_BIN`
+	SLIMSERVER_PID=`pidof -x $SLIMSERVER_BIN`
 	
-	if test ! -z $SLIMD_PID 
-	    then kill -TERM $SLIMD_PID 2>/dev/null
+	if test ! -z $SLIMSERVER_PID 
+	    then kill -TERM $SLIMSERVER_PID 2>/dev/null
 	fi
 
 	# Remember status and be verbose
@@ -98,7 +98,7 @@ case "$1" in
     status)
 	echo -n "Checking for Slim Server: "
 
-	pidof -x $SLIMD_BIN; rc=$?
+	pidof -x $SLIMSERVER_BIN; rc=$?
 	if test $rc = 0; then echo "OK"
 	else echo "No process" 
 	fi

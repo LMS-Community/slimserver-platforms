@@ -1,1 +1,1 @@
-/etc/init.d/slimd stop
+/etc/init.d/slimserver stop

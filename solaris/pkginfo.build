@@ -1,5 +1,5 @@
-PKG=SLIMD
-NAME=SLIMD Server _VERSION_
+PKG=SLIMSERVER
+NAME=SLIMSERVER Server _VERSION_
 DESC=This is the Slim Devices player server software.
 ARCH=_ARCH_
 VERSION=_VERSION_

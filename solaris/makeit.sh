@@ -18,18 +18,18 @@ cp misc/solaris/postinstall   $distdir/pkg
 cp misc/solaris/postremove    $distdir/pkg
 cp misc/solaris/preinstall    $distdir/pkg
 cp misc/solaris/preremove     $distdir/pkg
-cp misc/solaris/slimd.init   $distdir/pkg/etc/init.d/slimd
+cp misc/solaris/slimserver.init   $distdir/pkg/etc/init.d/slimserver
 
-ln -s ../init.d/slimd $distdir/pkg/etc/rc0.d/K01slimd
-ln -s ../init.d/slimd $distdir/pkg/etc/rc1.d/K01slimd
-ln -s ../init.d/slimd $distdir/pkg/etc/rc2.d/K01slimd
-ln -s ../init.d/slimd $distdir/pkg/etc/rc3.d/S99slimd
-ln -s ../init.d/slimd $distdir/pkg/etc/rcS.d/K01slimd
-ln -s $distdir $distdir/pkg/opt/slimd
-#touch $distdir/pkg/etc/slimd.pref
+ln -s ../init.d/slimserver $distdir/pkg/etc/rc0.d/K01slimserver
+ln -s ../init.d/slimserver $distdir/pkg/etc/rc1.d/K01slimserver
+ln -s ../init.d/slimserver $distdir/pkg/etc/rc2.d/K01slimserver
+ln -s ../init.d/slimserver $distdir/pkg/etc/rc3.d/S99slimserver
+ln -s ../init.d/slimserver $distdir/pkg/etc/rcS.d/K01slimserver
+ln -s $distdir $distdir/pkg/opt/slimserver
+#touch $distdir/pkg/etc/slimserver.pref
 
-#chmod 0644 $distdir/pkg/etc/slimd.pref
-chmod 0744 $distdir/pkg/etc/init.d/slimd
+#chmod 0644 $distdir/pkg/etc/slimserver.pref
+chmod 0744 $distdir/pkg/etc/init.d/slimserver
 chmod 0755 $distdir/pkg/opt
 
 cd $distdir/pkg/opt

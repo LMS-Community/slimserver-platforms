@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# slimserver       This shell script takes care of starting and stopping
+#                  the Slim Devices streaming MP3 server.
+#
+
+# Edit this to suit your setup
+SLIMSERVER_USER="slim"
+SLIMSERVER_HOME="/opt/slimserver"
+SLIMSERVER_CFG="/etc/slimserver.pref"
+SLIMSERVER_ARGS="--daemon --prefsfile=$SLIMSERVER_CFG"
+
+### NOTHING TO EDIT BELOW THIS LINE ###
+
+SLIMSERVER_BIN="$SLIMSERVER_HOME/slimserver.pl"
+
+[ -x $SLIMSERVER_BIN -a -f $SLIMSERVER_CFG ] || exit 5
+
+case "$1" in
+start)
+	/usr/ucb/echo -n "Starting Slim Server: "
+	/bin/su - $SLIMSERVER_USER -c "$SLIMSERVER_BIN $SLIMSERVER_ARGS"
+	echo "done."
+        ;;
+stop)
+	/usr/ucb/echo -n "Shutting down Slim Server: "
+	pkill `basename $SLIMSERVER_BIN`
+	echo "done."
+        ;;
+*)
+        echo "Usage: $0 {start|stop}"
+        exit 1
+esac

@@ -14,12 +14,12 @@
 #	sleep 2
 #done
 # 
-#if [ -d /opt/slimd ]; then
+#if [ -d /opt/slimserver ]; then
 #	echo "Removing existing Slim Server installation"
-#	rm -rf /opt/slimd
+#	rm -rf /opt/slimserver
 #fi
-#if [ -f /etc/init/slimd ]; then
-#	rm /etc/init/slimd
+#if [ -f /etc/init/slimserver ]; then
+#	rm /etc/init/slimserver
 #fi
 
 # Add the slim group if there is not one
@@ -29,5 +29,5 @@ fi
 
 # Add the slim user if there is not one
 if [ `grep -c '^slim:' /etc/passwd` -eq 0 ]; then
-	/usr/sbin/useradd -g slim -c "Slim Server" -d /opt/slimd slim
+	/usr/sbin/useradd -g slim -c "Slim Server" -d /opt/slimserver slim
 fi

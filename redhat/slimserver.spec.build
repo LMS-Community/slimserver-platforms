@@ -1,7 +1,7 @@
 %define prefix /usr/local
-%define slimdir %{prefix}/slimd
+%define slimdir %{prefix}/slimserver
 
-Name: slimd 
+Name: slimserver 
 Packager: Slim Devices <support@slimdevices.com>
 Requires: perl >= 5.6
 AutoReqProv: no
@@ -11,8 +11,8 @@ Copyright: GPL
 Group: System Environment/Daemons
 Summary: This is the Slim Devices server software
 Source: _SOURCE_
-Source1: slimd.init
-Source2: slimd.config
+Source1: slimserver.init
+Source2: slimserver.config
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 BuildArchitectures: noarch
 Vendor: Slim Devices, Inc.
@@ -46,9 +46,9 @@ mkdir -p $RPM_BUILD_ROOT/etc/sysconfig
 mkdir -p $RPM_BUILD_ROOT%{slimdir}
 cp -R . $RPM_BUILD_ROOT%{slimdir}
 chmod +x $RPM_BUILD_ROOT%{slimdir}/slimserver.pl
-install -D -m755 %SOURCE1 $RPM_BUILD_ROOT/etc/rc.d/init.d/slimd
-install -D -m644 %SOURCE2 $RPM_BUILD_ROOT/etc/sysconfig/slimd
-touch $RPM_BUILD_ROOT/etc/slimd.conf
+install -D -m755 %SOURCE1 $RPM_BUILD_ROOT/etc/rc.d/init.d/slimserver
+install -D -m644 %SOURCE2 $RPM_BUILD_ROOT/etc/sysconfig/slimserver
+touch $RPM_BUILD_ROOT/etc/slimserver.conf
 
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && [ -d $RPM_BUILD_ROOT ] && rm -r $RPM_BUILD_ROOT
@@ -57,75 +57,78 @@ cd ..
 && rm -r $RPM_BUILD_DIR/Slim_Server_v%{version}
 
 %pre
-export SLIMD_USER=slimd
+export SLIMSERVER_USER=slimserver
 # Someone might have changed the default.  Lets make sure we use it.
-if [ -f /etc/sysconfig/slimd ]; then . /etc/sysconfig/slimd; fi
-# Add the $SLIMD_USER if there is not one
-if [ `grep -c "^$SLIMD_USER:" /etc/passwd` -eq 0 ]; then
- /usr/sbin/useradd -c "Slim Server" -d %{slimdir} $SLIMD_USER
+if [ -f /etc/sysconfig/slimserver ]; then . /etc/sysconfig/slimserver; fi
+# Add the $SLIMSERVER_USER if there is not one
+if [ `grep -c "^$SLIMSERVER_USER:" /etc/passwd` -eq 0 ]; then
+ /usr/sbin/useradd -c "Slim Server" -d %{slimdir} $SLIMSERVER_USER
 fi
 
 %post
-# Make sure we have the correct SLIMD_HOME in /etc/sysconfig/slimd
+# Make sure we have the correct SLIMSERVER_HOME in /etc/sysconfig/slimserver
 # Convert / to \/ for the sed substitution
-if [ `grep -c PREFIX /etc/sysconfig/slimd` -gt 0 ]; then
-	DEST_FILE=/etc/sysconfig/slimd
+if [ `grep -c PREFIX /etc/sysconfig/slimserver` -gt 0 ]; then
+	DEST_FILE=/etc/sysconfig/slimserver
 else
-	DEST_FILE=/etc/sysconfig/slimd.rpmnew
+	DEST_FILE=/etc/sysconfig/slimserver.rpmnew
 fi
-SLIMD_PREFIX=`echo %{slimdir} | sed 's/\//\\\\\//g'`
-sed "s/PREFIX/$SLIMD_PREFIX/" $DEST_FILE > /tmp/slimd.$$
-if [ -s /tmp/slimd.$$ ]; then
- cp /tmp/slimd.$$ $DEST_FILE
- rm /tmp/slimd.$$
+SLIMSERVER_PREFIX=`echo %{slimdir} | sed 's/\//\\\\\//g'`
+sed "s/PREFIX/$SLIMSERVER_PREFIX/" $DEST_FILE > /tmp/slimserver.$$
+if [ -s /tmp/slimserver.$$ ]; then
+ cp /tmp/slimserver.$$ $DEST_FILE
+ rm /tmp/slimserver.$$
 fi
-if [ ! -s /etc/slimd.conf ] && [ -e /etc/slimp3.pref ]; then
-  cp /etc/slimp3.pref /etc/slimd.conf
+if [ ! -s /etc/slimserver.conf ] && [ -e /etc/slimp3.pref ]; then
+  cp /etc/slimp3.pref /etc/slimserver.conf
 fi
-/sbin/chkconfig --add slimd
-/sbin/service slimd restart >/dev/null 2>&1 || :
-if [ -e /etc/slimd.conf ]; then
+/sbin/chkconfig --add slimserver
+/sbin/service slimserver restart >/dev/null 2>&1 || :
+if [ -e /etc/slimserver.conf ]; then
   echo "Point your web browser to http://`uname -n`:`awk '/^httpport/ \
- {print $3}' /etc/slimd.conf`/ to configure your server."
+ {print $3}' /etc/slimserver.conf`/ to configure your server."
 else
   echo "Point your web browser to http://`uname -n`:9000/ to configure your \
  server."
 fi
-if [ -e /tmp/slimd.log ]; then
-  rm /tmp/slimd.log
+if [ -e /tmp/slimserver.log ]; then
+  rm /tmp/slimserver.log
 fi
 
 %preun
 # Only if we are not upgrading...
 if [ "$1" -eq "0" ] ; then
- /sbin/service slimd stop >/dev/null 2>&1 || :
- /sbin/chkconfig --del slimd
+ /sbin/service slimserver stop >/dev/null 2>&1 || :
+ /sbin/chkconfig --del slimserver
 fi
 
 %postun
 # Only if we are upgrading...
 if [ "$1" -ge "1" ]; then
- /sbin/service slimd restart >/dev/null 2>&1 || :
+ /sbin/service slimserver restart >/dev/null 2>&1 || :
 else
- SLIMD_USER="slimd"
- SLIMD_CFG="/etc/slimd.conf"
- if [ -f /etc/sysconfig/slimd ]; then . /etc/sysconfig/slimd; fi
- userdel $SLIMD_USER 2>/dev/null || :
+ SLIMSERVER_USER="slimserver"
+ SLIMSERVER_CFG="/etc/slimserver.conf"
+ if [ -f /etc/sysconfig/slimserver ]; then . /etc/sysconfig/slimserver; fi
+ userdel $SLIMSERVER_USER 2>/dev/null || :
  # assume the group name is the same as the user, it's not in sysconfig
- groupdel $SLIMD_USER 2>/dev/null || :
- MP3DIR=`grep mp3dir $SLIMD_CFG |awk -F= '{print $2}'`
- if [ -w $MP3DIR/.slimdinfo.db.dir ];then rm -f $MP3DIR/.slimdinfo.db.dir;fi
- if [ -w $MP3DIR/.slimdinfo.db.pag ];then rm -f $MP3DIR/.slimdinfo.db.pag;fi
+ groupdel $SLIMSERVER_USER 2>/dev/null || :
+ MP3DIR=`grep mp3dir $SLIMSERVER_CFG |awk -F= '{print $2}'`
+ if [ -w $MP3DIR/.slimserverinfo.db.dir ];then rm -f $MP3DIR/.slimserverinfo.db.dir;fi
+ if [ -w $MP3DIR/.slimserverinfo.db.pag ];then rm -f $MP3DIR/.slimserverinfo.db.pag;fi
 fi
 
 %files
 %defattr(-,root,root)
 %{slimdir}
-%attr(-, slimd, slimd) %config(noreplace) /etc/slimd.conf
-%attr(-, root, root) /etc/rc.d/init.d/slimd
-%attr(-, root, root) %config(noreplace) /etc/sysconfig/slimd
+%attr(-, slimserver, slimserver) %config(noreplace) /etc/slimserver.conf
+%attr(-, root, root) /etc/rc.d/init.d/slimserver
+%attr(-, root, root) %config(noreplace) /etc/sysconfig/slimserver
 
 %changelog
+* 2003-11-06 dean
+- Renaming slimd to slimserver
+
 * Mon Sep 15 2003 kdf
 - Patch submitted by many for custom port message on install
 - remove /tmp/slimd.log if it exists, avoid server crash if its locked.
