@@ -23,25 +23,12 @@
     IBOutlet NSImageView *serverStateImage;
     IBOutlet NSButton *webLaunchButton;
     IBOutlet NSButton *aboutButton;
-    IBOutlet NSButton *updateFirmwareButton;
-    IBOutlet NSTextField *firmwareVersion;
 
     IBOutlet NSWindow *aboutBox;
-    IBOutlet NSWindow *updateFirmware;
-    IBOutlet NSWindow *updatingFirmware;
-    IBOutlet NSWindow *updateComplete;
-
-    IBOutlet NSButton *doFirmwareUpdate;
-
-    IBOutlet NSProgressIndicator *firmwareUpdateProgress;
-    IBOutlet NSTextField *macAddress;
-    IBOutlet NSTextField *ipAddress;
-    IBOutlet NSTextField *updateCompleteMessage;
 
     IBOutlet NSPopUpButton *startupType;
 
     AuthorizationRef myAuthorizationRef;
-    NSThread *firmwareUpdateThread;
 }
 
 -(void)mainViewDidLoad;
@@ -52,16 +39,11 @@
 
 -(int)serverPID;
 -(void)updateUI;
--(void)firmwareUpdateThread:(id)userObject;
 
 -(IBAction)openWebInterface:(id)sender;
 -(IBAction)aboutSlimServer:(id)sender;
 -(IBAction)dismissAboutBox:(id)sender;
--(IBAction)updateSliMP3Firmware:(id)sender;
--(IBAction)doFirmwareUpdate:(id)sender;
--(IBAction)cancelFirmwareUpdate:(id)sender;
 -(IBAction)toggleServer:(id)sender;
--(IBAction)dismissUpdateComplete:(id)sender;
 
 -(IBAction)changeStartupPreference:(id)sender;
 @end
