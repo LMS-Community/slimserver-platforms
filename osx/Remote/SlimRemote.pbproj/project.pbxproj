@@ -22,7 +22,7 @@
 				GCC_PREFIX_HEADER = Source/Precomp.h;
 				GCC_USE_GCC3_PFE_SUPPORT = YES;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "Info-SlimServer_Remote__Upgraded_.plist";
+				INFOPLIST_FILE = "Info-SlimServer_Remote.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CFLAGS = "";
@@ -314,7 +314,7 @@
 		052C4126060FEB4600645BB0 = {
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.xml;
-			path = "Info-SlimServer_Remote__Upgraded_.plist";
+			path = "Info-SlimServer_Remote.plist";
 			refType = 4;
 			sourceTree = "<group>";
 		};
@@ -329,7 +329,7 @@
 		056DA536060FF9E8009C02A4 = {
 			isa = PBXFileReference;
 			lastKnownFileType = image.icns;
-			path = SlimRemote.icns;
+			path = "Slim Remote.icns";
 			refType = 4;
 			sourceTree = "<group>";
 		};
