@@ -95,6 +95,22 @@ cat >/Library/StartupItems/Slim/Resources/French.lproj/Localizable.strings << '!
 </plist>
 !!
 
+
+mkdir -p -m go-w /Library/StartupItems/Slim/Resources/German.lproj
+
+cat >/Library/StartupItems/Slim/Resources/English.lproj/Localizable.strings << '!!'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Starting SlimServer</key>
+	<string>Starting SlimServer</string>
+	<key>Stopping SlimServer</key>
+	<string>Stopping SlimServer</string>
+</dict>
+</plist>
+!!
+
 mkdir -p -m go-w /Library/StartupItems/Slim/Resources/English.lproj
 
 cat >/Library/StartupItems/Slim/Resources/English.lproj/Localizable.strings << '!!'

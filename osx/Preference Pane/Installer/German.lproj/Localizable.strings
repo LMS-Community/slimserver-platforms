@@ -1,0 +1,6 @@
+"Install" = "Installieren";
+"Update" = "Aktualisieren";
+"Install Results" = "Resultat der Installation";
+"OK" = "Ok";
+"SlimServer installed successfully.\n" = "SlimServer wurde korrekt installiert.";
+"SlimServer install failed.\n" = "Die Installation von SlimServer ist fehlgeschlagen.";

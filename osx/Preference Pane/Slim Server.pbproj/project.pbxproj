@@ -5,6 +5,14 @@
 	};
 	objectVersion = 39;
 	objects = {
+		052088B506377B540020810E = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
+			name = German;
+			path = Installer/German.lproj/MainMenu.nib;
+			refType = 4;
+			sourceTree = "<group>";
+		};
 		05286B0705D4480F00E88B81 = {
 			fileEncoding = 4;
 			isa = PBXFileReference;
@@ -83,6 +91,54 @@
 			proxyType = 1;
 			remoteGlobalIDString = 089C1673FE841209C02AAC07;
 			remoteInfo = "Slim Server";
+		};
+		0545F86006377BD800BA96E1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
+			name = German;
+			path = German.lproj/Slim_ServerPref.nib;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		0545F86706377BEA00BA96E1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
+			name = German;
+			path = German.lproj/InfoPlist.strings;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		0545F87306377BFA00BA96E1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
+			name = German;
+			path = German.lproj/Localizable.strings;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		0545F89406377C2A00BA96E1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
+			name = German;
+			path = Installer/German.lproj/InfoPlist.strings;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		0545F89C06377C3A00BA96E1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
+			name = German;
+			path = Installer/German.lproj/Localizable.strings;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		0545F8B006377C5500BA96E1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
+			name = German;
+			path = "SLIMP3 Firmware Updater/German.lproj/Localizable.strings";
+			refType = 4;
+			sourceTree = "<group>";
 		};
 		0591BECD05FCCEBA00F5DCAE = {
 			fileEncoding = 4;
@@ -447,6 +503,7 @@
 				089C167EFE841241C02AAC07,
 				05286B0705D4480F00E88B81,
 				0591BF0105FCCF9200F5DCAE,
+				0545F86706377BEA00BA96E1,
 			);
 			isa = PBXVariantGroup;
 			name = InfoPlist.strings;
@@ -1111,6 +1168,7 @@
 			children = (
 				E7A8BD23054C4F4E00876841,
 				0591BF0E05FCCFBB00F5DCAE,
+				0545F8B006377C5500BA96E1,
 			);
 			isa = PBXVariantGroup;
 			name = Localizable.strings;
@@ -1308,6 +1366,7 @@
 				E7C5E14203C6163000A80172,
 				05286B2005D4485900E88B81,
 				0591BECD05FCCEBA00F5DCAE,
+				0545F89406377C2A00BA96E1,
 			);
 			isa = PBXVariantGroup;
 			name = InfoPlist.strings;
@@ -1329,6 +1388,7 @@
 				E7C5E14403C6163000A80172,
 				05286B2405D4486A00E88B81,
 				0591BEEE05FCCF4300F5DCAE,
+				052088B506377B540020810E,
 			);
 			isa = PBXVariantGroup;
 			name = MainMenu.nib;
@@ -1386,6 +1446,7 @@
 				E7D4F10D054D98D0009AFDA0,
 				C6A9CF550601257A00C3E0BF,
 				0591BED005FCCED400F5DCAE,
+				0545F89C06377C3A00BA96E1,
 			);
 			isa = PBXVariantGroup;
 			name = Localizable.strings;
@@ -1560,6 +1621,7 @@
 				F506C043013D9D8C01CA16C8,
 				05286B0C05D4482600E88B81,
 				0591BEFE05FCCF8900F5DCAE,
+				0545F86006377BD800BA96E1,
 			);
 			isa = PBXVariantGroup;
 			name = Slim_ServerPref.nib;
@@ -1893,6 +1955,7 @@
 				F56E7161035DB29001A80172,
 				05286B1505D4483900E88B81,
 				0591BEFB05FCCF7E00F5DCAE,
+				0545F87306377BFA00BA96E1,
 			);
 			isa = PBXVariantGroup;
 			name = Localizable.strings;
