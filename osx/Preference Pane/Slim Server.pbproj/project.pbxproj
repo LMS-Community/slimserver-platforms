@@ -57,6 +57,37 @@
 			refType = 4;
 			sourceTree = "<group>";
 		};
+		0533446307007AE900B0416B = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.tiff;
+			path = slimlogotype.tiff;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		0533446407007AE900B0416B = {
+			fileRef = 0533446307007AE900B0416B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		0533446507007AE900B0416B = {
+			fileRef = 0533446307007AE900B0416B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		0533446607007AE900B0416B = {
+			fileRef = 0533446307007AE900B0416B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		0533446707007AE900B0416B = {
+			fileRef = 0533446307007AE900B0416B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		054032D203F42BC800000167 = {
 			isa = PBXFileReference;
 			lastKnownFileType = image.icns;
@@ -276,15 +307,12 @@
 //064
 		06F27B2EFFEEEFEF11CA0E56 = {
 			explicitFileType = wrapper.cfbundle;
-			fallbackIsa = PBXFileReference;
-			isa = PBXBundleReference;
+			isa = PBXFileReference;
 			path = SlimServer.prefPane;
 			refType = 3;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		06F27B30FFEEEFEF11CA0E56 = {
-			buildRules = (
-			);
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -298,8 +326,6 @@
 			name = Development;
 		};
 		06F27B31FFEEEFEF11CA0E56 = {
-			buildRules = (
-			);
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -373,8 +399,7 @@
 			sourceTree = "<group>";
 		};
 		089C1672FE841209C02AAC07 = {
-			fallbackIsa = PBXFileReference;
-			isa = PBXFrameworkReference;
+			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
 			name = Foundation.framework;
 			path = /System/Library/Frameworks/Foundation.framework;
@@ -476,6 +501,7 @@
 				E7EDF7C603C5D26A00A80172,
 				059A4DFF03C624BB000001CC,
 				05F768F00560419D00A991D3,
+				0533446707007AE900B0416B,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -545,8 +571,7 @@
 			sourceTree = "<group>";
 		};
 		089C167FFE841241C02AAC07 = {
-			fallbackIsa = PBXFileReference;
-			isa = PBXFrameworkReference;
+			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
 			name = AppKit.framework;
 			path = /System/Library/Frameworks/AppKit.framework;
@@ -592,8 +617,7 @@
 			sourceTree = "<group>";
 		};
 		1058C7ADFEA557BF11CA2CBB = {
-			fallbackIsa = PBXFileReference;
-			isa = PBXFrameworkReference;
+			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
 			name = Cocoa.framework;
 			path = /System/Library/Frameworks/Cocoa.framework;
@@ -682,9 +706,8 @@
 			targetProxy = 054413580544B1480086FD13;
 		};
 		E74160210428EB9300A80172 = {
-			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
-			isa = PBXExecutableFileReference;
+			isa = PBXFileReference;
 			lastKnownFileType = text.script.sh;
 			name = Preflight.sh;
 			path = Installer/Preflight.sh;
@@ -769,8 +792,7 @@
 		};
 		E7447F9203D905BA00A80172 = {
 			explicitFileType = "compiled.mach-o.executable";
-			fallbackIsa = PBXFileReference;
-			isa = PBXExecutableFileReference;
+			isa = PBXFileReference;
 			path = SlimLauncher;
 			refType = 3;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -879,9 +901,8 @@
 			sourceTree = "<group>";
 		};
 		E77C98AA03F33E8500FE7493 = {
-			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
-			isa = PBXExecutableFileReference;
+			isa = PBXFileReference;
 			lastKnownFileType = text.script.sh;
 			name = InstallSlim.sh;
 			path = Installer/InstallSlim.sh;
@@ -1262,6 +1283,7 @@
 				E7D4F10E054D98D0009AFDA0,
 				05F768F10560419D00A991D3,
 				E7A160510563CACD00BE7791,
+				0533446407007AE900B0416B,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1352,8 +1374,7 @@
 		};
 		E7C5E13603C615BB00A80172 = {
 			explicitFileType = wrapper.application;
-			fallbackIsa = PBXFileReference;
-			isa = PBXApplicationReference;
+			isa = PBXFileReference;
 			path = "SlimServer Installer.app";
 			refType = 3;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -1445,6 +1466,7 @@
 		};
 		E7C5E14703C6164500A80172 = {
 			children = (
+				0533446307007AE900B0416B,
 				E7C5E14103C6163000A80172,
 				E7C5E14303C6163000A80172,
 				054032D203F42BC800000167,
@@ -1497,27 +1519,24 @@
 			};
 		};
 		E7EDF7BB03C5D22300A80172 = {
-			fallbackIsa = PBXFileReference;
 			fileEncoding = 4;
-			isa = PBXExecutableFileReference;
+			isa = PBXFileReference;
 			lastKnownFileType = text.script.sh;
 			path = "Create Slim Startup.sh";
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		E7EDF7BC03C5D22300A80172 = {
-			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
-			isa = PBXExecutableFileReference;
+			isa = PBXFileReference;
 			lastKnownFileType = text.script.sh;
 			path = "Get Slim Server.sh";
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		E7EDF7BE03C5D22300A80172 = {
-			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
-			isa = PBXExecutableFileReference;
+			isa = PBXFileReference;
 			lastKnownFileType = text.script.sh;
 			path = "Stop Slim Server.sh";
 			refType = 4;
@@ -1542,9 +1561,8 @@
 			};
 		};
 		E7EDF7C303C5D25800A80172 = {
-			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
-			isa = PBXExecutableFileReference;
+			isa = PBXFileReference;
 			lastKnownFileType = text.script.sh;
 			path = "Remove Slim Startup.sh";
 			refType = 4;
@@ -1557,9 +1575,8 @@
 			};
 		};
 		E7EDF7C503C5D26A00A80172 = {
-			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
-			isa = PBXExecutableFileReference;
+			isa = PBXFileReference;
 			lastKnownFileType = text.script.sh;
 			path = "Start Slim Server.sh";
 			refType = 4;
@@ -1588,8 +1605,7 @@
 //F53
 //F54
 		F506C035013D953901CA16C8 = {
-			fallbackIsa = PBXFileReference;
-			isa = PBXFrameworkReference;
+			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
 			name = PreferencePanes.framework;
 			path = /System/Library/Frameworks/PreferencePanes.framework;
@@ -1693,6 +1709,7 @@
 				F52F8836035DD30401A80172,
 				F52F8840035DDAB901A80172,
 				E7EDF7CA03C5D71700A80172,
+				0533446607007AE900B0416B,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1787,8 +1804,7 @@
 		};
 		F52F8820035DCC9901A80172 = {
 			explicitFileType = wrapper.application;
-			fallbackIsa = PBXFileReference;
-			isa = PBXApplicationReference;
+			isa = PBXFileReference;
 			path = "Slim Launcher.app";
 			refType = 3;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -2017,6 +2033,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F58B0880035DF9CE01A80172,
+				0533446507007AE900B0416B,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2106,8 +2123,7 @@
 		};
 		F58B0870035DF7DA01A80172 = {
 			explicitFileType = wrapper.application;
-			fallbackIsa = PBXFileReference;
-			isa = PBXApplicationReference;
+			isa = PBXFileReference;
 			path = "Slim Preference Tester.app";
 			refType = 3;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -2174,9 +2190,8 @@
 			};
 		};
 		F5A48B32038AC8EE01A80172 = {
-			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
-			isa = PBXExecutableFileReference;
+			isa = PBXFileReference;
 			lastKnownFileType = text.script.sh;
 			path = "Update Firmware.sh";
 			refType = 4;
@@ -2196,8 +2211,7 @@
 			};
 		};
 		F5EC8D80035F597B01A80172 = {
-			fallbackIsa = PBXFileReference;
-			isa = PBXFrameworkReference;
+			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
 			name = Security.framework;
 			path = /System/Library/Frameworks/Security.framework;
