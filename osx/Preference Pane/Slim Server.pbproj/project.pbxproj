@@ -994,6 +994,7 @@
 				E77C98AB03F33E8500FE7493,
 				054032D303F42BC800000167,
 				E74160220428EB9300A80172,
+				E7D4F10E054D98D0009AFDA0,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1174,6 +1175,7 @@
 				E7C5E14103C6163000A80172,
 				E7C5E14303C6163000A80172,
 				054032D203F42BC800000167,
+				E7D4F10C054D98D0009AFDA0,
 			);
 			isa = PBXGroup;
 			name = Resources;
@@ -1191,6 +1193,31 @@
 			name = "Other Sources";
 			refType = 4;
 			sourceTree = "<group>";
+		};
+		E7D4F10C054D98D0009AFDA0 = {
+			children = (
+				E7D4F10D054D98D0009AFDA0,
+			);
+			isa = PBXVariantGroup;
+			name = Localizable.strings;
+			path = "";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		E7D4F10D054D98D0009AFDA0 = {
+			expectedFileType = text.plist.strings;
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			name = English;
+			path = Installer/English.lproj/Localizable.strings;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		E7D4F10E054D98D0009AFDA0 = {
+			fileRef = E7D4F10C054D98D0009AFDA0;
+			isa = PBXBuildFile;
+			settings = {
+			};
 		};
 		E7EDF7BB03C5D22300A80172 = {
 			expectedFileType = text.script.sh;
