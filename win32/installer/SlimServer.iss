@@ -264,25 +264,15 @@ begin
 			if  RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then
 				begin
 				if not InstExec(RemoveQuotes(Uninstaller), '/SILENT','', True, True, SW_SHOWNORMAL, ErrorCode) then
-					MsgBox('Problem uninstalling SLIMP3 software: ' + SysErrorMessage(ErrorCode),mbError, MB_OK);
+					MsgBox('Problem uninstalling older SLIMP3 software: ' + SysErrorMessage(ErrorCode),mbError, MB_OK);
+			end;
+
+			if  RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SlimServer_is1','UninstallString', Uninstaller) then
+				begin
+				if not InstExec(RemoveQuotes(Uninstaller), '/SILENT','', True, True, SW_SHOWNORMAL, ErrorCode) then
+					MsgBox('Problem uninstalling older SlimServer software: ' + SysErrorMessage(ErrorCode),mbError, MB_OK);
 			end;
 			
-			if UsingWinNT() then
-				begin
-					InstExec('net', 'stop slimsvc', '', True, True, SW_HIDE, ErrorCode);
-					ServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-					ServicePath:= ServerDir + AddBackslash('slimsvc.exe');		
-					if FileExists(ServicePath) then
-						begin	
-							InstExec(ServicePath, '-remove', ServerDir, true, true, SW_HIDE, ErrorCode);		
-							DeleteFile(ServicePath);
-						end
-					else
-						begin
-							ServicePath:= ServerDir + AddBackslash('slim.exe');
-							InstExec(ServicePath, '-remove', ServerDir, true, true, SW_HIDE, ErrorCode);
-						end;
-				end;
 		end;
 
 
