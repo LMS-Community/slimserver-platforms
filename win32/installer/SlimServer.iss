@@ -88,6 +88,7 @@ Type: dirifempty; Name: {app}\server
 Type: dirifempty; Name: {app}\server\IR
 Type: dirifempty; Name: {app}\server\Plugins
 Type: dirifempty; Name: {app}\server\HTML
+Type: dirifempty; Name: {app}\server\SQL
 Type: filesandordirs; Name: {app}\server\Cache
 Type: files; Name: {app}\server\slimserver.pref
 Type: files; Name: {app}\Visit Slim Devices.url
