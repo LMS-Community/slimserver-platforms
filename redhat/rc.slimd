@@ -43,8 +43,8 @@ test "$START_SLIMD" = yes || exit 0
 #
 # Edit this to suit your setup
 # 
-SLIMD_USER=slim
-SLIMD_HOME=/home/slim
+SLIMD_USER=slimd
+SLIMD_HOME=/home/slimd
 SLIMD_BIN=$SLIMD_HOME/slimserver.pl
 test -x $SLIMD_BIN || exit 5
 
