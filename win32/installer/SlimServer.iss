@@ -36,7 +36,7 @@ Name: desktopicon; Description: Create a &desktop icon; GroupDescription: Additi
 Name: quicklaunchicon; Description: Create a &Quick Launch icon; GroupDescription: Additional icons:; Flags: unchecked
 
 [Files]
-Source: SlimServer.exe; DestDir: {app}
+Source: SlimServer.exe; DestDir: {app}; Flags: replacesameversion
 Source: firmware\MAIN.HEX; DestDir: {app}\firmware\
 Source: firmware\SLIMP3 Updater.exe; DestDir: {app}\firmware\
 Source: Getting Started.html; DestDir: {app}
