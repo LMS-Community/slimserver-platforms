@@ -148,11 +148,11 @@ begin
 							end;
 		
 							// Ask for a dir until the user has entered one or click Back or Cancel
-							Next := InputDir( '', MyMusicFolder);
+							Next := InputDir(false, '', MyMusicFolder);
 		
 							while Next and (MyMusicFolder = '') do begin
 								MsgBox(SetupMessage(msgInvalidPath), mbError, MB_OK);
-								Next := InputDir('', MyMusicFolder);
+								Next := InputDir(false, '', MyMusicFolder);
 							end;
 						end;
 					1:
@@ -169,11 +169,11 @@ begin
 							end;
 		
 							// Ask for a dir until the user has entered one or click Back or Cancel
-							Next := InputDir( '', MyPlayListFolder);
+							Next := InputDir(false, '', MyPlayListFolder);
 		
 							while Next and (MyPlayListFolder = '') do begin
 								MsgBox(SetupMessage(msgInvalidPath), mbError, MB_OK);
-								Next := InputDir('', MyPlayListFolder);
+								Next := InputDir(false, '', MyPlayListFolder);
 							end;
 
 						end;
