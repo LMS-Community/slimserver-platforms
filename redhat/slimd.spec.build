@@ -85,8 +85,16 @@ if [ ! -s /etc/slimd.conf ] && [ -e /etc/slimp3.pref ]; then
 fi
 /sbin/chkconfig --add slimd
 /sbin/service slimd restart >/dev/null 2>&1 || :
-echo "Point your web browser to http://`uname -n`:9000/ to configure your \
-server."
+if [ -e /etc/slimd.conf ]; then
+  echo "Point your web browser to http://`uname -n`:`awk '/^httpport/ \
+ {print $3}' /etc/slimd.conf`/ to configure your server."
+else
+  echo "Point your web browser to http://`uname -n`:9000/ to configure your \
+ server."
+fi
+if [ -e /tmp/slimd.log ]; then
+  rm /tmp/slimd.log
+fi
 
 %preun
 # Only if we are not upgrading...
@@ -119,6 +127,10 @@ fi
 %attr(-, root, root) %config(noreplace) /etc/sysconfig/slimd
 
 %changelog
+* Mon Sep 15 2003 kdf
+- Patch submitted by many for custom port message on install
+- remove /tmp/slimd.log if it exists, avoid server crash if its locked.
+
 * Fri Aug 1 2003 kdf
 - Change user to slim, install to /usr/local/slimd for consistency
 - Copy old slimp3.pref if it exists and slimd.conf is zero length (new)
