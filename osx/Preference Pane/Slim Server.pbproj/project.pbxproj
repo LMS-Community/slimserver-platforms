@@ -132,7 +132,31 @@
 			refType = 4;
 			sourceTree = "<group>";
 		};
-		0545F8B006377C5500BA96E1 = {
+		055FF5EB063816DB002577A0 = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
+			name = German;
+			path = "SLIMP3 Firmware Updater/German.lproj/MainMenu.nib";
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		055FF5F5063816FC002577A0 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
+			name = German;
+			path = "SLIMP3 Firmware Updater/German.lproj/InfoPlist.strings";
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		055FF5F806381716002577A0 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
+			name = Dutch;
+			path = "SLIMP3 Firmware Updater/Dutch.lproj/InfoPlist.strings";
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		055FF6CE06382203002577A0 = {
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.strings;
 			name = German;
@@ -1022,6 +1046,8 @@
 		E7A8BC8A054C44C400876841 = {
 			children = (
 				E7A8BC8B054C44C400876841,
+				055FF5F5063816FC002577A0,
+				055FF5F806381716002577A0,
 			);
 			isa = PBXVariantGroup;
 			name = InfoPlist.strings;
@@ -1042,6 +1068,7 @@
 			children = (
 				E7A8BC8D054C44C400876841,
 				0591BF1105FCCFCB00F5DCAE,
+				055FF5EB063816DB002577A0,
 			);
 			isa = PBXVariantGroup;
 			name = MainMenu.nib;
@@ -1168,7 +1195,7 @@
 			children = (
 				E7A8BD23054C4F4E00876841,
 				0591BF0E05FCCFBB00F5DCAE,
-				0545F8B006377C5500BA96E1,
+				055FF6CE06382203002577A0,
 			);
 			isa = PBXVariantGroup;
 			name = Localizable.strings;
@@ -1650,7 +1677,7 @@
 			isa = PBXShellScriptBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /usr/bin/perl;
-			shellScript = "$distdir = 'build/SlimServer.prefPane/Contents/server';\n$firmwaredir = 'build/SLIMP3 Firmware Updater.app/Contents';\n\nprint \"Removing old: $distdir\\n\";\nsystem \"rm -rf '$distdir'\";\n\nprint \"Copying: $distdir\\n\";\nsystem \"cp -Rf ../../../server '$distdir'\";\nsystem \"chmod a+x '$distdir/slimserver.pl'\";\n\nprint \"Copying: Slim Launcher.app\\n\";\nsystem \"ditto 'build/Slim Launcher.app' '$distdir/Slim Launcher.app'\";\n\nif (-e \"build/SlimLauncher\") {\n    system \"ditto 'build/SlimLauncher' '$distdir'\";\n}\n\nprint \"Copying: $firmwaredir/firmware\\n\";\nsystem \"mkdir '$firmwaredir/firmware'\";\nsystem \"cp ../../../slimp3/updater/update_firmware.pl '$firmwaredir/firmware'\";\nsystem \"cp ../../../slimp3/updater/MAIN.HEX '$firmwaredir/firmware'\";\nsystem \"cp 'Update Firmware.sh' '$firmwaredir/firmware'\";\n\ndie \"copy failed\" unless (-d $distdir);\ndie \"copy failed\" unless (-d $firmwaredir);\ndie \"copy failed\" unless (-d $firmwaredir . \"/firmware\");\n\nopen FIND, 'find \\''.$distdir.'\\' -name CVS -type d -print|';\n\nwhile ($cvsdir=<FIND>) {\n  chomp ($cvsdir);\n  print \"Deleting CVS: $cvsdir\\n\";\n  `rm -rf '$cvsdir'`;\n}\nclose FIND; \n\nopen FIND, 'ls  \\''.$distdir.'/lib/CPAN/arch\\'|';\nwhile ($arches=<FIND>) {\n  chomp ($arches);\n  if ($arches !~ /darwin/) {\n\t  $thepath = $distdir.'/lib/CPAN/arch/'.$arches;\n\t  print \"Deleting non-darwin arch stuff: $thepath\\n\";\n\t  `rm -rf '$thepath'`;\n  }\n}\n\n";
+			shellScript = "$distdir = 'build/SlimServer.prefPane/Contents/server';\n$firmwaredir = 'build/SLIMP3 Firmware Updater.app/Contents';\n\nprint \"Removing old: $distdir\\n\";\nsystem \"rm -rf '$distdir'\";\n\nprint \"Copying: $distdir\\n\";\nsystem \"cp -Rf ../../../server '$distdir'\";\nsystem \"chmod a+x '$distdir/slimserver.pl'\";\n\nprint \"Copying: Slim Launcher.app\\n\";\nsystem \"ditto 'build/Slim Launcher.app' '$distdir/Slim Launcher.app'\";\n\nif (-e \"build/SlimLauncher\") {\n    system \"ditto 'build/SlimLauncher' '$distdir'\";\n}\n\nprint \"Copying: $firmwaredir/firmware\\n\";\nsystem \"mkdir '$firmwaredir/firmware'\";\nsystem \"cp ../../../slimp3/updater/update_firmware.pl '$firmwaredir/firmware'\";\nsystem \"cp ../../../slimp3/updater/MAIN.HEX '$firmwaredir/firmware'\";\nsystem \"cp 'Update Firmware.sh' '$firmwaredir/firmware'\";\n\ndie \"copy failed\" unless (-d $distdir);\ndie \"copy failed\" unless (-d $firmwaredir);\ndie \"copy failed\" unless (-d $firmwaredir . \"/firmware\");\n\nopen FIND, 'find \\''.$distdir.'\\' -name CVS -type d -print|';\n\nwhile ($cvsdir=<FIND>) {\n  chomp ($cvsdir);\n  print \"Deleting CVS: $cvsdir\\n\";\n  `rm -rf '$cvsdir'`;\n}\nclose FIND; \n\nopen FIND, 'ls  \\''.$distdir.'/CPAN/arch\\'|';\nwhile ($arches=<FIND>) {\n  chomp ($arches);\n  if ($arches !~ /darwin/) {\n\t  $thepath = $distdir.'/lib/CPAN/arch/'.$arches;\n\t  print \"Deleting non-darwin arch stuff: $thepath\\n\";\n\t  `rm -rf '$thepath'`;\n  }\n}\n\nopen FIND, 'ls  \\''.$distdir.'/Bin\\'|';\nwhile ($arches=<FIND>) {\n  chomp ($arches);\n  if ($arches !~ /darwin/) {\n\t  $thepath = $distdir.'/Bin/'.$arches;\n\t  print \"Deleting non-darwin arch stuff: $thepath\\n\";\n\t  `rm -rf '$thepath'`;\n  }\n}\n\n\n";
 		};
 		F52F881A035DCC9901A80172 = {
 			buildActionMask = 2147483647;

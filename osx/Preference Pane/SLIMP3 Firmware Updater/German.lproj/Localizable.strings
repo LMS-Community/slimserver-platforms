@@ -1,0 +1,4 @@
+"Authorization Launch Error" = "Unable to update firmware: missing file Update Firmware.sh.";
+"Expired Authorization Error" = "Unable to update firmware: authorization expired.";
+"Firmware version" = "Firmware version %@.";
+"Firmware version invalid" = "Firmware version invalid.";
