@@ -218,11 +218,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.2.1</string>
+	<string>5.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>4.2.1</string>
+	<string>5.0.0</string>
 	<key>NSMainNibFile</key>
 	<string>Slim_ServerPref</string>
 	<key>NSPrefPaneIconFile</key>
@@ -1070,11 +1070,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.2.1</string>
+	<string>5.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>4.2.1</string>
+	<string>5.0.0</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu.nib</string>
 	<key>NSPrincipalClass</key>
@@ -1488,11 +1488,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.1</string>
+	<string>5.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>SLIM</string>
 	<key>CFBundleVersion</key>
-	<string>3.1.0b1</string>
+	<string>5.0.0</string>
 	<key>LSBackgroundOnly</key>
 	<string>1</string>
 	<key>NSBackgroundOnly</key>
@@ -1808,11 +1808,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string></string>
+	<string>5.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>SLIM</string>
 	<key>CFBundleVersion</key>
-	<string>0.0.1d1</string>
+	<string>5.0.0</string>
 	<key>NSMainNibFile</key>
 	<string>Test</string>
 	<key>NSPrincipalClass</key>

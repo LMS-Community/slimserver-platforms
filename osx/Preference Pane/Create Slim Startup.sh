@@ -30,7 +30,7 @@ cat >/Library/StartupItems/Slim/Slim << !!
 #!/bin/sh
 . /etc/rc.common
 
-SLIMP3USER=$USER
+SLIMUSER=$USER
 SERVER_RUNNING=\`ps -axww | grep "slimp3\.pl\|slimp3d\|slimserver\.pl\|slimd" | grep -v grep | cat\`
 HOME=$HOME
 home=$HOME
@@ -45,7 +45,7 @@ if [ z"\$SERVER_RUNNING" = z ] ; then
     else
 	pushd "/Library/PreferencePanes/Slim Server.prefPane/Contents/server"
     fi
-    sudo -u \$SLIMP3USER "Slim Launcher.app/Contents/Resources/Start Slim Server.sh"
+    sudo -u \$SLIMUSER "Slim Launcher.app/Contents/Resources/Start Slim Server.sh"
     popd
 fi
 if [ z"\$#" != z"0" ] ; then
