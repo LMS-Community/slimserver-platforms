@@ -254,7 +254,8 @@ procedure CurStepChanged(CurStep: Integer);
 var
 	ErrorCode: Integer;
 	ServicePath: String;
-	ServerDir: String;
+	NewServerDir: String;
+	OldServerDir: String;
 	Uninstaller: String;
 	delPath: String;
 begin
@@ -268,47 +269,51 @@ begin
 					MsgBox('Problem uninstalling SLIMP3 software: ' + SysErrorMessage(ErrorCode),mbError, MB_OK);
 			end;
 			
+			NewServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 			if UsingWinNT() then
 				begin
 					InstExec('net', 'stop slimsvc', '', true, false, SW_HIDE, ErrorCode);
-
-
-					ServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-					ServicePath:= ServerDir + 'slimsvc.exe';		
-					
-					if FileExists(ServicePath) then
-						begin	
-							InstExec(ServicePath, '-remove', ServerDir, true, false, SW_HIDE, ErrorCode);		
-							DeleteFile(ServicePath);
-						end
-					else
+	
+					if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\slimsvc', 'ImagePath', ServicePath) then 
 						begin
-							ServicePath:= ServerDir + 'slim.exe';
-							InstExec(ServicePath, '-remove', ServerDir, true, false, SW_HIDE, ErrorCode);
+							ServicePath:= RemoveQuotes(ServicePath);
+							OldServerDir:= AddBackslash(ExtractFileDir(ServicePath));
+						end
+					else 
+						begin
+							OldServerDir:= NewServerDir; 
+							if (FileExists(OldServerDir + 'slimsvc.exe')) then
+								ServicePath:= OldServerDir + 'slimsvc.exe'		
+							else
+								ServicePath:= OldServerDir + 'slim.exe';		
 						end;
+
+					InstExec(ServicePath, '-remove', OldServerDir, true, false, SW_HIDE, ErrorCode);		
+
+					if (OldServerDir = NewServerDir) then
+						DeleteFile(ServicePath);
 				end;
-				
-			delPath := ServerDir + AddBackslash('CPAN') + AddBackslash('arch');
+			
+			delPath := NewServerDir + AddBackslash('CPAN') + AddBackslash('arch');
 			DelTree(delPath, true, true, true);
 
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Bagpuss'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Clarity'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Dark'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Default'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('EN'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Experimental'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Fishbone'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Handheld'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Moser'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Olson'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Purple'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('NBMU'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Ruttenberg'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('SenseMaker'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Touch'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('WebPad'), true, true, true);
-			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('xml'), true, true, true);
-			
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Bagpuss'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Clarity'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Dark'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Default'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('EN'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Experimental'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Fishbone'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Handheld'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Moser'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Olson'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Purple'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('NBMU'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Ruttenberg'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('SenseMaker'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Touch'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('WebPad'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('xml'), true, true, true);
 		end;
 
 	if CurStep = csFinished then
