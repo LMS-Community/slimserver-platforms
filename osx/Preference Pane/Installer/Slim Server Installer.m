@@ -34,7 +34,7 @@
 	}
     }
     if (foundSlimLocal || foundSlimGlobal)
-	[installButton setTitle:@"Update"];
+	[installButton setTitle:SLIMLocalizedPrefString(@"Update", "Update")];
 
     if (foundSlimGlobal)
 	[installType selectItemAtIndex:[installType indexOfItemWithTag:kInstallGlobal]];

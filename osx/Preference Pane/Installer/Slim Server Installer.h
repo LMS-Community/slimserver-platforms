@@ -6,6 +6,8 @@
 //  Copyright (c) 2003 Slim Devices, Inc. All rights reserved.
 //
 
+#define SLIMLocalizedPrefString(key, comment) [[NSBundle bundleForClass:[self class]] localizedStringForKey:(key) value:@"" table:nil]
+
 #import "Installer_Prefix.h"
 
 #define kInstallGlobal 0
