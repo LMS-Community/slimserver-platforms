@@ -18,36 +18,13 @@
             SUPERCLASS = NSObject; 
         }, 
         {
-            ACTIONS = {
-                aboutSliMP3 = id; 
-                cancelFirmwareUpdate = id; 
-                changeStartupPreference = id; 
-                dismissAboutBox = id; 
-                dismissUpdateComplete = id; 
-                doFirmwareUpdate = id; 
-                openWebInterface = id; 
-                toggleServer = id; 
-                updateSliMP3Firmware = id; 
-            }; 
+            ACTIONS = {changeStartupPreference = id; openWebInterface = id; toggleServer = id; }; 
             CLASS = "Slim_ServerPref"; 
             LANGUAGE = ObjC; 
             OUTLETS = {
-                aboutBox = NSWindow; 
-                aboutButton = NSButton; 
-                doFirmwareUpdate = NSButton; 
-                firmwareUpdateProgress = NSProgressIndicator; 
-                firmwareVersion = NSTextField; 
-                ipAddress = NSTextField; 
-                macAddress = NSTextField; 
                 serverStateDescription = NSTextField; 
-                serverStateImage = NSImageView; 
                 startupType = NSPopUpButton; 
                 toggleServerButton = NSButton; 
-                updateComplete = NSWindow; 
-                updateCompleteMessage = NSTextField; 
-                updateFirmware = NSWindow; 
-                updateFirmwareButton = NSButton; 
-                updatingFirmware = NSWindow; 
                 webLaunchButton = NSButton; 
             }; 
             SUPERCLASS = NSPreferencePane; 
