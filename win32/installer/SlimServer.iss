@@ -73,9 +73,9 @@ Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\SlimServer; Filenam
 Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\Run; ValueType: string; ValueName: slimserver; ValueData: {app}\SlimServer.exe; MinVersion: 4.0,0; OnlyBelowVersion: 4.90.3001,0; Flags: uninsdeletevalue
 
 [Run]
+Filename: {app}\server\slimsvc.exe; Flags: runminimized postinstall; MinVersion: 0,4.00.1381; Parameters: "-install auto"; WorkingDir: {app}\server; Check: ShouldAutostart
 Filename: {app}\SlimServer.exe; Description: Launch SlimServer application; Flags: nowait postinstall skipifsilent runmaximized
 Filename: {app}\Getting Started.html; Description: Read Getting Started document; Flags: shellexec skipifsilent postinstall
-Filename: {app}\server\slimsvc.exe; Flags: runminimized; MinVersion: 0,4.00.1381; Parameters: "-install auto"; WorkingDir: {app}\server; Check: ShouldAutostart
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
@@ -168,6 +168,7 @@ begin
 								MsgBox(SetupMessage(msgInvalidPath), mbError, MB_OK);
 								Next := InputDir('', MyPlayListFolder);
 							end;
+
 						end;
 					2:
 						begin
@@ -229,28 +230,6 @@ begin
 	Result := True;
 end;
 
-
-function UpdateReadyMemo(Space, NewLine, MemoUserInfoInfo, MemoDirInfo, MemoTypeInfo,
- MemoComponentsInfo, MemoGroupInfo, MemoTasksInfo: String): String;
-var
-	S: String;
-begin
-	if not FileExists(FileName) then
-	begin
-		// Fill the 'Ready Memo' with the normal settings and the custom settings
-		S := '';
-
-		S := S + MemoDirInfo + NewLine + NewLine;
-
-		S := S + 'Music Folder' + NewLine;
-		S := S + Space + MyMusicFolder + NewLine + NewLine;
-		S := S + 'Playlist Folder' + NewLine;
-		S := S + Space + MyPlayListFolder + NewLine + NewLine;
-	end
-
-	Result := S;
-end;
-
 function ShouldAutostart() : Boolean;
 begin
   if (AutoStart = '1') then 
@@ -261,21 +240,15 @@ end;
 
 procedure CurStepChanged(CurStep: Integer);
 var
-	res: Boolean;
 	ErrorCode: Integer;
 	ServicePath: String;
 	ServerDir: String;
 	Uninstaller: String;
 begin
-	if CurStep = csFinished then
-		begin
-			if not FileExists(FileName) then
-				begin
-					res:= SaveStringToFile(FileName, 'mp3dir = ' + MyMusicFolder + #13#10, true);
-					res:= SaveStringToFile(FileName, 'playlistdir = ' + MyPlayListFolder + #13#10, true);
-				end;			if UsingWinNT() then
-		end;
-			
+	if CurStep = csFinished then 
+		if not FileExists(FileName) then
+			SaveStringToFile(FileName, 'mp3dir = ' + MyMusicFolder + #13#10 + 'playlistdir = ' + MyPlayListFolder + #13#10, False);
+	
 	if CurStep = csWizard then
 		begin
 			// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr. 
