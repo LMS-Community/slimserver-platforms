@@ -1,0 +1,40 @@
+#!/sbin/runscript
+
+# slimserver init script for Gentoo Linux
+# tested with Gentoo 1.4
+#
+# Copyright 2003, Roy M. Silvernail
+# Released under the GPL (http://www.gnu.org)
+#
+# This script expects slimserver to be installed in
+# /home/slimserver
+#
+# Note: if the server dies (right-button plugin bug,
+# misbehaving stream or whatever), restart it as root with:
+#
+# /etc/init.d/slimserver zap
+# /etc/init.d/slimserver start
+
+depend() {
+	need net
+}
+
+pidfile=/var/run/slimserver.pid
+logfile=/var/log/slimserver/messages
+
+start() {
+	ebegin "Starting Slimserver"
+	start-stop-daemon --start --quiet \
+		--exec /home/slimserver/slimserver.pl -- --daemon \
+		--prefsfile=/etc/slimserver.pref --pidfile=${pidfile} \
+		--logfile=${logfile} ${SLIMSERVER_OPTS}
+	eend $? "Failed to start Slimserver"
+}
+
+stop() {
+	ebegin "Stopping Slimserver"
+	start-stop-daemon --stop --quiet --pidfile ${pidfile}
+	eend $? "Failed to stop Slimserver"
+}
+
+

@@ -18,6 +18,7 @@ BuildArchitectures: noarch
 Vendor: Slim Devices, Inc.
 URL: http://www.slimdevices.com/
 Prefix: %{prefix}
+Obsoletes: SliMP3
           
 %description
 This is the Slim Devices server software.
