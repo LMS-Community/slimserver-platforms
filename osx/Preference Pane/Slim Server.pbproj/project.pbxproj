@@ -6,8 +6,8 @@
 	objectVersion = 39;
 	objects = {
 		054032D203F42BC800000167 = {
-			expectedFileType = image.icns;
 			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
 			name = sliminstaller.icns;
 			path = Installer/sliminstaller.icns;
 			refType = 4;
@@ -41,8 +41,8 @@
 			remoteInfo = "Slim Server";
 		};
 		059A4DFE03C624BB000001CC = {
-			expectedFileType = image.tiff;
 			isa = PBXFileReference;
+			lastKnownFileType = image.tiff;
 			path = slimlogotype.tiff;
 			refType = 4;
 			sourceTree = "<group>";
@@ -54,8 +54,8 @@
 			};
 		};
 		05F768EF0560419D00A991D3 = {
-			expectedFileType = image.tiff;
 			isa = PBXFileReference;
+			lastKnownFileType = image.tiff;
 			path = slimlogotype.tiff;
 			refType = 4;
 			sourceTree = "<group>";
@@ -83,7 +83,7 @@
 //063
 //064
 		06F27B2EFFEEEFEF11CA0E56 = {
-			expectedFileType = wrapper.cfbundle;
+			explicitFileType = wrapper.cfbundle;
 			fallbackIsa = PBXFileReference;
 			isa = PBXBundleReference;
 			path = SlimServer.prefPane;
@@ -174,9 +174,9 @@
 			sourceTree = "<group>";
 		};
 		089C1672FE841209C02AAC07 = {
-			expectedFileType = wrapper.framework;
 			fallbackIsa = PBXFileReference;
 			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
 			name = Foundation.framework;
 			path = /System/Library/Frameworks/Foundation.framework;
 			refType = 0;
@@ -225,7 +225,7 @@
 	<key>CFBundleExecutable</key>
 	<string>SlimServer</string>
 	<key>CFBundleGetInfoString</key>
-	<string>SlimServer Preference Pane - (c) 2002-2003 by Slim Devices, Inc. All rights reserved.</string>
+	<string>SlimServer Preference Pane 5.0.1 - (c) 2002-2003 by Slim Devices, Inc. All rights reserved.</string>
 	<key>CFBundleIconFile</key>
 	<string>slimicon.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -237,11 +237,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.0.0</string>
+	<string>5.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>5.0.0</string>
+	<string>5.0.1</string>
 	<key>NSMainNibFile</key>
 	<string>Slim_ServerPref</string>
 	<key>NSPrefPaneIconFile</key>
@@ -333,18 +333,18 @@
 			sourceTree = "<group>";
 		};
 		089C167EFE841241C02AAC07 = {
-			expectedFileType = text.plist.strings;
 			fileEncoding = 10;
 			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
 			name = English;
 			path = English.lproj/InfoPlist.strings;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		089C167FFE841241C02AAC07 = {
-			expectedFileType = wrapper.framework;
 			fallbackIsa = PBXFileReference;
 			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
 			name = AppKit.framework;
 			path = /System/Library/Frameworks/AppKit.framework;
 			refType = 0;
@@ -389,9 +389,9 @@
 			sourceTree = "<group>";
 		};
 		1058C7ADFEA557BF11CA2CBB = {
-			expectedFileType = wrapper.framework;
 			fallbackIsa = PBXFileReference;
 			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
 			name = Cocoa.framework;
 			path = /System/Library/Frameworks/Cocoa.framework;
 			refType = 0;
@@ -424,18 +424,18 @@
 //E73
 //E74
 		E736AD1A03C74D0000A80172 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = "Slim Server Installer.h";
 			path = "Installer/Slim Server Installer.h";
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		E736AD1B03C74D0000A80172 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			name = "Slim Server Installer.m";
 			path = "Installer/Slim Server Installer.m";
 			refType = 4;
@@ -459,10 +459,10 @@
 			targetProxy = 054413580544B1480086FD13;
 		};
 		E74160210428EB9300A80172 = {
-			expectedFileType = text.script.sh;
 			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
 			isa = PBXExecutableFileReference;
+			lastKnownFileType = text.script.sh;
 			name = Preflight.sh;
 			path = Installer/Preflight.sh;
 			refType = 4;
@@ -545,7 +545,7 @@
 			productReference = E7447F9203D905BA00A80172;
 		};
 		E7447F9203D905BA00A80172 = {
-			expectedFileType = "compiled.mach-o.executable";
+			explicitFileType = "compiled.mach-o.executable";
 			fallbackIsa = PBXFileReference;
 			isa = PBXExecutableFileReference;
 			path = SlimLauncher;
@@ -553,17 +553,17 @@
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E7447F9403D905E900A80172 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = SlimLauncher_Prefix.h;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		E7447F9503D905E900A80172 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			path = SlimLauncherTool.m;
 			refType = 4;
 			sourceTree = "<group>";
@@ -592,17 +592,17 @@
 			targetProxy = 054413570544B1480086FD13;
 		};
 		E744CA9F03D9BCC700A80172 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = SLIMRendezvousPublisher.h;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		E744CAA003D9BCC700A80172 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			path = SLIMRendezvousPublisher.m;
 			refType = 4;
 			sourceTree = "<group>";
@@ -632,8 +632,8 @@
 			targetProxy = E74E8745054D735100BE2913;
 		};
 		E74E875E054D76A400BE2913 = {
-			expectedFileType = image.icns;
 			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
 			name = slimp3updater.icns;
 			path = "SLIMP3 Firmware Updater/slimp3updater.icns";
 			refType = 4;
@@ -656,10 +656,10 @@
 			sourceTree = "<group>";
 		};
 		E77C98AA03F33E8500FE7493 = {
-			expectedFileType = text.script.sh;
 			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
 			isa = PBXExecutableFileReference;
+			lastKnownFileType = text.script.sh;
 			name = InstallSlim.sh;
 			path = Installer/InstallSlim.sh;
 			refType = 4;
@@ -690,9 +690,9 @@
 			};
 		};
 		E7A160500563CACD00BE7791 = {
-			expectedFileType = text.script.sh;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = text.script.sh;
 			name = Postflight.sh;
 			path = Installer/Postflight.sh;
 			refType = 4;
@@ -801,7 +801,7 @@
 			productType = "com.apple.product-type.application";
 		};
 		E7A8BC80054C439400876841 = {
-			expectedFileType = wrapper.application;
+			explicitFileType = wrapper.application;
 			includeInIndex = 0;
 			isa = PBXFileReference;
 			path = "SLIMP3 Firmware Updater.app";
@@ -831,9 +831,9 @@
 			sourceTree = "<group>";
 		};
 		E7A8BC8B054C44C400876841 = {
-			expectedFileType = text.plist.strings;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
 			name = English;
 			path = InfoPlist.strings;
 			refType = 4;
@@ -850,35 +850,35 @@
 			sourceTree = "<group>";
 		};
 		E7A8BC8D054C44C400876841 = {
-			expectedFileType = wrapper.nib;
 			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
 			name = English;
 			path = MainMenu.nib;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		E7A8BC8E054C44C400876841 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			name = main.m;
 			path = "SLIMP3 Firmware Updater/main.m";
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		E7A8BC8F054C44C400876841 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = "SLIMP3 Firmware Updater.h";
 			path = "SLIMP3 Firmware Updater/SLIMP3 Firmware Updater.h";
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		E7A8BC90054C44C400876841 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			name = "SLIMP3 Firmware Updater.m";
 			path = "SLIMP3 Firmware Updater/SLIMP3 Firmware Updater.m";
 			refType = 4;
@@ -950,9 +950,9 @@
 			sourceTree = "<group>";
 		};
 		E7A8BCF3054C4D6200876841 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = Firmware_Prefix.h;
 			path = "SLIMP3 Firmware Updater/Firmware_Prefix.h";
 			refType = 4;
@@ -975,9 +975,9 @@
 			sourceTree = "<group>";
 		};
 		E7A8BD23054C4F4E00876841 = {
-			expectedFileType = text.plist.strings;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
 			name = English;
 			path = "SLIMP3 Firmware Updater/English.lproj/Localizable.strings";
 			refType = 4;
@@ -1096,7 +1096,7 @@
 	<key>CFBundleExecutable</key>
 	<string>SlimServer Installer</string>
 	<key>CFBundleGetInfoString</key>
-	<string>SlimServer Installer, Version 3.1b4, Copyright 2003 Slim Devices, Inc. All Rights Reserved</string>
+	<string>SlimServer Installer 5.0.1, Copyright 2003 Slim Devices, Inc. All Rights Reserved</string>
 	<key>CFBundleIconFile</key>
 	<string>sliminstaller.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -1108,11 +1108,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.0.0</string>
+	<string>5.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>5.0.0</string>
+	<string>5.0.1</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu.nib</string>
 	<key>NSPrincipalClass</key>
@@ -1122,7 +1122,7 @@
 ";
 		};
 		E7C5E13603C615BB00A80172 = {
-			expectedFileType = wrapper.application;
+			explicitFileType = wrapper.application;
 			fallbackIsa = PBXFileReference;
 			isa = PBXApplicationReference;
 			path = "SlimServer Installer.app";
@@ -1130,18 +1130,18 @@
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E7C5E13D03C6161300A80172 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = Installer_Prefix.h;
 			path = Installer/Installer_Prefix.h;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		E7C5E13E03C6161300A80172 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			name = main.m;
 			path = Installer/main.m;
 			refType = 4;
@@ -1170,9 +1170,9 @@
 			sourceTree = "<group>";
 		};
 		E7C5E14203C6163000A80172 = {
-			expectedFileType = text.plist.strings;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
 			name = English;
 			path = Installer/English.lproj/InfoPlist.strings;
 			refType = 4;
@@ -1189,8 +1189,8 @@
 			sourceTree = "<group>";
 		};
 		E7C5E14403C6163000A80172 = {
-			expectedFileType = wrapper.nib;
 			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
 			name = English;
 			path = Installer/English.lproj/MainMenu.nib;
 			refType = 4;
@@ -1244,9 +1244,9 @@
 			sourceTree = "<group>";
 		};
 		E7D4F10D054D98D0009AFDA0 = {
-			expectedFileType = text.plist.strings;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
 			name = English;
 			path = Installer/English.lproj/Localizable.strings;
 			refType = 4;
@@ -1259,28 +1259,28 @@
 			};
 		};
 		E7EDF7BB03C5D22300A80172 = {
-			expectedFileType = text.script.sh;
 			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
 			isa = PBXExecutableFileReference;
+			lastKnownFileType = text.script.sh;
 			path = "Create Slim Startup.sh";
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		E7EDF7BC03C5D22300A80172 = {
-			expectedFileType = text.script.sh;
 			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
 			isa = PBXExecutableFileReference;
+			lastKnownFileType = text.script.sh;
 			path = "Get Slim Server.sh";
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		E7EDF7BE03C5D22300A80172 = {
-			expectedFileType = text.script.sh;
 			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
 			isa = PBXExecutableFileReference;
+			lastKnownFileType = text.script.sh;
 			path = "Stop Slim Server.sh";
 			refType = 4;
 			sourceTree = "<group>";
@@ -1304,10 +1304,10 @@
 			};
 		};
 		E7EDF7C303C5D25800A80172 = {
-			expectedFileType = text.script.sh;
 			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
 			isa = PBXExecutableFileReference;
+			lastKnownFileType = text.script.sh;
 			path = "Remove Slim Startup.sh";
 			refType = 4;
 			sourceTree = "<group>";
@@ -1319,10 +1319,10 @@
 			};
 		};
 		E7EDF7C503C5D26A00A80172 = {
-			expectedFileType = text.script.sh;
 			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
 			isa = PBXExecutableFileReference;
+			lastKnownFileType = text.script.sh;
 			path = "Start Slim Server.sh";
 			refType = 4;
 			sourceTree = "<group>";
@@ -1350,9 +1350,9 @@
 //F53
 //F54
 		F506C035013D953901CA16C8 = {
-			expectedFileType = wrapper.framework;
 			fallbackIsa = PBXFileReference;
 			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
 			name = PreferencePanes.framework;
 			path = /System/Library/Frameworks/PreferencePanes.framework;
 			refType = 0;
@@ -1365,17 +1365,17 @@
 			};
 		};
 		F506C03C013D9D7901CA16C8 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = Slim_ServerPref.h;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		F506C03D013D9D7901CA16C8 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			path = Slim_ServerPref.m;
 			refType = 4;
 			sourceTree = "<group>";
@@ -1393,8 +1393,8 @@
 			};
 		};
 		F506C040013D9D8001CA16C8 = {
-			expectedFileType = image.tiff;
 			isa = PBXFileReference;
+			lastKnownFileType = image.tiff;
 			path = Slim_ServerPref.tiff;
 			refType = 4;
 			sourceTree = "<group>";
@@ -1416,8 +1416,8 @@
 			sourceTree = "<group>";
 		};
 		F506C043013D9D8C01CA16C8 = {
-			expectedFileType = wrapper.nib;
 			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
 			name = English;
 			path = English.lproj/Slim_ServerPref.nib;
 			refType = 4;
@@ -1527,11 +1527,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.0.0</string>
+	<string>5.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>SLIM</string>
 	<key>CFBundleVersion</key>
-	<string>5.0.0</string>
+	<string>5.0.1</string>
 	<key>LSBackgroundOnly</key>
 	<string>1</string>
 	<key>NSBackgroundOnly</key>
@@ -1545,7 +1545,7 @@
 ";
 		};
 		F52F8820035DCC9901A80172 = {
-			expectedFileType = wrapper.application;
+			explicitFileType = wrapper.application;
 			fallbackIsa = PBXFileReference;
 			isa = PBXApplicationReference;
 			path = "Slim Launcher.app";
@@ -1607,17 +1607,17 @@
 			sourceTree = "<group>";
 		};
 		F52F8827035DCE9701A80172 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = SLIMServerLauncher.h;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		F52F8828035DCE9701A80172 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			path = SLIMServerLauncher.m;
 			refType = 4;
 			sourceTree = "<group>";
@@ -1633,8 +1633,8 @@
 			sourceTree = "<group>";
 		};
 		F52F8835035DD30401A80172 = {
-			expectedFileType = wrapper.nib;
 			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
 			name = English;
 			path = English.lproj/MainMenu.nib;
 			refType = 4;
@@ -1677,8 +1677,8 @@
 			};
 		};
 		F52F883E035DDAB901A80172 = {
-			expectedFileType = image.icns;
 			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
 			path = slimicon.icns;
 			refType = 4;
 			sourceTree = "<group>";
@@ -1696,8 +1696,8 @@
 			};
 		};
 		F52F884D035DF02B01A80172 = {
-			expectedFileType = image.icns;
 			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
 			path = slimoff.icns;
 			refType = 4;
 			sourceTree = "<group>";
@@ -1721,17 +1721,17 @@
 			sourceTree = "<group>";
 		};
 		F52F885D035DF7A401A80172 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = Test.h;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		F52F885E035DF7A401A80172 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			path = Test.m;
 			refType = 4;
 			sourceTree = "<group>";
@@ -1747,9 +1747,9 @@
 			sourceTree = "<group>";
 		};
 		F56E7161035DB29001A80172 = {
-			expectedFileType = text.plist.strings;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
 			name = English;
 			path = English.lproj/Localizable.strings;
 			refType = 4;
@@ -1847,11 +1847,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.0.0</string>
+	<string>5.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>SLIM</string>
 	<key>CFBundleVersion</key>
-	<string>5.0.0</string>
+	<string>5.0.1</string>
 	<key>NSMainNibFile</key>
 	<string>Test</string>
 	<key>NSPrincipalClass</key>
@@ -1861,7 +1861,7 @@
 ";
 		};
 		F58B0870035DF7DA01A80172 = {
-			expectedFileType = wrapper.application;
+			explicitFileType = wrapper.application;
 			fallbackIsa = PBXFileReference;
 			isa = PBXApplicationReference;
 			path = "Slim Preference Tester.app";
@@ -1905,8 +1905,8 @@
 			sourceTree = "<group>";
 		};
 		F58B087F035DF9CE01A80172 = {
-			expectedFileType = wrapper.nib;
 			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
 			name = English;
 			path = English.lproj/Test.nib;
 			refType = 4;
@@ -1930,17 +1930,17 @@
 			};
 		};
 		F5A48B32038AC8EE01A80172 = {
-			expectedFileType = text.script.sh;
 			fallbackIsa = PBXFileReference;
 			fileEncoding = 30;
 			isa = PBXExecutableFileReference;
+			lastKnownFileType = text.script.sh;
 			path = "Update Firmware.sh";
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		F5E9C0C403A51768010001CC = {
-			expectedFileType = image.tiff;
 			isa = PBXFileReference;
+			lastKnownFileType = image.tiff;
 			path = "logo-color-on-white copy.tif";
 			refType = 4;
 			sourceTree = "<group>";
@@ -1952,9 +1952,9 @@
 			};
 		};
 		F5EC8D80035F597B01A80172 = {
-			expectedFileType = wrapper.framework;
 			fallbackIsa = PBXFileReference;
 			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
 			name = Security.framework;
 			path = /System/Library/Frameworks/Security.framework;
 			refType = 0;
