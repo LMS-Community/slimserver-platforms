@@ -71,6 +71,12 @@ Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\SlimServer; Filenam
 ; Create the registry key to run the service if running on Win9X (inc. ME)
 ;
 Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\Run; ValueType: string; ValueName: slimserver; ValueData: {app}\SlimServer.exe; MinVersion: 4.0,0; OnlyBelowVersion: 4.90.3001,0; Flags: uninsdeletevalue
+;
+; The following keys open required SlimServer ports in the XP Firewall
+;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9000:TCP"; ValueData: "9000:TCP:*:Enabled:SlimServer 9000 tcp"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:SlimServer 3483 udp"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:SlimServer 3483 tcp"; MinVersion: 0,5.01;
 
 [Run]
 Filename: {app}\SlimServer.exe; Description: Launch SlimServer application; Flags: nowait postinstall skipifsilent runmaximized
