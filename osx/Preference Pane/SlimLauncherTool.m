@@ -16,13 +16,13 @@ int main (int argc, const char * argv[])
      **
      **  Note: due to the Rendezvous changes, the server MUST be started as a child of this process,
      ** and should not go into daemon mode. If it does, our launcher will consider the exit of the
-     ** process to be the death of the server, and will revoke the Rendezvous SLIMP3 service.
+     ** process to be the death of the server, and will revoke the Rendezvous Slim service.
      */
 
     NSTask *launcherTask = [[NSTask alloc] init];
 
     [launcherTask setCurrentDirectoryPath:pathToServer];
-    [launcherTask setLaunchPath:[pathToServer stringByAppendingPathComponent:@"SLIMP3 Launcher.app/Contents/Resources/Start SLIMP3 Server.sh"]];
+    [launcherTask setLaunchPath:[pathToServer stringByAppendingPathComponent:@"Slim Launcher.app/Contents/Resources/Start Slim Server.sh"]];
     [launcherTask setArguments:[NSArray arrayWithObjects:@"--nodaemon", nil]];
 
     /*
@@ -57,7 +57,7 @@ int main (int argc, const char * argv[])
 	[rendezvousPublisher release];
     }
     NS_HANDLER
-	NSLog (@"Failed to launch SLIMP3: script missing.\n");
+	NSLog (@"Failed to launch Slim Server: script missing.\n");
     NS_ENDHANDLER
 
     [launcherTask release];

@@ -3,7 +3,7 @@
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
             ACTIONS = {cancelWait = id; doInstall = id; installTypeChanged = id; quitInstall = id; }; 
-            CLASS = "SLIMP3_Installer"; 
+            CLASS = "Slim_Installer"; 
             LANGUAGE = ObjC; 
             OUTLETS = {
                 installButton = NSButton; 

@@ -1,9 +1,9 @@
 "Start Server" = "Start Server";
 "Stop Server" = "Stop Server";
-"Start Server Description" = "Click this button to start the SLIMP3 Server. Once started,
-SLIMP3 players will be able to access your music library.";
-"Stop Server Description" = "Click this button to stop the SLIMP3 Server. Once stopped,
-SLIMP3 players will not be able to access your music library.";
+"Start Server Description" = "Click this button to start the Slim Server. Once started,
+Slim players will be able to access your music library.";
+"Stop Server Description" = "Click this button to stop the Slim Server. Once stopped,
+Slim players will not be able to access your music library.";
 "Authorization Launch Error" = "Unable to update firmware: missing file Update Firmware.sh.";
 "Expired Authorization Error" = "Unable to update firmware: authorization expired.";
 "Firmware version" = "Firmware version %@.";

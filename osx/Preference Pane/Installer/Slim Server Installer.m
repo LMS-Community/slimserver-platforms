@@ -1,6 +1,6 @@
 //
-//  SLIMP3 Installer.m
-//  SliMP3 Server
+//  Slim Installer.m
+//  Slim Server
 //
 //  Created by Dave Nanian on Fri Jan 03 2003.
 //  Copyright (c) 2003 Slim Devices, Inc. All rights reserved.
@@ -10,7 +10,7 @@
 #include <Security/AuthorizationTags.h>
 #import "Slim Server Installer.h"
 
-@implementation SLIMP3_Installer
+@implementation Slim_Installer
 
 -(void)awakeFromNib
 {
@@ -25,18 +25,18 @@
 
     while (currDirectory = [pathEnum nextObject])
     {
-	if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath:[currDirectory stringByAppendingPathComponent:@"PreferencePanes/SLIMP3 Server.prefPane"]])
+	if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath:[currDirectory stringByAppendingPathComponent:@"PreferencePanes/Slim Server.prefPane"]])
 	{
 	    if ([currDirectory isEqual:@"/Library"])
-		foundSLIMP3Global = true;
+		foundSlimGlobal = true;
 	    else
-		foundSLIMP3Local = true;
+		foundSlimLocal = true;
 	}
     }
-    if (foundSLIMP3Local || foundSLIMP3Global)
+    if (foundSlimLocal || foundSlimGlobal)
 	[installButton setTitle:@"Update"];
 
-    if (foundSLIMP3Global)
+    if (foundSlimGlobal)
 	[installType selectItemAtIndex:[installType indexOfItemWithTag:kInstallGlobal]];
     else
 	[installType selectItemAtIndex:[installType indexOfItemWithTag:kInstallLocal]];
@@ -46,9 +46,9 @@
 
 -(IBAction)installTypeChanged:(id)sender
 {
-    if ([[installType selectedItem] tag] == kInstallGlobal && foundSLIMP3Global)
+    if ([[installType selectedItem] tag] == kInstallGlobal && foundSlimGlobal)
 	[installButton setTitle:@"Update"];
-    else if ([[installType selectedItem] tag] == kInstallLocal && foundSLIMP3Local)
+    else if ([[installType selectedItem] tag] == kInstallLocal && foundSlimLocal)
 	[installButton setTitle:@"Update"];
     else
 	[installButton setTitle:@"Install"];	
@@ -158,8 +158,8 @@
 
     int	doInstallType = [[installType selectedItem] tag];
 
-    NSString *fileToInstall = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"../Install Files/SLIMP3 Server.prefPane"];
-    NSString *installerScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"InstallSLIMP3.sh"];
+    NSString *fileToInstall = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"../Install Files/Slim Server.prefPane"];
+    NSString *installerScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"InstallSlim.sh"];
     NSString *fileInstalled = nil;
     NSMutableString *scriptOutput = [[NSMutableString alloc] init];
 
@@ -167,7 +167,7 @@
     **  Authorize if we're going to install or remove the global preference pane.
     */
     
-    if ((doInstallType == kInstallGlobal || foundSLIMP3Global) && [self authorizeUser] == NO)
+    if ((doInstallType == kInstallGlobal || foundSlimGlobal) && [self authorizeUser] == NO)
     {
 	[sender setEnabled:YES];
 	[progressIndicator stopAnimation:self];
@@ -175,11 +175,11 @@
 	return;
     }
     if (doInstallType == kInstallGlobal)
-	fileInstalled = [[NSString stringWithString:@"/Library/PreferencePanes/SLIMP3 Server.prefPane"] retain];
+	fileInstalled = [[NSString stringWithString:@"/Library/PreferencePanes/Slim Server.prefPane"] retain];
     else
-	fileInstalled = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/PreferencePanes/SLIMP3 Server.prefPane"] retain];
+	fileInstalled = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/PreferencePanes/Slim Server.prefPane"] retain];
 
-    if (doInstallType == kInstallGlobal || foundSLIMP3Global)
+    if (doInstallType == kInstallGlobal || foundSlimGlobal)
     {
 	// We know we're authorized: run the install script, with authorization.
 
@@ -250,7 +250,7 @@
     ** or install it.
     */
     
-    if (installType == kInstallGlobal || foundSLIMP3Global)
+    if (installType == kInstallGlobal || foundSlimGlobal)
 	AuthorizationFree (myAuthorizationRef, kAuthorizationFlagDefaults);
 	
     if ([scriptOutput length] > 0)

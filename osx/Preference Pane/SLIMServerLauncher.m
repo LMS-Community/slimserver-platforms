@@ -1,6 +1,6 @@
 //
 //  SLIMServerLauncher.m
-//  SliMP3 Server
+//  Slim Server
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
 //  Copyright (c) 2002-2003 Slim Devices, Inc. All rights reserved.
@@ -31,13 +31,13 @@ int main(int argc, const char *argv[])
     **  Note: due to the Rendezvous changes, if publishing with Rendezvous
     ** the server MUST be started as a child of this process,
     ** and should not go into daemon mode. If it does, our launcher will consider the exit of the
-    ** process to be the death of the server, and will revoke the Rendezvous SLIMP3 service.
+    ** process to be the death of the server, and will revoke the Rendezvous Slim service.
     */
 
     NSTask *launcherTask = [[NSTask alloc] init];
 
     [launcherTask setCurrentDirectoryPath:pathToServer];
-    [launcherTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Start SLIMP3 Server.sh"]];
+    [launcherTask setLaunchPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Start Slim Server.sh"]];
 
 #ifdef LAUNCHER_RENDEZVOUS
     [launcherTask setArguments:[NSArray arrayWithObjects:@"--nodaemon", nil]];
@@ -76,7 +76,7 @@ int main(int argc, const char *argv[])
 #endif
     }
     NS_HANDLER
-	NSLog (@"Failed to launch SLIMP3: Start SLIMP3 Server.sh missing.\n");
+	NSLog (@"Failed to launch Slim Server: Start Slim Server.sh missing.\n");
     NS_ENDHANDLER
 
     [launcherTask release];

@@ -1,6 +1,6 @@
 //
-//  SliMP3_ServerPref.m
-//  SliMP3 Server
+//  Slim_ServerPref.m
+//  Slim Server
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
 //  Copyright (c) 2002-2003 Slim Devices, Inc. All rights reserved.
@@ -16,7 +16,7 @@
 
 #import "Slim_ServerPref.h"
 
-@implementation SliMP3_ServerPref
+@implementation Slim_ServerPref
 
 -(void)mainViewDidLoad
 {
@@ -50,7 +50,7 @@
 
 -(int)serverPID
 {
-    NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"Get SLIMP3 Server.sh"];
+    NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"Get Slim Server.sh"];
 
     /*
     **  Run a simple shell script to get the server's PID, if it's running.
@@ -76,7 +76,7 @@
     **	Nasty.
     */
     
-#ifdef SLIMP3_AVAILABLE_DATA_LEAK_FIXED
+#ifdef SLIM_AVAILABLE_DATA_LEAK_FIXED
     while ((inData = [readHandle availableData]) && [inData length])
 	[pidString appendString:[NSString stringWithCString:[inData bytes] length:[inData length]]];
 #else
@@ -142,13 +142,13 @@
 	    {
 		[toggleServerButton setTitle:SLIMLocalizedPrefString(@"Stop Server", "Stop Server")];
 		[serverStateDescription setStringValue:SLIMLocalizedPrefString(@"Stop Server Description", "Descriptive text")];
-		[serverStateImage setImage:[NSImage imageNamed:@"slimp3icon"]];
+		[serverStateImage setImage:[NSImage imageNamed:@"slimicon"]];
 	    }
 	    else
 	    {
 		[toggleServerButton setTitle:SLIMLocalizedPrefString(@"Start Server", "Start Server")];
 		[serverStateDescription setStringValue:SLIMLocalizedPrefString(@"Start Server Description", "Descriptive text")];
-		[serverStateImage setImage:[NSImage imageNamed:@"slimp3off"]];
+		[serverStateImage setImage:[NSImage imageNamed:@"slimoff"]];
 	    }
 	    [toggleServerButton setEnabled:YES];
 	}
@@ -160,7 +160,7 @@
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://localhost:9000"]];
 }
 
--(void)aboutSliMP3:(id)sender
+-(void)aboutSlimServer:(id)sender
 {
     [NSApp beginSheet:aboutBox modalForWindow:[[self mainView] window] modalDelegate:self didEndSelector:nil contextInfo:nil];
 }
@@ -205,7 +205,7 @@
 	     **  Now that we're authorized, add or remove our StartupItems entry.
 	     */
 
-	    NSString *scriptToRun = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent: (newStartupType == kSLIMStartupAtBoot) ? @"Create SLIMP3 Startup.sh" : @"Remove SLIMP3 Startup.sh"];
+	    NSString *scriptToRun = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent: (newStartupType == kSLIMStartupAtBoot) ? @"Create Slim Startup.sh" : @"Remove Slim Startup.sh"];
 
 	    OSStatus myStatus;
 	    AuthorizationFlags myFlags = kAuthorizationFlagDefaults;
@@ -241,7 +241,7 @@
      **  We always remove our login item, just in case the entry is there. (Otherwise, we end up with two.)
      */
 
-    NSString *pathToServer = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/SLIMP3 Launcher.app"];
+    NSString *pathToServer = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/Slim Launcher.app"];
 
     NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
     NSMutableArray *allLoginItems, *objectsToRemove = [[NSMutableArray alloc] init];
@@ -302,7 +302,7 @@
 
 -(void)toggleServer:(id)sender
 {
-    NSString *pathToServer = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/SLIMP3 Launcher.app"];
+    NSString *pathToServer = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/Slim Launcher.app"];
 
     /*
      **  Disable the button...it'll get re-enabled when the server state changes in updateUI.
@@ -314,8 +314,8 @@
     
     if (pid != 0)
     {
-#ifndef SLIMP3_DIRECT_SERVER_KILL
-	NSTask *killServerTask = [NSTask launchedTaskWithLaunchPath:[[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"Stop SLIMP3 Server.sh"] arguments:[NSArray array]];
+#ifndef SLIM_DIRECT_SERVER_KILL
+	NSTask *killServerTask = [NSTask launchedTaskWithLaunchPath:[[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"Stop Slim Server.sh"] arguments:[NSArray array]];
 
 	[killServerTask waitUntilExit];
 #else

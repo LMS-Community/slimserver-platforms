@@ -2,9 +2,9 @@
     IBClasses = (
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
-            CLASS = "MySliMP3_ServerPref"; 
+            CLASS = "MySlim_ServerPref"; 
             LANGUAGE = ObjC; 
-            SUPERCLASS = "SliMP3_ServerPref"; 
+            SUPERCLASS = "Slim_ServerPref"; 
         }, 
         {
             CLASS = NSPreferencePane; 
@@ -29,7 +29,7 @@
                 toggleServer = id; 
                 updateSliMP3Firmware = id; 
             }; 
-            CLASS = "SliMP3_ServerPref"; 
+            CLASS = "Slim_ServerPref"; 
             LANGUAGE = ObjC; 
             OUTLETS = {
                 aboutBox = NSWindow; 

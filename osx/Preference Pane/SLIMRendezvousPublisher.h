@@ -1,6 +1,6 @@
 //
 //  SLIMRendezvousPublisher.h
-//  SliMP3 Server
+//  Slim Server
 //
 //  Created by Dave Nanian on Sat Jan 18 2003.
 //  Copyright (c) 2003 Slim Devices, Inc. All rights reserved.
@@ -14,8 +14,8 @@
     Class Rendezvous;
     
     id httpNetService;			// Publishes the web server generically.
-    id slimp3SpecificHTTPNetService;	// Publishes the web server specifically for name-independent discovery.
-    id slimp3SpecificCLINetService;	// Publishes the CLI server specifically for name-independent discovery.
+    id slimSpecificHTTPNetService;	// Publishes the web server specifically for name-independent discovery.
+    id slimSpecificCLINetService;	// Publishes the CLI server specifically for name-independent discovery.
 }
 
 -(void)publish;

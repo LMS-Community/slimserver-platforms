@@ -1,6 +1,6 @@
 //
-//  SliMP3_ServerPref.h
-//  SliMP3 Server
+//  Slim_ServerPref.h
+//  Slim Server
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
 //  Copyright (c) 2002-2003 Slim Devices, Inc. All rights reserved.
@@ -14,7 +14,7 @@
 #define kSLIMStartupAtLogin 1
 #define kSLIMStartupAtBoot 2
 
-@interface SliMP3_ServerPref : NSPreferencePane 
+@interface Slim_ServerPref : NSPreferencePane 
 {
     bool serverState;
 
@@ -55,7 +55,7 @@
 -(void)firmwareUpdateThread:(id)userObject;
 
 -(IBAction)openWebInterface:(id)sender;
--(IBAction)aboutSliMP3:(id)sender;
+-(IBAction)aboutSlimServer:(id)sender;
 -(IBAction)dismissAboutBox:(id)sender;
 -(IBAction)updateSliMP3Firmware:(id)sender;
 -(IBAction)doFirmwareUpdate:(id)sender;

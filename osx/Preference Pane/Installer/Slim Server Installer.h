@@ -1,6 +1,6 @@
 //
-//  SLIMP3 Installer.h
-//  SliMP3 Server
+//  Slim Installer.h
+//  Slim Server
 //
 //  Created by Dave Nanian on Fri Jan 03 2003.
 //  Copyright (c) 2003 Slim Devices, Inc. All rights reserved.
@@ -11,7 +11,7 @@
 #define kInstallGlobal 0
 #define kInstallLocal 1
 
-@interface SLIMP3_Installer : NSObject
+@interface Slim_Installer : NSObject
 {
     IBOutlet NSPopUpButton *installType;
     IBOutlet NSButton *installButton;
@@ -19,8 +19,8 @@
     IBOutlet NSWindow *installWindow;
     IBOutlet NSProgressIndicator *progressIndicator;
 
-    bool foundSLIMP3Global;
-    bool foundSLIMP3Local;
+    bool foundSlimGlobal;
+    bool foundSlimLocal;
     
     AuthorizationRef myAuthorizationRef;
 

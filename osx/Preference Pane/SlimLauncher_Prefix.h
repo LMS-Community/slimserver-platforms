@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'SLIMP3Launcher' target in the 'SLIMP3Launcher' project.
+// Prefix header for all source files of the 'SlimLauncher' target in the 'SlimLauncher' project.
 //
 
 #ifdef __OBJC__

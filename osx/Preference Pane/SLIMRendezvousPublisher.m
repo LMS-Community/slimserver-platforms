@@ -1,6 +1,6 @@
 //
 //  SLIMRendezvousPublisher.m
-//  SliMP3 Server
+//  Slim Server
 //
 //  Created by Dave Nanian on Sat Jan 18 2003.
 //  Copyright (c) 2003 Slim Devices, Inc. All rights reserved.
@@ -21,22 +21,22 @@
 	     **  First, publish the web server generically for Safari, etc.
 	     */
 
-	    httpNetService = [[Rendezvous alloc] initWithDomain:@"" type:@"_http._tcp." name:@"SLIMP3" port:9000];
+	    httpNetService = [[Rendezvous alloc] initWithDomain:@"" type:@"_http._tcp." name:@"slimserver" port:9000];
 	    [httpNetService setDelegate:self];
 
 	    /*
-	     **  Now, publish the SLIMP3 specific HTTP service for easy client discovery.
+	     **  Now, publish the Slim Server specific HTTP service for easy client discovery.
 	     */
 
-	    slimp3SpecificHTTPNetService = [[Rendezvous alloc] initWithDomain:@"" type:@"_slimdevices_slimserver_http._tcp." name:@"SLIMP3" port:9000];
-	    [slimp3SpecificHTTPNetService setDelegate:self];
+	    slimSpecificHTTPNetService = [[Rendezvous alloc] initWithDomain:@"" type:@"_slimdevices_slimserver_http._tcp." name:@"slimserver" port:9000];
+	    [slimSpecificHTTPNetService setDelegate:self];
 	    
 	    /*
-	     **  Now, publish the SLIMP3 specific CLI service for easy client discovery.
+	     **  Now, publish the Slim Server specific CLI service for easy client discovery.
 	     */
 
-	    slimp3SpecificCLINetService = [[Rendezvous alloc] initWithDomain:@"" type:@"_slimdevices_slimserver_cli._tcp." name:@"SLIMP3" port:9001];
-	    [slimp3SpecificCLINetService setDelegate:self];
+	    slimSpecificCLINetService = [[Rendezvous alloc] initWithDomain:@"" type:@"_slimdevices_slimserver_cli._tcp." name:@"slimserver" port:9001];
+	    [slimSpecificCLINetService setDelegate:self];
 	}
     }
     return self;
@@ -46,24 +46,24 @@
 {
     [(NSNetService *) httpNetService release]; // nil if no rendezvous or publish failure: no error check necessary.
     httpNetService = nil;
-    [(NSNetService *) slimp3SpecificHTTPNetService release];
-    slimp3SpecificHTTPNetService = nil;
-    [(NSNetService *) slimp3SpecificCLINetService release];
-    slimp3SpecificCLINetService = nil;
+    [(NSNetService *) slimSpecificHTTPNetService release];
+    slimSpecificHTTPNetService = nil;
+    [(NSNetService *) slimSpecificCLINetService release];
+    slimSpecificCLINetService = nil;
 }
 
 -(void)publish
 {
     [httpNetService publish];
-    [slimp3SpecificHTTPNetService publish];
-    [slimp3SpecificCLINetService publish];
+    [slimSpecificHTTPNetService publish];
+    [slimSpecificCLINetService publish];
 }
 
 -(void)stop
 {
     [httpNetService stop];
-    [slimp3SpecificHTTPNetService stop];
-    [slimp3SpecificCLINetService stop];
+    [slimSpecificHTTPNetService stop];
+    [slimSpecificCLINetService stop];
 }
 
 /*
@@ -84,15 +84,15 @@
 	[httpNetService release];
 	httpNetService = nil;
     }
-    else if (sender == slimp3SpecificHTTPNetService)
+    else if (sender == slimSpecificHTTPNetService)
     {
-	[slimp3SpecificHTTPNetService release];
-	slimp3SpecificHTTPNetService = nil;
+	[slimSpecificHTTPNetService release];
+	slimSpecificHTTPNetService = nil;
     }
-    else if (sender == slimp3SpecificCLINetService)
+    else if (sender == slimSpecificCLINetService)
     {
-	[slimp3SpecificCLINetService release];
-	slimp3SpecificCLINetService = nil;
+	[slimSpecificCLINetService release];
+	slimSpecificCLINetService = nil;
     }
 }
 
@@ -103,15 +103,15 @@
 	[httpNetService release];
 	httpNetService = nil;
     }
-    else if (sender == slimp3SpecificHTTPNetService)
+    else if (sender == slimSpecificHTTPNetService)
     {
-	[slimp3SpecificHTTPNetService release];
-	slimp3SpecificHTTPNetService = nil;
+	[slimSpecificHTTPNetService release];
+	slimSpecificHTTPNetService = nil;
     }
-    else if (sender == slimp3SpecificCLINetService)
+    else if (sender == slimSpecificCLINetService)
     {
-	[slimp3SpecificCLINetService release];
-	slimp3SpecificCLINetService = nil;
+	[slimSpecificCLINetService release];
+	slimSpecificCLINetService = nil;
     }
 }
 

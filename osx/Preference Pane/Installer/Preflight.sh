@@ -1,5 +1,5 @@
 #!/bin/sh
-SERVER_RUNNING=`ps -axww | grep "slimp3\.pl\|slimp3d" | grep -v grep | cat`
+SERVER_RUNNING=`ps -axww | grep "slimp3\.pl\|slimp3d|slimserver\.pl\|slimd" | grep -v grep | cat`
 if [ z"$SERVER_RUNNING" != z ] ; then
 	kill `echo $SERVER_RUNNING | sed -n 's/^[ ]*\([0-9]*\)[ ]*.*$/\1/p'`
 fi
@@ -8,7 +8,7 @@ fi
 
 for (( i = 0 ; i < 10 ; i++ ))
 do
-    SERVER_RUNNING=`ps -axww | grep "slimp3\.pl\|slimp3d" | grep -v grep | cat`
+    SERVER_RUNNING=`ps -axww | grep "slimp3\.pl\|slimp3d|slimserver\.pl\|slimd" | grep -v grep | cat`
     if [ z"$SERVER_RUNNING" == z ] ; then
 	break
     fi
@@ -16,7 +16,7 @@ do
 done
 
 # If it didn't quit, fail
-SERVER_RUNNING=`ps -axww | grep "slimp3\.pl\|slimp3d" | grep -v grep | cat`
+SERVER_RUNNING=`ps -axww | grep "slimp3\.pl\|slimp3d|slimserver\.pl\|slimd" | grep -v grep | cat`
 if [ z"$SERVER_RUNNING" != z ] ; then
     exit 1
 fi
