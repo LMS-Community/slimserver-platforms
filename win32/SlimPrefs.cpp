@@ -67,7 +67,7 @@ int CSlimPrefs::GetSlimHttpPort(void)
 // Returns Currnt Music Folder 
 const CString& CSlimPrefs::GetMusicFolder(void)
 {
-	return (m_options[_T("mp3dir")]);  
+	return (m_options[_T("audiodir")]);  
 }
 
 // Returns Currnt Play List Folder 

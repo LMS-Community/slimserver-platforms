@@ -25,7 +25,7 @@ CMyHtmlView::CMyHtmlView()
 	
 	// get the name of the pref file 
 	CString filename = theApp.GetEXEPath(); 
-	filename += _T("\\server\\SLIM.PRF"); 
+	filename += _T("\\server\\slimserver.pref"); 
 	
 	CSlimPrefs prefs (filename); 
 
@@ -226,7 +226,7 @@ void CMyHtmlView::OnOptionsSetmusicfolder()
 
 	// get the name of the pref file 
 	CString filename = theApp.GetEXEPath(); 
-	filename += _T("\\server\\SLIM.PRF"); 
+	filename += _T("\\server\\slimserver.pref"); 
 	
 	CSlimPrefs prefs (filename); 
 
@@ -238,7 +238,7 @@ void CMyHtmlView::OnOptionsSetmusicfolder()
 	if (GetFolder(&newDir,_T("Select Your Music Folder"), this->m_hWnd,NULL,curDir)) {
 		CString prf; 
 
-		prf = _T("pref mp3dir ");  
+		prf = _T("pref audiodir ");  
 		prf += URLEncode(newDir);
 
 		m_controlSocket.ExecCommand(prf);
@@ -255,7 +255,7 @@ void CMyHtmlView::OnOptionsSetplaylistfolder()
 	
 	// get the name of the pref file 
 	CString filename = theApp.GetEXEPath(); 
-	filename += _T("\\server\\SLIM.PRF"); 
+	filename += _T("\\server\\slimserver.pref"); 
 	
 	CSlimPrefs prefs (filename); 
 
