@@ -256,7 +256,7 @@ var
 	ServicePath: String;
 	ServerDir: String;
 	Uninstaller: String;
-	archPath: String;
+	delPath: String;
 begin
 	if CurStep = csCopy then
 		begin
@@ -286,10 +286,29 @@ begin
 							ServicePath:= ServerDir + 'slim.exe';
 							InstExec(ServicePath, '-remove', ServerDir, true, false, SW_HIDE, ErrorCode);
 						end;
-					
-					archPath := ServerDir + AddBackslash('CPAN') + AddBackslash('arch');
-					DelTree(archPath, true, true, true);
 				end;
+				
+			delPath := ServerDir + AddBackslash('CPAN') + AddBackslash('arch');
+			DelTree(delPath, true, true, true);
+
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Bagpuss'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Clarity'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Dark'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Default'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('EN'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Experimental'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Fishbone'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Handheld'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Moser'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Olson'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Purple'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('NBMU'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Ruttenberg'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('SenseMaker'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('Touch'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('WebPad'), true, true, true);
+			DelTree(ServerDir + AddBackslash('HTML') + AddBackslash('xml'), true, true, true);
+			
 		end;
 
 	if CurStep = csFinished then
