@@ -9,7 +9,7 @@
 
 [Setup]
 AppName=SlimServer
-AppVerName=SlimServer 5.2.0
+AppVerName=SlimServer 5.2.1
 AppPublisher=Slim Devices
 AppPublisherURL=http://www.slimdevices.com
 AppSupportURL=http://www.slimdevices.com
