@@ -1,6 +1,6 @@
 /* Localized versions of Info.plist keys */
 
 CFBundleName = "SLIMP3 Firmware Updater";
-CFBundleShortVersionString = "6.0a1";
-CFBundleGetInfoString = "SLIMP3 Firmware Updater version 6.0a1, Copyright 2005 by Slim Devices, Inc.";
+CFBundleShortVersionString = "6.0a2";
+CFBundleGetInfoString = "SLIMP3 Firmware Updater version 6.0a2, Copyright 2005 by Slim Devices, Inc.";
 NSHumanReadableCopyright = "Copyright 2005 Slim Devices, Inc.";

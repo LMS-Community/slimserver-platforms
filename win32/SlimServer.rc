@@ -134,7 +134,7 @@ CAPTION "About SlimServer"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,7,15,21,20
-    LTEXT           "SlimServer 6.0a1 for Windows",IDC_STATIC,43,20,137,8,
+    LTEXT           "SlimServer 6.0a2 for Windows",IDC_STATIC,43,20,137,8,
                     SS_NOPREFIX
     LTEXT           "Copyright (C) 2002-2004, Slim Devices, Inc.",IDC_STATIC,
                     42,57,164,8
@@ -194,12 +194,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Slim Devices, Inc."
             VALUE "FileDescription", "SlimServer"
-            VALUE "FileVersion", "6.0a1"
+            VALUE "FileVersion", "6.0a2"
             VALUE "InternalName", "SlimServer.exe"
             VALUE "LegalCopyright", "(c) 2002-2005 Slim Devices, Inc."
             VALUE "OriginalFilename", "SlimServer.exe"
             VALUE "ProductName", "SlimServer"
-            VALUE "ProductVersion", "6.0a1"
+            VALUE "ProductVersion", "6.0a2"
         END
     END
     BLOCK "VarFileInfo"
