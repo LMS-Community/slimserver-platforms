@@ -109,7 +109,7 @@ var
 	CurSubPage: Integer;
 	Next: Boolean;
 begin
-	FileName:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'SLIM.PRF';
+	FileName:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'slimserver.pref';
 	
 	if (not FileExists(FileName) and ((not BackClicked and (CurPage = wpSelectDir)) or (BackClicked and (CurPage = wpSelectProgramGroup)))) then begin
 		// Insert a custom wizard page between two non custom pages
@@ -237,12 +237,13 @@ begin
 				res:= SaveStringToFile(FileName, 'mp3dir = ' + MyMusicFolder + #13#10, true);
 					res:= SaveStringToFile(FileName, 'playlistdir = ' + MyPlayListFolder + #13#10, true);
 				end;
+// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr. Returns True if successful. When False is returned, ResultStr is unmodified.
+  	if  RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then
+	 	begin
+	   		if not InstExec(RemoveQuotes(Uninstaller), '/SILENT','', True, True, SW_SHOWNORMAL, ErrorCode) then
+	   		  MsgBox('Problem uninstalling SLIMP3 software: ' + SysErrorMessage(ErrorCode),1,1);
 	 	end;
-// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr. Returns True if successful. When False is returned, ResultStr is unmodified. 
-	if not RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then 
-		begin
-			InstExec(Uninstaller, '/SILENT','', True, True, SW_HIDE, ErrorCode)
-		end;			
+  end;
 
 	if UsingWinNT() then
 		begin
