@@ -1,6 +1,6 @@
 //
 //  SLIMRendezvousPublisher.m
-//  Slim Server
+//  SlimServer
 //
 //  Created by Dave Nanian on Sat Jan 18 2003.
 //  Copyright (c) 2003 Slim Devices, Inc. All rights reserved.
@@ -25,14 +25,14 @@
 	    [httpNetService setDelegate:self];
 
 	    /*
-	     **  Now, publish the Slim Server specific HTTP service for easy client discovery.
+	     **  Now, publish the SlimServer specific HTTP service for easy client discovery.
 	     */
 
 	    slimSpecificHTTPNetService = [[Rendezvous alloc] initWithDomain:@"" type:@"_slimdevices_slimserver_http._tcp." name:@"slimserver" port:9000];
 	    [slimSpecificHTTPNetService setDelegate:self];
 	    
 	    /*
-	     **  Now, publish the Slim Server specific CLI service for easy client discovery.
+	     **  Now, publish the SlimServer specific CLI service for easy client discovery.
 	     */
 
 	    slimSpecificCLINetService = [[Rendezvous alloc] initWithDomain:@"" type:@"_slimdevices_slimserver_cli._tcp." name:@"slimserver" port:9001];

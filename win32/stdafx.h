@@ -114,7 +114,7 @@
 // the name of the slim  server application
 #define SLIM_APP_NAME					_T("slim.exe")
 
-// the name of the slim server service
+// the name of the SlimServer service
 #define SLIM_SVC_NAME					_T("slimsvc.exe")
 
 // timers used to poll stdout from slim 

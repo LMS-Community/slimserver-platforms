@@ -18,12 +18,12 @@ SLIMSERVER_BIN="$SLIMSERVER_HOME/slimserver.pl"
 
 case "$1" in
 start)
-	/usr/ucb/echo -n "Starting Slim Server: "
+	/usr/ucb/echo -n "Starting SlimServer: "
 	/bin/su - $SLIMSERVER_USER -c "$SLIMSERVER_BIN $SLIMSERVER_ARGS"
 	echo "done."
         ;;
 stop)
-	/usr/ucb/echo -n "Shutting down Slim Server: "
+	/usr/ucb/echo -n "Shutting down SlimServer: "
 	pkill `basename $SLIMSERVER_BIN`
 	echo "done."
         ;;

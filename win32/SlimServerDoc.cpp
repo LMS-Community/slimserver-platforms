@@ -45,7 +45,7 @@ BOOL CSlimServerDoc::OnNewDocument()
 
 
 
-	// I am starting up the slim server here
+	// I am starting up the SlimServer here
 
 	// will disable all new document sections so this will only get called once 
 

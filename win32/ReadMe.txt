@@ -28,7 +28,7 @@ Changes by Sam Saffron - sam@wasnotwas.com
 
 Changes by Sam Saffron - sam@wasnotwas.com 
 
-1. worte the control slim class that allows direct comms with slim server 
+1. worte the control slim class that allows direct comms with SlimServer 
 2. interim window while loading 
 3. fix toolbar to look more standard 
 4. Apply settings without refreshing html page ... 

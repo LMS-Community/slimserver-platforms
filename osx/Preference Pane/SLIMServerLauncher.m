@@ -1,6 +1,6 @@
 //
 //  SLIMServerLauncher.m
-//  Slim Server
+//  SlimServer
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
 //  Copyright (c) 2002-2003 Slim Devices, Inc. All rights reserved.

@@ -228,7 +228,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	iconData.uFlags		= NIF_MESSAGE|NIF_ICON|NIF_TIP; //flags
 	iconData.uCallbackMessage	= WM_USER_NOTIFYICON; //notification handler
 	iconData.hIcon		= hIcon;    //icon handle   
-	CString strToolTip = _T("Slim Server");
+	CString strToolTip = _T("SlimServer");
 
 
 
@@ -496,7 +496,7 @@ void CMainFrame::OnClose()
 	CString app = SLIM_APP_NAME;
 	if (m_bConfirmOnExit && CMyOutputView::GetRunningProcess(app)) {
 
-		int boxResult = AfxMessageBox(_T("You are closing the Slim Server window.  Do you also want to stop the server?"), MB_YESNOCANCEL);
+		int boxResult = AfxMessageBox(_T("You are closing the SlimServer window.  Do you also want to stop the server?"), MB_YESNOCANCEL);
 			
 		if (boxResult == IDCANCEL) {
 			return;

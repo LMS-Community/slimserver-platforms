@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Getting Started with the Slim Server, Version 5.0.0</title>
+<title>Getting Started with the SlimServer, Version 5.0.0</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<style type="text/css"> <!--
 .exbodytext, p, ol, ul, dl, dd, td               { color: #333; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif }
@@ -15,9 +15,9 @@ ol, ul, li  {  list-style-position: outside }
 </head>
 
 <body>
-		<h1 align="center">Getting Started with the Slim Server</h1>
+		<h1 align="center">Getting Started with the SlimServer</h1>
 		<p align="center">Version 5.0.0</p>
-		<p>Thank you for downloading the latest version of the Slim Server for Windows. Click on the following links to learn about each topic.</p>
+		<p>Thank you for downloading the latest version of the SlimServer for Windows. Click on the following links to learn about each topic.</p>
 		<ul>
 			<li><a href="#service">Installation</a></li>
 			<li><a href="#Remote">Remote Playlist Management</a></li>
@@ -26,45 +26,45 @@ ol, ul, li  {  list-style-position: outside }
 			<li><a href="#AAC">AAC Playback </a></li>
 			<li><a href="#Some">Some of the songs in iTunes library don't show up can't be opened</a></li>
 		</ul>
-		<p>If you have any questions or problems, please check the documentation built into the Slim Server web interface, or view the <a href="http://www.slimdevices.com/su_faq.html">FAQ</a>, visit our user forum at <a href="http://lists.slimdevices.com/lists/listinfo/discuss">http://lists.slimdevices.com/lists/listinfo/discuss</a> or contact our tech support team at <a href="mailto:support@slimdevices.com">support@slimdevices.com</a>.</p>
+		<p>If you have any questions or problems, please check the documentation built into the SlimServer web interface, or view the <a href="http://www.slimdevices.com/su_faq.html">FAQ</a>, visit our user forum at <a href="http://lists.slimdevices.com/lists/listinfo/discuss">http://lists.slimdevices.com/lists/listinfo/discuss</a> or contact our tech support team at <a href="mailto:support@slimdevices.com">support@slimdevices.com</a>.</p>
 		<p>Thanks,</p>
 		<p>The Slim Devices Team</p>
 		<hr/>
 		<p><b><a name="Installation"></a>Installation</b></p>
 		<p>To get started, follow these steps:</p>
 		<ol>
-			<li>Double click on the &quot;Slim Server&quot; icon.</li>
+			<li>Double click on the &quot;SlimServer&quot; icon.</li>
 			<li>From the Options menu, choose &quot;Set Music Library Folder...&quot;</li>
 			<li>Choose the folder that contains your MP3 music, and press the OK button.</li>
 			<li>If you want to be able to save playlists that you create with your Squeezebox or SLIMP3, choose &quot;Set Saved Playlists Folder...&quot;</li>
 			<li>Choose the folder where you want to save your playlists.</li>
 		</ol>
-		<p>If you'd like to control your Slim Server using a web browser, you can do so by opening up your browser and entering a URL like this:</p>
+		<p>If you'd like to control your SlimServer using a web browser, you can do so by opening up your browser and entering a URL like this:</p>
 		<p><a href="http://localhost:9000/">http://<em>localhost</em>:9000/</a></p>
 		<p>Replace <em>localhost</em> with the IP address of the server computer.</p>
 		<p><b>Firmware Update</b></p>
-		<p>If you own a Squeezebox Player, you may be prompted to update your firmware when it first connects to the Slim Server. Press and hold the Brightness button on the remote control until the firmware update begins.</p>
+		<p>If you own a Squeezebox Player, you may be prompted to update your firmware when it first connects to the SlimServer. Press and hold the Brightness button on the remote control until the firmware update begins.</p>
 		<p>If you own a SLIMP3 player, this release includes an updater application for the SLIMP3 Player firmware. Open &quot;Firmware Updater&quot; and follow the displayed instructions to update the the firmware on your player to version 2.2. You can check the version number of firmware installed on your SLIMP3 by reading the number at the lower right-hand corner of the display when you plug in your SLIMP3 player.</p>
 		<hr />
 		<p><b><a name="Remote"></a>Remote Playlist Management </b></p>
-		<p>The Slim Server was designed to stream MP3 music to a Squeezebox or SLIMP3 Network Music Player. However, it can also stream the same music over the Internet to any software player that supports MP3 streaming.</p>
-		<p>First, install the Slim Server software and make sure the computer to be used as a Slim Server can be reached over the Internet. If not, you will need to forward port 9000 on your router to the Slim Server computer. (Consult your router documentation for instructions). Then:</p>
+		<p>The SlimServer was designed to stream MP3 music to a Squeezebox or SLIMP3 Network Music Player. However, it can also stream the same music over the Internet to any software player that supports MP3 streaming.</p>
+		<p>First, install the SlimServer software and make sure the computer to be used as a SlimServer can be reached over the Internet. If not, you will need to forward port 9000 on your router to the SlimServer computer. (Consult your router documentation for instructions). Then:</p>
 		<ul>
-			<li>Use your MP3 player software to open a stream to the the URL: <a href="http://localhost:9000/stream.mp3">http://localhost:9000/stream.mp3</a>. (Replace &quot;localhost&quot; with the IP address of the Slim Server computer). If you are using the Slim Server's password security, you'll need to use a slightly modified URL like this: <a href="http://username:password@localhost:9000/stream.mp3">http://username:password@localhost:9000/stream.mp3</a>. Some MP3 players will prompt you to enter your username and password.</li>
-			<li>Launch the Slim Server web interface running on the remote computer by opening the web page <a href="http://localhost:9000/">http://localhost:9000</a> (Replace &quot;localhost&quot; with the IP address of the remote computer). You will notice a new &quot;player&quot; corresponding to the IP address of the computer with the MP3 software player.</li>
-			<li>Use the left pane of the Slim Server web interface to browse and select files and playlists to be played. When music is selected, it will appear in the right pane of the web interface.</li>
-			<li>Click on &quot;Play&quot; in the right pane of the Slim Server web interface to launch the music.</li>
+			<li>Use your MP3 player software to open a stream to the the URL: <a href="http://localhost:9000/stream.mp3">http://localhost:9000/stream.mp3</a>. (Replace &quot;localhost&quot; with the IP address of the SlimServer computer). If you are using the SlimServer's password security, you'll need to use a slightly modified URL like this: <a href="http://username:password@localhost:9000/stream.mp3">http://username:password@localhost:9000/stream.mp3</a>. Some MP3 players will prompt you to enter your username and password.</li>
+			<li>Launch the SlimServer web interface running on the remote computer by opening the web page <a href="http://localhost:9000/">http://localhost:9000</a> (Replace &quot;localhost&quot; with the IP address of the remote computer). You will notice a new &quot;player&quot; corresponding to the IP address of the computer with the MP3 software player.</li>
+			<li>Use the left pane of the SlimServer web interface to browse and select files and playlists to be played. When music is selected, it will appear in the right pane of the web interface.</li>
+			<li>Click on &quot;Play&quot; in the right pane of the SlimServer web interface to launch the music.</li>
 			<li>After a couple of seconds, you will hear music playing through the MP3 software player. (The delay is due to buffering in the MP3 player software.)</li>
-			<li>To change the content playing, use the Slim Server web interface on the remote machine.</li>
+			<li>To change the content playing, use the SlimServer web interface on the remote machine.</li>
 		</ul>
 		<hr/>
 		<p><i><a name="aac"></a></i><b>AAC Playback</b></p>
-		<p>This version of the Slim Server for Mac or Windows can convert iTunes AAC files to MP3 for playback on Squeezebox or SLIMP3 on-the-fly. To enable this feature, you'll need to install the free (and high quality) LAME MP3 encoder. For more information about LAME in general, <a href="http://lame.sourceforge.net/">click here</a> . LAME is free, but in some countries you may need to pay a license fee in order to legally encode MP3 files. There are several ways to install LAME, including the excellent <a href="http://www.blacktree.com/apps/index.html?iTunes-LAME/index.html">iTunes-LAME Encoder</a> (for Macintosh) or from <a href="http://rarewares.hydrogenaudio.org/mp3.html">Rarewares</a> (for Windows).</p>
-		<p>Once you have LAME installed, you should be able to playback iTunes-ripped AAC files (.m4a) as well as the audio from any QuickTime movie (.mov). Music purchased from the Apple Music Store (.m4p files) is protected and cannot be played back with Slim Server until Apple provides the necessary hooks to enable this. In the mean time, it is possible to burn your Apple Music Store songs to CD and re-rip them.</p>
+		<p>This version of the SlimServer for Mac or Windows can convert iTunes AAC files to MP3 for playback on Squeezebox or SLIMP3 on-the-fly. To enable this feature, you'll need to install the free (and high quality) LAME MP3 encoder. For more information about LAME in general, <a href="http://lame.sourceforge.net/">click here</a> . LAME is free, but in some countries you may need to pay a license fee in order to legally encode MP3 files. There are several ways to install LAME, including the excellent <a href="http://www.blacktree.com/apps/index.html?iTunes-LAME/index.html">iTunes-LAME Encoder</a> (for Macintosh) or from <a href="http://rarewares.hydrogenaudio.org/mp3.html">Rarewares</a> (for Windows).</p>
+		<p>Once you have LAME installed, you should be able to playback iTunes-ripped AAC files (.m4a) as well as the audio from any QuickTime movie (.mov). Music purchased from the Apple Music Store (.m4p files) is protected and cannot be played back with SlimServer until Apple provides the necessary hooks to enable this. In the mean time, it is possible to burn your Apple Music Store songs to CD and re-rip them.</p>
 		<p>Note that LAME-based encoding to MP3 for playback can use a substantial amount of CPU power. We continue to recommend high bit-rate MP3 encoded files for best performance, highest audio quality, and best compatibility.</p>
 		<hr/>
 		<p><b><a name="MoodLogic"></a>MoodLogic Support</b></p>
-		<p>This version of the Slim Server software for Windows supports integration with the <a href="http://www.moodlogic.com/">MoodLogic</a> MP3 mix management software and associated metadata service. Install MoodLogic on your PC and identify your songs (regardless of tag information) and let MoodLogic automatically organize your collection by MoodLogic data (genre, mood, tempo, release year, etc). Once all your music is 'active' your Slim  can interact with your music in exciting new ways!</p>
+		<p>This version of the SlimServer software for Windows supports integration with the <a href="http://www.moodlogic.com/">MoodLogic</a> MP3 mix management software and associated metadata service. Install MoodLogic on your PC and identify your songs (regardless of tag information) and let MoodLogic automatically organize your collection by MoodLogic data (genre, mood, tempo, release year, etc). Once all your music is 'active' your Slim  can interact with your music in exciting new ways!</p>
 		<h4>Features:</h4>
 		<ul>
 			<li>Browse your songs on your Squeezebox or SLIMP3 player by clean genre and artist information.</li>
@@ -78,13 +78,13 @@ ol, ul, li  {  list-style-position: outside }
 		</ol>
 		<h4>Installation</h4>
 		<ol>
-			<li>Make sure your Slim Server and player are installed as described in this documentation.</li>
+			<li>Make sure your SlimServer and player are installed as described in this documentation.</li>
 			<li>Install MoodLogic from <a href="http://www.moodlogic.com/">http://www.moodlogic.com</a>.</li>
-			<li>Add your music to the same music folder that Slim Server uses.</li>
+			<li>Add your music to the same music folder that SlimServer uses.</li>
 			<li>Activate your music (the trial service allows 100 free activations).</li>
 			<li>Buy 10,000 activation credits to activate more songs or profile your own tracks.</li>
-			<li>Shut down MoodLogic and restart the Slim Server.</li>
-			<li>After restarting, the Slim Server will automatically detect MoodLogic. You are ready to go!</li>
+			<li>Shut down MoodLogic and restart the SlimServer.</li>
+			<li>After restarting, the SlimServer will automatically detect MoodLogic. You are ready to go!</li>
 			<li>You can turn MoodLogic on and off see your server preferences in the web interface.</li>
 		</ol>
 		<h4>Known Limitations</h4>
@@ -93,24 +93,24 @@ ol, ul, li  {  list-style-position: outside }
 			<li>Currently no album support</li>
 			<li>No way to trigger song based Instant Mix for the currently playing song</li>
 			<li>Not all skins supported (the best support is in the Default and Light skins, available under the Additional Server Settings)</li>
-			<li>The MoodLogic support doesn't work if the Slim Server software is installed as a service. Use the Control Panels-&gt;Administrative Tools-&gt;Services application to stop the Slim Server service and use the Slim Server application if you'd like to use the MoodLogic integration.</li>
+			<li>The MoodLogic support doesn't work if the SlimServer software is installed as a service. Use the Control Panels-&gt;Administrative Tools-&gt;Services application to stop the SlimServer service and use the SlimServer application if you'd like to use the MoodLogic integration.</li>
 		</ul>
 		<h4>Feedback</h4>
-		<p>For questions about MoodLogic and Slim Server integration, please email: <a href="mailto:chris@moodlogic.com">chris@moodlogic.com</a></p>
+		<p>For questions about MoodLogic and SlimServer integration, please email: <a href="mailto:chris@moodlogic.com">chris@moodlogic.com</a></p>
 		<hr />
 		<div align="left">
-			<p><b><a name="service"></a>Slim Server as a Windows Service</b></p>
+			<p><b><a name="service"></a>SlimServer as a Windows Service</b></p>
 		</div>
-		<p>You can optionally run the Slim Server as a Windows Service under Windows NT, 2000 or XP. On these platforms, the Slim Server installer should install and start the Slim Server service automatically.</p>
-		<p>To install and run the Slim Server Windows service by hand, follow these instructions:</p>
+		<p>You can optionally run the SlimServer as a Windows Service under Windows NT, 2000 or XP. On these platforms, the SlimServer installer should install and start the SlimServer service automatically.</p>
+		<p>To install and run the SlimServer Windows service by hand, follow these instructions:</p>
 <ol>
-  <li>Open a &quot;cmd&quot; window and type &quot;<code>cd C:\Program Files\Slim Server\server</code>&quot;.</li>
-  <li>Type &quot;<code>slimsvc -install auto</code>&quot; to install the Slim Server software so it will automatically start as a Windows Service the next time you reboot.</li>
+  <li>Open a &quot;cmd&quot; window and type &quot;<code>cd C:\Program Files\SlimServer\server</code>&quot;.</li>
+  <li>Type &quot;<code>slimsvc -install auto</code>&quot; to install the SlimServer software so it will automatically start as a Windows Service the next time you reboot.</li>
   <li>You can start or stop the service manually by using &quot;<code>net start 
     slimp3svc</code>&quot; or &quot;<code>net stop slimp3svc</code>&quot; respectively, or by using  the Control Panels-&gt;Administrative Tools-&gt;Services application.</li>
   <li>You can uninstall the service by stopping it, then typing &quot;<code>slimsvc -remove</code>&quot;</li>
 </ol>
-<p>Windows 98/ME users can use the &quot;Scheduled Tasks&quot; icon to schedule the &quot;Slim Server&quot; application to start automatically when the computer starts. This will also work for Windows NT/2000/XP users who don't want to use Windows Services.</p>
+<p>Windows 98/ME users can use the &quot;Scheduled Tasks&quot; icon to schedule the &quot;SlimServer&quot; application to start automatically when the computer starts. This will also work for Windows NT/2000/XP users who don't want to use Windows Services.</p>
 <hr>
 <p align=center>Copyright 2003, Slim Devices Inc.  All Rights Reserved.</p>
 </body>

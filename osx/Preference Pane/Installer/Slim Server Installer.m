@@ -1,6 +1,6 @@
 //
 //  Slim Installer.m
-//  Slim Server
+//  SlimServer
 //
 //  Created by Dave Nanian on Fri Jan 03 2003.
 //  Copyright (c) 2003 Slim Devices, Inc. All rights reserved.
@@ -25,7 +25,7 @@
 
     while (currDirectory = [pathEnum nextObject])
     {
-	if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath:[currDirectory stringByAppendingPathComponent:@"PreferencePanes/Slim Server.prefPane"]])
+	if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath:[currDirectory stringByAppendingPathComponent:@"PreferencePanes/SlimServer.prefPane"]])
 	{
 	    if ([currDirectory isEqual:@"/Library"])
 		foundSlimGlobal = true;
@@ -158,7 +158,7 @@
 
     int	doInstallType = [[installType selectedItem] tag];
 
-    NSString *fileToInstall = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"../Install Files/Slim Server.prefPane"];
+    NSString *fileToInstall = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"../Install Files/SlimServer.prefPane"];
     NSString *installerScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"InstallSlim.sh"];
     NSString *fileInstalled = nil;
     NSMutableString *scriptOutput = [[NSMutableString alloc] init];
@@ -175,9 +175,9 @@
 	return;
     }
     if (doInstallType == kInstallGlobal)
-	fileInstalled = [[NSString stringWithString:@"/Library/PreferencePanes/Slim Server.prefPane"] retain];
+	fileInstalled = [[NSString stringWithString:@"/Library/PreferencePanes/SlimServer.prefPane"] retain];
     else
-	fileInstalled = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/PreferencePanes/Slim Server.prefPane"] retain];
+	fileInstalled = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/PreferencePanes/SlimServer.prefPane"] retain];
 
     if (doInstallType == kInstallGlobal || foundSlimGlobal)
     {

@@ -139,7 +139,7 @@ BOOL CSlimServerApp::InitInstance()
 
 	// Standard initialization
 
-	SetRegistryKey(_T("Slim Server"));
+	SetRegistryKey(_T("SlimServer"));
 
 	LoadStdProfileSettings(0);  // Load standard INI file options (including MRU)
 

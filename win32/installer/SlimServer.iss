@@ -1,5 +1,5 @@
 ;
-; InnoSetup Script for Slim Server
+; InnoSetup Script for SlimServer
 ;
 ; Slim Devices : http://www.slimdevices.com
 ;
@@ -8,14 +8,14 @@
 
 
 [Setup]
-AppName=Slim Server
-AppVerName=Slim Server 5.0
+AppName=SlimServer
+AppVerName=SlimServer 5.0
 AppPublisher=Slim Devices
 AppPublisherURL=http://www.slimdevices.com
 AppSupportURL=http://www.slimdevices.com
 AppUpdatesURL=http://www.slimdevices.com
-DefaultDirName={pf}\Slim Server
-DefaultGroupName=Slim Server
+DefaultDirName={pf}\SlimServer
+DefaultGroupName=SlimServer
 WizardImageFile=slim.bmp
 WizardImageBackColor=$ffffff
 OutputBaseFilename=SlimSetup
@@ -36,7 +36,7 @@ Name: desktopicon; Description: Create a &desktop icon; GroupDescription: Additi
 Name: quicklaunchicon; Description: Create a &Quick Launch icon; GroupDescription: Additional icons:; Flags: unchecked
 
 [Files]
-Source: Slim Server.exe; DestDir: {app}
+Source: SlimServer.exe; DestDir: {app}
 Source: firmware\MAIN.HEX; DestDir: {app}\firmware\
 Source: firmware\SLIMP3 Updater.exe; DestDir: {app}\firmware\
 Source: Getting Started.html; DestDir: {app}
@@ -54,32 +54,32 @@ Source: server\*.*; DestDir: {app}\server; Flags: comparetimestamp recursesubdir
 
 [INI]
 Filename: {app}\Visit Slim Devices.url; Section: InternetShortcut; Key: URL; String: http://www.slimdevices.com
-Filename: {app}\Slim Server Web Control.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000
+Filename: {app}\SlimServer Web Interface.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000
 
 [Icons]
-Name: {group}\Slim Server; Filename: {app}\Slim Server.exe
+Name: {group}\SlimServer; Filename: {app}\SlimServer.exe
 Name: {group}\Slim Devices website; Filename: {app}\Visit Slim Devices.url
 Name: {group}\Slim Web Interface; Filename: {app}\Slim Web Control.url;
 Name: {group}\License; Filename: {app}\License.txt
 Name: {group}\Getting Started; Filename: {app}\Getting Started.html
-Name: {group}\Uninstall Slim Server; Filename: {uninstallexe}
-Name: {userdesktop}\Slim Server; Filename: {app}\Slim Server.exe; Tasks: desktopicon
-Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\Slim Server; Filename: {app}\Slim Server.exe; Tasks: quicklaunchicon
+Name: {group}\Uninstall SlimServer; Filename: {uninstallexe}
+Name: {userdesktop}\SlimServer; Filename: {app}\SlimServer.exe; Tasks: desktopicon
+Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\SlimServer; Filename: {app}\SlimServer.exe; Tasks: quicklaunchicon
 
 
 [Registry]
 ;
 ; Create the registry key to run the service if running on Win9X (inc. ME)
 ;
-Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\Run; ValueType: string; ValueName: slimserver; ValueData: {app}\Slim Server.exe; MinVersion: 4.0,0; OnlyBelowVersion: 4.90.3001,0; Flags: uninsdeletevalue
+Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\Run; ValueType: string; ValueName: slimserver; ValueData: {app}\SlimServer.exe; MinVersion: 4.0,0; OnlyBelowVersion: 4.90.3001,0; Flags: uninsdeletevalue
 
 [Run]
 ;
 ; Only give the option to install as a service if running WinNT 4 at a minimum (any 'NT' system is ok - 2k, xp etc)
 ;
-Filename: {app}\server\slimsvc.exe; Description: Install Slim Server as a Windows service; Flags: postinstall runminimized; MinVersion: 0,4.00.1381; Parameters: -install auto; WorkingDir: {app}\server
+Filename: {app}\server\slimsvc.exe; Description: Install SlimServer as a Windows service; Flags: postinstall runminimized; MinVersion: 0,4.00.1381; Parameters: -install auto; WorkingDir: {app}\server
 Filename: net; Description: Start Slim Windows service; Parameters: start slimsvc; Flags: postinstall runminimized; MinVersion: 0,4.00.1381
-Filename: {app}\Slim Server.exe; Description: Launch Slim Server application; Flags: nowait postinstall skipifsilent runmaximized
+Filename: {app}\SlimServer.exe; Description: Launch SlimServer application; Flags: nowait postinstall skipifsilent runmaximized
 ;Filename: {app}\Release Notes.html; Description: View Release Notes; Flags: nowait shellexec postinstall unchecked
 
 [UninstallDelete]
@@ -125,8 +125,8 @@ begin
 			0:
 				begin
 					ScriptDlgPageSetCaption('Select your Music Folder');
-					ScriptDlgPageSetSubCaption1('Where should the Slim Server look for your music?');
-					ScriptDlgPageSetSubCaption2('Select the folder you would like the Slim Server to look for your music, then click Next.');
+					ScriptDlgPageSetSubCaption1('Where should the SlimServer look for your music?');
+					ScriptDlgPageSetSubCaption2('Select the folder you would like the SlimServer to look for your music, then click Next.');
 
 					if(MyMusicFolder='') then
 						MyMusicFolder := WizardDirValue;
@@ -142,8 +142,8 @@ begin
 			1:
 				begin
 					ScriptDlgPageSetCaption('Select your Playlist Folder');
-					ScriptDlgPageSetSubCaption1('Where should Slim Server look for / store your Playlists ?');
-					ScriptDlgPageSetSubCaption2('Select the folder you would like the Slim Server to look for or store your playlists, then click Next.');
+					ScriptDlgPageSetSubCaption1('Where should SlimServer look for / store your Playlists ?');
+					ScriptDlgPageSetSubCaption2('Select the folder you would like the SlimServer to look for or store your playlists, then click Next.');
 
 					if(MyPlayListFolder='') then begin
 						if(MyMusicFolder<>'') then
@@ -237,13 +237,13 @@ begin
 				res:= SaveStringToFile(FileName, 'mp3dir = ' + MyMusicFolder + #13#10, true);
 					res:= SaveStringToFile(FileName, 'playlistdir = ' + MyPlayListFolder + #13#10, true);
 				end;
-// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr. Returns True if successful. When False is returned, ResultStr is unmodified.
+// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr. Returns True if successful. When False is returned, ResultStr is unmodified. 
   	if  RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then
 	 	begin
 	   		if not InstExec(RemoveQuotes(Uninstaller), '/SILENT','', True, True, SW_SHOWNORMAL, ErrorCode) then
 	   		  MsgBox('Problem uninstalling SLIMP3 software: ' + SysErrorMessage(ErrorCode),1,1);
 	 	end;
-  end;
+		end;			
 
 	if UsingWinNT() then
 		begin
@@ -257,5 +257,3 @@ begin
 			end;
 		end;
 end;
-
-

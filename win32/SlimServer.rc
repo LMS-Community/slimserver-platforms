@@ -45,7 +45,7 @@ BEGIN
     END
     POPUP "&Help"
     BEGIN
-        MENUITEM "&About Slim Server...",       ID_APP_ABOUT
+        MENUITEM "&About SlimServer...",       ID_APP_ABOUT
     END
 END
 
@@ -93,7 +93,7 @@ BEGIN
 
         MENUITEM "Technical Information",       ID_HELP_TECHNICALINFORMATION
         MENUITEM SEPARATOR
-        MENUITEM "&About Slim Server...",       ID_APP_ABOUT
+        MENUITEM "&About SlimServer...",       ID_APP_ABOUT
     END
 END
 
@@ -130,11 +130,11 @@ END
 IDD_ABOUTBOX DIALOGEX 0, 0, 253, 76
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
     WS_SYSMENU
-CAPTION "About Slim Server"
+CAPTION "About SlimServer"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,7,15,21,20
-    LTEXT           "Slim Server 5.0.0 for Windows",IDC_STATIC,43,20,137,8,
+    LTEXT           "SlimServer 5.0.0 for Windows",IDC_STATIC,43,20,137,8,
                     SS_NOPREFIX
     LTEXT           "Copyright (C) 2002-2003, Slim Devices, Inc.",IDC_STATIC,
                     42,57,164,8
@@ -143,7 +143,7 @@ END
 
 IDD_PROPPAGE_SMALL DIALOGEX 0, 0, 261, 127
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Slim Server Settings"
+CAPTION "SlimServer Settings"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     PUSHBUTTON      "Change...",IDC_MUSICFOLDER_SELECT,188,38,56,13
@@ -160,11 +160,11 @@ END
 IDD_DIALOG_LOADING DIALOGEX 0, 0, 219, 177
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | 
     WS_CAPTION | WS_SYSMENU
-CAPTION "Slim Server"
+CAPTION "SlimServer"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     PUSHBUTTON      "Cancel",IDC_BUTTON_EXIT,142,153,68,15
-    LTEXT           "Slim Server for Windows",IDC_STATIC,10,141,129,10
+    LTEXT           "SlimServer for Windows",IDC_STATIC,10,141,129,10
     LTEXT           "Starting Up...",IDC_LOADING,10,158,104,8
     CONTROL         160,IDC_STATIC,"Static",SS_BITMAP,10,11,200,90
 END
@@ -193,12 +193,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "Slim Devices, Inc."
-            VALUE "FileDescription", "Slim Server"
+            VALUE "FileDescription", "SlimServer"
             VALUE "FileVersion", "5.0.0"
-            VALUE "InternalName", "Slim Server.exe"
+            VALUE "InternalName", "SlimServer.exe"
             VALUE "LegalCopyright", "(c) 2002-2003 Slim Devices, Inc."
-            VALUE "OriginalFilename", "Slim Server.exe"
-            VALUE "ProductName", "Slim Server"
+            VALUE "OriginalFilename", "SlimServer.exe"
+            VALUE "ProductName", "SlimServer"
             VALUE "ProductVersion", "5.0.0"
         END
     END
@@ -289,12 +289,12 @@ END
 STRINGTABLE 
 BEGIN
     IDR_SlimServerTYPE      "\nSlimServer\nSlimServer\n\n\nSlimServer.Document\nSlimServer.Document"
-    IDR_MAINFRAME           "Slim Server"
+    IDR_MAINFRAME           "SlimServer"
 END
 
 STRINGTABLE 
 BEGIN
-    AFX_IDS_APP_TITLE       "Slim Server"
+    AFX_IDS_APP_TITLE       "SlimServer"
     AFX_IDS_IDLEMESSAGE     "Ready"
 END
 
@@ -389,9 +389,9 @@ END
 
 STRINGTABLE 
 BEGIN
-    ID_OPTIONS_CONFIRMONEXIT "Confirm Before Exiting Slim Server"
+    ID_OPTIONS_CONFIRMONEXIT "Confirm Before Exiting SlimServer"
     ID_OPTIONS_STOPSERVERONEXIT "Stop the server when closing the window"
-    ID_OPTIONS_HIDEWHENMINIMIZED "Hide Slim Server When Minimized"
+    ID_OPTIONS_HIDEWHENMINIMIZED "Hide SlimServer When Minimized"
     ID_VIEW_DEBUGWINDOW     "View Debug Window"
     ID_FILE_RESCANLIBRARY   "Rescan Music Library Folder"
 END
@@ -399,7 +399,7 @@ END
 STRINGTABLE 
 BEGIN
     ID_OPTIONS_USESLIMSERVERTOPLAYMP3FILES 
-                            "Use Slim Server to Play MP3 files on my computer"
+                            "Use SlimServer to Play MP3 files on my computer"
 END
 
 #endif    // English (U.S.) resources

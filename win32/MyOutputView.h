@@ -69,7 +69,7 @@ private:
 
 	HANDLE					PipeWriteHandle;
 
-	// process info for slim server
+	// process info for SlimServer
 
 	PROCESS_INFORMATION		ProcessInfo;
 

@@ -53,8 +53,8 @@ touch $RPM_BUILD_ROOT/etc/slimserver.conf
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && [ -d $RPM_BUILD_ROOT ] && rm -r $RPM_BUILD_ROOT
 cd ..
-[ "$RPM_BUILD_DIR" != "/" ] && [ -d $RPM_BUILD_DIR/Slim_Server_v%{version} ] \
-&& rm -r $RPM_BUILD_DIR/Slim_Server_v%{version}
+[ "$RPM_BUILD_DIR" != "/" ] && [ -d $RPM_BUILD_DIR/SlimServer_v%{version} ] \
+&& rm -r $RPM_BUILD_DIR/SlimServer_v%{version}
 
 %pre
 export SLIMSERVER_USER=slimserver
@@ -62,7 +62,7 @@ export SLIMSERVER_USER=slimserver
 if [ -f /etc/sysconfig/slimserver ]; then . /etc/sysconfig/slimserver; fi
 # Add the $SLIMSERVER_USER if there is not one
 if [ `grep -c "^$SLIMSERVER_USER:" /etc/passwd` -eq 0 ]; then
- /usr/sbin/useradd -c "Slim Server" -d %{slimdir} $SLIMSERVER_USER
+ /usr/sbin/useradd -c "SlimServer" -d %{slimdir} $SLIMSERVER_USER
 fi
 
 %post

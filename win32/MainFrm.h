@@ -86,7 +86,7 @@ public:
 
 private:
 
-	// Hide the Slim Server window when minimized
+	// Hide the SlimServer window when minimized
 	bool m_bHideWhenMinimized;
 
 	// Confirm on Exit 

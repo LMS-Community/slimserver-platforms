@@ -6,7 +6,7 @@
     name="Microsoft.Windows.SlimServer"
     type="win32" 
 /> 
-<description>Slim Server</description> 
+<description>SlimServer</description> 
 <dependency> 
     <dependentAssembly> 
         <assemblyIdentity 

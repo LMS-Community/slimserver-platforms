@@ -1,6 +1,6 @@
 //
 //  SLIMRendezvousPublisher.h
-//  Slim Server
+//  SlimServer
 //
 //  Created by Dave Nanian on Sat Jan 18 2003.
 //  Copyright (c) 2003 Slim Devices, Inc. All rights reserved.
