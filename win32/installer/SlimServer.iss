@@ -294,6 +294,6 @@ begin
 
 	if CurStep = csFinished then
 		if not FileExists(FileName) then
-			SaveStringToFile(FileName, 'mp3dir = ' + MyMusicFolder + #13#10 + 'playlistdir = ' + MyPlayListFolder + #13#10, False);
+			SaveStringToFile(FileName, 'audiodir = ' + MyMusicFolder + #13#10 + 'playlistdir = ' + MyPlayListFolder + #13#10, False);
 	
 end;
