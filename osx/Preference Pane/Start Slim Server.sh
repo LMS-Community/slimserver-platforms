@@ -6,8 +6,9 @@ if [ z"$SERVER_RUNNING" = z ] ; then
     
     if [ z"$#" == z"0" ] ; then
 	if [ ! -e ~/Library/Logs ] ; then mkdir ~/Library/Logs ; fi
-	./slimserver.pl --daemon --d_server --logfile ~/Library/Logs/slimserver.log >> ~/Library/Logs/slimserver.log 2>&1
+	export DYLD_LIBRARY_PATH="`pwd`/perl/lib/perl5/5.8.4/darwin-thread-multi/CORE"
+	perl/bin/perl -I"`pwd`/perl/lib/perl5" slimserver.pl --daemon --d_server --logfile ~/Library/Logs/slimserver.log >> ~/Library/Logs/slimserver.log 2>&1
     else
-	./slimserver.pl >> /tmp/slimerror.log 2>&1 
+	perl/bin/perl -I"`pwd`/perl/lib/perl5" slimserver.pl >> /tmp/slimerror.log 2>&1 
     fi
 fi
