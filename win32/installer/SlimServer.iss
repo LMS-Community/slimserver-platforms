@@ -351,7 +351,7 @@ begin
 					PrefString := PrefString + 'itunes_library_xml_path = ' + iTunesPath + #13#10 + 'itunes_library_music_path = ' + MyMusicFolder + #13#10;
 				SaveStringToFile(FileName, PrefString, False);
 			end;
-		if ShouldAutostart() then 
+		if ShouldAutostart() and UsingWinNT() then 
 			begin
 				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 				InstExec(NewServerDir + 'slim.exe', '-install auto', NewServerDir, True, False, SW_SHOWMINIMIZED, ErrorCode); 
