@@ -76,7 +76,6 @@ Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\Run; ValueType: st
 Filename: {app}\SlimServer.exe; Description: Launch SlimServer application; Flags: nowait postinstall skipifsilent runmaximized
 Filename: {app}\Getting Started.html; Description: Read Getting Started document; Flags: shellexec skipifsilent postinstall
 Filename: {app}\server\slimsvc.exe; Flags: runminimized; MinVersion: 0,4.00.1381; Parameters: "-install auto -username=""{code:GetUsername|}"" -password=""{code:GetPassword|}"""; WorkingDir: {app}\server; Check: ShouldAutostart
-Filename: net; Parameters: start slimsvc; Flags: runminimized; MinVersion: 0,4.00.1381; Check: ShouldAutostart
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
