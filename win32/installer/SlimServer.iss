@@ -324,12 +324,13 @@ begin
 			DelTree(delPath, true, true, true);
 
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Bagpuss'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Clarity'), true, true, true);
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Dark'), true, true, true);
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Default'), true, true, true);
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('EN'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('ExBrowse'), true, true, true);
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Experimental'), true, true, true);
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Fishbone'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Gordon'), true, true, true);
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Handheld'), true, true, true);
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Moser'), true, true, true);
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Olson'), true, true, true);
