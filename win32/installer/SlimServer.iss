@@ -36,13 +36,13 @@ Name: desktopicon; Description: Create a &desktop icon; GroupDescription: Additi
 Name: quicklaunchicon; Description: Create a &Quick Launch icon; GroupDescription: Additional icons:; Flags: unchecked
 
 [Files]
-Source: ..\..\..\build\Slim Server.exe; DestDir: {app}
-Source: ..\..\..\build\firmware\MAIN.HEX; DestDir: {app}\firmware\
-Source: ..\..\..\build\firmware\SLIMP3 Updater.exe; DestDir: {app}\firmware\
-Source: ..\..\..\build\Getting Started.html; DestDir: {app}
-Source: ..\..\..\build\psapi.dll; DestDir: {app}
-Source: ..\..\..\build\Release Notes.html; DestDir: {app}
-Source: ..\..\..\build\License.txt; DestDir: {app}
+Source: Slim Server.exe; DestDir: {app}
+Source: firmware\MAIN.HEX; DestDir: {app}\firmware\
+Source: firmware\SLIMP3 Updater.exe; DestDir: {app}\firmware\
+Source: Getting Started.html; DestDir: {app}
+Source: psapi.dll; DestDir: {app}
+Source: Release Notes.html; DestDir: {app}
+Source: License.txt; DestDir: {app}
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 ;
@@ -50,7 +50,7 @@ Source: ..\..\..\build\License.txt; DestDir: {app}
 ; it's output into the same location from the users choice.
 ;
 
-Source: ..\..\..\build\server\*.*; DestDir: {app}\server; Flags: comparetimestamp recursesubdirs
+Source: server\*.*; DestDir: {app}\server; Flags: comparetimestamp recursesubdirs
 
 [INI]
 Filename: {app}\Visit Slim Devices.url; Section: InternetShortcut; Key: URL; String: http://www.slimdevices.com
