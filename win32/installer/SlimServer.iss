@@ -50,7 +50,7 @@ Source: License.txt; DestDir: {app}
 ; it's output into the same location from the users choice.
 ;
 
-Source: server\*.*; DestDir: {app}\server; Flags: comparetimestamp recursesubdirs
+Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*,*cygwin*"; Flags: comparetimestamp recursesubdirs
 
 [INI]
 Filename: {app}\Visit Slim Devices.url; Section: InternetShortcut; Key: URL; String: http://www.slimdevices.com; Flags: uninsdeletesection
