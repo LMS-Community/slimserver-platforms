@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <signal.h>
 
-#import "SliMP3_ServerPref.h"
+#import "Slim_ServerPref.h"
 
 @implementation SliMP3_ServerPref
 

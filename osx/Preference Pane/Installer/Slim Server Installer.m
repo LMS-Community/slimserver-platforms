@@ -8,7 +8,7 @@
 
 #include <Security/Authorization.h>
 #include <Security/AuthorizationTags.h>
-#import "SLIMP3 Installer.h"
+#import "Slim Server Installer.h"
 
 @implementation SLIMP3_Installer
 
