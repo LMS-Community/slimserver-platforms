@@ -62,8 +62,7 @@ export SLIMD_USER=slimd
 if [ -f /etc/sysconfig/slimd ]; then . /etc/sysconfig/slimd; fi
 # Add the $SLIMD_USER if there is not one
 if [ `grep -c "^$SLIMD_USER:" /etc/passwd` -eq 0 ]; then
- /usr/sbin/useradd -c "Slim Server" -d ${RPM_INSTALL_PREFIX}/slimd \
- $SLIMD_USER
+ /usr/sbin/useradd -c "Slim Server" -d %{slimdir} $SLIMD_USER
 fi
 
 %post
@@ -74,7 +73,7 @@ if [ `grep -c PREFIX /etc/sysconfig/slimd` -gt 0 ]; then
 else
 	DEST_FILE=/etc/sysconfig/slimd.rpmnew
 fi
-SLIMD_PREFIX=`echo $RPM_INSTALL_PREFIX | sed 's/\//\\\\\//g'`
+SLIMD_PREFIX=`echo %{slimdir} | sed 's/\//\\\\\//g'`
 sed "s/PREFIX/$SLIMD_PREFIX/" $DEST_FILE > /tmp/slimd.$$
 if [ -s /tmp/slimd.$$ ]; then
  cp /tmp/slimd.$$ $DEST_FILE
