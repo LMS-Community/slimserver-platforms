@@ -73,8 +73,6 @@ Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\SlimServer; Filenam
 Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\Run; ValueType: string; ValueName: slimserver; ValueData: {app}\SlimServer.exe; MinVersion: 4.0,0; OnlyBelowVersion: 4.90.3001,0; Flags: uninsdeletevalue
 
 [Run]
-Filename: {app}\server\slim.exe; StatusMsg: "Setting up auto-start..."; Flags: runminimized; MinVersion: 0,4.00.1381; Parameters: "-install auto"; WorkingDir: {app}\server; Check: ShouldAutostart
-Filename: net; StatusMsg: "Starting up..."; Flags: runminimized; MinVersion: 0,4.00.1381; Parameters: "start slimsvc"; WorkingDir: {app}\server; Check: ShouldAutostart
 Filename: {app}\SlimServer.exe; Description: Launch SlimServer application; Flags: nowait postinstall skipifsilent runmaximized
 Filename: {app}\Getting Started.html; Description: Read Getting Started document; Flags: shellexec skipifsilent postinstall
 
@@ -84,6 +82,7 @@ Type: dirifempty; Name: {app}\server
 Type: dirifempty; Name: {app}\server\IR
 Type: dirifempty; Name: {app}\server\Plugins
 Type: dirifempty; Name: {app}\server\HTML
+Type: filesandordirs; Name: {app}\server\Cache
 Type: files; Name: {app}\server\slimserver.pref
 Type: files; Name: {app}\Visit Slim Devices.url
 Type: files; Name: {app}\SlimServer Web Interface.url
@@ -337,7 +336,7 @@ begin
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('xml'), true, true, true);
 		end;
 
-	if CurStep = csFinished then
+	if CurStep = csFinished then begin
 		if not FileExists(FileName) then
 			begin
 				PrefString := 'audiodir = ' + MyMusicFolder + #13#10 + 'playlistdir = ' + MyPlayListFolder + #13#10;
@@ -346,5 +345,12 @@ begin
 					PrefString := PrefString + 'itunes_library_xml_path = ' + iTunesPath + #13#10 + 'itunes_library_music_path = ' + MyMusicFolder + #13#10;
 				SaveStringToFile(FileName, PrefString, False);
 			end;
+		if ShouldAutostart() then 
+			begin
+				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
+				InstExec(NewServerDir + 'slim.exe', '-install auto', NewServerDir, True, False, SW_SHOWMINIMIZED, ErrorCode); 
+				InstExec('net', 'start slimsvc', '', true, false, SW_HIDE, ErrorCode);
+			end;
+	end;
 	
 end;
