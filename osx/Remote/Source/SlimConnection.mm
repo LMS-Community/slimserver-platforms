@@ -23,7 +23,7 @@
 		
 */
 
-#import "SliMP3Connection.h"
+#import "SlimConnection.h"
 #import <unistd.h>
 
 // --------------------------------------------------------------------------------

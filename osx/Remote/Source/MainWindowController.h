@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SliMP3Connection.h"
+#import "SlimConnection.h"
 #import "ThreadNotificationCenter.h"
 
 @interface MainWindowController : NSWindowController

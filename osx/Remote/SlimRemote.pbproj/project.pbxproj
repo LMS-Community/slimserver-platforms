@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 38;
+	objectVersion = 39;
 	objects = {
 		080E96DCFE201CFB7F000001 = {
 			fileRef = 29B97318FDCFA39411CA2CEA;
@@ -21,8 +21,8 @@
 				F5A21D2103A29B0D01FCA1B2,
 				F5E8E16F03AEB35B01A80166,
 				F5E8E17003AEB35B01A80166,
-				5537BE1903B799CE00A80165,
-				5537BE1A03B799CE00A80165,
+				4ADC896E05DEA1B0001882E9,
+				4ADC896F05DEA1B0001882E9,
 				55CFC75A03BE358000A80165,
 				55CFC75B03BE358000A80165,
 				5586AB6403D8BEE700A80004,
@@ -31,6 +31,7 @@
 			isa = PBXGroup;
 			path = Source;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		089C165CFE840E0CC02AAC07 = {
 			children = (
@@ -39,13 +40,16 @@
 			isa = PBXVariantGroup;
 			name = InfoPlist.strings;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		089C165DFE840E0CC02AAC07 = {
 			fileEncoding = 10;
 			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
 			name = English;
 			path = English.lproj/InfoPlist.strings;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		089C165EFE840E0CC02AAC07 = {
 			fileRef = 089C165CFE840E0CC02AAC07;
@@ -64,10 +68,13 @@
 //103
 //104
 		1058C7A1FEA54F0111CA2CBB = {
+			fallbackIsa = PBXFileReference;
 			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
 			name = Cocoa.framework;
 			path = /System/Library/Frameworks/Cocoa.framework;
 			refType = 0;
+			sourceTree = "<absolute>";
 		};
 		1058C7A3FEA54F0111CA2CBB = {
 			fileRef = 1058C7A1FEA54F0111CA2CBB;
@@ -86,9 +93,12 @@
 //173
 //174
 		17587328FF379C6511CA2CBB = {
+			explicitFileType = wrapper.application;
+			fallbackIsa = PBXFileReference;
 			isa = PBXApplicationReference;
 			path = "SLIMP3 Remote.app";
 			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 //170
 //171
@@ -107,6 +117,7 @@
 			isa = PBXGroup;
 			name = Products;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 //190
 //191
@@ -119,6 +130,8 @@
 //293
 //294
 		29B97313FDCFA39411CA2CEA = {
+			buildSettings = {
+			};
 			buildStyles = (
 				4A9504CCFFE6A4B311CA0CBA,
 				4A9504CDFFE6A4B311CA0CBA,
@@ -142,12 +155,15 @@
 			name = SliMP3;
 			path = "";
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		29B97316FDCFA39411CA2CEA = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			path = main.m;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		29B97317FDCFA39411CA2CEA = {
 			children = (
@@ -168,12 +184,13 @@
 				55C86A9E03D6053700A80004,
 				55AF35EB03EDD79B0095DD97,
 				55E20B3603C23AB100A80165,
-				55E20B3903C23EEA00A80165,
+				4ADC897305DEA1E2001882E9,
 				5586AB6003D8BD1100A80004,
 			);
 			isa = PBXGroup;
 			path = Resources;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		29B97318FDCFA39411CA2CEA = {
 			children = (
@@ -183,12 +200,15 @@
 			name = MainMenu.nib;
 			path = "";
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		29B97319FDCFA39411CA2CEA = {
 			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
 			name = English;
 			path = English.lproj/MainMenu.nib;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		29B97323FDCFA39411CA2CEA = {
 			children = (
@@ -199,6 +219,7 @@
 			name = Frameworks;
 			path = "";
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		29B97326FDCFA39411CA2CEA = {
 			buildPhases = (
@@ -272,10 +293,10 @@
 				F5A21D2403A29B0D01FCA1B2,
 				F5A21D2603A29CF701FCA1B2,
 				F5E8E17103AEB35B01A80166,
-				5537BE1B03B799CE00A80165,
 				55CFC75C03BE358000A80165,
 				55C86B4D03D71CB100A80004,
 				5586AB6603D8BEE700A80004,
+				4ADC897005DEA1B0001882E9,
 			);
 			isa = PBXHeadersBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,7 +313,6 @@
 				F5516DF803AD562A01A80166,
 				F5E8E16E03AEB1DA01A80166,
 				55E20B3803C23AB100A80165,
-				55E20B3A03C23EEA00A80165,
 				553DCBE803CCD97400A80165,
 				55C86A9F03D6053700A80004,
 				55C86AA003D6053800A80004,
@@ -302,6 +322,7 @@
 				55C86AA603D60A4100A80004,
 				5586AB6203D8BD1100A80004,
 				55AF35EC03EDD79B0095DD97,
+				4ADC897405DEA1E2001882E9,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,10 +333,10 @@
 				29B9732CFDCFA39411CA2CEA,
 				F5A21D2303A29B0D01FCA1B2,
 				F5E8E17203AEB35B01A80166,
-				5537BE1C03B799CE00A80165,
 				55CFC75D03BE358000A80165,
 				55C86B4E03D71CB100A80004,
 				5586AB6503D8BEE700A80004,
+				4ADC897105DEA1B0001882E9,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,8 +373,13 @@
 			);
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				OPTIMIZATION_CFLAGS = "-O0";
 				OTHER_CFLAGS = "\U0001-DDEBUG=1";
+				ZERO_LINK = YES;
 			};
 			isa = PBXBuildStyle;
 			name = Development;
@@ -365,10 +391,53 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUGGING_SYMBOLS = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				OPTIMIZATION_CFLAGS = "-Os";
+				ZERO_LINK = NO;
 			};
 			isa = PBXBuildStyle;
 			name = Deployment;
+		};
+		4ADC896E05DEA1B0001882E9 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = SlimConnection.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		4ADC896F05DEA1B0001882E9 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			path = SlimConnection.mm;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		4ADC897005DEA1B0001882E9 = {
+			fileRef = 4ADC896E05DEA1B0001882E9;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		4ADC897105DEA1B0001882E9 = {
+			fileRef = 4ADC896F05DEA1B0001882E9;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		4ADC897305DEA1E2001882E9 = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
+			path = "Slim Remote.icns";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		4ADC897405DEA1E2001882E9 = {
+			fileRef = 4ADC897305DEA1E2001882E9;
+			isa = PBXBuildFile;
+			settings = {
+			};
 		};
 //4A0
 //4A1
@@ -380,30 +449,6 @@
 //552
 //553
 //554
-		5537BE1903B799CE00A80165 = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			path = SliMP3Connection.h;
-			refType = 4;
-		};
-		5537BE1A03B799CE00A80165 = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			path = SliMP3Connection.mm;
-			refType = 4;
-		};
-		5537BE1B03B799CE00A80165 = {
-			fileRef = 5537BE1903B799CE00A80165;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
-		5537BE1C03B799CE00A80165 = {
-			fileRef = 5537BE1A03B799CE00A80165;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
 		553DCBE603CCD97400A80165 = {
 			children = (
 				553DCBE703CCD97400A80165,
@@ -412,12 +457,15 @@
 			name = SmallWindow.nib;
 			path = "";
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		553DCBE703CCD97400A80165 = {
 			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
 			name = English;
 			path = English.lproj/SmallWindow.nib;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		553DCBE803CCD97400A80165 = {
 			fileRef = 553DCBE603CCD97400A80165;
@@ -433,12 +481,15 @@
 			name = DisplayTextPanel.nib;
 			path = "";
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		5586AB6103D8BD1100A80004 = {
 			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
 			name = English;
 			path = English.lproj/DisplayTextPanel.nib;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		5586AB6203D8BD1100A80004 = {
 			fileRef = 5586AB6003D8BD1100A80004;
@@ -449,14 +500,18 @@
 		5586AB6303D8BEE700A80004 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			path = DisplayTextController.m;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		5586AB6403D8BEE700A80004 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = DisplayTextController.h;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		5586AB6503D8BEE700A80004 = {
 			fileRef = 5586AB6303D8BEE700A80004;
@@ -472,8 +527,10 @@
 		};
 		55AF35EB03EDD79B0095DD97 = {
 			isa = PBXFileReference;
+			lastKnownFileType = image.tiff;
 			path = speaker.tiff;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		55AF35EC03EDD79B0095DD97 = {
 			fileRef = 55AF35EB03EDD79B0095DD97;
@@ -483,28 +540,38 @@
 		};
 		55C86A9A03D6053700A80004 = {
 			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
 			path = "Next small.icns";
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		55C86A9B03D6053700A80004 = {
 			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
 			path = "Pause small.icns";
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		55C86A9C03D6053700A80004 = {
 			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
 			path = "Play small.icns";
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		55C86A9D03D6053700A80004 = {
 			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
 			path = "Power small.icns";
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		55C86A9E03D6053700A80004 = {
 			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
 			path = "Prev small.icns";
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		55C86A9F03D6053700A80004 = {
 			fileRef = 55C86A9A03D6053700A80004;
@@ -544,12 +611,15 @@
 			name = LargeWindow.nib;
 			path = "";
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		55C86AA503D60A4100A80004 = {
 			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
 			name = English;
 			path = English.lproj/LargeWindow.nib;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		55C86AA603D60A4100A80004 = {
 			fileRef = 55C86AA403D60A4100A80004;
@@ -560,16 +630,20 @@
 		55C86B4B03D71CB100A80004 = {
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			name = SessionController.h;
 			path = Source/SessionController.h;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		55C86B4C03D71CB100A80004 = {
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			name = SessionController.m;
 			path = Source/SessionController.m;
 			refType = 2;
+			sourceTree = SOURCE_ROOT;
 		};
 		55C86B4D03D71CB100A80004 = {
 			fileRef = 55C86B4B03D71CB100A80004;
@@ -586,14 +660,18 @@
 		55CFC75A03BE358000A80165 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = ThreadNotificationCenter.h;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		55CFC75B03BE358000A80165 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
 			path = ThreadNotificationCenter.mm;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		55CFC75C03BE358000A80165 = {
 			fileRef = 55CFC75A03BE358000A80165;
@@ -615,26 +693,18 @@
 			name = Credits.rtf;
 			path = "";
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		55E20B3703C23AB100A80165 = {
 			isa = PBXFileReference;
+			lastKnownFileType = text.rtf;
 			name = English;
 			path = English.lproj/Credits.rtf;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		55E20B3803C23AB100A80165 = {
 			fileRef = 55E20B3603C23AB100A80165;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
-		55E20B3903C23EEA00A80165 = {
-			isa = PBXFileReference;
-			path = "SliMP3 Remote.icns";
-			refType = 4;
-		};
-		55E20B3A03C23EEA00A80165 = {
-			fileRef = 55E20B3903C23EEA00A80165;
 			isa = PBXBuildFile;
 			settings = {
 			};
@@ -650,10 +720,13 @@
 //F53
 //F54
 		F5516CA703AD1CA801A80166 = {
+			fallbackIsa = PBXFileReference;
 			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
 			name = Carbon.framework;
 			path = /System/Library/Frameworks/Carbon.framework;
 			refType = 0;
+			sourceTree = "<absolute>";
 		};
 		F5516D4203AD1CA901A80166 = {
 			fileRef = F5516CA703AD1CA801A80166;
@@ -663,8 +736,10 @@
 		};
 		F5516DEF03AD420201A80166 = {
 			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
 			path = Power.icns;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5516DF003AD420201A80166 = {
 			fileRef = F5516DEF03AD420201A80166;
@@ -674,8 +749,10 @@
 		};
 		F5516DF103AD4C9A01A80166 = {
 			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
 			path = Play.icns;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5516DF203AD4C9A01A80166 = {
 			fileRef = F5516DF103AD4C9A01A80166;
@@ -685,8 +762,10 @@
 		};
 		F5516DF303AD522801A80166 = {
 			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
 			path = Next.icns;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5516DF403AD522801A80166 = {
 			fileRef = F5516DF303AD522801A80166;
@@ -696,8 +775,10 @@
 		};
 		F5516DF503AD52FF01A80166 = {
 			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
 			path = Prev.icns;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5516DF603AD52FF01A80166 = {
 			fileRef = F5516DF503AD52FF01A80166;
@@ -707,8 +788,10 @@
 		};
 		F5516DF703AD562A01A80166 = {
 			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
 			path = Pause.icns;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5516DF803AD562A01A80166 = {
 			fileRef = F5516DF703AD562A01A80166;
@@ -719,14 +802,18 @@
 		F5A21D2103A29B0D01FCA1B2 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
 			path = MainWindowController.mm;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5A21D2203A29B0D01FCA1B2 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = MainWindowController.h;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5A21D2303A29B0D01FCA1B2 = {
 			fileRef = F5A21D2103A29B0D01FCA1B2;
@@ -743,8 +830,10 @@
 		F5A21D2503A29CF701FCA1B2 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = Precomp.h;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5A21D2603A29CF701FCA1B2 = {
 			fileRef = F5A21D2503A29CF701FCA1B2;
@@ -760,12 +849,15 @@
 			name = ConnectPanel.nib;
 			path = "";
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5E8E16D03AEB1DA01A80166 = {
 			isa = PBXFileReference;
+			lastKnownFileType = wrapper.nib;
 			name = English;
 			path = English.lproj/ConnectPanel.nib;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5E8E16E03AEB1DA01A80166 = {
 			fileRef = F5E8E16C03AEB1DA01A80166;
@@ -776,14 +868,18 @@
 		F5E8E16F03AEB35B01A80166 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = ConnectPanelController.h;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5E8E17003AEB35B01A80166 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
 			path = ConnectPanelController.mm;
 			refType = 4;
+			sourceTree = "<group>";
 		};
 		F5E8E17103AEB35B01A80166 = {
 			fileRef = F5E8E16F03AEB35B01A80166;
