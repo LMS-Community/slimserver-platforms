@@ -66,7 +66,7 @@ if [ -f /etc/sysconfig/slimserver ]; then . /etc/sysconfig/slimserver; fi
 # Add the $SLIMSERVER_USER if there is not one
 if [ `grep -c "^$SLIMSERVER_USER:" /etc/passwd` -eq 0 ]; then
  /usr/sbin/groupadd $SLIMSERVER_USER
- /usr/sbin/useradd -c "SlimServer" -G $SLIMSERVER_USER -d %{slimdir}
+ /usr/sbin/useradd -c "SlimServer" -g $SLIMSERVER_USER -d %{slimdir} $SLIMSERVER_USER
 fi
 
 %post
