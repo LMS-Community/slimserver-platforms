@@ -300,10 +300,9 @@ bool CMyOutputView::StartPerlServer(void)
 {
 	Started = false;
 	CString app = SLIM_APP_NAME;
-	CString svc = SLIM_SVC_NAME;
 
 	// get out if the process is already running...
-	if (GetRunningProcess(app) || GetRunningProcess(svc)) {
+	if (GetRunningProcess(app)) {
 		return 1;
 	}
 

@@ -111,11 +111,8 @@
 #define REGISTRY_ASSOCIATE_MP3			_T("Associate MP3 Files")
 
 
-// the name of the slim  server application
+// the name of the slimserver application
 #define SLIM_APP_NAME					_T("slim.exe")
-
-// the name of the SlimServer service
-#define SLIM_SVC_NAME					_T("slimsvc.exe")
 
 // timers used to poll stdout from slim 
 #define TIMER_DEBUG			1

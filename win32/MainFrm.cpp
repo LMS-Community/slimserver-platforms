@@ -494,7 +494,7 @@ void CMainFrame::OnClose()
 
 {
 	CString app = SLIM_APP_NAME;
-	if (m_bConfirmOnExit && CMyOutputView::GetRunningProcess(app)) {
+	if (m_bConfirmOnExit && CMyOutputView::GetRunningProcess(app) && CMyOutputView::DoneStarted()) {
 
 		int boxResult = AfxMessageBox(_T("You are closing the SlimServer window.  Do you also want to stop the server?"), MB_YESNOCANCEL);
 			

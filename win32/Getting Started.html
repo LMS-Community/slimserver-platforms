@@ -104,10 +104,10 @@ ol, ul, li  {  list-style-position: outside }
 		<p>To install and run the SlimServer Windows service by hand, follow these instructions:</p>
 <ol>
   <li>Open a &quot;cmd&quot; window and type &quot;<code>cd C:\Program Files\SlimServer\server</code>&quot;.</li>
-  <li>Type &quot;<code>slimsvc -install auto</code>&quot; to install the SlimServer software so it will automatically start as a Windows Service the next time you reboot.</li>
+  <li>Type &quot;<code>slim.exe -install auto</code>&quot; to install the SlimServer software so it will automatically start as a Windows Service the next time you reboot.</li>
   <li>You can start or stop the service manually by using &quot;<code>net start 
     slimp3svc</code>&quot; or &quot;<code>net stop slimp3svc</code>&quot; respectively, or by using  the Control Panels-&gt;Administrative Tools-&gt;Services application.</li>
-  <li>You can uninstall the service by stopping it, then typing &quot;<code>slimsvc -remove</code>&quot;</li>
+  <li>You can uninstall the service by stopping it, then typing &quot;<code>slim.exe -remove</code>&quot;</li>
 </ol>
 <p>Windows 98/ME users can use the &quot;Scheduled Tasks&quot; icon to schedule the &quot;SlimServer&quot; application to start automatically when the computer starts. This will also work for Windows NT/2000/XP users who don't want to use Windows Services.</p>
 <hr>
