@@ -21,7 +21,7 @@ Vendor: Slim Devices, Inc.
 URL: http://www.slimdevices.com/
 Prefix: %{prefix}
 Obsoletes: SliMP3
-          
+
 %description
 This is the Slim Devices server software.
 Point your web browser to http://localhost:9000/ to configure the server.
@@ -66,7 +66,8 @@ export SLIMSERVER_USER=slimserver
 if [ -f /etc/sysconfig/slimserver ]; then . /etc/sysconfig/slimserver; fi
 # Add the $SLIMSERVER_USER if there is not one
 if [ `grep -c "^$SLIMSERVER_USER:" /etc/passwd` -eq 0 ]; then
- /usr/sbin/useradd -c "SlimServer" -d %{slimdir} $SLIMSERVER_USER
+ /usr/sbin/useradd -c "SlimServer" -G -d %{slimdir} $SLIMSERVER_USER
+ /usr/sbin/groupadd $SLIMSERVER_USER
 fi
 
 %post
@@ -84,6 +85,10 @@ fi
 if [ ! -s /etc/slimserver.conf ] && [ -e /etc/slimp3.pref ]; then
   cp /etc/slimp3.pref /etc/slimserver.conf
 fi
+
+# Now that everything is installed, make sure the permissions are right
+chown -R slimserver.slimserver %{slimdir}
+
 /sbin/chkconfig --add slimserver
 /sbin/service slimserver restart >/dev/null 2>&1 || :
 if [ -e /etc/slimserver.conf ]; then
@@ -182,7 +187,7 @@ people were having with saving playlists and such.
 * Sun Oct 20 2002   Dean Blackketter <dean@slimdevices.com>
 - Mike Arnold told me to take out the postun directive that removes the
   passwd entry to fix upgrades.
-  
+
 * Tue Oct 01 2002	Mike Arnold <mike@razorsedge.org>
 - Made the slimp3 user's $HOME be in the correct place even with
   a relocatable package.
