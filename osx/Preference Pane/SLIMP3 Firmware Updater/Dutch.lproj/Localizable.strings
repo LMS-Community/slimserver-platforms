@@ -1,0 +1,4 @@
+"Authorization Launch Error" = "Kan de firmware niet bijwerken: bestand Update Firmware.sh ontbreekt.";
+"Expired Authorization Error" = "Kan de firmware niet bijwerken: authorisatie is verlopen.";
+"Firmware version" = "Firmware versie %@.";
+"Firmware version invalid" = "Firmware versie ongeldig.";
