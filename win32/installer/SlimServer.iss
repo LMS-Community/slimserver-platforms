@@ -75,7 +75,7 @@ Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\Run; ValueType: st
 [Run]
 Filename: {app}\SlimServer.exe; Description: Launch SlimServer application; Flags: nowait postinstall skipifsilent runmaximized
 Filename: {app}\Getting Started.html; Description: Read Getting Started document; Flags: shellexec skipifsilent postinstall
-Filename: {app}\server\slimsvc.exe; Flags: runminimized; MinVersion: 0,4.00.1381; Parameters: "-install auto -username=""{code:GetUsername|}"" -password=""{code:GetPassword|}"""; WorkingDir: {app}\server; Check: ShouldAutostart
+Filename: {app}\server\slimsvc.exe; Flags: runminimized; MinVersion: 0,4.00.1381; Parameters: "-install auto"; WorkingDir: {app}\server; Check: ShouldAutostart
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
@@ -105,8 +105,6 @@ var
 	MyPlayListFolder: String;
 	MyMusicFolder: String;
 	FileName: String;
-	Username: String;
-	Password: String;
 	AutoStart: String;
 
 function ScriptDlgPages(CurPage: Integer; BackClicked: Boolean): Boolean;
@@ -115,7 +113,6 @@ var
 	Next: Boolean;
 begin
 	FileName:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'slimserver.pref';
-	Username := '.\' + GetUserNameString();
 	
 	if ((not FileExists(FileName) or UsingWinNT()) and ((not BackClicked and (CurPage = wpSelectDir)) or (BackClicked and (CurPage = wpSelectProgramGroup)))) then 
 		begin
@@ -127,7 +124,7 @@ begin
 		
 			ScriptDlgPageOpen();
 		
-			while(CurSubPage>=0) and (CurSubPage<=3) and not Terminated do begin
+			while(CurSubPage>=0) and (CurSubPage<=2) and not Terminated do begin
 				case CurSubPage of
 					0:
 						if not FileExists(FileName) then begin
@@ -135,8 +132,13 @@ begin
 							ScriptDlgPageSetSubCaption1('Where should the SlimServer look for your music?');
 							ScriptDlgPageSetSubCaption2('Select the folder you would like the SlimServer to look for your music, then click Next.');
 		
-							if(MyMusicFolder='') then
-								MyMusicFolder := WizardDirValue;
+							if(MyMusicFolder='') then begin
+								if (not RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','My Music', MyMusicFolder)) then
+									if (RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','Personal', MyMusicFolder)) then
+										MyMusicFolder := MyMusicFolder + 'My Music'
+									else
+										MyMusicFolder := WizardDirValue;
+							end;
 		
 							// Ask for a dir until the user has entered one or click Back or Cancel
 							Next := InputDir( '', MyMusicFolder);
@@ -180,19 +182,6 @@ begin
 									if (Next and (AutoStart <> '1')) then
 										CurSubPage := CurSubPage + 1;
 
-								end;
-						end;				
-					3:
-						begin
-							if UsingWinNT() then 
-								begin
-									ScriptDlgPageSetCaption('Enter Password');
-									ScriptDlgPageSetSubCaption1('');
-									ScriptDlgPageSetSubCaption2('The installer needs the password to the local user account "' + GetUserNameString() + '" to start automatically.');
-				
-									// Ask for a dir until the user has entered one or click Back or Cancel
-									Next := InputQuery('Enter the password for the account "' + GetUserNameString() + '".', Password);
-									
 								end;
 						end;				
 				end;
@@ -262,16 +251,6 @@ begin
 	Result := S;
 end;
 
-function GetUsername(df : String): String;
-begin
-	Result := username;
-end;
-
-function GetPassword(df : String): String;
-begin
-	Result := password;
-end;
-
 function ShouldAutostart() : Boolean;
 begin
   if (AutoStart = '1') then 
@@ -299,7 +278,8 @@ begin
 			
 	if CurStep = csWizard then
 		begin
-			// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr. Returns True if successful. When False is returned, ResultStr is unmodified.
+			// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr. 
+			// Returns True if successful. When False is returned, ResultStr is unmodified.
 			if  RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then
 				begin
 				if not InstExec(RemoveQuotes(Uninstaller), '/SILENT','', True, True, SW_SHOWNORMAL, ErrorCode) then
