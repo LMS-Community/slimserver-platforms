@@ -30,7 +30,7 @@ CSlimPrefs::CSlimPrefs(const CString & filename)
 		}
 
 	}
-	catch (CException &e) {
+	catch (CException *e) {
 		TRACE ("Failed to open pref file!\n");
 	}
 
