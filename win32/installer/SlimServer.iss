@@ -173,7 +173,7 @@ begin
 									Username := '.\' + GetUserNameString();
 									ScriptDlgPageSetCaption('Enter Password');
 									ScriptDlgPageSetSubCaption1('');
-									ScriptDlgPageSetSubCaption2('The installer needs the password to the local user account "' + GetUserNameString() + '" to start automatically.  You can this field blank to disable auto startup.');
+									ScriptDlgPageSetSubCaption2('The installer needs the password to the local user account "' + GetUserNameString() + '" to start automatically.  You can this leave this field blank to disable auto startup.');
 				
 									// Ask for a dir until the user has entered one or click Back or Cancel
 									Next := InputQuery('Enter the password for the account "' + GetUserNameString() + '".', Password);
