@@ -410,7 +410,7 @@ bool CMyOutputView::StartPerlServer(void)
 	s = theApp.GetEXEPath();
 	s += _T("\\server\\");
 	s += SLIM_APP_NAME;
-	s += _T(" --cliport 9001");
+	s += _T(" --cliport 9090");
 
 
 

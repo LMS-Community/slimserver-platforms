@@ -294,7 +294,7 @@ bool ProcessControlCommands(CEvent * peTerminate, CStringArray & saCommands, int
 	if (timeout == 0) tLeft = 1; 
 
 	// try connecting - retry every 100 msecs 
-	while (!pSocket->Connect(_T("localhost"),9001) && 
+	while (!pSocket->Connect(_T("localhost"),9090) && 
 		!(::WaitForSingleObject(peTerminate->m_hObject,0) == WAIT_OBJECT_0) && 
 		tLeft > 0) {
 		Sleep(100); 
