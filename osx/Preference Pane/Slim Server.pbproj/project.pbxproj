@@ -22,6 +22,7 @@
 			sourceTree = "<group>";
 		};
 		05286B1505D4483900E88B81 = {
+			fileEncoding = 4;
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.strings;
 			name = French;
@@ -30,6 +31,7 @@
 			sourceTree = "<group>";
 		};
 		05286B2005D4485900E88B81 = {
+			fileEncoding = 4;
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.strings;
 			name = French;
@@ -382,7 +384,7 @@
 			sourceTree = "<group>";
 		};
 		089C167EFE841241C02AAC07 = {
-			fileEncoding = 10;
+			fileEncoding = 4;
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.strings;
 			name = English;
@@ -1220,7 +1222,7 @@
 			sourceTree = "<group>";
 		};
 		E7C5E14203C6163000A80172 = {
-			fileEncoding = 30;
+			fileEncoding = 4;
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.strings;
 			name = English;
@@ -1312,7 +1314,7 @@
 		};
 		E7EDF7BB03C5D22300A80172 = {
 			fallbackIsa = PBXFileReference;
-			fileEncoding = 30;
+			fileEncoding = 4;
 			isa = PBXExecutableFileReference;
 			lastKnownFileType = text.script.sh;
 			path = "Create Slim Startup.sh";
@@ -1801,7 +1803,7 @@
 			sourceTree = "<group>";
 		};
 		F56E7161035DB29001A80172 = {
-			fileEncoding = 30;
+			fileEncoding = 4;
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.strings;
 			name = English;
