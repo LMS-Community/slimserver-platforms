@@ -93,7 +93,8 @@ public:
 	afx_msg void OnOptionsSetmusicfolder();
 	afx_msg void OnOptionsSetplaylistfolder();
 	virtual void OnBeforeNavigate2(LPCTSTR lpszURL, DWORD nFlags, LPCTSTR lpszTargetFrameName, CByteArray& baPostedData, LPCTSTR lpszHeaders, BOOL* pbCancel);
-	
+	virtual void OnDocumentComplete(LPCTSTR lpszURL);
+
 	void RefreshPlayer(boolean bRefresh); 
 	afx_msg void OnTimer(UINT nIDEvent);
 };

@@ -305,25 +305,26 @@ void CMyHtmlView::OnBeforeNavigate2(LPCTSTR lpszURL, DWORD nFlags, LPCTSTR lpszT
 	else {
 		CHtmlView::OnBeforeNavigate2(lpszURL, nFlags, lpszTargetFrameName, baPostedData, lpszHeaders, pbCancel);
 		TRACE (_T("navigation successful\n"));
-
-		// A bit of a hack, display our window as soon as we 
-		// successfully started up 
-		if (!m_bAppStarted) {
-			static int ipages = 0;
-			ipages++;
-			// very ugly yet effective (make sure the 2 frames have loaded)
-			if (ipages==3) {
-				AfxGetMainWnd()->ShowWindow(SW_SHOW);
-				AfxGetMainWnd()->UpdateWindow();
-				m_bAppStarted = true;
-
-				// it would be cleaner to kill this window 
-				theApp.m_dLoading.ShowWindow(SW_HIDE); 
-			}
-		}
 	}
 }
 
+void CMyHtmlView::OnDocumentComplete(LPCTSTR lpszURL)
+{
+	TRACE (_T("Document complete\n"));
+	CHtmlView::OnDocumentComplete(lpszURL);
+	if (!m_bAppStarted) {
+		CString index =  GetHTTP_URL() + '/';
+		if (index.Compare(lpszURL) == 0) {
+			TRACE (_T("Showing main window\n"));
+			AfxGetMainWnd()->ShowWindow(SW_SHOW);
+			AfxGetMainWnd()->UpdateWindow();
+			m_bAppStarted = true;
+		
+			// it would be cleaner to kill this window 
+			theApp.m_dLoading.ShowWindow(SW_HIDE); 
+		}
+	}	
+}
 
 // a timer polls the http interface for now 
 // to check if its loaded - may be cancelled with cestron stuff 
