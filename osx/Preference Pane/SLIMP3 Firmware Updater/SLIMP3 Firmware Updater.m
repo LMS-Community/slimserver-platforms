@@ -26,7 +26,7 @@
      ** reflect. The version is the first line of the file.
      */
     
-    NSScanner *firmwareVersionScanner = [NSScanner scannerWithString:[NSString stringWithContentsOfFile:[[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/firmware/MAIN.HEX"]]];
+    NSScanner *firmwareVersionScanner = [NSScanner scannerWithString:[NSString stringWithContentsOfFile:[[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/firmware/MAIN.HEX"]]];
     
     NSString *versionString;
     
@@ -34,6 +34,8 @@
 	[firmwareVersion setStringValue:[NSString stringWithFormat:SLIMLocalizedPrefString(@"Firmware version", "Firmware version %@."), versionString]];
     else
 	[firmwareVersion setStringValue:[NSString stringWithString:SLIMLocalizedPrefString(@"Firmware version invalid", "Firmware version invalid.")]];
+
+    [NSTimer scheduledTimerWithTimeInterval: 1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
 }
 
 -(bool)authorizeUser
@@ -73,14 +75,6 @@
 -(IBAction)updateSLIMP3Firmware:(id)sender
 {
     /*
-     **  First, preauthorize the user. If they can't authorize, they can't update the firmware. The updater is
-     ** going to free the token.
-     */
-
-    if ([self authorizeUser] == NO)
-	return;
-    
-    /*
      **  Parse and validate.
      **
      **	MAC address can be entered with or without colons, and with or without spaces, but must be hex digits.
@@ -114,6 +108,15 @@
     [ipAddress setStringValue:ipAddressString];
     
     /*
+     **  Now that error checking has been done, Authorize the user.
+     ** If they can't authorize, they can't update the firmware. The updater is
+     ** going to free the token.
+     */
+    
+    if ([self authorizeUser] == NO)
+	return;
+    
+    /*
      **  Set the progress to 0, and display the window. We've set the bar to 120 "increments" to allow
      ** second-by-second updates up to the supposed two minute maximum. Cancel is not supported once
      ** the process has been spawned.
@@ -143,7 +146,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(firmwareUpdateThreadEnding:) name:NSThreadWillExitNotification object:firmwareUpdateThread];
     
-    NSString *pathToUpdater = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/firmware"];
+    NSString *pathToUpdater = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/firmware"];
     
     OSStatus myStatus;
     AuthorizationFlags myFlags = kAuthorizationFlagDefaults;
