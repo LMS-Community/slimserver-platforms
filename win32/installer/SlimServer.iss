@@ -113,10 +113,14 @@ var
 	CurSubPage: Integer;
 	Next: Boolean;
 begin
-	FileName:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'slimserver.pref';
 	
-	if ((not FileExists(FileName) or UsingWinNT()) and ((not BackClicked and (CurPage = wpSelectDir)) or (BackClicked and (CurPage = wpSelectProgramGroup)))) then 
+	if ((not BackClicked and (CurPage = wpSelectDir)) or (BackClicked and (CurPage = wpSelectProgramGroup))) then
 		begin
+		  FileName:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'slimserver.pref';
+
+		  if (not FileExists(FileName) or UsingWinNT()) then
+	       begin
+         	
 			// Insert a custom wizard page between two non custom pages
 			if  (BackClicked or FileExists(FileName)) then
 				curSubPage:=2
@@ -173,7 +177,7 @@ begin
 						end;
 					2:
 						begin
-							if UsingWinNT() then 
+							if UsingWinNT() then
 								begin
 									ScriptDlgPageSetCaption('Automatic Startup');
 									ScriptDlgPageSetSubCaption1('');
@@ -203,7 +207,12 @@ begin
 		
 			ScriptDlgPageClose(not Result);
 		end
-	else 
+		else
+		  begin
+		    Result := true;
+		  end
+		end
+	else
 		begin
 			Result := true;
 		end;
@@ -246,18 +255,14 @@ var
 	ServerDir: String;
 	Uninstaller: String;
 begin
-	if CurStep = csFinished then 
-		if not FileExists(FileName) then
-			SaveStringToFile(FileName, 'mp3dir = ' + MyMusicFolder + #13#10 + 'playlistdir = ' + MyPlayListFolder + #13#10, False);
-	
-	if CurStep = csWizard then
+	if CurStep = csCopy then
 		begin
 			// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr. 
 			// Returns True if successful. When False is returned, ResultStr is unmodified.
 			if  RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then
 				begin
 				if not InstExec(RemoveQuotes(Uninstaller), '/SILENT','', True, True, SW_SHOWNORMAL, ErrorCode) then
-					MsgBox('Problem uninstalling SLIMP3 software: ' + SysErrorMessage(ErrorCode),1,1);
+					MsgBox('Problem uninstalling SLIMP3 software: ' + SysErrorMessage(ErrorCode),mbError, MB_OK);
 			end;
 			
 			if UsingWinNT() then
@@ -268,4 +273,10 @@ begin
 					InstExec(ServicePath, '-remove', ServerDir, true, true, SW_HIDE, ErrorCode);
 				end;
 		end;
+
+
+	if CurStep = csFinished then 
+		if not FileExists(FileName) then
+			SaveStringToFile(FileName, 'mp3dir = ' + MyMusicFolder + #13#10 + 'playlistdir = ' + MyPlayListFolder + #13#10, False);
+	
 end;
