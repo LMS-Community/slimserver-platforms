@@ -1,5 +1,5 @@
 #!/bin/sh
-SERVER_RUNNING=`ps -ax | grep "slimserver\.pl|slimp3\.pl\|slimp3d|slimd" | grep -v grep | cat`
+SERVER_RUNNING=`ps -ax | grep "slimserver\.pl\|slimp3\.pl\|slimp3d\|slimd" | grep -v grep | cat`
 if [ z"$SERVER_RUNNING" != z ] ; then
     echo "Please stop the Slim Server before running the installer."
     exit 1
@@ -11,16 +11,16 @@ if [ z"$SERVER_RUNNING" != z ] ; then
     exit 1
 fi
 
-if [ -e "/Library/PreferencePanes/SLIMP3 Server.prefPane" ] ; then
-    rm -r "/Library/PreferencePanes/SLIMP3 Server.prefPane" 2>&1
+if [ -e /Library/PreferencePanes/SLIMP3\ Server.prefPane ] ; then
+    rm -r /Library/PreferencePanes/SLIMP3\ Server.prefPane 2>&1
 fi
 
 if [ -e ~/Library/PreferencePanes/SLIMP3\ Server.prefPane ] ; then
     rm -r ~/Library/PreferencePanes/SLIMP3\ Server.prefPane 2>&1
 fi
 
-if [ -e "/Library/PreferencePanes/Slim Server.prefPane" ] ; then
-    rm -r "/Library/PreferencePanes/Slim Server.prefPane" 2>&1
+if [ -e /Library/PreferencePanes/Slim\ Server.prefPane ] ; then
+    rm -r /Library/PreferencePanes/Slim\ Server.prefPane 2>&1
 fi
 
 if [ -e ~/Library/PreferencePanes/Slim\ Server.prefPane ] ; then
