@@ -28,14 +28,14 @@
 	     **  Now, publish the SLIMP3 specific HTTP service for easy client discovery.
 	     */
 
-	    slimp3SpecificHTTPNetService = [[Rendezvous alloc] initWithDomain:@"" type:@"_slimdevices_slimp3_http._tcp." name:@"SLIMP3" port:9000];
+	    slimp3SpecificHTTPNetService = [[Rendezvous alloc] initWithDomain:@"" type:@"_slimdevices_slimserver_http._tcp." name:@"SLIMP3" port:9000];
 	    [slimp3SpecificHTTPNetService setDelegate:self];
 	    
 	    /*
 	     **  Now, publish the SLIMP3 specific CLI service for easy client discovery.
 	     */
 
-	    slimp3SpecificCLINetService = [[Rendezvous alloc] initWithDomain:@"" type:@"_slimdevices_slimp3_cli._tcp." name:@"SLIMP3" port:9001];
+	    slimp3SpecificCLINetService = [[Rendezvous alloc] initWithDomain:@"" type:@"_slimdevices_slimserver_cli._tcp." name:@"SLIMP3" port:9001];
 	    [slimp3SpecificCLINetService setDelegate:self];
 	}
     }
