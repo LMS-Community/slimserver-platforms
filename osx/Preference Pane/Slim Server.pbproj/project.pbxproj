@@ -5,20 +5,6 @@
 	};
 	objectVersion = 39;
 	objects = {
-		051887A2054C870600454EC2 = {
-			expectedFileType = image.icns;
-			isa = PBXFileReference;
-			name = slimp3updater.icns;
-			path = "SLIMP3 Firmware Updater/slimp3updater.icns";
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		051887A3054C870600454EC2 = {
-			fileRef = 051887A2054C870600454EC2;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
 		054032D203F42BC800000167 = {
 			expectedFileType = image.icns;
 			isa = PBXFileReference;
@@ -204,6 +190,7 @@
 			dependencies = (
 				E736AD1E03C74D2700A80172,
 				E7447F9E03D9079A00A80172,
+				E74E8746054D735100BE2913,
 			);
 			isa = PBXBundleTarget;
 			name = "Slim Server";
@@ -611,6 +598,32 @@
 			settings = {
 			};
 		};
+		E74E8745054D735100BE2913 = {
+			containerPortal = 089C1669FE841209C02AAC07;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = E7A8BC7F054C439400876841;
+			remoteInfo = "SLIMP3 Firmware Updater";
+		};
+		E74E8746054D735100BE2913 = {
+			isa = PBXTargetDependency;
+			target = E7A8BC7F054C439400876841;
+			targetProxy = E74E8745054D735100BE2913;
+		};
+		E74E875E054D76A400BE2913 = {
+			expectedFileType = image.icns;
+			isa = PBXFileReference;
+			name = slimp3updater.icns;
+			path = "SLIMP3 Firmware Updater/slimp3updater.icns";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		E74E875F054D76A500BE2913 = {
+			fileRef = E74E875E054D76A400BE2913;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		E760389203C61F6A00A80172 = {
 			children = (
 				E736AD1A03C74D0000A80172,
@@ -670,7 +683,7 @@
 				E7A8BC91054C44C400876841,
 				E7A8BC92054C44C400876841,
 				E7A8BD24054C4F4E00876841,
-				051887A3054C870600454EC2,
+				E74E875F054D76A500BE2913,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -877,10 +890,10 @@
 		};
 		E7A8BCA3054C455900876841 = {
 			children = (
-				051887A2054C870600454EC2,
 				E7A8BD22054C4F4E00876841,
 				E7A8BC8A054C44C400876841,
 				E7A8BC8C054C44C400876841,
+				E74E875E054D76A400BE2913,
 			);
 			isa = PBXGroup;
 			name = Resources;
@@ -1357,7 +1370,7 @@
 			isa = PBXShellScriptBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /usr/bin/perl;
-			shellScript = "$distdir = 'build/Slim Server.prefPane/Contents/server';\n\nprint \"Removing old: $distdir\\n\";\nsystem \"rm -rf '$distdir'\";\n\nprint \"Copying: $distdir\\n\";\nsystem \"cp -Rf ../../../server '$distdir'\";\nsystem \"chmod a+x '$distdir/slimserver.pl'\";\n\nprint \"Copying: Slim Launcher.app\\n\";\nsystem \"ditto 'build/Slim Launcher.app' '$distdir/Slim Launcher.app'\";\n\nif (-e \"build/SlimLauncher\") {\n    system \"ditto 'build/SlimLauncher' '$distdir'\";\n}\n\nprint \"Copying: $distdir/firmware\\n\";\nsystem \"mkdir '$distdir/firmware'\";\nsystem \"cp ../../../bootload/update_firmware.pl '$distdir/firmware'\";\nsystem \"cp ../../../bootload/MAIN.HEX '$distdir/firmware'\";\nsystem \"cp 'Update Firmware.sh' '$distdir/firmware'\";\n\ndie \"copy failed\" unless (-d $distdir);\ndie \"copy failed\" unless (-d $distdir . \"/firmware\");\n\nopen FIND, 'find \\''.$distdir.'\\' -name CVS -type d -print|';\n\nwhile ($cvsdir=<FIND>) {\n  chomp ($cvsdir);\n  print \"Deleting CVS: $cvsdir\\n\";\n  `rm -rf '$cvsdir'`;\n}\nclose FIND; \n\nopen FIND, 'ls  \\''.$distdir.'/lib/CPAN/arch\\'|';\nwhile ($arches=<FIND>) {\n  chomp ($arches);\n  if ($arches !~ /darwin/) {\n\t  $thepath = $distdir.'/lib/CPAN/arch/'.$arches;\n\t  print \"Deleting non-darwin arch stuff: $thepath\\n\";\n\t  `rm -rf '$thepath'`;\n  }\n}\n\n";
+			shellScript = "$distdir = 'build/Slim Server.prefPane/Contents/server';\n$firmwaredir = 'build/SLIMP3 Firmware Updater.app/Contents';\n\nprint \"Removing old: $distdir\\n\";\nsystem \"rm -rf '$distdir'\";\n\nprint \"Copying: $distdir\\n\";\nsystem \"cp -Rf ../../../server '$distdir'\";\nsystem \"chmod a+x '$distdir/slimserver.pl'\";\n\nprint \"Copying: Slim Launcher.app\\n\";\nsystem \"ditto 'build/Slim Launcher.app' '$distdir/Slim Launcher.app'\";\n\nif (-e \"build/SlimLauncher\") {\n    system \"ditto 'build/SlimLauncher' '$distdir'\";\n}\n\nprint \"Copying: $firmwaredir/firmware\\n\";\nsystem \"mkdir '$firmwaredir/firmware'\";\nsystem \"cp ../../../slimp3/updater/update_firmware.pl '$firmwaredir/firmware'\";\nsystem \"cp ../../../slimp3/updater/MAIN.HEX '$firmwaredir/firmware'\";\nsystem \"cp 'Update Firmware.sh' '$firmwaredir/firmware'\";\n\ndie \"copy failed\" unless (-d $distdir);\ndie \"copy failed\" unless (-d $firmwaredir);\ndie \"copy failed\" unless (-d $firmwaredir . \"/firmware\");\n\nopen FIND, 'find \\''.$distdir.'\\' -name CVS -type d -print|';\n\nwhile ($cvsdir=<FIND>) {\n  chomp ($cvsdir);\n  print \"Deleting CVS: $cvsdir\\n\";\n  `rm -rf '$cvsdir'`;\n}\nclose FIND; \n\nopen FIND, 'ls  \\''.$distdir.'/lib/CPAN/arch\\'|';\nwhile ($arches=<FIND>) {\n  chomp ($arches);\n  if ($arches !~ /darwin/) {\n\t  $thepath = $distdir.'/lib/CPAN/arch/'.$arches;\n\t  print \"Deleting non-darwin arch stuff: $thepath\\n\";\n\t  `rm -rf '$thepath'`;\n  }\n}\n\n";
 		};
 		F52F881A035DCC9901A80172 = {
 			buildActionMask = 2147483647;
