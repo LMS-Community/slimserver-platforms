@@ -270,29 +270,25 @@ begin
 			
 			if UsingWinNT() then
 				begin
-					InstExec('net', 'stop slimsvc', '', true, false, SW_SHOWNORMAL, ErrorCode);
+					InstExec('net', 'stop slimsvc', '', true, false, SW_HIDE, ErrorCode);
 
-					MsgBox('stopped slimsvc ' + SysErrorMessage(ErrorCode),mbError, MB_OK);
 
 					ServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 					ServicePath:= ServerDir + 'slimsvc.exe';		
 					
 					if FileExists(ServicePath) then
 						begin	
-							InstExec(ServicePath, '-remove', ServerDir, true, false, SW_SHOWNORMAL, ErrorCode);		
+							InstExec(ServicePath, '-remove', ServerDir, true, false, SW_HIDE, ErrorCode);		
 							DeleteFile(ServicePath);
-     				  MsgBox('removed and deleted ' + ServicePath + ' with error:' + SysErrorMessage(ErrorCode),mbError, MB_OK);
 						end
 					else
 						begin
 							ServicePath:= ServerDir + 'slim.exe';
-							InstExec(ServicePath, '-remove', ServerDir, true, false, SW_SHOWNORMAL, ErrorCode);
-     				  MsgBox('removed  ' + ServicePath +' with error:' + SysErrorMessage(ErrorCode),mbError, MB_OK);
+							InstExec(ServicePath, '-remove', ServerDir, true, false, SW_HIDE, ErrorCode);
 						end;
 					
 					archPath := ServerDir + AddBackslash('CPAN') + AddBackslash('arch');
 					DelTree(archPath, true, true, true);
-					MsgBox('deleted ' + archPath, mbError, MB_OK);
 				end;
 		end;
 
