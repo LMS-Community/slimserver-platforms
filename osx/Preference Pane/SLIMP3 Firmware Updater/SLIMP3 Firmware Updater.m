@@ -2,7 +2,7 @@
 //  SLIMP3 Firmware Updater.m
 //  Slim Server 
 //
-//  Created by Dave "The Dagger" Nanian on Sun Oct 26 2003.
+//  Created by Dave "Free Your Filenames" Nanian on Sun Oct 26 2003.
 //  Copyright (c) 2003 Slim Devices, Inc. All rights reserved.
 //
 
