@@ -73,7 +73,7 @@ Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\SlimServer; Filenam
 Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\Run; ValueType: string; ValueName: slimserver; ValueData: {app}\SlimServer.exe; MinVersion: 4.0,0; OnlyBelowVersion: 4.90.3001,0; Flags: uninsdeletevalue
 
 [Run]
-Filename: {app}\server\slimsvc.exe; Flags: runminimized postinstall; MinVersion: 0,4.00.1381; Parameters: "-install auto"; WorkingDir: {app}\server; Check: ShouldAutostart
+Filename: {app}\server\slimsvc.exe; StatusMsg: "Setting up auto-start..."; Flags: runminimized; MinVersion: 0,4.00.1381; Parameters: "-install auto"; WorkingDir: {app}\server; Check: ShouldAutostart
 Filename: {app}\SlimServer.exe; Description: Launch SlimServer application; Flags: nowait postinstall skipifsilent runmaximized
 Filename: {app}\Getting Started.html; Description: Read Getting Started document; Flags: shellexec skipifsilent postinstall
 
