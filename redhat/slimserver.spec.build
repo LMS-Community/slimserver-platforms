@@ -48,7 +48,6 @@ mkdir -p $RPM_BUILD_ROOT/etc/rc.d/init.d
 mkdir -p $RPM_BUILD_ROOT/etc/sysconfig
 mkdir -p $RPM_BUILD_ROOT%{slimdir}
 cp -R . $RPM_BUILD_ROOT%{slimdir}
-chown -R slimserver $RPM_BUILD_ROOT%{slimdir}
 chmod +x $RPM_BUILD_ROOT%{slimdir}/slimserver.pl
 install -D -m755 %SOURCE1 $RPM_BUILD_ROOT/etc/rc.d/init.d/slimserver
 install -D -m644 %SOURCE2 $RPM_BUILD_ROOT/etc/sysconfig/slimserver
@@ -222,4 +221,5 @@ people were having with saving playlists and such.
 
 * Wed Aug 28 2002	Victor Brilon <victor@vail.net>
 - First release
+
 
