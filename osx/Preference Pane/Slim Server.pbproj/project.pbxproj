@@ -9,6 +9,7 @@
 			fileEncoding = 4;
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.strings;
+			lineEnding = 0;
 			name = French;
 			path = French.lproj/InfoPlist.strings;
 			refType = 4;
@@ -48,14 +49,6 @@
 			refType = 4;
 			sourceTree = "<group>";
 		};
-		05286B2C05D4488400E88B81 = {
-			isa = PBXFileReference;
-			lastKnownFileType = text.plist.strings;
-			name = French;
-			path = French.lproj/Localizable.strings;
-			refType = 4;
-			sourceTree = "<group>";
-		};
 		054032D203F42BC800000167 = {
 			isa = PBXFileReference;
 			lastKnownFileType = image.icns;
@@ -92,8 +85,10 @@
 			remoteInfo = "Slim Server";
 		};
 		0591BECD05FCCEBA00F5DCAE = {
+			fileEncoding = 4;
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.strings;
+			lineEnding = 0;
 			name = Dutch;
 			path = Installer/Dutch.lproj/InfoPlist.strings;
 			refType = 4;
@@ -132,8 +127,10 @@
 			sourceTree = "<group>";
 		};
 		0591BF0105FCCF9200F5DCAE = {
+			fileEncoding = 4;
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.strings;
+			lineEnding = 0;
 			name = Dutch;
 			path = Dutch.lproj/InfoPlist.strings;
 			refType = 4;
@@ -460,6 +457,7 @@
 			fileEncoding = 4;
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.strings;
+			lineEnding = 0;
 			name = English;
 			path = English.lproj/InfoPlist.strings;
 			refType = 4;
@@ -542,6 +540,26 @@
 //102
 //103
 //104
+//C60
+//C61
+//C62
+//C63
+//C64
+		C6A9CF550601257A00C3E0BF = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
+			lineEnding = 0;
+			name = French;
+			path = Installer/French.lproj/Localizable.strings;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+//C60
+//C61
+//C62
+//C63
+//C64
 //E70
 //E71
 //E72
@@ -1366,7 +1384,7 @@
 		E7D4F10C054D98D0009AFDA0 = {
 			children = (
 				E7D4F10D054D98D0009AFDA0,
-				05286B2C05D4488400E88B81,
+				C6A9CF550601257A00C3E0BF,
 				0591BED005FCCED400F5DCAE,
 			);
 			isa = PBXVariantGroup;
