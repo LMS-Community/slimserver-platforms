@@ -240,37 +240,21 @@ bool CMyOutputView::DoneStarted(void) {
 
 bool CMyOutputView::StopPerlServer(void) {
 	BOOL Success = true;
-	if (DoneStarted()) {
-		// try to kill our slim process 
-		if (!TerminateProcess (ProcessInfo.hProcess, 0)) {
-			AfxMessageBox(_T("Warning:  Couldn't stop the SlimServer process."), MB_OK);
-		}
 
-		// cleanup - probably should put some debugging here ... 
+	CString app = SLIM_APP_NAME;
+	DWORD dProcess = GetRunningProcess(app);
+	if (dProcess) {
+		HANDLE hProcess = OpenProcess(PROCESS_TERMINATE,FALSE,dProcess);
 
-		Success = CloseHandle(ProcessInfo.hThread);
-		Success = CloseHandle(ProcessInfo.hProcess);
-		Success = CloseHandle(PipeReadHandle);
-		Success = CloseHandle(PipeWriteHandle);
-
-	} else {
-		// if we didn't start it, see if there's another one to kill,  kill, kill...
-		CString app = SLIM_APP_NAME;
-		DWORD dProcess = GetRunningProcess(app);
-		if (dProcess) {
-			HANDLE hProcess = OpenProcess(PROCESS_TERMINATE,FALSE,dProcess);
-
-			if (hProcess) {
-				if (!TerminateProcess(hProcess,0)) {
-					AfxMessageBox(_T("Problem: Couldn't stop the SlimServer process. (2)"), MB_OK);
-				}
-				CloseHandle (hProcess); 
-			} else {
-				AfxMessageBox(_T("Problem: Couldn't find running server process to terminate."), MB_OK);
+		if (hProcess) {
+			if (!TerminateProcess(hProcess,0)) {
+				AfxMessageBox(_T("Problem: Couldn't stop the SlimServer process. (2)"), MB_OK);
 			}
+			CloseHandle (hProcess); 
+		} else {
+			AfxMessageBox(_T("Problem: Couldn't find running server process to terminate."), MB_OK);
 		}
 	}
-
 
 	return (bool)Success;
 }

@@ -53,8 +53,8 @@ Source: License.txt; DestDir: {app}
 Source: server\*.*; DestDir: {app}\server; Flags: comparetimestamp recursesubdirs
 
 [INI]
-Filename: {app}\Visit Slim Devices.url; Section: InternetShortcut; Key: URL; String: http://www.slimdevices.com
-Filename: {app}\SlimServer Web Interface.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000
+Filename: {app}\Visit Slim Devices.url; Section: InternetShortcut; Key: URL; String: http://www.slimdevices.com; Flags: uninsdeletesection
+Filename: {app}\SlimServer Web Interface.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000; Flags: uninsdeletesection
 
 [Icons]
 Name: {group}\SlimServer; Filename: {app}\SlimServer.exe
@@ -66,7 +66,6 @@ Name: {group}\Uninstall SlimServer; Filename: {uninstallexe}
 Name: {userdesktop}\SlimServer; Filename: {app}\SlimServer.exe; Tasks: desktopicon
 Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\SlimServer; Filename: {app}\SlimServer.exe; Tasks: quicklaunchicon
 
-
 [Registry]
 ;
 ; Create the registry key to run the service if running on Win9X (inc. ME)
@@ -74,22 +73,26 @@ Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\SlimServer; Filenam
 Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\Run; ValueType: string; ValueName: slimserver; ValueData: {app}\SlimServer.exe; MinVersion: 4.0,0; OnlyBelowVersion: 4.90.3001,0; Flags: uninsdeletevalue
 
 [Run]
-;
-; Only give the option to install as a service if running WinNT 4 at a minimum (any 'NT' system is ok - 2k, xp etc)
-;
-Filename: {app}\server\slimsvc.exe; Description: Install SlimServer as a Windows service; Flags: postinstall runminimized; MinVersion: 0,4.00.1381; Parameters: -install auto; WorkingDir: {app}\server
-Filename: net; Description: Start Slim Windows service; Parameters: start slimsvc; Flags: postinstall runminimized; MinVersion: 0,4.00.1381
 Filename: {app}\SlimServer.exe; Description: Launch SlimServer application; Flags: nowait postinstall skipifsilent runmaximized
-;Filename: {app}\Release Notes.html; Description: View Release Notes; Flags: nowait shellexec postinstall unchecked
+Filename: {app}\Getting Started.html; Description: Read Getting Started document; Flags: shellexec skipifsilent postinstall
+Filename: {app}\server\slimsvc.exe; Flags: runminimized; MinVersion: 0,4.00.1381; Parameters: -install auto -username={code:GetUsername|} -password={code:GetPassword|}; WorkingDir: {app}\server; Check: HavePassword
+Filename: net; Parameters: start slimsvc; Flags: runminimized; MinVersion: 0,4.00.1381; Check: HavePassword
 
 [UninstallDelete]
-;Type: files; Name: {app}\server\SLIM.PRF
+Type: dirifempty; Name: {app}
+Type: dirifempty; Name: {app}\server
+Type: dirifempty; Name: {app}\server\IR
+Type: dirifempty; Name: {app}\server\Plugins
+Type: dirifempty; Name: {app}\server\HTML
+Type: files; Name: {app}\server\slimserver.pref
+Type: files; Name: {app}\Visit Slim Devices.url
+Type: files; Name: {app}\SlimServer Web Interface.url
 
 [_ISTool]
 EnableISX=true
 
 [UninstallRun]
-Filename: net; Parameters: stop slimsvc; Flags: runminimized skipifdoesntexist; MinVersion: 0,4.00.1381
+Filename: net; Parameters: stop slimsvc; Flags: runminimized; MinVersion: 0,4.00.1381
 Filename: {app}\server\slimsvc.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
 
 [Code]
@@ -97,12 +100,14 @@ Filename: {app}\server\slimsvc.exe; Parameters: -remove; WorkingDir: {app}\serve
 	This section, along with [_ISTool] EnableISX=true
 	means that you must compile the script with My Inno Setup Extensions -
 	- see : http://www.wintax.nl/isx/ for the latest version.
-
 }
+
 var
 	MyPlayListFolder: String;
 	MyMusicFolder: String;
 	FileName: String;
+	Username: String;
+	Password: String;
 
 function ScriptDlgPages(CurPage: Integer; BackClicked: Boolean): Boolean;
 var
@@ -111,76 +116,91 @@ var
 begin
 	FileName:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'slimserver.pref';
 	
-	if (not FileExists(FileName) and ((not BackClicked and (CurPage = wpSelectDir)) or (BackClicked and (CurPage = wpSelectProgramGroup)))) then begin
-		// Insert a custom wizard page between two non custom pages
-	if not BackClicked then
-		curSubPage:=0
-	else
-		curSubPage:=1;
-
-	ScriptDlgPageOpen();
-
-	while(CurSubPage>=0) and (CurSubPage<=1) and not Terminated do begin
-		case CurSubPage of
-			0:
-				begin
-					ScriptDlgPageSetCaption('Select your Music Folder');
-					ScriptDlgPageSetSubCaption1('Where should the SlimServer look for your music?');
-					ScriptDlgPageSetSubCaption2('Select the folder you would like the SlimServer to look for your music, then click Next.');
-
-					if(MyMusicFolder='') then
-						MyMusicFolder := WizardDirValue;
-
-					// Ask for a dir until the user has entered one or click Back or Cancel
-					Next := InputDir( '', MyMusicFolder);
-
-					while Next and (MyMusicFolder = '') do begin
-						MsgBox(SetupMessage(msgInvalidPath), mbError, MB_OK);
-						Next := InputDir('', MyMusicFolder);
-					end;
+	if ((not FileExists(FileName) or UsingWinNT()) and ((not BackClicked and (CurPage = wpSelectDir)) or (BackClicked and (CurPage = wpSelectProgramGroup)))) then 
+		begin
+			// Insert a custom wizard page between two non custom pages
+			if  (BackClicked or FileExists(FileName)) then
+				curSubPage:=2
+			else
+				curSubPage:=0;
+		
+			ScriptDlgPageOpen();
+		
+			while(CurSubPage>=0) and (CurSubPage<=2) and not Terminated do begin
+				case CurSubPage of
+					0:
+						if not FileExists(FileName) then begin
+							ScriptDlgPageSetCaption('Select your Music Folder');
+							ScriptDlgPageSetSubCaption1('Where should the SlimServer look for your music?');
+							ScriptDlgPageSetSubCaption2('Select the folder you would like the SlimServer to look for your music, then click Next.');
+		
+							if(MyMusicFolder='') then
+								MyMusicFolder := WizardDirValue;
+		
+							// Ask for a dir until the user has entered one or click Back or Cancel
+							Next := InputDir( '', MyMusicFolder);
+		
+							while Next and (MyMusicFolder = '') do begin
+								MsgBox(SetupMessage(msgInvalidPath), mbError, MB_OK);
+								Next := InputDir('', MyMusicFolder);
+							end;
+						end;
+					1:
+						if not FileExists(FileName) then begin
+							ScriptDlgPageSetCaption('Select your Playlist Folder');
+							ScriptDlgPageSetSubCaption1('Where should SlimServer look for an store your Playlists?');
+							ScriptDlgPageSetSubCaption2('Select the folder you would like the SlimServer to look for or store your playlists, then click Next.');
+		
+							if(MyPlayListFolder='') then begin
+								if(MyMusicFolder<>'') then
+									MyPlayListFolder:=MyMusicFolder
+								else
+									MyPlayListFolder := WizardDirValue;
+							end;
+		
+							// Ask for a dir until the user has entered one or click Back or Cancel
+							Next := InputDir( '', MyPlayListFolder);
+		
+							while Next and (MyPlayListFolder = '') do begin
+								MsgBox(SetupMessage(msgInvalidPath), mbError, MB_OK);
+								Next := InputDir('', MyPlayListFolder);
+							end;
+						end;
+					2:
+						begin
+							if UsingWinNT() then 
+								begin
+									Username := '.\' + GetUserNameString();
+									ScriptDlgPageSetCaption('Enter Password');
+									ScriptDlgPageSetSubCaption1('');
+									ScriptDlgPageSetSubCaption2('The installer needs the password to the local user account "' + GetUserNameString() + '" to start automatically.  You can this field blank to disable auto startup.');
+				
+									// Ask for a dir until the user has entered one or click Back or Cancel
+									Next := InputQuery('Enter the password for the account "' + GetUserNameString() + '".', Password);
+									
+								end;
+						end;				
 				end;
-			1:
-				begin
-					ScriptDlgPageSetCaption('Select your Playlist Folder');
-					ScriptDlgPageSetSubCaption1('Where should SlimServer look for / store your Playlists ?');
-					ScriptDlgPageSetSubCaption2('Select the folder you would like the SlimServer to look for or store your playlists, then click Next.');
-
-					if(MyPlayListFolder='') then begin
-						if(MyMusicFolder<>'') then
-							MyPlayListFolder:=MyMusicFolder
-						else
-							MyPlayListFolder := WizardDirValue;
-					end;
-
-					// Ask for a dir until the user has entered one or click Back or Cancel
-					Next := InputDir( '', MyPlayListFolder);
-
-					while Next and (MyPlayListFolder = '') do begin
-						MsgBox(SetupMessage(msgInvalidPath), mbError, MB_OK);
-						Next := InputDir('', MyPlayListFolder);
-					end;
-				end;
-
+		
+				if Next then begin
+						{ Go to the next page, but only if the user entered correct information }
+					CurSubPage := CurSubPage + 1;
+				end else
+					CurSubPage := CurSubPage - 1;
+		
+			end;
+			
+			if not BackClicked then
+				Result:=Next
+			else
+				Result:=not Next;
+		
+			ScriptDlgPageClose(not Result);
+		end
+	else 
+		begin
+			Result := true;
 		end;
-
-		if Next then begin
-				{ Go to the next page, but only if the user entered correct information }
-			CurSubPage := CurSubPage + 1;
-		end else
-			CurSubPage := CurSubPage - 1;
-
-	end;
-
-	if not BackClicked then
-		Result:=Next
-	else
-		Result:=not Next;
-
-	ScriptDlgPageClose(not Result);
-
-	end
-	else
-		Result := True;
 end;
 
 function NextButtonClick(CurPage: Integer): Boolean;
@@ -221,6 +241,23 @@ begin
 	Result := S;
 end;
 
+function GetUsername(df : String): String;
+begin
+	Result := username;
+end;
+
+function GetPassword(df : String): String;
+begin
+	Result := password;
+end;
+
+function HavePassword() : Boolean;
+begin
+  if (Password = '') then 
+  	Result := false
+  else
+  	Result := true;
+end;
 
 procedure CurStepChanged(CurStep: Integer);
 var
@@ -232,28 +269,28 @@ var
 begin
 	if CurStep = csFinished then
 		begin
-		if not FileExists(FileName) then
-			begin
-				res:= SaveStringToFile(FileName, 'mp3dir = ' + MyMusicFolder + #13#10, true);
+			if not FileExists(FileName) then
+				begin
+					res:= SaveStringToFile(FileName, 'mp3dir = ' + MyMusicFolder + #13#10, true);
 					res:= SaveStringToFile(FileName, 'playlistdir = ' + MyPlayListFolder + #13#10, true);
-				end;
-// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr. Returns True if successful. When False is returned, ResultStr is unmodified. 
-  	if  RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then
-	 	begin
-	   		if not InstExec(RemoveQuotes(Uninstaller), '/SILENT','', True, True, SW_SHOWNORMAL, ErrorCode) then
-	   		  MsgBox('Problem uninstalling SLIMP3 software: ' + SysErrorMessage(ErrorCode),1,1);
-	 	end;
-		end;			
-
-	if UsingWinNT() then
+				end;			if UsingWinNT() then
+		end;
+			
+	if CurStep = csWizard then
 		begin
-		if CurStep = csWizard then
-			begin
-				InstExec('net', 'stop slimsvc', '', True, True, SW_HIDE, ErrorCode);
-				ServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-				ServicePath:= ServerDir + AddBackslash('slimsvc.exe');
-
-				InstExec(ServicePath, '-remove', ServerDir, true, true, SW_HIDE, ErrorCode);
+			// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr. Returns True if successful. When False is returned, ResultStr is unmodified.
+			if  RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then
+				begin
+				if not InstExec(RemoveQuotes(Uninstaller), '/SILENT','', True, True, SW_SHOWNORMAL, ErrorCode) then
+					MsgBox('Problem uninstalling SLIMP3 software: ' + SysErrorMessage(ErrorCode),1,1);
 			end;
+			
+			if UsingWinNT() then
+				begin
+					InstExec('net', 'stop slimsvc', '', True, True, SW_HIDE, ErrorCode);
+					ServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
+					ServicePath:= ServerDir + AddBackslash('slimsvc.exe');
+					InstExec(ServicePath, '-remove', ServerDir, true, true, SW_HIDE, ErrorCode);
+				end;
 		end;
 end;
