@@ -256,7 +256,7 @@ bool TestHTTP(CEvent *peTerminate, int port, int timeout)
 		TRACE("passed command: %s\n", sBuf);
 					
 		// waiting info 
-		while ((l = pSocket->Receive(buffer,sizeof(buffer)-sizeof(char))) > 0)
+		if ((l = pSocket->Receive(buffer,sizeof(buffer)-sizeof(char))) > 0)
 		{
 			buffer[l] = 0; 
 			sBuf = buffer;
