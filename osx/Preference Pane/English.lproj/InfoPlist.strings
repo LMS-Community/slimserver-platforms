@@ -1,7 +1,7 @@
 ﻿/* Localized versions of Info.plist keys */
 
 CFBundleName = "SlimServer";
-CFBundleShortVersionString = "6.0b3";
-CFBundleGetInfoString = "SlimServer version 6.0b3, Copyright 2002-2005 Slim Devices, Inc.";
+CFBundleShortVersionString = "6.0.0";
+CFBundleGetInfoString = "SlimServer version 6.0.0, Copyright 2002-2005 Slim Devices, Inc.";
 NSHumanReadableCopyright = "Copyright © 2002-2005 Slim Devices, Inc., all rights reserved.";
 NSPrefPaneIconLabel = "SlimServer";
