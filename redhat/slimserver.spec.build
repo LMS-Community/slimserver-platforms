@@ -71,14 +71,12 @@ fi
 # Convert / to \/ for the sed substitution
 if [ `grep -c PREFIX /etc/sysconfig/slimserver` -gt 0 ]; then
 	DEST_FILE=/etc/sysconfig/slimserver
-else
-	DEST_FILE=/etc/sysconfig/slimserver.rpmnew
-fi
-SLIMSERVER_PREFIX=`echo %{slimdir} | sed 's/\//\\\\\//g'`
-sed "s/PREFIX/$SLIMSERVER_PREFIX/" $DEST_FILE > /tmp/slimserver.$$
-if [ -s /tmp/slimserver.$$ ]; then
- cp /tmp/slimserver.$$ $DEST_FILE
- rm /tmp/slimserver.$$
+	SLIMSERVER_PREFIX=`echo %{slimdir} | sed 's/\//\\\\\//g'`
+	sed "s/PREFIX/$SLIMSERVER_PREFIX/" $DEST_FILE > /tmp/slimserver.$$
+	if [ -s /tmp/slimserver.$$ ]; then
+ 		cp /tmp/slimserver.$$ $DEST_FILE
+ 		rm /tmp/slimserver.$$
+	fi
 fi
 if [ ! -s /etc/slimserver.conf ] && [ -e /etc/slimp3.pref ]; then
   cp /etc/slimp3.pref /etc/slimserver.conf
