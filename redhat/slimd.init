@@ -6,7 +6,7 @@
 # chkconfig: 345 80 30
 # description: Slim streaming MP3 server
 # processname: slimserver.pl
-# config: /etc/slimd.pref
+# config: /etc/slimd.conf
 
 # Source function library.
 . /etc/rc.d/init.d/functions

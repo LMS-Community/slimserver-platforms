@@ -119,6 +119,10 @@ fi
 %attr(-, root, root) %config(noreplace) /etc/sysconfig/slimd
 
 %changelog
+* Fri Aug 1 2003 kdf
+- Change user to slim, install to /usr/local/slimd for consistency
+- Copy old slimp3.pref if it exists and slimd.conf is zero length (new)
+
 * Thu May 22 2003 dean
 Victor Brilon submitted a patch:
 - Got rid of the -r param. On RedHat this creates a system account w/a 
