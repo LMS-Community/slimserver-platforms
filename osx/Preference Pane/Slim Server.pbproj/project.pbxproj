@@ -6,6 +6,7 @@
 	objectVersion = 39;
 	objects = {
 		05286B0705D4480F00E88B81 = {
+			fileEncoding = 4;
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.strings;
 			name = French;

@@ -1,10 +1,6 @@
-"Start Server" = "Démarrer";
-"Stop Server" = "Arrêter";
-"Start Server Description" = "Cliquez sur ce bouton pour démarrer SlimServer. Une fois
-démarré, les platines Slim pourront accéder à votre discothèque.";
-"Stop Server Description" = "Cliquez sur ce bouton pour arrêter SlimServer. Une fois arrêté,
-les platines Slim ne pourront pas accéder à votre discothèque.";
-"Authorization Launch Error" = "Impossible de mettre à jour le micrologiciel : fichier Update Firmware.sh manquant.";
-"Expired Authorization Error" = "Impossible de mettre à jour le micrologiciel : autorisation expirée.";
-"Firmware version" = "micrologiciel version %@.";
-"Firmware version invalid" = "version micrologiciel invalide.";
+"Install" = "Installer";
+"Update" = "Mettre à jour";
+"Install Results" = "Résultat de l'installation";
+"OK" = "OK";
+"SlimServer installed successfully.\n" = "SlimServer a été installé avec succès.";
+"SlimServer install failed.\n" = "L'installation de SlimServer a échoué.";
