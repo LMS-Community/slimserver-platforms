@@ -112,8 +112,8 @@
 
 
 // the name of the slim perl server 
-#define SLIM_APP_NAME					_T("slimp3.exe")
-#define SLIM_SVC_NAME					_T("slimp3svc.exe")
+#define SLIM_APP_NAME					_T("slimserver.exe")
+#define SLIM_SVC_NAME					_T("slimserversvc.exe")
 // timers used to poll stdout from slim 
 #define TIMER_DEBUG			1
 // timer used to poll app while server is loading

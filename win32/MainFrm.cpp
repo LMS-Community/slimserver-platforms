@@ -36,8 +36,6 @@ BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWnd)
 
 END_MESSAGE_MAP()
 
-//	ON_COMMAND(ID_OPTIONS_USESLIMP3SERVERTOPLAYMP3FILES, OnOptionsUseslimp3servertoplaymp3files)
-
 
 static UINT indicators[] =
 
@@ -230,7 +228,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	iconData.uFlags		= NIF_MESSAGE|NIF_ICON|NIF_TIP; //flags
 	iconData.uCallbackMessage	= WM_USER_NOTIFYICON; //notification handler
 	iconData.hIcon		= hIcon;    //icon handle   
-	CString strToolTip = _T("SLIMP3 Server");
+	CString strToolTip = _T("Slim Server");
 
 
 
@@ -473,8 +471,6 @@ void CMainFrame::UpdateOptionsMenu(void)
 
 	CMenu* pMenu = GetMenu(); 
 	pMenu->CheckMenuItem(ID_OPTIONS_HIDEWHENMINIMIZED,m_bHideWhenMinimized?MF_CHECKED:MF_UNCHECKED);
-	// unfinished
-	//	pMenu->CheckMenuItem(ID_OPTIONS_USESLIMP3SERVERTOPLAYMP3FILES,m_bAssociateMp3?MF_CHECKED:MF_UNCHECKED);
 }
 
 
@@ -500,7 +496,7 @@ void CMainFrame::OnClose()
 	CString app = SLIM_APP_NAME;
 	if (m_bConfirmOnExit && CMyOutputView::GetRunningProcess(app)) {
 
-		int boxResult = AfxMessageBox(_T("You are closing the SLIMP3 Server window.  Do you also want to stop the server?"), MB_YESNOCANCEL);
+		int boxResult = AfxMessageBox(_T("You are closing the Slim Server window.  Do you also want to stop the server?"), MB_YESNOCANCEL);
 			
 		if (boxResult == IDCANCEL) {
 			return;
@@ -563,7 +559,7 @@ void CMainFrame::OnSizing(UINT fwSide, LPRECT pRect)
 }
 
 
-void CMainFrame::OnOptionsUseslimp3servertoplaymp3files()
+void CMainFrame::OnOptionsUseslimservertoplaymp3files()
 {
 	m_bAssociateMp3 = ! m_bAssociateMp3;
 	theApp.WriteProfileInt(REGISTRY_VERSION, REGISTRY_ASSOCIATE_MP3,(BOOL)m_bAssociateMp3); 

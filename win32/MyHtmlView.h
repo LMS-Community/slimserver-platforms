@@ -57,7 +57,7 @@ public:
 	afx_msg void OnHome();
 	afx_msg void OnRefresh();
 	afx_msg void OnRescan();
-	afx_msg void OnHelpUsingtheslimp3remote();
+	afx_msg void OnHelpUsingtheslimremote();
 	afx_msg void OnHelpGettingstarted();
 	afx_msg void OnHelpFAQ();
 	afx_msg void OnHelpPlayersetup();

@@ -22,7 +22,7 @@
 #define IDR_MAINFRAME                   130
 #define ID_HELP_GETTINGSTARTED          136
 #define ID_HELP_PLAYERSETUP             137
-#define ID_HELP_USINGTHESLIMP3REMOTE    138
+#define ID_HELP_USINGTHESLIMREMOTE	    138
 #define ID_HELP_TECHNICALINFORMATION    139
 #define IDB_TOOLBARCOLD                 142
 #define IDB_TOOLBARHOT                  143
@@ -37,7 +37,7 @@
 #define IDD_DIALOG_LOADING              155
 #define IDB_BITMAP1                     157
 #define IDB_BITMAP_SLIM                 160
-#define ID_OPTIONS_USESLIMP3SERVERTOPLAYMP3FILES 162
+#define ID_OPTIONS_USESLIMSERVERTOPLAYMP3FILES 162
 #define ID_Menu                         163
 #define ID_OPTIONS_STOPSERVERONEXIT164  164
 #define ID_HELP_FREQUENTLYASKEDQUESTIONS 165

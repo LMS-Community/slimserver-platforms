@@ -196,14 +196,14 @@ void CMyOutputView::OnInitialUpdate()
 		CDlgLoading dlg; 
 
 		//dlg.DoModal(); 
-		LogText(CString(_T("SLIMP3 server has started!\n")));
+		LogText(CString(_T("Slim Server has started!\n")));
 
 		// go to the slim home page -- trying command line interface stuff now
 		// AfxGetMainWnd()->SendMessage(WM_COMMAND, ID_GO_START_PAGE);
 	}
 
 	else {
-		LogText(CString(_T("ERROR: SLIMP3 server failed to start!\n")));
+		LogText(CString(_T("ERROR: Slim Server failed to start!\n")));
 	} 
 
 
@@ -243,7 +243,7 @@ bool CMyOutputView::StopPerlServer(void) {
 	if (DoneStarted()) {
 		// try to kill our slim process 
 		if (!TerminateProcess (ProcessInfo.hProcess, 0)) {
-			AfxMessageBox(_T("Warning:  Couldn't stop the SLIMP3 Server process."), MB_OK);
+			AfxMessageBox(_T("Warning:  Couldn't stop the Slim Server process."), MB_OK);
 		}
 
 		// cleanup - probably should put some debugging here ... 
@@ -262,7 +262,7 @@ bool CMyOutputView::StopPerlServer(void) {
 
 			if (hProcess) {
 				if (!TerminateProcess(hProcess,0)) {
-					AfxMessageBox(_T("Problem: Couldn't stop the SLIMP3 server process. (2)"), MB_OK);
+					AfxMessageBox(_T("Problem: Couldn't stop the Slim Server process. (2)"), MB_OK);
 				}
 				CloseHandle (hProcess); 
 			} else {

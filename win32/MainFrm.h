@@ -86,7 +86,7 @@ public:
 
 private:
 
-	// Hide the SLIMP3 Server window when minimized
+	// Hide the Slim Server window when minimized
 	bool m_bHideWhenMinimized;
 
 	// Confirm on Exit 
@@ -108,7 +108,9 @@ private:
 
 	void UpdateOptionsMenu(void);
 	void OnUpdateConfirmOnExit(CCmdUI* pCmdUI) ;
+
 	void OnUpdateConfirmStopServerOnExit(CCmdUI* pCmdUI); 
+
 
 public:
 
@@ -118,7 +120,7 @@ public:
 	afx_msg void OnOptionsStopserveronexit();
 	afx_msg void OnSizing(UINT fwSide, LPRECT pRect);
 
-	afx_msg void OnOptionsUseslimp3servertoplaymp3files();
+	afx_msg void OnOptionsUseslimservertoplaymp3files();
 };
 
 

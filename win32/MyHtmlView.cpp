@@ -25,7 +25,7 @@ CMyHtmlView::CMyHtmlView()
 	
 	// get the name of the pref file 
 	CString filename = theApp.GetEXEPath(); 
-	filename += _T("\\server\\SLIMP3.PRF"); 
+	filename += _T("\\server\\SLIM.PRF"); 
 	
 	CSlimPrefs prefs (filename); 
 
@@ -58,7 +58,7 @@ BEGIN_MESSAGE_MAP(CMyHtmlView, CHtmlView)
 	ON_COMMAND(ID_GO_FORWARD, OnGoForward)
 	ON_COMMAND(ID_GO_START_PAGE, OnHome)
 	ON_COMMAND(ID_VIEW_REFRESH, OnRefresh)
-	ON_COMMAND(ID_HELP_USINGTHESLIMP3REMOTE, OnHelpUsingtheslimp3remote)
+	ON_COMMAND(ID_HELP_USINGTHESLIMREMOTE, OnHelpUsingtheslimremote)
 	ON_COMMAND(ID_HELP_GETTINGSTARTED, OnHelpGettingstarted)
 	ON_COMMAND(ID_HELP_PLAYERSETUP, OnHelpPlayersetup)
 	ON_COMMAND(ID_HELP_FREQUENTLYASKEDQUESTIONS, OnHelpFAQ)
@@ -168,7 +168,7 @@ void CMyHtmlView::OnRescan()
 
 }
 
-void CMyHtmlView::OnHelpUsingtheslimp3remote()
+void CMyHtmlView::OnHelpUsingtheslimremote()
 {
 	Navigate2(GetHTTP_URL() + _T("/html/docs/interface.html"));
 }
@@ -226,7 +226,7 @@ void CMyHtmlView::OnOptionsSetmusicfolder()
 
 	// get the name of the pref file 
 	CString filename = theApp.GetEXEPath(); 
-	filename += _T("\\server\\SLIMP3.PRF"); 
+	filename += _T("\\server\\SLIM.PRF"); 
 	
 	CSlimPrefs prefs (filename); 
 
@@ -255,7 +255,7 @@ void CMyHtmlView::OnOptionsSetplaylistfolder()
 	
 	// get the name of the pref file 
 	CString filename = theApp.GetEXEPath(); 
-	filename += _T("\\server\\SLIMP3.PRF"); 
+	filename += _T("\\server\\SLIM.PRF"); 
 	
 	CSlimPrefs prefs (filename); 
 
