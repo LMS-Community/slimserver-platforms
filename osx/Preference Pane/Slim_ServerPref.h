@@ -20,11 +20,7 @@
 
     IBOutlet NSButton *toggleServerButton;
     IBOutlet NSTextField *serverStateDescription;
-    IBOutlet NSImageView *serverStateImage;
     IBOutlet NSButton *webLaunchButton;
-    IBOutlet NSButton *aboutButton;
-
-    IBOutlet NSWindow *aboutBox;
 
     IBOutlet NSPopUpButton *startupType;
 
@@ -41,8 +37,6 @@
 -(void)updateUI;
 
 -(IBAction)openWebInterface:(id)sender;
--(IBAction)aboutSlimServer:(id)sender;
--(IBAction)dismissAboutBox:(id)sender;
 -(IBAction)toggleServer:(id)sender;
 
 -(IBAction)changeStartupPreference:(id)sender;

@@ -137,13 +137,11 @@
 	{
 	    [toggleServerButton setTitle:SLIMLocalizedPrefString(@"Stop Server", "Stop Server")];
 	    [serverStateDescription setStringValue:SLIMLocalizedPrefString(@"Stop Server Description", "Descriptive text")];
-	    [serverStateImage setImage:[NSImage imageNamed:@"slimicon"]];
 	}
 	else
 	{
 	    [toggleServerButton setTitle:SLIMLocalizedPrefString(@"Start Server", "Start Server")];
 	    [serverStateDescription setStringValue:SLIMLocalizedPrefString(@"Start Server Description", "Descriptive text")];
-	    [serverStateImage setImage:[NSImage imageNamed:@"slimoff"]];
 	}
 	[toggleServerButton setEnabled:YES];
     }
@@ -152,17 +150,6 @@
 -(void)openWebInterface:(id)sender
 {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://localhost:9000"]];
-}
-
--(void)aboutSlimServer:(id)sender
-{
-    [NSApp beginSheet:aboutBox modalForWindow:[[self mainView] window] modalDelegate:self didEndSelector:nil contextInfo:nil];
-}
-
--(IBAction)dismissAboutBox:(id)sender
-{
-    [aboutBox orderOut:sender];
-    [NSApp endSheet:aboutBox returnCode:1];
 }
 
 -(IBAction)changeStartupPreference:(id)sender
