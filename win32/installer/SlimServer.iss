@@ -100,154 +100,161 @@ Filename: {app}\server\slimsvc.exe; Parameters: -remove; WorkingDir: {app}\serve
 
 }
 var
-  MyPlayListFolder: String;
-  MyMusicFolder: String;
-  FileName: String;
+	MyPlayListFolder: String;
+	MyMusicFolder: String;
+	FileName: String;
 
 function ScriptDlgPages(CurPage: Integer; BackClicked: Boolean): Boolean;
 var
-  CurSubPage: Integer;
-  Next: Boolean;
+	CurSubPage: Integer;
+	Next: Boolean;
 begin
-  FileName:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'SLIM.PRF';
-  
-  if (not FileExists(FileName) and ((not BackClicked and (CurPage = wpSelectDir)) or (BackClicked and (CurPage = wpSelectProgramGroup)))) then begin
-    // Insert a custom wizard page between two non custom pages
+	FileName:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'SLIM.PRF';
+	
+	if (not FileExists(FileName) and ((not BackClicked and (CurPage = wpSelectDir)) or (BackClicked and (CurPage = wpSelectProgramGroup)))) then begin
+		// Insert a custom wizard page between two non custom pages
 	if not BackClicked then
 		curSubPage:=0
 	else
 		curSubPage:=1;
 
-  ScriptDlgPageOpen();
+	ScriptDlgPageOpen();
 
 	while(CurSubPage>=0) and (CurSubPage<=1) and not Terminated do begin
 		case CurSubPage of
 			0:
-        begin
-          ScriptDlgPageSetCaption('Select your Music Folder');
-          ScriptDlgPageSetSubCaption1('Where should the Slim Server look for your music?');
-          ScriptDlgPageSetSubCaption2('Select the folder you would like the Slim Server to look for your music, then click Next.');
+				begin
+					ScriptDlgPageSetCaption('Select your Music Folder');
+					ScriptDlgPageSetSubCaption1('Where should the Slim Server look for your music?');
+					ScriptDlgPageSetSubCaption2('Select the folder you would like the Slim Server to look for your music, then click Next.');
 
-          if(MyMusicFolder='') then
-            MyMusicFolder := WizardDirValue;
+					if(MyMusicFolder='') then
+						MyMusicFolder := WizardDirValue;
 
-          // Ask for a dir until the user has entered one or click Back or Cancel
-          Next := InputDir( '', MyMusicFolder);
+					// Ask for a dir until the user has entered one or click Back or Cancel
+					Next := InputDir( '', MyMusicFolder);
 
-          while Next and (MyMusicFolder = '') do begin
-            MsgBox(SetupMessage(msgInvalidPath), mbError, MB_OK);
-            Next := InputDir('', MyMusicFolder);
-          end;
-        end;
+					while Next and (MyMusicFolder = '') do begin
+						MsgBox(SetupMessage(msgInvalidPath), mbError, MB_OK);
+						Next := InputDir('', MyMusicFolder);
+					end;
+				end;
 			1:
-        begin
-          ScriptDlgPageSetCaption('Select your Playlist Folder');
-          ScriptDlgPageSetSubCaption1('Where should Slim Server look for / store your Playlists ?');
-          ScriptDlgPageSetSubCaption2('Select the folder you would like the Slim Server to look for or store your playlists, then click Next.');
+				begin
+					ScriptDlgPageSetCaption('Select your Playlist Folder');
+					ScriptDlgPageSetSubCaption1('Where should Slim Server look for / store your Playlists ?');
+					ScriptDlgPageSetSubCaption2('Select the folder you would like the Slim Server to look for or store your playlists, then click Next.');
 
-          if(MyPlayListFolder='') then begin
-            if(MyMusicFolder<>'') then
-              MyPlayListFolder:=MyMusicFolder
-            else
-              MyPlayListFolder := WizardDirValue;
-          end;
+					if(MyPlayListFolder='') then begin
+						if(MyMusicFolder<>'') then
+							MyPlayListFolder:=MyMusicFolder
+						else
+							MyPlayListFolder := WizardDirValue;
+					end;
 
-          // Ask for a dir until the user has entered one or click Back or Cancel
-          Next := InputDir( '', MyPlayListFolder);
+					// Ask for a dir until the user has entered one or click Back or Cancel
+					Next := InputDir( '', MyPlayListFolder);
 
-          while Next and (MyPlayListFolder = '') do begin
-            MsgBox(SetupMessage(msgInvalidPath), mbError, MB_OK);
-            Next := InputDir('', MyPlayListFolder);
-          end;
-        end;
+					while Next and (MyPlayListFolder = '') do begin
+						MsgBox(SetupMessage(msgInvalidPath), mbError, MB_OK);
+						Next := InputDir('', MyPlayListFolder);
+					end;
+				end;
 
 		end;
 
-    if Next then begin
-        { Go to the next page, but only if the user entered correct information }
-      CurSubPage := CurSubPage + 1;
-    end else
-      CurSubPage := CurSubPage - 1;
+		if Next then begin
+				{ Go to the next page, but only if the user entered correct information }
+			CurSubPage := CurSubPage + 1;
+		end else
+			CurSubPage := CurSubPage - 1;
 
 	end;
 
-  if not BackClicked then
-    Result:=Next
-  else
-    Result:=not Next;
+	if not BackClicked then
+		Result:=Next
+	else
+		Result:=not Next;
 
-  ScriptDlgPageClose(not Result);
+	ScriptDlgPageClose(not Result);
 
-  end
-  else
-    Result := True;
+	end
+	else
+		Result := True;
 end;
 
 function NextButtonClick(CurPage: Integer): Boolean;
 begin
-  Result := ScriptDlgPages(CurPage, False);
+	Result := ScriptDlgPages(CurPage, False);
 end;
 
 function BackButtonClick(CurPage: Integer): Boolean;
 begin
-  Result := ScriptDlgPages(CurPage, True);
+	Result := ScriptDlgPages(CurPage, True);
 end;
 
 function GetMusicFolder(S: String): String;
 begin
-  // Return the selected DataDir
-  Result := MyMusicFolder;
+	// Return the selected DataDir
+	Result := MyMusicFolder;
 end;
 
 
 function UpdateReadyMemo(Space, NewLine, MemoUserInfoInfo, MemoDirInfo, MemoTypeInfo,
  MemoComponentsInfo, MemoGroupInfo, MemoTasksInfo: String): String;
 var
-  S: String;
+	S: String;
 begin
 	if not FileExists(FileName) then
 	begin
-    // Fill the 'Ready Memo' with the normal settings and the custom settings
-    S := '';
+		// Fill the 'Ready Memo' with the normal settings and the custom settings
+		S := '';
 
-    S := S + MemoDirInfo + NewLine + NewLine;
+		S := S + MemoDirInfo + NewLine + NewLine;
 
-    S := S + 'Music Folder' + NewLine;
-    S := S + Space + MyMusicFolder + NewLine + NewLine;
-    S := S + 'Playlist Folder' + NewLine;
-    S := S + Space + MyPlayListFolder + NewLine + NewLine;
-  end
+		S := S + 'Music Folder' + NewLine;
+		S := S + Space + MyMusicFolder + NewLine + NewLine;
+		S := S + 'Playlist Folder' + NewLine;
+		S := S + Space + MyPlayListFolder + NewLine + NewLine;
+	end
 
-  Result := S;
+	Result := S;
 end;
 
 
 procedure CurStepChanged(CurStep: Integer);
 var
 	res: Boolean;
-  ErrorCode: Integer;
-  ServicePath: String;
-  ServerDir: String;
+	ErrorCode: Integer;
+	ServicePath: String;
+	ServerDir: String;
+	Uninstaller: String;
 begin
-  if CurStep = csFinished then
-  	begin
+	if CurStep = csFinished then
+		begin
 		if not FileExists(FileName) then
 			begin
 				res:= SaveStringToFile(FileName, 'mp3dir = ' + MyMusicFolder + #13#10, true);
-    			res:= SaveStringToFile(FileName, 'playlistdir = ' + MyPlayListFolder + #13#10, true);
-	  		end;
-   	end;
-  if UsingWinNT() then
-    begin
-    if CurStep = csWizard then
-      begin
-        InstExec('net', 'stop slimsvc', '', True, True, SW_HIDE, ErrorCode);
-        ServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-        ServicePath:= ServerDir + AddBackslash('slimsvc.exe');
+					res:= SaveStringToFile(FileName, 'playlistdir = ' + MyPlayListFolder + #13#10, true);
+				end;
+	 	end;
+// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr. Returns True if successful. When False is returned, ResultStr is unmodified. 
+	if not RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then 
+		begin
+			InstExec(Uninstaller, '/SILENT','', True, True, SW_HIDE, ErrorCode)
+		end;			
 
-        InstExec(ServicePath, '-remove', ServerDir, true, true, SW_HIDE, ErrorCode);
-      end;
-    end;
+	if UsingWinNT() then
+		begin
+		if CurStep = csWizard then
+			begin
+				InstExec('net', 'stop slimsvc', '', True, True, SW_HIDE, ErrorCode);
+				ServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
+				ServicePath:= ServerDir + AddBackslash('slimsvc.exe');
+
+				InstExec(ServicePath, '-remove', ServerDir, true, true, SW_HIDE, ErrorCode);
+			end;
+		end;
 end;
 
 
