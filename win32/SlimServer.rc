@@ -45,7 +45,7 @@ BEGIN
     END
     POPUP "&Help"
     BEGIN
-        MENUITEM "&About Slim Server...",     ID_APP_ABOUT
+        MENUITEM "&About Slim Server...",       ID_APP_ABOUT
     END
 END
 
@@ -86,14 +86,14 @@ BEGIN
     BEGIN
         MENUITEM "Getting Started",             ID_HELP_GETTINGSTARTED
         MENUITEM "Player Setup",                ID_HELP_PLAYERSETUP
-        MENUITEM "Using The Slim Devices Remote",     ID_HELP_USINGTHESLIMREMOTE
+        MENUITEM "Using The Slim Devices Remote", ID_HELP_USINGTHESLIMREMOTE
         MENUITEM "Remote Control Reference",    ID_HELP_REMOTECONTROLREFERENCE
 
         MENUITEM "Frequently Asked Questions",  ID_HELP_FREQUENTLYASKEDQUESTIONS
 
         MENUITEM "Technical Information",       ID_HELP_TECHNICALINFORMATION
         MENUITEM SEPARATOR
-        MENUITEM "&About Slim Server...",     ID_APP_ABOUT
+        MENUITEM "&About Slim Server...",       ID_APP_ABOUT
     END
 END
 
@@ -157,15 +157,15 @@ BEGIN
                     IDC_PLAYLISTFOLDER,15,78,160,25
 END
 
-IDD_DIALOG_LOADING DIALOGEX 0, 0, 219, 142
+IDD_DIALOG_LOADING DIALOGEX 0, 0, 219, 177
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | 
     WS_CAPTION | WS_SYSMENU
 CAPTION "Slim Server"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    PUSHBUTTON      "Cancel",IDC_BUTTON_EXIT,142,118,68,15
-    LTEXT           "Slim Server for Windows",IDC_STATIC,10,104,129,10
-    LTEXT           "Starting Up...",IDC_LOADING,10,121,104,8
+    PUSHBUTTON      "Cancel",IDC_BUTTON_EXIT,142,153,68,15
+    LTEXT           "Slim Server for Windows",IDC_STATIC,10,141,129,10
+    LTEXT           "Starting Up...",IDC_LOADING,10,158,104,8
     CONTROL         160,IDC_STATIC,"Static",SS_BITMAP,10,11,200,90
 END
 
@@ -243,7 +243,7 @@ BEGIN
         RIGHTMARGIN, 210
         VERTGUIDE, 25
         TOPMARGIN, 11
-        BOTTOMMARGIN, 133
+        BOTTOMMARGIN, 168
     END
 END
 #endif    // APSTUDIO_INVOKED

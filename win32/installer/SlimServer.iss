@@ -38,7 +38,7 @@ Name: quicklaunchicon; Description: Create a &Quick Launch icon; GroupDescriptio
 [Files]
 Source: ..\..\..\build\Slim Server.exe; DestDir: {app}
 Source: ..\..\..\build\firmware\MAIN.HEX; DestDir: {app}\firmware\
-Source: ..\..\..\build\firmware\Updater.exe; DestDir: {app}\firmware\
+Source: ..\..\..\build\firmware\SLIMP3 Updater.exe; DestDir: {app}\firmware\
 Source: ..\..\..\build\Getting Started.html; DestDir: {app}
 Source: ..\..\..\build\psapi.dll; DestDir: {app}
 Source: ..\..\..\build\Release Notes.html; DestDir: {app}
@@ -60,7 +60,6 @@ Filename: {app}\Slim Server Web Control.url; Section: InternetShortcut; Key: URL
 Name: {group}\Slim Server; Filename: {app}\Slim Server.exe
 Name: {group}\Slim Devices website; Filename: {app}\Visit Slim Devices.url
 Name: {group}\Slim Web Interface; Filename: {app}\Slim Web Control.url;
-Name: {group}\Firmware Updater; Filename: {app}\firmware\Updater.exe
 Name: {group}\License; Filename: {app}\License.txt
 Name: {group}\Getting Started; Filename: {app}\Getting Started.html
 Name: {group}\Uninstall Slim Server; Filename: {uninstallexe}
