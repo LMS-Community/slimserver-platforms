@@ -1,6 +1,6 @@
 /* Localized versions of Info.plist keys */
 
 CFBundleName = "SlimServer Installer";
-CFBundleShortVersionString = "SlimServer Installer version 5.0.3";
-CFBundleGetInfoString = "SlimServer Installer version 5.0.3, Copyright 2003 by Slim Devices, Inc.";
+CFBundleShortVersionString = "SlimServer Installer version 5.1";
+CFBundleGetInfoString = "SlimServer Installer version 5.1, Copyright 2003 by Slim Devices, Inc.";
 NSHumanReadableCopyright = "Copyright 2003 Slim Devices, Inc.";
