@@ -59,7 +59,7 @@ Filename: {app}\SlimServer Web Interface.url; Section: InternetShortcut; Key: UR
 [Icons]
 Name: {group}\SlimServer; Filename: {app}\SlimServer.exe
 Name: {group}\Slim Devices website; Filename: {app}\Visit Slim Devices.url
-Name: {group}\Slim Web Interface; Filename: {app}\Slim Web Control.url;
+Name: {group}\Slim Web Interface; Filename: {app}\Slim Web Interface.url;
 Name: {group}\License; Filename: {app}\License.txt
 Name: {group}\Getting Started; Filename: {app}\Getting Started.html
 Name: {group}\Uninstall SlimServer; Filename: {uninstallexe}
