@@ -1,7 +1,7 @@
 %define prefix /usr/local
 %define slimdir %{prefix}/slimd
 
-Name: Slim Server
+Name: slimd 
 Packager: Slim Devices <support@slimdevices.com>
 Requires: perl >= 5.6
 AutoReqProv: no
@@ -48,7 +48,7 @@ cp -R . $RPM_BUILD_ROOT%{slimdir}
 chmod +x $RPM_BUILD_ROOT%{slimdir}/slimserver.pl
 install -D -m755 %SOURCE1 $RPM_BUILD_ROOT/etc/rc.d/init.d/slimd
 install -D -m644 %SOURCE2 $RPM_BUILD_ROOT/etc/sysconfig/slimd
-touch $RPM_BUILD_ROOT/etc/slim.pref
+touch $RPM_BUILD_ROOT/etc/slimd.conf
 
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && [ -d $RPM_BUILD_ROOT ] && rm -r $RPM_BUILD_ROOT
@@ -99,7 +99,7 @@ if [ "$1" -ge "1" ]; then
  /sbin/service slimd restart >/dev/null 2>&1 || :
 else
  SLIMD_USER="slim"
- SLIMD_CFG="/etc/slimd.pref"
+ SLIMD_CFG="/etc/slimd.conf"
  if [ -f /etc/sysconfig/slimd ]; then . /etc/sysconfig/slimd; fi
  userdel $SLIMD_USER 2>/dev/null || :
  # assume the group name is the same as the user, it's not in sysconfig
@@ -112,7 +112,7 @@ fi
 %files
 %defattr(-,root,root)
 %{slimdir}
-%attr(-, slim, slim) %config(noreplace) /etc/slimd.pref
+%attr(-, slim, slim) %config(noreplace) /etc/slimd.conf
 %attr(-, root, root) /etc/rc.d/init.d/slimd
 %attr(-, root, root) %config(noreplace) /etc/sysconfig/slimd
 
