@@ -1,0 +1,33 @@
+# Shut down the server if it's running
+# This is convoluted but pretty safe
+# Try 10 times and then punt -- can't kill it
+#PID=`ps ax|grep slimp3.pl|grep -v grep|cut -d' ' -f1`
+#COUNT=0
+#while [ -n "$PID" ] && [ "$PID" -gt 0 ]; do
+#	COUNT=`eval expr $COUNT + 1`
+#	if [ $COUNT -gt 10 ]; then
+#		echo "Can't kill server. Please kill it by hand and try again"
+#		exit 1;
+#	fi
+#	echo "Shutting down running server first"
+#	kill $PID
+#	sleep 2
+#done
+# 
+#if [ -d /opt/slimp3 ]; then
+#	echo "Removing existing SLIMP3 installation"
+#	rm -rf /opt/slimp3
+#fi
+#if [ -f /etc/init/slimp3 ]; then
+#	rm /etc/init/slimp3
+#fi
+
+# Add the slimp3 group if there is not one
+if [ `grep -c '^slimp3:' /etc/group` -eq 0 ]; then
+	/usr/sbin/groupadd slimp3
+fi
+
+# Add the slimp3 user if there is not one
+if [ `grep -c '^slimp3:' /etc/passwd` -eq 0 ]; then
+	/usr/sbin/useradd -g slimp3 -c "SLIMP3 Server" -d /opt/slimp3 slimp3
+fi

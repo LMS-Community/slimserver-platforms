@@ -1,0 +1,24 @@
+//
+//  SLIMRendezvousPublisher.h
+//  SliMP3 Server
+//
+//  Created by Dave Nanian on Sat Jan 18 2003.
+//  Copyright (c) 2003 Slim Devices, Inc. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+
+@interface SLIMRendezvousPublisher : NSObject
+{
+    Class Rendezvous;
+    
+    id httpNetService;			// Publishes the web server generically.
+    id slimp3SpecificHTTPNetService;	// Publishes the web server specifically for name-independent discovery.
+    id slimp3SpecificCLINetService;	// Publishes the CLI server specifically for name-independent discovery.
+}
+
+-(void)publish;
+-(void)stop;
+
+@end

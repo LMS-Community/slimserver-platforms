@@ -1,0 +1,19 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {cancel = id; okay = id; }; 
+            CLASS = DisplayTextController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                cancelButton = NSButton; 
+                line1Field = NSTextField; 
+                line2Field = NSTextField; 
+                okButton = NSButton; 
+                window = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+	<head>
+		<meta name="Title" content="Getting Started with the SLIMP3 Server, Version 4.2.2">
+		<title>
+			Getting Started with the SLIMP3 Server, Version 4.2.2
+		</title>
+	<style type="text/css"> <!--
+.exbodytext, p, ol, ul, dl, dd, td               { color: #333; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif }
+.expagetitle, h1   { color: #f30; font-weight: bold; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif }
+.exbottomnav    { color: #333; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif }
+.excopyright    { color: #333; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif }
+.exbodytitle, h4, h3, h2, th { color: #333; font-weight: bold; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif }
+ol, ul, li  {  list-style-position: outside }
+	--> </style>
+
+</head>
+
+	<body bgcolor="white" lang="EN-US">
+		<h1 align="center">Getting Started with the SLIMP3 Server</h1>
+		<p align="center">Version 4.2.2</p>
+		<p>Thank you for downloading the latest version of the SLIMP3 Server for Mac OS X. Click on the following links to learn about each topic.</p>
+		<ul>
+			<li><a href="#Installation">Installation</a>
+			<li><a href="#Remote">Remote Playlist Management</a>
+			<li><a href="#AAC">AAC Playback </a>
+			<li><a href="#Plug-ins">Plug-ins and Skins: New location</a>
+			<li><a href="#Some">Some of the songs in iTunes library don't show up can't be opened</a>
+		</ul>
+		<p>If you have any questions or problems, please check the documentation built into the SLIMP3 web interface, or view the <a href="http://www.slimdevices.com/su_faq.html">FAQ</a>, visit our user forum at <a href="http://groups.yahoo.com/group/slimp3-users/">http://groups.yahoo.com/group/slimp3-users/</a> or contact our tech support team at <a href="mailto:support@slimdevices.com">support@slimdevices.com</a>.</p>
+		<p>Thanks,</p>
+		<p>The SLIMP3 Team</p>
+		<hr>
+		<p><b><a name="Installation"></a>Installation</b></p>
+		<p>To install the SLIMP3 Server software, double-click the <b>SLIMP3 Installer</b> and follow the on-screen instructions.  The Installer will tell you when the installation process is complete.</p>
+		<p>The SLIMP3 Server software for Mac OS X is installed as System Preferences pane. Use this preference pane to:</p>
+		<ul>
+			<li>Start and stop the SLIMP3 Server software manually or automatically,
+			<li>Launch the SLIMP3 web interface or
+			<li>Update the firmware in your player to the latest version.
+		</ul>
+		<p>If you use iTunes, the SLIMP3 server will automatically import your iTunes library information. If you use iTunes to add or remove music from its library, the SLIMP3 server will notice and rescan the song information.</p>
+		<p>If you don't want SLIMP3 Server to use the iTunes information you will need to specify a folder to use for your music library by launching the SLIMP3 server web interface, clicking on the Server Settings and specify a folder for your music. If you add or move music in your library, you will need to manually initiate the rescanning by visiting the Server Settings page in the SLIMP3 Server web interface and click Rescan.</p>
+		<p>We recommend that you use the SLIMP3 Server preference pane to update the firmware on your SLIMP3 player to the latest version, 2.2. You can check the version number of firmware installed on your SLIMP3 by reading the number at the lower right-hand corner of the display when you plug in your SLIMP3 player.</p>
+
+
+		<hr>
+		<p><b><a name="Remote"></a>Remote Playlist Management </b></p>
+		<p>SLIMP3 Server was designed to stream MP3 music to a SLIMP3 Network Music Player. However, it can also stream the same music over the Internet to any software player that supports MP3 streaming.</p>
+		<p>First, install the SLIMP3 Server software and make sure the computer to be used as a SLIMP3 Server can be reached over the Internet. If not, you will need to forward port 9000 on your router to the SLIMP3 Server computer.  (Consult your router documentation for instructions). Then:</p>
+		<ul>
+			<li>Use your MP3 player software to open a stream to the the URL: <a href="http://localhost:9000/stream.mp3">http://localhost:9000/stream.mp3</a>. (Replace &quot;localhost&quot; with the IP address of the SLIMP3 Server computer).   If you are using the SLIMP3 server's password security, you'll need to use a slightly modified URL like this: <a href="http://username:password@localhost:9000/stream.mp3">http://username:password@localhost:9000/stream.mp3</a>. Some MP3 players will prompt you to enter your username and password.
+			<li>Launch the SLIMP3 server web interface running on the remote computer by opening the web page <a href="http://localhost:9000/">http://localhost:9000</a> (Replace &quot;localhost&quot; with the IP address of the remote computer). You will notice a new &quot;player&quot; corresponding to the IP address of the computer with the MP3 software player.
+			<li>Use the left pane of the SLIMP3 server web interface to browse and select files and playlists to be played. When music is selected, it will appear in the right pane of the web interface.
+			<li>Click on &quot;Play&quot; in the right pane of the SLIMP3 server web interface to launch the music.
+			<li>After a couple of seconds, you will hear music playing through the MP3 software player. (The delay is due to buffering in the MP3 player software.)
+			<li>To change the content playing, use the SLIMP3 server web interface on the remote machine.
+		</ul>
+
+
+		<hr>
+		<p><i><a name="aac"></a></i><b>AAC Playback</b></p>
+		<p>This version of the SLIMP3 software can convert iTunes AAC files to MP3 for playback on the SLIMP3 on-the-fly. To enable this feature, you'll need to install the free (and high quality) LAME MP3 encoder. For more information about LAME in general, <a href="http://lame.sourceforge.net/">click here</a> . LAME is free, but in some countries you may need to pay a license fee in order to legally encode MP3 files. There are several ways to install LAME, including <a href="http://www.culater.net/osd/packages.html">this package</a> provided by Mike Solomon, and the <a href="http://fink.sourceforge.net/">Fink package system.</a></p>
+		<p>Once you have LAME installed, you should be able to playback iTunes-ripped AAC files (.m4a) as well as the audio from any QuickTime movie (.mov). Music purchased from the Apple Music Store (.m4p files) is protected and cannot be played back with SLIMP3 until Apple provides the necessary hooks to enable this. In the mean time, it is possible to burn your Apple Music Store songs to CD and re-rip them.</p>
+		<p>Note that LAME-based encoding to MP3 for playback can use a substantial amount of CPU power. We continue to recommend high bit-rate MP3 encoded files for best performance, highest audio quality, and best compatibility. <b></b></p>
+		<hr>
+		<p><a name="Plug-ins"></a><b>Plug-ins &amp; Skins: New location</b></p>
+		<p>If you installed Plug-ins or Skins for the SLIMP3 with a version earlier than 4.2 of the SLIMP3 software, you will need to re-install them after you upgrade to this version. With this version, you can install plug-ins and skins within the Library folder for the user running the SLIMP3 Server. The first time you run the SLIMP3 server, two new folders will be created: Home &gt; Library &gt; SlimDevices &gt; Plugins and Home &gt; Library &gt; SlimDevices &gt; html, use these folders to install third-party plug-ins and skins respectively.</p>
+		<hr>
+		<p><a name="Some"></a><b>Some of the songs in iTunes library don't show up on the SLIMP3 or can't be opened. </b></p>
+		<p>If you've moved your iTunes music files around, iTunes can export incorrect information about the songs in its library. You will need to make sure that iTunes has the correct folder for your music library.</p>
+		<p>Visit the iTunes Preferences and click on Advanced. If the path to your Music Library folder is incorrect, you'll need to fix it. If it is correct, try changing it to a different folder and then change it back to the correct folder. iTunes will then update the paths to all your music and export that data correctly. (This process won't move any of your music, but it will force iTunes to scan your music library and update the paths to the songs.)</p>
+		<p>If this doesn't resolve your problem, iTunes might get confused if you changed the &quot;Keep Music Folder Organized&quot; or &quot;Add Track Number&quot; settings in iTunes. Try changing these settings and then changing them back to have iTunes update the correct information about your music files.</p>
+
+<hr><p align=center>Copyright 2003, Slim Devices Inc.  All Rights Reserved.</p>
+	</body>
+
+</html>

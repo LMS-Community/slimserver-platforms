@@ -1,0 +1,19 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {address = id; cancel = id; connect = id; port = id; }; 
+            CLASS = ConnectPanelController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                addressField = NSTextField; 
+                cancelButton = NSButton; 
+                connectButton = NSButton; 
+                portField = NSTextField; 
+                window = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+    ); 
+    IBVersion = 1; 
+}

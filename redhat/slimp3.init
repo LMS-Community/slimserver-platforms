@@ -1,0 +1,71 @@
+#!/bin/bash
+#
+# slimp3      This shell script takes care of starting and stopping
+#             the SLIMP3 streaming MP3 server.
+#
+# chkconfig: 345 80 30
+# description: SLIMP3 streaming MP3 server
+# processname: slimp3.pl
+# config: /etc/slimp3.pref
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+if [ -f /etc/sysconfig/slimp3 ]; then
+	. /etc/sysconfig/slimp3
+fi
+
+# Check that networking is up.
+[ ${NETWORKING} = "no" ] && exit 0
+
+RETVAL=0
+prog="SLIMP3"
+
+SLIMP3_BIN="$SLIMP3_HOME/slimp3.pl"
+
+[ -x $SLIMP3_BIN -a -f $SLIMP3_CFG ] || exit 5
+
+start() {
+	echo -n "Starting SLIMP3 server: "
+	daemon --user $SLIMP3_USER $SLIMP3_BIN $SLIMP3_ARGS
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/slimp3
+	return $RETVAL
+#	echo_success
+}
+
+stop() {
+	echo -n "Shutting down SLIMP3 server: "
+	killproc $SLIMP3_BIN
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/slimp3
+	return $RETVAL
+}
+
+# See how we were called.
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart|reload)
+        stop
+        start
+        RETVAL=$?
+        ;;
+  status)
+        status $SLIMP3_BIN
+        RETVAL=$?
+        ;;
+  *)
+        echo "Usage: $0 {start|stop|restart|status}"
+        exit 1
+esac
+exit $RETVAL

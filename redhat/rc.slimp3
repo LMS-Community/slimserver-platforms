@@ -1,0 +1,112 @@
+#! /bin/sh
+#
+# Copyright (c) 2002 Benjamin Scott <bscott@chiark.greenend.org.uk>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License,
+# version 2.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# init.d/slimp3
+#
+# System startup script for the SLIMP3 Server.
+#
+### BEGIN INIT INFO
+# Provides: slimp3
+# Required-Start: $network $remote_fs $netdaemons smbfs
+# Required-Stop:  
+# Default-Start:  3 5
+# Default-Stop:   0 1 2 6
+# Description:    Start the SLIMP3 Server and Web Front End
+### END INIT INFO
+
+# Source SuSE config
+. /etc/rc.config
+
+# Determine the base and follow a runlevel link name.
+base=${0##*/}
+link=${base#*[SK][0-9][0-9]}
+
+# Force execution if not called by a runlevel directory.
+#
+# START_SLIMP3 harcoded to yes till I get round to adding it to rc.config
+#
+START_SLIMP3=yes
+
+test $link = $base && START_SLIMP3=yes
+test "$START_SLIMP3" = yes || exit 0
+
+#
+# Edit this to suit your setup
+# 
+SLIMP3_USER=slimp3
+SLIMP3_HOME=/home/slimp3
+SLIMP3_BIN=$SLIMP3_HOME/slimp3.pl
+test -x $SLIMP3_BIN || exit 5
+
+# read in system config vars
+. /etc/rc.status
+
+# First reset status of this service
+rc_reset
+
+case "$1" in
+    start)
+	echo -n "Starting SLIMP3 Server"
+	
+	#
+	# Fire up the server script, redirecting errors to the bit bucket.
+	#
+	/bin/su - $SLIMP3_USER -c $SLIMP3_BIN &
+
+	# Remember status and be verbose
+	rc_status -v
+	;;
+    stop)
+	echo -n "Shutting down SLIMP3 Server"
+	
+	SLIMP3_PID=`pidof -x $SLIMP3_BIN`
+	
+	if test ! -z $SLIMP3_PID 
+	    then kill -TERM $SLIMP3_PID 2>/dev/null
+	fi
+
+	# Remember status and be verbose
+	rc_status -v
+	;;
+    try-restart)
+	## Stop the service and if this succeeds (i.e. the 
+	## service was running before), start it again.
+	$0 stop  &&  $0 start
+
+	# Remember status and be quiet
+	rc_status
+	;;
+    restart)
+	## Stop the service and regardless of whether it was
+	## running or not, start it again.
+	$0 stop
+	$0 start
+
+	# Remember status and be quiet
+	rc_status
+	;;
+    status)
+	echo -n "Checking for SLIMP3: "
+
+	pidof -x $SLIMP3_BIN; rc=$?
+	if test $rc = 0; then echo "OK"
+	else echo "No process" 
+	fi
+
+	;;
+    *)
+	echo "Usage: $0 {start|stop|status|try-restart|restart}"
+	exit 1
+	;;
+esac
+rc_exit

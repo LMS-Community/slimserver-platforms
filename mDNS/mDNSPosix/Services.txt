@@ -1,0 +1,14 @@
+Tweedlebug
+_afpovertcp._tcp.
+TXT
+548
+
+Tweedlebug2
+_afpovertcp._tcp.
+TXTDATA
+548
+
+Tweedlebug3
+_afpovertcp._tcp.
+TXT
+548

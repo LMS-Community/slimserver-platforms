@@ -1,0 +1,19 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {cancelWait = id; doInstall = id; installTypeChanged = id; quitInstall = id; }; 
+            CLASS = "SLIMP3_Installer"; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                installButton = NSButton; 
+                installType = NSPopUpButton; 
+                installWindow = NSWindow; 
+                progressIndicator = NSProgressIndicator; 
+                waitSheet = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

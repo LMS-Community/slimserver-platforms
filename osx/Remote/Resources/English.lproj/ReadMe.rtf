@@ -1,0 +1,112 @@
+{\rtf1\mac\ansicpg10000\cocoartf102
+{\fonttbl\f0\fnil\fcharset77 LucidaGrande-Bold;\f1\fnil\fcharset77 LucidaGrande;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww13600\viewh13260\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+
+\f0\b\fs36 \cf0 SLIMP3 Remote
+\f1\b0\fs20 \
+\
+
+\fs24 Copyright \'a9 2002 by David Camp Jr.\
+<dave@thinbits.com>\
+<http://www.thinbits.com>\
+\
+\
+
+\fs28 \ul System Requirements
+\fs24 \ulnone \
+\
+
+\fs22 Mac OS X 10.2 or later. It might work with Mac OS X 10.1.x, but I have not tried it...\
+\
+
+\fs28 \ul \
+About SLIMP3 Remote
+\fs24 \ulnone \
+\
+
+\fs22 SLIMP3 Remote is a Mac OS X application to control the SLIMP3 server software. With it you can view the current playlist, turn the SLIMP3 on and off, play/pause, change tracks, and control the volume.\
+\
+Please do not place copies of this package on your web site for others to download. Instead, please place a link to < http://www.thinbits.com/software>. This helps me keep track of how many people are using it, and gives people a chance to sign up for updates.\
+\
+At some point in the future, I will probably open source SLIMP3 Remote. It needs some cleaning and polish work before that happens...\
+
+\fs20 \
+\
+
+\fs28 \ul Installation
+\fs24 \ulnone \
+
+\fs22 Drag the application to your hard disk. That's it.\
+\
+Before running SLIMP3 Remote, your SLIMP3 server needs to have  enabled. To do this, go to the server with your web browser. Click Server Settings, then click Additional Server Settings. Scroll down to the Command Line Interface Port Number section. Enter a port number for the server to use and click Change. Port 9090 seems to be a common number for this.\
+\
+When you launch SLIMP3 Remote, it will prompt you to enter the server and port to connect to. You can either type in a numerical address (e.g. 192.168.1.108) or a canonical name (e.g. myserver.mydomain.com). You can also type in a Rendezvous name (e.g. myserver.local).\
+\
+Please send any questions, problem reports, or feature requests to <dave@thinbits.com>\
+\
+\
+
+\fs28 \ul Hints
+\fs24 \ulnone \
+
+\fs22 \'a5 Double-clicking a track plays it.\
+\
+\'a5 The UI updates in real time based on the current player settings. For example, changing the volume with the physical remote control causes the volume slider in the UI to move automatically.\
+\
+\'a5 There is not a good way for SLIMP3 Remote to tell if the current playlist has changed. Currently, it checks the number of tracks in the current playlist on the server, and if that is different than what it saw last time, it re-downloads the playlist from the server. This works most of the time, but if you switch to a playlist that has the same number of songs as the previous playlist, SLIMP3 Remote will not notice. I'll try to improve this in the future.\
+
+\fs20 \
+\
+\
+
+\fs28 \ul Version History
+\fs20 \ulnone \
+
+\fs22 \
+
+\f0\b Version 1.0 (v01), 12/31/2002
+\f1\b0 \
+First version. I've done a fair bit of testing on my machine, and it seems to work fine... :-) Let me know if that is not the case for you.\
+\
+
+\f0\b Version 1.0.1 (v03), 01/01/2003
+\f1\b0 \
+\'a5 Reduced CPU usage from an embarrassing 20% to about 1%.\
+\'a5 Fixed File menu to display the correct application name for Quit and Hide.\
+\
+
+\f0\b Version 1.0.2 (v04), 01/01/2003
+\f1\b0 \
+\'a5 Fixed problems with shuffle and repeat not working correctly.\
+\'a5 Improved error handing when unable to connect to server.\
+\
+
+\f0\b Version 1.0.3 (v05), 01/04/2003
+\f1\b0 \
+\'a5 Fixed problems with power button.\
+\'a5 Fixed problems with button settings flickering after being clicked.\
+\'a5 Playlist display now updates as it is being retrieved from the server.\
+\'a5 Lots of changes to improve communications with the server.\
+\
+\
+
+\fs28 \ul Misc
+\fs20 \ulnone \
+
+\fs22 \ul \
+Known Problems/Limitations\ulnone \
+\
+\'a5 Displays dates and numbers with US formatting. Need to use the system specified formatting instead...\
+\'a5 No way to repeat a single song (clicking repeat performs a "repeat all").\
+\
+\ul Future Features\ulnone \
+\
+\'a5 Highlight current track playing in the playlist\
+\'a5 Allow track reordering\
+\'a5 Support a small window mode (minimal controls displayed) like iTunes.\
+\'a5 Support for multiple servers and players (I would need multiple devices to do that. Maybe someone wants to donate a second player to me... :-)\
+\'a5 Improved Rendezvous support.\
+\'a5 Remote window to allow you to press any button from the actual remote control.\
+}

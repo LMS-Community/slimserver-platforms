@@ -1,0 +1,5 @@
+umask 022
+touch /etc/slimp3.pref
+chown slimp3:slimp3 /etc/slimp3.pref
+/etc/init.d/slimp3 start
+#echo "Point your web browser to http://`uname -n`:9000/ to configure your server."
