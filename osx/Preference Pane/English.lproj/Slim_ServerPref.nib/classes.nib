@@ -1,0 +1,57 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = "MySliMP3_ServerPref"; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = "SliMP3_ServerPref"; 
+        }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = id; 
+                "_initialKeyView" = id; 
+                "_lastKeyView" = id; 
+                "_window" = id; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {
+                aboutSliMP3 = id; 
+                cancelFirmwareUpdate = id; 
+                changeStartupPreference = id; 
+                dismissAboutBox = id; 
+                dismissUpdateComplete = id; 
+                doFirmwareUpdate = id; 
+                openWebInterface = id; 
+                toggleServer = id; 
+                updateSliMP3Firmware = id; 
+            }; 
+            CLASS = "SliMP3_ServerPref"; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                aboutBox = NSWindow; 
+                aboutButton = NSButton; 
+                doFirmwareUpdate = NSButton; 
+                firmwareUpdateProgress = NSProgressIndicator; 
+                firmwareVersion = NSTextField; 
+                ipAddress = NSTextField; 
+                macAddress = NSTextField; 
+                serverStateDescription = NSTextField; 
+                serverStateImage = NSImageView; 
+                startupType = NSPopUpButton; 
+                toggleServerButton = NSButton; 
+                updateComplete = NSWindow; 
+                updateCompleteMessage = NSTextField; 
+                updateFirmware = NSWindow; 
+                updateFirmwareButton = NSButton; 
+                updatingFirmware = NSWindow; 
+                webLaunchButton = NSButton; 
+            }; 
+            SUPERCLASS = NSPreferencePane; 
+        }
+    ); 
+    IBVersion = 1; 
+}

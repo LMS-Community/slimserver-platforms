@@ -1,5 +1,5 @@
 ;
-; InnoSetup Script for SLIMP3 Server
+; InnoSetup Script for Slim Server
 ;
 ; Slim Devices : http://www.slimdevices.com
 ;
@@ -8,17 +8,17 @@
 
 
 [Setup]
-AppName=SLIMP3 Server
-AppVerName=SLIMP3 Server 4.2.2
+AppName=Slim Server
+AppVerName=Slim Server 4.2.2
 AppPublisher=Slim Devices
 AppPublisherURL=http://www.slimdevices.com
 AppSupportURL=http://www.slimdevices.com
 AppUpdatesURL=http://www.slimdevices.com
-DefaultDirName={pf}\SLIMP3 Server
-DefaultGroupName=SLIMP3 Server
-WizardImageFile=slimp3.bmp
+DefaultDirName={pf}\Slim Server
+DefaultGroupName=Slim Server
+WizardImageFile=slim.bmp
 WizardImageBackColor=$ffffff
-OutputBaseFilename=SLIMP3Setup
+OutputBaseFilename=SlimSetup
 ;AlwaysRestart=yes
 
 ;
@@ -36,7 +36,7 @@ Name: desktopicon; Description: Create a &desktop icon; GroupDescription: Additi
 Name: quicklaunchicon; Description: Create a &Quick Launch icon; GroupDescription: Additional icons:; Flags: unchecked
 
 [Files]
-Source: ..\..\..\build\SLIMP3 Server.exe; DestDir: {app}
+Source: ..\..\..\build\Slim Server.exe; DestDir: {app}
 Source: ..\..\..\build\firmware\MAIN.HEX; DestDir: {app}\firmware\
 Source: ..\..\..\build\firmware\Updater.exe; DestDir: {app}\firmware\
 Source: ..\..\..\build\Getting Started.html; DestDir: {app}
@@ -54,44 +54,44 @@ Source: ..\..\..\build\server\*.*; DestDir: {app}\server; Flags: comparetimestam
 
 [INI]
 Filename: {app}\Visit Slim Devices.url; Section: InternetShortcut; Key: URL; String: http://www.slimdevices.com
-Filename: {app}\SLIMP3 Web Control.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000
+Filename: {app}\Slim Server Web Control.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000
 
 [Icons]
-Name: {group}\SLIMP3 Server; Filename: {app}\SLIMP3 Server.exe
+Name: {group}\Slim Server; Filename: {app}\Slim Server.exe
 Name: {group}\Slim Devices website; Filename: {app}\Visit Slim Devices.url
-Name: {group}\SLIMP3 Web Interface; Filename: {app}\SLIMP3 Web Control.url;
+Name: {group}\Slim Web Interface; Filename: {app}\Slim Web Control.url;
 Name: {group}\Firmware Updater; Filename: {app}\firmware\Updater.exe
 Name: {group}\License; Filename: {app}\License.txt
 Name: {group}\Getting Started; Filename: {app}\Getting Started.html
-Name: {group}\Uninstall SLIMP3 Server; Filename: {uninstallexe}
-Name: {userdesktop}\SLIMP3 Server; Filename: {app}\SLIMP3 Server.exe; Tasks: desktopicon
-Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\SLIMP3; Filename: {app}\SLIMP3 Server.exe; Tasks: quicklaunchicon
+Name: {group}\Uninstall Slim Server; Filename: {uninstallexe}
+Name: {userdesktop}\Slim Server; Filename: {app}\Slim Server.exe; Tasks: desktopicon
+Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\Slim Server; Filename: {app}\Slim Server.exe; Tasks: quicklaunchicon
 
 
 [Registry]
 ;
 ; Create the registry key to run the service if running on Win9X (inc. ME)
 ;
-Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\Run; ValueType: string; ValueName: slimp3; ValueData: {app}\SliMP3 Server.exe; MinVersion: 4.0,0; OnlyBelowVersion: 4.90.3001,0; Flags: uninsdeletevalue
+Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\Run; ValueType: string; ValueName: slimserver; ValueData: {app}\Slim Server.exe; MinVersion: 4.0,0; OnlyBelowVersion: 4.90.3001,0; Flags: uninsdeletevalue
 
 [Run]
 ;
 ; Only give the option to install as a service if running WinNT 4 at a minimum (any 'NT' system is ok - 2k, xp etc)
 ;
-Filename: {app}\server\slimp3svc.exe; Description: Install SLIMP3 Server as a Windows service; Flags: postinstall runminimized; MinVersion: 0,4.00.1381; Parameters: -install auto; WorkingDir: {app}\server
-Filename: net; Description: Start SLIMP3 Windows service; Parameters: start slimp3svc; Flags: postinstall runminimized; MinVersion: 0,4.00.1381
-Filename: {app}\SLIMP3 Server.exe; Description: Launch SLIMP3 Server application; Flags: nowait postinstall skipifsilent runmaximized
+Filename: {app}\server\slimserversvc.exe; Description: Install Slim Server as a Windows service; Flags: postinstall runminimized; MinVersion: 0,4.00.1381; Parameters: -install auto; WorkingDir: {app}\server
+Filename: net; Description: Start Slim Windows service; Parameters: start slimserversvc; Flags: postinstall runminimized; MinVersion: 0,4.00.1381
+Filename: {app}\Slim Server.exe; Description: Launch Slim Server application; Flags: nowait postinstall skipifsilent runmaximized
 ;Filename: {app}\Release Notes.html; Description: View Release Notes; Flags: nowait shellexec postinstall unchecked
 
 [UninstallDelete]
-;Type: files; Name: {app}\server\SLIMP3.PRF
+;Type: files; Name: {app}\server\SLIM.PRF
 
 [_ISTool]
 EnableISX=true
 
 [UninstallRun]
-Filename: net; Parameters: stop slimp3svc; Flags: runminimized skipifdoesntexist; MinVersion: 0,4.00.1381
-Filename: {app}\server\slimp3svc.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
+Filename: net; Parameters: stop slimserversvc; Flags: runminimized skipifdoesntexist; MinVersion: 0,4.00.1381
+Filename: {app}\server\slimserversvc.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
 
 [Code]
 {
@@ -110,7 +110,7 @@ var
   CurSubPage: Integer;
   Next: Boolean;
 begin
-  FileName:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'SLIMP3.PRF';
+  FileName:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'SLIM.PRF';
   
   if (not FileExists(FileName) and ((not BackClicked and (CurPage = wpSelectDir)) or (BackClicked and (CurPage = wpSelectProgramGroup)))) then begin
     // Insert a custom wizard page between two non custom pages
@@ -126,8 +126,8 @@ begin
 			0:
         begin
           ScriptDlgPageSetCaption('Select your Music Folder');
-          ScriptDlgPageSetSubCaption1('Where should SLIMP3 look for your music ?');
-          ScriptDlgPageSetSubCaption2('Select the folder you would like the SLIMP3 server to look for your music, then click Next.');
+          ScriptDlgPageSetSubCaption1('Where should the Slim Server look for your music?');
+          ScriptDlgPageSetSubCaption2('Select the folder you would like the Slim Server to look for your music, then click Next.');
 
           if(MyMusicFolder='') then
             MyMusicFolder := WizardDirValue;
@@ -143,8 +143,8 @@ begin
 			1:
         begin
           ScriptDlgPageSetCaption('Select your Playlist Folder');
-          ScriptDlgPageSetSubCaption1('Where should SLIMP3 look for / store your Playlists ?');
-          ScriptDlgPageSetSubCaption2('Select the folder you would like the SLIMP3 server to look for or store your playlists, then click Next.');
+          ScriptDlgPageSetSubCaption1('Where should Slim Server look for / store your Playlists ?');
+          ScriptDlgPageSetSubCaption2('Select the folder you would like the Slim Server to look for or store your playlists, then click Next.');
 
           if(MyPlayListFolder='') then begin
             if(MyMusicFolder<>'') then
@@ -242,9 +242,9 @@ begin
     begin
     if CurStep = csWizard then
       begin
-        InstExec('net', 'stop slimp3svc', '', True, True, SW_HIDE, ErrorCode);
+        InstExec('net', 'stop slimserversvc', '', True, True, SW_HIDE, ErrorCode);
         ServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-        ServicePath:= ServerDir + AddBackslash('slimp3svc.exe');
+        ServicePath:= ServerDir + AddBackslash('slimserversvc.exe');
 
         InstExec(ServicePath, '-remove', ServerDir, true, true, SW_HIDE, ErrorCode);
       end;

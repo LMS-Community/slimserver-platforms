@@ -1,6 +1,6 @@
-PKG=SLIMP3
-NAME=SLIMP3 Server _VERSION_
-DESC=This is the SLIMP3 player server software.
+PKG=SLIMD
+NAME=SLIMD Server _VERSION_
+DESC=This is the Slim Devices player server software.
 ARCH=_ARCH_
 VERSION=_VERSION_
 CATEGORY=application

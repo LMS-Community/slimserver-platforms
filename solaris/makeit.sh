@@ -1,6 +1,6 @@
 #!/bin/sh
 #set -x
-distdir="${1:-SLIMP3_Server_v4.2.2}"
+distdir="${1:-Slim_Server_v4.2.2}"
 title="$distdir"
 
 mkdir $distdir/pkg
@@ -18,18 +18,18 @@ cp misc/solaris/postinstall   $distdir/pkg
 cp misc/solaris/postremove    $distdir/pkg
 cp misc/solaris/preinstall    $distdir/pkg
 cp misc/solaris/preremove     $distdir/pkg
-cp misc/solaris/slimp3.init   $distdir/pkg/etc/init.d/slimp3
+cp misc/solaris/slimd.init   $distdir/pkg/etc/init.d/slimd
 
-ln -s ../init.d/slimp3 $distdir/pkg/etc/rc0.d/K01slimp3
-ln -s ../init.d/slimp3 $distdir/pkg/etc/rc1.d/K01slimp3
-ln -s ../init.d/slimp3 $distdir/pkg/etc/rc2.d/K01slimp3
-ln -s ../init.d/slimp3 $distdir/pkg/etc/rc3.d/S99slimp3
-ln -s ../init.d/slimp3 $distdir/pkg/etc/rcS.d/K01slimp3
-ln -s $distdir $distdir/pkg/opt/slimp3
-#touch $distdir/pkg/etc/slimp3.pref
+ln -s ../init.d/slimd $distdir/pkg/etc/rc0.d/K01slimd
+ln -s ../init.d/slimd $distdir/pkg/etc/rc1.d/K01slimd
+ln -s ../init.d/slimd $distdir/pkg/etc/rc2.d/K01slimd
+ln -s ../init.d/slimd $distdir/pkg/etc/rc3.d/S99slimd
+ln -s ../init.d/slimd $distdir/pkg/etc/rcS.d/K01slimd
+ln -s $distdir $distdir/pkg/opt/slimd
+#touch $distdir/pkg/etc/slimd.pref
 
-#chmod 0644 $distdir/pkg/etc/slimp3.pref
-chmod 0744 $distdir/pkg/etc/init.d/slimp3
+#chmod 0644 $distdir/pkg/etc/slimd.pref
+chmod 0744 $distdir/pkg/etc/init.d/slimd
 chmod 0755 $distdir/pkg/opt
 
 cd $distdir/pkg/opt

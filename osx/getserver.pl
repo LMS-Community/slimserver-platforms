@@ -7,7 +7,7 @@ system "rm -rf '$distdir'";
 
 print "Copying: $distdir\n";
 system "cp -Rf ../../server '$distdir'";
-system "chmod a+x '$distdir/slimp3.pl'";
+system "chmod a+x '$distdir/slimserver.pl'";
 
 print "Copying: $distdir/firmware\n";
 system "mkdir '$distdir/firmware'";
@@ -26,7 +26,7 @@ while ($cvsdir=<FIND>) {
 }
 close FIND; 
 
-open FIND, 'ls  \''.$distdir.'/lib/CPAN/arch\'|';
+open FIND, 'ls  \''.$distdir.'/CPAN/arch\'|';
 while ($arches=<FIND>) {
   chomp ($arches);
   if ($arches !~ /darwin/) {
