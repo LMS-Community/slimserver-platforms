@@ -80,7 +80,9 @@ if [ -s /tmp/slimd.$$ ]; then
  cp /tmp/slimd.$$ $DEST_FILE
  rm /tmp/slimd.$$
 fi
-
+if [ ! -s /etc/slimd.conf ] && [ -e /etc/slimp3.pref ]; then
+  cp /etc/slimp3.pref /etc/slimd.conf
+fi
 /sbin/chkconfig --add slimd
 /sbin/service slimd restart >/dev/null 2>&1 || :
 echo "Point your web browser to http://`uname -n`:9000/ to configure your \
