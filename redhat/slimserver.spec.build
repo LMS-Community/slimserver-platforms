@@ -26,9 +26,8 @@ Obsoletes: SliMP3
 This is the Slim Devices server software.
 Point your web browser to http://localhost:9000/ to configure the server.
 * Open-source server, written in Perl (GPL)
-* Optional HTTP interface - control the player and manage your playlists
-  from a web browser!
-* Internet radio - Shoutcast, Icecast, and Live365
+* Optional HTTP interface - control the player and manage your playlists from a web browser!
+* Internet radio - Shoutcast, Icecast, RadioIO, and Live365
 * Unlimited capacity - it doesn't matter if your mp3 collection is a
   megabyte or a terabyte. Your files are not stored on the player, so there's
   no limit to the amount of music you can access, and you don't need to
@@ -61,12 +60,16 @@ cd ..
 
 %pre
 export SLIMSERVER_USER=slimserver
+
 # Someone might have changed the default.  Lets make sure we use it.
-if [ -f /etc/sysconfig/slimserver ]; then . /etc/sysconfig/slimserver; fi
+if [ -f /etc/sysconfig/slimserver ]; then
+	. /etc/sysconfig/slimserver;
+fi
+
 # Add the $SLIMSERVER_USER if there is not one
 if [ `grep -c "^$SLIMSERVER_USER:" /etc/passwd` -eq 0 ]; then
- /usr/sbin/groupadd $SLIMSERVER_USER
- /usr/sbin/useradd -c "SlimServer" -g $SLIMSERVER_USER -d %{slimdir} $SLIMSERVER_USER
+	/usr/sbin/groupadd $SLIMSERVER_USER
+	/usr/sbin/useradd -c "SlimServer" -g $SLIMSERVER_USER -d %{slimdir} $SLIMSERVER_USER
 fi
 
 %post
@@ -81,47 +84,73 @@ if [ `grep -c PREFIX /etc/sysconfig/slimserver` -gt 0 ]; then
  		rm /tmp/slimserver.$$
 	fi
 fi
+
 if [ ! -s /etc/slimserver.conf ] && [ -e /etc/slimp3.pref ]; then
-  cp /etc/slimp3.pref /etc/slimserver.conf
+	cp /etc/slimp3.pref /etc/slimserver.conf
 fi
 
 # Now that everything is installed, make sure the permissions are right
 chown -R slimserver.slimserver %{slimdir}
 
-/sbin/chkconfig --add slimserver
-/sbin/service slimserver restart >/dev/null 2>&1 || :
-if [ -e /etc/slimserver.conf ]; then
-  echo "Point your web browser to http://`uname -n`:`awk '/^httpport/ \
- {print $3}' /etc/slimserver.conf`/ to configure your server."
-else
-  echo "Point your web browser to http://`uname -n`:9000/ to configure your \
- server."
+# Allow the RPM to be installed on SuSE
+if [ -x /sbin/chkconfig ]; then
+	/sbin/chkconfig --add slimserver
 fi
+
+if [ -x /sbin/service ]; then
+
+	/sbin/service slimserver restart >/dev/null 2>&1 || :
+
+	PORT=`awk '/^httpport/ {print $3}' /etc/slimserver.conf`
+fi
+
+# Set a default port if one doesn't exist.
+if [ ! -z "$PORT" -o ! -s /etc/slimserver.conf ]; then
+	PORT=9000
+fi
+
+HOSTNAME=`uname -n`
+
+echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure your server."
+
 if [ -e /tmp/slimserver.log ]; then
-  rm /tmp/slimserver.log
+	rm /tmp/slimserver.log
 fi
 
 %preun
 # Only if we are not upgrading...
 if [ "$1" -eq "0" ] ; then
- /sbin/service slimserver stop >/dev/null 2>&1 || :
- /sbin/chkconfig --del slimserver
+
+	if [ -x /sbin/service ]; then
+		/sbin/service slimserver stop >/dev/null 2>&1 || :
+	fi
+
+	if [ -x /sbin/chkconfig ]; then
+
+		/sbin/chkconfig --del slimserver
+	fi
 fi
 
 %postun
 # Only if we are upgrading...
 if [ "$1" -ge "1" ]; then
- /sbin/service slimserver restart >/dev/null 2>&1 || :
+	
+	if [ -x /sbin/service ]; then
+		/sbin/service slimserver restart >/dev/null 2>&1 || :
+	fi
+
 else
- SLIMSERVER_USER="slimserver"
- SLIMSERVER_CFG="/etc/slimserver.conf"
- if [ -f /etc/sysconfig/slimserver ]; then . /etc/sysconfig/slimserver; fi
- userdel $SLIMSERVER_USER 2>/dev/null || :
- # assume the group name is the same as the user, it's not in sysconfig
- groupdel $SLIMSERVER_USER 2>/dev/null || :
- MP3DIR=`grep mp3dir $SLIMSERVER_CFG |awk -F= '{print $2}'`
- if [ -w $MP3DIR/.slimserverinfo.db.dir ];then rm -f $MP3DIR/.slimserverinfo.db.dir;fi
- if [ -w $MP3DIR/.slimserverinfo.db.pag ];then rm -f $MP3DIR/.slimserverinfo.db.pag;fi
+	SLIMSERVER_USER="slimserver"
+	SLIMSERVER_CFG="/etc/slimserver.conf"
+
+	if [ -f /etc/sysconfig/slimserver ]; then
+		. /etc/sysconfig/slimserver;
+	fi
+
+	userdel $SLIMSERVER_USER 2>/dev/null || :
+
+	# assume the group name is the same as the user, it's not in sysconfig
+	groupdel $SLIMSERVER_USER 2>/dev/null || :
 fi
 
 %files
@@ -132,6 +161,10 @@ fi
 %attr(-, root, root) %config(noreplace) /etc/sysconfig/slimserver
 
 %changelog
+* Tue Apr 11 2005 dsully
+- Make the RPM more SuSE friendly.
+- Fix an error with printing the port number on install/upgrade. (bug 974)
+
 * Thu Nov 6 2003 dean
 - Renaming slimd to slimserver
 
@@ -221,5 +254,3 @@ people were having with saving playlists and such.
 
 * Wed Aug 28 2002	Victor Brilon <victor@vail.net>
 - First release
-
-
