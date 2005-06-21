@@ -36,11 +36,10 @@ Name: desktopicon; Description: Create a &desktop icon; GroupDescription: Additi
 Name: quicklaunchicon; Description: Create a &Quick Launch icon; GroupDescription: Additional icons:; Flags: unchecked
 
 [Files]
-Source: SlimServer.exe; DestDir: {app}; Flags: replacesameversion
+Source: SlimTray.exe; DestDir: {app}; Flags: replacesameversion
 Source: firmware\MAIN.HEX; DestDir: {app}\firmware\
 Source: firmware\SLIMP3 Updater.exe; DestDir: {app}\firmware\
 Source: Getting Started.html; DestDir: {app}
-Source: psapi.dll; DestDir: {app}
 Source: Release Notes.html; DestDir: {app}
 Source: License.txt; DestDir: {app}
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
@@ -57,20 +56,17 @@ Filename: {app}\Visit Slim Devices.url; Section: InternetShortcut; Key: URL; Str
 Filename: {app}\SlimServer Web Interface.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000; Flags: uninsdeletesection
 
 [Icons]
-Name: {group}\SlimServer; Filename: {app}\SlimServer.exe
+Name: {group}\SlimServer; Filename: {app}\SlimTray.exe; Parameters: "--start"; WorkingDir: "{app}";
 Name: {group}\Slim Devices website; Filename: {app}\Visit Slim Devices.url
-Name: {group}\Slim Web Interface; Filename: {app}\Slim Web Interface.url;
+Name: {group}\Slim Web Interface; Filename: {app}\SlimServer Web Interface.url;
 Name: {group}\License; Filename: {app}\License.txt
 Name: {group}\Getting Started; Filename: {app}\Getting Started.html
 Name: {group}\Uninstall SlimServer; Filename: {uninstallexe}
-Name: {userdesktop}\SlimServer; Filename: {app}\SlimServer.exe; Tasks: desktopicon
-Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\SlimServer; Filename: {app}\SlimServer.exe; Tasks: quicklaunchicon
+Name: {userdesktop}\SlimServer; Filename: {app}\SlimTray.exe; Parameters: "--start"; WorkingDir: "{app}"; Tasks: desktopicon
+Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\SlimServer; Filename: {app}\SlimTray.exe; Parameters: "--start"; WorkingDir: "{app}"; Tasks: quicklaunchicon
+Name: {commonstartup}\SlimServer Tray Tool; Filename: {app}\SlimTray.exe
 
 [Registry]
-;
-; Create the registry key to run the service if running on Win9X (inc. ME)
-;
-Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\Run; ValueType: string; ValueName: slimserver; ValueData: {app}\SlimServer.exe; MinVersion: 4.0,0; OnlyBelowVersion: 4.90.3001,0; Flags: uninsdeletevalue
 ;
 ; The following keys open required SlimServer ports in the XP Firewall
 ;
@@ -79,7 +75,7 @@ Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\Fi
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:SlimServer 3483 tcp"; MinVersion: 0,5.01;
 
 [Run]
-Filename: {app}\SlimServer.exe; Description: Launch SlimServer application; Flags: nowait postinstall skipifsilent runmaximized
+Filename: {app}\SlimTray.exe; Description: Launch SlimServer application; WorkingDir: "{app}"; Flags: nowait skipifsilent runmaximized
 Filename: {app}\Getting Started.html; Description: Read Getting Started document; Flags: shellexec skipifsilent postinstall
 
 [UninstallDelete]
@@ -93,11 +89,13 @@ Type: filesandordirs; Name: {app}\server\Cache
 Type: files; Name: {app}\server\slimserver.pref
 Type: files; Name: {app}\Visit Slim Devices.url
 Type: files; Name: {app}\SlimServer Web Interface.url
+Type: files; Name: {commonstartup}\SlimServer Tray Tool.url
 
 [_ISTool]
 EnableISX=true
 
 [UninstallRun]
+Filename: {app}\SlimTray.exe; Parameters: -exit; WorkingDir: {app}; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
 Filename: net; Parameters: stop slimsvc; Flags: runminimized; MinVersion: 0,4.00.1381
 Filename: {app}\server\slim.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
 
@@ -280,6 +278,7 @@ procedure CurStepChanged(CurStep: Integer);
 var
 	ErrorCode: Integer;
 	ServicePath: String;
+	TrayPath: String;
 	NewServerDir: String;
 	OldServerDir: String;
 	Uninstaller: String;
@@ -299,6 +298,11 @@ begin
 			NewServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 			if UsingWinNT() then
 				begin
+
+					TrayPath:= AddBackslash(ExpandConstant('{app}')) + 'SlimTray.exe';
+					if (FileExists(TrayPath)) then
+						InstExec(TrayPath, '--exit', OldServerDir, true, false, SW_HIDE, ErrorCode);
+
 					InstExec('net', 'stop slimsvc', '', true, false, SW_HIDE, ErrorCode);
 	
 					if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\slimsvc', 'ImagePath', ServicePath) then 
@@ -342,6 +346,13 @@ begin
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Touch'), true, true, true);
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('WebPad'), true, true, true);
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('xml'), true, true, true);
+
+			// Remove defunct radio plugins (now replaced by new
+			// in their own directories)
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('RadioIO.pm'), false, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Picks.pm'), false, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('ShoutcastBrowser.pm'), false, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Live365.pm'), false, true, true);
 		end;
 
 	if CurStep = csFinished then begin
@@ -353,11 +364,18 @@ begin
 					PrefString := PrefString + 'itunes_library_xml_path = ' + iTunesPath + #13#10 + 'itunes_library_music_path = ' + MyMusicFolder + #13#10;
 				SaveStringToFile(FileName, PrefString, False);
 			end;
-		if ShouldAutostart() and UsingWinNT() then 
+		if UsingWinNT() then 
 			begin
 				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-				InstExec(NewServerDir + 'slim.exe', '-install auto', NewServerDir, True, False, SW_SHOWMINIMIZED, ErrorCode); 
-				InstExec('net', 'start slimsvc', '', true, false, SW_HIDE, ErrorCode);
+				if ShouldAutostart() then
+					begin 
+						InstExec(NewServerDir + 'slim.exe', '-install auto', NewServerDir, True, False, SW_SHOWMINIMIZED, ErrorCode); 
+						InstExec('net', 'start slimsvc', '', true, false, SW_HIDE, ErrorCode);
+					end
+				else
+					begin
+						InstExec(NewServerDir + 'slim.exe', '-install', NewServerDir, True, False, SW_SHOWMINIMIZED, ErrorCode); 
+					end;
 			end;
 	end;
 	
