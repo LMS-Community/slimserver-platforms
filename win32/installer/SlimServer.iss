@@ -57,8 +57,7 @@ Filename: {app}\SlimServer Web Interface.url; Section: InternetShortcut; Key: UR
 
 [Icons]
 Name: {group}\SlimServer; Filename: {app}\SlimTray.exe; Parameters: "--start"; WorkingDir: "{app}";
-Name: {group}\Slim Devices website; Filename: {app}\Visit Slim Devices.url
-Name: {group}\Slim Web Interface; Filename: {app}\SlimServer Web Interface.url;
+Name: {group}\Go to Slim Devices Web Site; Filename: {app}\Visit Slim Devices.url
 Name: {group}\License; Filename: {app}\License.txt
 Name: {group}\Getting Started; Filename: {app}\Getting Started.html
 Name: {group}\Uninstall SlimServer; Filename: {uninstallexe}
@@ -77,6 +76,9 @@ Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\Fi
 [Run]
 Filename: {app}\SlimTray.exe; Description: Launch SlimServer application; WorkingDir: "{app}"; Flags: nowait skipifsilent runmaximized
 Filename: {app}\Getting Started.html; Description: Read Getting Started document; Flags: shellexec skipifsilent postinstall
+
+[UninstallRun]
+Filename: {app}\SlimTray.exe; WorkingDir: "{app}"; Parameters: "--exit"; Flags: runmaximized
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
@@ -349,10 +351,17 @@ begin
 
 			// Remove defunct radio plugins (now replaced by new
 			// in their own directories)
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('RadioIO.pm'), false, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Picks.pm'), false, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('ShoutcastBrowser.pm'), false, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Live365.pm'), false, true, true);
+			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'RadioIO.pm');
+			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'Picks.pm');
+			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'ShoutcastBrowser.pm');
+			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'Live365.pm');
+
+			// Remove other defunct pieces
+			DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'SlimServer.exe');
+			DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'psapi.dll');
+			DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Devices website.lnk');
+			DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Web Interface.lnk');
+	
 		end;
 
 	if CurStep = csFinished then begin

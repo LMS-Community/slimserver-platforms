@@ -15,7 +15,8 @@ sub PopupMenu {
 	my @menu;
 
 	if ($ssActive) {
-		push @menu, ["*Show SlimServer", "Execute 'http://localhost:9000'"];
+		push @menu, ["*Open SlimServer", "Execute 'SlimServer Web Interface.url'"];
+		push @menu, ["--------"];
 		push @menu, ["Stop SlimServer", \&stopSlimServer];
 	}
 	elsif ($pendingActivation) {
@@ -26,7 +27,7 @@ sub PopupMenu {
 	}
 
 	push @menu, ["--------"];
-	push @menu, ["Visit slimdevices.com", "Execute 'http://www.slimdevices.com'"];
+	push @menu, ["Go to Slim Devices Web Site", "Execute 'http://www.slimdevices.com'"];
 	push @menu, ["E&xit", "exit"];
 	
 	return \@menu;
@@ -75,7 +76,7 @@ sub Timer {
 	# show the SS home page.
 	# XXX Need to find actual HTTP port in prefs.
 	elsif ($wasPending && $ssActive) {
-		Execute("http://localhost:9000");
+		Execute("SlimServer Web Interface.url");
 	}
 }
 
@@ -83,6 +84,9 @@ sub Timer {
 # at Perl initialization.
 sub checkAndStart {
 	SetTimer(0, \&checkAndStart);
+
+	exit if ($exit);
+
 	checkSSActive();
 	
 	if ($ssActive) {
@@ -152,9 +156,7 @@ sub stopSlimServer {
 }
 
 GetOptions('start' => \$start,
-		   'exit' => \&exit);
-
-exit if ($exit);
+		   'exit' => \$exit);
 
 # Checking for existence & launching of SS in a timer, since it
 # fails if done during Perl initialization.
