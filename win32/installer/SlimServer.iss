@@ -122,11 +122,8 @@ begin
 	
 	if ((not BackClicked and (CurPage = wpSelectDir)) or (BackClicked and (CurPage = wpSelectProgramGroup))) then
 		begin
-		  FileName:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'slimserver.pref';
+			FileName:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'slimserver.pref';
 
-		  if (not FileExists(FileName) or UsingWinNT()) then
-	       begin
-         	
 			// Insert a custom wizard page between two non custom pages
 			if  (BackClicked or FileExists(FileName)) then
 				curSubPage:=2
@@ -215,11 +212,6 @@ begin
 		
 			ScriptDlgPageClose(not Result);
 		end
-		else
-		  begin
-		    Result := true;
-		  end
-		end
 	else
 		begin
 			Result := true;
@@ -283,6 +275,7 @@ var
 	TrayPath: String;
 	NewServerDir: String;
 	OldServerDir: String;
+	OldTrayDir: String;
 	Uninstaller: String;
 	delPath: String;
 	PrefString, iTunesPath : String;
@@ -298,34 +291,32 @@ begin
 			end;
 			
 			NewServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-			if UsingWinNT() then
-				begin
-
-					TrayPath:= AddBackslash(ExpandConstant('{app}')) + 'SlimTray.exe';
-					if (FileExists(TrayPath)) then
-						InstExec(TrayPath, '--exit', OldServerDir, true, false, SW_HIDE, ErrorCode);
-
-					InstExec('net', 'stop slimsvc', '', true, false, SW_HIDE, ErrorCode);
+			InstExec('net', 'stop slimsvc', '', true, false, SW_HIDE, ErrorCode);
 	
-					if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\slimsvc', 'ImagePath', ServicePath) then 
-						begin
-							ServicePath:= RemoveQuotes(ServicePath);
-							OldServerDir:= AddBackslash(ExtractFileDir(ServicePath));
-						end
-					else 
-						begin
-							OldServerDir:= NewServerDir; 
-							if (FileExists(OldServerDir + 'slimsvc.exe')) then
-								ServicePath:= OldServerDir + 'slimsvc.exe'		
-							else
-								ServicePath:= OldServerDir + 'slim.exe';		
-						end;
-
-					InstExec(ServicePath, '-remove', OldServerDir, true, false, SW_HIDE, ErrorCode);		
-
-					if (OldServerDir = NewServerDir) then
-						DeleteFile(ServicePath);
+			if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\slimsvc', 'ImagePath', ServicePath) then 
+				begin
+					ServicePath:= RemoveQuotes(ServicePath);
+					OldServerDir:= AddBackslash(ExtractFileDir(ServicePath));
+				end
+			else 
+				begin
+					OldServerDir:= NewServerDir; 
+					if (FileExists(OldServerDir + 'slimsvc.exe')) then
+						ServicePath:= OldServerDir + 'slimsvc.exe'		
+					else
+						ServicePath:= OldServerDir + 'slim.exe';		
 				end;
+
+			// Stop the old tray
+			OldTrayDir := OldServerDir + AddBackslash('..');
+			TrayPath:= OldTrayDir + 'SlimTray.exe';
+			if (FileExists(TrayPath)) then
+				InstExec(TrayPath, '--exit', OldTrayDir, true, false, SW_HIDE, ErrorCode);
+
+			InstExec(ServicePath, '-remove', OldServerDir, true, false, SW_HIDE, ErrorCode);		
+
+			if (OldServerDir = NewServerDir) then
+				DeleteFile(ServicePath);
 			
 			delPath := NewServerDir + AddBackslash('CPAN') + AddBackslash('arch');
 			DelTree(delPath, true, true, true);
@@ -373,19 +364,17 @@ begin
 					PrefString := PrefString + 'itunes_library_xml_path = ' + iTunesPath + #13#10 + 'itunes_library_music_path = ' + MyMusicFolder + #13#10;
 				SaveStringToFile(FileName, PrefString, False);
 			end;
-		if UsingWinNT() then 
-			begin
-				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-				if ShouldAutostart() then
-					begin 
-						InstExec(NewServerDir + 'slim.exe', '-install auto', NewServerDir, True, False, SW_SHOWMINIMIZED, ErrorCode); 
-						InstExec('net', 'start slimsvc', '', true, false, SW_HIDE, ErrorCode);
-					end
-				else
-					begin
-						InstExec(NewServerDir + 'slim.exe', '-install', NewServerDir, True, False, SW_SHOWMINIMIZED, ErrorCode); 
-					end;
-			end;
+
+			NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
+			if ShouldAutostart() then
+				begin 
+					InstExec(NewServerDir + 'slim.exe', '-install auto', NewServerDir, True, False, SW_SHOWMINIMIZED, ErrorCode); 
+					InstExec('net', 'start slimsvc', '', true, false, SW_HIDE, ErrorCode);
+				end
+			else
+				begin
+					InstExec(NewServerDir + 'slim.exe', '-install', NewServerDir, True, False, SW_SHOWMINIMIZED, ErrorCode); 
+				end;
 	end;
 	
 end;
