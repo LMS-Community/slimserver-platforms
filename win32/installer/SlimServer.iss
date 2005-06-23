@@ -19,6 +19,7 @@ DefaultGroupName=SlimServer
 WizardImageFile=slim.bmp
 WizardImageBackColor=$ffffff
 OutputBaseFilename=SlimSetup
+MinVersion=0,4
 ;AlwaysRestart=yes
 
 ;
