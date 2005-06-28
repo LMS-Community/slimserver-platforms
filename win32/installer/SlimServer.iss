@@ -64,7 +64,7 @@ Name: {group}\Getting Started; Filename: {app}\Getting Started.html
 Name: {group}\Uninstall SlimServer; Filename: {uninstallexe}
 Name: {userdesktop}\SlimServer; Filename: {app}\SlimTray.exe; Parameters: "--start"; WorkingDir: "{app}"; Tasks: desktopicon
 Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\SlimServer; Filename: {app}\SlimTray.exe; Parameters: "--start"; WorkingDir: "{app}"; Tasks: quicklaunchicon
-Name: {commonstartup}\SlimServer Tray Tool; Filename: {app}\SlimTray.exe
+Name: {commonstartup}\SlimServer Tray Tool; Filename: {app}\SlimTray.exe; WorkingDir: "{app}"
 
 [Registry]
 ;
