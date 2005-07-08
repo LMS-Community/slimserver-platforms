@@ -433,7 +433,7 @@ static void ParseArguments(int argc, char **argv)
     // Parse command line options using getopt.
     
     do {
-        ch = getopt(argc, argv, "v:rn:x:t:p:f:dP");
+        ch = getopt(argc, argv, "v:rn:x:t:p:f:dP:");
         if (ch != -1) {
             switch (ch) {
                 case 'v':
