@@ -101,7 +101,7 @@ if [ -x /sbin/service ]; then
 
 	/sbin/service slimserver restart >/dev/null 2>&1 || :
 
-	PORT=`awk '/^httpport/ {print $3}' /etc/slimserver.conf`
+	PORT=`awk '/^httpport/ {print $2}' /etc/slimserver.conf`
 fi
 
 # Set a default port if one doesn't exist.
