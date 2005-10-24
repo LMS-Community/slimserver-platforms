@@ -11,7 +11,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.thinbits.slimserverremote</string>
 	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.2b2</string>
+	<string>6.2.0</string>
 	<key>CFBundleName</key>
 	<string>SlimServer Remote</string>
 	<key>CFBundlePackageType</key>
