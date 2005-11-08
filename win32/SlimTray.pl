@@ -155,6 +155,8 @@ sub stopSlimServer {
 	$ssActive = 0;
 }
 
+*PerlTray::ToolTip = \&ToolTip;
+
 GetOptions('start' => \$start,
 		   'exit' => \$exit);
 
