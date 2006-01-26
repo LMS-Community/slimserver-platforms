@@ -1,5 +1,6 @@
 #!/bin/sh
-SERVER_RUNNING=`ps -ax | grep "slimserver\.pl\|slimp3\.pl\|slimp3d\|slimserver" | grep -v grep | cat`
+
+SERVER_RUNNING=`ps -ax | grep "slimserver\.pl\|slimserver" | grep -v grep | cat`
 
 if [ z"$SERVER_RUNNING" != z ] ; then
     echo "Please stop the SlimServer before running the installer."
