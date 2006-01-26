@@ -33,6 +33,7 @@
 
 #include <stdio.h> 
 #include <unistd.h> 
+#include <string.h> 
 #include <sys/attr.h> 
 #include <sys/stat.h> 
 #include <sys/mount.h> 
