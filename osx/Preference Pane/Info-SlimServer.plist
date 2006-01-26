@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>SlimServer</string>
 	<key>CFBundleGetInfoString</key>
-	<string>SlimServer 6.5b1, Copyright © 2002-0206 Slim Devices, Inc.</string>
+	<string>SlimServer 6.5b1, Copyright © 2002-2006 Slim Devices, Inc.</string>
 	<key>CFBundleIconFile</key>
 	<string>slimicon.icns</string>
 	<key>CFBundleIdentifier</key>
