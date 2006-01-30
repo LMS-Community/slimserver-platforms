@@ -1,0 +1,75 @@
+#!/usr/bin/make -f
+
+# $Id$
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+package=slimserver
+base=$(CURDIR)/debian/$(package)
+share=usr/share/slimserver/
+source=$(CURDIR)/../server
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -rf ${base}
+
+install:
+	dh_testdir
+	dh_testroot
+	dh_installdirs
+
+	# Create directories needed.
+	install -d -m0755 ${base}/etc/default/
+	install -d -m0755 ${base}/etc/slimserver/
+	install -d -m0755 ${base}/usr/share/perl5/
+	install -d -m0755 ${base}/${share}
+	install -d -m0755 ${base}/usr/share/doc/slimserver/
+
+	# Copy our server files to the appropriate Debian locations.
+	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/slimserver
+
+	cp -r ${source}/Slim ${base}/usr/share/perl5/
+
+	# Copy our locally modified perl modules
+	cp -r ${source}/lib ${base}/${share}
+
+	# And aux files needed to run SlimServer
+	cp -r ${source}/Firmware ${base}/${share}
+	cp -r ${source}/Graphics ${base}/${share}
+	cp -r ${source}/HTML ${base}/${share}
+	cp -r ${source}/IR ${base}/${share}
+	cp -r ${source}/Plugins ${base}/${share}
+	cp -r ${source}/SQL ${base}/${share}
+	cp -r ${source}/strings.txt ${base}/${share}
+
+	cp -r ${source}/*.conf ${base}/etc/slimserver/
+	cp -r $(CURDIR)/debian/slimserver.default ${base}/etc/default/slimserver
+
+	# Wrapper to keep SlimServer alive.
+	cp -r $(CURDIR)/debian/slimserver_safe ${base}/usr/sbin/slimserver_safe
+
+	# Documentation
+	cp ${source}/Change* ${base}/usr/share/doc/slimserver/
+	cp ${source}/Installation.txt ${base}/usr/share/doc/slimserver/
+	cp ${source}/License.txt $(CURDIR)/debian/copyright
+
+binary-indep: install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs 
+	dh_installdocs
+	dh_install
+	dh_installlogrotate
+	dh_installinit
+	dh_installman
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep
+.PHONY: build clean binary-indep binary install configure

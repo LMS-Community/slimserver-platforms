@@ -1,0 +1,4 @@
+# User to run slimserver as
+SLIMUSER=slimserver
+
+SLIMOPTIONS=""

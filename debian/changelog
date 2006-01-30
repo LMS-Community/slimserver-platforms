@@ -1,0 +1,5 @@
+slimserver (6.5b1) unstable; urgency=low
+
+  * Initial Debian Packaging.
+
+ -- Dan Sully <debian@slimdevices.com>  Sat, 28 Jan 2006 17:19:45 -0800

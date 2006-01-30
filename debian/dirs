@@ -1,0 +1,5 @@
+etc/slimserver
+usr/sbin
+usr/share/slimserver
+var/cache/slimserver
+var/log/slimserver
