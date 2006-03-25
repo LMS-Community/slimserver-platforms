@@ -16,7 +16,7 @@ Depends: perl (>= 5.8.1),
  libhtml-parser-perl, libima-dbi-perl, libio-string-perl, libmp4-info-perl, libnet-dns-perl,
  librpc-xml-perl, libfile-slurp-perl, libsql-abstract-perl, libyaml-perl (>= 0.57-1),
  libsql-abstract-limit-perl, libtemplate-perl, libfile-bom-perl,
- libtie-regexphash-perl, libtime-modules-perl, libuniversal-moniker-perl,
+ libtie-regexphash-perl, libpoe-perl, libtime-modules-perl, libuniversal-moniker-perl,
  libreadonly-perl, libtext-unidecode-perl, libenum-perl, libtie-cache-perl,
  libtie-cache-lru-perl, libtie-llhash-perl, libpath-class-perl, liburi-perl,
  libtie-cache-lru-expires-perl (>= 0.54-1), libxml-parser-perl, flac, sox, adduser
