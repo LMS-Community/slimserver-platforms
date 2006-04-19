@@ -18,7 +18,7 @@ Depends: perl (>= 5.8.1),
  libsql-abstract-limit-perl, libtemplate-perl, libfile-bom-perl, libnet-ip-perl,
  libtie-regexphash-perl, libpoe-perl, libtime-modules-perl, libuniversal-moniker-perl,
  libcache-cache-perl, libreadonly-perl, libtext-unidecode-perl, libenum-perl, libtie-cache-perl,
- libtie-cache-lru-perl, libtie-llhash-perl, libpath-class-perl, liburi-perl,
+ libtie-cache-lru-perl, libtie-llhash-perl, libpath-class-perl, liburi-perl, liberror-perl,
  libtie-cache-lru-expires-perl (>= 0.54-1), libxml-parser-perl, flac, sox, adduser
 Description: Streaming Audio Server
  SlimServer is a cross-platform streaming server that supports a wide range
