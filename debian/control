@@ -11,16 +11,22 @@ Conflicts: slimp3
 Depends: perl (>= 5.8.1),
  libcgi-perl, libclass-accessor-chained-perl, libclass-data-inheritable-perl,
  libclass-trigger-perl, libclass-virtual-perl, libclass-whitehole-perl,
- libcompress-zlib-perl, libtimedate-perl, libdbd-sqlite3-perl (>= 1.11-1),
- libdbi-perl, libwww-perl, libfile-which-perl, libgd-gd2-noxpm-perl | libgd-gd2-perl,
- libhtml-parser-perl, libima-dbi-perl, libio-string-perl, libmp4-info-perl, libnet-dns-perl,
- librpc-xml-perl, libfile-slurp-perl, libsql-abstract-perl, libyaml-perl (>= 0.57-1),
- libsql-abstract-limit-perl, libtemplate-perl, libfile-bom-perl, libnet-ip-perl, libdigest-sha1-perl,
- libtie-regexphash-perl, libpoe-perl, libtime-modules-perl, libuniversal-moniker-perl,
- libcache-cache-perl, libreadonly-perl, libtext-unidecode-perl, libenum-perl, libtie-cache-perl,
- libtie-cache-lru-perl, libtie-llhash-perl, libpath-class-perl, liburi-perl, liberror-perl, 
- libclass-singleton-perl, libtie-cache-lru-expires-perl (>= 0.54-1), libxml-parser-perl,
- libxml-writer-perl, libxml-xspf-perl, libyaml-syck-perl (>= 0.41-1), flac, sox, adduser
+ libcompress-zlib-perl, libtimedate-perl, libdbd-mysql-perl, libdbi-perl,
+ libwww-perl, libfile-which-perl, libgd-gd2-noxpm-perl | libgd-gd2-perl,
+ libhtml-parser-perl, libima-dbi-perl, libio-string-perl, libmp4-info-perl,
+ libnet-dns-perl, librpc-xml-perl, libfile-slurp-perl, libsql-abstract-perl,
+ libyaml-perl (>= 0.57-1), libsql-abstract-limit-perl, libtemplate-perl,
+ libfile-bom-perl, libnet-ip-perl, libdigest-sha1-perl, libtie-regexphash-perl,
+ libpoe-perl, libtime-modules-perl, libuniversal-moniker-perl,
+ libcache-cache-perl, libreadonly-perl, libtext-unidecode-perl, libenum-perl,
+ libtie-cache-perl, libtie-cache-lru-perl, libtie-llhash-perl,
+ libpath-class-perl, liburi-perl, liberror-perl, libclass-singleton-perl,
+ libtie-cache-lru-expires-perl (>= 0.54-1), libxml-parser-perl,
+ libdata-vstring-perl, libalgorithm-c3-perl, libclass-c3-perl,
+ libdbix-class-perl, libxml-writer-perl, libxml-xspf-perl, libyaml-syck-perl (>= 0.41-1), 
+ flac, sox, adduser, mysql-server-4.1 | mysql-server-5.0,
+ mysql-client-4.1 | mysql-client-5.0
+
 Description: Streaming Audio Server
  SlimServer is a cross-platform streaming server that supports a wide range
  of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and
