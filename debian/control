@@ -24,10 +24,9 @@ Depends: perl (>= 5.8.1),
  libtie-cache-lru-expires-perl (>= 0.54-1), libxml-parser-perl,
  libdata-vstring-perl, libalgorithm-c3-perl, libclass-c3-perl,
  libdbix-class-perl, libxml-writer-perl, libxml-xspf-perl, libdata-dump-perl,
- libdbix-migration-perl libyaml-syck-perl (>= 0.41-1), mysql-server-4.1 |
- mysql-server-5.0, libmysqlclient14-dev | libmysqlclient15-dev,
- mysql-client-4.1 | mysql-client-5.0, flac, sox, adduser
-
+ libdbix-migration-perl libyaml-syck-perl (>= 0.41-1), mysql-server-4.1 | mysql-server-5.0,
+ libmysqlclient14-dev | libmysqlclient15-dev, mysql-client-4.1 | mysql-client-5.0,
+ flac, sox, adduser
 Description: Streaming Audio Server
  SlimServer is a cross-platform streaming server that supports a wide range
  of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and
