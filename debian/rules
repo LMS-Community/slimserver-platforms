@@ -29,6 +29,7 @@ install:
 
 	# Copy our server files to the appropriate Debian locations.
 	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/slimserver
+	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/slimserver-scanner
 
 	cp -r ${source}/Slim ${base}/usr/share/perl5/
 
