@@ -41,6 +41,7 @@ install:
 	cp -r ${source}/Graphics ${base}/${share}
 	cp -r ${source}/HTML ${base}/${share}
 	cp -r ${source}/IR ${base}/${share}
+	cp -r ${source}/MySQL ${base}/${share}
 	cp -r ${source}/Plugins ${base}/${share}
 	cp -r ${source}/SQL ${base}/${share}
 	cp -r ${source}/strings.txt ${base}/${share}
