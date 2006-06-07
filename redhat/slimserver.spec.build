@@ -6,10 +6,14 @@
 Name: slimserver 
 Packager: Slim Devices <support@slimdevices.com>
 Requires: perl >= 5.6
+Requires: perl-XML-Parser
+Requires: perl-Digest-SHA1
+Requires: perl-DBD-mysql
+Requires: perl-GD 
 AutoReqProv: no
 Version: _VERSION_
 Release: 1
-Copyright: GPL
+License: GPL
 Group: System Environment/Daemons
 Summary: This is the Slim Devices server software
 Source: _SOURCE_
@@ -69,7 +73,7 @@ fi
 # Add the $SLIMSERVER_USER if there is not one
 if [ `grep -c "^$SLIMSERVER_USER:" /etc/passwd` -eq 0 ]; then
 	/usr/sbin/groupadd $SLIMSERVER_USER
-	/usr/sbin/useradd -c "SlimServer" -g $SLIMSERVER_USER -d %{slimdir} $SLIMSERVER_USER
+	/usr/sbin/useradd -c "SlimServer" -g $SLIMSERVER_USER -m -d %{slimdir} -s /sbin/nologin $SLIMSERVER_USER
 fi
 
 %post
