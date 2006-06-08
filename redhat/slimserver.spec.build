@@ -8,8 +8,6 @@ Packager: Slim Devices <support@slimdevices.com>
 Requires: perl >= 5.6
 Requires: perl-XML-Parser
 Requires: perl-Digest-SHA1
-Requires: perl-DBD-mysql
-Requires: perl-GD 
 AutoReqProv: no
 Version: _VERSION_
 Release: 1
