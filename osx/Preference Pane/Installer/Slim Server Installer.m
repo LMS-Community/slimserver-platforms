@@ -14,6 +14,17 @@
 
 -(void)awakeFromNib
 {
+	SInt32 vers;
+	Gestalt(gestaltSystemVersion,&vers);
+	if (vers < 0x00001030)
+	{
+		
+		NSRunAlertPanel(@"Mac OS X 10.3 Required", @"You must have OS X 10.3 or later to run SlimServer.", @"Quit", nil, nil);
+		
+		[[NSApplication sharedApplication] terminate:nil];
+		return;
+	}
+	
     [progressIndicator setUsesThreadedAnimation:YES];
 
     if ([progressIndicator respondsToSelector:@selector(setDisplayedWhenStopped:)])
