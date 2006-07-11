@@ -57,6 +57,9 @@ install:
 	cp ${source}/Installation.txt ${base}/usr/share/doc/slimserver/
 	cp ${source}/License.txt $(CURDIR)/debian/copyright
 
+	# Copy the revision file
+	cp ${source}/revision.txt ${base}/${share}
+
 binary-indep: install
 	dh_testdir
 	dh_testroot
