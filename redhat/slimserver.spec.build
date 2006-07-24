@@ -92,7 +92,7 @@ if [ ! -s /etc/slimserver.conf ] && [ -e /etc/slimp3.pref ]; then
 fi
 
 # Now that everything is installed, make sure the permissions are right
-chown -R slimserver.slimserver %{slimdir}
+chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %{slimdir}
 
 # Allow the RPM to be installed on SuSE
 if [ -x /sbin/chkconfig ]; then
