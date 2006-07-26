@@ -75,6 +75,13 @@ if [ `grep -c "^$SLIMSERVER_USER:" /etc/passwd` -eq 0 ]; then
 fi
 
 %post
+export SLIMSERVER_USER=slimserver
+
+# Someone might have changed the default.  Lets make sure we use it.
+if [ -f /etc/sysconfig/slimserver ]; then
+	. /etc/sysconfig/slimserver;
+fi
+
 # Make sure we have the correct SLIMSERVER_HOME in /etc/sysconfig/slimserver
 # Convert / to \/ for the sed substitution
 if [ `grep -c PREFIX /etc/sysconfig/slimserver` -gt 0 ]; then

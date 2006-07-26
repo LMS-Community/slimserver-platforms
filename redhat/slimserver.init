@@ -26,7 +26,7 @@ prog="SLIMSERVER"
 
 SLIMSERVER_BIN="$SLIMSERVER_HOME/slimserver.pl"
 
-[ -x $SLIMSERVER_BIN -a -f $SLIMSERVER_CFG ] || exit 5
+[ -x $SLIMSERVER_BIN ] && [ -f $SLIMSERVER_CFG ] || exit 5
 
 start() {
 	echo -n "Starting SlimServer: "
