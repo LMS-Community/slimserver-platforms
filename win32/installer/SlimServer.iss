@@ -97,7 +97,7 @@ EnableISX=true
 
 [UninstallRun]
 Filename: {app}\SlimTray.exe; Parameters: -exit; WorkingDir: {app}; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
-Filename: net; Parameters: stop slimliMvc; Flags: runminimized; MinVersion: 0,4.00.1381
+Filename: net; Parameters: stop slimsvc; Flags: runminimized; MinVersion: 0,4.00.1381
 Filename: {app}\server\slim.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
 
 [Code]
