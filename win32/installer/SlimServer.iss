@@ -97,7 +97,7 @@ EnableISX=true
 
 [UninstallRun]
 Filename: {app}\SlimTray.exe; Parameters: -exit; WorkingDir: {app}; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
-Filename: net; Parameters: stop slimsvc; Flags: runminimized; MinVersion: 0,4.00.1381
+Filename: net; Parameters: stop slimliMvc; Flags: runminimized; MinVersion: 0,4.00.1381
 Filename: {app}\server\slim.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
 
 [Code]
@@ -188,9 +188,9 @@ begin
 									ScriptDlgPageSetSubCaption2('You can set SlimServer to start automatically when your computer starts up.');
 				
 									Next := InputOption('Start Automatically', AutoStart);
-									
+
 									if (Next and (AutoStart <> '1')) then
-										CurSubPage := CurSubPage + 1;
+										CurSubPage := CurSubPage + 1;	
 
 								end;
 						end;				
@@ -235,17 +235,14 @@ end;
 
 function InitializeSetup() : Boolean;
 begin
-	AutoStart := '1';
 	Result := True;
 end;
 
-function ShouldAutostart() : Boolean;
+procedure InitializeWizard();
 begin
-  if (AutoStart = '1') then 
-  	Result := true
-  else
-  	Result := false;
+	AutoStart := '1';
 end;
+
 
 procedure CurStepChanged(CurStep: Integer);
 var
@@ -343,7 +340,7 @@ begin
 			end;
 
 			NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-			if ShouldAutostart() then
+			if (AutoStart = '1') then
 				begin 
 					InstExec(NewServerDir + 'slim.exe', '-install auto', NewServerDir, True, False, SW_SHOWMINIMIZED, ErrorCode); 
 					InstExec('net', 'start slimsvc', '', true, false, SW_HIDE, ErrorCode);
