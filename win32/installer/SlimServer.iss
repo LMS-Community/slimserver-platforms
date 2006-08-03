@@ -316,6 +316,9 @@ begin
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('WebPad'), true, true, true);
 			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('xml'), true, true, true);
 
+			// Remove old Favorites plugin - now standard
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Favorites'), true, true, true);
+
 			// Remove defunct radio plugins (now replaced by new
 			// in their own directories)
 			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'RadioIO.pm');

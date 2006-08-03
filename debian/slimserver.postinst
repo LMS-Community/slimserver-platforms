@@ -16,6 +16,9 @@ case "$1" in
 		VERBOSE=""
 	fi
 
+	# Remove the old Favorites module.
+	rm -rf /usr/share/slimserver/Plugins/Favorites
+
 	# Create a "slimserver" user. This has modeled after the code in the postfix.deb
 	# postinst. We first try to set the ownership of /var/lib/slimserver. If that
 	# fails, we create the user and re-try. If that still fails, we abort.

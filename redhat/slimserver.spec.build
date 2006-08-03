@@ -74,6 +74,9 @@ if [ `grep -c "^$SLIMSERVER_USER:" /etc/passwd` -eq 0 ]; then
 	/usr/sbin/useradd -c "SlimServer" -g $SLIMSERVER_USER -m -d %{slimdir} -s /sbin/nologin $SLIMSERVER_USER
 fi
 
+# Remove the old Favorites plugin
+rm -rf /usr/local/slimserver/Plugins/Favorites
+
 %post
 export SLIMSERVER_USER=slimserver
 
