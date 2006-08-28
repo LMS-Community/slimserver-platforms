@@ -1,3 +1,9 @@
+slimserver (7.0a1) unstable; urgency=low
+
+  * Update package for trunk
+
+ -- Dan Sully <debian@slimdevices.com>  Mon, 28 Aug 2006 10:14:33 -0000
+
 slimserver (6.5b1) unstable; urgency=low
 
   * Initial Debian Packaging.
