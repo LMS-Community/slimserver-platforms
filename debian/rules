@@ -46,6 +46,10 @@ install:
 	cp -r ${source}/SQL ${base}/${share}
 	cp -r ${source}/strings.txt ${base}/${share}
 
+	# Remove errmsg.sys files from the MySQL dir, since they may not match
+	# up with the installed version's
+	rm ${base}/${share}/MySQL/errmsg.*
+
 	cp -r ${source}/*.conf ${base}/etc/slimserver/
 	cp -r $(CURDIR)/debian/slimserver.default ${base}/etc/default/slimserver
 
