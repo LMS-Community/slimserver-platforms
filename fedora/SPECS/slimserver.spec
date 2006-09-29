@@ -37,16 +37,12 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # commented out yet(?)
 AutoReqProv: no
 
-# The following requires are available in base, core, extras, or RpmForge
-# repositories
-# Really perl 5.8?????
-Requires:       perl >= 5.6
+# The following requires are available in base, core, extras, or RpmForge repositories
+Requires:       perl >= 5.8.3
 Requires:       perl(Digest::SHA1)
 Requires:       perl(XML::NamespaceSupport)
 Requires:       perl(XML::Parser)
 Requires:       perl(XML::SAX.)
-Requires:       perl(XML::Simple)
-Requires:       perl(SOAP::Lite)
 Requires:       perl(Time::HiRes)
 Requires:       perl(TimeDate)
 Requires:       perl(HTML::Parser.)
@@ -54,14 +50,10 @@ Requires:       perl(Compress::Zlib)
 Requires:       perl(Template::Toolkit)
 Requires:       perl(DBI)
 Requires:       perl(DBD::MySQL)
-Requires:       perl(Class::DBI)
-Requires:       perl(Class::DBI::AbstractSearch)
 Requires:       perl(Class::Virtual)
 Requires:       perl(Data::Dump)
 Requires:       perl(libwww::perl) >= 5.803
 Requires:       perl(URI)
-Requires:       perl(Audio::Wav)
-Requires:       perl(MP3::Info)
 Requires:       perl(GD)
 Requires:       perl(Number::Compare)
 Requires:       perl(Text::Glob)
@@ -84,7 +76,6 @@ Requires:       perl(Data::VString)
 Requires:       perl(DBIx::Class)
 Requires:       perl(DBIx::Migration)
 Requires:       perl(File::Which)
-Requires:       perl(JSON)
 Requires:       perl(Locale::Hebrew)
 Requires:       perl(Module::Find)
 Requires:       perl(MP4::Info)
@@ -94,6 +85,31 @@ Requires:       perl(Tie::RegexpHash)
 Requires:       perl(URI::Find)
 Requires:       perl(XML::XSPF)
 Requires:       alac_decoder
+
+# Need these as well. Not sure if FC5 has them available by default.
+Requires:       perl(Net::IP)
+Requires:       perl(Net::DNS)
+Requires:       perl(Net::UPnP)
+Requires:       perl(XML::Writer)
+Requires:       perl(Proc::Background)
+Requires:       perl(Carp::Clan)
+Requires:       perl(Class::Accessor)
+Requires:       perl(Class::Accessor::Chained)
+Requires:       perl(Class::Inspector)
+Requires:       perl(Class::Singleton)
+Requires:       perl(File::BOM)
+Requires:       perl(File::Find::Rule)
+Requires:       perl(File::Slurp)
+Requires:       perl(Tie::LLHash)
+Requires:       perl(Tie::Cache)
+Requires:       perl(Error)
+Requires:       perl(Readonly)
+Requires:       perl(Cache::Cache)
+Requires:       perl(RPC::XML)
+Requires:       perl(Path::Class)
+Requires:       perl(Text::Unidecode)
+Requires:       perl(SQL::Abstract)
+Requires:       perl(SQL::Abstract::Limit)
 
 %description
 This is the Slim Devices server software.
@@ -160,7 +176,6 @@ mkdir slimp3
 
 # The Graphics need Slimdevices permission to distribute
 rm -rf Graphics
-
 
 %install
 rm -rf %buildroot
