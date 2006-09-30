@@ -2,10 +2,6 @@
 %define version 6.5.0
 %define POE_XS_Queue_Array_version 0.003
 
-# slimdevices put the binary is /usr/local... Fedora seems to never do that
-# for a package installed with RPM
-%define slimdir %_bindir/slimserver
-
 # Slimdevices generic Linux RPM disables stripping, not sure why
 %define __spec_install_post /usr/lib/rpm/brp-compress
 
@@ -39,25 +35,48 @@ AutoReqProv: no
 
 # The following requires are available in base, core, extras, or RpmForge repositories
 Requires:       perl >= 5.8.3
+Requires:       perl(Cache::Cache)
+Requires:       perl(Carp::Clan)
+Requires:       perl(Class::Accessor)
+Requires:       perl(Class::Accessor::Chained)
+Requires:       perl(Class::Inspector)
+Requires:       perl(Class::Singleton)
+Requires:       perl(Class::Virtual)
+Requires:       perl(Compress::Zlib)
+Requires:       perl(Data::Dump)
+Requires:       perl(DBD::MySQL)
+Requires:       perl(DBI)
 Requires:       perl(Digest::SHA1)
+Requires:       perl(Error)
+Requires:       perl(File::BOM)
+Requires:       perl(File::Find::Rule)
+Requires:       perl(File::Slurp)
+Requires:       perl(GD)
+Requires:       perl(HTML::Parser.)
+Requires:       perl(libwww::perl) >= 5.803
+Requires:       perl(Net::DNS)
+Requires:       perl(Net::IP)
+Requires:       perl(Net::UPnP)
+Requires:       perl(Number::Compare)
+Requires:       perl(Path::Class)
+Requires:       perl(Proc::Background)
+Requires:       perl(Readonly)
+Requires:       perl(RPC::XML)
+Requires:       perl(SQL::Abstract)
+Requires:       perl(SQL::Abstract::Limit)
+Requires:       perl(Template::Toolkit)
+Requires:       perl(Term::ReadKey)
+Requires:       perl(Text::Glob)
+Requires:       perl(Text::Unidecode)
+Requires:       perl(Tie::Cache)
+Requires:       perl(Tie::LLHash)
+Requires:       perl(TimeDate)
+Requires:       perl(Time::HiRes)
+Requires:       perl(URI)
 Requires:       perl(XML::NamespaceSupport)
 Requires:       perl(XML::Parser)
 Requires:       perl(XML::SAX.)
-Requires:       perl(Time::HiRes)
-Requires:       perl(TimeDate)
-Requires:       perl(HTML::Parser.)
-Requires:       perl(Compress::Zlib)
-Requires:       perl(Template::Toolkit)
-Requires:       perl(DBI)
-Requires:       perl(DBD::MySQL)
-Requires:       perl(Class::Virtual)
-Requires:       perl(Data::Dump)
-Requires:       perl(libwww::perl) >= 5.803
-Requires:       perl(URI)
-Requires:       perl(GD)
-Requires:       perl(Number::Compare)
-Requires:       perl(Text::Glob)
-Requires:       perl(Term::ReadKey)
+Requires:       perl(XML::Writer)
 Requires:       perl(YAML::Syck)
 Requires:       flac
 Requires:       vorbis-tools
@@ -86,31 +105,6 @@ Requires:       perl(URI::Find)
 Requires:       perl(XML::XSPF)
 Requires:       alac_decoder
 
-# Need these as well. Not sure if FC5 has them available by default.
-Requires:       perl(Net::IP)
-Requires:       perl(Net::DNS)
-Requires:       perl(Net::UPnP)
-Requires:       perl(XML::Writer)
-Requires:       perl(Proc::Background)
-Requires:       perl(Carp::Clan)
-Requires:       perl(Class::Accessor)
-Requires:       perl(Class::Accessor::Chained)
-Requires:       perl(Class::Inspector)
-Requires:       perl(Class::Singleton)
-Requires:       perl(File::BOM)
-Requires:       perl(File::Find::Rule)
-Requires:       perl(File::Slurp)
-Requires:       perl(Tie::LLHash)
-Requires:       perl(Tie::Cache)
-Requires:       perl(Error)
-Requires:       perl(Readonly)
-Requires:       perl(Cache::Cache)
-Requires:       perl(RPC::XML)
-Requires:       perl(Path::Class)
-Requires:       perl(Text::Unidecode)
-Requires:       perl(SQL::Abstract)
-Requires:       perl(SQL::Abstract::Limit)
-
 %description
 This is the Slim Devices server software.
 Point your web browser to http://localhost:9000/ to configure the server.
@@ -138,21 +132,23 @@ popd
 [ "%buildroot" != "/" ] && rm -rf %buildroot
 # The Bin directory of the source tarball contains compiled (and therefore 
 # architecture-dependent) executables. We will use the system's binaries or 
-# rebuild these when the RPM is built, so the entire directory is removed.
-[ -d Bin ] && rm -rf Bin
+# rebuild these when the RPM is built. Since some plug-ins use this directory,
+# we'll keep the directory as part of the RPM, though.
+rm -rf Bin/*
 
 # The CPAN directory of the source contains unmodified perl modules from CPAN, 
 # but not neccessarily intact CPAN modules. We've chosen for some of these to
 # use the versions in the tarball rather than system packages, to reduce the 
 # disk footprint of the installed package and installed dependencies. The 
 # modified CPAN modules for which we will use the source versions are:
-#    POE::Queue
-# and we therefore must use the modules that depend on them from the source
+#    POE::XS::Queue::Array
+# and we therefore must use the modules that they depend on from the source
 # as well:
-#    POE:XS::Queue::Array
+#    POE::Queue
 # These will be rebuilt because they contain C Perl extensions that need to
 # compile for the target architecture. Therefore, we will remove the entire
-# CPAN directory and start over. remaining contents of the CPAN directory are removed.
+# CPAN directory and start over. remaining contents of the CPAN directory are 
+# removed.
 
 # Remove the perl stuff that system packages provide
 rm -rf CPAN/*
@@ -188,6 +184,7 @@ mkdir -p %buildroot%_sbindir
 mkdir -p %buildroot%{_var}/cache/slimserver/playlists
 
 # copy over stuff that belongs in the RPM
+cp -R Bin %buildroot%_libdir/slimserver
 cp -R Changelog*.html %buildroot%_libdir/slimserver
 cp -R HTML %buildroot%_libdir/slimserver
 cp -R IR %buildroot%_libdir/slimserver
@@ -226,14 +223,6 @@ install -D -m644 %SOURCE2 %buildroot%_sysconfdir/sysconfig/slimserver
 touch %buildroot%_sysconfdir/slimserver.conf
 echo "cachedir = %{_var}/cache/slimserver" > %buildroot%_sysconfdir/slimserver.conf
 echo "playlistdir = %{_var}/cache/slimserver/playlists" >> %buildroot%_sysconfdir/slimserver.conf
-
-# Michael Peters' spec makes a /var and /var/playlists
-# If uncommenting, don't forget sed -e 's/%%/%/'
-#mkdir -p %%buildroot%%{cachedir}
-#mkdir %%buildroot%%{cachedir}/playlists
-#echo "cachedir = %%{cachedir}" > %%buildroot%%{slimconf}
-#echo "playlistdir = %%{cachedir}/playlists" >> %%buildroot%%{slimconf}
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -391,6 +380,7 @@ fi
 %_libdir/slimserver/types.conf
 
 # empty directories
+%dir %_libdir/slimserver/Bin
 %dir %_libdir/slimserver/Graphics
 %dir %_libdir/slimserver/Firmware
 %dir %{_var}/cache/slimserver
