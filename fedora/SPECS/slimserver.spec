@@ -5,6 +5,9 @@
 # Slimdevices generic Linux RPM disables stripping, not sure why
 %define __spec_install_post /usr/lib/rpm/brp-compress
 
+# Don't build debuginfo packages
+%define debug_package %{nil}
+
 Name:           slimserver
 Packager:       Slim Devices <support@slimdevices.com>
 Version:        %{version}
