@@ -77,6 +77,13 @@ fi
 # Remove the old Favorites plugin
 rm -rf /usr/local/slimserver/Plugins/Favorites
 
+# RPM doesn't replace directories automatically, so we need to remove them
+# before installing over them.
+rm -rf /usr/local/slimserver/CPAN
+rm -rf /usr/local/slimserver/Firmware
+rm -rf /usr/local/slimserver/Slim
+rm -rf /usr/local/slimserver/lib
+
 %post
 export SLIMSERVER_USER=slimserver
 
