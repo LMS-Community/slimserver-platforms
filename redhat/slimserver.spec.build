@@ -5,7 +5,7 @@
 
 Name: slimserver 
 Packager: Slim Devices <support@slimdevices.com>
-Requires: perl >= 5.6
+Requires: perl >= 5.8.1
 Requires: perl-XML-Parser
 Requires: perl-Digest-SHA1
 AutoReqProv: no
