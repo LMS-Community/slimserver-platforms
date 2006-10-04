@@ -6,64 +6,97 @@
 #
 # This program relies on Win32::Daemon, which is not part of CPAN.
 # http://www.roth.net/perl/Daemon/
+#
+# The user can choose to run SlimServer as a service, or as an application.
+# Running as an application will allow access to mapped network drives.
+#
+# The checkbox selection will be:
+# 'at system start' (service) or 'at login' (app). 
+# 
+# If the user chooses app - the service will still be installed, but set to
+# Manual start.
 
 use strict;
 use PerlTray;
 
 use Cwd qw(cwd);
 use File::Spec;
+use Getopt::Long;
+use LWP::Simple;
 use Win32;
 use Win32::Daemon;
-use Win32::Process;
-use Win32::Registry;
+use Win32::Process qw(DETACHED_PROCESS CREATE_NO_WINDOW NORMAL_PRIORITY_CLASS);
+use Win32::Process::List;
+use Win32::TieRegistry ('Delimiter' => '/');
 use Win32::Service;
-use Getopt::Long;
 
-my $ssActive = 0;
-my $pendingActivation = 0;
-my $start = 0;
-my $exit = 0;
+my $timerSecs   = 10;
+my $ssActive    = 0;
+my $starting    = 0;
+my $processObj  = 0;
+my $checkHTTP   = 0;
+
+# Passed on the command line by Getopt::Long
+my $cliStart    = 0;
+my $cliExit     = 0;
+
+my $registryKey = 'CUser/Software/SlimDevices/SlimServer';
 
 my $serviceName = 'slimsvc';
+my $appExe      = File::Spec->catdir(baseDir(), 'server', 'slim.exe');
 
-use constant DEFAULT_TIMER_INTERVAL => 10;
+my $errString   = 'SlimServer Failed. Please see the Event Viewer & Contact Support';
 
 # Dynamically create the popup menu based on Slimserver state
 sub PopupMenu {
 	my @menu = ();
-
-	my ($path, $type) = exePathAndStartupType();
 
 	if ($ssActive) {
 		push @menu, ["*Open SlimServer", "Execute 'SlimServer Web Interface.url'"];
 		push @menu, ["--------"];
 		push @menu, ["Stop SlimServer", \&stopSlimServer];
 	}
-	elsif ($pendingActivation) {
+	elsif ($starting) {
 		push @menu, ["Starting SlimServer...", ""];
 	}
 	else {
 		push @menu, ["*Start SlimServer", \&startSlimServer];
 	}
 
-	my $autoString  = 'Automatically Start';
+	my $serviceString = 'Automatically run at system start';
+	my $appString     = 'Automatically run at login';
 
 	# We can't modify the service while it's running
 	# So show a grayed out menu.
 	my $setManual = undef;
 	my $setAuto   = undef;
+	my $setLogin  = undef;
 
-	if (!$ssActive && !$pendingActivation) {
+	if (!$ssActive && !$starting) {
 
-		$setManual = \&setServiceManual;
-		$setAuto   = \&setServiceAuto;
+		$setManual = sub { setStartupType('none') };
+		$setAuto   = sub { setStartupType('auto') };
+		$setLogin  = sub { setStartupType('login') };
 	}
 
-	if ($type) {
-		push @menu, ["v $autoString", $setManual, 1];
-	}
-	else {
-		push @menu, ["_ $autoString", $setAuto, undef];
+	# Startup can be in one of three states: At boot (service), at login
+	# (app), or Off, which leaves the service installed in a manual state. 
+	my $type = startupType();
+
+	if ($type eq 'login') {
+
+		push @menu, ["_ $serviceString", $setAuto, undef];
+		push @menu, ["v $appString", $setManual, 1];
+
+	} elsif ($type eq 'auto') {
+
+		push @menu, ["v $serviceString", $setManual, 1];
+		push @menu, ["_ $appString", $setLogin, undef];
+
+	} else {
+
+		push @menu, ["_ $serviceString", $setAuto, undef];
+		push @menu, ["_ $appString", $setLogin, undef];
 	}
 
 	push @menu, ["--------"];
@@ -93,7 +126,7 @@ sub Singleton {
 # Display tooltip based on SS state
 sub ToolTip {
 
-	if ($pendingActivation) {
+	if ($starting) {
 		return "SlimServer Starting";
 	}
 
@@ -107,19 +140,30 @@ sub ToolTip {
 # The regular (heartbeat) timer that checks the state of SlimServer
 # and modifies state variables.
 sub Timer {
-	my $wasPending = $pendingActivation;
+	my $wasStarting = $starting;
 
 	checkSSActive();
 
-	if ($pendingActivation) {
+	if ($starting) {
 
-		SetAnimation(DEFAULT_TIMER_INTERVAL * 1000, 1000, "SlimServer", "SlimServerOff");
+		SetAnimation($timerSecs * 1000, 1000, "SlimServer", "SlimServerOff");
 
-	} elsif ($wasPending && $ssActive) {
+	} elsif ($wasStarting && $ssActive && startupType() ne 'login') {
 
-		# If we were waiting for SS to start before this check,
-		# show the SS home page.
-		# XXX Need to find actual HTTP port in prefs.
+		# If we were waiting for SS to start before this check, show the SS home page.
+		if (checkForHTTP()) {
+
+			Execute("SlimServer Web Interface.url");
+
+		} else {
+
+			$checkHTTP = 1;
+		}
+
+	} elsif ($checkHTTP && checkForHTTP()) {
+
+		$checkHTTP = 0;
+
 		Execute("SlimServer Web Interface.url");
 	}
 }
@@ -127,9 +171,13 @@ sub Timer {
 # The one-time startup timer, since there are things we can't do
 # at Perl initialization.
 sub checkAndStart {
+
+	# Kill the timer, we only want to run once.
 	SetTimer(0, \&checkAndStart);
 
-	exit if ($exit);
+	if ($cliExit) {
+		exit;
+	}
 
 	# Install the service if it isn't already.
 	my %status = ();
@@ -141,47 +189,90 @@ sub checkAndStart {
 		installService();
 	}
 
+	# Add paths if they don't exist.
+	my $startupType = startupType();
+
+	if ($startupType eq 'none') {
+
+		my $cKey = $Registry->{'CUser/Software/'};
+		my $lKey = $Registry->{'LMachine/Software/'};
+
+		$cKey->{'SlimDevices/'} = {
+			'SlimServer/' => {
+				'/StartAtBoot'  => 0,
+				'/StartAtLogin' => 0,
+			},
+		};
+
+		$lKey->{'SlimDevices/'} = { 'SlimServer/' => { '/Path' => baseDir() } };
+	}
+
+	# If we're set to Start at Login, do it, but only if the process isn't
+	# already running.
+	if (processID() == -1 && $startupType eq 'login') {
+
+		startSlimServer();
+	}
+
+	# Now see if the service happens to be up already.
 	checkSSActive();
 
 	if ($ssActive) {
+
 		SetIcon("SlimServer");
-	}
-	else {
+
+	} else {
+
 		SetIcon("SlimServerOff");
 	}
 
-	if ($start) {
+	# Handle the command line --start flag.
+	if ($cliStart) {
+
 		if (!$ssActive) {
+
 			startSlimServer();
+
+		} else {
+
+			# Don't launch the browser if we start at login time.
+			Execute("SlimServer Web Interface.url");
 		}
-		else {
-			Execute("http://localhost:9000");
-		}
-		$start = 0;
+
+		$cliStart = 0;
 	}
 }
 
 sub checkSSActive {
-	my %status = ();
+	my $state = 'stopped';
 
-	# We use the Win32::Service package to see if the service
-	# is still active. If we wanted the tray app to work with
-	# Slimserver running as an application, we could attempt to
-	# connect to the CLI port, e.g.:
-	#   $sock = IO::Socket::INET->new(PeerAddr => 'localhost',
-	#	PeerPort => 9090,
-	#	Proto => 'tcp',
-	#	Reuse => 1,
-	#	Timeout => 9);
+	if (startupTypeIsService()) {
 
-	Win32::Service::GetStatus('', $serviceName, \%status);
+		my %status = ();
 
-	if ($status{'CurrentState'} == 0x04) {
+		Win32::Service::GetStatus('', $serviceName, \%status);
+
+		if ($status{'CurrentState'} == 0x04) {
+
+			$state = 'running';
+		}
+
+	} else {
+
+		if (processID() != -1) {
+
+			$state = 'running';
+		}
+	}
+
+	if ($state eq 'running') {
+
 		SetIcon("SlimServer");
 		$ssActive = 1;
-		$pendingActivation = 0;
-	}
-	else {
+		$starting = 0;
+
+	} else {
+
 		SetIcon("SlimServerOff");
 		$ssActive = 0;
 	}
@@ -189,58 +280,199 @@ sub checkSSActive {
 
 sub startSlimServer {
 
-	if (!Win32::Service::StartService('', $serviceName)) {
+	if (startupTypeIsService()) {
 
-		MessageBox("Starting SlimServer Service Failed. Please see the Event Viewer & Contact Support", "SlimServer", MB_OK | MB_ICONERROR);
+		if (!Win32::Service::StartService('', $serviceName)) {
 
-		$pendingActivation = 0;
-		$ssActive = 0;
+			showErrorMessage("Starting $errString");
 
-	} elsif (!$ssActive) {
+			$starting = 0;
+			$ssActive = 0;
+
+			return;
+		}
+
+	} else {
+
+		runBackground($appExe);
+	}
+
+	if (!$ssActive) {
 
 		Balloon("Starting SlimServer...", "SlimServer", "", 1);
-		SetAnimation(DEFAULT_TIMER_INTERVAL * 1000, 1000, "SlimServer", "SlimServerOff");
+		SetAnimation($timerSecs * 1000, 1000, "SlimServer", "SlimServerOff");
 
-		$pendingActivation = 1;
+		$starting = 1;
 	}
 }
 
 sub stopSlimServer {
 
-	if (!Win32::Service::StopService('', $serviceName)) {
+	if (startupTypeIsService()) {
 
-		MessageBox("Stopping SlimServer Service Failed. Please see the Event Viewer & Contact Support", "SlimServer", MB_OK | MB_ICONERROR);
+		if (!Win32::Service::StopService('', $serviceName)) {
 
-	} elsif ($ssActive) {
+			showErrorMessage("Stopping $errString");
 
-		Balloon("Stopping SlimServer...", "SlimServer", "", 1);
-	}
-
-	$ssActive = 0;
-}
-
-sub exePathAndStartupType {
-
-	my ($resobj, %keys);
-
-	my $root = "SYSTEM\\CurrentControlSet\\Services\\$serviceName";
-
-	if ($main::HKEY_LOCAL_MACHINE->Open($root, $resobj)) {
-
-		$resobj->GetValues(\%keys);
-
-		if (!scalar %keys) {
-			return ();
+			return;
 		}
 
-		# Start of 2 is auto, 3 is manual.
-		my $exe  = $keys{'ImagePath'}->[2];
-		my $auto = $keys{'Start'}->[2] == 3 ? 0 : 1;
+	} else {
 
-		return ($exe, $auto);
+		my $pid = processID();
+
+		if ($pid == -1) {
+
+			showErrorMessage("Stopping $errString");
+
+			return;
+		}
+
+		Win32::Process::KillProcess($pid, 1<<8);
 	}
 
-	return ();
+	if ($ssActive) {
+
+		Balloon("Stopping SlimServer...", "SlimServer", "", 1);
+
+		$ssActive = 0;
+	}
+}
+
+sub showErrorMessage {
+	my $message = shift;
+
+	MessageBox($message, "SlimServer", MB_OK | MB_ICONERROR);
+}
+
+sub startupTypeIsService {
+
+	my $type = startupType();
+
+	# These are the service types.
+	if ($type eq 'auto' || $type eq 'manual') {
+
+		return 1;
+	}
+
+	return 0;
+}
+
+# Determine how the user wants to start SlimServer
+sub startupType {
+
+	my $atBoot  = $Registry->{"$registryKey/StartAtBoot"};
+	my $atLogin = $Registry->{"$registryKey/StartAtLogin"};
+
+	if ($atLogin) {
+		return 'login';
+	}
+
+	if ($atBoot) {
+
+		my $serviceStart = $Registry->{"LMachine/SYSTEM/CurrentControlSet/Services/$serviceName/Start"};
+
+		if ($serviceStart) {
+
+			# Start of 2 is auto, 3 is manual.
+			return oct($serviceStart) == 2 ? 'auto' : 'manual';
+		}
+	}
+
+	return 'none';
+}
+
+sub setStartupType {
+	my $type = shift;
+
+	if ($type !~ /^(?:login|auto|manual|none)$/) {
+
+		return;
+	}
+
+	if ($type eq 'login') {
+
+		$Registry->{"$registryKey/StartAtBoot"}  = 0;
+		$Registry->{"$registryKey/StartAtLogin"} = 1;
+
+		# Force the service to manual start, don't remove it.
+		setServiceManual();
+
+	} elsif ($type eq 'none') {
+
+		$Registry->{"$registryKey/StartAtBoot"}  = 0;
+		$Registry->{"$registryKey/StartAtLogin"} = 0;
+
+		setServiceManual();
+
+	} else {
+
+		$Registry->{"$registryKey/StartAtBoot"}  = 1;
+		$Registry->{"$registryKey/StartAtLogin"} = 0;
+
+		if ($type eq 'auto') {
+
+			setServiceAuto();
+
+		} else {
+
+			setServiceManual();
+		}
+	}
+}
+
+# Return the SlimServer install directory.
+sub baseDir {
+
+	# Try and find it in the registry.
+	# This is a system-wide registry key.
+	my $swKey = $Registry->{"LMachine/Software/SlimDevices/SlimServer/Path"};
+
+	if (defined $swKey) {
+		return $swKey;
+	}
+
+	# Otherwise look in the standard location.
+	my $baseDir = File::Spec->catdir('C:\Program Files', 'SlimServer');
+
+	# If it's not there, use the current working directory.
+	if (!-d $baseDir) {
+
+		$baseDir = cwd();
+	}
+
+	return $baseDir;
+}
+
+sub checkForHTTP {
+
+	my $prefFile = File::Spec->catdir(baseDir(), 'server', 'slimserver.pref');
+	my $httpPort = 9000;
+
+	# Quick and dirty finding of the httpport. Faster than loading YAML.
+	if (-r $prefFile) {
+
+		if (open(PREF, $prefFile)) {
+
+			while (<PREF>) {
+				if (/^httpport: (\d+)$/) {
+					$httpPort = $1;
+					last;
+				}
+			}
+
+			close(PREF);
+		}
+	}
+
+	my $content = get("http://localhost:$httpPort/EN/html/ping.html");
+
+	if ($content && $content =~ /alive/) {
+
+		return $httpPort;
+	}
+
+	return 0;
 }
 
 sub setServiceAuto {
@@ -266,19 +498,12 @@ sub _configureService {
 sub installService {
 	my $type = shift || SERVICE_DEMAND_START;
 
-	my $exe  = File::Spec->catdir(cwd(), 'server', 'slim.exe');
-
-	if (!-f $exe) {
-
-		$exe = File::Spec->catdir('C:\Program Files', 'SlimServer', 'server');
-	}
-
 	Win32::Daemon::CreateService({
 		'machine'     => '',
 		'name'        => $serviceName,
 		'display'     => 'SlimServer',
 		'description' => "Slim Devices' SlimServer Music Server",
-		'path'        => $exe,
+		'path'        => $appExe,
 		'start_type'  => $type,
 	});
 }
@@ -288,23 +513,29 @@ sub runBackground {
 
 	$args[0] = Win32::GetShortPathName($args[0]);
 
-	my $os_obj = 0;
-
 	Win32::Process::Create(
-		$os_obj,
+		$processObj,
 		$args[0],
 		"@args",
 		0,
-		CREATE_NO_WINDOW | NORMAL_PRIORITY_CLASS,
+		DETACHED_PROCESS | CREATE_NO_WINDOW | NORMAL_PRIORITY_CLASS,
 		'.'
 	);
+}
+
+sub processID {
+
+	my $p   = Win32::Process::List->new;
+	my $pid = ($p->GetProcessPid(qr/^slim\.exe$/))[0];
+
+	return $pid;
 }
 
 *PerlTray::ToolTip = \&ToolTip;
 
 GetOptions(
-	'start' => \$start,
-	'exit'  => \$exit,
+	'start' => \$cliStart,
+	'exit'  => \$cliExit,
 );
 
 # Checking for existence & launching of SS in a timer, since it
@@ -314,6 +545,6 @@ SetTimer(":1", \&checkAndStart);
 # This is our regular timer which continually checks for existence of
 # SS. We could have combined the two timers, but changing the
 # frequency of the timer proved problematic.
-SetTimer(":" . DEFAULT_TIMER_INTERVAL);
+SetTimer(":" . $timerSecs);
 
 __END__

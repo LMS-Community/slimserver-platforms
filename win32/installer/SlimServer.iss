@@ -71,6 +71,7 @@ Name: {commonstartup}\SlimServer Tray Tool; Filename: {app}\SlimTray.exe; Workin
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9000:TCP"; ValueData: "9000:TCP:*:Enabled:SlimServer 9000 tcp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:SlimServer 3483 udp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:SlimServer 3483 tcp"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SOFTWARE\SlimDevices\SlimServer; ValueType: string; ValueName: Path; ValueData: {app}; MinVersion: 0,5.01
 
 [Run]
 Filename: {app}\SlimTray.exe; Description: Launch SlimServer application; WorkingDir: "{app}"; Flags: nowait skipifsilent runmaximized
