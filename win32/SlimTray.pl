@@ -22,7 +22,8 @@ use PerlTray;
 use Cwd qw(cwd);
 use File::Spec;
 use Getopt::Long;
-use LWP::Simple;
+use Socket;
+use Symbol;
 use Win32;
 use Win32::Daemon;
 use Win32::Process qw(DETACHED_PROCESS CREATE_NO_WINDOW NORMAL_PRIORITY_CLASS);
@@ -465,9 +466,23 @@ sub checkForHTTP {
 		}
 	}
 
-	my $content = get("http://localhost:$httpPort/EN/html/ping.html");
+	# Use low-level socket code. IO::Socket returns a 'Invalid Descriptor'
+	# erorr. It also sucks more memory than it should.
+	my $raddr = '127.0.0.1';
+	my $rport = 9000;
 
-	if ($content && $content =~ /alive/) {
+	my $proto = (getprotobyname('tcp'))[2];
+	my $pname = (getprotobynumber($proto))[0];
+	my $sock  = Symbol::gensym();
+
+	my $iaddr = inet_aton($raddr);
+	my $paddr = sockaddr_in($rport, $iaddr);
+	socket($sock, PF_INET, SOCK_STREAM, $proto);
+	connect($sock, $paddr);
+
+	if (defined $sock && fileno($sock)) {
+
+		close($sock);
 
 		return $httpPort;
 	}
