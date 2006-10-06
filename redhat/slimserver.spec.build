@@ -79,7 +79,10 @@ rm -rf /usr/local/slimserver/Plugins/Favorites
 
 # RPM doesn't replace directories automatically, so we need to remove them
 # before installing over them.
-rm -rf /usr/local/slimserver/CPAN
+
+# XXXX - removing CPAN will also remove a user's custom arch/5.8.x/$arch dir!
+# rm -rf /usr/local/slimserver/CPAN
+
 rm -rf /usr/local/slimserver/Firmware
 rm -rf /usr/local/slimserver/Slim
 rm -rf /usr/local/slimserver/lib
