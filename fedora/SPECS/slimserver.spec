@@ -8,6 +8,9 @@
 # Don't build debuginfo packages
 %define debug_package %{nil}
 
+# Do we need to include the firmware and graphics?
+%define include_firmware %{?_with_firmware:1}0
+
 Name:           slimserver
 Packager:       Slim Devices <support@slimdevices.com>
 Version:        %{version}
@@ -82,9 +85,8 @@ Requires:       perl(XML::SAX.)
 Requires:       perl(XML::Writer)
 Requires:       perl(YAML::Syck)
 Requires:       flac
-Requires:       vorbis-tools
 Requires:       sox
-Requires:       mysql
+Requires:       mysql-server >= 5.0.22
 #Requires:       lame
 #Requires:       shorten
 
@@ -165,26 +167,41 @@ make
 make test
 popd
 
-# The firmware removed per the License.txt
-# Recreate directories though so user can get them from SlimDevices and put
-# them there if the user desires
+# Do we need to remove the firmware and Graphics?
+%if ! %{include_firmware}
+# Remove the firmware and Graphics per the License.txt
 rm -rf Firmware
-mkdir Firmware
-rm -rf slimp3
-mkdir slimp3
-
-# The Graphics need Slimdevices permission to distribute
 rm -rf Graphics
+# Recreate directories though so user can get them from SlimDevices and put
+# them there if desired
+mkdir Firmware
+mkdir Graphics
+%endif
+
+# The lib/README file won't make sense outside of the context of lib
+# We plan to move it to a specific documentation directory
+# change its name
+mv lib/README README.lib
+# change its contents to reflect the move
+sed -i 's#This#The %_libdir/slimserver/lib#' README.lib
+# Ideally, the file would be patched to remove the stuff about
+# the top-level CPAN directory which doesn't make sense in the
+# context of a Fedora RPM or just removed, as it makes the most sense
+# in its initial context for developers.
 
 %install
 rm -rf %buildroot
 mkdir -p %buildroot%_initrddir
-mkdir -p %buildroot%_sysconfdir/sysconfig
+#mkdir -p %buildroot%_sysconfdir/slimserver
 mkdir -p %buildroot%_libdir/slimserver
-mkdir -p %buildroot%_libdir/slimserver/Graphics
+%if ! %{include_firmware}
 mkdir -p %buildroot%_libdir/slimserver/Firmware
+mkdir -p %buildroot%_libdir/slimserver/Graphics
+%endif
 mkdir -p %buildroot%_sbindir
 mkdir -p %buildroot%{_var}/cache/slimserver/playlists
+# music directory (FHS specifies /srv for readonly, many services use /var)
+mkdir -p %buildroot/srv/slimserver
 
 # copy over stuff that belongs in the RPM
 cp -R Bin %buildroot%_libdir/slimserver
@@ -196,8 +213,11 @@ cp -R MySQL %buildroot%_libdir/slimserver
 cp -R Plugins %buildroot%_libdir/slimserver
 cp -R Slim %buildroot%_libdir/slimserver
 cp -R SQL %buildroot%_libdir/slimserver
-cp Installation.txt %buildroot%_libdir/slimserver
-cp License.txt %buildroot%_libdir/slimserver
+%if %{include_firmware}
+cp -R Firmware %buildroot%_libdir/slimserver
+cp -R Graphics %buildroot%_libdir/slimserver
+%endif
+cp convert.conf %buildroot%_libdir/slimserver
 cp revision.txt %buildroot%_libdir/slimserver
 cp strings.txt %buildroot%_libdir/slimserver
 cp types.conf %buildroot%_libdir/slimserver
@@ -226,6 +246,11 @@ install -D -m644 %SOURCE2 %buildroot%_sysconfdir/sysconfig/slimserver
 touch %buildroot%_sysconfdir/slimserver.conf
 echo "cachedir = %{_var}/cache/slimserver" > %buildroot%_sysconfdir/slimserver.conf
 echo "playlistdir = %{_var}/cache/slimserver/playlists" >> %buildroot%_sysconfdir/slimserver.conf
+
+# Note for future reference:
+# rpm macro %%_libexecdir expands to /usr/libexec for locating mysqld binary
+# see http://sourceforge.net/mailarchive/forum.php?thread_id=24302360&forum_id=3128 re
+# location of mysql in /usr/libexec
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -359,42 +384,27 @@ fi
 %files
 %defattr(-,root,root)
 
+# documentation files
+%doc Installation.txt License.txt README.lib
+
 # library files
-%_libdir/slimserver/Changelog*.html
-%_libdir/slimserver/CPAN
-%_libdir/slimserver/HTML
-%_libdir/slimserver/IR
-%doc %_libdir/slimserver/Installation.txt
-%_libdir/slimserver/lib/Audio
-%_libdir/slimserver/lib/Cache
-%_libdir/slimserver/lib/MP3
-%_libdir/slimserver/lib/Net
-%_libdir/slimserver/lib/Ogg
-%doc %_libdir/slimserver/lib/README
-%_libdir/slimserver/lib/URI
-%_libdir/slimserver/lib/XML
-%doc %_libdir/slimserver/License.txt
-%_libdir/slimserver/MySQL
-%_libdir/slimserver/Plugins
-%doc %_libdir/slimserver/revision.txt
-%_libdir/slimserver/Slim
-%_libdir/slimserver/SQL
-%_libdir/slimserver/strings.txt
-%_libdir/slimserver/types.conf
+%_libdir/slimserver
+
+# config files
+# %%_sysconfdir/slimserver
 
 # empty directories
-%dir %_libdir/slimserver/Bin
-%dir %_libdir/slimserver/Graphics
-%dir %_libdir/slimserver/Firmware
 %dir %{_var}/cache/slimserver
+%dir /srv/slimserver
 
 # executables
 %_sbindir/slimserver.pl
 %_sbindir/scanner.pl
 
 # configuration files and init scripts
-%attr(-, slimserver, slimserver) %config(noreplace) %_sysconfdir/slimserver.conf
-%_initrddir/slimserver
+%attr(-, slimserver, slimserver)
+%config(noreplace) %_sysconfdir/slimserver.conf
+%config %_initrddir/slimserver
 %config(noreplace) %_sysconfdir/sysconfig/slimserver
 
 
