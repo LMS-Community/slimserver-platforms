@@ -189,10 +189,6 @@ rm -rf %buildroot
 mkdir -p %buildroot%_initrddir
 #mkdir -p %buildroot%_sysconfdir/slimserver
 mkdir -p %buildroot%_libdir/slimserver
-%if ! %{include_firmware}
-mkdir -p %buildroot%_libdir/slimserver/Firmware
-mkdir -p %buildroot%_libdir/slimserver/Graphics
-%endif
 mkdir -p %buildroot%_sbindir
 mkdir -p %buildroot%{_var}/cache/slimserver/playlists
 # music directory (FHS specifies /srv for readonly, many services use /var)
