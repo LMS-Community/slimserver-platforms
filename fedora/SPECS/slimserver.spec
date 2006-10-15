@@ -134,7 +134,7 @@ patch -p1 < %{P:0}
 popd
 
 %build
-[ "%buildroot" != "/" ] && rm -rf %buildroot
+rm -rf %buildroot
 # The Bin directory of the source tarball contains compiled (and therefore 
 # architecture-dependent) executables. We will use the system's binaries or 
 # rebuild these when the RPM is built. Since some plug-ins use this directory,
@@ -152,8 +152,7 @@ rm -rf Bin/*
 #    POE::Queue
 # These will be rebuilt because they contain C Perl extensions that need to
 # compile for the target architecture. Therefore, we will remove the entire
-# CPAN directory and start over. remaining contents of the CPAN directory are 
-# removed.
+# CPAN directory and start over.
 
 # Remove the perl stuff that system packages provide
 rm -rf CPAN/*
@@ -170,12 +169,8 @@ popd
 # Do we need to remove the firmware and Graphics?
 %if ! %{include_firmware}
 # Remove the firmware and Graphics per the License.txt
-rm -rf Firmware
-rm -rf Graphics
-# Recreate directories though so user can get them from SlimDevices and put
-# them there if desired
-mkdir Firmware
-mkdir Graphics
+rm -rf Firmware/*
+rm -rf Graphics/*
 %endif
 
 # The lib/README file won't make sense outside of the context of lib
@@ -206,6 +201,8 @@ mkdir -p %buildroot/srv/slimserver
 # copy over stuff that belongs in the RPM
 cp -R Bin %buildroot%_libdir/slimserver
 cp -R Changelog*.html %buildroot%_libdir/slimserver
+cp -R Firmware %buildroot%_libdir/slimserver
+cp -R Graphics %buildroot%_libdir/slimserver
 cp -R HTML %buildroot%_libdir/slimserver
 cp -R IR %buildroot%_libdir/slimserver
 cp -R lib %buildroot%_libdir/slimserver
@@ -213,20 +210,18 @@ cp -R MySQL %buildroot%_libdir/slimserver
 cp -R Plugins %buildroot%_libdir/slimserver
 cp -R Slim %buildroot%_libdir/slimserver
 cp -R SQL %buildroot%_libdir/slimserver
-%if %{include_firmware}
-cp -R Firmware %buildroot%_libdir/slimserver
-cp -R Graphics %buildroot%_libdir/slimserver
-%endif
 cp convert.conf %buildroot%_libdir/slimserver
 cp revision.txt %buildroot%_libdir/slimserver
 cp strings.txt %buildroot%_libdir/slimserver
 cp types.conf %buildroot%_libdir/slimserver
 
 # install our newly built CPAN stuff
-cp -a POE-XS-Queue-Array-%{POE_XS_Queue_Array_version}/POE %buildroot%_libdir/slimserver/CPAN
+mkdir -p %buildroot%_libdir/slimserver/CPAN
+cp -R CPAN/POE %buildroot%_libdir/slimserver/CPAN
 pushd POE-XS-Queue-Array-%{POE_XS_Queue_Array_version}
 make install
 popd
+
 # get rid of unneeded documentation and metadata/markers
 find %buildroot%_libdir/slimserver/CPAN -type f -name .packlist -exec rm -f {} ';'
 find %buildroot%_libdir/slimserver/CPAN -type f -name perllocal.pod -exec rm -f {} ';'
