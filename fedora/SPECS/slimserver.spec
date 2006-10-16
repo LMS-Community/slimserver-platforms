@@ -187,6 +187,9 @@ sed -i 's#This#The %_libdir/slimserver/lib#' README.lib
 # Remove unneeded mysql doc files
 rm MySQL/COPYING
 rm MySQL/README
+# Remove errmsg.sys files from the MySQL dir, since they
+# may not match up with the installed version's
+rm MySQL/errmsg.*
 
 %install
 rm -rf %buildroot
