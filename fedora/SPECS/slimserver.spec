@@ -190,15 +190,38 @@ rm MySQL/README
 
 %install
 rm -rf %buildroot
-mkdir -p %buildroot%_initrddir
-mkdir -p %buildroot%_sysconfdir/slimserver
-mkdir -p %buildroot%_libdir/slimserver
-mkdir -p %buildroot%_sbindir
-mkdir -p %buildroot%{_var}/cache/slimserver/playlists
-# music directory (FHS specifies /srv for readonly, many services use /var)
-mkdir -p %buildroot/srv/slimserver
 
-# copy over stuff that belongs in the RPM
+# startup scripts go in /etc/rc.d/init.d/slimserver
+mkdir -p %buildroot%_initrddir
+
+# configuration data goes in /etc/slimserver
+mkdir -p %buildroot%_sysconfdir/slimserver
+
+# architecture-independent perl modules, SoftSqueeze
+# go in /usr/share/slimserver
+# The macro name is admittedly confusing.
+#mkdir -p %%buildroot%%_datadir/slimserver
+
+# architecture-dependent perl extensions
+# go in /usr/lib/slimserver
+mkdir -p %buildroot%_libdir/slimserver
+
+# executables go in /usr/sbin
+mkdir -p %buildroot%_sbindir
+
+# cache directory is /var/cache/slimserver
+mkdir -p %buildroot%{_var}/cache/slimserver
+
+# playlist directory is /srv/slimserver/playlists
+mkdir -p %buildroot/srv/slimserver/playlists
+
+# music directory is /srv/slimserver/music
+mkdir -p %buildroot/srv/slimserver/music
+
+# copy over stuff that belongs in the RPM. All of
+# this ultimately should change to /usr/share/slimserver
+# (instead of /usr/lib/slimserver) so that it  conforms
+# to FHS and to mirror Debian packaging.
 cp -R Bin %buildroot%_libdir/slimserver
 cp -R Firmware %buildroot%_libdir/slimserver
 cp -R Graphics %buildroot%_libdir/slimserver
@@ -228,7 +251,9 @@ find %buildroot%_libdir/slimserver/CPAN -type d -depth -exec rmdir {} 2>/dev/nul
 # put slimserver.pl in /usr/sbin
 mv slimserver.pl %buildroot%_sbindir
 chmod +x %buildroot%_sbindir/slimserver.pl
-# put scanner.pl in /usr/sbin
+# put scanner.pl in /usr/sbin. On Debian, it's named
+# /usr/sbin/slimserver-scanner... probably should do
+# the same here
 mv scanner.pl %buildroot%_sbindir
 chmod +x %buildroot%_sbindir/scanner.pl
 
@@ -382,6 +407,7 @@ fi
 %doc Changelog*.html Installation.txt License.txt README.lib
 
 # library files
+#%%_datadir/slimserver
 %_libdir/slimserver
 
 # empty directories
