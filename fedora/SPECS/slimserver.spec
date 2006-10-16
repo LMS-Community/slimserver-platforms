@@ -184,10 +184,14 @@ sed -i 's#This#The %_libdir/slimserver/lib#' README.lib
 # context of a Fedora RPM or just removed, as it makes the most sense
 # in its initial context for developers.
 
+# Remove unneeded mysql doc files
+rm MySQL/COPYING
+rm MySQL/README
+
 %install
 rm -rf %buildroot
 mkdir -p %buildroot%_initrddir
-#mkdir -p %buildroot%_sysconfdir/slimserver
+mkdir -p %buildroot%_sysconfdir/slimserver
 mkdir -p %buildroot%_libdir/slimserver
 mkdir -p %buildroot%_sbindir
 mkdir -p %buildroot%{_var}/cache/slimserver/playlists
@@ -196,7 +200,6 @@ mkdir -p %buildroot/srv/slimserver
 
 # copy over stuff that belongs in the RPM
 cp -R Bin %buildroot%_libdir/slimserver
-cp -R Changelog*.html %buildroot%_libdir/slimserver
 cp -R Firmware %buildroot%_libdir/slimserver
 cp -R Graphics %buildroot%_libdir/slimserver
 cp -R HTML %buildroot%_libdir/slimserver
@@ -206,10 +209,8 @@ cp -R MySQL %buildroot%_libdir/slimserver
 cp -R Plugins %buildroot%_libdir/slimserver
 cp -R Slim %buildroot%_libdir/slimserver
 cp -R SQL %buildroot%_libdir/slimserver
-cp convert.conf %buildroot%_libdir/slimserver
 cp revision.txt %buildroot%_libdir/slimserver
 cp strings.txt %buildroot%_libdir/slimserver
-cp types.conf %buildroot%_libdir/slimserver
 
 # install our newly built CPAN stuff
 mkdir -p %buildroot%_libdir/slimserver/CPAN
@@ -237,6 +238,8 @@ install -D -m644 %SOURCE2 %buildroot%_sysconfdir/sysconfig/slimserver
 touch %buildroot%_sysconfdir/slimserver.conf
 echo "cachedir = %{_var}/cache/slimserver" > %buildroot%_sysconfdir/slimserver.conf
 echo "playlistdir = %{_var}/cache/slimserver/playlists" >> %buildroot%_sysconfdir/slimserver.conf
+cp types.conf %buildroot%_sysconfdir/slimserver
+cp convert.conf %buildroot%_sysconfdir/slimserver
 
 # Note for future reference:
 # rpm macro %%_libexecdir expands to /usr/libexec for locating mysqld binary
@@ -376,13 +379,10 @@ fi
 %defattr(-,root,root)
 
 # documentation files
-%doc Installation.txt License.txt README.lib
+%doc Changelog*.html Installation.txt License.txt README.lib
 
 # library files
 %_libdir/slimserver
-
-# config files
-# %%_sysconfdir/slimserver
 
 # empty directories
 %dir %{_var}/cache/slimserver
@@ -397,6 +397,8 @@ fi
 %config(noreplace) %_sysconfdir/slimserver.conf
 %config %_initrddir/slimserver
 %config(noreplace) %_sysconfdir/sysconfig/slimserver
+%config(noreplace) %_sysconfdir/slimserver/convert.conf
+%config(noreplace) %_sysconfdir/slimserver/types.conf
 
 
 %changelog
