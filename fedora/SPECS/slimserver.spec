@@ -175,14 +175,15 @@ mkdir -p %buildroot%_initrddir
 # configuration data goes in /etc/slimserver
 mkdir -p %buildroot%_sysconfdir/slimserver
 
-# architecture-independent perl modules, SoftSqueeze
-# go in /usr/share/slimserver
-# The macro name is admittedly confusing.
-#mkdir -p %%buildroot%%_datadir/slimserver
+# Slim::* perl packages go in perl @INC hierarchy
+mkdir -p %buildroot%perl_sitelib
 
-# architecture-dependent perl extensions
-# go in /usr/lib/slimserver
-mkdir -p %buildroot%_libdir/slimserver
+# 34567890123456789012345678901234567890123456789012345678901234567890123456789
+# Some architecture-independent perl modules that have been
+# customized/maintained by Slim, as well as most supporting
+# files and SoftSqueeze go in /usr/share/slimserver
+# The macro name is admittedly confusing...
+mkdir -p %buildroot%_datadir/slimserver
 
 # executables go in /usr/sbin
 mkdir -p %buildroot%_sbindir
@@ -196,22 +197,24 @@ mkdir -p %buildroot/srv/slimserver/playlists
 # music directory is /srv/slimserver/music
 mkdir -p %buildroot/srv/slimserver/music
 
-# copy over stuff that belongs in the RPM. All of
-# this ultimately should change to /usr/share/slimserver
-# (instead of /usr/lib/slimserver) so that it  conforms
-# to FHS and to mirror Debian packaging.
-cp -R Bin %buildroot%_libdir/slimserver
-cp -R Firmware %buildroot%_libdir/slimserver
-cp -R Graphics %buildroot%_libdir/slimserver
-cp -R HTML %buildroot%_libdir/slimserver
-cp -R IR %buildroot%_libdir/slimserver
-cp -R lib %buildroot%_libdir/slimserver
-cp -R MySQL %buildroot%_libdir/slimserver
-cp -R Plugins %buildroot%_libdir/slimserver
-cp -R Slim %buildroot%_libdir/slimserver
-cp -R SQL %buildroot%_libdir/slimserver
-cp revision.txt %buildroot%_libdir/slimserver
-cp strings.txt %buildroot%_libdir/slimserver
+# copy over stuff that belongs in the RPM.
+
+# This goes in the perl @INC hierarchy
+cp -R Slim %buildroot%perl_sitelib
+
+# These go in /usr/share/slimserver, both conforming to FHS and
+# mirroring Debian packaging.
+cp -R Bin %buildroot%_datadir/slimserver
+cp -R Firmware %buildroot%_datadir/slimserver
+cp -R Graphics %buildroot%_datadir/slimserver
+cp -R HTML %buildroot%_datadir/slimserver
+cp -R IR %buildroot%_datadir/slimserver
+cp -R lib %buildroot%_datadir/slimserver
+cp -R MySQL %buildroot%_datadir/slimserver
+cp -R Plugins %buildroot%_datadir/slimserver
+cp -R SQL %buildroot%_datadir/slimserver
+cp revision.txt %buildroot%_datadir/slimserver
+cp strings.txt %buildroot%_datadir/slimserver
 
 # put slimserver.pl in /usr/sbin
 mv slimserver.pl %buildroot%_sbindir
@@ -219,8 +222,8 @@ chmod +x %buildroot%_sbindir/slimserver.pl
 # put scanner.pl in /usr/sbin. On Debian, it's named
 # /usr/sbin/slimserver-scanner... probably should do
 # the same here
-mv scanner.pl %buildroot%_sbindir
-chmod +x %buildroot%_sbindir/scanner.pl
+mv scanner.pl %buildroot%_sbindir/slimserver-scanner
+chmod +x %buildroot%_sbindir/slimserver-scanner
 
 # install and modify configuration files
 install -D -m755 %SOURCE1 %buildroot%_initrddir/slimserver
@@ -373,8 +376,8 @@ fi
 %doc Changelog*.html Installation.txt License.txt README.lib
 
 # library files
-#%%_datadir/slimserver
-%_libdir/slimserver
+%perl_sitelib/Slim
+%_datadir/slimserver
 
 # empty directories
 %dir %{_var}/cache/slimserver
@@ -382,7 +385,7 @@ fi
 
 # executables
 %_sbindir/slimserver.pl
-%_sbindir/scanner.pl
+%_sbindir/slimserver-scanner
 
 # configuration files and init scripts
 %attr(-, slimserver, slimserver)
