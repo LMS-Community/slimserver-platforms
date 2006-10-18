@@ -265,7 +265,8 @@ install -D -m755 %SOURCE1 %buildroot%_initrddir/slimserver
 install -D -m644 %SOURCE2 %buildroot%_sysconfdir/sysconfig/slimserver
 touch %buildroot%_sysconfdir/slimserver.conf
 echo "cachedir = %{_var}/cache/slimserver" > %buildroot%_sysconfdir/slimserver.conf
-echo "playlistdir = %{_var}/cache/slimserver/playlists" >> %buildroot%_sysconfdir/slimserver.conf
+echo "playlistdir = /srv/slimserver/playlists" >> %buildroot%_sysconfdir/slimserver.conf
+echo "audiodir = /srv/slimserver/music" >> %buildroot%_sysconfdir/slimserver.conf
 cp types.conf %buildroot%_sysconfdir/slimserver
 cp convert.conf %buildroot%_sysconfdir/slimserver
 
