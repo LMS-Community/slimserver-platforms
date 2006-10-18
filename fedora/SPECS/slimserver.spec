@@ -27,8 +27,7 @@ URL:            http://www.slimdevices.com/
 Source0:        SlimServer_v%{version}.tar.gz
 Source1:        slimserver.init
 Source2:        slimserver.config
-Source3:	POE-XS-Queue-Array-%{POE_XS_Queue_Array_version}.tar.gz
-Patch0:		slimserver-POE-XS-Queue-Array-%{POE_XS_Queue_Array_version}.patch
+BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # There is no BuildRequires: tag yet. Ideally, the rpmbuild process will
@@ -104,6 +103,8 @@ Requires:       perl(Locale::Hebrew)
 Requires:       perl(Module::Find)
 Requires:       perl(MP4::Info)
 Requires:       perl(MPEG::Audio::Frame)
+# The following line could be changed to perl(POE) with a speed penalty.
+Requires:		perl(POE::XS::Queue::Array)
 Requires:       perl(Tie::Cache::LRU::Expires)
 Requires:       perl(Tie::RegexpHash)
 Requires:       perl(URI::Find)
@@ -128,10 +129,6 @@ Point your web browser to http://localhost:9000/ to configure the server.
 
 %prep
 %setup -q -n SlimServer_v%{version}
-tar -xzf %{S:3}
-pushd POE-XS-Queue-Array-%{POE_XS_Queue_Array_version}
-patch -p1 < %{P:0}
-popd
 
 %build
 rm -rf %buildroot
@@ -141,30 +138,8 @@ rm -rf %buildroot
 # we'll keep the directory as part of the RPM, though.
 rm -rf Bin/*
 
-# The CPAN directory of the source contains unmodified perl modules from CPAN, 
-# but not neccessarily intact CPAN modules. We've chosen for some of these to
-# use the versions in the tarball rather than system packages, to reduce the 
-# disk footprint of the installed package and installed dependencies. The 
-# modified CPAN modules for which we will use the source versions are:
-#    POE::XS::Queue::Array
-# and we therefore must use the modules that they depend on from the source
-# as well:
-#    POE::Queue
-# These will be rebuilt because they contain C Perl extensions that need to
-# compile for the target architecture. Therefore, we will remove the entire
-# CPAN directory and start over.
-
 # Remove the perl stuff that system packages provide
-rm -rf CPAN/*
-
-# remake the modified CPAN modules we wish to use
-cp -a POE-XS-Queue-Array-%{POE_XS_Queue_Array_version}/POE CPAN
-mkdir -p CPAN/arch/$(perl -MConfig -e 'print "$Config{version}";')
-pushd POE-XS-Queue-Array-%{POE_XS_Queue_Array_version}
-perl Makefile.PL LIB=%buildroot%_libdir/slimserver/CPAN/arch/$(perl -MConfig -e 'print "$Config{version}";')
-make
-make test
-popd
+rm -rf CPAN
 
 # Do we need to remove the firmware and Graphics?
 %if ! %{include_firmware}
@@ -237,19 +212,6 @@ cp -R Slim %buildroot%_libdir/slimserver
 cp -R SQL %buildroot%_libdir/slimserver
 cp revision.txt %buildroot%_libdir/slimserver
 cp strings.txt %buildroot%_libdir/slimserver
-
-# install our newly built CPAN stuff
-mkdir -p %buildroot%_libdir/slimserver/CPAN
-cp -R CPAN/POE %buildroot%_libdir/slimserver/CPAN
-pushd POE-XS-Queue-Array-%{POE_XS_Queue_Array_version}
-make install
-popd
-
-# get rid of unneeded documentation and metadata/markers
-find %buildroot%_libdir/slimserver/CPAN -type f -name .packlist -exec rm -f {} ';'
-find %buildroot%_libdir/slimserver/CPAN -type f -name perllocal.pod -exec rm -f {} ';'
-find %buildroot%_libdir/slimserver/CPAN -type f -name '*.bs' -a -size 0 -exec rm -f {} ';'
-find %buildroot%_libdir/slimserver/CPAN -type d -depth -exec rmdir {} 2>/dev/null ';'
 
 # put slimserver.pl in /usr/sbin
 mv slimserver.pl %buildroot%_sbindir
