@@ -24,10 +24,10 @@ Summary:        This is the Slim Devices server software
 Group:          System Environment/Daemons
 License:        GPL
 URL:            http://www.slimdevices.com/
-Source0:        SlimServer_v%{version}.tar.gz
-Source1:        slimserver.init
-Source2:        slimserver.config
-Source3:        slimserver.logrotate
+Source0:        http://www.slimdevices.com/downloads/SlimServer_v%{version}/SlimServer_v%{version}.tar.gz
+Source1:        http://svn.slimdevices.com/repos/slim/trunk/platforms/fedora/SOURCES/slimserver.init
+Source2:        http://svn.slimdevices.com/repos/slim/trunk/platforms/fedora/SOURCES/slimserver.config
+Source3:        http://svn.slimdevices.com/repos/slim/trunk/platforms/fedora/SOURCES/slimserver.logrotate
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
