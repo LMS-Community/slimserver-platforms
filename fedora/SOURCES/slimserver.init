@@ -5,7 +5,7 @@
 #
 # chkconfig: 345 80 30
 # description: Slim streaming MP3 server
-# processname: slimserver.pl
+# processname: slimserver
 # config: /etc/slimserver.conf
 
 # Source function library.
@@ -24,7 +24,7 @@ fi
 RETVAL=0
 prog="SLIMSERVER"
 
-SLIMSERVER_BIN="$SLIMSERVER_HOME/slimserver.pl"
+SLIMSERVER_BIN="$SLIMSERVER_HOME/slimserver"
 
 [ -x $SLIMSERVER_BIN -a -f $SLIMSERVER_CFG ] || exit 5
 

@@ -218,8 +218,9 @@ cp revision.txt %buildroot%_datadir/slimserver
 cp strings.txt %buildroot%_datadir/slimserver
 
 # put slimserver.pl in /usr/sbin
-mv slimserver.pl %buildroot%_sbindir
-chmod +x %buildroot%_sbindir/slimserver.pl
+# rename to slimserver
+mv slimserver.pl %buildroot%_sbindir/slimserver
+chmod +x %buildroot%_sbindir/slimserver
 # put scanner.pl in /usr/sbin. On Debian, it's named
 # /usr/sbin/slimserver-scanner... probably should do
 # the same here
@@ -385,7 +386,7 @@ fi
 %dir /srv/slimserver
 
 # executables
-%_sbindir/slimserver.pl
+%_sbindir/slimserver
 %_sbindir/slimserver-scanner
 
 # configuration files and init scripts
