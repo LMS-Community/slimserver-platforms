@@ -27,6 +27,7 @@ URL:            http://www.slimdevices.com/
 Source0:        SlimServer_v%{version}.tar.gz
 Source1:        slimserver.init
 Source2:        slimserver.config
+Source3:        slimserver.logrotate
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -173,6 +174,12 @@ rm -rf %buildroot
 # startup scripts go in /etc/rc.d/init.d/slimserver
 mkdir -p %buildroot%_initrddir
 
+# Log to /var/log/slimserver
+mkdir -p %buildroot%_var/log/slimserver
+
+# Logrotate script goes here
+mkdir -p %buildroot%%_sysconfdir/logrotate.d
+
 # configuration data goes in /etc/slimserver
 mkdir -p %buildroot%_sysconfdir/slimserver
 
@@ -230,12 +237,16 @@ chmod +x %buildroot%_sbindir/slimserver-scanner
 # install and modify configuration files
 install -D -m755 %SOURCE1 %buildroot%_initrddir/slimserver
 install -D -m644 %SOURCE2 %buildroot%_sysconfdir/sysconfig/slimserver
+install -D -m644 %SOURCE3 %buildroot%_sysconfdir/logrotate.d/slimserver
 touch %buildroot%_sysconfdir/slimserver.conf
 echo "cachedir = %{_var}/cache/slimserver" > %buildroot%_sysconfdir/slimserver.conf
 echo "playlistdir = /srv/slimserver/playlists" >> %buildroot%_sysconfdir/slimserver.conf
 echo "audiodir = /srv/slimserver/music" >> %buildroot%_sysconfdir/slimserver.conf
 cp types.conf %buildroot%_sysconfdir/slimserver
 cp convert.conf %buildroot%_sysconfdir/slimserver
+
+# Log file
+touch %buildroot%_var/log/slimserver/slimserver.log
 
 # Note for future reference:
 # rpm macro %%_libexecdir expands to /usr/libexec for locating mysqld binary
@@ -304,6 +315,8 @@ fi
 
 # Now that everything is installed, make sure the permissions are right
 chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %{slimdir}
+# Fixme - this section also needs to be cleaned up for new file locations
+chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %_var/log/slimserver
 
 # Allow the RPM to be installed on SuSE
 if [ -x /sbin/chkconfig ]; then
@@ -389,6 +402,10 @@ fi
 %_sbindir/slimserver
 %_sbindir/slimserver-scanner
 
+# Log file
+%attr(0755,slimserver,slimserver) %dir %_var/log/slimserver
+%attr(0640,slimserver,slimserver) %ghost %_var/log/slimserver/slimserver.log
+
 # configuration files and init scripts
 %attr(-, slimserver, slimserver)
 %config(noreplace) %_sysconfdir/slimserver.conf
@@ -396,6 +413,7 @@ fi
 %config(noreplace) %_sysconfdir/sysconfig/slimserver
 %config(noreplace) %_sysconfdir/slimserver/convert.conf
 %config(noreplace) %_sysconfdir/slimserver/types.conf
+%attr(0644,root,root) %config(noreplace) %_sysconfdir/logrotate.d/slimserver
 
 
 %changelog

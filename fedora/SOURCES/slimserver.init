@@ -60,6 +60,9 @@ case "$1" in
         start
         RETVAL=$?
         ;;
+  condrestart)
+        [ -f /var/lock/subsys/slimserver ] && restart || :
+        ;;
   status)
         status $SLIMSERVER_BIN
         RETVAL=$?

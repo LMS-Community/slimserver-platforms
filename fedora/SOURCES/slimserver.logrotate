@@ -1,0 +1,7 @@
+/var/log/slimserver/slimserver.log {
+    missingok
+    notifempty
+    postrotate
+        /etc/init.d/slimserver condrestart >/dev/null 2>&1 || true
+    endscript
+}
