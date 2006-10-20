@@ -238,10 +238,10 @@ chmod +x %buildroot%_sbindir/slimserver-scanner
 install -D -m755 %SOURCE1 %buildroot%_initrddir/slimserver
 install -D -m644 %SOURCE2 %buildroot%_sysconfdir/sysconfig/slimserver
 install -D -m644 %SOURCE3 %buildroot%_sysconfdir/logrotate.d/slimserver
-touch %buildroot%_sysconfdir/slimserver.conf
-echo "cachedir = %{_var}/cache/slimserver" > %buildroot%_sysconfdir/slimserver.conf
-echo "playlistdir = /srv/slimserver/playlists" >> %buildroot%_sysconfdir/slimserver.conf
-echo "audiodir = /srv/slimserver/music" >> %buildroot%_sysconfdir/slimserver.conf
+touch %buildroot%_sysconfdir/slimserver/slimserver.conf
+echo "cachedir = %{_var}/cache/slimserver" > %buildroot%_sysconfdir/slimserver/slimserver.conf
+echo "playlistdir = /srv/slimserver/playlists" >> %buildroot%_sysconfdir/slimserver/slimserver.conf
+echo "audiodir = /srv/slimserver/music" >> %buildroot%_sysconfdir/slimserver/slimserver.conf
 cp types.conf %buildroot%_sysconfdir/slimserver
 cp convert.conf %buildroot%_sysconfdir/slimserver
 
@@ -310,7 +310,9 @@ if [ `grep -c PREFIX /etc/sysconfig/slimserver` -gt 0 ]; then
 fi
 
 if [ ! -s /etc/slimserver.conf ] && [ -e /etc/slimp3.pref ]; then
-        cp /etc/slimp3.pref /etc/slimserver.conf
+        cp /etc/slimp3.pref /etc/slimserver/slimserver.conf
+elif [ -s /etc/slimserver.conf ]; then
+	cp /etc/slimserver.conf /etc/slimserver/slimserver.conf
 fi
 
 # Now that everything is installed, make sure the permissions are right
@@ -327,11 +329,11 @@ if [ -x /sbin/service ]; then
 
         /sbin/service slimserver restart >/dev/null 2>&1 || :
 
-        PORT=`awk '/^httpport/ {print $2}' /etc/slimserver.conf`
+        PORT=`awk '/^httpport/ {print $2}' /etc/slimserver/slimserver.conf`
 fi
 
 # Set a default port if one doesn't exist.
-if [ ! -z "$PORT" -o ! -s /etc/slimserver.conf ]; then
+if [ ! -z "$PORT" -o ! -s /etc/slimserver/slimserver.conf ]; then
         PORT=9000
 fi
 
@@ -367,7 +369,7 @@ if [ "$1" -ge "1" ]; then
 
 else
         SLIMSERVER_USER="slimserver"
-        SLIMSERVER_CFG="/etc/slimserver.conf"
+        SLIMSERVER_CFG="/etc/slimserver/slimserver.conf"
 
         if [ -f /etc/sysconfig/slimserver ]; then
                 . /etc/sysconfig/slimserver;
@@ -408,7 +410,8 @@ fi
 
 # configuration files and init scripts
 %attr(-, slimserver, slimserver)
-%config(noreplace) %_sysconfdir/slimserver.conf
+%dir %_sysconfdir/slimserver
+%config(noreplace) %_sysconfdir/slimserver/slimserver.conf
 %config %_initrddir/slimserver
 %config(noreplace) %_sysconfdir/sysconfig/slimserver
 %config(noreplace) %_sysconfdir/slimserver/convert.conf
