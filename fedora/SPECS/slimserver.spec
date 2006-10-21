@@ -45,6 +45,7 @@ Requires:       perl(Cache::Cache)
 Requires:       perl(Carp::Clan)
 Requires:       perl(Class::Accessor)
 Requires:       perl(Class::Accessor::Chained)
+Requires:       perl(Class::C3)
 Requires:       perl(Class::Inspector)
 Requires:       perl(Class::Singleton)
 Requires:       perl(Class::Virtual)
@@ -93,8 +94,6 @@ Requires:       mysql-server >= 5.0.22
 
 # The following requires are in RPMS built by Al Pacifico, but not yet in any
 # Fedora base, extras, or RpmForge:
-Requires:       perl(Algorithm::C3)
-Requires:       perl(Class::C3)
 Requires:       perl(Class::Data::Accessor)
 Requires:       perl(Data::Page)
 Requires:       perl(Data::VString)
