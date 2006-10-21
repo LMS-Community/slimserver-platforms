@@ -1,0 +1,40 @@
+Index: server/Slim/Utils/OSDetect.pm
+===================================================================
+--- server/Slim/Utils/OSDetect.pm	(revision 10324)
++++ server/Slim/Utils/OSDetect.pm	(revision 10325)
+@@ -260,16 +260,20 @@
+ 
+ sub initDetailsForLinux {
+ 
+-	$osDetails{'os'}     = 'Linux';
++	$osDetails{'os'} = 'Linux';
+ 
+ 	if (-f '/etc/debian_version') {
+ 
+ 		$osDetails{'osName'} = 'Debian';
+ 
+-	} elsif (-f '/etc/redhat_release') {
++	} elsif (-f '/etc/redhat_release' || -f '/etc/redhat-release') {
+ 
+ 		$osDetails{'osName'} = 'RedHat';
+ 
++	} elsif (-f '/etc/fedora-release') {
++
++		$osDetails{'osName'} = 'Fedora Core';
++
+ 	} else {
+ 
+ 		$osDetails{'osName'} = 'Linux';
+Index: server/Slim/Utils/Misc.pm
+===================================================================
+--- server/Slim/Utils/Misc.pm	(revision 10324)
++++ server/Slim/Utils/Misc.pm	(revision 10325)
+@@ -106,7 +106,7 @@
+ 
+ 	if (Slim::Utils::OSDetect::OS() ne "win") {
+ 
+-		push @paths, (split(/:/, $ENV{'PATH'}), qw(/usr/bin /usr/local/bin /sw/bin /usr/sbin));
++		push @paths, (split(/:/, $ENV{'PATH'}), qw(/usr/bin /usr/local/bin /usr/libexec /sw/bin /usr/sbin));
+ 
+ 	} else {
+ 

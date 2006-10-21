@@ -28,6 +28,11 @@ Source0:        http://www.slimdevices.com/downloads/SlimServer_v%{version}/Slim
 Source1:        http://svn.slimdevices.com/repos/slim/trunk/platforms/fedora/SOURCES/slimserver.init
 Source2:        http://svn.slimdevices.com/repos/slim/trunk/platforms/fedora/SOURCES/slimserver.config
 Source3:        http://svn.slimdevices.com/repos/slim/trunk/platforms/fedora/SOURCES/slimserver.logrotate
+# For testing, backport patches needed to support new RHEL/FC file locations
+# r10325 Description: Add /usr/libexec to search paths for Fedora Core. Add FC OS checks.
+Patch1:		http://svn.slimdevices.com/repos/slim/trunk/platforms/fedora/SOURCES/r10325.patch
+# fedora-file-locations Further support new RHEL/FC file locations - Not yet committed to trunk
+Patch2:		http://svn.slimdevices.com/repos/slim/trunk/platforms/fedora/SOURCES/fedora-file-locations.patch
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -130,6 +135,9 @@ Point your web browser to http://localhost:9000/ to configure the server.
 
 %prep
 %setup -q -n SlimServer_v%{version}
+# For testing, backport patches needed to support new RHEL/FC file locations
+%patch1 -p1
+%patch2 -p1
 
 %build
 rm -rf %buildroot

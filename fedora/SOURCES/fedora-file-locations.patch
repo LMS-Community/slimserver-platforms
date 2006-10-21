@@ -1,0 +1,89 @@
+Index: server/Slim/Music/Import.pm
+===================================================================
+--- server/Slim/Music/Import.pm	(revision 10435)
++++ server/Slim/Music/Import.pm	(working copy)
+@@ -132,7 +132,7 @@
+ 
+ 		$command  = "$Bin/scanner.exe";
+ 
+-	} elsif (Slim::Utils::OSDetect::isDebian() && -x '/usr/sbin/slimserver-scanner') {
++	} elsif (-x '/usr/sbin/slimserver-scanner') {
+ 
+ 		$command  = '/usr/sbin/slimserver-scanner';
+ 	}
+Index: server/Slim/Utils/OSDetect.pm
+===================================================================
+--- server/Slim/Utils/OSDetect.pm	(revision 10435)
++++ server/Slim/Utils/OSDetect.pm	(working copy)
+@@ -177,6 +177,38 @@
+ 			Slim::Utils::Misc::errorMsg("dirsFor: Didn't find a match request: [$dir]\n");
+ 		}
+ 
++	# RedHat/Fedora specific paths.
++	} elsif (isRHELorFC()) {
++
++		if ($dir =~ /^(?:Plugins|Firmware|Graphics|HTML|IR|MySQL|SQL|lib|Bin)$/) {
++
++			push @dirs, "/usr/share/slimserver/$dir";
++
++		} elsif ($dir eq 'strings' || $dir eq 'revision') {
++
++			push @dirs, "/usr/share/slimserver";
++
++		} elsif ($dir =~ /^(?:types|convert|pref)$/) {
++
++			push @dirs, "/etc/slimserver";
++
++		} elsif ($dir eq 'log') {
++
++			push @dirs, "/var/log/slimserver";
++
++		} elsif ($dir eq 'cache') {
++
++			push @dirs, "/var/cache/slimserver";
++
++		} elsif ($dir eq 'MySQL') {
++
++			# Do nothing - use the depended upon MySQL install.
++
++		} else {
++
++			Slim::Utils::Misc::errorMsg("dirsFor: Didn't find a match request: [$dir]\n");
++		}
++
+ 	} else {
+ 
+ 		# Everyone else - Windows, and *nix.
+@@ -218,6 +250,19 @@
+ 	return 0;
+ }
+ 
++sub isRHELorFC {
++
++	# Initialize
++	my $OS      = OS();
++	my $details = details();
++
++	if (($details->{'osName'} eq 'Fedora Core' || $details->{'osName'} eq 'RedHat') && -d '/usr/share/slimserver/Firmware') {
++		return 1;
++	}
++
++	return 0;
++}
++
+ sub initDetailsForWin32 {
+ 
+ 	%osDetails = (
+Index: server/Slim/bootstrap.pm
+===================================================================
+--- server/Slim/bootstrap.pm	(revision 10435)
++++ server/Slim/bootstrap.pm	(working copy)
+@@ -95,7 +95,7 @@
+ 
+ 	my @SlimINC = ();
+ 
+-	if (Slim::Utils::OSDetect::isDebian()) {
++	if (Slim::Utils::OSDetect::isDebian() || Slim::Utils::OSDetect::isRHELorFC()) {
+ 
+ 		@SlimINC = Slim::Utils::OSDetect::dirsFor('lib');
+ 
