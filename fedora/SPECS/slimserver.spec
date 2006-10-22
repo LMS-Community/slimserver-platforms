@@ -275,9 +275,6 @@ rm -rf $RPM_BUILD_ROOT
 #&& rm -r $RPM_BUILD_DIR/SlimServer_v%%{version}
 
 ###############################################################################
-# The following sections copied verbatim from the Slimdevices generic Linux RPM
-# and will need tweaking, including for SELinux
-###############################################################################
 
 %pre
 export SLIMSERVER_USER=slimserver
@@ -290,7 +287,7 @@ fi
 # Add the $SLIMSERVER_USER if there is not one
 if [ `grep -c "^$SLIMSERVER_USER:" /etc/passwd` -eq 0 ]; then
         /usr/sbin/groupadd $SLIMSERVER_USER
-        /usr/sbin/useradd -c "SlimServer" -g $SLIMSERVER_USER -m -d %{slimdir} -s /sbin/nologin $SLIMSERVER_USER
+        /usr/sbin/useradd -c "SlimServer" -g $SLIMSERVER_USER -m -d /usr/share/slimserver -s /sbin/nologin $SLIMSERVER_USER
 fi
 
 # Remove the old Favorites plugin
@@ -304,18 +301,6 @@ if [ -f /etc/sysconfig/slimserver ]; then
         . /etc/sysconfig/slimserver;
 fi
 
-# Make sure we have the correct SLIMSERVER_HOME in /etc/sysconfig/slimserver
-# Convert / to \/ for the sed substitution
-if [ `grep -c PREFIX /etc/sysconfig/slimserver` -gt 0 ]; then
-        DEST_FILE=/etc/sysconfig/slimserver
-        SLIMSERVER_PREFIX=`echo %{slimdir} | sed 's/\//\\\\\//g'`
-        sed "s/PREFIX/$SLIMSERVER_PREFIX/" $DEST_FILE > /tmp/slimserver.$$
-        if [ -s /tmp/slimserver.$$ ]; then
-                cp /tmp/slimserver.$$ $DEST_FILE
-                rm /tmp/slimserver.$$
-        fi
-fi
-
 if [ ! -s /etc/slimserver.conf ] && [ -e /etc/slimp3.pref ]; then
         cp /etc/slimp3.pref /etc/slimserver/slimserver.conf
 elif [ -s /etc/slimserver.conf ]; then
@@ -323,8 +308,12 @@ elif [ -s /etc/slimserver.conf ]; then
 fi
 
 # Now that everything is installed, make sure the permissions are right
-chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %{slimdir}
-# Fixme - this section also needs to be cleaned up for new file locations
+chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %_datadir/slimserver
+chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %{_var}/cache/slimserver
+chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %_sbindir/slimserver
+chown $SLIMSERVER_USER.$SLIMSERVER_USER %_sbindir/slimserver-scanner
+chown $SLIMSERVER_USER.$SLIMSERVER_USER %_sbindir/slimserver
+chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %_sysconfdir/slimserver
 chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %_var/log/slimserver
 
 # Allow the RPM to be installed on SuSE
@@ -388,8 +377,6 @@ else
         groupdel $SLIMSERVER_USER 2>/dev/null || :
 fi
 
-###############################################################################
-# End of verbatim from the Slimdevices generic Linux RPM
 ###############################################################################
 
 
