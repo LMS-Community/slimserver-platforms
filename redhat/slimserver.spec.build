@@ -47,6 +47,7 @@ Point your web browser to http://localhost:9000/ to configure the server.
 %install
 mkdir -p $RPM_BUILD_ROOT/etc/rc.d/init.d
 mkdir -p $RPM_BUILD_ROOT/etc/sysconfig
+mkdir -p $RPM_BUILD_ROOT/var/log/slimserver
 mkdir -p $RPM_BUILD_ROOT%{slimdir}
 cp -R . $RPM_BUILD_ROOT%{slimdir}
 chmod +x $RPM_BUILD_ROOT%{slimdir}/slimserver.pl
@@ -113,6 +114,7 @@ fi
 
 # Now that everything is installed, make sure the permissions are right
 chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %{slimdir}
+chown -R $SLIMSERVER_USER.$SLIMSERVER_USER /var/log/slimserver
 
 # Allow the RPM to be installed on SuSE
 if [ -x /sbin/chkconfig ]; then

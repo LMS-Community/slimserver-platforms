@@ -20,7 +20,7 @@ PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 SLIMUSER=$NAME
 PREFSFILE=/etc/$NAME/$NAME.pref
-LOGFILE=/var/log/$NAME/$NAME.log
+LOGDIR=/var/log/$NAME/
 CACHEDIR=/var/cache/$NAME
 SLIMOPTIONS=
 
@@ -45,7 +45,7 @@ d_start() {
                 -- \
                 $DAEMON \
                 --prefsfile $PREFSFILE \
-                --logfile $LOGFILE \
+                --logdir $LOGDIR \
                 --cachedir $CACHEDIR \
                 $SLIMOPTIONS
 }
@@ -59,7 +59,7 @@ d_start_direct() {
                 --pidfile $PIDFILE \
                 --daemon \
                 --prefsfile $PREFSFILE \
-                --logfile $LOGFILE \
+                --logdir $LOGDIR \
                 --cachedir $CACHEDIR \
                 $SLIMOPTIONS
 }

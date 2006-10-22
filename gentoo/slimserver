@@ -20,14 +20,14 @@ depend() {
 }
 
 pidfile=/var/run/slimserver.pid
-logfile=/var/log/slimserver/messages
+logdir=/var/log/slimserver
 
 start() {
 	ebegin "Starting Slimserver"
 	start-stop-daemon --start --quiet \
 		--exec /home/slimserver/slimserver.pl -- --daemon \
 		--prefsfile=/etc/slimserver.pref --pidfile=${pidfile} \
-		--logfile=${logfile} ${SLIMSERVER_OPTS}
+		--logdir=${logdir} ${SLIMSERVER_OPTS}
 	eend $? "Failed to start Slimserver"
 }
 
