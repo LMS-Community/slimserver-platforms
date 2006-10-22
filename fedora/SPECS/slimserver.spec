@@ -254,6 +254,9 @@ cp convert.conf %buildroot%_sysconfdir/slimserver
 
 # Log file
 touch %buildroot%_var/log/slimserver/slimserver.log
+# Use the following instead for 7.0
+#touch %buildroot%_var/log/slimserver/server.log 
+#touch %buildroot%_var/log/slimserver/scanner.log 
 
 # Note for future reference:
 # rpm macro %%_libexecdir expands to /usr/libexec for locating mysqld binary
@@ -401,6 +404,9 @@ fi
 # Log file
 %attr(0755,slimserver,slimserver) %dir %_var/log/slimserver
 %attr(0640,slimserver,slimserver) %ghost %_var/log/slimserver/slimserver.log
+# Use the following instead for 7.0
+#%attr(0640,slimserver,slimserver) %ghost %_var/log/slimserver/server.log
+#%attr(0640,slimserver,slimserver) %ghost %_var/log/slimserver/scanner.log
 
 # configuration files and init scripts
 %attr(-, slimserver, slimserver)
