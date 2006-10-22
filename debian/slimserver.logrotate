@@ -1,4 +1,20 @@
-/var/log/slimserver/slimserver.log {
+/var/log/slimserver/server.log {
+  rotate 5
+  size 200k
+  compress
+  missingok
+  prerotate
+    invoke-rc.d slimserver stop || true
+  endscript
+
+  postrotate
+    # Only starts slimserver if it is supposed to
+    # run in the current run-level
+    invoke-rc.d slimserver start || true
+  endscript
+}
+
+/var/log/slimserver/scanner.log {
   rotate 5
   size 200k
   compress
