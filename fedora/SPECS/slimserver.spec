@@ -43,77 +43,60 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # slimserver original .spec disabled automatic dependency processing, not
 # commented out yet(?)
 AutoReqProv: no
-
 # The following requires are available in base, core, extras, or RpmForge repositories
 Requires:       perl >= 5.8.3
 Requires:       perl(Cache::Cache)
 Requires:       perl(Carp::Clan)
-Requires:       perl(Class::Accessor)
-Requires:       perl(Class::Accessor::Chained)
-Requires:       perl(Class::C3)
-Requires:       perl(Class::Inspector)
-Requires:       perl(Class::Singleton)
-Requires:       perl(Class::Virtual)
-Requires:       perl(Compress::Zlib)
 Requires:       perl(Data::Dump)
-Requires:       perl(DBD::MySQL)
+# case is important in Requires: (ughhh) - watch the following
+Requires:       perl(DBD::mysql)
 Requires:       perl(DBI)
 Requires:       perl(Digest::SHA1)
 Requires:       perl(Error)
-Requires:       perl(File::BOM)
-Requires:       perl(File::Find::Rule)
 Requires:       perl(File::Slurp)
+Requires:       perl(IO::Socket::SSL)
+Requires:       perl(IO::String)
 Requires:       perl(GD)
 Requires:       perl(HTML::Parser)
-Requires:       perl(libwww::perl) >= 5.803
+# Following is covered under perl(YAML::Syck), but left in in
+# case whatever requires perl(YAML::Syck) is removed at some point
+# in the future
+Requires:       perl(JSON::Syck)
+Requires:       perl-libwww-perl >= 5.803
+# Following not currently needed, but may be in 6.7.0
+# Requires:             perl(Linux::Inotify2)
 Requires:       perl(Net::DNS)
 Requires:       perl(Net::IP)
 Requires:       perl(Net::UPnP)
-Requires:       perl(Number::Compare)
 Requires:       perl(Path::Class)
 Requires:       perl(Proc::Background)
-Requires:       perl(Readonly)
-Requires:       perl(RPC::XML)
-Requires:       perl(SQL::Abstract)
-Requires:       perl(SQL::Abstract::Limit)
-Requires:       perl(Template::Toolkit)
-Requires:       perl(Term::ReadKey)
-Requires:       perl(Text::Glob)
+Requires:       perl(RPC::XML::Parser)
+Requires:       perl(Template)
 Requires:       perl(Text::Unidecode)
 Requires:       perl(Tie::Cache)
 Requires:       perl(Tie::LLHash)
-Requires:       perl(TimeDate)
-Requires:       perl(Time::HiRes)
 Requires:       perl(URI)
-Requires:       perl(XML::NamespaceSupport)
 Requires:       perl(XML::Parser)
-Requires:       perl(XML::SAX)
-Requires:       perl(XML::Simple)
-Requires:       perl(XML::Writer)
 Requires:       perl(YAML::Syck)
 Requires:       flac
 Requires:       sox
 Requires:       mysql-server >= 5.0.22
-#Requires:       lame
-#Requires:       shorten
 
 # The following requires are in RPMS built by Al Pacifico, but not yet in any
 # Fedora base, extras, or RpmForge:
-Requires:       perl(Class::Data::Accessor)
-Requires:       perl(Data::Page)
 Requires:       perl(Data::VString)
-Requires:       perl(DBIx::Class)
 Requires:       perl(DBIx::Migration)
 Requires:       perl(File::Which)
-Requires:       perl(Locale::Hebrew)
-Requires:       perl(Module::Find)
 Requires:       perl(MP4::Info)
 Requires:       perl(MPEG::Audio::Frame)
 # The following line could be changed to perl(POE) with a speed penalty.
-Requires:		perl(POE::XS::Queue::Array)
+Requires:               perl(POE::XS::Queue::Array)
+# These next two require perl(Class::Virtual, which has made it onto RpmForge)
+Requires:       perl(Tie::Cache::LRU)
 Requires:       perl(Tie::Cache::LRU::Expires)
 Requires:       perl(Tie::RegexpHash)
 Requires:       perl(URI::Find)
+# The next one requires perl(XML::Writer) which is available on RpmForge
 Requires:       perl(XML::XSPF)
 Requires:       alac_decoder
 
