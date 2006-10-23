@@ -311,11 +311,7 @@ elif [ -s /etc/slimserver.conf ]; then
 fi
 
 # Now that everything is installed, make sure the permissions are right
-chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %_datadir/slimserver
 chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %{_var}/cache/slimserver
-chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %_sbindir/slimserver
-chown $SLIMSERVER_USER.$SLIMSERVER_USER %_sbindir/slimserver-scanner
-chown $SLIMSERVER_USER.$SLIMSERVER_USER %_sbindir/slimserver
 chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %_sysconfdir/slimserver
 chown -R $SLIMSERVER_USER.$SLIMSERVER_USER %_var/log/slimserver
 
@@ -394,8 +390,8 @@ fi
 %_datadir/slimserver
 
 # empty directories
-%dir %{_var}/cache/slimserver
-%dir /srv/slimserver
+%attr(-, slimserver, slimserver) %dir %{_var}/cache/slimserver
+%attr(-, slimserver, slimserver) %dir /srv/slimserver
 
 # executables
 %_sbindir/slimserver
@@ -409,9 +405,8 @@ fi
 #%attr(0640,slimserver,slimserver) %ghost %_var/log/slimserver/scanner.log
 
 # configuration files and init scripts
-%attr(-, slimserver, slimserver)
-%dir %_sysconfdir/slimserver
-%config(noreplace) %_sysconfdir/slimserver/slimserver.conf
+%attr(-, slimserver, slimserver) %dir %_sysconfdir/slimserver
+%attr(-, slimserver, slimserver) %config(noreplace) %_sysconfdir/slimserver/slimserver.conf
 %config %_initrddir/slimserver
 %config(noreplace) %_sysconfdir/sysconfig/slimserver
 %config(noreplace) %_sysconfdir/slimserver/convert.conf
