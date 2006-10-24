@@ -82,6 +82,11 @@ Requires:       flac
 Requires:       sox
 Requires:       mysql-server >= 5.0.22
 
+# Additional dependencies (in FE) discovered during initial testing
+Requires:	perl(File::BOM)
+Requires:	perl(Class::Singleton)
+Requires:	perl(File::Find::Rule)
+
 # The following requires are in RPMS built by Al Pacifico, but not yet in any
 # Fedora base, extras, or RpmForge:
 Requires:       perl(Data::VString)
@@ -99,6 +104,10 @@ Requires:       perl(URI::Find)
 # The next one requires perl(XML::Writer) which is available on RpmForge
 Requires:       perl(XML::XSPF)
 Requires:       alac_decoder
+
+# Additional dependencies (not in FE) discovered during initial testing
+Requires:	perl(Class::Data::Accessor)
+Requires:	perl(DBIx::Class::Schema)
 
 %description
 This is the Slim Devices server software.
