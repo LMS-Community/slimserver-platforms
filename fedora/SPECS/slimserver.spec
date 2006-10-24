@@ -375,6 +375,8 @@ fi
 # empty directories
 %attr(-, slimserver, slimserver) %dir %{_var}/cache/slimserver
 %attr(-, slimserver, slimserver) %dir /srv/slimserver
+%attr(-, slimserver, slimserver) %dir /srv/slimserver/music
+%attr(-, slimserver, slimserver) %dir /srv/slimserver/playlists
 
 # executables
 %_sbindir/slimserver
