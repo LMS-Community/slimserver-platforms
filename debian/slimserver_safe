@@ -19,13 +19,13 @@ fi
 function clean_up {
   # Kill the slimserver daemon if it is running
   kill $SLIMPID
-  echo `date "+%F %H:%M:%S"` "slimserver_safe stopped." >> /var/log/slimserver.log
+  echo `date "+%F %H:%M:%S"` "slimserver_safe stopped." >> /var/log/slimserver/server.log
   exit
 }
 
 trap clean_up SIGINT SIGHUP SIGTERM
 
-echo `date "+%F %H:%M:%S"` "slimserver_safe started." >> /var/log/slimserver.log
+echo `date "+%F %H:%M:%S"` "slimserver_safe started." >> /var/log/slimserver/server.log
 
 while true
 do
@@ -41,7 +41,7 @@ do
   "$@" > /dev/null 2>&1 &
   SLIMPID=$!
   wait $SLIMPID
-  echo `date "+%F %H:%M:%S"` "Slimserver died. Restarting." >> /var/log/slimserver.log
+  echo `date "+%F %H:%M:%S"` "Slimserver died. Restarting." >> /var/log/slimserver/server.log
 
   # Normally, when slimserver realizes that the mysql-connection is gone,
   # the mysql server has already been started again. So no need to sleep
