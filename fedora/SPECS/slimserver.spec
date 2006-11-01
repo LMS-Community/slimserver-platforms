@@ -1,6 +1,5 @@
 # Following was set by makerelease.pl for Slimdevices generic Linux RPM
 %define version 6.5.0
-%define POE_XS_Queue_Array_version 0.003
 
 # Slimdevices generic Linux RPM disables stripping, not sure why
 %define __spec_install_post /usr/lib/rpm/brp-compress
@@ -33,6 +32,7 @@ Source3:        http://svn.slimdevices.com/repos/slim/trunk/platforms/fedora/SOU
 Patch1:		http://svn.slimdevices.com/repos/slim/trunk/platforms/fedora/SOURCES/r10325.patch
 # fedora-file-locations Further support new RHEL/FC file locations - Not yet committed to trunk
 Patch2:		http://svn.slimdevices.com/repos/slim/trunk/platforms/fedora/SOURCES/fedora-file-locations.patch
+Patch3:		http://svn.slimdevices.com/repos/slim/trunk/platforms/fedora/SOURCES/r10464.patch
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -130,6 +130,7 @@ Point your web browser to http://localhost:9000/ to configure the server.
 # For testing, backport patches needed to support new RHEL/FC file locations
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 rm -rf %buildroot
@@ -282,11 +283,17 @@ fi
 # Add the $SLIMSERVER_USER if there is not one
 if [ `grep -c "^$SLIMSERVER_USER:" /etc/passwd` -eq 0 ]; then
         /usr/sbin/groupadd $SLIMSERVER_USER
-        /usr/sbin/useradd -c "SlimServer" -g $SLIMSERVER_USER -m -d /usr/share/slimserver -s /sbin/nologin $SLIMSERVER_USER
+        /usr/sbin/useradd -c "SlimServer" -g $SLIMSERVER_USER -M -d /usr/share/slimserver -s /sbin/nologin $SLIMSERVER_USER
+else
+	# If the user already exists, use, the new home dir
+	/usr/sbin/usermod -d /usr/share/slimserver $SLIMSERVER_USER
 fi
 
 # Remove the old Favorites plugin
 rm -rf /usr/local/slimserver/Plugins/Favorites
+
+# Remove the old Cache dir
+rm -rf /usr/local/slimserver/Cache
 
 %post
 export SLIMSERVER_USER=slimserver
@@ -313,14 +320,12 @@ if [ -x /sbin/chkconfig ]; then
 fi
 
 if [ -x /sbin/service ]; then
-
         /sbin/service slimserver restart >/dev/null 2>&1 || :
-
         PORT=`awk '/^httpport/ {print $2}' /etc/slimserver/slimserver.conf`
 fi
 
 # Set a default port if one doesn't exist.
-if [ ! -z "$PORT" -o ! -s /etc/slimserver/slimserver.conf ]; then
+if [ -z "$PORT" ]; then
         PORT=9000
 fi
 
@@ -341,7 +346,6 @@ if [ "$1" -eq "0" ] ; then
         fi
 
         if [ -x /sbin/chkconfig ]; then
-
                 /sbin/chkconfig --del slimserver
         fi
 fi
@@ -356,11 +360,6 @@ if [ "$1" -ge "1" ]; then
 
 else
         SLIMSERVER_USER="slimserver"
-        SLIMSERVER_CFG="/etc/slimserver/slimserver.conf"
-
-        if [ -f /etc/sysconfig/slimserver ]; then
-                . /etc/sysconfig/slimserver;
-        fi
 
         userdel $SLIMSERVER_USER 2>/dev/null || :
 
