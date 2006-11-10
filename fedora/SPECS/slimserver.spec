@@ -89,6 +89,7 @@ Requires:	perl(File::Find::Rule)
 
 # The following requires are in RPMS built by Al Pacifico, but not yet in any
 # Fedora base, extras, or RpmForge:
+Requires:		perl(Class::Data::Accessor)
 Requires:       perl(Data::VString)
 Requires:       perl(DBIx::Migration)
 Requires:       perl(File::Which)
@@ -103,11 +104,21 @@ Requires:       perl(Tie::RegexpHash)
 Requires:       perl(URI::Find)
 # The next one requires perl(XML::Writer) which is available on RpmForge
 Requires:       perl(XML::XSPF)
+# Eventually, the next one should be provided by a perl-DBIx-Class system
+# package and the Requires line changed to perl(DBIx::Class). However,
+# perl-DBIx-Class has an optional dependency on perl(SQL::Translator),
+# which itself depends on perl-Template-Toolkit. The newest version of
+# perl-Template-Toolkit (2.15) seems to have a bug (absent from 2.14) 
+# that causes the unit testing for perl-SQL-Translator to fail. See the
+# following URL: http://rt.cpan.org/Public/Bug/Display.html?id=20047.
+# Rather than entirely skip the unit-# testing, and take the chance that
+# slimserver might be broken from another bug in this sub-dependency,
+# we've built this RPM to omit that sub-dependency. Slimserver itself 
+# does not depend on perl(SQL::Translator), so it is not an issue from a
+# slimserver point of view, but from a systems package point of view, this
+# is suboptimal.
+Requires	:	slim-DBix-Class
 Requires:       alac_decoder
-
-# Additional dependencies (not in FE) discovered during initial testing
-Requires:	perl(Class::Data::Accessor)
-Requires:	perl(DBIx::Class::Schema)
 
 %description
 This is the Slim Devices server software.
