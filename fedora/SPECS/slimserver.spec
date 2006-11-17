@@ -117,7 +117,7 @@ Requires:       perl(XML::XSPF)
 # does not depend on perl(SQL::Translator), so it is not an issue from a
 # slimserver point of view, but from a systems package point of view, this
 # is suboptimal.
-Requires	:	slim-DBix-Class
+Requires:	slim-DBIx-Class
 Requires:       alac_decoder
 
 %description
