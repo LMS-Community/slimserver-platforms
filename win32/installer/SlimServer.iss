@@ -77,9 +77,6 @@ Root: HKLM; Subkey: SOFTWARE\SlimDevices\SlimServer; ValueType: string; ValueNam
 Filename: {app}\SlimTray.exe; Description: Launch SlimServer application; WorkingDir: "{app}"; Flags: nowait skipifsilent runmaximized
 Filename: {app}\Getting Started.html; Description: Read Getting Started document; Flags: shellexec skipifsilent postinstall
 
-[UninstallRun]
-Filename: {app}\SlimTray.exe; WorkingDir: "{app}"; Parameters: "--exit"; Flags: runmaximized
-
 [UninstallDelete]
 Type: dirifempty; Name: {app}
 Type: dirifempty; Name: {app}\server
@@ -99,6 +96,8 @@ EnableISX=true
 [UninstallRun]
 Filename: {app}\SlimTray.exe; Parameters: -exit; WorkingDir: {app}; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
 Filename: net; Parameters: stop slimsvc; Flags: runminimized; MinVersion: 0,4.00.1381
+Filename: sc; Parameters: stop SlimServerMySQL; Flags: runminimized; MinVersion: 0,4.00.1381
+Filename: sc; Parameters: delete SlimServerMySQL; Flags: runminimized; MinVersion: 0,4.00.1381
 Filename: {app}\server\slim.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
 
 [Code]
