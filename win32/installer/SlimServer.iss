@@ -268,6 +268,7 @@ begin
 			
 			NewServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 			InstExec('net', 'stop slimsvc', '', true, false, SW_HIDE, ErrorCode);
+			InstExec('net', 'stop SlimServerMySQL', '', true, false, SW_HIDE, ErrorCode);
 	
 			if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\slimsvc', 'ImagePath', ServicePath) then 
 				begin
