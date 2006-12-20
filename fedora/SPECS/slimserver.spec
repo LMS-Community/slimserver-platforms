@@ -47,6 +47,7 @@ AutoReqProv: no
 Requires:       perl >= 5.8.3
 Requires:       perl(Cache::Cache)
 Requires:       perl(Carp::Clan)
+Requires:	perl(Class::Virtual)
 Requires:       perl(Data::Dump)
 # case is important in Requires: (ughhh) - watch the following
 Requires:       perl(DBD::mysql)
