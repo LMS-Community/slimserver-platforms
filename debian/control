@@ -10,8 +10,8 @@ Architecture: all
 Conflicts: slimp3
 Depends: perl (>= 5.8.1),
  libcgi-perl, libclass-accessor-chained-perl, libclass-data-inheritable-perl,
- libclass-virtual-perl, libcompress-zlib-perl, libtimedate-perl, libdbd-mysql-perl, libdbi-perl,
- libwww-perl, libfile-which-perl, libgd-gd2-noxpm-perl | libgd-gd2-perl,
+ libclass-virtual-perl, libcompress-lzf-perl, libcompress-zlib-perl, libtimedate-perl,
+ libdbd-mysql-perl, libdbi-perl, libwww-perl, libfile-which-perl, libgd-gd2-noxpm-perl | libgd-gd2-perl,
  libhtml-parser-perl, libio-string-perl, libio-socket-ssl-perl, libmp4-info-perl,
  libnet-dns-perl, librpc-xml-perl, libfile-slurp-perl, libsql-abstract-perl,
  libyaml-perl (>= 0.57-1), libsql-abstract-limit-perl, libtemplate-perl, libdata-page-perl,
