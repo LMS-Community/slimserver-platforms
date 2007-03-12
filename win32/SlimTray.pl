@@ -46,26 +46,26 @@ my $registryKey = 'CUser/Software/SlimDevices/SlimServer';
 my $serviceName = 'slimsvc';
 my $appExe      = File::Spec->catdir(baseDir(), 'server', 'slim.exe');
 
-my $errString   = 'SlimServer Failed. Please see the Event Viewer & Contact Support';
+my %strings     = ();
 
 # Dynamically create the popup menu based on Slimserver state
 sub PopupMenu {
 	my @menu = ();
 
 	if ($ssActive) {
-		push @menu, ["*Open SlimServer", "Execute 'SlimServer Web Interface.url'"];
+		push @menu, [sprintf('*%s', string('OPEN_SLIMSERVER')), "Execute 'SlimServer Web Interface.url'"];
 		push @menu, ["--------"];
-		push @menu, ["Stop SlimServer", \&stopSlimServer];
+		push @menu, [string('STOP_SLIMERVER'), \&stopSlimServer];
 	}
 	elsif ($starting) {
-		push @menu, ["Starting SlimServer...", ""];
+		push @menu, [string('STARTING_SLIMSERVER'), ""];
 	}
 	else {
-		push @menu, ["*Start SlimServer", \&startSlimServer];
+		push @menu, [sprintf('*%s', string('START_SLIMSERVER')), \&startSlimServer];
 	}
 
-	my $serviceString = 'Automatically run at system start';
-	my $appString     = 'Automatically run at login';
+	my $serviceString = string('RUN_AT_BOOT');
+	my $appString     = string('RUN_AT_LOGIN');
 
 	# We can't modify the service while it's running
 	# So show a grayed out menu.
@@ -101,9 +101,9 @@ sub PopupMenu {
 	}
 
 	push @menu, ["--------"];
-	push @menu, ["Go to Slim Devices Web Site", "Execute 'http://www.slimdevices.com'"];
-	push @menu, ["E&xit", "exit"];
-	
+	push @menu, [string('GO_TO_WEBSITE'), "Execute 'http://www.slimdevices.com'"];
+	push @menu, [string('EXIT'), "exit"];
+
 	return \@menu;
 }
 
@@ -128,14 +128,14 @@ sub Singleton {
 sub ToolTip {
 
 	if ($starting) {
-		return "SlimServer Starting";
+		return string('SLIMSERVER_STARTING');
 	}
 
 	if ($ssActive) {
-		return "SlimServer Running";
+		return string('SLIMSERVER_RUNNING');
 	}
    
-	return "SlimServer Stopped";
+	return string('SLIMSERVER_STOPPED');
 }
 
 # The regular (heartbeat) timer that checks the state of SlimServer
@@ -285,7 +285,7 @@ sub startSlimServer {
 
 		if (!Win32::Service::StartService('', $serviceName)) {
 
-			showErrorMessage("Starting $errString");
+			showErrorMessage(string('START_FAILED'));
 
 			$starting = 0;
 			$ssActive = 0;
@@ -300,7 +300,7 @@ sub startSlimServer {
 
 	if (!$ssActive) {
 
-		Balloon("Starting SlimServer...", "SlimServer", "", 1);
+		Balloon(string('STARTING_SLIMSERVER'), "SlimServer", "", 1);
 		SetAnimation($timerSecs * 1000, 1000, "SlimServer", "SlimServerOff");
 
 		$starting = 1;
@@ -313,7 +313,7 @@ sub stopSlimServer {
 
 		if (!Win32::Service::StopService('', $serviceName)) {
 
-			showErrorMessage("Stopping $errString");
+			showErrorMessage(string('STOP_FAILED'));
 
 			return;
 		}
@@ -324,7 +324,7 @@ sub stopSlimServer {
 
 		if ($pid == -1) {
 
-			showErrorMessage("Stopping $errString");
+			showErrorMessage(string('STOP_FAILED'));
 
 			return;
 		}
@@ -334,7 +334,7 @@ sub stopSlimServer {
 
 	if ($ssActive) {
 
-		Balloon("Stopping SlimServer...", "SlimServer", "", 1);
+		Balloon(string('STOPPING_SLIMSERVER'), "SlimServer", "", 1);
 
 		$ssActive = 0;
 	}
@@ -546,6 +546,54 @@ sub processID {
 	return $pid;
 }
 
+sub processStrings {
+
+	my $string     = '';
+	my $language   = '';
+	my $stringname = '';
+
+	LINE: while (my $line = <DATA>) {
+
+		chomp($line);
+		
+		next if $line =~ /^#/;
+		next if $line !~ /\S/;
+
+		if ($line =~ /^(\S+)$/) {
+
+			$stringname = $1;
+			$string = '';
+			next LINE;
+
+		} elsif ($line =~ /^\t(\S*)\t(.+)$/) {
+
+			$language = uc($1);
+			$string   = $2;
+
+			$strings{$stringname}->{$language} = $string;
+		}
+	}
+}
+
+# XXXX - no way currently to change languages.
+sub string {
+	my $stringname = uc(shift);
+	my $language   = shift || 'EN';
+
+	for my $tryLang ($language, 'EN') {
+
+		if (!exists $strings{$stringname}->{$tryLang}) {
+			next;
+		}
+
+		return $strings{$stringname}->{$tryLang};
+	}
+
+	return 'Unknown String';
+}
+
+processStrings();
+
 *PerlTray::ToolTip = \&ToolTip;
 
 GetOptions(
@@ -562,4 +610,45 @@ SetTimer(":1", \&checkAndStart);
 # frequency of the timer proved problematic.
 SetTimer(":" . $timerSecs);
 
-__END__
+__DATA__
+START_FAILED
+	EN	Starting SlimServer Failed. Please see the Event Viewer & Contact Support
+
+STOP_FAILED
+	EN	Stopping SlimServer Failed. Please see the Event Viewer & Contact Support
+
+RUN_AT_BOOT
+	EN	Automatically run at system start
+
+RUN_AT_LOGIN
+	EN	Automatically run at login
+
+OPEN_SLIMSERVER
+	EN	Open SlimServer
+
+START_SLIMSERVER
+	EN	Start SlimServer
+
+STARTING_SLIMSERVER
+	EN	Starting SlimServer...
+
+STOPPING_SLIMSERVER
+	EN	Stopping SlimServer...
+
+STOP_SLIMSERVER
+	EN	Stop SlimServer
+
+SLIMSERVER_STARTING
+	EN	SlimServer Starting
+
+SLIMSERVER_RUNNING
+	EN	SlimServer Running
+
+SLIMSERVER_STOPPED
+	EN	SlimServer Stopped
+
+GO_TO_WEBSITE
+	EN	Go to Slim Devices Web Site
+
+EXIT
+	EN	E&xit
