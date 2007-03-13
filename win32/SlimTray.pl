@@ -612,43 +612,57 @@ SetTimer(":" . $timerSecs);
 
 __DATA__
 START_FAILED
+	DE	Fehler beim Start von SlimServer. Bitte kontaktieren Sie den Support mit den Details aus der Ereignisanzeige.
 	EN	Starting SlimServer Failed. Please see the Event Viewer & Contact Support
 
 STOP_FAILED
+	DE	Fehler beim Stoppen von SlimServer. Bitte kontaktieren Sie den Support mit den Details aus der Ereignisanzeige.
 	EN	Stopping SlimServer Failed. Please see the Event Viewer & Contact Support
 
 RUN_AT_BOOT
+	DE	Beim Systemstart automatisch ausführen
 	EN	Automatically run at system start
 
 RUN_AT_LOGIN
+	DE	Beim Anmelden automataisch ausführen
 	EN	Automatically run at login
 
 OPEN_SLIMSERVER
+	DE	SlimServer öffnen
 	EN	Open SlimServer
 
 START_SLIMSERVER
+	DE	SlimServer starten
 	EN	Start SlimServer
 
 STARTING_SLIMSERVER
+	DE	SlimServer wird gestartet...
 	EN	Starting SlimServer...
 
 STOPPING_SLIMSERVER
+	DE	SlimServer wird gestoppt...
 	EN	Stopping SlimServer...
 
 STOP_SLIMSERVER
+	DE	SlimServer stoppen
 	EN	Stop SlimServer
 
 SLIMSERVER_STARTING
+	DE	SlimServer wird gestartet
 	EN	SlimServer Starting
 
 SLIMSERVER_RUNNING
+	DE	SlimServer läuft
 	EN	SlimServer Running
 
 SLIMSERVER_STOPPED
+	DE	SlimServer gestoppt
 	EN	SlimServer Stopped
 
 GO_TO_WEBSITE
+	DE	Slim Devices Homepage öffnen
 	EN	Go to Slim Devices Web Site
 
 EXIT
+	DE	Beenden
 	EN	E&xit
