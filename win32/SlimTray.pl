@@ -23,7 +23,7 @@ use Cwd qw(cwd);
 use File::Spec;
 use Getopt::Long;
 use Socket;
-use Symbol;
+
 use Win32;
 use Win32::Daemon;
 use Win32::Process qw(DETACHED_PROCESS CREATE_NO_WINDOW NORMAL_PRIORITY_CLASS);
@@ -31,31 +31,35 @@ use Win32::Process::List;
 use Win32::TieRegistry ('Delimiter' => '/');
 use Win32::Service;
 
-my $timerSecs   = 10;
-my $ssActive    = 0;
-my $starting    = 0;
-my $processObj  = 0;
-my $checkHTTP   = 0;
+my $timerSecs      = 10;
+my $ssActive       = 0;
+my $starting       = 0;
+my $processObj     = 0;
+my $checkHTTP      = 0;
+my $lastHTTPPort   = 0;
 
 # Passed on the command line by Getopt::Long
-my $cliStart    = 0;
-my $cliExit     = 0;
+my $cliStart       = 0;
+my $cliExit        = 0;
 
-my $registryKey = 'CUser/Software/SlimDevices/SlimServer';
+my $registryKey    = 'CUser/Software/SlimDevices/SlimServer';
 
-my $serviceName = 'slimsvc';
-my $appExe      = File::Spec->catdir(baseDir(), 'server', 'slim.exe');
+my $serviceName    = 'slimsvc';
+my $sqlServiceName = 'SlimServerMySQL';
+my $appExe         = File::Spec->catdir(baseDir(), 'server', 'slim.exe');
 
-my %strings     = ();
+my %strings        = ();
 
-# Dynamically create the popup menu based on Slimserver state
+my $stopMySQL      = 0;
+
+# Dynamically create the popup menu based on SlimServer state
 sub PopupMenu {
 	my @menu = ();
 
 	if ($ssActive) {
-		push @menu, [sprintf('*%s', string('OPEN_SLIMSERVER')), "Execute 'SlimServer Web Interface.url'"];
+		push @menu, [sprintf('*%s', string('OPEN_SLIMSERVER')), \&openSlimServer]; 
 		push @menu, ["--------"];
-		push @menu, [string('STOP_SLIMERVER'), \&stopSlimServer];
+		push @menu, [string('STOP_SLIMERVER'), \&stopSlimServerMySQL];
 	}
 	elsif ($starting) {
 		push @menu, [string('STARTING_SLIMSERVER'), ""];
@@ -166,6 +170,46 @@ sub Timer {
 		$checkHTTP = 0;
 
 		Execute("SlimServer Web Interface.url");
+	}
+
+	# Check if user has requested to stop SlimServer And MySQL
+	# Only try to stop MySQL service when SlimServer has stopped.
+	if (!$ssActive && $stopMySQL) {
+
+		my %status = ();
+		Win32::Service::GetStatus('', $sqlServiceName, \%status);
+
+		if (scalar keys %status != 0) {
+
+			# Service already stopped
+			if ($status{'CurrentState'} == 1) {
+
+				$stopMySQL = 0;
+				return;
+			}
+
+			if (Win32::Service::StopService('', $sqlServiceName)) {
+
+		   		$stopMySQL = 0;
+				return;
+
+			} else {
+
+				my $t = 'GetStatus Failed';
+
+				Win32::Service::GetStatus('', $sqlServiceName, \%status);
+
+				if (scalar keys %status != 0) {
+
+					$t = "GetStatus CurrentState=$status{'CurrentState'}";
+				}
+
+				showErrorMessage(sprintf('%s %s', string('STOP_MYSQL_FAILURE', $t)));
+			}
+		}
+
+		# MySQL service is not running - perhaps slimserver is started at system level.
+   		$stopMySQL = 0;
 	}
 }
 
@@ -340,6 +384,20 @@ sub stopSlimServer {
 	}
 }
 
+# Called from menu when SS is active
+sub openSlimServer {
+
+	# Check HTTP first in case slimserver has changed the HTTP port while running
+	checkForHTTP ();	
+	Execute("SlimServer Web Interface.url");
+}
+
+sub stopSlimServerMySQL {
+
+	stopSlimServer();
+	$stopMySQL = 1;
+}
+
 sub showErrorMessage {
 	my $message = shift;
 
@@ -466,24 +524,25 @@ sub checkForHTTP {
 		}
 	}
 
+	if ($lastHTTPPort ne $httpPort) {
+
+		updateSlimServerWebInterface($httpPort);
+		$lastHTTPPort = $httpPort
+	}
+
 	# Use low-level socket code. IO::Socket returns a 'Invalid Descriptor'
 	# erorr. It also sucks more memory than it should.
 	my $raddr = '127.0.0.1';
-	my $rport = 9000;
-
-	my $proto = (getprotobyname('tcp'))[2];
-	my $pname = (getprotobynumber($proto))[0];
-	my $sock  = Symbol::gensym();
+	my $rport = $httpPort;
 
 	my $iaddr = inet_aton($raddr);
 	my $paddr = sockaddr_in($rport, $iaddr);
-	socket($sock, PF_INET, SOCK_STREAM, $proto);
-	connect($sock, $paddr);
 
-	if (defined $sock && fileno($sock)) {
+	socket(SSERVER, PF_INET, SOCK_STREAM, getprotobyname('tcp'));
 
-		close($sock);
+	if (connect(SSERVER, $paddr)) {
 
+		close(SSERVER);
 		return $httpPort;
 	}
 
@@ -540,10 +599,36 @@ sub runBackground {
 
 sub processID {
 
-	my $p   = Win32::Process::List->new;
-	my $pid = ($p->GetProcessPid(qr/^slim\.exe$/))[0];
+	my $p = Win32::Process::List->new;
 
-	return $pid;
+	if ($p->IsError == 1) {
+
+		showErrorMessage("ProcessID: an error occured: " . $p->GetErrorText . " ");
+	}
+
+	my $pid = ($p->GetProcessPid(qr/^slim\.exe$/))[1];
+
+	return $pid if defined $pid;
+	return -1;
+}
+
+# update SlimServer Web Interface.url
+#
+#  One parameter the new port number
+sub updateSlimServerWebInterface {
+	my $port    = shift;
+
+	my $urlfile = File::Spec->catfile(baseDir(), "SlimServer Web Interface.url");
+
+	if (open(URLFILE, ">:crlf", $urlfile)) {
+
+		print URLFILE "[InternetShortcut]\nURL=http://127.0.0.1:$port\n";
+		close URLFILE;
+
+	} else {
+
+		showErrorMessage(sprintf('%s %s: %s', string('WRITE_FAILED', $urlfile, $!)));
+	}
 }
 
 sub processStrings {
@@ -666,3 +751,9 @@ GO_TO_WEBSITE
 EXIT
 	DE	Beenden
 	EN	E&xit
+
+STOP_MYSQL_FAILURE
+	EN	Running StopService on MySQL failed!
+
+WRITE_FAILED
+	EN	Can't open to write to
