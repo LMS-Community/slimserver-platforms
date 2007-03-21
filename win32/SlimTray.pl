@@ -59,7 +59,7 @@ sub PopupMenu {
 	if ($ssActive) {
 		push @menu, [sprintf('*%s', string('OPEN_SLIMSERVER')), \&openSlimServer]; 
 		push @menu, ["--------"];
-		push @menu, [string('STOP_SLIMERVER'), \&stopSlimServerMySQL];
+		push @menu, [string('STOP_SLIMSERVER'), \&stopSlimServerMySQL];
 	}
 	elsif ($starting) {
 		push @menu, [string('STARTING_SLIMSERVER'), ""];
