@@ -1,10 +1,10 @@
 PKG=SLIMSERVER
 NAME=SLIMSERVER Server _VERSION_
-DESC=This is the Slim Devices player server software.
+DESC=This is the SlimServer server software.
 ARCH=_ARCH_
 VERSION=_VERSION_
 CATEGORY=application
-VENDOR=Slim Devices, Inc.
+VENDOR=Logitech
 EMAIL=support@slimdevices.com
 PSTAMP=Mike Arnold <mike@razorsedge.org> 200209092304
 BASEDIR=/

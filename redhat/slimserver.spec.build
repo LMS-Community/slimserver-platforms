@@ -4,7 +4,7 @@
 %define __spec_install_post /usr/lib/rpm/brp-compress
 
 Name: slimserver 
-Packager: Slim Devices <support@slimdevices.com>
+Packager: Slim Devices/Logitech <support@slimdevices.com>
 Requires: perl >= 5.8.1
 Requires: perl-XML-Parser
 Requires: perl-Digest-SHA1
@@ -13,19 +13,19 @@ Version: _VERSION_
 Release: 1
 License: GPL
 Group: System Environment/Daemons
-Summary: This is the Slim Devices server software
+Summary: This is the SlimServer server software
 Source: _SOURCE_
 Source1: slimserver.init
 Source2: slimserver.config
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 BuildArchitectures: noarch
-Vendor: Slim Devices, Inc.
+Vendor: Logitech
 URL: http://www.slimdevices.com/
 Prefix: %{prefix}
 Obsoletes: SliMP3
 
 %description
-This is the Slim Devices server software.
+This is the SlimServer server software.
 Point your web browser to http://localhost:9000/ to configure the server.
 * Open-source server, written in Perl (GPL)
 * Optional HTTP interface - control the player and manage your playlists from a web browser!

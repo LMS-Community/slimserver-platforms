@@ -2,5 +2,5 @@
 
 CFBundleName = "SLIMP3 Firmware Updater";
 CFBundleShortVersionString = "6.5b1";
-CFBundleGetInfoString = "SLIMP3 Firmware Updater version 6.5b1, Copyright 2005 by Slim Devices, Inc.";
-NSHumanReadableCopyright = "Copyright 2005 Slim Devices, Inc.";
+CFBundleGetInfoString = "SLIMP3 Firmware Updater version 6.5b1, Copyright 2005 by Logitech.";
+NSHumanReadableCopyright = "Copyright 2005 Logitech.";

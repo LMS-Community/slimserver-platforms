@@ -3,7 +3,7 @@
 //  SlimServer
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
-//  Copyright (c) 2002-2005 Slim Devices, Inc. All rights reserved.
+//  Copyright (c) 2002-2005 Logitech. All rights reserved.
 //
 
 #import "SLIMServerLauncher.h"

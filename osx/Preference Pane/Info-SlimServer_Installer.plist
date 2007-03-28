@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>SlimServer Installer</string>
 	<key>CFBundleGetInfoString</key>
-	<string>SlimServer Installer 6.5b1, Copyright 2003-2006 Slim Devices, Inc. All Rights Reserved</string>
+	<string>SlimServer Installer 6.5b1, Copyright 2003-2006 Logitech. All Rights Reserved</string>
 	<key>CFBundleIconFile</key>
 	<string>sliminstaller.icns</string>
 	<key>CFBundleIdentifier</key>

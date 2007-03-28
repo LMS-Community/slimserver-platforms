@@ -2,5 +2,5 @@
 
 CFBundleName = "Installation SlimServer";
 CFBundleShortVersionString = "7.0a1";
-CFBundleGetInfoString = "Installation SlimServer version 7.0a1, Copyright 2003-2005 Slim Devices, Inc.";
-NSHumanReadableCopyright = "Copyright © 2003-2005 Slim Devices, Inc., tous droits réservés.";
+CFBundleGetInfoString = "Installation SlimServer version 7.0a1, Copyright 2003-2005 Logitech";
+NSHumanReadableCopyright = "Copyright © 2003-2005 Logitech, tous droits réservés.";

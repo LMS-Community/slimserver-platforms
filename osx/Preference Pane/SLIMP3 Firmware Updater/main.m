@@ -3,7 +3,7 @@
 //  Installer
 //
 //  Created by Dave Nanian on Fri Jan 03 2003.
-//  Copyright (c) 2003-2005 Slim Devices, Inc. All rights reserved.
+//  Copyright (c) 2003-2005 Logitech. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

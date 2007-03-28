@@ -1,7 +1,7 @@
 ;
 ; InnoSetup Script for SlimServer
 ;
-; Slim Devices : http://www.slimdevices.com
+; Slim Devices/Logitech : http://www.slimdevices.com
 ;
 ; Script by Chris Eastwood, January 2003 - http://www.vbcodelibrary.co.uk
 ;
@@ -10,7 +10,7 @@
 [Setup]
 AppName=SlimServer
 AppVerName=SlimServer 7.0a1
-AppPublisher=Slim Devices
+AppPublisher=Logitech
 AppPublisherURL=http://www.slimdevices.com
 AppSupportURL=http://www.slimdevices.com
 AppUpdatesURL=http://www.slimdevices.com
@@ -51,12 +51,12 @@ Source: License.txt; DestDir: {app}
 Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*,*cygwin*"; Flags: comparetimestamp recursesubdirs
 
 [INI]
-Filename: {app}\Visit Slim Devices.url; Section: InternetShortcut; Key: URL; String: http://www.slimdevices.com; Flags: uninsdeletesection
+Filename: {app}\Visit Slim Devices/Logitech.url; Section: InternetShortcut; Key: URL; String: http://www.slimdevices.com; Flags: uninsdeletesection
 Filename: {app}\SlimServer Web Interface.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000; Flags: uninsdeletesection
 
 [Icons]
 Name: {group}\SlimServer; Filename: {app}\SlimTray.exe; Parameters: "--start"; WorkingDir: "{app}";
-Name: {group}\Go to Slim Devices Web Site; Filename: {app}\Visit Slim Devices.url
+Name: {group}\Go to Slim Devices/Logitech Web Site; Filename: {app}\Visit Slim Devices/Logitech.url
 Name: {group}\License; Filename: {app}\License.txt
 Name: {group}\Getting Started; Filename: {app}\Getting Started.html
 Name: {group}\Uninstall SlimServer; Filename: {uninstallexe}
@@ -86,7 +86,7 @@ Type: dirifempty; Name: {app}\server\HTML
 Type: dirifempty; Name: {app}\server\SQL
 Type: filesandordirs; Name: {app}\server\Cache
 Type: files; Name: {app}\server\slimserver.pref
-Type: files; Name: {app}\Visit Slim Devices.url
+Type: files; Name: {app}\Visit Slim Devices/Logitech.url
 Type: files; Name: {app}\SlimServer Web Interface.url
 Type: files; Name: {commonstartup}\SlimServer Tray Tool.url
 
@@ -331,7 +331,7 @@ begin
 			// Remove other defunct pieces
 			DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'SlimServer.exe');
 			DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'psapi.dll');
-			DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Devices website.lnk');
+			DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Devices/Logitech website.lnk');
 			DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Web Interface.lnk');
 	
 		end;

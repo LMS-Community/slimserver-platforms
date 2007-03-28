@@ -31,6 +31,5 @@ Depends: perl (>= 5.8.1),
 Description: Streaming Audio Server
  SlimServer is a cross-platform streaming server that supports a wide range
  of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and
- WMA. Although it was developed to stream music files to Slim Devices' 
- Squeezebox range of hardware players.
+ WMA.
  .

@@ -11,7 +11,7 @@
 %define include_firmware %{?_with_firmware:1}0
 
 Name:           slimserver
-Packager:       Slim Devices <support@slimdevices.com>
+Packager:       Slim Devices/Logitech <support@slimdevices.com>
 Version:        %{version}
 # My guess is we'll want to set the 'dist' macro to differentiate the Fedora
 # RPM from the generic linux RPM, but that would seem to mean that somebody
@@ -19,7 +19,7 @@ Version:        %{version}
 # Slim website to support all the different machine architectures Fedora runs
 # on...
 Release:        1%{?dist}
-Summary:        This is the Slim Devices server software
+Summary:        This is the SlimServer server software
 Group:          System Environment/Daemons
 License:        GPL
 URL:            http://www.slimdevices.com/
@@ -122,7 +122,7 @@ Requires:	slim-DBIx-Class
 Requires:       alac_decoder
 
 %description
-This is the Slim Devices server software.
+This is the SlimServer music server software.
 Point your web browser to http://localhost:9000/ to configure the server.
 * Open-source server, written in Perl (GPL)
 * Optional HTTP interface - control the player and manage your playlists from 
@@ -271,7 +271,7 @@ touch %buildroot%_var/log/slimserver/slimserver.log
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-# The following lines are from the Slim Devices generic Linux RPM.
+# The following lines are from the generic SlimServer Linux RPM.
 # They're included here, but commented out, for future assessment
 # The practice of removing the build directory doesn't seem to be
 # part of the Fedora skeleton .spec files. Remember the escaping

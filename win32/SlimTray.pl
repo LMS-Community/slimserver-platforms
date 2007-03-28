@@ -576,7 +576,7 @@ sub installService {
 		'machine'     => '',
 		'name'        => $serviceName,
 		'display'     => 'SlimServer',
-		'description' => "Slim Devices' SlimServer Music Server",
+		'description' => "SlimServer Music Server",
 		'path'        => $appExe,
 		'start_type'  => $type,
 	});
@@ -745,8 +745,8 @@ SLIMSERVER_STOPPED
 	EN	SlimServer Stopped
 
 GO_TO_WEBSITE
-	DE	Slim Devices Homepage öffnen
-	EN	Go to Slim Devices Web Site
+	DE	Slim Devices/Logitech Homepage öffnen
+	EN	Go to Slim Devices/Logitech Web Site
 
 EXIT
 	DE	Beenden
