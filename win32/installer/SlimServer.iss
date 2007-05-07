@@ -84,6 +84,9 @@ Source: License.he.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages:
 
 Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*,*cygwin*"; Flags: comparetimestamp recursesubdirs
 
+[Dirs]
+Name: {%ALLUSERSPROFILE}\SlimServer; MinVersion: 0,6.0
+
 [INI]
 Filename: {app}\{cm:SlimDevicesWebSite}.url; Section: InternetShortcut; Key: URL; String: http://www.slimdevices.com; Flags: uninsdeletesection
 Filename: {app}\{cm:SlimServerWebInterface}.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000; Flags: uninsdeletesection
@@ -118,6 +121,7 @@ Type: dirifempty; Name: {app}\server\Plugins
 Type: dirifempty; Name: {app}\server\HTML
 Type: dirifempty; Name: {app}\server\SQL
 Type: filesandordirs; Name: {app}\server\Cache
+Type: filesandordirs; Name: {%ALLUSERSPROFILE}\SlimServer; MinVersion: 0,6.0
 Type: files; Name: {app}\server\slimserver.pref
 Type: files; Name: {app}\{cm:SlimDevicesWebSite}.url
 Type: files; Name: {app}\{cm:SlimServerWebInterface}.url
@@ -127,7 +131,7 @@ Type: files; Name: {commonstartup}\{cm:SlimServerTrayTool}.url
 EnableISX=true
 
 [UninstallRun]
-Filename: {app}\SlimTray.exe; Parameters: -exit; WorkingDir: {app}; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
+Filename: {app}\SlimTray.exe; Parameters: --exit; WorkingDir: {app}; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
 Filename: net; Parameters: stop slimsvc; Flags: runminimized; MinVersion: 0,4.00.1381
 Filename: sc; Parameters: stop SlimServerMySQL; Flags: runminimized; MinVersion: 0,4.00.1381
 Filename: sc; Parameters: delete SlimServerMySQL; Flags: runminimized; MinVersion: 0,4.00.1381
@@ -135,7 +139,6 @@ Filename: {app}\server\slim.exe; Parameters: -remove; WorkingDir: {app}\server; 
 
 [Code]
 var
-	FileName: String;
 	MyMusicFolder: String;
 	MyPlaylistFolder: String;
 	AutoStart: String;
@@ -212,8 +215,14 @@ var
 	Uninstaller: String;
 	delPath: String;
 	PrefString : String;
+	PrefsFile: String;
 
 begin
+	if (GetWindowsVersion shr 24 >= 6) then
+		PrefsFile := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + AddBackslash('SlimServer') + 'slimserver.pref'
+	else
+		PrefsFile := AddBackslash(ExpandConstant('{app}')) + AddBackslash('Cache') + 'slimserver.pref';
+
 	if CurStep = ssInstall then
 		begin
 			// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr.
@@ -295,10 +304,10 @@ begin
 		end;
 
 	if CurStep = ssDone then begin
-		if not FileExists(FileName) then
+		if not FileExists(PrefsFile) then
 			begin
-				PrefString := 'audiodir = ' + MyMusicFolder + #13#10 + 'playlistdir = ' + MyPlaylistFolder + #13#10;
-				SaveStringToFile(FileName, PrefString, False);
+				PrefString := 'audiodir: ' + MyMusicFolder + #13#10 + 'playlistdir: ' + MyPlaylistFolder + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
+				SaveStringToFile(PrefsFile, PrefString, False);
 			end;
 
 			NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
@@ -325,10 +334,10 @@ begin
 	
 	if ((not BackClicked and (CurPage = wpSelectDir)) or (BackClicked and (CurPage = wpSelectProgramGroup))) then
 		begin
-			FileName:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'slimserver.pref';
+			PrefsFile:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'slimserver.pref';
 
 			// Insert a custom wizard page between two non custom pages
-			if  (BackClicked or FileExists(FileName)) then
+			if  (BackClicked or FileExists(PrefsFile)) then
 				curSubPage:=2
 			else
 				curSubPage:=0;
@@ -338,7 +347,7 @@ begin
 			while(CurSubPage>=0) and (CurSubPage<=2) and not Terminated do begin
 				case CurSubPage of
 					0:
-						if not FileExists(FileName) then begin
+						if not FileExists(PrefsFile) then begin
 							ScriptDlgPageSetCaption('Select your Music Folder');
 							ScriptDlgPageSetSubCaption1('Where should the SlimServer look for your music?');
 							ScriptDlgPageSetSubCaption2('Select the folder you would like the SlimServer to look for your music, then click Next.');
@@ -362,7 +371,7 @@ begin
 							end;
 						end;
 					1:
-						if not FileExists(FileName) then begin
+						if not FileExists(PrefsFile) then begin
 							ScriptDlgPageSetCaption('Select your Playlist Folder');
 							ScriptDlgPageSetSubCaption1('Where should SlimServer look for an store your Playlists?');
 							ScriptDlgPageSetSubCaption2('Select the folder you would like the SlimServer to look for or store your playlists, then click Next.');
