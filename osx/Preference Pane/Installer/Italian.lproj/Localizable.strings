@@ -1,0 +1,8 @@
+"Install" = "Install";
+"Update" = "Update";
+"Install Results" = "Install Results";
+"OK" = "OK";
+"SlimServer installed successfully.\n" = "SlimServer installed successfully.";
+"SlimServer install failed.\n" = "SlimServer install failed.";
+"You must have OS X 10.3 or later to run SlimServer.\n" = "You must have OS X 10.3 or later to run SlimServer.";
+"Mac OS X 10.3 Required" = "Mac OS X 10.3 Required";

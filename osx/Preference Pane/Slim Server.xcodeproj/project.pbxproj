@@ -113,6 +113,14 @@
 		0591BEFE05FCCF8900F5DCAE /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Dutch; path = Dutch.lproj/Slim_ServerPref.nib; sourceTree = "<group>"; };
 		0591BF0105FCCF9200F5DCAE /* Dutch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = Dutch; path = Dutch.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		059A4DFE03C624BB000001CC /* slimlogotype.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = slimlogotype.tiff; sourceTree = "<group>"; };
+		05B446DF0BEF9BE50069C1E6 /* Hebrew */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Hebrew; path = Installer/Hebrew.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		05B446E00BEF9BE90069C1E6 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Spanish; path = Installer/Spanish.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		05B446E50BEF9BFE0069C1E6 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Italian; path = Italian.lproj/Slim_ServerPref.nib; sourceTree = "<group>"; };
+		05B446E60BEF9C020069C1E6 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Spanish; path = Spanish.lproj/Slim_ServerPref.nib; sourceTree = "<group>"; };
+		05B446E70BEF9C050069C1E6 /* Hebrew */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Hebrew; path = Hebrew.lproj/Slim_ServerPref.nib; sourceTree = "<group>"; };
+		05B446EA0BEF9C180069C1E6 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Italian; path = Installer/Italian.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		05B446ED0BEF9C2A0069C1E6 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Installer/Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		05B446F00BEF9C330069C1E6 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		05F768EF0560419D00A991D3 /* slimlogotype.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = slimlogotype.tiff; sourceTree = "<group>"; };
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -147,6 +155,10 @@
 		E7EDF7BE03C5D22300A80172 /* Stop Slim Server.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "Stop Slim Server.sh"; sourceTree = "<group>"; };
 		E7EDF7C303C5D25800A80172 /* Remove Slim Startup.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "Remove Slim Startup.sh"; sourceTree = "<group>"; };
 		E7EDF7C503C5D26A00A80172 /* Start Slim Server.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "Start Slim Server.sh"; sourceTree = "<group>"; };
+		ECD758820BEE25F8008A40DA /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ECD758830BEE25FD008A40DA /* Hebrew */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Hebrew; path = Hebrew.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ECD758A00BEE27E1008A40DA /* Hebrew */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Hebrew; path = Installer/Hebrew.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ECD758A10BEE27E4008A40DA /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Installer/Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F506C035013D953901CA16C8 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
 		F506C03C013D9D7901CA16C8 /* Slim_ServerPref.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Slim_ServerPref.h; sourceTree = "<group>"; };
 		F506C03D013D9D7901CA16C8 /* Slim_ServerPref.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = Slim_ServerPref.m; sourceTree = "<group>"; };
@@ -581,6 +593,10 @@
 				French,
 				German,
 				Dutch,
+				Italian,
+				Spanish,
+				Hebrew,
+				Italian,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* SlimServer */;
 			productRefGroup = F58B0871035DF7DA01A80172 /* Products */;
@@ -804,6 +820,9 @@
 				05286B2405D4486A00E88B81 /* French */,
 				0591BEEE05FCCF4300F5DCAE /* Dutch */,
 				052088B506377B540020810E /* German */,
+				05B446DF0BEF9BE50069C1E6 /* Hebrew */,
+				05B446E00BEF9BE90069C1E6 /* Spanish */,
+				05B446EA0BEF9C180069C1E6 /* Italian */,
 			);
 			name = MainMenu.nib;
 			sourceTree = "<group>";
@@ -815,6 +834,10 @@
 				C6A9CF550601257A00C3E0BF /* French */,
 				0591BED005FCCED400F5DCAE /* Dutch */,
 				0545F89C06377C3A00BA96E1 /* German */,
+				05B446ED0BEF9C2A0069C1E6 /* Italian */,
+				ECD758A00BEE27E1008A40DA /* Hebrew */,
+				ECD758A10BEE27E4008A40DA /* Spanish */,
+				05B446ED0BEF9C2A0069C1E6 /* Italian */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -826,6 +849,9 @@
 				05286B0C05D4482600E88B81 /* French */,
 				0591BEFE05FCCF8900F5DCAE /* Dutch */,
 				0545F86006377BD800BA96E1 /* German */,
+				05B446E50BEF9BFE0069C1E6 /* Italian */,
+				05B446E60BEF9C020069C1E6 /* Spanish */,
+				05B446E70BEF9C050069C1E6 /* Hebrew */,
 			);
 			name = Slim_ServerPref.nib;
 			sourceTree = "<group>";
@@ -845,6 +871,10 @@
 				05286B1505D4483900E88B81 /* French */,
 				0591BEFB05FCCF7E00F5DCAE /* Dutch */,
 				0545F87306377BFA00BA96E1 /* German */,
+				05B446F00BEF9C330069C1E6 /* Italian */,
+				ECD758820BEE25F8008A40DA /* Spanish */,
+				ECD758830BEE25FD008A40DA /* Hebrew */,
+				05B446F00BEF9C330069C1E6 /* Italian */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
