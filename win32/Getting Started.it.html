@@ -1,106 +1,112 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Getting Started with SlimServer, Version 6.5.2</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<style type="text/css"> <!--
-.exbodytext, p, ol, ul, dl, dd, td               { color: #333; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif }
-.expagetitle, h1   { color: #f30; font-weight: bold; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif }
-.exbottomnav    { color: #333; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif }
-.excopyright    { align: center; color: #333; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif }
-.exbodytitle, h4, h3, h2, th { color: #333; font-weight: bold; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif }
-ol, ul, li  {  list-style-position: outside }
-	--> </style>
-</head>
-
-<body>
-		<h1 align="center">ITALIAN Getting Started with SlimServer</h1>
-		<p align="center">Version 6.5.2</p>
-		<p>Thank you for downloading the latest version of the SlimServer for Windows. Click on the following links to learn about each topic.</p>
-		<ul>
-			<li><a href="#service">Installation</a></li>
-			<li><a href="#Remote">Remote Playlist Management</a></li>
-			<li><a href="#moodlogic">MoodLogic Support</a></li>
-		</ul>
-		<p>If you have any questions or problems, please check the documentation built into the SlimServer web interface, or view the <a href="http://www.slimdevices.com/su_faq.html">FAQ</a>, visit our user forum at <a href="http://forums.slimdevices.com">http://forums.slimdevices.com</a> or contact our tech support team at <a href="mailto:support@slimdevices.com">support@slimdevices.com</a>.</p>
-		<p>Thanks,</p>
-		<p>The SlimServer Team</p>
-		<hr/>
-		<p><b><a name="Installation"></a>Installation</b></p>
-		<p>To open up a browser window to SlimServer, double-click on the SlimServer icon in the Windows tool tray or choose <b>Start -> All Programs -> SlimServer -> SlimServer</b>.</p>
-		<p>If you use Apple's iTunes, the SlimServer will automatically import your iTunes library information. If you use iTunes to add or remove music from its library, the SlimServer will notice and rescan the song information.</p>
-		<p>You can also use the task tray icon to stop or start the SlimServer background service.
-
-		<hr>
-		<p><b>Unicode Fonts</b></p>
-		Squeezebox players can now display unicode characters, including Japanese and other non-Latin languages.
-		To enable this display, you'll need to download a unicode TrueType font for SlimServer to use.  
-		SlimServer knows how to use the following fonts:
-		<ul>
-			<li>CODE2000.TTF is available for <a href="http://home.att.net/~jameskass/code2000_page.htm">download here</a>.
-			<li>Cyberbit.ttf is available for <a href="http://ftp.netscape.com/pub/communicator/extras/fonts/windows/">download here</a>.
-			<li>arialuni.ttf is included is included in the recent versions of Microsoft Office products.
-		</ul>
-		<p>Place a copy of any of these font files in your SlimServer Graphics folder in 
-			<a href="file:///C:/Program%20Files/SlimServer/server/Graphics/">C:\Program Files\SlimServer\server\Graphics</a> then restart SlimServer.
-
-		<hr>
-		<p><b>Firmware Update</b></p>
-		<p>If you own a Squeezebox, you may be prompted to update your firmware when it first connects to the SlimServer.  Press and hold the Brightness button on the remote control until the firmware update begins.</p>
-		<p>If you own a SLIMP3 Player, we recommend that you use the SLIMP3 Firmware Updater to update the firmware on your SLIMP3 player to the latest version, 2.3. 
-			This application is available for <a href="http://www.slimdevices.com/downloads/firmware/2.3/SLIMP3%20Firmware%20Updater.zip">download</a>. 
-			You can check the version number of firmware installed on your SLIMP3 by reading the number at the lower right-hand corner of the display 
-			when you plug in your SLIMP3 player.
-		</p>
-		<hr>
-		<p><b><a name="Remote"></a>Remote Playlist Management </b></p>
-		<p>The SlimServer was designed to stream MP3 music to a Squeezebox or SLIMP3 Network Music Player. However, it can also stream the same music over yoru network to any software player that supports MP3 streaming.</p>
-		<p>First, install the SlimServer software and make sure the computer to be used as a SlimServer can be reached over the Internet. If not, you will need to forward port 9000 on your router to the SlimServer computer. (Consult your router documentation for instructions). Then:</p>
-		<ul>
-			<li>Use your MP3 player software to open a stream to the the URL: <a href="http://localhost:9000/stream.mp3">http://localhost:9000/stream.mp3</a>. (Replace &quot;localhost&quot; with the IP address of the SlimServer computer). If you are using the SlimServer's password security, you'll need to use a slightly modified URL like this: <a href="http://username:password@localhost:9000/stream.mp3">http://username:password@localhost:9000/stream.mp3</a>. Some MP3 players will prompt you to enter your username and password.</li>
-			<li>Launch the SlimServer web interface running on the remote computer by opening the web page <a href="http://localhost:9000/">http://localhost:9000</a> (Replace &quot;localhost&quot; with the IP address of the remote computer). You will notice a new &quot;player&quot; corresponding to the IP address of the computer with the MP3 software player.</li>
-			<li>Use the left pane of the SlimServer web interface to browse and select files and playlists to be played. When music is selected, it will appear in the right pane of the web interface.</li>
-			<li>Click on &quot;Play&quot; in the right pane of the SlimServer web interface to launch the music.</li>
-			<li>After a couple of seconds, you will hear music playing through the MP3 software player. (The delay is due to buffering in the MP3 player software.)</li>
-			<li>To change the content playing, use the SlimServer web interface on the remote machine.</li>
-		</ul>
-		<hr/>
-		<p><b><a name="moodlogic"></a>MoodLogic Support</b></p>
-		<p>This version of the SlimServer software for Windows supports integration with the <a href="http://www.moodlogic.com/">MoodLogic</a> MP3 mix management software and associated metadata service. Install MoodLogic on your PC and identify your songs (regardless of tag information) and let MoodLogic automatically organize your collection by MoodLogic data (genre, mood, tempo, release year, etc). Once all your music is 'active' your Slim  can interact with your music in exciting new ways!</p>
-		<h4>Features:</h4>
-		<ul>
-			<li>Browse your songs on your Squeezebox or SLIMP3 player by clean genre and artist information.</li>
-			<li>Create MoodLogic Instant Mixes directly with your remote!</li>
-		</ul>
-		<h4>How to create an Instant Mix:</h4>
-		<ol>
-			<li>Select a genre, artist or song that has an 'm' icon (mixable) in the top right corner.</li>
-			<li>Press AND HOLD your play button for a 2-3 seconds.</li>
-			<li>MoodLogic will create a playlist 'on the fly' with songs that fit your current mood! (for genres and artist you will be able to select one of the available moods presented)</li>
-		</ol>
-		<h4>Installation</h4>
-		<ol>
-			<li>Make sure your SlimServer and player are installed as described in this documentation.</li>
-			<li>Install MoodLogic from <a href="http://www.moodlogic.com/">http://www.moodlogic.com</a>.</li>
-			<li>Add your music to the same music folder that SlimServer uses.</li>
-			<li>Activate your music (the trial service allows 100 free activations).</li>
-			<li>Buy 10,000 activation credits to activate more songs or profile your own tracks.</li>
-			<li>Shut down MoodLogic and restart the SlimServer.</li>
-			<li>After restarting, the SlimServer will automatically detect MoodLogic. You are ready to go!</li>
-			<li>You can turn MoodLogic on and off see your server preferences in the web interface.</li>
-		</ol>
-		<h4>Known Limitations</h4>
-		<ul>
-			<li>No Mac or Linux support</li>
-			<li>Currently no album support</li>
-			<li>No way to trigger song based Instant Mix for the currently playing song</li>
-			<li>Not all skins supported (the best support is in the Default and Light skins, available under the Additional Server Settings)</li>
-			<li>The MoodLogic support doesn't work if the SlimServer software is installed as a service. Use the Control Panels-&gt;Administrative Tools-&gt;Services application to stop the SlimServer service and use the SlimServer application if you'd like to use the MoodLogic integration.</li>
-		</ul>
-		<h4>Feedback</h4>
-		<p>For questions about MoodLogic and SlimServer integration, please email: <a href="mailto:chris@moodlogic.com">chris@moodlogic.com</a></p>
-<hr>
-<p align=center>Copyright 2003-2005, Logitech.  All Rights Reserved.</p>
-</body>
-</html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0089)http://svn.slimdevices.com/*checkout*/branches/6.5/platforms/win32/Getting%20Started.html -->
+<HTML><HEAD><TITLE>Per iniziare con SlimServer, Versione 6.5.2</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<META http-equiv=Content-Style-Type content=text/css>
+<META content="MSHTML 6.00.2900.3059" name=GENERATOR>
+<META content=824.42 name=CocoaVersion>
+<STYLE type=text/css>H1 {
+	MARGIN: 0px 0px 7px; FONT: bold 11px Verdana; COLOR: #dd3e25; TEXT-ALIGN: center
+}
+P.p1 {
+	MARGIN: 0px 0px 7px; FONT: 11px Verdana; COLOR: #dd3e25; TEXT-ALIGN: center
+}
+P.p2 {
+	MARGIN: 0px 0px 11px; FONT: 11px Verdana; COLOR: #333333; TEXT-ALIGN: center
+}
+P.p3 {
+	MARGIN: 0px 0px 11px; FONT: 11px Verdana; COLOR: #333333
+}
+P.p4 {
+	FONT: bold 11px Verdana; COLOR: #333333
+}
+P.p5 {
+	MARGIN: 0px; FONT: 11px Verdana; COLOR: #333333
+}
+P.p6 {
+	MIN-HEIGHT: 14px; MARGIN: 0px 0px 6px; FONT: 12px Verdana
+}
+P.p7 {
+	MIN-HEIGHT: 13px; MARGIN: 0px; FONT: 11px Verdana; COLOR: #333333
+}
+P.p8 {
+	MARGIN: 0px; FONT: 11px Verdana
+}
+P.p9 {
+	MIN-HEIGHT: 14px; MARGIN: 0px; FONT: 12px Verdana
+}
+SPAN.s1 {
+	TEXT-DECORATION: underline
+}
+SPAN.s2 {
+	COLOR: #0020de; TEXT-DECORATION: underline
+}
+LI.l1 {
+	MARGIN: 0px 0px 3px; FONT: 11px Verdana; COLOR: #333333
+}
+LI.l2 {
+	MARGIN: 0px 0px 11px; FONT: 11px Verdana; COLOR: #333333
+}
+</STYLE>
+</HEAD>
+<BODY>
+<H1>Per iniziare con SlimServer</H1>
+<P class=p2>Versione 6.5.2</P>
+<P class=p3>Grazie per avere scaricato l'ultima versione di SlimServer per Windows. Fare scorrere o fare clic sui link seguenti per ottenere informazioni su ciascun argomento.</P>
+<UL>
+  <LI class=l1><SPAN class=s1><A 
+  href="http://svn.slimdevices.com/*checkout*/branches/6.5/platforms/win32/Getting%20Started.html#Install">Dopo l'installazione</A></SPAN> 
+  <LI class=l1><SPAN class=s1><A 
+  href="http://svn.slimdevices.com/*checkout*/branches/6.5/platforms/win32/Getting%20Started.html#WhatsNew">Le novit&agrave;</A></SPAN> 
+  <LI class=l1><SPAN class=s1><A 
+  href="http://svn.slimdevices.com/*checkout*/branches/6.5/platforms/win32/Getting%20Started.html#Firmware">Aggiornamento del firmware</A></SPAN> 
+  <LI class=l1><SPAN class-?s1?><A 
+  href="http://svn.slimdevices.com/*checkout*/branches/6.5/platforms/win32/Getting%20Started.html#RemoteProblem">Inserire una password WPA con il telecomando</A></SPAN> 
+  <LI class=l1><SPAN class=s1><A 
+  href="http://svn.slimdevices.com/*checkout*/branches/6.5/platforms/win32/Getting%20Started.html#iTunes">Informazioni su iTunes</A></SPAN> 
+  <LI class=l2><SPAN class=s1><A 
+  href="http://svn.slimdevices.com/*checkout*/branches/6.5/platforms/win32/Getting%20Started.html#Streaming">Riproduzione in streaming via Internet</A></SPAN> </LI></UL>
+<P class=p3>Per qualsiasi domanda o problema, consultare l'interfaccia web SlimServer, o le <A  href="http://www.slimdevices.com/redir.html?http://slimdevices.custhelp.com/cgi-bin/slimdevices.cfg/php/enduser/std_alp.php"><SPAN  class=s2>FAQ</SPAN></A>, visitare il nostro <A  href="http://forums.slimdevices.com/"><SPAN class=s2>forum degli utenti</SPAN></A> o rivolgersi al nostro team dell'assistenza tecnica all'indirizzo <A href="mailto:support@slimdevices.com"><SPAN  class=s2>support@slimdevices.com</SPAN></A>.</P>
+<P class=p3>Grazie.</P>
+<P class=p3>Il Team Logitech Streaming Media Systems</P>
+<P class=p4><B><A name=Installation></A>Dopo l'installazione</B></P>
+<P class=p3>Per aprire una finestra del browser in SlimServer, fare doppio clic sull'icona di SlimServer nel cassetto delle funzioni di Windows, nell'angolo inferiore dello schermo.</P>
+<P class=p3>Fare clic con il pulsante destro sull'icona del cassetto delle funzioni per arrestare o avviare il service in background di SlimServer. 
+<P class=p3>Se si utilizza iTunes di Apple, SlimServer importer&agrave; automaticamente le informazioni della libreria di iTunes. Se si usa iTunes per aggiungere o cancellare la musica dalla libreria, SlimServer se ne accorger&agrave; ed effettuer&agrave; una nuova scansione delle informazioni sulle canzoni.</P><A 
+name=WhatsNew>
+<P class=p4>Novit&agrave; nella versione 6.5.2</P></A>
+<P class=p3>SlimServer versione 6.5.2 include molti miglioramenti. L'elenco che segue comprende solo le modifiche principali che influiscono su ci&ograve; che si vede sullo schermo o che cambiano/migliorano le interazioni con Squeezebox o Transporter. Chi &egrave; interessato, pu&ograve; consultare l'<A  href="http://svn.slimdevices.com/*checkout*/branches/6.5/server/Changelog6.html">elenco completo</SPAN></A> delle modifiche.</P>
+<UL>
+  <LI class=l1>Localizzato in 6 lingue: Inglese, tedesco, francese, spagnolo, italiano, olandese ed ebreo, compresi gli installer Mac e Windows. In versioni successive potrebbero essere aggiunte altre lingue. Chi fosse interessato a contribuire ai nostri sforzi di localizzazione, comprese le traduzioni e i test nelle lingue native, &egrave; pregato di rivolgersi al nostro team tecnico all'indirizzo <A    href="mailto:developers@slimdevices.com"><SPAN    class=s2>developers@slimdevices.com</SPAN></A>. 
+  <LI class=l1>Modificato il controllo del volume di Squeezebox, Squeezebox2, e Squeezebox v3 per utilizzare una scala da 0 a 100. 
+  <LI class=l1>Aggiunto un supporto per salvare tra i preferiti gli Album, gli Artisti, i Generi e gli Anni. 
+  <LI class=l1>Apportate numerose modifiche per migliorare il modo in cui SlimServer effettua la scansione della libreria musicale, tra le quali: trovare solo i file modificati dopo l'ultima scansione e trovare solo i file presenti sul disco ma non nel database di SlimServer. 
+  <LI class=l1>Poich&eacute; Squeezeboxes non supporta la riproduzione di musica che utilizza il Digital Rights Management (come Plays for Sure di Microsoft o FairPlay di Apple), le canzoni della libreria dotate di DRM sono escluse dal database di SlimServer. 
+  <LI class=l1>Ora Squeezebox2 e Squeezebox v3 supportano nativamente il formato musicale Ogg. 
+  <LI class=l1>Modificato il funzionamento delle ricerche negli elenchi numerici. Il funzionamento rimane lo stesso per gli elenchi con un massimo di 10 voci (i tasti 1-9 si riferiscono ancora al numero corrispondente e 0 si riferisce a 10). Per gli elenchi pi&ugrave; lunghi, ogni tasto premuto &egrave; aggiunto alla ricerca: premendo i tasti 1, 4, 2, per esempio, si salta alla voce 1, poi alla voce 14, quindi alla voce 142 dell'elenco. 
+  <LI class=l1>Se un player perde la connessione con il server, il display diventa vuoto invece di mostrare un messaggio di errore. Premendo un tasto qualsiasi del telecomando, si visualizza il messaggio di errore. Questo dovrebbe evitare agli utenti di essere svegliati nel cuore della notte da un brillante messaggio di errore. 
+  <LI class=l2>Per i proprietari di Transporter, il comportamento della manopola esclusiva TransNav &egrave; stato migliorato. </LI></UL><A name=Firmware>
+<P class=p4>Aggiornamento del firmware</A></P>
+<P class=p3>Chi possiede Squeezebox o Transporter potrebbe ricevere il suggerimento di aggiornare il proprio firmware alla prima connessione con SlimServer. Premere e tenere premuto il pulsante Brightness (Luminosit&agrave;) del telecomando fino all'inizio dell'aggiornamento del firmware.</P><A name=RemoteProblem>
+<P class=p4>Inserire una password WPA con il telecomando</P></A>
+<P class=p3>La Guida Utente di Squeezebox e Transporter contiene un errore nel capitolo riguardante le password WPA. Secondo il manuale, per inserire un carattere occorre usare il pulsante PLAY e per cancellare un carattere il pulsante ADD. In effetti &egrave; vero il contrario. Il manuale dovrebbe indicare che ADD inserisce un carattere e che PLAY ne cancella uno.</P><A name=iTunes>
+<P class=p4>Supporto della libreria di iTunes</A></P>
+<P class=p3>Se si utilizza iTunes di Apple per gestire la propria musica, SlimServer importer&agrave; automaticamente le informazioni della libreria di iTunes. Se si usa iTunes per aggiungere o cancellare la musica nella libreria, SlimServer si accorger&agrave; delle modifiche ed effettuer&agrave; una nuova scansione delle informazioni sulle canzoni.</P>
+<P class=p8>Se non si desidera che SlimServer utilizzi le informazioni di iTunes, occorre indicare una cartella da usare per la libreria musicale lanciando l'interfaccia web di SlimServer, facendo clic su Impostazioni del Server e indicando una cartella per la musica. Se si aggiunge o si sposta la musica nella libreria, occorre avviare manualmente una nuova scansione visitando la pagina Impostazioni del Server nell'interfaccia web di SlimServer e fare clic su Nuova scansione.</P>
+<P class=p4>Un cenno sulle canzoni acquistate dal Music Store di iTunes</P>
+<P class=p3>Poich&eacute; Apple utilizza un inviluppo DRM (digital rights management: gestione digitale dei diritti) intorno alla maggior parte delle canzoni vendute tramite il Music Store di iTunes, questi file forniscono all'utente diritti limitati. Un importante diritto che Apple non garantisce &egrave; il diritto di riprodurre una traccia su un dispositivo musicale non fornito da Apple (un'eccezione &egrave; il computer dal quale la traccia &egrave; stata acquistata). Finch&eacute; Apple non modificher&agrave; la propria posizione sulla concessione di licenze o sull'eliminazione di FairPlay, queste tracce non potranno essere riprodotte da Squeezebox o Transporter.</P>
+<P class=p4>Alcune canzoni della libreria di iTunes non sono visualizzate in SlimServer o non possono essere aperte</P>
+<P class=p3>Se i file musicali iTunes sono stati spostati, iTunes potrebbe esportare informazioni errate sulle canzoni della sua libreria. Occorre accertarsi che iTunes utilizzi la cartella giusta per la libreria musicale.</P>
+<P class=p3>Andare in Preferenze di iTunes e fare clic su Avanzate. Se il percorso per la cartella Libreria musicale non &egrave; esatto, occorre correggerlo. Se &egrave; esatto, provare a modificarlo indirizzandolo a un'altra cartella, poi riportarlo alla cartella giusta. iTunes aggiorner&agrave; i percorsi verso tutta la musica ed esporter&agrave; correttamente tali dati. (Questo procedimento non sposter&agrave; i file musicali, ma obbligher&agrave; iTunes a effettuare una scansione della libreria musicale e ad aggiornare i percorsi alle canzoni).</P>
+<P class=p3>Se questo non risolve il problema, iTunes potrebbe essere stato confuso da eventuali modifiche alle impostazioni di &quot;Tieni organizzata la cartella iTunes Music&quot; o &quot;Crea nomi documento con numero traccia&quot; in iTunes. Provare a cambiare queste impostazioni e poi ripristinare le impostazioni originali per indure iTunes ad aggiornare le informazioni corrette sui file musicali. Si noti che facendo organizzare i file musicali a iTunes, si potrebbe provocare lo spostamento o la ridenominazione dei file stessi.</P><A name=Streaming>
+<P class=p4>Riproduzione in streaming via Internet</A></P>
+<P class=p3>SlimServer &egrave; stato progettato per lo streaming della musica MP3 in un riproduttore musicale di rete Squeezebox, Transporter o SLIMP3. Come ulteriore vantaggio, esso pu&ograve; anche effettuare lo streaming dei file MP3 su Internet verso qualsiasi software di riproduzione che supporti lo streaming MP3.</P>
+<P class=p3>Per prima cosa, installare il software SlimServer e accertarsi che il computer da usare come SlimServer possa essere raggiunto via Internet. Altrimenti occorrer&agrave; deviare la porta 9000 del router sul computer SlimServer. (Per le istruzioni, consultare la documentazione del router). Quindi:</P>
+<UL>
+  <LI class=l1>Usare il software di riproduzione MP3 per aprire uno stream verso l'URL: <A    href="http://localhost:9000/stream.mp3"><SPAN    class=s2>http://localhost:9000/stream.mp3</SPAN></A>. (Sostituire &quot;localhost&quot; con l'indirizzo IP del computer SlimServer). Se si sta usando la password di sicurezza di SlimServer, occorrer&agrave; utilizzare un URL leggermente modificato come questo: <A href="http://username:password@localhost:9000/stream.mp3"><SPAN    class=s2>http://username:password@localhost:9000/stream.mp3</SPAN></A>. Alcuni lettori MP3 suggeriranno di inserire il nome utente e la password. 
+  <LI class=l1>Lanciare l'interfaccia web di SlimServer che gira sul computer remoto aprendo la pagina web <A href="http://localhost:9000/"><SPAN    class=s2>http://localhost:9000</SPAN></A> (Sostituire &quot;localhost&quot; con l'indirizzo IP del computer remoto). Si rilever&agrave; un nuovo &quot;player&quot; corrispondente all'indirizzo IP del computer con il software di riproduzione MP3. 
+  <LI class=l1>Usare il pannello di sinistra dell'interfaccia web di SlimServer per far scorrere e selezionare i file e le playlist da riprodurre. La musica selezionata apparir&agrave; nel pannello di destra dell'interfaccia web. 
+  <LI class=l1>Per lanciare la musica, fare clic su &quot;Play&quot; nel pannello di destra dell'interfaccia web di SlimServer. 
+  <LI class=l1>Dopo un paio di secondi si potr&agrave; ascoltare la musica eseguita dal software di riproduzione MP3. (Il ritardo &egrave; dovuto al buffering del software di riproduzione MP3). 
+  <LI class=l2>Per modificare la riproduzione dei contenuti, utilizzare l'interfaccia web di SlimServer sulla macchina remota. </LI></UL>
+<P class=p2>Copyright 2003-2007, Logitech, Inc. Tutti i diritti riservati.</P></BODY></HTML>

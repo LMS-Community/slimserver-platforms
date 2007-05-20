@@ -68,13 +68,14 @@ Source: Getting Started.it.html; DestName: "{cm:GettingStarted}.html"; DestDir: 
 Source: Getting Started.es.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: es; Flags: isreadme
 Source: Getting Started.he.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: he; Flags: isreadme
 
-Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: en
-Source: License.de.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de
-Source: License.nl.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: nl
-Source: License.fr.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: fr
-Source: License.it.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: it
-Source: License.es.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: es
-Source: License.he.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: he
+; add the english version for all languages as long as we don't have any translation
+Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: en de nl fr it es he
+;Source: License.de.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de
+;Source: License.nl.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: nl
+;Source: License.fr.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: fr
+;Source: License.it.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: it
+;Source: License.es.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: es
+;Source: License.he.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: he
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 ;
@@ -85,7 +86,7 @@ Source: License.he.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages:
 Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*,*cygwin*"; Flags: comparetimestamp recursesubdirs
 
 [Dirs]
-Name: {%ALLUSERSPROFILE}\SlimServer; MinVersion: 0,6.0
+Name: {%ALLUSERSPROFILE}\SlimServer; Permissions: users-modify; MinVersion: 0,6.0
 
 [INI]
 Filename: {app}\{cm:SlimDevicesWebSite}.url; Section: InternetShortcut; Key: URL; String: http://www.slimdevices.com; Flags: uninsdeletesection
@@ -110,9 +111,6 @@ Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\Fi
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:SlimServer 3483 tcp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SOFTWARE\SlimDevices\SlimServer; ValueType: string; ValueName: Path; ValueData: {app}; MinVersion: 0,5.01
 
-[Run]
-Filename: {app}\SlimTray.exe; Description: {cm:LaunchSlimServerApplication}; WorkingDir: "{app}"; Flags: nowait skipifsilent runmaximized
-
 [UninstallDelete]
 Type: dirifempty; Name: {app}
 Type: dirifempty; Name: {app}\server
@@ -127,32 +125,24 @@ Type: files; Name: {app}\{cm:SlimDevicesWebSite}.url
 Type: files; Name: {app}\{cm:SlimServerWebInterface}.url
 Type: files; Name: {commonstartup}\{cm:SlimServerTrayTool}.url
 
-[_ISTool]
-EnableISX=true
-
 [UninstallRun]
-Filename: {app}\SlimTray.exe; Parameters: --exit; WorkingDir: {app}; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
-Filename: net; Parameters: stop slimsvc; Flags: runminimized; MinVersion: 0,4.00.1381
-Filename: sc; Parameters: stop SlimServerMySQL; Flags: runminimized; MinVersion: 0,4.00.1381
-Filename: sc; Parameters: delete SlimServerMySQL; Flags: runminimized; MinVersion: 0,4.00.1381
-Filename: {app}\server\slim.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runminimized; MinVersion: 0,4.00.1381
+Filename: net; Parameters: stop slimsvc; Flags: runhidden; MinVersion: 0,4.00.1381
+Filename: sc; Parameters: stop SlimServerMySQL; Flags: runhidden; MinVersion: 0,4.00.1381
+Filename: sc; Parameters: delete SlimServerMySQL; Flags: runhidden; MinVersion: 0,4.00.1381
+Filename: {app}\server\slim.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
+Filename: {app}\SlimTray.exe; Parameters: --exit --uninstall; WorkingDir: {app}; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
 
 [Code]
 var
 	MyMusicFolder: String;
 	MyPlaylistFolder: String;
 	AutoStart: String;
-  MusicFolderPage: TInputDirWizardPage;
-  PlaylistFolderPage: TInputDirWizardPage;
-
-function InitializeSetup() : Boolean;
-begin
-	Result := True;
-end;
+	MusicFolderPage: TInputDirWizardPage;
+	PlaylistFolderPage: TInputDirWizardPage;
 
 function GetMusicFolder() : String;
 begin
-  if (MyMusicFolder='') then begin
+	if (MyMusicFolder='') then begin
 		if (not RegQueryStringValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','My Music', MyMusicFolder)) then
 			if (not RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','My Music', MyMusicFolder)) then
 				if (not RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','CommonMusic', MyMusicFolder)) then
@@ -160,48 +150,64 @@ begin
 						MyMusicFolder := MyMusicFolder + 'My Music'
 					else
 						MyMusicFolder := WizardDirValue;
-					end;
+	end;
 					
 	Result := MyMusicFolder;
 end;
 
 function GetPlaylistFolder() : String;
 begin
+	if (MyPlaylistFolder = '') then begin
+		if (GetMusicFolder() <> '') then
+			MyPlaylistFolder := GetMusicFolder()
+		else
+			MyPlaylistFolder := WizardDirValue;
+	end;
 
-  if (MyPlaylistFolder = '') then begin
-    if (GetMusicFolder() <> '') then
-      MyPlaylistFolder := GetMusicFolder()
-    else
-      MyPlaylistFolder := WizardDirValue;
-    end;
-    
-  Result := MyPlaylistFolder;
+	Result := MyPlaylistFolder;
+end;
+
+// NB don't call this until after {app} is set
+function GetPrefsFile() : String;
+begin
+	if (GetWindowsVersion shr 24 >= 6) then
+		Result := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + AddBackslash('SlimServer') + 'slimserver.pref'
+	else
+		Result := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'slimserver.pref';
+end;	
+
+function ShouldSkipPage(PageID: Integer): Boolean;
+begin
+	// skip page if this is the music folder or playlist folder page and prefs already exists
+	if ( ( (PageID = (MusicFolderPage.ID) ) OR ( PageID = (PlaylistFolderPage.ID) ) ) AND FileExists( GetPrefsFile() ) ) then
+		Result := True
+	else
+		Result := False;
 end;
 
 procedure InitializeWizard();
 begin
 	AutoStart := '1';
 
-  MusicFolderPage := CreateInputDirPage(wpSelectDir,
-                    CustomMessage('SelectYourMusicFolder'),
-                    CustomMessage('WhereLookMusic'),
-                    CustomMessage('SelectMusicNext'),
-                    False, '');
-  MusicFolderPage.Add('');
+  	PlaylistFolderPage := CreateInputDirPage(
+		wpSelectDir,
+		CustomMessage('SelectPlaylistFolder'),
+		CustomMessage('WhereLookPlaylists'),
+		CustomMessage('SelectPlaylistNext'),
+		False, ''
+		);
+	PlaylistFolderPage.Add('');
+	PlaylistFolderPage.Values[0] := GetPlaylistFolder();
 
-  MusicFolderPage.Values[0] := GetMusicFolder();
-  
-  
-  PlaylistFolderPage := CreateInputDirPage(wpSelectDir,
-                    CustomMessage('SelectPlaylistFolder'),
-                    CustomMessage('WhereLookPlaylists'),
-                    CustomMessage('SelectPlaylistNext'),
-                    False, '');
-  PlaylistFolderPage.Add('');
-
-  PlaylistFolderPage.Values[0] := GetPlaylistFolder();
-
-
+	MusicFolderPage := CreateInputDirPage(
+		wpSelectDir,
+		CustomMessage('SelectYourMusicFolder'),
+		CustomMessage('WhereLookMusic'),
+		CustomMessage('SelectMusicNext'),
+		False, ''
+	);
+	MusicFolderPage.Add('');
+	MusicFolderPage.Values[0] := GetMusicFolder();
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
@@ -214,15 +220,10 @@ var
 	OldTrayDir: String;
 	Uninstaller: String;
 	delPath: String;
-	PrefString : String;
 	PrefsFile: String;
+	PrefString : String;
 
 begin
-	if (GetWindowsVersion shr 24 >= 6) then
-		PrefsFile := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + AddBackslash('SlimServer') + 'slimserver.pref'
-	else
-		PrefsFile := AddBackslash(ExpandConstant('{app}')) + AddBackslash('Cache') + 'slimserver.pref';
-
 	if CurStep = ssInstall then
 		begin
 			// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr.
@@ -235,8 +236,9 @@ begin
 			
 			NewServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 			Exec('net', 'stop slimsvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-			Exec('net', 'stop SlimServerMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	
+			Exec('sc', 'stop SlimServerMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+			Exec('sc', 'delete SlimServerMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+
 			if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\slimsvc', 'ImagePath', ServicePath) then
 				begin
 					ServicePath:= RemoveQuotes(ServicePath);
@@ -251,13 +253,13 @@ begin
 						ServicePath:= OldServerDir + 'slim.exe';		
 				end;
 
+			Exec(ServicePath, '-remove', OldServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);		
+
 			// Stop the old tray
 			OldTrayDir := OldServerDir + AddBackslash('..');
 			TrayPath:= OldTrayDir + 'SlimTray.exe';
 			if (FileExists(TrayPath)) then
-				Exec(TrayPath, '--exit', OldTrayDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-
-			Exec(ServicePath, '-remove', OldServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);		
+				Exec(TrayPath, '--exit --uninstall', OldTrayDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
 			if (OldServerDir = NewServerDir) then
 				DeleteFile(ServicePath);
@@ -303,140 +305,28 @@ begin
 	
 		end;
 
-	if CurStep = ssDone then begin
+	if CurStep = ssPostInstall then begin
+
+		PrefsFile := GetPrefsFile();
+	
 		if not FileExists(PrefsFile) then
 			begin
-				PrefString := 'audiodir: ' + MyMusicFolder + #13#10 + 'playlistdir: ' + MyPlaylistFolder + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
+				PrefString := '---' + #13#10 + 'audiodir: ' + MusicFolderPage.Values[0] + #13#10 + 'playlistdir: ' + PlaylistFolderPage.Values[0] + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
 				SaveStringToFile(PrefsFile, PrefString, False);
 			end;
 
-			NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-			if (AutoStart = '1') then
-				begin
-					Exec(NewServerDir + 'slim.exe', '-install auto', NewServerDir, SW_SHOWMINIMIZED, ewWaitUntilTerminated, ErrorCode);
-					Exec('net', 'start slimsvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-				end
-			else
-				begin
-					Exec(NewServerDir + 'slim.exe', '-install', NewServerDir, SW_SHOWMINIMIZED, ewWaitUntilTerminated, ErrorCode);
-				end;
+		NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
+		if (AutoStart = '1') then
+			begin
+				Exec(NewServerDir + 'slim.exe', '-install auto', NewServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+				Exec('net', 'start slimsvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+			end
+		else
+			begin
+				Exec(NewServerDir + 'slim.exe', '-install', NewServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+			end;
+
+		Exec(ExpandConstant('{app}') + '\SlimTray.exe', '--install', ExpandConstant('{app}'), SW_SHOW, ewNoWait, ErrorCode);
 	end;
 	
 end;
-
-[Ignore]
-
-function ScriptDlgPages(CurPage: Integer; BackClicked: Boolean): Boolean;
-var
-	CurSubPage: Integer;
-	Next: Boolean;
-begin
-	
-	if ((not BackClicked and (CurPage = wpSelectDir)) or (BackClicked and (CurPage = wpSelectProgramGroup))) then
-		begin
-			PrefsFile:=AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'slimserver.pref';
-
-			// Insert a custom wizard page between two non custom pages
-			if  (BackClicked or FileExists(PrefsFile)) then
-				curSubPage:=2
-			else
-				curSubPage:=0;
-		
-			ScriptDlgPageOpen();
-		
-			while(CurSubPage>=0) and (CurSubPage<=2) and not Terminated do begin
-				case CurSubPage of
-					0:
-						if not FileExists(PrefsFile) then begin
-							ScriptDlgPageSetCaption('Select your Music Folder');
-							ScriptDlgPageSetSubCaption1('Where should the SlimServer look for your music?');
-							ScriptDlgPageSetSubCaption2('Select the folder you would like the SlimServer to look for your music, then click Next.');
-		
-							if(MyMusicFolder='') then begin
-								if (not RegQueryStringValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','My Music', MyMusicFolder)) then
-									if (not RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','My Music', MyMusicFolder)) then
-										if (not RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','CommonMusic', MyMusicFolder)) then
-											if (RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','Personal', MyMusicFolder)) then
-												MyMusicFolder := MyMusicFolder + 'My Music'
-											else
-												MyMusicFolder := WizardDirValue;
-							end;
-		
-							// Ask for a dir until the user has entered one or click Back or Cancel
-							Next := InputDir(false, '', MyMusicFolder);
-		
-							while Next and (MyMusicFolder = '') do begin
-								MsgBox(SetupMessage(msgInvalidPath), mbError, MB_OK);
-								Next := InputDir(false, '', MyMusicFolder);
-							end;
-						end;
-					1:
-						if not FileExists(PrefsFile) then begin
-							ScriptDlgPageSetCaption('Select your Playlist Folder');
-							ScriptDlgPageSetSubCaption1('Where should SlimServer look for an store your Playlists?');
-							ScriptDlgPageSetSubCaption2('Select the folder you would like the SlimServer to look for or store your playlists, then click Next.');
-		
-							if(MyPlaylistFolder='') then begin
-								if(MyMusicFolder<>'') then
-									MyPlaylistFolder:=MyMusicFolder
-								else
-									MyPlaylistFolder := WizardDirValue;
-							end;
-		
-							// Ask for a dir until the user has entered one or click Back or Cancel
-							Next := InputDir(false, '', MyPlaylistFolder);
-		
-							while Next and (MyPlaylistFolder = '') do begin
-								MsgBox(SetupMessage(msgInvalidPath), mbError, MB_OK);
-								Next := InputDir(false, '', MyPlaylistFolder);
-							end;
-
-						end;
-					2:
-						begin
-							if UsingWinNT() then
-								begin
-									ScriptDlgPageSetCaption('Automatic Startup');
-									ScriptDlgPageSetSubCaption1('');
-									ScriptDlgPageSetSubCaption2('You can set SlimServer to start automatically when your computer starts up.');
-				
-									Next := InputOption('Start Automatically', AutoStart);
-
-									if (Next and (AutoStart <> '1')) then
-										CurSubPage := CurSubPage + 1;	
-
-								end;
-						end;				
-				end;
-		
-				if Next then begin
-						{ Go to the next page, but only if the user entered correct information }
-					CurSubPage := CurSubPage + 1;
-				end else
-					CurSubPage := CurSubPage - 1;
-		
-			end;
-			
-			if not BackClicked then
-				Result:=Next
-			else
-				Result:=not Next;
-		
-			ScriptDlgPageClose(not Result);
-		end
-	else
-		begin
-			Result := true;
-		end;
-end;
-
-function NextButtonClick(CurPage: Integer): Boolean;
-begin
-	Result := ScriptDlgPages(CurPage, False);
-end;
-
-function BackButtonClick(CurPage: Integer): Boolean;
-begin
-	Result := ScriptDlgPages(CurPage, True);
-end;
-

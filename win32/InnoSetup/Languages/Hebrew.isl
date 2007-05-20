@@ -37,7 +37,7 @@ ErrorTitle=שגיאה
 ; *** SetupLdr messages
 SetupLdrStartupMessage=תוכנה זו תתקין את %1 על מחשבך. האם ברצונך להמשיך?
 LdrCannotCreateTemp=שגיאה בעת יצירת קובץ זמני. ההתקנה תיסגר
-LdrCannotExecTemp=לא ניתן להריץ קובץ בתיקייה הזמנית. לא ניתן להמשיך בהתקנה
+LdrCannotExecTemp=לא ניתן להריץ קובץ בתיקיה הזמנית. לא ניתן להמשיך בהתקנה
 
 ; *** Startup error messages
 LastErrorMessage=%1.%n%nשגיאה %2: %3
@@ -56,8 +56,8 @@ SetupAppRunningError=תוכנת ההתקנה איבחנה כי %1 כרגע פועלת ברקע.%n%nאנא סגור את כ
 UninstallAppRunningError=תוכנת ההסרה איבחנה כי %1 כרגע פועלת ברקע.%n%nאנא סגור את כל החלונות שלה, ולחץ על 'אישור' להמשך, או 'ביטול' ליציאה.
 
 ; *** Misc. errors
-ErrorCreatingDir=תוכנת ההתקנה לא הצליחה ליצור את התיקייה "%1"
-ErrorTooManyFilesInDir=לא ניתן ליצור קובץ בתיקייה "%1" בגלל שהיא מכילה יותר מדי קבצים
+ErrorCreatingDir=תוכנת ההתקנה לא הצליחה ליצור את התיקיה "%1"
+ErrorTooManyFilesInDir=לא ניתן ליצור קובץ בתיקיה "%1" בגלל שהיא מכילה יותר מדי קבצים
 
 ; *** Setup common messages
 ExitSetupTitle=יציאה מההתקנה
@@ -70,29 +70,29 @@ TranslatorNote=סטילגאר
 
 ; *** Buttons
 ButtonBack=< &הקודם
-ButtonNext=ה&בא >
-ButtonInstall=הת&קן
+ButtonNext=&הבא >
+ButtonInstall=&התקן
 ButtonOK=אישור
 ButtonCancel=ביטול
 ButtonYes=&כן
 ButtonYesToAll=כן ל&הכל
 ButtonNo=&לא
 ButtonNoToAll=ל&א להכל
-ButtonFinish=&סיום
+ButtonFinish=&סיים
 ButtonBrowse=&עיון...
 ButtonWizardBrowse=עיון...
-ButtonNewFolder=&צור תיקייה חדשה
+ButtonNewFolder=&צור תיקיה חדשה
 
 ; *** "Select Language" dialog messages
-SelectLanguageTitle=בחירת שפת התקנה
+SelectLanguageTitle=בחר שפת התקנה
 SelectLanguageLabel=בחר את שפת ההתקנה של תוכנת ההתקנה:
 
 ; *** Common wizard text
 ClickNext=לחץ על 'הבא' כדי להמשיך בתהליך ההתקנה, או 'ביטול' ליציאה.
 BeveledLabel=
-BrowseDialogTitle=בחירת תיקייה
-BrowseDialogLabel=בחר תיקייה מהרשימה ולחץ על 'אישור'
-NewFolderName=תיקייה חדשה
+BrowseDialogTitle=בחר תיקיה
+BrowseDialogLabel=בחר תיקיה מהרשימה ולחץ על 'אישור'
+NewFolderName=תיקיה חדשה
 
 ; *** "Welcome" wizard page
 WelcomeLabel1=ברוכים הבאים לתוכנת ההתקנה של [name]
@@ -129,26 +129,26 @@ UserInfoSerial=&מספר סידורי:
 UserInfoNameRequired=עליך להזין שם.
 
 ; *** "Select Destination Location" wizard page
-WizardSelectDir=בחירת יעד להתקנה
+WizardSelectDir=בחר יעד להתקנה
 SelectDirDesc=היכן להתקין את [name]?
-SelectDirLabel3=תוכנת ההתקנה תתקין את [name] בתיקייה הבאה.
-SelectDirBrowseLabel=להמשך, לחץ על 'הבא'. אם ברצונך לבחור תיקייה אחרת להתקנה, לחץ על 'עיון'.
-DiskSpaceMBLabel=דרושים להתקנה לפחות MB [mb] של שטח דיסק פנוי.
+SelectDirLabel3=תוכנת ההתקנה תתקין את [name] לתוך התיקייה הבאה.
+SelectDirBrowseLabel=להמשך, לחץ על 'הבא'. אם ברצונך לבחור תיקיה אחרת להתקנה, לחץ על 'עיון'.
+DiskSpaceMBLabel=דרושים להתקנה לפחות [mb] MB של שטח דיסק פנוי.
 ToUNCPathname=תוכנת ההתקנה לא יכולה להתקין לנתיב UNC. אם אתה מנסה להתקין לרשת, תצטרך למפות כונן רשת.
-InvalidPath=עליך לספק נתיב מלא עם אות הכונן; לדוגמה:%n%nC:\APP%n%nאו נתיב UNC בתצורה:%n%n‎\\server\share
+InvalidPath=עליך לספק נתיב מלא עם אות הכונן; לדוגמה:%n%nC:\APP%n%nאו נתיב UNC בתצורה:%n%n\\server\share
 InvalidDrive=הכונן או שיתופית ה-UNC שבחרת לא קיימים או שאינם נגישים. אנא בחר כונן או שיתופית אחרים.
 DiskSpaceWarningTitle=שטח פנוי אינו מספיק
 DiskSpaceWarning=דרוש לפחות %1KB שטח דיסק פנוי להתקנה, אך לכונן שנבחר יש רק %2KB זמינים. האם ברצונך להמשיך למרות זאת?
-DirNameTooLong=שם התיקייה או נתיבה ארוך מדי
-InvalidDirName=שם התיקייה איננו חוקי.
-BadDirName32=שם התיקייה אינו יכול לכלול תווים אלו:%n%n%1
-DirExistsTitle=התיקייה קיימת
-DirExists=התיקייה:%n%n%1%n%nכבר קיימת. האם ברצונך להתקין לתיקייה זו בכל אופן?
+DirNameTooLong=שם התיקיה או נתיבה ארוך מדי
+InvalidDirName=שם התיקיה איננו חוקי.
+BadDirName32=שם התיקיה אינו יכול לכלול תווים אלו:%n%n%1
+DirExistsTitle=התיקיה קיימת
+DirExists=התיקיה:%n%n%1%n%nכבר קיימת. האם ברצונך להתקין לתיקיה זו בכל אופן?
 DirDoesntExistTitle=התיקייה אינה קיימת
-DirDoesntExist=התיקייה:%n%n%1%n%nאינה קיימת. האם ברצונך שתוכנת ההתקנה תיצור אותה?
+DirDoesntExist=התיקיה:%n%n%1%n%nאינה קיימת. האם ברצונך שתוכנת ההתקנה תיצור אותה?
 
 ; *** "Select Components" wizard page
-WizardSelectComponents=בחירת רכיבים
+WizardSelectComponents=בחר רכיבים
 SelectComponentsDesc=אילו רכיבים ברצונך להתקין?
 SelectComponentsLabel2=בחר את הרכיבים שברצונך להתקין; הסר את הסימון מהרכיבים אותם אין ברצונך להתקין. לחץ על 'הבא' כאשר תהיה מוכן להמשיך.
 FullInstallation=התקנה מלאה
@@ -162,31 +162,31 @@ ComponentSize2=%1 MB
 ComponentsDiskSpaceMBLabel=להתקנת הרכיבים שנבחרו דרושים לפחות [mb] MB פנויים על כונן היעד.
 
 ; *** "Select Additional Tasks" wizard page
-WizardSelectTasks=בחירת משימות נוספות
+WizardSelectTasks=בחר משימות נוספות
 SelectTasksDesc=אילו משימות נוספות על תוכנת ההתקנה לבצע?
 SelectTasksLabel2=בחר את המשימות הנוספות שברצונך שתוכנת ההתקנה תבצע בעת התקנת [name], ולאחר מכן לחץ על 'הבא'.
 
 ; *** "Select Start Menu Folder" wizard page
-WizardSelectProgramGroup=בחירת תיקייה בתפריט 'התחל'
+WizardSelectProgramGroup=בחר תיקייה בתפריט 'התחל'
 SelectStartMenuFolderDesc=היכן למקם את קיצורי הדרך לתוכנה?
-SelectStartMenuFolderLabel3=תוכנת ההתקנה תיצור קיצורי דרך לתוכנה בתיקייה הבאה בתפריט 'התחל'.
-SelectStartMenuFolderBrowseLabel=להמשך, לחץ על 'הבא'. אם ברצונך לבחור תיקייה אחרת להתקנה, לחץ על 'עיון'.
-MustEnterGroupName=אתה חייב לציין שם תיקייה.
-GroupNameTooLong=שם התיקייה או נתיבה ארוך מדי
-InvalidGroupName=שם התיקייה אינו בר-תוקף.
-BadGroupName=שם התיקייה אינו יכול לכלול תווים אלו:%n%n%1
-NoProgramGroupCheck2=&אל תיצור תיקייה בתפריט 'התחל'
+SelectStartMenuFolderLabel3=תוכנת ההתקנה תיצור קיצורי דרך לתוכנה בתיקיה הבאה בתפריט ה'התחל'.
+SelectStartMenuFolderBrowseLabel=להמשך, לחץ על 'הבא'. אם ברצונך לבחור תיקיה אחרת להתקנה, לחץ על 'עיון'.
+MustEnterGroupName=אתה חייב לציין שם תיקיה.
+GroupNameTooLong=שם התיקיה או נתיבה ארוך מדי
+InvalidGroupName=שם התיקיה אינו בר-תוקף.
+BadGroupName=שם התיקיה אינו יכול לכלול תווים אלו:%n%n%1
+NoProgramGroupCheck2=&אל תיצור תיקיה בתפריט 'התחל'
 
 ; *** "Ready to Install" wizard page
 WizardReady=מוכן להתקנה
 ReadyLabel1=תוכנת ההתקנה מוכנה כעת להתקין את [name] על מחשבך.
-ReadyLabel2a=לחץ על 'התקן' כדי להמשיך בהתקנה, או 'חזור' אם ברצונך לשנות הגדרות כלשהן.
+ReadyLabel2a=לחץ על 'התקן' להמשיך בהתקנה, או 'חזור' אם ברצונך לשנות הגדרות כלשהן.
 ReadyLabel2b=לחץ על 'התקן' כדי להמשיך בהתקנה
 ReadyMemoUserInfo=פרטי המשתמש:
 ReadyMemoDir=מיקום יעד:
 ReadyMemoType=סוג ההתקנה:
 ReadyMemoComponents=רכיבים שנבחרו:
-ReadyMemoGroup=תיקייה בתפריט 'התחל':
+ReadyMemoGroup=תיקיה בתפריט 'התחל':
 ReadyMemoTasks=משימות נוספות לביצוע:
 
 ; *** "Preparing to Install" wizard page
@@ -216,9 +216,9 @@ RunEntryShellExec=הצג %1
 
 ; *** "Setup Needs the Next Disk" stuff
 ChangeDiskTitle=דרוש הדיסק הבא להמשך ההתקנה
-SelectDiskLabel2=אנא הכנס את דיסק מס' %1 ולחץ על 'אישור'.%n%nאם הקבצים שעל הדיסק נמצאים בתיקייה אחרת מזו המוצגת כאן, אנא הזן את הנתיב הנכון או לחץ על 'עיון'.
+SelectDiskLabel2=אנא הכנס את דיסק מס' %1 ולחץ על 'אישור'.%n%nאם הקבצים שעל הדיסק נמצאים בתיקיה אחרת מזו המוצגת כאן, אנא הזן את הנתיב הנכון או לחץ על 'עיון'.
 PathLabel=&נתיב:
-FileNotInDir2=הקובץ "%1" לא נמצא ב"%2". אנא הכנס את הדיסק הנכון או בחר תיקייה אחרת.
+FileNotInDir2=הקובץ "%1" לא נמצא ב"%2". אנא הכנס את הדיסק הנכון או בחר תיקיה אחרת.
 SelectDirectoryLabel=אנא בחר את מיקומו של הדיסק הבא.
 
 ; *** Installation phase messages
