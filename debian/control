@@ -1,7 +1,7 @@
 Source: slimserver
 Section: sound
 Priority: optional
-Maintainer: Dan Sully <debian@slimdevices.com>
+Maintainer: Logitech/Slim Devices <debian@slimdevices.com>
 Build-Depends: debhelper (>= 4.0.0)
 Standards-Version: 3.6.2
 
