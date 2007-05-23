@@ -26,6 +26,7 @@ use Socket;
 use Encode;
 
 use Win32 qw(GetOSName);
+use Win32::Locale;
 use Win32::Daemon;
 use Win32::Process qw(DETACHED_PROCESS CREATE_NO_WINDOW NORMAL_PRIORITY_CLASS);
 use Win32::Process::List;
@@ -195,19 +196,22 @@ sub DoubleClick {
 sub ToolTip {
 	my $state;
 
-	if ($starting) {
-		$state = string('SLIMSERVER_STARTING');
-	}
+	# use English if HE is selected on western systems, as these can't handle the Hebrew tooltip
+	my $lang = ($language eq 'HE' && Win32::Locale::get_language() ne 'he' ? 'EN' : $language);
 
-	elsif ($ssActive) {
-		$state = string('SLIMSERVER_RUNNING');
-	}
-   
-	else {
-		$state = string('SLIMSERVER_STOPPED');
-	}
-
-	$state = encode($language eq 'HE' ? 'cp1255' : 'cp1250', $state);
+ 	if ($starting) {
+		$state = string('SLIMSERVER_STARTING', $lang);
+ 	}
+ 
+ 	elsif ($ssActive) {
+		$state = string('SLIMSERVER_RUNNING', $lang);
+ 	}
+    
+ 	else {
+		$state = string('SLIMSERVER_STOPPED', $lang);
+ 	}
+ 
+	$state = encode($lang eq 'HE' ? 'cp1255' : 'cp1250', $state);
 
 	return $state;
 }
@@ -761,7 +765,9 @@ sub uninstall {
 # return localised version of string token
 sub string {
 	my $name = shift;
-	$strings{ $name }->{ $language } || $strings{ $name }->{'EN'} || "Bad string $name";
+	my $lang = shift || $language;
+
+	$strings{ $name }->{ $lang } || $strings{ $name }->{'EN'} || "Bad string $name";
 }
 
 sub loadStrings {
