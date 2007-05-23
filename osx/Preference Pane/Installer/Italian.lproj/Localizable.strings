@@ -1,8 +1,8 @@
-"Install" = "Install";
-"Update" = "Update";
-"Install Results" = "Install Results";
+"Install" = "Installa";
+"Update" = "Aggiorna";
+"Install Results" = "Risultati installazione";
 "OK" = "OK";
-"SlimServer installed successfully.\n" = "SlimServer installed successfully.";
-"SlimServer install failed.\n" = "SlimServer install failed.";
-"You must have OS X 10.3 or later to run SlimServer.\n" = "You must have OS X 10.3 or later to run SlimServer.";
-"Mac OS X 10.3 Required" = "Mac OS X 10.3 Required";
+"SlimServer installed successfully.\n" = "Installazione di SlimServer eseguita correttamente.";
+"SlimServer install failed.\n" = "Installazione di SlimServer non riuscita.";
+"You must have OS X 10.3 or later to run SlimServer.\n" = "Per eseguire SlimServer è necessario Mac OS X 10.3 o versione successiva.";
+"Mac OS X 10.3 Required" = "È necessario Mac OS X 10.3.";

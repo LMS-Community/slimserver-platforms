@@ -1,10 +1,8 @@
-"Start Server" = "Start Server";
-"Stop Server" = "Stop Server";
-"Start Server Description" = "Click this button to start the SlimServer. Once started,
-Slim players will be able to access your music library.";
-"Stop Server Description" = "Click this button to stop the SlimServer. Once stopped,
-Slim players will not be able to access your music library.";
-"Authorization Launch Error" = "Unable to update firmware: missing file Update Firmware.sh.";
-"Expired Authorization Error" = "Unable to update firmware: authorization expired.";
-"Firmware version" = "Firmware version %@.";
-"Firmware version invalid" = "Firmware version invalid.";
+"Start Server" = "Avvia server";
+"Stop Server" = "Arresta server";
+"Start Server Description" = "Fai clic su questo pulsante per avviare SlimServer. Una volta avviato SlimServer, i lettori Slim avranno accesso alla libreria musicale.";
+"Stop Server Description" = "Fai clic su questo pulsante per arrestare SlimServer. Una volta arrestato SlimServer, i lettori Slim non saranno più in grado di accedere alla libreria musicale.";
+"Authorization Launch Error" = "Impossibile aggiornare il firmware: File Update Firmware.sh mancante.";
+"Expired Authorization Error" = "Impossibile aggiornare il firmware: autorizzazione scaduta.";
+"Firmware version" = "Versione firmware %@.";
+"Firmware version invalid" = "Versione firmware non valida.";

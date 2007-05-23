@@ -1,7 +1,7 @@
 ﻿/* Localized versions of Info.plist keys */
 
 CFBundleName = "SlimServer";
-CFBundleShortVersionString = "7.0a1";
-CFBundleGetInfoString = "SlimServer version 7.0a1, Copyright 2002-2005 Logitech";
-NSHumanReadableCopyright = "Copyright © 2002-2005 Logitech, all rights reserved.";
+CFBundleShortVersionString = "7.0a";
+CFBundleGetInfoString = "SlimServer version 7.0a, Copyright 2002-2007 Logitech";
+NSHumanReadableCopyright = "Copyright 2002-2007 Logitech, all rights reserved.";
 NSPrefPaneIconLabel = "SlimServer";

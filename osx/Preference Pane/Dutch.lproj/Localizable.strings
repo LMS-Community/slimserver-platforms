@@ -1,8 +1,8 @@
-"Start Server" = "Start Server";
-"Stop Server" = "Stop Server";
-"Start Server Description" = "Klik op deze knop om de SlimServer te starten.\nNa het starten kunnen Slim spelers uw muziek bibliotheek benaderen.";
-"Stop Server Description" = "Klik op deze knop om de SlimServer te stoppen.\nNa het stoppen kunnen Slim spelers uw muziek bibliotheek niet meer benaderen.";
-"Authorization Launch Error" = "Onmogelijk om de firmware bij te werken: bestand Update Firmware.sh ontbreekt.";
-"Expired Authorization Error" = "Onmogelijk om de firmware bij te werken: authorisatie is verlopen.";
-"Firmware version" = "Firmware versie %@.";
-"Firmware version invalid" = "Firmware versie ongeldig.";
+"Start Server" = "Start server";
+"Stop Server" = "Stop server";
+"Start Server Description" = "Klik op deze knop om de SlimServer te starten. Nadat de  SlimServer gestart is, hebben Slim-spelers toegang tot je muziekcollectie.";
+"Stop Server Description" = "Klik op deze knop om de SlimServer te stoppen. Nadat de SlimServer gestopt is, hebben Slim-spelers geen toegang meer tot je muziekcollectie.";
+"Authorization Launch Error" = "Kan firmware niet updaten: bestand Update Firmware.sh ontbreekt.";
+"Expired Authorization Error" = "Kan firmware niet updaten: autorisatie verlopen.";
+"Firmware version" = "Firmwareversie %@.";
+"Firmware version invalid" = "Firmwareversie ongeldig.";

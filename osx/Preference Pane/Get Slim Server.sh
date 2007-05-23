@@ -1,3 +1,2 @@
 #! /bin/sh
-
-echo `ps -axww | grep "slimserver\.pl" | grep -v grep | cat`
+echo `ps -axww | grep "slimpserver\.pl\|slimserver" | grep -v grep | cat`

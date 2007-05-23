@@ -1,10 +1,8 @@
 "Start Server" = "Server starten";
-"Stop Server" = "Server stoppen";
-"Start Server Description" = "Klicken Sie diesen Knopf, um den SlimServer zu starten. 
-Sobald er läuft, können die Slim Player auf ihre Musiksammlung zugreifen";
-"Stop Server Description" = "Klicken Sie diesen Knopf, um den Slimserver zu stoppen. 
-Sobald er nicht mehr läuft, haben die Slim Player keinen Zugriff mehr auf ihre Musiksammlung";
-"Authorization Launch Error" = "Kann Firmware Update nicht durchführen: die Datei Update Firmware.sh fehlt.";
-"Expired Authorization Error" = "Kann Firmware Update nicht durchführen: Authentifizierung fehlgeschlagen.";
-"Firmware version" = "Firmware Version %@.";
-"Firmware version invalid" = "Firmware Version inkorrekt.";
+"Stop Server" = "Server anhalten";
+"Start Server Description" = "Klicken Sie auf diese SchaltflÃ¤che, um SlimServer zu starten. Nach dem Start kÃ¶nnen Slim-Player auf Ihre Musiksammlung zugreifen.";
+"Stop Server Description" = "Klicken Sie auf diese SchaltflÃ¤che, um SlimServer anzuhalten. Wenn der Server angehalten wurde, kÃ¶nnen Slim-Player nicht mehr auf Ihre Musiksammlung zugreifen.";
+"Authorization Launch Error" = "Firmware konnte nicht aktualisiert werden: Datei Update Firmware.sh fehlt.";
+"Expired Authorization Error" = "Firmware konnte nicht aktualisiert werden: Autorisierung ist abgelaufen.";
+"Firmware version" = "Firmware-Version %@.";
+"Firmware version invalid" = "UngÃ¼ltige Firmware-Version.";

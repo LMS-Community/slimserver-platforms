@@ -1,8 +1,8 @@
 "Start Server" = "Iniciar servidor";
 "Stop Server" = "Detener servidor";
-"Start Server Description" = "Haga clic en este bot梟 para iniciar SlimServer. Una vez iniciado, los reproductores Slim podr噉 acceder a la biblioteca de m渟ica.";
-"Stop Server Description" = "Haga clic en este bot梟 para detener SlimServer. Una vez detenido, los reproductores Slim no podr噉 acceder a la biblioteca de m渟ica.";
+"Start Server Description" = "Haga clic en este bot贸n para iniciar SlimServer. Una vez iniciado, los reproductores Slim podr谩n acceder a la biblioteca de m煤sica.";
+"Stop Server Description" = "Haga clic en este bot贸n para detener SlimServer. Una vez detenido, los reproductores Slim no podr谩n acceder a la biblioteca de m煤sica.";
 "Authorization Launch Error" = "Imposible actualizar firmware: falta el archivo Update Firmware.sh.";
-"Expired Authorization Error" = "Imposible actualizar firmware: la autorizaci梟 ha caducado.";
-"Firmware version" = "Versi梟 de firmware %@.";
-"Firmware version invalid" = "La versi梟 de firmware no es v噇ida.";
+"Expired Authorization Error" = "Imposible actualizar firmware: la autorizaci贸n ha caducado.";
+"Firmware version" = "Versi贸n de firmware %@.";
+"Firmware version invalid" = "La versi贸n de firmware no es v谩lida.";

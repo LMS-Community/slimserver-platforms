@@ -1,6 +1,8 @@
 "Install" = "Installeer";
-"Update" = "Werk Bij";
-"Install Results" = "Installatie Resultaat";
+"Update" = "Update";
+"Install Results" = "Installatieresultaten";
 "OK" = "OK";
-"SlimServer installed successfully.\n" = "SlimServer installatie succesvol uitgevoerd.";
-"SlimServer install failed.\n" = "SlimServer installatie mislukt.";
+"SlimServer installed successfully.\n" = "SlimServer is ge•nstalleerd.";
+"SlimServer install failed.\n" = "SlimServer-installatie mislukt.";
+"You must have OS X 10.3 or later to run SlimServer.\n" = "Je moet OS X 10.3 of hoger hebben om SlimServer uit te voeren.";
+"Mac OS X 10.3 Required" = "Mac OS X 10.3 vereist";

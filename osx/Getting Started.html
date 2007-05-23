@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="Content-Style-Type" content="text/css">
   <title>
-	Getting Started with the SlimServer, Version 6.5.2
+	Getting Started with the SlimServer, Version 7.0a
   </title>
   <meta name="Generator" content="Cocoa HTML Writer">
   <meta name="CocoaVersion" content="824.42">
@@ -28,7 +28,7 @@
 <body>
 
 <h1>Getting Started with SlimServer</h1>
-<p class="p2">Version 6.5.2</p>
+<p class="p2">Version 7.0a</p>
 
 <p class="p3">Thank you for downloading the latest version of the SlimServer for Mac OS X. Scroll down or click on the following links to learn about each topic.</p>
 <ul>
@@ -43,8 +43,8 @@
 <p class="p3">Thanks,</p>
 <p class="p3">The Logitech Streaming Media Systems Team</p>
 
-<a NAME="WhatsNew"><p class="p4">What's New in 7.0a1</p></a>
-<p class="p3">SlimServer version 6.5.2 incorporates a large number of improvements. The following list includes only the key changes that impact what you see on your screen or change/improve the way you interact with your Squeezebox or Transporter. If you're interested, you can view the <a href="http://svn.slimdevices.com/*checkout*/branches/6.5/server/Changelog6.html">complete list</span></a> of the changes.</p>
+<a NAME="WhatsNew"><p class="p4">What's New in 7.0a</p></a>
+<p class="p3">SlimServer version 7.0a incorporates a large number of improvements. The following list includes only the key changes that impact what you see on your screen or change/improve the way you interact with your Squeezebox or Transporter. If you're interested, you can view the <a href="http://svn.slimdevices.com/*checkout*/trunk/server/Changelog6.html">complete list</span></a> of the changes.</p>
 <ul>
   <li  class="l1">Localized to 6 languages: English, German, French, Spanish, Italian, Dutch, and Hebrew, including the Mac and Windows installers. Additional languages may be added in later releases. If you're interested in helping with our localization efforts, including translations or testing in native languages, please contact our engineering team at  <a href="mailto:developers@slimdevices.com"><span class="s2">developers@slimdevices.com</span></a>.</li>
   <li  class="l1">Changed the volume control for Squeezebox, Squeezebox2, and Squeezebox v3 to use a 0 to 100 scale.</li>
@@ -67,7 +67,6 @@
 
 <a NAME="Firmware"><p class="p4">Firmware Update</a></p>
 <p class="p3">If you own a Squeezebox or Transporter, you may be prompted to update your firmware when it first connects to the SlimServer. Press and hold the Brightness button on the remote control until the firmware update begins.</p>
-<p class="p3">If you own a SLIMP3 Player, we recommend that you use the SLIMP3 Firmware Updater to update the firmware on your SLIMP3 player to the latest version, 2.3. This application is available for <a href="http://www.slimdevices.com/downloads/firmware/1.3/SLIMP3%20Firmware%20Updater.dmg"><span class="s2">download</span></a>. You can check the version number of firmware installed on your SLIMP3 by reading the number at the lower right-hand corner of the display when you plug in your SLIMP3 player.</p>
 
 <a NAME="RemoteProblem"><p class="p4">Entering a WPA password with the remote control</p></a>
 <p class="p3">The Squeezebox and Transporter Users Guide have an error in the section covering WPA passwords.  According to the manual, you would use the PLAY button to insert a character and ADD to delete a character.  This is the opposite of the implementation.  The manual should indicate that ADD inserts a character, and PLAY deletes one.</p>
@@ -85,7 +84,7 @@
 <p class="p3">If this doesn't resolve your problem, iTunes might get confused if you changed the "Keep Music Folder Organized" or "Add Track Number" settings in iTunes. Try changing these settings and then changing them back to have iTunes update the correct information about your music files. Note that having iTunes organizing your music files may involve moving or renaming the files themselves.</p>
 
 <a NAME="Streaming"><p class="p4">Streaming playback via the Internet</a></p>
-<p class="p3">The SlimServer was designed to stream MP3 music to a Squeezebox, Transporter or SLIMP3 Network Music Player. As an added bonus, it can also stream the same music over the Internet to any software player that supports MP3 streaming.</p>
+<p class="p3">The SlimServer was designed to stream MP3 music to a Squeezebox, Transporter or SLIMP3 Network Music Player. As an added bonus, it can also stream your MP3 files over the Internet to any software player that supports MP3 streaming.</p>
 <p class="p3">First, install the SlimServer software and make sure the computer to be used as a SlimServer can be reached over the Internet. If not, you will need to forward port 9000 on your router to the SlimServer computer. (Consult your router documentation for instructions). Then:</p>
 <ul>
   <li  class="l1">Use your MP3 player software to open a stream to the the URL: <a href="http://localhost:9000/stream.mp3"><span class="s2">http://localhost:9000/stream.mp3</span></a>. (Replace "localhost" with the IP address of the SlimServer computer). If you are using the SlimServer's password security, you'll need to use a slightly modified URL like this: <a href="http://username:password@localhost:9000/stream.mp3"><span class="s2">http://username:password@localhost:9000/stream.mp3</span></a>. Some MP3 players will prompt you to enter your username and password.</li>

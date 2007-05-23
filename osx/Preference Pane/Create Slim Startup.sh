@@ -31,7 +31,7 @@ cat >/Library/StartupItems/Slim/Slim << !!
 . /etc/rc.common
 
 SLIMUSER=$USER
-SERVER_RUNNING=\`ps -axww | grep "slimserver\.pl" | grep -v grep | cat\`
+SERVER_RUNNING=\`ps -axww | grep "slimp3\.pl\|slimp3d\|slimserver\.pl\|slimserver" | grep -v grep | cat\`
 HOME=$HOME
 home=$HOME
 export HOME

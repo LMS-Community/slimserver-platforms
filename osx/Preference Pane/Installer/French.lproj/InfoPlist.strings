@@ -1,6 +1,6 @@
 /* Localized versions of Info.plist keys */
 
-CFBundleName = "Installation SlimServer";
-CFBundleShortVersionString = "7.0a1";
-CFBundleGetInfoString = "Installation SlimServer version 7.0a1, Copyright 2003-2005 Logitech";
-NSHumanReadableCopyright = "Copyright © 2003-2005 Logitech, tous droits réservés.";
+CFBundleName = "Programme d'installation du SlimServer";
+CFBundleShortVersionString = "7.0a";
+CFBundleGetInfoString = "Programme d'installation du SlimServer version 7.0a, Copyright 2003-2007 Logitech";
+NSHumanReadableCopyright = "Copyright 2003-2007 Logitech, tous droits réservés.";
