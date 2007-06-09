@@ -71,7 +71,7 @@ my $atLogin        = $Registry->{"$registryKey/StartAtLogin"};
 
 my $appExe         = File::Spec->catdir(installDir(), 'server', 'slim.exe');
 my $serverUrl      = File::Spec->catdir($vista ? writableDir() : installDir(), "SlimServer Web Interface.url");
-my $prefFile       = File::Spec->catdir(writableDir(), 'slimserver.pref');
+my $prefFile       = File::Spec->catdir(writableDir(), 'prefs', 'server.prefs');
 my $language       = getPref('language') || 'EN';
 
 
