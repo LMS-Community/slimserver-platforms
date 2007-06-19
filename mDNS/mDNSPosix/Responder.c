@@ -553,6 +553,7 @@ static void RegistrationCallback(mDNS *const m, ServiceRecordSet *const thisRegi
             // When debugging is enabled, make sure that thisRegistration 
             // is not on our gServiceList.
             
+/*
             #if !defined(NDEBUG)
                 {
                     PosixService *cursor;
@@ -564,6 +565,7 @@ static void RegistrationCallback(mDNS *const m, ServiceRecordSet *const thisRegi
                     }
                 }
             #endif
+*/
             free(thisRegistration);
             break;
 
