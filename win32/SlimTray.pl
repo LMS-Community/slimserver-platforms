@@ -919,7 +919,7 @@ SLIMSERVER_RUNNING
 	FR	SlimServer en cours d'exécution
 	HE	‏SlimServer פועל
 	IT	SlimServer è in esecuzione
-	NL	SlimServer wordt uitgevoerd
+	NL	SlimServer is actief
 
 SLIMSERVER_STOPPED
 	DE	SlimServer angehalten
