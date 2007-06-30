@@ -307,6 +307,10 @@ begin
 
 	if CurStep = ssPostInstall then begin
 
+		// Add firewall rules for Vista
+		if (GetWindowsVersion shr 24 >= 6) then
+			Exec('netsh', 'advfirewall firewall add rule name="SlimServer" description="Allow SlimServer to accept inbound connections." dir=in action=allow program="' + ExpandConstant('{app}') + '\server\slim.exe' + '"', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+
 		PrefsFile := GetPrefsFile();
 	
 		if not FileExists(PrefsFile) then
