@@ -23,6 +23,16 @@ Name: es; MessagesFile: "Spanish.isl"
 Name: fr; MessagesFile: "French.isl"
 Name: it; MessagesFile: "Italian.isl"
 Name: he; MessagesFile: "Hebrew.isl"
+; the following languages though not officially supported, are available in SlimServer
+Name: cs; MessagesFile: "Czech.isl"
+Name: da; MessagesFile: "Danish.isl"
+Name: fi; MessagesFile: "Finnish.isl"
+Name: ja; MessagesFile: "Japanese.isl"
+Name: no; MessagesFile: "Norwegian.isl"
+Name: pt; MessagesFile: "Portuguese.isl"
+Name: sv; MessagesFile: "Swedish.isl"
+Name: zh_cn; MessagesFile: "ChineseSimp.isl"
+
 
 [CustomMessages]
 #include "strings.iss"
@@ -60,7 +70,7 @@ Name: quicklaunchicon; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescripti
 Source: SlimTray.exe; DestDir: {app}; Flags: replacesameversion
 Source: Release Notes.html; DestDir: {app}
 
-Source: Getting Started.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: en; Flags: isreadme
+Source: Getting Started.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: en cs da fi ja no pt sv zh_cn; Flags: isreadme
 Source: Getting Started.de.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: de; Flags: isreadme
 Source: Getting Started.nl.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: nl; Flags: isreadme
 Source: Getting Started.fr.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: fr; Flags: isreadme
@@ -69,7 +79,7 @@ Source: Getting Started.es.html; DestName: "{cm:GettingStarted}.html"; DestDir: 
 Source: Getting Started.he.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: he; Flags: isreadme
 
 ; add the english version for all languages as long as we don't have any translation
-Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: en de nl fr it es he
+Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: en de nl fr it es he cs da fi ja no pt sv zh_cn
 ;Source: License.de.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de
 ;Source: License.nl.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: nl
 ;Source: License.fr.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: fr
@@ -136,9 +146,6 @@ Filename: {app}\SlimTray.exe; Parameters: --exit --uninstall; WorkingDir: {app};
 var
 	MyMusicFolder: String;
 	MyPlaylistFolder: String;
-	AutoStart: String;
-	MusicFolderPage: TInputDirWizardPage;
-	PlaylistFolderPage: TInputDirWizardPage;
 
 function GetMusicFolder() : String;
 begin
@@ -175,40 +182,6 @@ begin
 	else
 		Result := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'slimserver.pref';
 end;	
-
-function ShouldSkipPage(PageID: Integer): Boolean;
-begin
-	// skip page if this is the music folder or playlist folder page and prefs already exists
-	if ( ( (PageID = (MusicFolderPage.ID) ) OR ( PageID = (PlaylistFolderPage.ID) ) ) AND FileExists( GetPrefsFile() ) ) then
-		Result := True
-	else
-		Result := False;
-end;
-
-procedure InitializeWizard();
-begin
-	AutoStart := '1';
-
-  	PlaylistFolderPage := CreateInputDirPage(
-		wpSelectDir,
-		CustomMessage('SelectPlaylistFolder'),
-		CustomMessage('WhereLookPlaylists'),
-		CustomMessage('SelectPlaylistNext'),
-		False, ''
-		);
-	PlaylistFolderPage.Add('');
-	PlaylistFolderPage.Values[0] := GetPlaylistFolder();
-
-	MusicFolderPage := CreateInputDirPage(
-		wpSelectDir,
-		CustomMessage('SelectYourMusicFolder'),
-		CustomMessage('WhereLookMusic'),
-		CustomMessage('SelectMusicNext'),
-		False, ''
-	);
-	MusicFolderPage.Add('');
-	MusicFolderPage.Values[0] := GetMusicFolder();
-end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
 var
@@ -315,20 +288,14 @@ begin
 	
 		if not FileExists(PrefsFile) then
 			begin
-				PrefString := '---' + #13#10 + 'audiodir: ' + MusicFolderPage.Values[0] + #13#10 + 'playlistdir: ' + PlaylistFolderPage.Values[0] + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
+				PrefString := '---' + #13#10 + 'audiodir: ' + GetMusicFolder() + #13#10 + 'playlistdir: ' + GetPlaylistFolder() + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
 				SaveStringToFile(PrefsFile, PrefString, False);
 			end;
 
 		NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-		if (AutoStart = '1') then
-			begin
-				Exec(NewServerDir + 'slim.exe', '-install auto', NewServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-				Exec('net', 'start slimsvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-			end
-		else
-			begin
-				Exec(NewServerDir + 'slim.exe', '-install', NewServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-			end;
+
+		Exec(NewServerDir + 'slim.exe', '-install auto', NewServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+		Exec('net', 'start slimsvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
 		Exec(ExpandConstant('{app}') + '\SlimTray.exe', '--install', ExpandConstant('{app}'), SW_SHOW, ewNoWait, ErrorCode);
 	end;

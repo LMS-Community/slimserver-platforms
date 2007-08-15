@@ -1,11 +1,3 @@
-de.CreateDesktopIcon=&Desktop-Symbol erstellen
-en.CreateDesktopIcon=Create a &desktop icon
-es.CreateDesktopIcon=Crear un icono de &escritorio
-fr.CreateDesktopIcon=Crיer une icפne sur le &bureau
-he.CreateDesktopIcon=צור סמל בשולחן העבודה
-it.CreateDesktopIcon=Crea icona sul &desktop
-nl.CreateDesktopIcon=Een &bureaubladpictogram maken
-
 de.AdditionalIcons=Zusהtzliche Symbole:
 en.AdditionalIcons=Additional Icons:
 es.AdditionalIcons=Iconos adicionales:
@@ -13,6 +5,14 @@ fr.AdditionalIcons=Icפnes supplיmentaires:
 he.AdditionalIcons=סמלים נוספים:
 it.AdditionalIcons=Icone aggiuntive:
 nl.AdditionalIcons=Extra pictogrammen:
+
+de.CreateDesktopIcon=&Desktop-Symbol erstellen
+en.CreateDesktopIcon=Create a &desktop icon
+es.CreateDesktopIcon=Crear un icono de &escritorio
+fr.CreateDesktopIcon=Crיer une icפne sur le &bureau
+he.CreateDesktopIcon=צור סמל בשולחן העבודה
+it.CreateDesktopIcon=Crea icona sul &desktop
+nl.CreateDesktopIcon=Een &bureaubladpictogram maken
 
 de.CreateQuickLaunchIcon=&Schnellstart-Symbol erstellen
 en.CreateQuickLaunchIcon=Create a &Quick Launch icon
@@ -22,14 +22,6 @@ he.CreateQuickLaunchIcon=צור ס&מל הפעלה מהירה
 it.CreateQuickLaunchIcon=Crea icona di &avvio rapido
 nl.CreateQuickLaunchIcon=Een &Snelstartpictogram maken
 
-de.LaunchSlimServerApplication=SlimServer-Anwendung starten
-en.LaunchSlimServerApplication=Launch SlimServer Application
-es.LaunchSlimServerApplication=Iniciar aplicaciףn SlimServer
-fr.LaunchSlimServerApplication=Lancer l'application SlimServer
-he.LaunchSlimServerApplication=הפעל את יישום SlimServer
-it.LaunchSlimServerApplication=Avvia SlimServer
-nl.LaunchSlimServerApplication=SlimServer-toepassing starten
-
 de.GettingStarted=Erste Schritte
 en.GettingStarted=Getting Started
 es.GettingStarted=Introducciףn
@@ -37,54 +29,6 @@ fr.GettingStarted=Guide de dיmarrage
 he.GettingStarted=את המסמך 'תחילת השימוש'
 it.GettingStarted=Guida introduttiva
 nl.GettingStarted=De beginselen
-
-de.SelectYourMusicFolder=Musikordner wהhlen
-en.SelectYourMusicFolder=Select your Music Folder
-es.SelectYourMusicFolder=Seleccione la carpeta de mתsica
-fr.SelectYourMusicFolder=Sיlectionnez le dossier de musique
-he.SelectYourMusicFolder=בחירת ספריית המוסיקה שלך
-it.SelectYourMusicFolder=Seleziona la cartella Musica
-nl.SelectYourMusicFolder=Je muziekmap selecteren
-
-de.WhereLookMusic=Wo soll SlimServer nach Musik suchen?
-en.WhereLookMusic=Where should the SlimServer look for your music?
-es.WhereLookMusic=¿Dףnde debe buscar mתsica SlimServer?
-fr.WhereLookMusic=Spיcifiez l'emplacement de vos fichiers musicaux.
-he.WhereLookMusic=היכן על SlimServer לחפש את פריטי המוסיקה שלך?
-it.WhereLookMusic=Percorso in cui SlimServer cerca i file musicali.
-nl.WhereLookMusic=Waar moet SlimServer naar je muziek zoeken?
-
-de.SelectMusicNext=Wהhlen Sie den Ordner, in dem SlimServer nach Musik suchen soll, und klicken Sie auf Weiter.
-en.SelectMusicNext=Select the folder you would like the SlimServer to look for your music, then click Next.
-es.SelectMusicNext=Seleccione la carpeta en la que desea que SlimServer busque mתsica y haga clic en Siguiente.
-fr.SelectMusicNext=Sיlectionnez le dossier dans lequel le SlimServer recherchera les fichiers musicaux, puis cliquez sur Suivant.
-he.SelectMusicNext=בחר את התיקייה שבה ברצונך ש-SlimServer יחפש את פריטי המוסיקה שלך ולאחר מכן לחץ על 'הבא'.
-it.SelectMusicNext=Selezionare la cartella in cui SlimServer cercherא i file musicali e fare clic su Avanti.
-nl.SelectMusicNext=Selecteer de map waarin SlimServer naar je muziek moet zoeken. Klik dan op 'Volgende'.
-
-de.SelectPlaylistFolder=Wiedergabelisten-Ordner wהhlen
-en.SelectPlaylistFolder=Select your Playlist Folder
-es.SelectPlaylistFolder=Seleccione la carpeta de listas de reproducciףn
-fr.SelectPlaylistFolder=Sיlectionnez le dossier des listes de lecture
-he.SelectPlaylistFolder=בחירת תיקיית רשימות ההשמעה שלך
-it.SelectPlaylistFolder=Seleziona la cartella degli elenchi di riproduzione
-nl.SelectPlaylistFolder=Je playlistmap selecteren
-
-de.WhereLookPlaylists=Wo soll SlimServer Wiedergabelisten suchen und speichern?
-en.WhereLookPlaylists=Where should the SlimServer look for and save your playlists?
-es.WhereLookPlaylists=¿Dףnde debe SlimServer buscar y almacenar las listas de reproducciףn?
-fr.WhereLookPlaylists=Spיcifiez l'emplacement de stockage des listes de lecture.
-he.WhereLookPlaylists=היכן על SlimServer לחפש ולאחסן רשימות השמעה?
-it.WhereLookPlaylists=Percorso in cui SlimServer cerca e memorizza gli elenchi di riproduzione.
-nl.WhereLookPlaylists=Waar moet SlimServer naar je playlists zoeken en deze opslaan?
-
-de.SelectPlaylistNext=Wהhlen Sie den Ordner, in dem SlimServer Wiedergabelisten suchen und speichern suchen soll, und klicken Sie auf Weiter.
-en.SelectPlaylistNext=Select the folder you would like the SlimServer to look for and store your playlists, then click Next.
-es.SelectPlaylistNext=Seleccione la carpeta en la que desea que SlimServer busque mתsica o almacene listas de reproducciףn y haga clic en Siguiente.
-fr.SelectPlaylistNext=Sיlectionnez le dossier dans lequel le SlimServer recherchera et stockera les listes de lecture, puis cliquez sur Suivant.
-he.SelectPlaylistNext=בחר את התיקייה שבה ברצונך ש-SlimServer יחפש ויאחסן רשימות השמעה ולאחר מכן לחץ על 'הבא'.
-it.SelectPlaylistNext=Selezionare la cartella in cui SlimServer cercherא o memorizzerא gli elenchi di riproduzione e fare clic su Avanti.
-nl.SelectPlaylistNext=Selecteer de map waarin SlimServer naar je playlists moet zoeken en deze moet opslaan. Klik dan op 'Volgende'.
 
 de.ProblemUninstallingSLIMP3=Problem bei Deinstallation von SLIMP3-Software:
 en.ProblemUninstallingSLIMP3=Problem uninstalling SLIMP3 software: 
@@ -94,7 +38,7 @@ he.ProblemUninstallingSLIMP3=בעיה בהסרת ההתקנה של תוכנת SLIMP3:
 it.ProblemUninstallingSLIMP3=Problema durante la disinstallazione del software SLIMP3:
 nl.ProblemUninstallingSLIMP3=Probleem tijdens verwijderen van SLIMP3-software:
 
-; don't use localized file names as long as we don't have 
+; don't use localized file names as long as we don't have them
 ;de.License=Lizenz
 en.License=License
 ;es.License=Licencia
@@ -110,14 +54,6 @@ fr.SlimDevicesWebSite=Site Web Slim Devices/Logitech
 he.SlimDevicesWebSite=אתר האינטרנט של Slim Devices/Logitech
 it.SlimDevicesWebSite=Sito Web Slim Devices/Logitech
 nl.SlimDevicesWebSite=Slim Devices/Logitech-website
-
-de.SlimServerWebInterface=SlimServer-Web-Benutzeroberflהche
-en.SlimDevicesWebSite=Slim Devices/Logitech Web Site
-es.SlimServerWebInterface=Interfaz Web de SlimServer
-fr.SlimServerWebInterface=Interface Web SlimServer
-he.SlimDevicesWebSite=אתר האינטרנט של Slim Devices/Logitech
-it.SlimServerWebInterface=Interfaccia Web SlimServer
-nl.SlimServerWebInterface=SlimServer-webinterface
 
 de.SlimServerWebInterface=SlimServer-Web-Benutzeroberflהche
 en.SlimServerWebInterface=SlimServer Web Interface
