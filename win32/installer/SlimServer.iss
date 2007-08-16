@@ -270,6 +270,35 @@ begin
 			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'Live365.pm');
 			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'iTunes.pm');
 
+			// Remove 6.5.x style plugins when updating
+			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'CLI.pm');
+			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'Rescan.pm');
+			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'RPC.pm');
+			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'RssNews.pm');
+			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'SavePlaylist.pm');
+			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'SlimTris.pm');
+			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'Snow.pm');
+			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'Visualizer.pm');
+			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'xPL.pm');
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('DateTime'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('DigitalInput'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Health'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('iTunes'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Live365'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('LMA'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('MoodLogic'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('MusicMagic'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Picks'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Podcast'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('PreventStandby'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('RadioIO'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('RadioTime'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('RandomPlay'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Rhapsody'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('RS232'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('ShoutcastBrowser'), true, true, true);
+			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('TT'), true, true, true);
+
 			// Remove other defunct pieces
 			DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'SlimServer.exe');
 			DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'psapi.dll');
