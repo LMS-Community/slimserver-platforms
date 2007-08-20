@@ -1,27 +1,3 @@
-en.AdditionalIcons=Additional Icons:
-de.AdditionalIcons=Zusätzliche Symbole:
-es.AdditionalIcons=Iconos adicionales:
-fr.AdditionalIcons=Icônes supplémentaires:
-he.AdditionalIcons=ñîìéí ğåñôéí:
-it.AdditionalIcons=Icone aggiuntive:
-nl.AdditionalIcons=Extra pictogrammen:
-
-en.CreateDesktopIcon=Create a &desktop icon
-de.CreateDesktopIcon=&Desktop-Symbol erstellen
-es.CreateDesktopIcon=Crear un icono de &escritorio
-fr.CreateDesktopIcon=Créer une icône sur le &bureau
-he.CreateDesktopIcon=öåø ñîì áùåìçï äòáåãä
-it.CreateDesktopIcon=Crea icona sul &desktop
-nl.CreateDesktopIcon=Een &bureaubladpictogram maken
-
-en.CreateQuickLaunchIcon=Create a &Quick Launch icon
-de.CreateQuickLaunchIcon=&Schnellstart-Symbol erstellen
-es.CreateQuickLaunchIcon=Crear un icono de &Inicio rápido
-fr.CreateQuickLaunchIcon=Créer une icône de &lancement rapide
-he.CreateQuickLaunchIcon=öåø ñ&îì äôòìä îäéøä
-it.CreateQuickLaunchIcon=Crea icona di &avvio rapido
-nl.CreateQuickLaunchIcon=Een &Snelstartpictogram maken
-
 en.GettingStarted=Getting Started
 de.GettingStarted=Erste SchritteXXX
 es.GettingStarted=Introducción
