@@ -268,7 +268,7 @@ ErrorCopying=当复制文件时发生错误：
 ErrorReplacingExistingFile=当覆盖已存在文件时发生错误：
 ErrorRestartReplace=覆盖失败：
 ErrorRenamingTemp=当试图给目的目录中文件改名时失败：
-ErrorRegisterServerMissingExport=DllRegisterServer支持未发现
+ErrorRegisterServer=无法注册 DLL/OCX： %1
 ErrorRegisterTypeLib=无法注册类型：%1
 ErrorRegSvr32Failed=RegSvr32运行失败; 错误码 %1
 
