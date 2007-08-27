@@ -1,5 +1,5 @@
 en.GettingStarted=Getting Started
-de.GettingStarted=Erste SchritteXXX
+de.GettingStarted=Erste Schritte
 es.GettingStarted=Introducción
 fr.GettingStarted=Guide de démarrage
 he.GettingStarted=àú äîñîê 'úçéìú äùéîåù'
