@@ -40,6 +40,10 @@ do
 
   "$@" > /dev/null 2>&1 &
   SLIMPID=$!
+  
+  # wait for SlimServer to get started before wait()
+  sleep 5
+  
   wait $SLIMPID
   echo `date "+%F %H:%M:%S"` "Slimserver died. Restarting." >> /var/log/slimserver/server.log
 
