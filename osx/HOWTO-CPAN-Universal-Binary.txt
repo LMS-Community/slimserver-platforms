@@ -1,0 +1,16 @@
+How to build universal binary XS CPAN modules:
+
+1. Extract module
+2. Create a new file: hints/darwin.pl:
+
+#!/usr/bin/perl
+
+$arch = "-arch i386 -arch ppc";
+print "Adding $archn";
+
+$self->{CCFLAGS} = "$arch $Config{ccflags}";
+$self->{LDFLAGS} = "$arch $Config{ldflags}";
+$self->{LDDLFLAGS} = "$arch $Config{lddlflags}";
+
+3. perl Makefile.PL; make; make test
+4. The module's bundle file is now a universal binary.
