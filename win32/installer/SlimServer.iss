@@ -97,6 +97,7 @@ Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwi
 
 [Dirs]
 Name: {%ALLUSERSPROFILE}\SlimServer; Permissions: users-modify; MinVersion: 0,6.0
+Name: {app}\server\Plugins; Permissions: users-modify
 
 [INI]
 Filename: {app}\{cm:SlimDevicesWebSite}.url; Section: InternetShortcut; Key: URL; String: http://www.slimdevices.com; Flags: uninsdeletesection
