@@ -1,6 +1,6 @@
 //
 //  Slim_ServerPref.h
-//  SlimServer
+//  SqueezeCenter
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
 //  Copyright (c) 2002-2005 Logitech. All rights reserved.

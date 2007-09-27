@@ -1,5 +1,5 @@
 ;
-; InnoSetup Script for SlimServer
+; InnoSetup Script for SqueezeCenter
 ;
 ; Slim Devices/Logitech : http://www.slimdevices.com
 ;
@@ -23,7 +23,7 @@ Name: es; MessagesFile: "Spanish.isl"
 Name: fr; MessagesFile: "French.isl"
 Name: it; MessagesFile: "Italian.isl"
 Name: he; MessagesFile: "Hebrew.isl"
-; the following languages though not officially supported, are available in SlimServer
+; the following languages though not officially supported, are available in SqueezeCenter
 Name: cs; MessagesFile: "Czech.isl"
 Name: da; MessagesFile: "Danish.isl"
 Name: fi; MessagesFile: "Finnish.isl"
@@ -38,14 +38,14 @@ Name: zh_cn; MessagesFile: "ChineseSimp.isl"
 #include "strings.iss"
 
 [Setup]
-AppName=SlimServer
-AppVerName=SlimServer 7.0a1
+AppName=SqueezeCenter
+AppVerName=SqueezeCenter 7.0a1
 AppPublisher=Logitech
 AppPublisherURL=http://www.slimdevices.com
 AppSupportURL=http://www.slimdevices.com
 AppUpdatesURL=http://www.slimdevices.com
 DefaultDirName={pf}\SlimServer
-DefaultGroupName=SlimServer
+DefaultGroupName=SqueezeCenter
 WizardImageFile=slim.bmp
 WizardImageBackColor=$ffffff
 OutputBaseFilename=SlimSetup
@@ -115,11 +115,11 @@ Name: {commonstartup}\{cm:SlimServerTrayTool}; Filename: {app}\SlimTray.exe; Wor
 
 [Registry]
 ;
-; The following keys open required SlimServer ports in the XP Firewall
+; The following keys open required SqueezeCenter ports in the XP Firewall
 ;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9000:TCP"; ValueData: "9000:TCP:*:Enabled:SlimServer 9000 tcp"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:SlimServer 3483 udp"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:SlimServer 3483 tcp"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9000:TCP"; ValueData: "9000:TCP:*:Enabled:SqueezeCenter 9000 tcp"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:SqueezeCenter 3483 udp"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:SqueezeCenter 3483 tcp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SOFTWARE\SlimDevices\SlimServer; ValueType: string; ValueName: Path; ValueData: {app}; MinVersion: 0,5.01
 
 [UninstallDelete]
@@ -312,7 +312,7 @@ begin
 
 		// Add firewall rules for Vista
 		if (GetWindowsVersion shr 24 >= 6) then
-			Exec('netsh', 'advfirewall firewall add rule name="SlimServer" description="Allow SlimServer to accept inbound connections." dir=in action=allow program="' + ExpandConstant('{app}') + '\server\slim.exe' + '"', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+			Exec('netsh', 'advfirewall firewall add rule name="SqueezeCenter" description="Allow SqueezeCenter to accept inbound connections." dir=in action=allow program="' + ExpandConstant('{app}') + '\server\slim.exe' + '"', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
 		PrefsFile := GetPrefsFile();
 	

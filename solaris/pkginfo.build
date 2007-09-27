@@ -1,6 +1,6 @@
 PKG=SLIMSERVER
 NAME=SLIMSERVER Server _VERSION_
-DESC=This is the SlimServer server software.
+DESC=This is the SqueezeCenter server software.
 ARCH=_ARCH_
 VERSION=_VERSION_
 CATEGORY=application

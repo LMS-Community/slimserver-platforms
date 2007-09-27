@@ -2,7 +2,7 @@
 "Update" = "Mettre à jour";
 "Install Results" = "Résultats de l'installation";
 "OK" = "OK";
-"SlimServer installed successfully.\n" = "L'installation du SlimServer est terminée.";
-"SlimServer install failed.\n" = "L'installation de SlimServer a échoué.";
-"You must have OS X 10.3 or later to run SlimServer.\n" = "Vous devez disposer du système OS X 10.3 ou version ultérieure pour exécuter le SlimServer.";
+"SqueezeCenter installed successfully.\n" = "L'installation du SqueezeCenter est terminée.";
+"SqueezeCenter install failed.\n" = "L'installation de SqueezeCenter a échoué.";
+"You must have OS X 10.3 or later to run SqueezeCenter.\n" = "Vous devez disposer du système OS X 10.3 ou version ultérieure pour exécuter le SqueezeCenter.";
 "Mac OS X 10.3 Required" = "Mac OS X 10.3 requis";

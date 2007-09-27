@@ -13,7 +13,7 @@ Version: _VERSION_
 Release: 1
 License: GPL
 Group: System Environment/Daemons
-Summary: This is the SlimServer server software
+Summary: This is the SqueezeCenter server software
 Source: _SOURCE_
 Source1: slimserver.init
 Source2: slimserver.config
@@ -25,7 +25,7 @@ Prefix: %{prefix}
 Obsoletes: SliMP3
 
 %description
-This is the SlimServer server software.
+This is the SqueezeCenter server software.
 Point your web browser to http://localhost:9000/ to configure the server.
 * Open-source server, written in Perl (GPL)
 * Optional HTTP interface - control the player and manage your playlists from a web browser!

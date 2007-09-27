@@ -9,7 +9,7 @@
   endscript
 
   postrotate
-    # Only starts slimserver if it is supposed to
+    # Only starts SqueezeCenter if it is supposed to
     # run in the current run-level
     invoke-rc.d slimserver start || true
   endscript
@@ -26,7 +26,7 @@
   endscript
 
   postrotate
-    # Only starts slimserver if it is supposed to
+    # Only starts SqueezeCenter if it is supposed to
     # run in the current run-level
     invoke-rc.d slimserver start || true
   endscript

@@ -1,6 +1,6 @@
 /* Localized versions of Info.plist keys */
 
-CFBundleName = "SlimServer Installer";
+CFBundleName = "SqueezeCenter Installer";
 CFBundleShortVersionString = "7.0a";
-CFBundleGetInfoString = "SlimServer Installer version 7.0a, Copyright 2003-2007 Logitech";
+CFBundleGetInfoString = "SqueezeCenter Installer version 7.0a, Copyright 2003-2007 Logitech";
 NSHumanReadableCopyright = "Copyright 2003-2007 Logitech, all rights reserved.";

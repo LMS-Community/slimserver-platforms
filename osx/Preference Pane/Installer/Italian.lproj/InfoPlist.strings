@@ -1,6 +1,6 @@
 /* Localized versions of Info.plist keys */
 
-CFBundleName = "Programma di installazione di SlimServer";
+CFBundleName = "Programma di installazione di SqueezeCenter";
 CFBundleShortVersionString = "7.0a";
-CFBundleGetInfoString = "Programma di installazione di SlimServer versione 7.0a. Copyright 2003-2007 Logitech";
+CFBundleGetInfoString = "Programma di installazione di SqueezeCenter versione 7.0a. Copyright 2003-2007 Logitech";
 NSHumanReadableCopyright = "Copyright 2003-2007 Logitech. Tutti i diritti riservati.";

@@ -7,7 +7,7 @@
 # This program relies on Win32::Daemon, which is not part of CPAN.
 # http://www.roth.net/perl/Daemon/
 #
-# The user can choose to run SlimServer as a service, or as an application.
+# The user can choose to run SqueezeCenter as a service, or as an application.
 # Running as an application will allow access to mapped network drives.
 #
 # The checkbox selection will be:
@@ -41,7 +41,7 @@ use Win32::Service;
 # run as a normal user.  Vista UAC means that we can only install windows services and start/stop them when running as admin.
 # To avoid user confusion we therefore disable all options which are not available when running as a normal user.
 #
-# prefs and the Slimserver url are stored in a different location on Vista to avoid Vista file virtualisation.
+# prefs and the SqueezeCenter url are stored in a different location on Vista to avoid Vista file virtualisation.
 
 my $vista          = ((Win32::GetOSName())[0] =~ /Vista/);  # running on Vista
 my $vistaUser      = $vista && !Win32::IsAdminUser();       # running on Vista as a user (not admin) - reduce menu options
@@ -75,7 +75,7 @@ my $prefFile       = File::Spec->catdir(writableDir(), 'prefs', 'server.prefs');
 my $language       = getPref('language') || 'EN';
 
 
-# Dynamically create the popup menu based on SlimServer state
+# Dynamically create the popup menu based on SqueezeCenter state
 sub PopupMenu {
 	my @menu = ();
 
@@ -86,15 +86,15 @@ sub PopupMenu {
 	# - toggling of startup type between login and none
 
 	if ($ssActive) {
-		push @menu, [sprintf('*%s', string('OPEN_SLIMSERVER')), \&openSlimServer];
+		push @menu, [sprintf('*%s', string('OPEN_SQUEEZECENTER')), \&openSlimServer];
 		push @menu, ["--------"];
-		push @menu, [string('STOP_SLIMSERVER'), \&stopSlimServerMySQL] if (!$vistaUser || $type =~ /none|login/);
+		push @menu, [string('STOP_SQUEEZECENTER'), \&stopSlimServerMySQL] if (!$vistaUser || $type =~ /none|login/);
 	}
 	elsif ($starting) {
-		push @menu, [string('STARTING_SLIMSERVER'), ""];
+		push @menu, [string('STARTING_SQUEEZECENTER'), ""];
 	}
 	else {
-		push @menu, [sprintf('*%s', string('START_SLIMSERVER')), \&startSlimServer] if (!$vistaUser || $type =~ /none|login/);
+		push @menu, [sprintf('*%s', string('START_SQUEEZECENTER')), \&startSlimServer] if (!$vistaUser || $type =~ /none|login/);
 	}
 
 	my $serviceString = string('RUN_AT_BOOT');
@@ -139,7 +139,7 @@ sub PopupMenu {
 }
 
 sub vistaHelp {
-	MessageBox(string('VISTA_RESTART_AS_ADMIN'), "SlimServer", MB_OK | MB_ICONINFORMATION);
+	MessageBox(string('VISTA_RESTART_AS_ADMIN'), "SqueezeCenter", MB_OK | MB_ICONINFORMATION);
 }
 
 # Called when the tray application is invoked again. This can handle
@@ -200,15 +200,15 @@ sub ToolTip {
 	my $lang = ($language eq 'HE' && Win32::Locale::get_language() ne 'he' ? 'EN' : $language);
 
  	if ($starting) {
-		$state = string('SLIMSERVER_STARTING', $lang);
+		$state = string('SQUEEZECENTER_STARTING', $lang);
  	}
  
  	elsif ($ssActive) {
-		$state = string('SLIMSERVER_RUNNING', $lang);
+		$state = string('SQUEEZECENTER_RUNNING', $lang);
  	}
     
  	else {
-		$state = string('SLIMSERVER_STOPPED', $lang);
+		$state = string('SQUEEZECENTER_STOPPED', $lang);
  	}
  
 	$state = encode($lang eq 'HE' ? 'cp1255' : 'cp1250', $state);
@@ -216,7 +216,7 @@ sub ToolTip {
 	return $state;
 }
 
-# The regular (heartbeat) timer that checks the state of SlimServer
+# The regular (heartbeat) timer that checks the state of SqueezeCenter
 # and modifies state variables.
 sub Timer {
 
@@ -233,8 +233,8 @@ sub Timer {
 		Execute($serverUrl);
 	}
 
-	# Check if user has requested to stop SlimServer And MySQL
-	# Only try to stop MySQL service when SlimServer has stopped.
+	# Check if user has requested to stop SqueezeCenter And MySQL
+	# Only try to stop MySQL service when SqueezeCenter has stopped.
 	if (!$ssActive && $stopMySQL) {
 
 		stopMySQLd();
@@ -399,7 +399,7 @@ sub startSlimServer {
 
 	if (!$ssActive) {
 
-		Balloon(string('STARTING_SLIMSERVER'), "SlimServer", "", 1);
+		Balloon(string('STARTING_SQUEEZECENTER'), "SlimServer", "", 1);
 		SetAnimation($timerSecs * 1000, 1000, "SlimServer", "SlimServerOff");
 
 		$starting = 1;
@@ -434,7 +434,7 @@ sub stopSlimServer {
 
 	if ($ssActive) {
 
-		Balloon(string('STOPPING_SLIMSERVER'), "SlimServer", "", 1);
+		Balloon(string('STOPPING_SQUEEZECENTER'), "SlimServer", "", 1);
 
 		$ssActive = 0;
 	}
@@ -483,7 +483,7 @@ sub stopMySQLd {
 # Called from menu when SS is active
 sub openSlimServer {
 
-	# Check HTTP first in case slimserver has changed the HTTP port while running
+	# Check HTTP first in case SqueezeCenter has changed the HTTP port while running
 	checkForHTTP ();	
 	Execute($serverUrl);
 }
@@ -497,7 +497,7 @@ sub stopSlimServerMySQL {
 sub showErrorMessage {
 	my $message = shift;
 
-	MessageBox($message, "SlimServer", MB_OK | MB_ICONERROR);
+	MessageBox($message, "SqueezeCenter", MB_OK | MB_ICONERROR);
 }
 
 sub startupTypeIsService {
@@ -513,7 +513,7 @@ sub startupTypeIsService {
 	return 0;
 }
 
-# Determine how the user wants to start SlimServer
+# Determine how the user wants to start SqueezeCenter
 sub startupType {
 
 	if ($atLogin) {
@@ -559,7 +559,7 @@ sub setStartupType {
 	}
 }
 
-# Return the SlimServer install directory.
+# Return the SqueezeCenter install directory.
 sub installDir {
 
 	# Try and find it in the registry.
@@ -582,7 +582,7 @@ sub installDir {
 	return $installDir;
 }
 
-# Return directory for files which Slimserver can save - i.e. location of prefs file
+# Return directory for files which SqueezeCenter can save - i.e. location of prefs file
 # This is the server dir unless we are running on Vista when it is %ALLUSERSPROFILE%\SlimServer
 sub writableDir {
 
@@ -671,8 +671,8 @@ sub installService {
 	Win32::Daemon::CreateService({
 		'machine'     => '',
 		'name'        => $serviceName,
-		'display'     => 'SlimServer',
-		'description' => "SlimServer Music Server",
+		'display'     => 'SqueezeCenter',
+		'description' => "SqueezeCenter Music Server",
 		'path'        => $appExe,
 		'start_type'  => $type,
 	});
@@ -724,7 +724,7 @@ sub mysqldID {
 	return $pid;
 }
 
-# update SlimServer Web Interface.url
+# update SqueezeCenter Web Interface.url
 #
 #  One parameter the new port number
 
@@ -823,22 +823,22 @@ SetTimer(":" . $timerSecs);
 
 __END__
 START_FAILED
-	DE	SlimServer konnte nicht gestartet werden. Weitere Informationen finden Sie in der Ereignisanzeige und vom Support
-	EN	SlimServer would not open. SlimServer may be starting or stopping. Please wait a minute and try again.
-	ES	Fallo al iniciar SlimServer. Consulte el Visor de sucesos y póngase en contacto con el servicio de asistencia
-	FR	Echec du démarrage du SlimServer. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
-	HE	כשל בהפעלת SlimServer. עיין במציג האירועים ופנה למרכז התמיכה.
-	IT	Avvio di SlimServer non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
-	NL	SlimServer kan niet gestart worden. Zie de logboeken en neem contact op met ondersteuning
+	DE	SqueezeCenter konnte nicht gestartet werden. Weitere Informationen finden Sie in der Ereignisanzeige und vom Support
+	EN	SqueezeCenter would not open. SqueezeCenter may be starting or stopping. Please wait a minute and try again.
+	ES	Fallo al iniciar SqueezeCenter. Consulte el Visor de sucesos y póngase en contacto con el servicio de asistencia
+	FR	Echec du démarrage du SqueezeCenter. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
+	HE	כשל בהפעלת SqueezeCenter. עיין במציג האירועים ופנה למרכז התמיכה.
+	IT	Avvio di SqueezeCenter non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
+	NL	SqueezeCenter kan niet gestart worden. Zie de logboeken en neem contact op met ondersteuning
 
 STOP_FAILED
-	DE	SlimServer konnte nicht angehalten werden. Weitere Informationen finden Sie in der Ereignisanzeige und vom Support
-	EN	Stopping SlimServer Failed. Please see the Event Viewer & Contact Support
-	ES	Fallo al detener SlimServer. Consulte el Visor de sucesos y póngase en contacto con el servicio de asistencia
-	FR	Echec de l'arrêt du SlimServer. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
-	HE	כשל בעצירת SlimServer. עיין במציג האירועים ופנה למרכז התמיכה.
-	IT	Arresto di SlimServer non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
-	NL	SlimServer kan niet gestopt worden. Zie de logboeken en neem contact op met ondersteuning
+	DE	SqueezeCenter konnte nicht angehalten werden. Weitere Informationen finden Sie in der Ereignisanzeige und vom Support
+	EN	Stopping SqueezeCenter Failed. Please see the Event Viewer & Contact Support
+	ES	Fallo al detener SqueezeCenter. Consulte el Visor de sucesos y póngase en contacto con el servicio de asistencia
+	FR	Echec de l'arrêt du SqueezeCenter. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
+	HE	כשל בעצירת SqueezeCenter. עיין במציג האירועים ופנה למרכז התמיכה.
+	IT	Arresto di SqueezeCenter non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
+	NL	SqueezeCenter kan niet gestopt worden. Zie de logboeken en neem contact op met ondersteuning
 
 RUN_AT_BOOT
 	DE	Automatisch bei Systemstart ausführen
@@ -858,77 +858,77 @@ RUN_AT_LOGIN
 	IT	Esegui automaticamente all'accesso al sistema
 	NL	Automatisch uitvoeren bij aanmelden
 
-OPEN_SLIMSERVER
-	DE	SlimServer öffnen
-	EN	Open SlimServer
-	ES	Abrir SlimServer
-	FR	Ouvrir le SlimServer
-	HE	פתח את SlimServer
-	IT	Apri SlimServer
-	NL	SlimServer openen
+OPEN_SQUEEZECENTER
+	DE	SqueezeCenter öffnen
+	EN	Open SqueezeCenter
+	ES	Abrir SqueezeCenter
+	FR	Ouvrir le SqueezeCenter
+	HE	פתח את SqueezeCenter
+	IT	Apri SqueezeCenter
+	NL	SqueezeCenter openen
 
-START_SLIMSERVER
-	DE	SlimServer starten
-	EN	Start SlimServer
-	ES	Iniciar SlimServer
-	FR	Démarrer le SlimServer
-	HE	הפעל את SlimServer
-	IT	Avvia SlimServer
-	NL	SlimServer starten
+START_SQUEEZECENTER
+	DE	SqueezeCenter starten
+	EN	Start SqueezeCenter
+	ES	Iniciar SqueezeCenter
+	FR	Démarrer le SqueezeCenter
+	HE	הפעל את SqueezeCenter
+	IT	Avvia SqueezeCenter
+	NL	SqueezeCenter starten
 
-STARTING_SLIMSERVER
-	DE	SlimServer wird gestartet...
-	EN	Starting SlimServer...
-	ES	Iniciando SlimServer...
-	FR	Démarrage du SlimServer
-	HE	מפעיל את SlimServer...
-	IT	Avvio di SlimServer in corso...
-	NL	SlimServer wordt gestart...
+STARTING_SQUEEZECENTER
+	DE	SqueezeCenter wird gestartet...
+	EN	Starting SqueezeCenter...
+	ES	Iniciando SqueezeCenter...
+	FR	Démarrage du SqueezeCenter
+	HE	מפעיל את SqueezeCenter...
+	IT	Avvio di SqueezeCenter in corso...
+	NL	SqueezeCenter wordt gestart...
 
-STOPPING_SLIMSERVER
-	DE	SlimServer wird angehalten...
-	EN	Stopping SlimServer...
-	ES	Deteniendo SlimServer...
-	FR	Arrêt du SlimServer…
-	HE	עוצר את SlimServer...
-	IT	Arresto di SlimServer in corso...
-	NL	SlimServer wordt gestopt...
+STOPPING_SQUEEZECENTER
+	DE	SqueezeCenter wird angehalten...
+	EN	Stopping SqueezeCenter...
+	ES	Deteniendo SqueezeCenter...
+	FR	Arrêt du SqueezeCenter…
+	HE	עוצר את SqueezeCenter...
+	IT	Arresto di SqueezeCenter in corso...
+	NL	SqueezeCenter wordt gestopt...
 
-STOP_SLIMSERVER
-	DE	SlimServer anhalten
-	EN	Stop SlimServer
-	ES	Detener SlimServer
-	FR	Arrêter le SlimServer
-	HE	עצור את SlimServer
-	IT	Arresta SlimServer
-	NL	SlimServer stoppen
+STOP_SQUEEZECENTER
+	DE	SqueezeCenter anhalten
+	EN	Stop SqueezeCenter
+	ES	Detener SqueezeCenter
+	FR	Arrêter le SqueezeCenter
+	HE	עצור את SqueezeCenter
+	IT	Arresta SqueezeCenter
+	NL	SqueezeCenter stoppen
 
-SLIMSERVER_STARTING
-	DE	SlimServer wird gestartet
-	EN	SlimServer Starting
-	ES	SlimServer en inicio
-	FR	Démarrage du SlimServer
-	HE	‏SlimServer מופעל
-	IT	Avvio di SlimServer in corso
-	NL	SlimServer wordt gestart
+SQUEEZECENTER_STARTING
+	DE	SqueezeCenter wird gestartet
+	EN	SqueezeCenter Starting
+	ES	SqueezeCenter en inicio
+	FR	Démarrage du SqueezeCenter
+	HE	‏SqueezeCenter מופעל
+	IT	Avvio di SqueezeCenter in corso
+	NL	SqueezeCenter wordt gestart
 
-SLIMSERVER_RUNNING
-	DE	SlimServer wird ausgeführt
-	EN	SlimServer Running
-	ES	SlimServer en ejecución
-	FR	SlimServer en cours d'exécution
-	HE	‏SlimServer פועל
-	IT	SlimServer è in esecuzione
-	NL	SlimServer is actief
+SQUEEZECENTER_RUNNING
+	DE	SqueezeCenter wird ausgeführt
+	EN	SqueezeCenter Running
+	ES	SqueezeCenter en ejecución
+	FR	SqueezeCenter en cours d'exécution
+	HE	‏SqueezeCenter פועל
+	IT	SqueezeCenter è in esecuzione
+	NL	SqueezeCenter is actief
 
-SLIMSERVER_STOPPED
-	DE	SlimServer angehalten
-	EN	SlimServer Stopped
-	ES	SlimServer detenido
-	FR	SlimServer arrêté
-	HE	‏SlimServer נעצר
-	IT	SlimServer è stato arrestato
-	NL	SlimServer is gestopt
+SQUEEZECENTER_STOPPED
+	DE	SqueezeCenter angehalten
+	EN	SqueezeCenter Stopped
+	ES	SqueezeCenter detenido
+	FR	SqueezeCenter arrêté
+	HE	‏SqueezeCenter נעצר
+	IT	SqueezeCenter è stato arrestato
+	NL	SqueezeCenter is gestopt
 
 GO_TO_WEBSITE
 	DE	Logitech Website öffnen
@@ -973,10 +973,10 @@ ADDITIONAL_OPTIONS
 	NL	Extra opties
 
 VISTA_RESTART_AS_ADMIN
-	DE	Wenn Sie SlimServer unter Windows Vista als Administrator ausführen, stehen Ihnen weitere Startoptionen zur Verfügung. Schließen Sie dazu die Anwendung, wählen Sie im Startmenü 'Alle Programme' und 'SlimServer', klicken Sie mit der rechten Maustaste auf 'SlimServer' und wählen Sie 'Als Administrator ausführen'.
-	EN	On Windows Vista, running SlimServer as an administrator gives access to additional startup options. To run as an administrator, close this program, navigate to 'All Programs', 'SlimServer', 'SlimServer' from the start menu, right click and select 'Run as administrator'.
-	ES	En Windows Vista, ejecutar SlimServer como administrador da acceso a opciones de inicio adicionales. Para ejecutar como administrador, cierre este programa, vaya al menú inicio, 'Todos los programas', 'SlimServer'. Haga clic con el botón derecho del ratón en 'SlimServer' y seleccione 'Ejecutar como administrador'.
-	HE	ב-Windows Vista, הפעלת SlimServer כמנהל מערכת מאפשרת גישה לאפשרויות הפעלה נוספות. להפעלה כמנהל מערכת, סגור את התוכנית, נווט אל All Programs (כל התוכניות), SlimServer‏, SlimServer מתפריט Start (התחל), לחץ לחיצה ימנית ובחר את האפשרות Run as administrator (הפעל כמנהל).
-	IT	In Windows Vista, se si esegue SlimServer con privilegi di amministratore è possibile accedere a opzioni di avvio aggiuntive. Per eseguirlo con privilegi di amministratore, chiudere questo programma, selezionare Tutti i programmi, SlimServer, SlimServer dal menu Start, fare clic col pulsante destro del mouse e selezionare Esegui come amministratore.
-	NL	Wanneer je SlimServer op Windows Vista met beheerdersrechten uitvoert, heb je toegang tot extra opstartopties. Sluit hiervoor dit programma en ga via het Start-menu naar 'Alle programma's', 'SlimServer', 'SlimServer'. Rechtsklik vervolgens op 'Als beheerder uitvoeren'.
+	DE	Wenn Sie SqueezeCenter unter Windows Vista als Administrator ausführen, stehen Ihnen weitere Startoptionen zur Verfügung. Schließen Sie dazu die Anwendung, wählen Sie im Startmenü 'Alle Programme' und 'SqueezeCenter', klicken Sie mit der rechten Maustaste auf 'SqueezeCenter' und wählen Sie 'Als Administrator ausführen'.
+	EN	On Windows Vista, running SqueezeCenter as an administrator gives access to additional startup options. To run as an administrator, close this program, navigate to 'All Programs', 'SqueezeCenter', 'SqueezeCenter' from the start menu, right click and select 'Run as administrator'.
+	ES	En Windows Vista, ejecutar SqueezeCenter como administrador da acceso a opciones de inicio adicionales. Para ejecutar como administrador, cierre este programa, vaya al menú inicio, 'Todos los programas', 'SqueezeCenter'. Haga clic con el botón derecho del ratón en 'SqueezeCenter' y seleccione 'Ejecutar como administrador'.
+	HE	ב-Windows Vista, הפעלת SqueezeCenter כמנהל מערכת מאפשרת גישה לאפשרויות הפעלה נוספות. להפעלה כמנהל מערכת, סגור את התוכנית, נווט אל All Programs (כל התוכניות), SqueezeCenter‏, SqueezeCenter מתפריט Start (התחל), לחץ לחיצה ימנית ובחר את האפשרות Run as administrator (הפעל כמנהל).
+	IT	In Windows Vista, se si esegue SqueezeCenter con privilegi di amministratore è possibile accedere a opzioni di avvio aggiuntive. Per eseguirlo con privilegi di amministratore, chiudere questo programma, selezionare Tutti i programmi, SqueezeCenter, SqueezeCenter dal menu Start, fare clic col pulsante destro del mouse e selezionare Esegui come amministratore.
+	NL	Wanneer je SqueezeCenter op Windows Vista met beheerdersrechten uitvoert, heb je toegang tot extra opstartopties. Sluit hiervoor dit programma en ga via het Start-menu naar 'Alle programma's', 'SqueezeCenter', 'SqueezeCenter'. Rechtsklik vervolgens op 'Als beheerder uitvoeren'.
 

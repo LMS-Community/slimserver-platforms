@@ -1,6 +1,6 @@
 //
 //  Slim Installer.h
-//  SlimServer
+//  SqueezeCenter
 //
 //  Created by Dave Nanian on Fri Jan 03 2003.
 //  Copyright (c) 2003-2005 Logitech. All rights reserved.

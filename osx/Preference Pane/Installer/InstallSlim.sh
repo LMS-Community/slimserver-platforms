@@ -3,7 +3,7 @@
 SERVER_RUNNING=`ps -ax | grep "slimserver\.pl\|slimserver" | grep -v grep | cat`
 
 if [ z"$SERVER_RUNNING" != z ] ; then
-    echo "Please stop the SlimServer before running the installer."
+    echo "Please stop the SqueezeCenter before running the installer."
     exit 1
 fi
 
@@ -40,9 +40,9 @@ fi
 ditto "$1" "$2"
 
 if [ -e "$2" ] ; then
-    echo "SlimServer installed successfully."
+    echo "SqueezeCenter installed successfully."
     exit 0
 else
-    echo "SlimServer install failed."
+    echo "SqueezeCenter install failed."
     exit 1
 fi

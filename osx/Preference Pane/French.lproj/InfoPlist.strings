@@ -1,7 +1,7 @@
 /* Localized versions of Info.plist keys */
 
-CFBundleName = "SlimServer";
+CFBundleName = "SqueezeCenter";
 CFBundleShortVersionString = "7.0a";
-CFBundleGetInfoString = "SlimServer version 7.0a, Copyright 2002-2007 Logitech";
+CFBundleGetInfoString = "SqueezeCenter version 7.0a, Copyright 2002-2007 Logitech";
 NSHumanReadableCopyright = "Copyright 2002-2007 Logitech, tous droits réservés.";
-NSPrefPaneIconLabel = "SlimServer";
+NSPrefPaneIconLabel = "SqueezeCenter";

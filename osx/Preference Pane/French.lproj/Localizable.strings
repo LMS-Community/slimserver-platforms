@@ -1,7 +1,7 @@
 "Start Server" = "Démarrer";
 "Stop Server" = "Arrêter";
-"Start Server Description" = "Cliquez sur ce bouton pour démarrer le SlimServer. Une fois le serveur démarré, les platines pourront accéder à votre collection musicale.";
-"Stop Server Description" = "Cliquez sur ce bouton pour arrêter le SlimServer. Une fois le serveur arrêté, les platines ne pourront pas accéder à votre collection musicale.";
+"Start Server Description" = "Cliquez sur ce bouton pour démarrer le SqueezeCenter. Une fois le serveur démarré, les platines pourront accéder à votre collection musicale.";
+"Stop Server Description" = "Cliquez sur ce bouton pour arrêter le SqueezeCenter. Une fois le serveur arrêté, les platines ne pourront pas accéder à votre collection musicale.";
 "Authorization Launch Error" = "Impossible de mettre à jour le micrologiciel: fichier Update Firmware.sh manquant.";
 "Expired Authorization Error" = "Impossible de mettre à jour le micrologiciel: l'autorisation a expiré.";
 "Firmware version" = "Version %@ du micrologiciel.";

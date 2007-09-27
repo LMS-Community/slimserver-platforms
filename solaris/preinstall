@@ -15,7 +15,7 @@
 #done
 # 
 #if [ -d /opt/slimserver ]; then
-#	echo "Removing existing SlimServer installation"
+#	echo "Removing existing SqueezeCenter installation"
 #	rm -rf /opt/slimserver
 #fi
 #if [ -f /etc/init/slimserver ]; then

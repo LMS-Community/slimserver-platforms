@@ -4,20 +4,20 @@
 
 if [ $# = 0 ]
 then
-  echo "Script to restart slimserver over and over again."
+  echo "Script to restart SqueezeCenter over and over again."
   echo "This has to be done since the mysql-server is sometimes"
   echo "restarted due to upgrades and log-rotation and this causes"
-  echo "slimserver to exit."
+  echo "SqueezeCenter to exit."
   echo
-  echo "To stop slimserver, kill this script instead of the"
-  echo "actual slimserver process."
+  echo "To stop SqueezeCenter, kill this script instead of the"
+  echo "actual SqueezeCenter process."
   echo
   echo "Usage: $0 <slimserver-binary> <slimserver-arguments>"
   exit 1
 fi
 
 function clean_up {
-  # Kill the slimserver daemon if it is running
+  # Kill the SqueezeCenter daemon if it is running
   kill $SLIMPID
   echo `date "+%F %H:%M:%S"` "slimserver_safe stopped." >> /var/log/slimserver/server.log
   exit
@@ -41,13 +41,13 @@ do
   "$@" > /dev/null 2>&1 &
   SLIMPID=$!
   
-  # wait for SlimServer to get started before wait()
+  # wait for SqueezeCenter to get started before wait()
   sleep 5
   
   wait $SLIMPID
-  echo `date "+%F %H:%M:%S"` "Slimserver died. Restarting." >> /var/log/slimserver/server.log
+  echo `date "+%F %H:%M:%S"` "SqueezeCenter died. Restarting." >> /var/log/slimserver/server.log
 
-  # Normally, when slimserver realizes that the mysql-connection is gone,
+  # Normally, when SqueezeCenter realizes that the mysql-connection is gone,
   # the mysql server has already been started again. So no need to sleep
   # here.
 

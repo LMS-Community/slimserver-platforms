@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-#  Create the StartupItem for the SlimServer. This script, when expanded, includes the current user's ID
+#  Create the StartupItem for the SqueezeCenter. This script, when expanded, includes the current user's ID
 # and home directory, as set, to ensure proper functioning of the server (which needs the right
 # user and home directory for its own process). We don't blithely assume /Users/$user because the
 # user's home directory could be on a network, and set differently in NetInfo.
@@ -13,15 +13,15 @@ mkdir -p -m go-w /Library/StartupItems/Slim
 
 cat >/Library/StartupItems/Slim/StartupParameters.plist << '!!'
 {
-    Description		= "SlimServer";
-    Provides		= ("SlimServer");
+    Description		= "SqueezeCenter";
+    Provides		= ("SqueezeCenter");
     Requires		= ("Disks");
     Uses		= ("mDNSResponder", "Resolver", "DirectoryServices", "NFS", "Network Time");
     OrderPreference	= "Late";
     Messages =
     {
-	start = "Starting SlimServer";
-	stop = "Stopping SlimServer";
+	start = "Starting SqueezeCenter";
+	stop = "Stopping SqueezeCenter";
     };
 }
 !!
@@ -38,7 +38,7 @@ export HOME
 export home
 
 StartService() {
-ConsoleMessage "Starting SlimServer"
+ConsoleMessage "Starting SqueezeCenter"
 if [ z"\$SERVER_RUNNING" = z ] ; then
     if [ -e "$HOME/Library/PreferencePanes/SlimServer.prefPane/Contents/server" ] ; then
 	pushd "$HOME/Library/PreferencePanes/SlimServer.prefPane/Contents/server"
@@ -55,7 +55,7 @@ fi
 
 StopService() {
 if [ z"\$SERVER_RUNNING" != z ] ; then
-    ConsoleMessage "Stopping SlimServer"
+    ConsoleMessage "Stopping SqueezeCenter"
     kill \`echo \$SERVER_RUNNING | sed -n 's/^[ ]*\([0-9]*\)[ ]*.*$/\1/p'\`
 fi
 }
@@ -87,10 +87,10 @@ cat >/Library/StartupItems/Slim/Resources/French.lproj/Localizable.strings << '!
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Starting SlimServer</key>
-	<string>Démarrage du SlimServer</string>
-	<key>Stopping SlimServer</key>
-	<string>Arrêt du SlimServer</string>
+	<key>Starting SqueezeCenter</key>
+	<string>Démarrage du SqueezeCenter</string>
+	<key>Stopping SqueezeCenter</key>
+	<string>Arrêt du SqueezeCenter</string>
 </dict>
 </plist>
 !!
@@ -103,10 +103,10 @@ cat >/Library/StartupItems/Slim/Resources/English.lproj/Localizable.strings << '
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Starting SlimServer</key>
-	<string>Starting SlimServer</string>
-	<key>Stopping SlimServer</key>
-	<string>Stopping SlimServer</string>
+	<key>Starting SqueezeCenter</key>
+	<string>Starting SqueezeCenter</string>
+	<key>Stopping SqueezeCenter</key>
+	<string>Stopping SqueezeCenter</string>
 </dict>
 </plist>
 !!
@@ -118,10 +118,10 @@ cat >/Library/StartupItems/Slim/Resources/English.lproj/Localizable.strings << '
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Starting SlimServer</key>
-	<string>Starting SlimServer</string>
-	<key>Stopping SlimServer</key>
-	<string>Stopping SlimServer</string>
+	<key>Starting SqueezeCenter</key>
+	<string>Starting SqueezeCenter</string>
+	<key>Stopping SqueezeCenter</key>
+	<string>Stopping SqueezeCenter</string>
 </dict>
 </plist>
 !!

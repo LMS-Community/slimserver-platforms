@@ -1,4 +1,4 @@
-# User to run slimserver as
+# User to run SqueezeCenter as
 SLIMUSER=slimserver
 
 SLIMOPTIONS=""

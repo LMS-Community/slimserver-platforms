@@ -1,6 +1,6 @@
 //
 //  SLIMP3 Firmware Updater.m
-//  SlimServer
+//  SqueezeCenter
 //
 //  Created by Dave Nanian on Sun Oct 26 2003.
 //  Copyright (c) 2003-2005 Logitech. All rights reserved.

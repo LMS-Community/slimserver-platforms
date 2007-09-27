@@ -29,7 +29,7 @@ SLIMSERVER_BIN="$SLIMSERVER_HOME/slimserver.pl"
 [ -x $SLIMSERVER_BIN ] && [ -f $SLIMSERVER_CFG ] || exit 5
 
 start() {
-	echo -n "Starting SlimServer: "
+	echo -n "Starting SqueezeCenter: "
 	daemon --user $SLIMSERVER_USER $SLIMSERVER_BIN $SLIMSERVER_ARGS
 	RETVAL=$?
 	echo
@@ -39,7 +39,7 @@ start() {
 }
 
 stop() {
-	echo -n "Shutting down SlimServer: "
+	echo -n "Shutting down SqueezeCenter: "
 	killproc $SLIMSERVER_BIN
 	RETVAL=$?
 	echo

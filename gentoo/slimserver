@@ -6,7 +6,7 @@
 # Copyright 2003, Roy M. Silvernail
 # Released under the GPL (http://www.gnu.org)
 #
-# This script expects slimserver to be installed in
+# This script expects SqueezeCenter to be installed in
 # /home/slimserver
 #
 # Note: if the server dies (right-button plugin bug,
@@ -23,18 +23,18 @@ pidfile=/var/run/slimserver.pid
 logdir=/var/log/slimserver
 
 start() {
-	ebegin "Starting Slimserver"
+	ebegin "Starting SqueezeCenter"
 	start-stop-daemon --start --quiet \
 		--exec /home/slimserver/slimserver.pl -- --daemon \
 		--prefsfile=/etc/slimserver.pref --pidfile=${pidfile} \
 		--logdir=${logdir} ${SLIMSERVER_OPTS}
-	eend $? "Failed to start Slimserver"
+	eend $? "Failed to start SqueezeCenter"
 }
 
 stop() {
-	ebegin "Stopping Slimserver"
+	ebegin "Stopping SqueezeCenter"
 	start-stop-daemon --stop --quiet --pidfile ${pidfile}
-	eend $? "Failed to stop Slimserver"
+	eend $? "Failed to stop SqueezeCenter"
 }
 
 

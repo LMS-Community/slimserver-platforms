@@ -53,7 +53,7 @@ install:
 	cp -r ${source}/*.conf ${base}/etc/slimserver/
 	cp -r $(CURDIR)/debian/slimserver.default ${base}/etc/default/slimserver
 
-	# Wrapper to keep SlimServer alive.
+	# Wrapper to keep SqueezeCenter alive.
 	cp -r $(CURDIR)/debian/slimserver_safe ${base}/usr/sbin/slimserver_safe
 
 	# Documentation

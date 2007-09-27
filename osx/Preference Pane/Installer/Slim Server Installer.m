@@ -1,6 +1,6 @@
 //
 //  Slim Installer.m
-//  SlimServer
+//  SqueezeCenter
 //
 //  Created by Dave Nanian on Fri Jan 03 2003.
 //  Copyright (c) 2003-2005 Logitech. All rights reserved.
@@ -19,7 +19,7 @@
 	if (vers < 0x00001030)
 	{
 		
-		NSRunAlertPanel(@"Mac OS X 10.3 Required", @"You must have OS X 10.3 or later to run SlimServer.", @"Quit", nil, nil);
+		NSRunAlertPanel(@"Mac OS X 10.3 Required", @"You must have OS X 10.3 or later to run SqueezeCenter.", @"Quit", nil, nil);
 		
 		[[NSApplication sharedApplication] terminate:nil];
 		return;

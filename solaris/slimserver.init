@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # slimserver       This shell script takes care of starting and stopping
-#                  the SlimServer streaming music server.
+#                  the SqueezeCenter streaming music server.
 #
 
 # Edit this to suit your setup
@@ -18,12 +18,12 @@ SLIMSERVER_BIN="$SLIMSERVER_HOME/slimserver.pl"
 
 case "$1" in
 start)
-	/usr/ucb/echo -n "Starting SlimServer: "
+	/usr/ucb/echo -n "Starting SqueezeCenter: "
 	/bin/su - $SLIMSERVER_USER -c "$SLIMSERVER_BIN $SLIMSERVER_ARGS"
 	echo "done."
         ;;
 stop)
-	/usr/ucb/echo -n "Shutting down SlimServer: "
+	/usr/ucb/echo -n "Shutting down SqueezeCenter: "
 	pkill `basename $SLIMSERVER_BIN`
 	echo "done."
         ;;

@@ -12,7 +12,7 @@
 set -e
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DESC="SlimServer Audio Server"
+DESC="SqueezeCenter Audio Server"
 NAME=slimserver
 DAEMON=/usr/sbin/$NAME
 DAEMON_SAFE=/usr/sbin/${NAME}_safe

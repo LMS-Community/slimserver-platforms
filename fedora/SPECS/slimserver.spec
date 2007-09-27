@@ -11,7 +11,7 @@
 %define include_firmware %{?_with_firmware:1}0
 
 Name:           slimserver
-Packager:       Slim Devices/Logitech <support@slimdevices.com>
+Packager:       SlimDevices/Logitech <support@slimdevices.com>
 Version:        %{version}
 # My guess is we'll want to set the 'dist' macro to differentiate the Fedora
 # RPM from the generic linux RPM, but that would seem to mean that somebody
@@ -19,7 +19,7 @@ Version:        %{version}
 # Slim website to support all the different machine architectures Fedora runs
 # on...
 Release:        1%{?dist}
-Summary:        This is the SlimServer server software
+Summary:        This is the SqueezeCenter server software
 Group:          System Environment/Daemons
 License:        GPL
 URL:            http://www.slimdevices.com/
@@ -114,7 +114,7 @@ Requires:       perl(XML::XSPF)
 # following URL: http://rt.cpan.org/Public/Bug/Display.html?id=20047.
 # Rather than entirely skip the unit-# testing, and take the chance that
 # slimserver might be broken from another bug in this sub-dependency,
-# we've built this RPM to omit that sub-dependency. Slimserver itself 
+# we've built this RPM to omit that sub-dependency. SqueezeCenter itself 
 # does not depend on perl(SQL::Translator), so it is not an issue from a
 # slimserver point of view, but from a systems package point of view, this
 # is suboptimal.
@@ -122,7 +122,7 @@ Requires:	slim-DBIx-Class
 Requires:       alac_decoder
 
 %description
-This is the SlimServer music server software.
+This is the SqueezeCenter music server software.
 Point your web browser to http://localhost:9000/ to configure the server.
 * Open-source server, written in Perl (GPL)
 * Optional HTTP interface - control the player and manage your playlists from 
