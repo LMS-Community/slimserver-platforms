@@ -101,17 +101,17 @@ Name: {app}\server\Plugins; Permissions: users-modify
 
 [INI]
 Filename: {app}\{cm:SlimDevicesWebSite}.url; Section: InternetShortcut; Key: URL; String: http://www.slimdevices.com; Flags: uninsdeletesection
-Filename: {app}\{cm:SlimServerWebInterface}.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000; Flags: uninsdeletesection
+Filename: {app}\{cm:SqueezeCenterWebInterface}.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000; Flags: uninsdeletesection
 
 [Icons]
 Name: {group}\SlimServer; Filename: {app}\SlimTray.exe; Parameters: "--start"; WorkingDir: "{app}";
 Name: {group}\{cm:SlimDevicesWebSite}; Filename: {app}\{cm:SlimDevicesWebSite}.url
 Name: {group}\{cm:License}; Filename: {app}\{cm:License}.txt
 Name: {group}\{cm:GettingStarted}; Filename: {app}\{cm:GettingStarted}.html
-Name: {group}\{cm:UninstallSlimServer}; Filename: {uninstallexe}
+Name: {group}\{cm:UninstallSqueezeCenter}; Filename: {uninstallexe}
 Name: {userdesktop}\SlimServer; Filename: {app}\SlimTray.exe; Parameters: "--start"; WorkingDir: "{app}"; Tasks: desktopicon
 Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\SlimServer; Filename: {app}\SlimTray.exe; Parameters: "--start"; WorkingDir: "{app}"; Tasks: quicklaunchicon
-Name: {commonstartup}\{cm:SlimServerTrayTool}; Filename: {app}\SlimTray.exe; WorkingDir: "{app}"
+Name: {commonstartup}\{cm:SqueezeCenterTrayTool}; Filename: {app}\SlimTray.exe; WorkingDir: "{app}"
 
 [Registry]
 ;
@@ -133,8 +133,8 @@ Type: filesandordirs; Name: {app}\server\Cache
 Type: filesandordirs; Name: {%ALLUSERSPROFILE}\SlimServer; MinVersion: 0,6.0
 Type: files; Name: {app}\server\slimserver.pref
 Type: files; Name: {app}\{cm:SlimDevicesWebSite}.url
-Type: files; Name: {app}\{cm:SlimServerWebInterface}.url
-Type: files; Name: {commonstartup}\{cm:SlimServerTrayTool}.url
+Type: files; Name: {app}\{cm:SqueezeCenterWebInterface}.url
+Type: files; Name: {commonstartup}\{cm:SqueezeCenterTrayTool}.url
 
 [UninstallRun]
 Filename: net; Parameters: stop slimsvc; Flags: runhidden; MinVersion: 0,4.00.1381
