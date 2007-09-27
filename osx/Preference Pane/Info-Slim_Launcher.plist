@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>Slim Launcher</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Slim Launcher - (c) 2002-2006 by Logitech. All rights reserved.</string>
+	<string>Slim Launcher - (c) 2002-2007 by Logitech. All rights reserved.</string>
 	<key>CFBundleIconFile</key>
 	<string>slimicon.icns</string>
 	<key>CFBundleIdentifier</key>

@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>SqueezeCenter</string>
 	<key>CFBundleGetInfoString</key>
-	<string>SqueezeCenter 7.0a, Copyright © 2002-2006 Logitech</string>
+	<string>SqueezeCenter 7.0a, Copyright © 2002-2007 Logitech</string>
 	<key>CFBundleIconFile</key>
 	<string>slimicon.icns</string>
 	<key>CFBundleIdentifier</key>
