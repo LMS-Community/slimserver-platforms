@@ -36,7 +36,7 @@
 
     while (currDirectory = [pathEnum nextObject])
     {
-	if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath:[currDirectory stringByAppendingPathComponent:@"PreferencePanes/SlimServer.prefPane"]])
+	if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath:[currDirectory stringByAppendingPathComponent:@"PreferencePanes/SqueezeCenter.prefPane"]])
 	{
 	    if ([currDirectory isEqual:@"/Library"])
 		foundSlimGlobal = true;
@@ -169,7 +169,7 @@
 
     int	doInstallType = [[installType selectedItem] tag];
 
-    NSString *fileToInstall = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"../Install Files/SlimServer.prefPane"];
+    NSString *fileToInstall = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"../Install Files/SqueezeCenter.prefPane"];
     NSString *installerScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"InstallSlim.sh"];
     NSString *fileInstalled = nil;
     NSMutableString *scriptOutput = [[NSMutableString alloc] init];
@@ -186,9 +186,9 @@
 	return;
     }
     if (doInstallType == kInstallGlobal)
-	fileInstalled = [[NSString stringWithString:@"/Library/PreferencePanes/SlimServer.prefPane"] retain];
+	fileInstalled = [[NSString stringWithString:@"/Library/PreferencePanes/SqueezeCenter.prefPane"] retain];
     else
-	fileInstalled = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/PreferencePanes/SlimServer.prefPane"] retain];
+	fileInstalled = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/PreferencePanes/SqueezeCenter.prefPane"] retain];
 
     if (doInstallType == kInstallGlobal || foundSlimGlobal)
     {

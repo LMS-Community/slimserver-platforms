@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SERVER_RUNNING=`ps -ax | grep "slimserver\.pl\|slimserver" | grep -v grep | cat`
+SERVER_RUNNING=`ps -ax | grep "slimserver\.pl\|slimserver|squeezecenter\.pl\|squeezecenter" | grep -v grep | cat`
 
 if [ z"$SERVER_RUNNING" != z ] ; then
     echo "Please stop the SqueezeCenter before running the installer."
@@ -27,6 +27,14 @@ fi
 
 if [ -e ~/Library/PreferencePanes/Slim\ Server.prefPane ] ; then
     rm -r ~/Library/PreferencePanes/Slim\ Server.prefPane 2>&1
+fi
+
+if [ -e /Library/PreferencePanes/SqueezeCenter.prefPane ] ; then
+    rm -r /Library/PreferencePanes/SqueezeCenter.prefPane 2>&1
+fi
+
+if [ -e ~/Library/PreferencePanes/SqueezeCenter.prefPane ] ; then
+    rm -r ~/Library/PreferencePanes/SqueezeCenter.prefPane 2>&1
 fi
 
 if [ -e /Library/PreferencePanes/SlimServer.prefPane ] ; then

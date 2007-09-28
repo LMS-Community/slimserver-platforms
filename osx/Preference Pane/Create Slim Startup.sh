@@ -31,7 +31,7 @@ cat >/Library/StartupItems/Slim/Slim << !!
 . /etc/rc.common
 
 SLIMUSER=$USER
-SERVER_RUNNING=\`ps -axww | grep "slimp3\.pl\|slimp3d\|slimserver\.pl\|slimserver" | grep -v grep | cat\`
+SERVER_RUNNING=\`ps -axww | grep "slimp3\.pl\|slimp3d\|slimserver\.pl\|slimserver|squeezecenter\.pl\|squeezecenter" | grep -v grep | cat\`
 HOME=$HOME
 home=$HOME
 export HOME
@@ -40,10 +40,10 @@ export home
 StartService() {
 ConsoleMessage "Starting SqueezeCenter"
 if [ z"\$SERVER_RUNNING" = z ] ; then
-    if [ -e "$HOME/Library/PreferencePanes/SlimServer.prefPane/Contents/server" ] ; then
-	pushd "$HOME/Library/PreferencePanes/SlimServer.prefPane/Contents/server"
+    if [ -e "$HOME/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server" ] ; then
+	pushd "$HOME/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server"
     else
-	pushd "/Library/PreferencePanes/SlimServer.prefPane/Contents/server"
+	pushd "/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server"
     fi
     sudo -u \$SLIMUSER "Slim Launcher.app/Contents/Resources/Start Slim Server.sh"
     popd
