@@ -1,6 +1,6 @@
 # $Id$
 # 
-# SlimTray.exe controls the starting & stopping of the slimsvc Windows Service.
+# SqueezeTray.exe controls the starting & stopping of the squeezesvc Windows Service.
 #
 # If the service is not installed, we'll install it first.
 #
@@ -36,7 +36,7 @@ use Win32::Service;
 
 # Vista only:
 #
-# When running on Vista SlimTray may be run as a normal user or as administrator depending on how it is started
+# When running on Vista SqueezeTray may be run as a normal user or as administrator depending on how it is started
 # With the default install it will run as admin the first time when launched from the installer, all subsequent times it will
 # run as a normal user.  Vista UAC means that we can only install windows services and start/stop them when running as admin.
 # To avoid user confusion we therefore disable all options which are not available when running as a normal user.
@@ -62,15 +62,15 @@ my $cliExit        = 0;
 my $cliInstall     = 0;
 my $cliUninstall   = 0;
 
-my $registryKey    = 'CUser/Software/SlimDevices/SlimServer';
-my $serviceName    = 'slimsvc';
-my $sqlServiceName = 'SlimServerMySQL';
+my $registryKey    = 'CUser/Software/Logitech/SqueezeCenter';
+my $serviceName    = 'squeezesvc';
+my $sqlServiceName = 'SqueezeMySQL';
 
 my $atBoot         = $Registry->{"$registryKey/StartAtBoot"};
 my $atLogin        = $Registry->{"$registryKey/StartAtLogin"};
 
-my $appExe         = File::Spec->catdir(installDir(), 'server', 'slim.exe');
-my $serverUrl      = File::Spec->catdir($vista ? writableDir() : installDir(), "SlimServer Web Interface.url");
+my $appExe         = File::Spec->catdir(installDir(), 'server', 'squeezecenter.exe');
+my $serverUrl      = File::Spec->catdir($vista ? writableDir() : installDir(), "SqueezeCenter Web Interface.url");
 my $prefFile       = File::Spec->catdir(writableDir(), 'prefs', 'server.prefs');
 my $language       = getPref('language') || 'EN';
 
@@ -86,15 +86,15 @@ sub PopupMenu {
 	# - toggling of startup type between login and none
 
 	if ($ssActive) {
-		push @menu, [sprintf('*%s', string('OPEN_SQUEEZECENTER')), \&openSlimServer];
+		push @menu, [sprintf('*%s', string('OPEN_SQUEEZECENTER')), \&openSqueezeCenter];
 		push @menu, ["--------"];
-		push @menu, [string('STOP_SQUEEZECENTER'), \&stopSlimServerMySQL] if (!$vistaUser || $type =~ /none|login/);
+		push @menu, [string('STOP_SQUEEZECENTER'), \&stopSqueezeCenterMySQL] if (!$vistaUser || $type =~ /none|login/);
 	}
 	elsif ($starting) {
 		push @menu, [string('STARTING_SQUEEZECENTER'), ""];
 	}
 	else {
-		push @menu, [sprintf('*%s', string('START_SQUEEZECENTER')), \&startSlimServer] if (!$vistaUser || $type =~ /none|login/);
+		push @menu, [sprintf('*%s', string('START_SQUEEZECENTER')), \&startSqueezeCenter] if (!$vistaUser || $type =~ /none|login/);
 	}
 
 	my $serviceString = string('RUN_AT_BOOT');
@@ -155,7 +155,7 @@ sub Singleton {
 
 			if (!$ssActive && !$starting) {
 
-				startSlimServer();
+				startSqueezeCenter();
 			}
 
 			if ($ssActive) {
@@ -184,7 +184,7 @@ sub DoubleClick {
 
 	if ($ssActive) {
 
-		openSlimServer();
+		openSqueezeCenter();
 
 	} else {
 
@@ -224,7 +224,7 @@ sub Timer {
 
 	if ($starting) {
 
-		SetAnimation($timerSecs * 1000, 1000, "SlimServer", "SlimServerOff");
+		SetAnimation($timerSecs * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
 
 	} elsif ($ssActive && $checkHTTP && checkForHTTP()) {
 
@@ -278,14 +278,14 @@ sub checkAndStart {
 		$atBoot  = ($serviceStart && oct($serviceStart) == 2) ? 1 : 0;
 		$atLogin = 0;
 
-		$cKey->{'SlimDevices/'} = {
-			'SlimServer/' => {
+		$cKey->{'Logitech/'} = {
+			'SqueezeCenter/' => {
 				'/StartAtBoot'  => $atBoot,
 				'/StartAtLogin' => $atLogin,
 			},
 		};
 
-		$lKey->{'SlimDevices/'} = { 'SlimServer/' => { '/Path' => installDir() } };
+		$lKey->{'Logitech/'} = { 'SqueezeCenter/' => { '/Path' => installDir() } };
 
 		checkSSActive();
 
@@ -300,7 +300,7 @@ sub checkAndStart {
 	# already running.
 	if (processID() == -1 && $startupType eq 'login') {
 
-		startSlimServer();
+		startSqueezeCenter();
 	}
 
 	# Now see if the service happens to be up already.
@@ -316,7 +316,7 @@ sub checkAndStart {
 
 		if (!$ssActive && !$starting) {
 
-			startSlimServer();
+			startSqueezeCenter();
 		}
 
 		if ($ssActive) {
@@ -367,18 +367,18 @@ sub checkSSActive {
 
 	if ($state eq 'running') {
 
-		SetIcon("SlimServer");
+		SetIcon("SqueezeCenter");
 		$ssActive = 1;
 		$starting = 0;
 
 	} else {
 
-		SetIcon("SlimServerOff");
+		SetIcon("SqueezeCenterOff");
 		$ssActive = 0;
 	}
 }
 
-sub startSlimServer {
+sub startSqueezeCenter {
 
 	if (startupTypeIsService()) {
 
@@ -399,14 +399,14 @@ sub startSlimServer {
 
 	if (!$ssActive) {
 
-		Balloon(string('STARTING_SQUEEZECENTER'), "SlimServer", "", 1);
-		SetAnimation($timerSecs * 1000, 1000, "SlimServer", "SlimServerOff");
+		Balloon(string('STARTING_SQUEEZECENTER'), "SqueezeCenter", "", 1);
+		SetAnimation($timerSecs * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
 
 		$starting = 1;
 	}
 }
 
-sub stopSlimServer {
+sub stopSqueezeCenter {
 	my $suppressMsg = shift;
 
 	if (startupTypeIsService()) {
@@ -434,7 +434,7 @@ sub stopSlimServer {
 
 	if ($ssActive) {
 
-		Balloon(string('STOPPING_SQUEEZECENTER'), "SlimServer", "", 1);
+		Balloon(string('STOPPING_SQUEEZECENTER'), "SqueezeCenter", "", 1);
 
 		$ssActive = 0;
 	}
@@ -481,16 +481,16 @@ sub stopMySQLd {
 }
 
 # Called from menu when SS is active
-sub openSlimServer {
+sub openSqueezeCenter {
 
 	# Check HTTP first in case SqueezeCenter has changed the HTTP port while running
 	checkForHTTP ();	
 	Execute($serverUrl);
 }
 
-sub stopSlimServerMySQL {
+sub stopSqueezeCenterMySQL {
 
-	stopSlimServer();
+	stopSqueezeCenter();
 	$stopMySQL = 1;
 }
 
@@ -564,14 +564,14 @@ sub installDir {
 
 	# Try and find it in the registry.
 	# This is a system-wide registry key.
-	my $swKey = $Registry->{"LMachine/Software/SlimDevices/SlimServer/Path"};
+	my $swKey = $Registry->{"LMachine/Software/Logitech/SqueezeCenter/Path"};
 
 	if (defined $swKey) {
 		return $swKey;
 	}
 
 	# Otherwise look in the standard location.
-	my $installDir = File::Spec->catdir('C:\Program Files', 'SlimServer');
+	my $installDir = File::Spec->catdir('C:\Program Files', 'SqueezeCenter');
 
 	# If it's not there, use the current working directory.
 	if (!-d $installDir) {
@@ -583,11 +583,11 @@ sub installDir {
 }
 
 # Return directory for files which SqueezeCenter can save - i.e. location of prefs file
-# This is the server dir unless we are running on Vista when it is %ALLUSERSPROFILE%\SlimServer
+# This is the server dir unless we are running on Vista when it is %ALLUSERSPROFILE%\SqueezeCenter
 sub writableDir {
 
 	if ($vista) {
-		return File::Spec->catdir($ENV{'ALLUSERSPROFILE'}, 'SlimServer');
+		return File::Spec->catdir($ENV{'ALLUSERSPROFILE'}, 'SqueezeCenter');
 	}
 
 	return File::Spec->catdir(installDir(), 'server');
@@ -622,7 +622,7 @@ sub checkForHTTP {
 
 	if ($lastHTTPPort ne $httpPort) {
 
-		updateSlimServerWebInterface($httpPort);
+		updateSqueezeCenterWebInterface($httpPort);
 		$lastHTTPPort = $httpPort
 	}
 
@@ -702,7 +702,7 @@ sub processID {
 		showErrorMessage("ProcessID: an error occured: " . $p->GetErrorText . " ");
 	}
 
-	my $pid = ($p->GetProcessPid(qr/^slim\.exe$/))[1];
+	my $pid = ($p->GetProcessPid(qr/^squeezecenter\.exe$/))[1];
 
 	return $pid if defined $pid;
 	return -1;
@@ -710,7 +710,7 @@ sub processID {
 
 sub mysqldID {
 
-	my $pidFile  = File::Spec->catdir(writableDir(), 'Cache', 'slimserver-mysql.pid');
+	my $pidFile  = File::Spec->catdir(writableDir(), 'Cache', 'squeezecenter-mysql.pid');
 	my $pid = undef;
 
 	if (-r $pidFile) {
@@ -728,7 +728,7 @@ sub mysqldID {
 #
 #  One parameter the new port number
 
-sub updateSlimServerWebInterface {
+sub updateSqueezeCenterWebInterface {
 	my $port = shift;
 
 	if (open(URLFILE, ">:crlf", $serverUrl)) {
@@ -744,7 +744,7 @@ sub updateSlimServerWebInterface {
 
 # attempt to stop server and mysql and exit
 sub uninstall {
-	stopSlimServer(1);
+	stopSqueezeCenter(1);
 	stopMySQLd();
 
 	# wait for service to be fully removed (installer removes before calling us)

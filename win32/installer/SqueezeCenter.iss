@@ -44,11 +44,11 @@ AppPublisher=Logitech
 AppPublisherURL=http://www.slimdevices.com
 AppSupportURL=http://www.slimdevices.com
 AppUpdatesURL=http://www.slimdevices.com
-DefaultDirName={pf}\SlimServer
+DefaultDirName={code:GetInstallFolder}
 DefaultGroupName=SqueezeCenter
-WizardImageFile=slim.bmp
+WizardImageFile=squeezebox.bmp
 WizardImageBackColor=$ffffff
-OutputBaseFilename=SlimSetup
+OutputBaseFilename=SqueezeSetup
 MinVersion=0,4
 ;AlwaysRestart=yes
 
@@ -67,7 +67,7 @@ Name: desktopicon; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm
 Name: quicklaunchicon; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: SlimTray.exe; DestDir: {app}; Flags: replacesameversion
+Source: SqueezeTray.exe; DestDir: {app}; Flags: replacesameversion
 Source: Release Notes.html; DestDir: {app}
 
 Source: Getting Started.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: en cs da fi ja no pt sv zh_cn; Flags: isreadme
@@ -96,7 +96,7 @@ Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: en
 Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*,*cygwin*"; Flags: comparetimestamp recursesubdirs
 
 [Dirs]
-Name: {%ALLUSERSPROFILE}\SlimServer; Permissions: users-modify; MinVersion: 0,6.0
+Name: {%ALLUSERSPROFILE}\SqueezeCenter; Permissions: users-modify; MinVersion: 0,6.0
 Name: {app}\server\Plugins; Permissions: users-modify
 
 [INI]
@@ -104,14 +104,14 @@ Filename: {app}\{cm:SlimDevicesWebSite}.url; Section: InternetShortcut; Key: URL
 Filename: {app}\{cm:SqueezeCenterWebInterface}.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000; Flags: uninsdeletesection
 
 [Icons]
-Name: {group}\SlimServer; Filename: {app}\SlimTray.exe; Parameters: "--start"; WorkingDir: "{app}";
+Name: {group}\SqueezeServer; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
 Name: {group}\{cm:SlimDevicesWebSite}; Filename: {app}\{cm:SlimDevicesWebSite}.url
 Name: {group}\{cm:License}; Filename: {app}\{cm:License}.txt
 Name: {group}\{cm:GettingStarted}; Filename: {app}\{cm:GettingStarted}.html
 Name: {group}\{cm:UninstallSqueezeCenter}; Filename: {uninstallexe}
-Name: {userdesktop}\SlimServer; Filename: {app}\SlimTray.exe; Parameters: "--start"; WorkingDir: "{app}"; Tasks: desktopicon
-Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\SlimServer; Filename: {app}\SlimTray.exe; Parameters: "--start"; WorkingDir: "{app}"; Tasks: quicklaunchicon
-Name: {commonstartup}\{cm:SqueezeCenterTrayTool}; Filename: {app}\SlimTray.exe; WorkingDir: "{app}"
+Name: {userdesktop}\SqueezeCenter; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}"; Tasks: desktopicon
+Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\SqueezeCenter; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}"; Tasks: quicklaunchicon
+Name: {commonstartup}\{cm:SqueezeCenterTrayTool}; Filename: {app}\SqueezeTray.exe; WorkingDir: "{app}"
 
 [Registry]
 ;
@@ -120,7 +120,7 @@ Name: {commonstartup}\{cm:SqueezeCenterTrayTool}; Filename: {app}\SlimTray.exe; 
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9000:TCP"; ValueData: "9000:TCP:*:Enabled:SqueezeCenter 9000 tcp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:SqueezeCenter 3483 udp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:SqueezeCenter 3483 tcp"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SOFTWARE\SlimDevices\SlimServer; ValueType: string; ValueName: Path; ValueData: {app}; MinVersion: 0,5.01
+Root: HKLM; Subkey: SOFTWARE\Logitech\SqueezeCenter; ValueType: string; ValueName: Path; ValueData: {app}; MinVersion: 0,5.01
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
@@ -130,23 +130,37 @@ Type: dirifempty; Name: {app}\server\Plugins
 Type: dirifempty; Name: {app}\server\HTML
 Type: dirifempty; Name: {app}\server\SQL
 Type: filesandordirs; Name: {app}\server\Cache
-Type: filesandordirs; Name: {%ALLUSERSPROFILE}\SlimServer; MinVersion: 0,6.0
+Type: filesandordirs; Name: {%ALLUSERSPROFILE}\SqueezeCenter; MinVersion: 0,6.0
 Type: files; Name: {app}\server\slimserver.pref
 Type: files; Name: {app}\{cm:SlimDevicesWebSite}.url
 Type: files; Name: {app}\{cm:SqueezeCenterWebInterface}.url
 Type: files; Name: {commonstartup}\{cm:SqueezeCenterTrayTool}.url
 
 [UninstallRun]
-Filename: net; Parameters: stop slimsvc; Flags: runhidden; MinVersion: 0,4.00.1381
-Filename: sc; Parameters: stop SlimServerMySQL; Flags: runhidden; MinVersion: 0,4.00.1381
-Filename: sc; Parameters: delete SlimServerMySQL; Flags: runhidden; MinVersion: 0,4.00.1381
-Filename: {app}\server\slim.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
-Filename: {app}\SlimTray.exe; Parameters: --exit --uninstall; WorkingDir: {app}; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
+Filename: net; Parameters: stop squeezesvc; Flags: runhidden; MinVersion: 0,4.00.1381
+Filename: sc; Parameters: stop SqueezeMySQL; Flags: runhidden; MinVersion: 0,4.00.1381
+Filename: sc; Parameters: delete SqueezeMySQL; Flags: runhidden; MinVersion: 0,4.00.1381
+Filename: {app}\server\squeezecenter.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
+Filename: {app}\SqueezeTray.exe; Parameters: --exit --uninstall; WorkingDir: {app}; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
 
 [Code]
 var
 	MyMusicFolder: String;
 	MyPlaylistFolder: String;
+
+function GetInstallFolder(Param: String) : String;
+var
+  InstallFolder: String;
+begin
+	if (not RegQueryStringValue(HKLM, 'Software\SlimDevices\SlimServer', 'Path', InstallFolder)) then
+  	if (not RegQueryStringValue(HKLM, 'Software\Logitech\SqueezeCenter', 'Path', InstallFolder)) then
+     	if (DirExists(AddBackslash(ExpandConstant('{pf}')) + 'SlimServer')) then
+        InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'SlimServer'
+      else
+        InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'SqueezeCenter';
+
+  Result := InstallFolder;
+end;
 
 function GetMusicFolder() : String;
 begin
@@ -177,11 +191,18 @@ end;
 
 // NB don't call this until after {app} is set
 function GetPrefsFile() : String;
+var
+  PrefsDir: String;
 begin
 	if (GetWindowsVersion shr 24 >= 6) then
-		Result := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + AddBackslash('SlimServer') + 'slimserver.pref'
+    if (DirExists(AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SlimServer')) then
+      PrefsDir := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SlimServer'
+    else
+		  PrefsDir := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SqueezeCenter'
 	else
-		Result := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server') + 'slimserver.pref';
+    PrefsDir := AddBackslash(ExpandConstant('{app}')) + 'server'
+
+	Result := AddBackslash(PrefsDir) + 'slimserver.pref';
 end;	
 
 procedure CurStepChanged(CurStep: TSetupStep);
@@ -195,7 +216,9 @@ var
 	Uninstaller: String;
 	delPath: String;
 	PrefsFile: String;
-	PrefString : String;
+	PrefString: String;
+	ServiceName: String;
+	MySQLServicename: String;
 
 begin
 	if CurStep = ssInstall then
@@ -208,32 +231,58 @@ begin
 					MsgBox(CustomMessage('ProblemUninstallingSLIMP3') + SysErrorMessage(ErrorCode),mbError, MB_OK);
 			end;
 			
-			NewServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-			Exec('net', 'stop slimsvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-			Exec('sc', 'stop SlimServerMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-			Exec('sc', 'delete SlimServerMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-
+			// try to uninstall pre-SqueezeCenter services
 			if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\slimsvc', 'ImagePath', ServicePath) then
+        ServiceName := 'slimsvc'
+      else
+        ServiceName := 'squeezesvc';
+			
+			if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\SlimServerMySQL', 'ImagePath', ServicePath) then
+        MySQLServiceName := 'SlimServerMySQL'
+      else
+        MySQLServiceName := 'SqueezeMySQL';
+			
+			NewServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
+			Exec('net', 'stop ' + ServiceName, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+			Exec('sc', 'stop ' + MySQLServiceName, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+			Exec('sc', 'delete ' + MySQLServiceName, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+
+			if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\squeezesvc', 'ImagePath', ServicePath) then
 				begin
 					ServicePath:= RemoveQuotes(ServicePath);
 					OldServerDir:= AddBackslash(ExtractFileDir(ServicePath));
 				end
 			else
 				begin
-					OldServerDir:= NewServerDir;
-					if (FileExists(OldServerDir + 'slimsvc.exe')) then
-						ServicePath:= OldServerDir + 'slimsvc.exe'		
-					else
-						ServicePath:= OldServerDir + 'slim.exe';		
-				end;
+    			if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\slimsvc', 'ImagePath', ServicePath) then
+		    		begin
+				    	ServicePath:= RemoveQuotes(ServicePath);
+	     				OldServerDir:= AddBackslash(ExtractFileDir(ServicePath));
+		    		end
+		    	
+		    	else
+            begin
+    					OldServerDir:= NewServerDir;
+		    			if (FileExists(OldServerDir + 'slimsvc.exe')) then
+				    		ServicePath:= OldServerDir + 'slimsvc.exe'
+    					else
+                if (FileExists(OldServerDir + 'slim.exe')) then
+				    		  ServicePath:= OldServerDir + 'slim.exe'		
+                else
+    						  ServicePath:= OldServerDir + 'squeezecenter.exe'
+		        end;
+    		end;
 
 			Exec(ServicePath, '-remove', OldServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);		
 
 			// Stop the old tray
 			OldTrayDir := OldServerDir + AddBackslash('..');
 			TrayPath:= OldTrayDir + 'SlimTray.exe';
-			if (FileExists(TrayPath)) then
-				Exec(TrayPath, '--exit --uninstall', OldTrayDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+
+			if (FileExists(OldTrayDir + 'SqueezeTray.exe')) then
+				Exec(OldTrayDir + 'SqueezeTray.exe', '--exit --uninstall', OldTrayDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
+			else if (FileExists(OldTrayDir + 'SlimTray.exe')) then
+				Exec(OldTrayDir + 'SlimTray.exe', '--exit --uninstall', OldTrayDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
 			if (OldServerDir = NewServerDir) then
 				DeleteFile(ServicePath);
@@ -312,7 +361,7 @@ begin
 
 		// Add firewall rules for Vista
 		if (GetWindowsVersion shr 24 >= 6) then
-			Exec('netsh', 'advfirewall firewall add rule name="SqueezeCenter" description="Allow SqueezeCenter to accept inbound connections." dir=in action=allow program="' + ExpandConstant('{app}') + '\server\slim.exe' + '"', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+			Exec('netsh', 'advfirewall firewall add rule name="SqueezeCenter" description="Allow SqueezeCenter to accept inbound connections." dir=in action=allow program="' + ExpandConstant('{app}') + '\server\squeezecenter.exe' + '"', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
 		PrefsFile := GetPrefsFile();
 	
@@ -324,10 +373,10 @@ begin
 
 		NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 
-		Exec(NewServerDir + 'slim.exe', '-install auto', NewServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-		Exec('net', 'start slimsvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+		Exec(NewServerDir + 'squeezecenter.exe', '-install auto', NewServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+		Exec('net', 'start squeezesvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
-		Exec(ExpandConstant('{app}') + '\SlimTray.exe', '--install', ExpandConstant('{app}'), SW_SHOW, ewNoWait, ErrorCode);
+		Exec(ExpandConstant('{app}') + '\SqueezeTray.exe', '--install', ExpandConstant('{app}'), SW_SHOW, ewNoWait, ErrorCode);
 	end;
 	
 end;
