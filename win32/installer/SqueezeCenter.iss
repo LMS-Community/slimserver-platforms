@@ -104,7 +104,7 @@ Filename: {app}\{cm:SlimDevicesWebSite}.url; Section: InternetShortcut; Key: URL
 Filename: {app}\{cm:SqueezeCenterWebInterface}.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000; Flags: uninsdeletesection
 
 [Icons]
-Name: {group}\SqueezeServer; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
+Name: {group}\SqueezeCenter; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
 Name: {group}\{cm:SlimDevicesWebSite}; Filename: {app}\{cm:SlimDevicesWebSite}.url
 Name: {group}\{cm:License}; Filename: {app}\{cm:License}.txt
 Name: {group}\{cm:GettingStarted}; Filename: {app}\{cm:GettingStarted}.html
@@ -137,9 +137,9 @@ Type: files; Name: {app}\{cm:SqueezeCenterWebInterface}.url
 Type: files; Name: {commonstartup}\{cm:SqueezeCenterTrayTool}.url
 
 [UninstallRun]
-Filename: net; Parameters: stop squeezesvc; Flags: runhidden; MinVersion: 0,4.00.1381
-Filename: sc; Parameters: stop SqueezeMySQL; Flags: runhidden; MinVersion: 0,4.00.1381
-Filename: sc; Parameters: delete SqueezeMySQL; Flags: runhidden; MinVersion: 0,4.00.1381
+Filename: "net"; Parameters: "stop squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381
+Filename: "sc"; Parameters: "stop SqueezeMySQL"; Flags: runhidden; MinVersion: 0,4.00.1381
+Filename: "sc"; Parameters: "delete SqueezeMySQL"; Flags: runhidden; MinVersion: 0,4.00.1381
 Filename: {app}\server\squeezecenter.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
 Filename: {app}\SqueezeTray.exe; Parameters: --exit --uninstall; WorkingDir: {app}; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
 
@@ -153,7 +153,7 @@ var
 	InstallFolder: String;
 begin
 	if (not RegQueryStringValue(HKLM, 'Software\Logitech\SqueezeCenter', 'Path', InstallFolder)) then
-		if (not RegQueryStringValue(HKLM, 'Software\SlimDevices\SlimServer', 'Path', InstallFolder)) then
+		if (not (RegQueryStringValue(HKLM, 'Software\SlimDevices\SlimServer', 'Path', InstallFolder) and DirExists(InstallFolder))) then
 			if (DirExists(AddBackslash(ExpandConstant('{pf}')) + 'SlimServer')) then
 				InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'SlimServer'
 			else
@@ -357,7 +357,8 @@ begin
 			DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'psapi.dll');
 			DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Devices website.lnk');
 			DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Web Interface.lnk');
-	
+			DelTree(AddBackslash(ExpandConstant('{group}')) + 'SlimServer', true, true, true);
+			RegDeleteKeyIncludingSubkeys(HKLM, 'SOFTWARE\SlimDevices');
 		end;
 
 	if CurStep = ssPostInstall then begin
