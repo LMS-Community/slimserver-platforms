@@ -1,7 +1,7 @@
 "Start Server" = "Iniciar servidor";
 "Stop Server" = "Detener servidor";
-"Start Server Description" = "Haga clic en este botón para iniciar SqueezeCenter. Una vez iniciado, los reproductores Slim podrán acceder a la biblioteca de música.";
-"Stop Server Description" = "Haga clic en este botón para detener SqueezeCenter. Una vez detenido, los reproductores Slim no podrán acceder a la biblioteca de música.";
+"Start Server Description" = "Haga clic en este botón para iniciar SqueezeCenter. Una vez iniciado, los reproductores podrán acceder a la biblioteca de música.";
+"Stop Server Description" = "Haga clic en este botón para detener SqueezeCenter. Una vez detenido, los reproductores no podrán acceder a la biblioteca de música.";
 "Authorization Launch Error" = "Imposible actualizar firmware: falta el archivo Update Firmware.sh.";
 "Expired Authorization Error" = "Imposible actualizar firmware: la autorización ha caducado.";
 "Firmware version" = "Versión de firmware %@.";

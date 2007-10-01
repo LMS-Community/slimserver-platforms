@@ -1,7 +1,7 @@
 "Start Server" = "Server starten";
 "Stop Server" = "Server anhalten";
-"Start Server Description" = "Klicken Sie auf diese Schaltfläche, um SqueezeCenter zu starten. Nach dem Start können Slim-Player auf Ihre Musiksammlung zugreifen.";
-"Stop Server Description" = "Klicken Sie auf diese Schaltfläche, um SqueezeCenter anzuhalten. Wenn der Server angehalten wurde, können Slim-Player nicht mehr auf Ihre Musiksammlung zugreifen.";
+"Start Server Description" = "Klicken Sie auf diese Schaltfläche, um SqueezeCenter zu starten. Nach dem Start können Player auf Ihre Musiksammlung zugreifen.";
+"Stop Server Description" = "Klicken Sie auf diese Schaltfläche, um SqueezeCenter anzuhalten. Wenn der Server angehalten wurde, können Player nicht mehr auf Ihre Musiksammlung zugreifen.";
 "Authorization Launch Error" = "Firmware konnte nicht aktualisiert werden: Datei Update Firmware.sh fehlt.";
 "Expired Authorization Error" = "Firmware konnte nicht aktualisiert werden: Autorisierung ist abgelaufen.";
 "Firmware version" = "Firmware-Version %@.";
