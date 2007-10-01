@@ -150,16 +150,16 @@ var
 
 function GetInstallFolder(Param: String) : String;
 var
-  InstallFolder: String;
+	InstallFolder: String;
 begin
-	if (not RegQueryStringValue(HKLM, 'Software\SlimDevices\SlimServer', 'Path', InstallFolder)) then
-  	if (not RegQueryStringValue(HKLM, 'Software\Logitech\SqueezeCenter', 'Path', InstallFolder)) then
-     	if (DirExists(AddBackslash(ExpandConstant('{pf}')) + 'SlimServer')) then
-        InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'SlimServer'
-      else
-        InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'SqueezeCenter';
+	if (not RegQueryStringValue(HKLM, 'Software\Logitech\SqueezeCenter', 'Path', InstallFolder)) then
+		if (not RegQueryStringValue(HKLM, 'Software\SlimDevices\SlimServer', 'Path', InstallFolder)) then
+			if (DirExists(AddBackslash(ExpandConstant('{pf}')) + 'SlimServer')) then
+				InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'SlimServer'
+			else
+				InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'SqueezeCenter';
 
-  Result := InstallFolder;
+	Result := InstallFolder;
 end;
 
 function GetMusicFolder() : String;
@@ -195,12 +195,12 @@ var
   PrefsDir: String;
 begin
 	if (GetWindowsVersion shr 24 >= 6) then
-    if (DirExists(AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SlimServer')) then
-      PrefsDir := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SlimServer'
-    else
-		  PrefsDir := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SqueezeCenter'
+		if (DirExists(AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SlimServer')) then
+			PrefsDir := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SlimServer'
+		else
+			PrefsDir := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SqueezeCenter'
 	else
-    PrefsDir := AddBackslash(ExpandConstant('{app}')) + 'server'
+		PrefsDir := AddBackslash(ExpandConstant('{app}')) + 'server'
 
 	Result := AddBackslash(PrefsDir) + 'slimserver.pref';
 end;	
@@ -233,14 +233,14 @@ begin
 			
 			// try to uninstall pre-SqueezeCenter services
 			if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\slimsvc', 'ImagePath', ServicePath) then
-        ServiceName := 'slimsvc'
-      else
-        ServiceName := 'squeezesvc';
+				ServiceName := 'slimsvc'
+			else
+				ServiceName := 'squeezesvc';
 			
 			if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\SlimServerMySQL', 'ImagePath', ServicePath) then
-        MySQLServiceName := 'SlimServerMySQL'
-      else
-        MySQLServiceName := 'SqueezeMySQL';
+				MySQLServiceName := 'SlimServerMySQL'
+			else
+				MySQLServiceName := 'SqueezeMySQL';
 			
 			NewServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 			Exec('net', 'stop ' + ServiceName, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
@@ -254,27 +254,30 @@ begin
 				end
 			else
 				begin
-    			if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\slimsvc', 'ImagePath', ServicePath) then
-		    		begin
-				    	ServicePath:= RemoveQuotes(ServicePath);
-	     				OldServerDir:= AddBackslash(ExtractFileDir(ServicePath));
-		    		end
-		    	
-		    	else
-            begin
-    					OldServerDir:= NewServerDir;
-		    			if (FileExists(OldServerDir + 'slimsvc.exe')) then
-				    		ServicePath:= OldServerDir + 'slimsvc.exe'
-    					else
-                if (FileExists(OldServerDir + 'slim.exe')) then
-				    		  ServicePath:= OldServerDir + 'slim.exe'		
-                else
-    						  ServicePath:= OldServerDir + 'squeezecenter.exe'
-		        end;
-    		end;
+					if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\slimsvc', 'ImagePath', ServicePath) then
+						begin
+							ServicePath:= RemoveQuotes(ServicePath);
+							OldServerDir:= AddBackslash(ExtractFileDir(ServicePath));
+						end
+
+					else
+						begin
+							OldServerDir:= NewServerDir;
+							if (FileExists(OldServerDir + 'slimsvc.exe')) then
+								ServicePath:= OldServerDir + 'slimsvc.exe'
+							else
+								if (FileExists(OldServerDir + 'slim.exe')) then
+									ServicePath:= OldServerDir + 'slim.exe'		
+								else
+									ServicePath:= OldServerDir + 'squeezecenter.exe'
+						end;
+				end;
 
 			Exec(ServicePath, '-remove', OldServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);		
 
+			if (OldServerDir = NewServerDir) then
+				DeleteFile(ServicePath);
+			
 			// Stop the old tray
 			OldTrayDir := OldServerDir + AddBackslash('..');
 			TrayPath:= OldTrayDir + 'SlimTray.exe';
@@ -282,10 +285,10 @@ begin
 			if (FileExists(OldTrayDir + 'SqueezeTray.exe')) then
 				Exec(OldTrayDir + 'SqueezeTray.exe', '--exit --uninstall', OldTrayDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
 			else if (FileExists(OldTrayDir + 'SlimTray.exe')) then
-				Exec(OldTrayDir + 'SlimTray.exe', '--exit --uninstall', OldTrayDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-
-			if (OldServerDir = NewServerDir) then
-				DeleteFile(ServicePath);
+				begin
+					Exec(OldTrayDir + 'SlimTray.exe', '--exit --uninstall', OldTrayDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+					DeleteFile(OldTrayDir + 'SlimTray.exe');
+				end;
 			
 			delPath := NewServerDir + AddBackslash('CPAN') + AddBackslash('arch');
 			DelTree(delPath, true, true, true);
