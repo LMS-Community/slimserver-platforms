@@ -63,17 +63,33 @@ my $cliInstall     = 0;
 my $cliUninstall   = 0;
 
 my $registryKey    = 'CUser/Software/Logitech/SqueezeCenter';
-my $serviceName    = 'squeezesvc';
-my $sqlServiceName = 'SqueezeMySQL';
+
+# Migrate SlimServer settings
+if (my $ssRegistryKey  = 'CUser/Software/SlimDevices/SlimServer') {
+	if (defined $Registry->{"$ssRegistryKey/StartAtBoot"}) {
+		$Registry->{"$registryKey/StartAtBoot"} = $Registry->{"$ssRegistryKey/StartAtBoot"};
+		delete $Registry->{"$ssRegistryKey/StartAtBoot"};
+	}
+	
+	if (defined $Registry->{"$ssRegistryKey/StartAtLogin"}) {
+		$Registry->{"$registryKey/StartAtLogin"} = $Registry->{"$ssRegistryKey/StartAtLogin"};
+		delete $Registry->{"$ssRegistryKey/StartAtLogin"};
+	}
+
+	delete $Registry->{"$ssRegistryKey/"};
+	delete $Registry->{'CUser/Software/SlimDevices/'};
+}
 
 my $atBoot         = $Registry->{"$registryKey/StartAtBoot"};
 my $atLogin        = $Registry->{"$registryKey/StartAtLogin"};
+
+my $serviceName    = 'squeezesvc';
+my $sqlServiceName = 'SqueezeMySQL';
 
 my $appExe         = File::Spec->catdir(installDir(), 'server', 'squeezecenter.exe');
 my $serverUrl      = File::Spec->catdir($vista ? writableDir() : installDir(), "SqueezeCenter Web Interface.url");
 my $prefFile       = File::Spec->catdir(writableDir(), 'prefs', 'server.prefs');
 my $language       = getPref('language') || 'EN';
-
 
 # Dynamically create the popup menu based on SqueezeCenter state
 sub PopupMenu {
@@ -272,20 +288,11 @@ sub checkAndStart {
 
 		my $serviceStart = $Registry->{"LMachine/SYSTEM/CurrentControlSet/Services/$serviceName/Start"};
 
-		my $cKey = $Registry->{'CUser/Software/'};
-		my $lKey = $Registry->{'LMachine/Software/'};
-
 		$atBoot  = ($serviceStart && oct($serviceStart) == 2) ? 1 : 0;
 		$atLogin = 0;
 
-		$cKey->{'Logitech/'} = {
-			'SqueezeCenter/' => {
-				'/StartAtBoot'  => $atBoot,
-				'/StartAtLogin' => $atLogin,
-			},
-		};
-
-		$lKey->{'Logitech/'} = { 'SqueezeCenter/' => { '/Path' => installDir() } };
+		$Registry->{"$registryKey/StartAtBoot"}  = $atBoot;
+		$Registry->{"$registryKey/StartAtLogin"} = $atLogin;
 
 		checkSSActive();
 
