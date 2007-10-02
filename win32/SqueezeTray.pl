@@ -291,8 +291,12 @@ sub checkAndStart {
 		$atBoot  = ($serviceStart && oct($serviceStart) == 2) ? 1 : 0;
 		$atLogin = 0;
 
-		$Registry->{"$registryKey/StartAtBoot"}  = $atBoot;
-		$Registry->{"$registryKey/StartAtLogin"} = $atLogin;
+		$Registry->{'CUser/Software/'}->{'Logitech/'} = {
+			'SqueezeCenter/' => {
+				'/StartAtBoot'  => $atBoot,
+				'/StartAtLogin' => $atLogin,
+			},
+		};
 
 		checkSSActive();
 
