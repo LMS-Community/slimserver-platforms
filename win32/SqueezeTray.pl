@@ -571,7 +571,16 @@ sub installDir {
 	}
 
 	# Otherwise look in the standard location.
-	my $installDir = File::Spec->catdir('C:\Program Files', 'SqueezeCenter');
+	# search in legacy SlimServer folder, too
+	my $installDir;
+	PF: foreach my $programFolder ($ENV{ProgramFiles}, 'C:/Program Files') {
+		foreach my $ourFolder ('SqueezeCenter', 'SlimServer') {
+
+			$installDir = File::Spec->catdir($programFolder, $ourFolder);
+			last PF if (-d $installDir);
+
+		}
+	}
 
 	# If it's not there, use the current working directory.
 	if (!-d $installDir) {
