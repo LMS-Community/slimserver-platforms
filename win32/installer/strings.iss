@@ -14,6 +14,14 @@ he.ProblemUninstallingSLIMP3=בעיה בהסרת ההתקנה של תוכנת SLIMP3:
 it.ProblemUninstallingSLIMP3=Problema durante la disinstallazione del software SLIMP3:
 nl.ProblemUninstallingSLIMP3=Probleem tijdens verwijderen van SLIMP3-software:
 
+en.ProblemUninstallingSlimServer=Problem uninstalling SlimServer software:
+de.ProblemUninstallingSlimServer=Problem bei Deinstallation von SlimServer-Software:
+es.ProblemUninstallingSlimServer=Problema al desinstalar el software SlimServer:
+fr.ProblemUninstallingSlimServer=Un problטme est survenu en dיsinstallant le logiciel SlimServer:
+he.ProblemUninstallingSlimServer=בעיה בהסרת ההתקנה של תוכנת SlimServer:
+it.ProblemUninstallingSlimServer=Problema durante la disinstallazione del software SlimServer:
+nl.ProblemUninstallingSlimServer=Probleem tijdens verwijderen van SlimServer-software:
+
 ; don't use localized file names as long as we don't have them
 ;de.License=Lizenz
 en.License=License

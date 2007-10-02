@@ -4,7 +4,6 @@
 ; Slim Devices/Logitech : http://www.slimdevices.com
 ;
 ; Script by Chris Eastwood, January 2003 - http://www.vbcodelibrary.co.uk
-;
 
 [Setup]
 ; Uncomment the following line to disable the "Select Setup Language"
@@ -153,11 +152,7 @@ var
 	InstallFolder: String;
 begin
 	if (not RegQueryStringValue(HKLM, 'Software\Logitech\SqueezeCenter', 'Path', InstallFolder)) then
-		if (not (RegQueryStringValue(HKLM, 'Software\SlimDevices\SlimServer', 'Path', InstallFolder) and DirExists(InstallFolder))) then
-			if (DirExists(AddBackslash(ExpandConstant('{pf}')) + 'SlimServer')) then
-				InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'SlimServer'
-			else
-				InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'SqueezeCenter';
+		InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'SqueezeCenter';
 
 	Result := InstallFolder;
 end;
@@ -190,175 +185,187 @@ begin
 end;
 
 // NB don't call this until after {app} is set
-function GetPrefsFile() : String;
-var
-  PrefsDir: String;
+function GetPrefsFolder() : String;
 begin
 	if (GetWindowsVersion shr 24 >= 6) then
-		if (DirExists(AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SlimServer')) then
-			PrefsDir := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SlimServer'
-		else
-			PrefsDir := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SqueezeCenter'
+		Result := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SqueezeCenter'
 	else
-		PrefsDir := AddBackslash(ExpandConstant('{app}')) + 'server'
-
-	Result := AddBackslash(PrefsDir) + 'slimserver.pref';
+		Result := AddBackslash(ExpandConstant('{app}')) + 'server'
 end;	
+
+function GetPrefsFile() : String;
+begin
+	Result := AddBackslash(GetPrefsFolder()) + 'slimserver.pref';
+end;	
+
+
+procedure UninstallSliMP3();
+var
+	ErrorCode: Integer;
+	Uninstaller: String;
+begin
+	// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr.
+	// Returns True if successful. When False is returned, ResultStr is unmodified.
+	if  RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then
+		begin
+			if not Exec(RemoveQuotes(Uninstaller), '/SILENT','', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
+				MsgBox(CustomMessage('ProblemUninstallingSLIMP3') + SysErrorMessage(ErrorCode), mbError, MB_OK);
+		end;
+end;
+
+
+procedure UninstallSlimServer();
+var
+	ErrorCode: Integer;
+	PrefsFile: String;
+	PrefsPath: String;
+	OldPrefsPath: String;
+	Uninstaller: String;
+ 
+begin
+	// if we don't have a SlimCenter prefs file yet, migrate preference file before uninstalling SlimServer
+	PrefsFile := GetPrefsFile();
+	if not FileExists(PrefsFile) then
+		begin
+			PrefsPath := GetPrefsFolder();
+			if (not DirExists(PrefsPath)) then
+				ForceDirectories(PrefsPath);
+
+			if (not (RegQueryStringValue(HKLM, 'Software\SlimDevices\SlimServer', 'Path', OldPrefsPath) and DirExists(OldPrefsPath))) then
+				OldPrefsPath := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SlimServer';
+
+			// try to migrate existing SlimServer prefs file	
+			if (FileExists(AddBackslash(OldPrefsPath) + 'slimserver.pref')) then
+				FileCopy(AddBackslash(OldPrefspath) + 'slimserver.pref', PrefsFile, true)
+			else
+				if (DirExists(AddBackslash(OldPrefsPath) + 'prefs')) then
+					FileCopy(AddBackslash(OldPrefspath) + 'prefs', PrefsPath, true);
+		end;
+
+	Exec('sc', 'stop slimsvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	Exec('sc', 'delete slimsvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	Exec('sc', 'stop SlimServerMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	Exec('sc', 'delete SlimServerMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+
+	// call the SlimServer uninstaller
+	if  RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SlimServer_is1', 'QuietUninstallString', Uninstaller) then
+		begin
+			if not Exec(Uninstaller, '','', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
+				MsgBox(CustomMessage('ProblemUninstallingSlimServer') + SysErrorMessage(ErrorCode), mbError, MB_OK);
+		end;
+
+	DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Devices website.lnk');
+	DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Web Interface.lnk');
+	DelTree(AddBackslash(ExpandConstant('{group}')) + 'SlimServer', true, true, true);
+	RegDeleteKeyIncludingSubkeys(HKLM, 'SOFTWARE\SlimDevices');
+end;
+
+procedure RemoveLegacyFiles();
+var
+	ServerDir: String;
+	DelDir: String;
+begin
+	ServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
+
+	DelTree(ServerDir + AddBackslash('CPAN') + AddBackslash('arch'), true, true, true);
+
+	DelDir := ServerDir + AddBackslash('HTML');
+	DelTree(DelDir + AddBackslash('Bagpuss'), true, true, true);
+	DelTree(DelDir + AddBackslash('Classic'), true, true, true);
+	DelTree(DelDir + AddBackslash('Dark'), true, true, true);
+	DelTree(DelDir + AddBackslash('Default'), true, true, true);
+	DelTree(DelDir + AddBackslash('EN'), true, true, true);
+	DelTree(DelDir + AddBackslash('ExBrowse'), true, true, true);
+	DelTree(DelDir + AddBackslash('ExBrowse3'), true, true, true);
+	DelTree(DelDir + AddBackslash('Experimental'), true, true, true);
+	DelTree(DelDir + AddBackslash('Fishbone'), true, true, true);
+	DelTree(DelDir + AddBackslash('Gordon'), true, true, true);
+	DelTree(DelDir + AddBackslash('Handheld'), true, true, true);
+	DelTree(DelDir + AddBackslash('Moser'), true, true, true);
+	DelTree(DelDir + AddBackslash('Olson'), true, true, true);
+	DelTree(DelDir + AddBackslash('Purple'), true, true, true);
+	DelTree(DelDir + AddBackslash('Nokia770'), true, true, true);
+	DelTree(DelDir + AddBackslash('NBMU'), true, true, true);
+	DelTree(DelDir + AddBackslash('Ruttenberg'), true, true, true);
+	DelTree(DelDir + AddBackslash('SenseMaker'), true, true, true);
+	DelTree(DelDir + AddBackslash('Touch'), true, true, true);
+	DelTree(DelDir + AddBackslash('WebPad'), true, true, true);
+	DelTree(DelDir + AddBackslash('xml'), true, true, true);
+	DelTree(DelDir + AddBackslash('xmlTelCanto'), true, true, true);
+
+	DelDir := ServerDir + AddBackslash('Plugins');
+
+	// Remove old Favorites plugin - now standard
+	DelTree(DelDir + AddBackslash('Favorites'), true, true, true);
+
+	// Remove defunct radio plugins (now replaced by new
+	// in their own directories)
+	DeleteFile(DelDir + 'RadioIO.pm');
+	DeleteFile(DelDir + 'Picks.pm');
+	DeleteFile(DelDir + 'ShoutcastBrowser.pm');
+	DeleteFile(DelDir + 'Live365.pm');
+	DeleteFile(DelDir + 'iTunes.pm');
+
+	// Remove 6.5.x style plugins when updating
+	DeleteFile(DelDir + 'CLI.pm');
+	DeleteFile(DelDir + 'Rescan.pm');
+	DeleteFile(DelDir + 'RPC.pm');
+	DeleteFile(DelDir + 'RssNews.pm');
+	DeleteFile(DelDir + 'SavePlaylist.pm');
+	DeleteFile(DelDir + 'SlimTris.pm');
+	DeleteFile(DelDir + 'Snow.pm');
+	DeleteFile(DelDir + 'Visualizer.pm');
+	DeleteFile(DelDir + 'xPL.pm');
+	DelTree(DelDir + AddBackslash('DateTime'), true, true, true);
+	DelTree(DelDir + AddBackslash('DigitalInput'), true, true, true);
+	DelTree(DelDir + AddBackslash('Health'), true, true, true);
+	DelTree(DelDir + AddBackslash('iTunes'), true, true, true);
+	DelTree(DelDir + AddBackslash('Live365'), true, true, true);
+	DelTree(DelDir + AddBackslash('LMA'), true, true, true);
+	DelTree(DelDir + AddBackslash('MoodLogic'), true, true, true);
+	DelTree(DelDir + AddBackslash('MusicMagic'), true, true, true);
+	DelTree(DelDir + AddBackslash('Picks'), true, true, true);
+	DelTree(DelDir + AddBackslash('Podcast'), true, true, true);
+	DelTree(DelDir + AddBackslash('PreventStandby'), true, true, true);
+	DelTree(DelDir + AddBackslash('RadioIO'), true, true, true);
+	DelTree(DelDir + AddBackslash('RadioTime'), true, true, true);
+	DelTree(DelDir + AddBackslash('RandomPlay'), true, true, true);
+	DelTree(DelDir + AddBackslash('Rhapsody'), true, true, true);
+	DelTree(DelDir + AddBackslash('RS232'), true, true, true);
+	DelTree(DelDir + AddBackslash('ShoutcastBrowser'), true, true, true);
+	DelTree(DelDir + AddBackslash('TT'), true, true, true);
+end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
 var
 	ErrorCode: Integer;
-	ServicePath: String;
 	TrayPath: String;
 	NewServerDir: String;
-	OldServerDir: String;
-	OldTrayDir: String;
-	Uninstaller: String;
-	delPath: String;
 	PrefsFile: String;
 	PrefString: String;
-	ServiceName: String;
-	MySQLServicename: String;
 
 begin
 	if CurStep = ssInstall then
 		begin
-			// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr.
-			// Returns True if successful. When False is returned, ResultStr is unmodified.
-			if  RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then
-				begin
-				if not Exec(RemoveQuotes(Uninstaller), '/SILENT','', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
-					MsgBox(CustomMessage('ProblemUninstallingSLIMP3') + SysErrorMessage(ErrorCode),mbError, MB_OK);
-			end;
-			
-			// try to uninstall pre-SqueezeCenter services
-			if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\slimsvc', 'ImagePath', ServicePath) then
-				ServiceName := 'slimsvc'
-			else
-				ServiceName := 'squeezesvc';
-			
-			if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\SlimServerMySQL', 'ImagePath', ServicePath) then
-				MySQLServiceName := 'SlimServerMySQL'
-			else
-				MySQLServiceName := 'SqueezeMySQL';
-			
-			NewServerDir:= AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-			Exec('net', 'stop ' + ServiceName, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-			Exec('sc', 'stop ' + MySQLServiceName, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-			Exec('sc', 'delete ' + MySQLServiceName, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+			UninstallSliMP3();
+			UninstallSlimServer();
 
-			if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\squeezesvc', 'ImagePath', ServicePath) then
-				begin
-					ServicePath:= RemoveQuotes(ServicePath);
-					OldServerDir:= AddBackslash(ExtractFileDir(ServicePath));
-				end
-			else
-				begin
-					if RegQueryStringValue(HKLM, 'System\CurrentControlSet\Services\slimsvc', 'ImagePath', ServicePath) then
-						begin
-							ServicePath:= RemoveQuotes(ServicePath);
-							OldServerDir:= AddBackslash(ExtractFileDir(ServicePath));
-						end
-
-					else
-						begin
-							OldServerDir:= NewServerDir;
-							if (FileExists(OldServerDir + 'slimsvc.exe')) then
-								ServicePath:= OldServerDir + 'slimsvc.exe'
-							else
-								if (FileExists(OldServerDir + 'slim.exe')) then
-									ServicePath:= OldServerDir + 'slim.exe'		
-								else
-									ServicePath:= OldServerDir + 'squeezecenter.exe'
-						end;
-				end;
-
-			Exec(ServicePath, '-remove', OldServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);		
-
-			if (OldServerDir = NewServerDir) then
-				DeleteFile(ServicePath);
-			
 			// Stop the old tray
-			OldTrayDir := OldServerDir + AddBackslash('..');
-			TrayPath:= OldTrayDir + 'SlimTray.exe';
+			TrayPath := AddBackslash(ExpandConstant('{app}')) + 'SqueezeTray.exe';
+			if (FileExists(TrayPath)) then
+				Exec(TrayPath, '--exit --uninstall', ExpandConstant('{app}'), SW_HIDE, ewWaitUntilTerminated, ErrorCode)
 
-			if (FileExists(OldTrayDir + 'SqueezeTray.exe')) then
-				Exec(OldTrayDir + 'SqueezeTray.exe', '--exit --uninstall', OldTrayDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
-			else if (FileExists(OldTrayDir + 'SlimTray.exe')) then
-				begin
-					Exec(OldTrayDir + 'SlimTray.exe', '--exit --uninstall', OldTrayDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-					DeleteFile(OldTrayDir + 'SlimTray.exe');
-				end;
-			
-			delPath := NewServerDir + AddBackslash('CPAN') + AddBackslash('arch');
-			DelTree(delPath, true, true, true);
+			// stop and remove our services
+			Exec('sc', 'stop squeezesvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+			Exec('sc', 'delete squeezesvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+			Exec('sc', 'stop SqueezeMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+			Exec('sc', 'delete SqueezeMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Bagpuss'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Dark'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Default'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('EN'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('ExBrowse'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Experimental'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Fishbone'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Gordon'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Handheld'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Moser'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Olson'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Purple'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('NBMU'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Ruttenberg'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('SenseMaker'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('Touch'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('WebPad'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('HTML') + AddBackslash('xml'), true, true, true);
-
-			// Remove old Favorites plugin - now standard
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Favorites'), true, true, true);
-
-			// Remove defunct radio plugins (now replaced by new
-			// in their own directories)
-			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'RadioIO.pm');
-			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'Picks.pm');
-			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'ShoutcastBrowser.pm');
-			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'Live365.pm');
-			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'iTunes.pm');
-
-			// Remove 6.5.x style plugins when updating
-			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'CLI.pm');
-			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'Rescan.pm');
-			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'RPC.pm');
-			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'RssNews.pm');
-			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'SavePlaylist.pm');
-			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'SlimTris.pm');
-			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'Snow.pm');
-			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'Visualizer.pm');
-			DeleteFile(NewServerDir + AddBackslash('Plugins') + 'xPL.pm');
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('DateTime'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('DigitalInput'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Health'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('iTunes'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Live365'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('LMA'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('MoodLogic'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('MusicMagic'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Picks'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Podcast'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('PreventStandby'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('RadioIO'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('RadioTime'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('RandomPlay'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('Rhapsody'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('RS232'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('ShoutcastBrowser'), true, true, true);
-			DelTree(NewServerDir + AddBackslash('Plugins') + AddBackslash('TT'), true, true, true);
+			RemoveLegacyFiles();
 
 			// Remove other defunct pieces
-			DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'SlimServer.exe');
 			DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'psapi.dll');
-			DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Devices website.lnk');
-			DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Web Interface.lnk');
-			DelTree(AddBackslash(ExpandConstant('{group}')) + 'SlimServer', true, true, true);
-			RegDeleteKeyIncludingSubkeys(HKLM, 'SOFTWARE\SlimDevices');
+			DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'SlimServer.exe');
 		end;
 
 	if CurStep = ssPostInstall then begin
@@ -368,7 +375,7 @@ begin
 			Exec('netsh', 'advfirewall firewall add rule name="SqueezeCenter" description="Allow SqueezeCenter to accept inbound connections." dir=in action=allow program="' + ExpandConstant('{app}') + '\server\squeezecenter.exe' + '"', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
 		PrefsFile := GetPrefsFile();
-	
+
 		if not FileExists(PrefsFile) then
 			begin
 				PrefString := '---' + #13#10 + 'audiodir: ' + GetMusicFolder() + #13#10 + 'playlistdir: ' + GetPlaylistFolder() + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
