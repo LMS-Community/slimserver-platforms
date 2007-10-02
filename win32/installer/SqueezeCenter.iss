@@ -221,6 +221,7 @@ var
 	PrefsPath: String;
 	OldPrefsPath: String;
 	Uninstaller: String;
+	UninstallPath: String;
  
 begin
 	// if we don't have a SlimCenter prefs file yet, migrate preference file before uninstalling SlimServer
@@ -231,7 +232,9 @@ begin
 			if (not DirExists(PrefsPath)) then
 				ForceDirectories(PrefsPath);
 
-			if (not (RegQueryStringValue(HKLM, 'Software\SlimDevices\SlimServer', 'Path', OldPrefsPath) and DirExists(OldPrefsPath))) then
+			if ((RegQueryStringValue(HKLM, 'Software\SlimDevices\SlimServer', 'Path', OldPrefsPath) and DirExists(AddBackslash(OldPrefsPath) + 'server'))) then
+				OldPrefsPath := AddBackslash(OldPrefsPath) + 'server'
+			else
 				OldPrefsPath := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SlimServer';
 
 			// try to migrate existing SlimServer prefs file	
@@ -243,14 +246,15 @@ begin
 		end;
 
 	Exec('sc', 'stop slimsvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	Exec('sc', 'delete slimsvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 	Exec('sc', 'stop SlimServerMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	Exec('sc', 'delete slimsvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 	Exec('sc', 'delete SlimServerMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
 	// call the SlimServer uninstaller
-	if  RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SlimServer_is1', 'QuietUninstallString', Uninstaller) then
+	if (RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SlimServer_is1', 'QuietUninstallString', Uninstaller)
+		and RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SlimServer_is1', 'InstallLocation', UninstallPath)) then
 		begin
-			if not Exec(Uninstaller, '','', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
+			if not Exec(RemoveQuotes(Uninstaller), '', UninstallPath, SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
 				MsgBox(CustomMessage('ProblemUninstallingSlimServer') + SysErrorMessage(ErrorCode), mbError, MB_OK);
 		end;
 
@@ -357,8 +361,8 @@ begin
 
 			// stop and remove our services
 			Exec('sc', 'stop squeezesvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-			Exec('sc', 'delete squeezesvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 			Exec('sc', 'stop SqueezeMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+			Exec('sc', 'delete squeezesvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 			Exec('sc', 'delete SqueezeMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
 			RemoveLegacyFiles();
