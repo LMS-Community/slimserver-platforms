@@ -214,6 +214,50 @@ begin
 end;
 
 
+procedure RemoveServices(Version: String);
+var
+	ErrorCode: Integer;
+	RegKey: String;
+	InstallFolder: String;
+	InstallDefault: String;
+	Svc: String;
+	MySQLSvc: String;
+	TrayExe: String;
+
+begin
+	if (UpperCase(Version) = 'SC') then
+		begin
+			RegKey := 'Software\Logitech\SqueezeCenter';
+			InstallDefault := ExpandConstant('{app}');
+			Svc := 'squeezesvc';
+			MySQLSvc := 'SqueezeMySQL';
+			TrayExe := 'SqueezeTray.exe';
+		end
+	else
+		begin
+			RegKey := 'Software\SlimDevices\SlimServer';
+			InstallDefault := AddBackslash(ExpandConstant('{pf}')) + 'SlimServer';
+			Svc := 'slimsvc';
+			MySQLSvc := 'SlimServerMySQL';
+			TrayExe := 'SlimTray.exe';
+		end;
+
+	if ((RegQueryStringValue(HKLM, RegKey, 'Path', InstallFolder) and DirExists(AddBackslash(InstallFolder)))) then
+		InstallFolder := AddBackslash(InstallFolder)
+	else
+		InstallFolder := InstallDefault;
+
+	if (FileExists(AddBackslash(InstallFolder) + TrayExe)) then
+		Exec(AddBackslash(InstallFolder) + TrayExe, '--exit --uninstall', InstallFolder, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
+	
+	// stop and remove our services
+	Exec('sc', 'stop ' + Svc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	Exec('sc', 'stop ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	Exec('sc', 'delete ' + Svc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	Exec('sc', 'delete ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+end;
+
+
 procedure UninstallSlimServer();
 var
 	ErrorCode: Integer;
@@ -245,10 +289,7 @@ begin
 					FileCopy(AddBackslash(OldPrefspath) + 'prefs', PrefsPath, true);
 		end;
 
-	Exec('sc', 'stop slimsvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	Exec('sc', 'stop SlimServerMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	Exec('sc', 'delete slimsvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	Exec('sc', 'delete SlimServerMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	RemoveServices('SS');
 
 	// call the SlimServer uninstaller
 	if (RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SlimServer_is1', 'QuietUninstallString', Uninstaller)
@@ -343,7 +384,6 @@ end;
 procedure CurStepChanged(CurStep: TSetupStep);
 var
 	ErrorCode: Integer;
-	TrayPath: String;
 	NewServerDir: String;
 	PrefsFile: String;
 	PrefString: String;
@@ -354,17 +394,7 @@ begin
 			UninstallSliMP3();
 			UninstallSlimServer();
 
-			// Stop the old tray
-			TrayPath := AddBackslash(ExpandConstant('{app}')) + 'SqueezeTray.exe';
-			if (FileExists(TrayPath)) then
-				Exec(TrayPath, '--exit --uninstall', ExpandConstant('{app}'), SW_HIDE, ewWaitUntilTerminated, ErrorCode)
-
-			// stop and remove our services
-			Exec('sc', 'stop squeezesvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-			Exec('sc', 'stop SqueezeMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-			Exec('sc', 'delete squeezesvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-			Exec('sc', 'delete SqueezeMySQL', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-
+			RemoveServices('SC');
 			RemoveLegacyFiles();
 
 			// Remove other defunct pieces
