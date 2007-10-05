@@ -1,0 +1,94 @@
+Notes on properly building XS Perl modules for each platform.
+
+GD
+==
+
+Mac (these instructions are only for building on Intel Macs)
+------------------------------------------------------------
+Set environment for building universal binaries:
+$ export CFLAGS="-arch i386 -arch ppc"
+$ export LDFLAGS="-arch i386 -arch ppc"
+
+Manually build Universal Binary versions of:
+  libgd without xpm (./configure --without-xpm --disable-dependency-tracking)
+  libjpeg
+  libpng
+  
+Add hints/darwin.pl file to GD module to make it a universal binary:
+(See the file platforms/osx/HOWTO-CPAN-Universal-Binary.txt)
+
+Compile GD module:
+$ perl Makefile.PL
+$ make
+
+This will build a dynamically-linked bundle, which we don't want.
+
+Re-link the GD.bundle file using static versions of most libraries.  This script may need to be modified
+if your paths are different:
+
+LD_RUN_PATH="/usr/lib" env MACOSX_DEPLOYMENT_TARGET=10.3 cc -arch i386 -arch ppc -bundle -all_load -L/usr/local/lib GD.o \
+  -o blib/arch/auto/GD/GD.bundle /usr/local/lib/libjpeg.a /usr/local/lib/libpng12.a /usr/local/lib/libgd.a \
+  /usr/X11R6/lib/libfontconfig.a /usr/X11R6/lib/libfreetype.a /usr/X11R6/lib/libexpat.a \
+  -L/System/Library/Perl/5.8.6/darwin-thread-multi-2level/CORE -framework CoreServices -framework ApplicationServices \
+  -lperl -lz -liconv
+
+Run make test to verify the bundle is OK and there are no missing symbols:
+$ make test
+
+Verify the bundle is not dynamically linked to any graphics libraries:
+$ otool -L blib/arch/auto/GD/GD.bundle
+
+blib/arch/auto/GD/GD.bundle:
+        /System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices (compatibility version 1.0.0, current version 18.0.0)
+        /System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices (compatibility version 1.0.0, current version 22.0.0)
+        /System/Library/Perl/lib/5.8/libperl.dylib (compatibility version 5.8.0, current version 5.8.6)
+        /usr/lib/libz.1.dylib (compatibility version 1.0.0, current version 1.2.3)
+        /usr/lib/libiconv.2.dylib (compatibility version 5.0.0, current version 5.0.0)
+        /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 88.3.9)
+
+Done!
+
+Linux (tested with Debian Etch)
+-------------------------------
+The latest version of libgd2-noxpm in Debian is 2.0.33 and we need 2.0.35.
+
+Optionally, uninstall libgd2*.
+
+Manually build libgd 2.0.35+ without xpm:
+$ ./configure --without-xpm
+$ make
+$ make install
+
+Modify GD's Makefile.PL to use static libraries for all graphics libs.
+
+To the end of the WriteMakefile(...) call, add:
+  MYEXTLIB => '/usr/local/lib/libgd.a /usr/lib/libjpeg.a /usr/lib/libpng12.a /usr/lib/libfreetype.a /usr/lib/libfontconfig.a /usr/lib/libexpat.a',
+
+Right above the WriteMakefile(...) call, change the libs it will dynamically link to:
+@LIBS = ('-lz','-lm', '-lfreetype');
+
+Note: I couldn't get freetype to link in statically for some reason.
+
+Compile GD module:
+$ perl Makefile.PL (make sure it finds your custom version in /usr/local)
+$ make
+$ make test
+
+Verify the shared object is not dynamically linked to any graphics libs other than freetype:
+$ ldd blib/arch/auto/GD/GD.so
+
+    linux-gate.so.1 =>  (0xffffe000)
+    libz.so.1 => /usr/lib/libz.so.1 (0xb7e48000)
+    libm.so.6 => /lib/tls/i686/cmov/libm.so.6 (0xb7e23000)
+    libfreetype.so.6 => /usr/lib/libfreetype.so.6 (0xb7db9000)
+    libc.so.6 => /lib/tls/i686/cmov/libc.so.6 (0xb7c88000)
+    /lib/ld-linux.so.2 (0x80000000)
+
+Strip the binary to reduce the file size:
+$ strip blib/arch/auto/GD/GD.so
+
+Done!
+
+Windows
+-------
+TODO...
