@@ -767,18 +767,6 @@ sub uninstall {
 	stopSqueezeCenter(1);
 	stopMySQLd();
 
-	# wait for service to be fully removed (installer removes before calling us)
-	for (my $i = 0; $i < 30 ; ++$i) {
-
-		my %status = ();
-		
-		Win32::Service::GetStatus('', $serviceName, \%status);
-
-		last if (scalar keys %status == 0);
-		
-		Sleep(1);
-	}
-
 	exit;
 }
 
