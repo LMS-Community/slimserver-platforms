@@ -33,8 +33,13 @@ install:
 
 	cp -r ${source}/Slim ${base}/usr/share/perl5/
 
-	# Copy our locally modified perl modules
+	# Copy our CPAN directory and locally modified perl modules
+	cp -r ${source}/CPAN ${base}/${share}
 	cp -r ${source}/lib ${base}/${share}
+	
+	# Remove non-Linux binary modules
+	rm -rf ${base}/${share}/CPAN/arch/5.8/darwin-thread-multi-2level
+	rm -rf ${base}/${share}/CPAN/arch/5.8/MSWin32-x86-multi-thread
 
 	# And aux files needed to run SlimServer
 	cp -r ${source}/Firmware ${base}/${share}

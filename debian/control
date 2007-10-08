@@ -9,25 +9,8 @@ Package: slimserver
 Architecture: all
 Conflicts: slimp3
 Depends: perl (>= 5.8.1),
- libcgi-perl, libclass-accessor-chained-perl, libclass-data-inheritable-perl,
- libclass-virtual-perl, libcompress-zlib-perl, libtimedate-perl, libjson-xs-perl,
- libdbd-mysql-perl, libdbi-perl, libwww-perl, libfile-which-perl, libgd-gd2-noxpm-perl | libgd-gd2-perl,
- libhtml-parser-perl, libio-string-perl, libio-socket-ssl-perl, libmath-vecstat-perl, libmp4-info-perl,
- libnet-dns-perl, librpc-xml-perl, libfile-slurp-perl, libsql-abstract-perl,
- libyaml-perl (>= 0.57-1), libsql-abstract-limit-perl, libtemplate-perl, libdata-page-perl,
- libfile-bom-perl, libnet-ip-perl, libdigest-sha1-perl, libtie-regexphash-perl,
- libpoe-perl, libtime-modules-perl, libclass-data-accessor-perl,
- libcache-cache-perl, libreadonly-perl, libtext-unidecode-perl, libenum-perl,
- libtie-cache-perl, libtie-cache-lru-perl, libtie-llhash-perl, libtie-ixhash-perl, libcarp-clan-perl,
- libpath-class-perl, liburi-perl, liburi-find-perl, liberror-perl, libclass-singleton-perl,
- libtie-cache-lru-expires-perl (>= 0.54-1), libxml-parser-perl, libfile-find-rule-perl,
- libalgorithm-c3-perl, libclass-c3-perl, libproc-background-perl, libpar-perl,
- libdbix-class-perl, libclass-inspector-perl, libxml-writer-perl, libxml-xspf-perl,
- liblog-log4perl-perl, libexporter-lite-perl, libfile-next-perl (>= 0.30-1),
- libdata-dump-perl, libnet-upnp-perl, libxml-simple-perl (>= 2.15-1),
- libdbix-migration-perl, libyaml-syck-perl (>= 0.41-1), mysql-server-4.1 | mysql-server-5.0,
- libmysqlclient14-dev | libmysqlclient15-dev, mysql-client-4.1 | mysql-client-5.0,
- flac, sox, adduser
+ mysql-server-4.1 | mysql-server-5.0, libmysqlclient14-dev | libmysqlclient15-dev,
+ mysql-client-4.1 | mysql-client-5.0, flac, sox, adduser
 Description: Streaming Audio Server
  SlimServer is a cross-platform streaming server that supports a wide range
  of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and
