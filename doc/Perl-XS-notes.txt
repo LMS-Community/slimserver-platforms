@@ -91,4 +91,5 @@ Done!
 
 Windows
 -------
-TODO...
+A proper Windows build of GD 2.35 built with libgd 2.0.34 is available here:
+http://www.gknw.net/development/perl/zipped/
