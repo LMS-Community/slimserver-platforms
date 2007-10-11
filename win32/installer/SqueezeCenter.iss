@@ -248,7 +248,7 @@ begin
 					if (RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','Personal', MyMusicFolder)) then
 						MyMusicFolder := MyMusicFolder + 'My Music'
 					else
-						MyMusicFolder := WizardDirValue;
+						MyMusicFolder := '';
 	end;
 					
 	Result := MyMusicFolder;
@@ -260,14 +260,14 @@ begin
 		if (GetMusicFolder() <> '') then
 			MyPlaylistFolder := GetMusicFolder()
 		else
-			MyPlaylistFolder := WizardDirValue;
+			MyPlaylistFolder := '';
 	end;
 
 	Result := MyPlaylistFolder;
 end;
 
 // NB don't call this until after {app} is set
-function GetPrefsFolder() : String;
+function GetWritablePath() : String;
 begin
 	if (GetWindowsVersion shr 24 >= 6) then
 		Result := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SqueezeCenter'
@@ -275,9 +275,14 @@ begin
 		Result := AddBackslash(ExpandConstant('{app}')) + 'server'
 end;	
 
+function GetPrefsFolder() : String;
+begin
+	Result := AddBackslash(GetWritablePath()) + 'prefs'
+end;	
+
 function GetPrefsFile() : String;
 begin
-	Result := AddBackslash(GetPrefsFolder()) + 'slimserver.pref';
+	Result := AddBackslash(GetPrefsFolder()) + 'server.prefs';
 end;	
 
 
@@ -308,6 +313,13 @@ var
 	Wait: Integer;
 
 begin
+	// stop and remove our services
+	Exec('sc', 'stop ' + Svc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	Exec('sc', 'stop ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	Exec('sc', 'delete ' + Svc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	Exec('sc', 'delete ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+
+	// remove SlimTray if it's still running
 	if (UpperCase(Version) = 'SC') then
 		begin
 			RegKey := 'Software\Logitech\SqueezeCenter';
@@ -332,12 +344,6 @@ begin
 
 	if (FileExists(AddBackslash(InstallFolder) + TrayExe)) then
 		Exec(AddBackslash(InstallFolder) + TrayExe, '--exit --uninstall', InstallFolder, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
-	
-	// stop and remove our services
-	Exec('sc', 'stop ' + Svc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	Exec('sc', 'stop ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	Exec('sc', 'delete ' + Svc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	Exec('sc', 'delete ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
 	// wait up to 30 seconds for the services to be deleted
 	Wait := 60;
@@ -360,12 +366,13 @@ var
  
 begin
 	// if we don't have a SlimCenter prefs file yet, migrate preference file before uninstalling SlimServer
-	PrefsFile := GetPrefsFile();
-	if not FileExists(PrefsFile) then
+	if not FileExists(GetPrefsFile()) then
 		begin
 			PrefsPath := GetPrefsFolder();
 			if (not DirExists(PrefsPath)) then
 				ForceDirectories(PrefsPath);
+
+			PrefsFile := AddBackslash(PrefsPath) + '..\slimserver.prefs';
 
 			if ((RegQueryStringValue(HKLM, 'Software\SlimDevices\SlimServer', 'Path', OldPrefsPath) and DirExists(AddBackslash(OldPrefsPath) + 'server'))) then
 				OldPrefsPath := AddBackslash(OldPrefsPath) + 'server'
@@ -380,8 +387,6 @@ begin
 					FileCopy(AddBackslash(OldPrefspath) + 'prefs', PrefsPath, true);
 		end;
 
-	RemoveServices('SS');
-
 	// call the SlimServer uninstaller
 	if (RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SlimServer_is1', 'QuietUninstallString', Uninstaller)
 		and RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SlimServer_is1', 'InstallLocation', UninstallPath)) then
@@ -390,6 +395,8 @@ begin
 				MsgBox(CustomMessage('ProblemUninstallingSlimServer') + SysErrorMessage(ErrorCode), mbError, MB_OK);
 		end;
 
+	// some manual cleanup work, in case previous uninstall didn't succeed
+	RemoveServices('SS');
 	DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Devices website.lnk');
 	DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Web Interface.lnk');
 	DelTree(AddBackslash(ExpandConstant('{group}')) + 'SlimServer', true, true, true);
@@ -477,6 +484,7 @@ var
 	ErrorCode: Integer;
 	NewServerDir: String;
 	PrefsFile: String;
+	PrefsPath: String;
 	PrefString: String;
 
 begin
@@ -501,9 +509,12 @@ begin
 
 		PrefsFile := GetPrefsFile();
 
+		if (not DirExists(PrefsPath)) then
+			ForceDirectories(PrefsPath);
+
 		if not FileExists(PrefsFile) then
 			begin
-				PrefString := '---' + #13#10 + 'audiodir: ' + GetMusicFolder() + #13#10 + 'playlistdir: ' + GetPlaylistFolder() + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
+				PrefString := '---' + #13#10 + 'audiodir: ' + GetMusicFolder() + #13#10 + 'cachedir: ' + AddBackslash(GetWritablePath()) + 'Cache' + #13#10 + 'playlistdir: ' + GetPlaylistFolder() + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
 				SaveStringToFile(PrefsFile, PrefString, False);
 			end;
 
