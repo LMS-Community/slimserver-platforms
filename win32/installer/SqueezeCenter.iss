@@ -225,10 +225,6 @@ end;
 
 // end of service management...
 
-var
-	MyMusicFolder: String;
-	MyPlaylistFolder: String;
-
 function GetInstallFolder(Param: String) : String;
 var
 	InstallFolder: String;
@@ -237,33 +233,6 @@ begin
 		InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'SqueezeCenter';
 
 	Result := InstallFolder;
-end;
-
-function GetMusicFolder() : String;
-begin
-	if (MyMusicFolder='') then begin
-		if (not RegQueryStringValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','My Music', MyMusicFolder)) then
-			if (not RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','My Music', MyMusicFolder)) then
-				if (not RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','CommonMusic', MyMusicFolder)) then
-					if (RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders','Personal', MyMusicFolder)) then
-						MyMusicFolder := MyMusicFolder + 'My Music'
-					else
-						MyMusicFolder := '';
-	end;
-					
-	Result := MyMusicFolder;
-end;
-
-function GetPlaylistFolder() : String;
-begin
-	if (MyPlaylistFolder = '') then begin
-		if (GetMusicFolder() <> '') then
-			MyPlaylistFolder := GetMusicFolder()
-		else
-			MyPlaylistFolder := '';
-	end;
-
-	Result := MyPlaylistFolder;
 end;
 
 // NB don't call this until after {app} is set
@@ -372,7 +341,7 @@ begin
 			if (not DirExists(PrefsPath)) then
 				ForceDirectories(PrefsPath);
 
-			PrefsFile := AddBackslash(PrefsPath) + '..\slimserver.prefs';
+			PrefsFile := AddBackslash(PrefsPath) + '..\slimserver.pref';
 
 			if ((RegQueryStringValue(HKLM, 'Software\SlimDevices\SlimServer', 'Path', OldPrefsPath) and DirExists(AddBackslash(OldPrefsPath) + 'server'))) then
 				OldPrefsPath := AddBackslash(OldPrefsPath) + 'server'
@@ -514,7 +483,7 @@ begin
 
 		if not FileExists(PrefsFile) then
 			begin
-				PrefString := '---' + #13#10 + 'audiodir: ' + GetMusicFolder() + #13#10 + 'cachedir: ' + AddBackslash(GetWritablePath()) + 'Cache' + #13#10 + 'playlistdir: ' + GetPlaylistFolder() + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
+				PrefString := '---' + #13#10 + 'cachedir: ' + AddBackslash(GetWritablePath()) + 'Cache' + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
 				SaveStringToFile(PrefsFile, PrefString, False);
 			end;
 
