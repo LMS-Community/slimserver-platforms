@@ -47,6 +47,7 @@ DefaultDirName={code:GetInstallFolder}
 DefaultGroupName=SqueezeCenter
 WizardImageFile=squeezebox.bmp
 WizardImageBackColor=$ffffff
+WizardSmallImageFile=logitech.bmp
 OutputBaseFilename=SqueezeSetup
 MinVersion=0,4
 ;AlwaysRestart=yes
