@@ -200,6 +200,12 @@ external 'OpenServiceA@advapi32.dll stdcall';
 function CloseServiceHandle(hSCObject :HANDLE): boolean;
 external 'CloseServiceHandle@advapi32.dll stdcall';
 
+function StartNTService(hService :HANDLE;dwNumServiceArgs : cardinal;lpServiceArgVectors : cardinal) : boolean;
+external 'StartServiceA@advapi32.dll stdcall';
+
+function DeleteService(hService :HANDLE): boolean;
+external 'DeleteService@advapi32.dll stdcall';
+
 
 function OpenServiceManager() : HANDLE;
 begin
@@ -227,7 +233,42 @@ begin
 	end
 end;
 
+function RemoveService(ServiceName: string) : boolean;
+var
+	hSCM	: HANDLE;
+	hService: HANDLE;
+begin
+	hSCM := OpenServiceManager();
+	Result := false;
+	if hSCM <> 0 then begin
+		hService := OpenService(hSCM,ServiceName,SERVICE_DELETE);
+        if hService <> 0 then begin
+            Result := DeleteService(hService);
+            CloseServiceHandle(hService)
+		end;
+        CloseServiceHandle(hSCM)
+	end
+end;
+
+function StartService(ServiceName: string) : boolean;
+var
+	hSCM	: HANDLE;
+	hService: HANDLE;
+begin
+	hSCM := OpenServiceManager();
+	Result := false;
+	if hSCM <> 0 then begin
+		hService := OpenService(hSCM,ServiceName,SERVICE_START);
+        if hService <> 0 then begin
+        	Result := StartNTService(hService,0,0);
+            CloseServiceHandle(hService)
+		end;
+        CloseServiceHandle(hSCM)
+	end;
+end;
+
 // end of service management...
+
 
 function GetInstallFolder(Param: String) : String;
 var
@@ -309,10 +350,8 @@ begin
 	ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
 	// stop and remove our services
-	Exec('sc', 'stop ' + Svc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	Exec('sc', 'delete ' + Svc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	Exec('sc', 'stop ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	Exec('sc', 'delete ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	RemoveService(Svc);
+	RemoveService(MySQLSvc);
 
 	ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
@@ -528,8 +567,7 @@ begin
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
 
 				Exec(NewServerDir + 'squeezecenter.exe', '-install auto', NewServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-				Exec('net', 'start squeezesvc', '', SW_HIDE, ewWaitUntilIdle, ErrorCode);
-	
+				StartService('squeezesvc');
 
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeTray');
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
