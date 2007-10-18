@@ -283,12 +283,6 @@ var
 	Wait: Integer;
 
 begin
-	// stop and remove our services
-	Exec('sc', 'stop ' + Svc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	Exec('sc', 'stop ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	Exec('sc', 'delete ' + Svc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	Exec('sc', 'delete ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-
 	// remove SlimTray if it's still running
 	if (UpperCase(Version) = 'SC') then
 		begin
@@ -306,6 +300,12 @@ begin
 			MySQLSvc := 'SlimServerMySQL';
 			TrayExe := 'SlimTray.exe';
 		end;
+
+	// stop and remove our services
+	Exec('sc', 'stop ' + Svc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	Exec('sc', 'stop ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	Exec('sc', 'delete ' + Svc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	Exec('sc', 'delete ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
 	if ((RegQueryStringValue(HKLM, RegKey, 'Path', InstallFolder) and DirExists(AddBackslash(InstallFolder)))) then
 		InstallFolder := AddBackslash(InstallFolder)
