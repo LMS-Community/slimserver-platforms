@@ -15,23 +15,13 @@
 ;ShowUndisplayableLanguages=yes
 
 [Languages]
-Name: en; MessagesFile: "English.isl"
 Name: nl; MessagesFile: "Dutch.isl"
-Name: de; MessagesFile: "German.isl"
-Name: es; MessagesFile: "Spanish.isl"
+Name: en; MessagesFile: "English.isl"
 Name: fr; MessagesFile: "French.isl"
-Name: it; MessagesFile: "Italian.isl"
+Name: de; MessagesFile: "German.isl"
 Name: he; MessagesFile: "Hebrew.isl"
-; the following languages though not officially supported, are available in SqueezeCenter
-Name: cs; MessagesFile: "Czech.isl"
-Name: da; MessagesFile: "Danish.isl"
-Name: fi; MessagesFile: "Finnish.isl"
-Name: ja; MessagesFile: "Japanese.isl"
-Name: no; MessagesFile: "Norwegian.isl"
-Name: pt; MessagesFile: "Portuguese.isl"
-Name: sv; MessagesFile: "Swedish.isl"
-Name: zh_cn; MessagesFile: "ChineseSimp.isl"
-
+Name: it; MessagesFile: "Italian.isl"
+Name: es; MessagesFile: "Spanish.isl"
 
 [CustomMessages]
 #include "strings.iss"
@@ -70,7 +60,7 @@ Name: quicklaunchicon; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescripti
 Source: SqueezeTray.exe; DestDir: {app}; Flags: replacesameversion
 Source: Release Notes.html; DestDir: {app}
 
-Source: Getting Started.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: en cs da fi ja no pt sv zh_cn; Flags: isreadme
+Source: Getting Started.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: en; Flags: isreadme
 Source: Getting Started.de.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: de; Flags: isreadme
 Source: Getting Started.nl.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: nl; Flags: isreadme
 Source: Getting Started.fr.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: fr; Flags: isreadme
@@ -79,7 +69,7 @@ Source: Getting Started.es.html; DestName: "{cm:GettingStarted}.html"; DestDir: 
 Source: Getting Started.he.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: he; Flags: isreadme
 
 ; add the english version for all languages as long as we don't have any translation
-Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: en de nl fr it es he cs da fi ja no pt sv zh_cn
+Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de en es fr he it nl
 ;Source: License.de.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de
 ;Source: License.nl.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: nl
 ;Source: License.fr.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: fr
