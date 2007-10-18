@@ -62,3 +62,21 @@ fr.SqueezeCenterTrayTool=Outil de la barre d'état système SqueezeCenter
 he.SqueezeCenterTrayTool=ëìé äîâù ùì SqueezeCenter
 it.SqueezeCenterTrayTool=Strumento notifica SqueezeCenter
 nl.SqueezeCenterTrayTool=SqueezeCenter-systeempictogram
+
+en.RegisterServices=Registering Services
+de.RegisterServices=Dienste Installation
+
+en.RegisterServicesDesc=Please wait while new SqueezeCenter services are installed.
+de.RegisterServicesDesc=Warten Sie bitte während SqueezeCenter Dienste installiert werden.
+
+en.RegisteringServices=Waiting for services to be started...
+de.RegisteringServices=Dienste werden gestartet...
+
+en.UnregisterServices=Unregistering Services
+de.UnregisterServices=Dienste Deinstallation
+
+en.UnregisterServicesDesc=Please wait while previous SqueezeCenter services are uninstalled.
+de.UnregisterServicesDesc=Warten Sie bitte während SqueezeCenter Dienste deinstalliert werden.
+
+en.WaitingForServices=Waiting for SqueezeCenter services to be stopped...
+de.WaitingForServices=Warte auf SqueezeCenter Dienste...

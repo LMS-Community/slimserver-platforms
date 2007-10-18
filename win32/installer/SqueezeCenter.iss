@@ -145,6 +145,9 @@ Filename: {app}\server\squeezecenter.exe; Parameters: -remove; WorkingDir: {app}
 Filename: {app}\SqueezeTray.exe; Parameters: --exit --uninstall; WorkingDir: {app}; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
 
 [Code]
+var
+	ProgressPage: TOutputProgressWizardPage;
+
 // Service management routines from http://www.vincenzo.net/isxkb/index.php?title=Service
 type
 	SERVICE_STATUS = record
@@ -281,6 +284,7 @@ var
 	MySQLSvc: String;
 	TrayExe: String;
 	Wait: Integer;
+	MaxProgress: Integer;
 
 begin
 	// remove SlimTray if it's still running
@@ -301,11 +305,16 @@ begin
 			TrayExe := 'SlimTray.exe';
 		end;
 
+	ProgressPage.show();
+	ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
+
 	// stop and remove our services
 	Exec('sc', 'stop ' + Svc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	Exec('sc', 'stop ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 	Exec('sc', 'delete ' + Svc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+	Exec('sc', 'stop ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 	Exec('sc', 'delete ' + MySQLSvc, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+
+	ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
 	if ((RegQueryStringValue(HKLM, RegKey, 'Path', InstallFolder) and DirExists(AddBackslash(InstallFolder)))) then
 		InstallFolder := AddBackslash(InstallFolder)
@@ -315,13 +324,18 @@ begin
 	if (FileExists(AddBackslash(InstallFolder) + TrayExe)) then
 		Exec(AddBackslash(InstallFolder) + TrayExe, '--exit --uninstall', InstallFolder, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
 
-	// wait up to 30 seconds for the services to be deleted
+	ProgressPage.setText(CustomMessage('WaitingForServices'), '');
+
+	// wait up to 60 seconds for the services to be deleted
 	Wait := 60;
+	MaxProgress := ProgressPage.ProgressBar.Position + Wait;
 	while (Wait > 0) and (IsServiceInstalled(Svc) or IsServiceInstalled(MySQLSvc)) do
 	begin
+		ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
 		Sleep(1000);
 		Wait := Wait - 1;
 	end;	
+	ProgressPage.setProgress(MaxProgress, ProgressPage.ProgressBar.Max);
 end;
 
 
@@ -377,6 +391,7 @@ procedure RemoveLegacyFiles();
 var
 	ServerDir: String;
 	DelDir: String;
+
 begin
 	ServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 
@@ -461,39 +476,67 @@ begin
 	if CurStep = ssInstall then
 		begin
 			UninstallSliMP3();
-			UninstallSlimServer();
 
-			RemoveServices('SC');
-			RemoveLegacyFiles();
+			// add custom progress bar to be displayed while unregistering services
+			ProgressPage := CreateOutputProgressPage(CustomMessage('UnregisterServices'), CustomMessage('UnregisterServicesDesc'));
 
-			// Remove other defunct pieces
-			DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'psapi.dll');
-			DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'SlimServer.exe');
+			try
+				ProgressPage.setProgress(0, 150);
+
+				UninstallSlimServer();
+				RemoveServices('SC');
+
+				RemoveLegacyFiles();
+
+				// Remove other defunct pieces
+				DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'psapi.dll');
+				DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'SlimServer.exe');
+
+			finally
+				ProgressPage.Hide;
+			end;
 		end;
 
-	if CurStep = ssPostInstall then begin
+	if CurStep = ssPostInstall then 
+		begin
 
-		// Add firewall rules for Vista
-		if (GetWindowsVersion shr 24 >= 6) then
-			Exec('netsh', 'advfirewall firewall add rule name="SqueezeCenter" description="Allow SqueezeCenter to accept inbound connections." dir=in action=allow program="' + ExpandConstant('{app}') + '\server\squeezecenter.exe' + '"', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+			ProgressPage := CreateOutputProgressPage(CustomMessage('RegisterServices'), CustomMessage('RegisterServicesDesc'));
 
-		PrefsFile := GetPrefsFile();
+			try
+				ProgressPage.Show;
+				ProgressPage.setProgress(0, 2);
 
-		if (not DirExists(PrefsPath)) then
-			ForceDirectories(PrefsPath);
-
-		if not FileExists(PrefsFile) then
-			begin
-				PrefString := '---' + #13#10 + 'cachedir: ' + AddBackslash(GetWritablePath()) + 'Cache' + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
-				SaveStringToFile(PrefsFile, PrefString, False);
-			end;
-
-		NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-
-		Exec(NewServerDir + 'squeezecenter.exe', '-install auto', NewServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-		Exec('net', 'start squeezesvc', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-
-		Exec(ExpandConstant('{app}') + '\SqueezeTray.exe', '--install', ExpandConstant('{app}'), SW_SHOW, ewNoWait, ErrorCode);
-	end;
+				// Add firewall rules for Vista
+				if (GetWindowsVersion shr 24 >= 6) then
+					Exec('netsh', 'advfirewall firewall add rule name="SqueezeCenter" description="Allow SqueezeCenter to accept inbound connections." dir=in action=allow program="' + ExpandConstant('{app}') + '\server\squeezecenter.exe' + '"', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 	
+				PrefsFile := GetPrefsFile();
+	
+				if (not DirExists(PrefsPath)) then
+					ForceDirectories(PrefsPath);
+		
+				if not FileExists(PrefsFile) then
+					begin
+						PrefString := '---' + #13#10 + 'cachedir: ' + AddBackslash(GetWritablePath()) + 'Cache' + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
+						SaveStringToFile(PrefsFile, PrefString, False);
+					end;
+
+				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
+	
+
+				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
+
+				Exec(NewServerDir + 'squeezecenter.exe', '-install auto', NewServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+				Exec('net', 'start squeezesvc', '', SW_HIDE, ewWaitUntilIdle, ErrorCode);
+	
+
+				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeTray');
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
+
+				Exec(ExpandConstant('{app}') + '\SqueezeTray.exe', '--install', ExpandConstant('{app}'), SW_SHOW, ewWaitUntilIdle, ErrorCode);
+			finally
+				ProgressPage.Hide;
+			end;
+		end;	
 end;
