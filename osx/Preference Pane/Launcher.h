@@ -3,7 +3,7 @@
 //  SqueezeCenter
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
-//  Copyright (c) 2002-2007 Logitech. All rights reserved.
+//  Copyright 2002-2007 Logitech
 //
 
 #import <Cocoa/Cocoa.h>

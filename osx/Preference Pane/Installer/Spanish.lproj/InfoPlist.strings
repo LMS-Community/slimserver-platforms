@@ -3,5 +3,5 @@
 CFBundleName = "Instalador de SqueezeCenter";
 CFBundleShortVersionString = "7.0a";
 CFBundleGetInfoString = "Instalador de SqueezeCenter versión 7.0a, Copyright 2003-2007 Logitech";
-NSHumanReadableCopyright = "Copyright 2003-2007 Logitech, reservados todos los derechos.";
+NSHumanReadableCopyright = "Copyright 2003-2007 Logitech";
 

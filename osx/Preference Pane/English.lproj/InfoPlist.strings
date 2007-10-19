@@ -3,5 +3,5 @@
 CFBundleName = "SqueezeCenter";
 CFBundleShortVersionString = "7.0a";
 CFBundleGetInfoString = "SqueezeCenter version 7.0a, Copyright 2002-2007 Logitech";
-NSHumanReadableCopyright = "Copyright 2002-2007 Logitech, all rights reserved.";
+NSHumanReadableCopyright = "Copyright 2002-2007 Logitech";
 NSPrefPaneIconLabel = "SqueezeCenter";
