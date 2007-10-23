@@ -1,0 +1,73 @@
+#!/bin/bash
+#
+# squeezecenter.init  This shell script takes care of starting and stopping
+# 		the SqueezeCenter server.
+#
+# chkconfig: 345 80 30
+# description: SqueezeCenter Music Server
+# processname: squeezecenter
+# config: /etc/squeezecenter/squeezecenter.conf
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+if [ -f /etc/sysconfig/squeezecenter ]; then
+	. /etc/sysconfig/squeezecenter
+fi
+
+# Check that networking is up.
+[ ${NETWORKING} = "no" ] && exit 0
+
+RETVAL=0
+prog="SQUEEZECENTER"
+
+SQUEEZECENTER_BIN="$SQUEEZECENTER_HOME/squeezecenter-server"
+
+[ -x $SQUEEZECENTER_BIN ] && [ -f $SQUEEZECENTER_CFG ] || exit 5
+
+start() {
+	echo -n "Starting SqueezeCenter: "
+	daemon --user $SQUEEZECENTER_USER $SQUEEZECENTER_BIN $SQUEEZECENTER_ARGS
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/squeezecenter
+	return $RETVAL
+}
+
+stop() {
+	echo -n "Shutting down SqueezeCenter: "
+	killproc $SQUEEZECENTER_BIN
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/squeezecenter
+	return $RETVAL
+}
+
+# See how we were called.
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart|reload)
+        stop
+        start
+        RETVAL=$?
+        ;;
+  condrestart)
+        [ -f /var/lock/subsys/squeezecenter ] && restart || :
+        ;;
+  status)
+        status $SQUEEZECENTER_BIN
+        RETVAL=$?
+        ;;
+  *)
+        echo "Usage: $0 {start|stop|restart|reload|condrestart|status}"
+        exit 1
+esac
+exit $RETVAL
