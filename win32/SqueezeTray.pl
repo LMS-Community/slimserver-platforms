@@ -289,7 +289,7 @@ sub checkAndStart {
 		my $serviceStart = $Registry->{"LMachine/SYSTEM/CurrentControlSet/Services/$serviceName/Start"};
 
 		$atBoot  = ($serviceStart && oct($serviceStart) == 2) ? 1 : 0;
-		$atLogin = 0;
+		$atLogin = $atBoot ? 0 : $atLogin ;
 
 		$Registry->{'CUser/Software/'}->{'Logitech/'} = {
 			'SqueezeCenter/' => {

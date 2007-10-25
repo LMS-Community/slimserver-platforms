@@ -5,15 +5,6 @@
 ;
 ; Script by Chris Eastwood, January 2003 - http://www.vbcodelibrary.co.uk
 
-[Setup]
-; Uncomment the following line to disable the "Select Setup Language"
-; dialog and have it rely solely on auto-detection.
-;ShowLanguageDialog=no
-; If you want all languages to be listed in the "Select Setup Language"
-; dialog, even those that can't be displayed in the active code page,
-; uncomment the following line.
-;ShowUndisplayableLanguages=yes
-
 [Languages]
 Name: nl; MessagesFile: "Dutch.isl"
 Name: en; MessagesFile: "English.isl"
@@ -40,17 +31,6 @@ WizardImageBackColor=$ffffff
 WizardSmallImageFile=logitech.bmp
 OutputBaseFilename=SqueezeSetup
 MinVersion=0,4
-;AlwaysRestart=yes
-
-;
-; Here's where you set the licence/info files to be displayed in the installer....
-;
-;InfoBeforeFile=preinstall.rtf
-;
-; And when installation is complete....
-;
-;InfoAfterFile=postinstall.rtf
-;
 
 [Tasks]
 Name: desktopicon; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
@@ -77,12 +57,8 @@ Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de
 ;Source: License.es.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: es
 ;Source: License.he.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: he
 
-; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-;
 ; Next line takes everything from the source '\server' directory and copies it into the setup
 ; it's output into the same location from the users choice.
-;
-
 Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*,*cygwin*"; Flags: comparetimestamp recursesubdirs
 
 [Dirs]
@@ -137,6 +113,7 @@ Filename: {app}\SqueezeTray.exe; Parameters: --exit --uninstall; WorkingDir: {ap
 [Code]
 var
 	ProgressPage: TOutputProgressWizardPage;
+	StartupMode: String;
 
 // Service management routines from http://www.vincenzo.net/isxkb/index.php?title=Service
 type
@@ -147,7 +124,7 @@ type
 		dwWin32ExitCode			: cardinal;
 		dwServiceSpecificExitCode	: cardinal;
 		dwCheckPoint			: cardinal;
-		dwWaitHint			: cardinal;
+		dwWaitHint				: cardinal;
 	end;
 	HANDLE = cardinal;
 
@@ -493,6 +470,32 @@ begin
 	DelTree(DelDir + AddBackslash('TT'), true, true, true);
 end;
 
+const
+	SSRegkey = 'Software\SlimDevices\SlimServer';
+	SCRegkey = 'Software\Logitech\SqueezeCenter';
+
+procedure GetStartupMode();
+var
+	StartAtBoot: String;
+
+begin
+	// 'auto' - service to be started by default
+	// 'manual' - to be started at logon 
+	StartupMode := 'auto';
+
+	if RegQueryStringValue(HKCU, SSRegkey, 'StartAtBoot', StartAtBoot) then
+		begin
+			if (StartAtBoot = '0') then
+				StartupMode := 'demand';
+		end;
+
+	if RegQueryStringValue(HKCU, SCRegkey, 'StartAtBoot', StartAtBoot) then
+		begin
+			if (StartAtBoot = '0') then
+				StartupMode := 'demand';
+		end;
+end;
+
 procedure CurStepChanged(CurStep: TSetupStep);
 var
 	ErrorCode: Integer;
@@ -504,13 +507,17 @@ var
 begin
 	if CurStep = ssInstall then
 		begin
-			UninstallSliMP3();
+			// try to remember whether SS/SC was running as a service before we're uninstalling
+			GetStartupMode();
 
 			// add custom progress bar to be displayed while unregistering services
 			ProgressPage := CreateOutputProgressPage(CustomMessage('UnregisterServices'), CustomMessage('UnregisterServicesDesc'));
 
 			try
-				ProgressPage.setProgress(0, 150);
+				ProgressPage.setProgress(0, 160);
+				UninstallSliMP3();
+
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
 				UninstallSlimServer();
 				RemoveServices('SC');
@@ -552,12 +559,13 @@ begin
 
 				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 	
-
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
 
-				Exec(NewServerDir + 'squeezecenter.exe', '-install auto', NewServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-				StartService('squeezesvc');
+				Exec(NewServerDir + 'squeezecenter.exe', '-install ' + StartupMode, NewServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+
+				if StartupMode = 'auto' then
+					StartService('squeezesvc');
 
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeTray');
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
