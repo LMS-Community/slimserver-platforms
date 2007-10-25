@@ -479,8 +479,8 @@ var
 	StartAtBoot: String;
 
 begin
-	// 'auto' - service to be started by default
-	// 'manual' - to be started at logon 
+	// 'auto'   - service to be started automatically
+	// 'demand' - to be started on demand (application mode)
 	StartupMode := 'auto';
 
 	if RegQueryStringValue(HKCU, SSRegkey, 'StartAtBoot', StartAtBoot) then
