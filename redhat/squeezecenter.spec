@@ -1,13 +1,12 @@
 %define version 7.0
-%define nightly 2007-10-23
-%define date 2007_10_23
+%define nightly 2007-10-26
+%define alphatag 20071026
+%define increment 1
 
-# Prevent stripping
-%define __spec_install_post /usr/lib/rpm/brp-compress
 
 Name:		squeezecenter           
 Version:	%{version}     
-Release:	%{date}.1%{?dist}
+Release:	0.%{increment}.%{alphatag}%{?dist}
 Summary:        SqueezeCenter Music Server
 
 Group:		System Environment/Daemons          
