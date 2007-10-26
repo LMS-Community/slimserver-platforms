@@ -18,7 +18,7 @@ Source2:	squeezecenter.init
 Source3:	squeezecenter.logrotate
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Requires:	mysql-server >= 5.0.22, perl >= 5.8.1, flac, sox
+Requires:	/usr/bin/mysqld_safe, perl >= 5.8.1, flac, sox
 Obsoletes:	slimserver, SliMP3
 AutoReqProv:	no
 
@@ -87,7 +87,7 @@ ln -s %{_var}/lib/squeezecenter/Plugins \
 
 # Install init, configuration and log files
 install -Dp -m755 %SOURCE1 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/squeezecenter
-install -Dp -m755 %SOURCE2 $RPM_BUILD_ROOT%{_initrddir}/squeezecenter
+install -Dp -m755 %SOURCE2 $RPM_BUILD_ROOT%{_sysconfdir}/init.d/squeezecenter
 install -Dp -m644 %SOURCE3 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/squeezecenter
 touch $RPM_BUILD_ROOT%{_sysconfdir}/squeezecenter/server.prefs
 cp -p convert.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezecenter
@@ -112,8 +112,13 @@ exit 0
 
 
 %post
-[ -x /sbin/chkconfig ] && /sbin/chkconfig --add squeezecenter
-[ -x /sbin/service ] && /sbin/service squeezecenter restart >/dev/null 2>&1 || :
+if [ -f /etc/redhat-release ] ; then
+	/sbin/chkconfig --add squeezecenter
+	/sbin/service squeezecenter restart >/dev/null 2>&1 || :
+elif [ -f /etc/SuSE-release ] ; then
+	/usr/lib/lsb/install_initd /etc/init.d/squeezecenter
+	/etc/init.d/squeezecenter restart  > /dev/null 2>&1
+fi
 PORT=`awk '/^httpport/ {print $2}' /etc/squeezecenter/server.prefs`
 [ -z "$PORT" ] && PORT=9000
 HOSTNAME=`uname -n`
@@ -123,8 +128,13 @@ echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure SqueezeCent
 %preun
 if [ "$1" -eq "0" ] ; then
 	# If not upgrading
-	[ -x /sbin/service ] && /sbin/service squeezecenter stop >/dev/null 2>&1 || :
-        [ -x /sbin/chkconfig ] && /sbin/chkconfig --del squeezecenter
+	if [ -f /etc/redhat-release ] ; then
+		/sbin/service squeezecenter stop >/dev/null 2>&1 || :
+        	/sbin/chkconfig --del squeezecenter
+	elif [ -f /etc/SuSE-release ] ; then
+		/etc/init.d/squeezecenter stop  > /dev/null 2>&1
+		/usr/lib/lsb/remove_initd /etc/init.d/squeezecenter
+	fi
 fi
 
 
@@ -163,13 +173,16 @@ fi
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/convert.conf
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/modules.conf
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/types.conf
-%config %{_initrddir}/squeezecenter
+%config %{_sysconfdir}/init.d/squeezecenter
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/squeezecenter
 %config(noreplace) %{_sysconfdir}/logrotate.d/squeezecenter
 
 
 
 %changelog
+* Fri Oct 26 2007 Mark Miksis <aka Fletch>
+- Make RPM work "out of the box" with SUSE
+
 * Mon Oct 22 2007 Mark Miksis <aka fletch>
 - Rewrite for conversion to SqueezeCenter 7.0
 	- Rename to squeezecenter and obsolete slimserver
