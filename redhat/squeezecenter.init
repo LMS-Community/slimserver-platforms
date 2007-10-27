@@ -27,109 +27,147 @@
 # 
 
 if [ -f /etc/redhat-release ] ; then
-	DISTRO="redhat"
-elif [ -f /etc/SuSE-release ] ; then
-	DISTRO="suse"
-else
-	exit 1
-fi
 
-# Source function library.
-if [ $DISTRO = "redhat" ] ; then
+	# Source function library.
 	. /etc/rc.d/init.d/functions
 	# Source networking configuration.
 	. /etc/sysconfig/network
 	# Check that networking is up.
 	[ ${NETWORKING} = "no" ] && exit 0
-fi
 
-# Check for existence of needed config file and read it
-SQUEEZECENTER_CONFIG=/etc/sysconfig/squeezecenter
-test -r $SQUEEZECENTER_CONFIG || { echo "$SQUEEZECENTER_CONFIG not existing";
-	if [ "$1" = "stop" ]; then exit 0;
-	else exit 6; fi; }
+	# Check for existence of needed config file and read it
+	SQUEEZECENTER_CONFIG=/etc/sysconfig/squeezecenter
+	test -r $SQUEEZECENTER_CONFIG || { echo "$SQUEEZECENTER_CONFIG not existing";
+		if [ "$1" = "stop" ]; then exit 0;
+		else exit 6; fi; }
 
-# Read config	
-. $SQUEEZECENTER_CONFIG
+	# Read config	
+	. $SQUEEZECENTER_CONFIG
 
-# Check for missing binaries (stale symlinks should not happen)
-# Note: Special treatment of stop for LSB conformance
-SQUEEZECENTER_BIN="$SQUEEZECENTER_HOME/squeezecenter-server"
-test -x $SQUEEZECENTER_BIN || { echo "$SQUEEZECENTER_BIN not installed"; 
-	if [ "$1" = "stop" ]; then exit 0;
-	else exit 5; fi; }
+	# Check for missing binaries (stale symlinks should not happen)
+	# Note: Special treatment of stop for LSB conformance
+	SQUEEZECENTER_BIN="$SQUEEZECENTER_HOME/squeezecenter-server"
+	test -x $SQUEEZECENTER_BIN || { echo "$SQUEEZECENTER_BIN not installed"; 
+		if [ "$1" = "stop" ]; then exit 0;
+		else exit 5; fi; }
 
-# Source rc.status and reset
-if [ $DISTRO = "suse" ] ; then
-	. /etc/rc.status
-	rc_reset
-fi
+	LOCKFILE="/var/lock/subsys/squeezecenter"
+	RETVAL=0
 
-LOCKFILE="/var/lock/subsys/squeezecenter"
-RETVAL=0
-
-start() {
-	echo -n "Starting SqueezeCenter: "
-	if [ $DISTRO = "redhat" ] ; then
+	start() {
+		echo -n "Starting SqueezeCenter: "
 		daemon --user $SQUEEZECENTER_USER $SQUEEZECENTER_BIN $SQUEEZECENTER_ARGS
 		RETVAL=$?
 		echo
 		[ $RETVAL -eq 0 ] && touch $LOCKFILE
 		return $RETVAL
-	elif [ $DISTRO = "suse" ] ; then
-		export HOME=$SQUEZECENTER_HOME
-		startproc -u $SQUEEZECENTER_USER $SQUEEZECENTER_BIN $SQUEEZECENTER_ARGS
-		rc_status -v
-	fi
-}
+	}
 
-stop() {
-	echo -n "Stopping SqueezeCenter: "
-	if [ $DISTRO = "redhat" ] ; then
+	stop() {
+		echo -n "Stopping SqueezeCenter: "
 		killproc $SQUEEZECENTER_BIN
 		RETVAL=$?
 		echo
 		[ $RETVAL -eq 0 ] && rm -f $LOCKFILE
 		return $RETVAL
-	elif [ $DISTRO = "suse" ] ; then
+	}
+
+	restart() {
+		stop
+		start
+	}
+
+	condrestart() {
+		[ -f $LOCKFILE ] && restart || :
+	}
+
+	fdr_status() {
+        	status $SQUEEZECENTER_BIN
+       		RETVAL=$?
+	}
+
+elif [ -f /etc/SuSE-release ] ; then
+
+	# Check for existence of needed config file and read it
+	SQUEEZECENTER_CONFIG=/etc/sysconfig/squeezecenter
+	test -r $SQUEEZECENTER_CONFIG || { echo "$SQUEEZECENTER_CONFIG not existing";
+		if [ "$1" = "stop" ]; then exit 0;
+		else exit 6; fi; }
+
+	# Read config	
+	. $SQUEEZECENTER_CONFIG
+
+	# Check for missing binaries (stale symlinks should not happen)
+	# Note: Special treatment of stop for LSB conformance
+	SQUEEZECENTER_BIN="$SQUEEZECENTER_HOME/squeezecenter-server"
+	test -x $SQUEEZECENTER_BIN || { echo "$SQUEEZECENTER_BIN not installed"; 
+		if [ "$1" = "stop" ]; then exit 0;
+		else exit 5; fi; }
+
+	# Source rc.status and reset
+	. /etc/rc.status
+	rc_reset
+
+	start() {
+		echo -n "Starting SqueezeCenter: "
+		export HOME=$SQUEZECENTER_HOME
+		startproc -u $SQUEEZECENTER_USER $SQUEEZECENTER_BIN $SQUEEZECENTER_ARGS
+		rc_status -v
+	}
+
+	stop() {
+		echo -n "Stopping SqueezeCenter: "
 		killproc -TERM $SQUEEZECENTER_BIN
 		rc_status -v
-	fi
-}
+	}
+
+	restart() {
+		$0 stop
+		$0 start
+		rc_status
+	}
+
+	condrestart() {
+		$0 status
+		if test $? = 0; then
+			$0 restart
+		else
+			rc_reset
+		fi
+		rc_status
+	}
+
+	fdr_status() {
+		/sbin/checkproc $SQUEEZECENTER_BIN
+		rc_status -v
+	}
+
+else
+	exit 1
+fi
 
 # See how we were called.
 case "$1" in
-  start)
-        start
-        ;;
-  stop)
-        stop
-        ;;
-  restart|reload|force-reload)
-        stop
-        start
-        ;;
-  condrestart|try-restart)
-        [ -f $LOCKFILE ] && restart || :
-        ;;
-  status)
-	if [ $DISTRO = "redhat" ] ; then
-        	status $SQUEEZECENTER_BIN
-       		RETVAL=$?
-	elif [ $DISTRO = "suse" ] ; then
-		echo -n "Checking for service Slimserver "
-		checkproc $SQUEEZECENTER_BIN
-		rc_status -v
-	fi
-        ;;
-  *)
-        echo "Usage: $0 {start|stop|restart|reload|force-reload|condrestart|try-restart|status}"
-        exit 1
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart|reload|force-reload)
+		restart
+		;;
+	condrestart|try-restart)
+		condrestart
+		;;
+	status)
+       		fdr_status
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|reload|force-reload|condrestart|try-restart|status}"
+		exit 1
 esac
 
-if [ $DISTRO = "redhat" ] ; then
-	exit $RETVAL
-elif [ $DISTRO = "suse" ] ; then
-	rc_exit
-fi
+[ -f /etc/redhat-release ] && exit $RETVAL
+[ -f /etc/SuSE-release ] && rc_exit
 
