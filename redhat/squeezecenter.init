@@ -65,7 +65,7 @@ if [ -f /etc/redhat-release ] ; then
 
 	stop() {
 		echo -n "Stopping SqueezeCenter: "
-		killproc $SQUEEZECENTER_BIN
+		killproc -d 6 $SQUEEZECENTER_BIN
 		RETVAL=$?
 		echo
 		[ $RETVAL -eq 0 ] && rm -f $LOCKFILE

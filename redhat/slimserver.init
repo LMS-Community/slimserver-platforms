@@ -40,7 +40,7 @@ start() {
 
 stop() {
 	echo -n "Shutting down SqueezeCenter: "
-	killproc $SLIMSERVER_BIN
+	killproc -d 6 $SLIMSERVER_BIN
 	RETVAL=$?
 	echo
 	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/slimserver
