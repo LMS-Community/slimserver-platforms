@@ -1,20 +1,5 @@
 // Service management routines on http://www.vincenzo.net/isxkb/index.php?title=Service
-const
-	MAX_PATH = 260;
-
 type
-	QUERY_SERVICE_CONFIG = record
-		dwServiceType      : cardinal;
-		dwStartType        : cardinal;
-		dwErrorControl     : cardinal;
-		lpBinaryPathName   : array[0..MAX_PATH + 1] of char;
-		lpLoadOrderGroup   : array[0..MAX_PATH + 1] of char;
-		dwTagId            : cardinal;
-		lpDependencies     : array[0..MAX_PATH + 1] of char;
-		lpServiceStartName : array[0..MAX_PATH + 1] of char;
-		lpDisplayName      : array[0..MAX_PATH + 1] of char;
-	end;
-
 	HANDLE = cardinal;
 
 const
