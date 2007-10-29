@@ -110,6 +110,7 @@ begin
 		Height := ScaleY(17);
 		TabOrder := 3;
 		TabStop := True;
+		Checked := False;
 		OnClick := @DisableCredentials;
 	end;
 	
@@ -123,6 +124,7 @@ begin
 		Width := ScaleX(409);
 		Height := ScaleY(17);
 		TabOrder := 4;
+		Checked := False;
 		OnClick := @EnableCredentials;
 	end;
 	
@@ -148,6 +150,7 @@ begin
 		Width := ScaleX(417);
 		Height := ScaleY(17);
 		TabOrder := 5;
+		Checked := False;
 		OnClick := @DisableCredentials;
 	end;
 
@@ -186,22 +189,20 @@ begin
 
 	with Page do
 	begin
-//		OnActivate := @Startup_Activate;
-//		OnShouldSkipPage := @Startup_ShouldSkipPage;
-//		OnBackButtonClick := @Startup_BackButtonClick;
 		OnNextButtonClick := @Startup_NextButtonClick;
-//		OnCancelButtonClick := @Startup_CancelButtonClick;
 	end;
 
 	if (StartupMode = 'auto') then
 		begin
-			RadioAtBoot.checked := true;
 			EnableCredentials(Page);
+			RadioAtBoot.checked := true;
+			RadioAtLogin.checked := false;
+			RadioAtLogin.TabOrder := 9;
 		end
 	else
 		begin
-			RadioAtLogin.checked := true;
 			DisableCredentials(Page);
+			RadioAtLogin.checked := true;
 		end
 
 	Result := Page.ID;

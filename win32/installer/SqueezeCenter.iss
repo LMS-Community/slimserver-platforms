@@ -357,12 +357,6 @@ const
 	SSRegkey = 'Software\SlimDevices\SlimServer';
 	SCRegkey = 'Software\Logitech\SqueezeCenter';
 
-function ServiceAutostart() : Boolean;
-begin
-//	Result := GetServiceConfig('SlimServerMySQL');
-	Result := false;
-end;
-
 procedure GetStartupMode();
 var
 	StartAtBoot: String;
@@ -372,8 +366,11 @@ begin
 	// 'demand' - to be started on demand (application mode)
 	StartupMode := 'demand';
 
-	if ServiceAutostart() then
-		StartupMode := 'auto'
+	if GetStartType('squeezesvc') <> '' then
+		StartupMode := GetStartType('squeezesvc')
+
+	else if GetStartType('slimsvc') <> '' then
+		StartupMode := GetStartType('slimsvc')
 
 	else
 		begin

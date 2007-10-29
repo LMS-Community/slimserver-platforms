@@ -1,25 +1,18 @@
 // Service management routines on http://www.vincenzo.net/isxkb/index.php?title=Service
-type
-	SERVICE_STATUS = record
-		dwServiceType			: cardinal;
-		dwCurrentState			: cardinal;
-		dwControlsAccepted		: cardinal;
-		dwWin32ExitCode			: cardinal;
-		dwServiceSpecificExitCode	: cardinal;
-		dwCheckPoint			: cardinal;
-		dwWaitHint				: cardinal;
-	end;
+const
+	MAX_PATH = 260;
 
-	SERVICE_CONFIG = record
+type
+	QUERY_SERVICE_CONFIG = record
 		dwServiceType      : cardinal;
 		dwStartType        : cardinal;
 		dwErrorControl     : cardinal;
-		lpBinaryPathName   : cardinal;
-		lpLoadOrderGroup   : cardinal;
+		lpBinaryPathName   : array[0..MAX_PATH + 1] of char;
+		lpLoadOrderGroup   : array[0..MAX_PATH + 1] of char;
 		dwTagId            : cardinal;
-		lpDependencies     : cardinal;
-		lpServiceStartName : cardinal;
-		lpDisplayName      : cardinal;
+		lpDependencies     : array[0..MAX_PATH + 1] of char;
+		lpServiceStartName : array[0..MAX_PATH + 1] of char;
+		lpDisplayName      : array[0..MAX_PATH + 1] of char;
 	end;
 
 	HANDLE = cardinal;
@@ -69,9 +62,6 @@ external 'StartServiceA@advapi32.dll stdcall';
 function DeleteService(hService: HANDLE): boolean;
 external 'DeleteService@advapi32.dll stdcall';
 
-//function QueryServiceConfig(hService: HANDLE; var ServiceConfig: SERVICE_CONFIG; cbBufsize: Integer; pcbBytesNeeded: cardinal) : boolean;
-//external 'QueryServiceConfig@advapi32.dll stdcall';
-
 function OpenServiceManager() : HANDLE;
 begin
 	if UsingWinNT() = true then begin
@@ -107,11 +97,11 @@ begin
 	Result := false;
 	if hSCM <> 0 then begin
 		hService := OpenService(hSCM,ServiceName,SERVICE_DELETE);
-        if hService <> 0 then begin
-            Result := DeleteService(hService);
-            CloseServiceHandle(hService)
+		if hService <> 0 then begin
+			Result := DeleteService(hService);
+			CloseServiceHandle(hService)
 		end;
-        CloseServiceHandle(hSCM)
+		CloseServiceHandle(hSCM)
 	end
 end;
 
@@ -132,24 +122,12 @@ begin
 	end;
 end;
 
-function GetServiceConfig(ServiceName: string) : boolean;
+function GetStartType(ServiceName: string) : String;
 var
-	hSCM: HANDLE;
-	hService: HANDLE;
-	Config: SERVICE_CONFIG;
+	StartType: cardinal;
 begin
-	hSCM := OpenServiceManager();
-	Result := false;
-	if hSCM <> 0 then begin
-		hService := OpenService(hSCM,ServiceName,SERVICE_QUERY_CONFIG);
-
-	    	if hService <> 0 then begin
-//			if QueryServiceConfig(hService,Config, 36, 0) then begin
-//				MsgBox(IntToStr(Config.dwStartType), mbInformation, MB_OK);
-//				Result :=(Config.dwStartType = SERVICE_RUNNING)
-//			end;
-			CloseServiceHandle(hService)
-		end;
-		CloseServiceHandle(hSCM)
-	end
+	Result := 'demand';
+	if RegQueryDWordValue(HKLM, 'SYSTEM\CurrentControlSet\Services\' + ServiceName, 'Start', StartType) then
+		if (StartType = 2) then
+			Result := 'auto';
 end;
