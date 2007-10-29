@@ -1,18 +1,19 @@
-%define version 7.0
-%define nightly 2007-10-26
-%define alphatag 20071026
+# The following 3 macros MUST be passed to rpmbuild
+# %%define _version 7.0
+# %%define _nightly 2007-10-26
+# %%define _alphatag 20071026
 %define increment 1
 
 
 Name:		squeezecenter           
-Version:	%{version}     
-Release:	0.%{increment}.%{alphatag}%{?dist}
+Version:	%{_version}     
+Release:	0.%{increment}.%{_alphatag}
 Summary:        SqueezeCenter Music Server
 
 Group:		System Environment/Daemons          
 License:	GPL and proprietary        
 URL:		http://www.slimdevices.com            
-Source0:	http://www.slimdevices.com/downloads/nightly/latest/%{version}/SlimServer_trunk_v%{nightly}.tar.gz
+Source0:	http://www.slimdevices.com/downloads/nightly/latest/%{version}/SlimServer_trunk_v%{_nightly}.tar.gz
 Source1:	squeezecenter.config
 Source2:	squeezecenter.init
 Source3:	squeezecenter.logrotate
@@ -31,7 +32,7 @@ player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
 
 
 %prep
-%setup -q -n SlimServer_trunk_v%{nightly}
+%setup -q -n SlimServer_trunk_v%{_nightly}
 
 
 %build
