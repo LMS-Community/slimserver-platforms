@@ -40,16 +40,16 @@ export home
 StartService() {
 ConsoleMessage "Starting SqueezeCenter"
 if [ z"\$SERVER_RUNNING" = z ] ; then
-    if [ -e "$HOME/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server" ] ; then
-	pushd "$HOME/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server"
-    else
-	pushd "/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server"
-    fi
-    sudo -u \$SLIMUSER "SqueezeCenter.app/Contents/Resources/start-server.sh"
-    popd
+	if [ -e "$HOME/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server" ] ; then
+		pushd "$HOME/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server"
+	else
+		pushd "/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server"
+	fi
+	sudo -H -u \$SLIMUSER "SqueezeCenter.app/Contents/Resources/start-server.sh"
+	popd
 fi
 if [ z"\$#" != z"0" ] ; then
-    ConsoleMessage -S
+	ConsoleMessage -S
 fi
 }
 
