@@ -111,8 +111,10 @@ function GetStartType(ServiceName: string) : String;
 var
 	StartType: cardinal;
 begin
-	Result := 'demand';
+	Result := '';
 	if RegQueryDWordValue(HKLM, 'SYSTEM\CurrentControlSet\Services\' + ServiceName, 'Start', StartType) then
 		if (StartType = 2) then
-			Result := 'auto';
+			Result := 'auto'
+		else
+			Result := 'demand'
 end;
