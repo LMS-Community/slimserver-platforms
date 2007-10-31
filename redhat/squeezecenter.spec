@@ -175,7 +175,7 @@ fi
 %doc Changelog*.html Installation.txt License.* README.lib README.HTML
 
 # Main files
-%{perl_sitelib}/Slim
+%{perl_vendorlib}/Slim
 %{_datadir}/squeezecenter
 
 # Empty directories
@@ -200,7 +200,7 @@ fi
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/convert.conf
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/modules.conf
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/types.conf
-%config %{_sysconfdir}/init.d/squeezecenter
+%{_sysconfdir}/init.d/squeezecenter
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/squeezecenter
 %config(noreplace) %{_sysconfdir}/logrotate.d/squeezecenter
 
