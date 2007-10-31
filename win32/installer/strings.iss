@@ -96,7 +96,7 @@ en.Startup_RadioAtLogin_Caption0=Start SqueezeCenter when I &log in.
 
 en.Startup_RadioAtBoot_Caption0=Start SqueezeCenter &automatically when the computer starts.
 
-en.Startup_LabelAtBootDesc_Caption0=You need to enter your Windows user name and password so Squeeze'Center can access your music library.
+en.Startup_LabelAtBootDesc_Caption0=You need to enter your Windows user name and password so SqueezeCenter can access your music library.
 
 en.Startup_RadioManual_Caption0=&Don't start SqueezeCenter automatically.
 
