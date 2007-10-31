@@ -113,7 +113,23 @@ exit 0
 
 
 %post
+# The following commands will extract mysql port and cachedir from the prefs file
+# I'm not sure if that's the right thing to do so have left them disabled for now
+#MYSQLPORT=`perl -ne  'if (/^dbsource:.*port=(\d+)[^\d]*/) {print "$1"}'  /etc/squeezecenter/server.prefs`
+#[ -z "$MYSQLPORT" ] && MYSQLPORT=9092
+#CACHEDIR=`awk '/^cachedir/ {print $2}' /etc/squeezecenter/server.prefs`
+#[ -z "$CACHEDIR" ] && CACHEDIR=9092
+MYSQLPORT=9092
+CACHEDIR=/var/cache/squeezecenter
 if [ -f /etc/redhat-release ] ; then
+	# Add SELinux contexts
+	if [ -x /usr/sbin/selinuxenabled ] ; then
+		if /usr/sbin/selinuxenabled ; then
+			/usr/sbin/semanage port -a -t mysqld_port_t -p tcp ${MYSQLPORT}
+			/usr/sbin/semanage fcontext -a -t mysqld_db_t "${CACHEDIR}(/.*)?"
+			/sbin/restorecon -R ${CACHEDIR}
+		fi
+	fi
 	/sbin/chkconfig --add squeezecenter
 	/sbin/service squeezecenter restart >/dev/null 2>&1 || :
 elif [ -f /etc/SuSE-release ] ; then
@@ -127,11 +143,21 @@ echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure SqueezeCent
 
 
 %preun
+MYSQLPORT=9092
+CACHEDIR=/var/cache/squeezecenter
 if [ "$1" -eq "0" ] ; then
 	# If not upgrading
 	if [ -f /etc/redhat-release ] ; then
 		/sbin/service squeezecenter stop >/dev/null 2>&1 || :
         	/sbin/chkconfig --del squeezecenter
+		# Remove SELinux contexts
+		if [ -x /usr/sbin/selinuxenabled ] ; then
+			if /usr/sbin/selinuxenabled; then
+				/usr/sbin/semanage port -d -t mysqld_port_t -p tcp ${MYSQLPORT}
+				/usr/sbin/semanage fcontext -d -t mysqld_db_t "${CACHEDIR}(/.*)?"
+				/sbin/restorecon -R ${CACHEDIR}
+			fi
+		fi
 	elif [ -f /etc/SuSE-release ] ; then
 		/etc/init.d/squeezecenter stop  > /dev/null 2>&1
 		/usr/lib/lsb/remove_initd /etc/init.d/squeezecenter
@@ -181,6 +207,9 @@ fi
 
 
 %changelog
+* Wed Oct 31 2007 Robin Bowes <robin@robinbowes.com>
+- Fix SELinux contexts
+
 * Fri Oct 26 2007 Mark Miksis <aka Fletch>
 - Make RPM work "out of the box" with SUSE
 
