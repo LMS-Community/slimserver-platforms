@@ -127,6 +127,7 @@ if [ -f /etc/redhat-release ] ; then
 		if /usr/sbin/selinuxenabled ; then
 			/usr/sbin/semanage port -a -t mysqld_port_t -p tcp ${MYSQLPORT}
 			/usr/sbin/semanage fcontext -a -t mysqld_db_t "${CACHEDIR}(/.*)?"
+			/usr/sbin/semanage fcontext -a -t mysqld_var_run_t "${CACHEDIR}/squeezecenter-mysql.sock"
 			/sbin/restorecon -R ${CACHEDIR}
 		fi
 	fi
@@ -155,6 +156,7 @@ if [ "$1" -eq "0" ] ; then
 			if /usr/sbin/selinuxenabled; then
 				/usr/sbin/semanage port -d -t mysqld_port_t -p tcp ${MYSQLPORT}
 				/usr/sbin/semanage fcontext -d -t mysqld_db_t "${CACHEDIR}(/.*)?"
+				/usr/sbin/semanage fcontext -d -t mysqld_var_run_t "${CACHEDIR}/squeezecenter-mysql.sock"
 				/sbin/restorecon -R ${CACHEDIR}
 			fi
 		fi
