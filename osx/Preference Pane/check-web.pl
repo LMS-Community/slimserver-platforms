@@ -8,19 +8,30 @@ use File::Spec::Functions;
 use IO::Socket::INET;
 
 # How long to wait for the server to start
-my $timeout = shift || 60;
+my $timeout  = shift || 60;
+my $httpport;
 
-my $prefsfile = catfile( $ENV{HOME}, 'Library', 'Application Support', 'SqueezeCenter', 'server.prefs' );
-my $httpport  = 9000;
+my @dirs = (
+	$ENV{HOME} . '/Library/Application Support/SqueezeCenter',
+	'/Library/Application Support/SqueezeCenter',
+);
 
-open my $prefs, '<', $prefsfile or die "ERROR: Cannot open prefs file: $prefsfile\n";
-while ( <$prefs> ) {
-	if ( /^httpport: (\d+)/ ) {
-		$httpport = $1;
-		last;
+DIRS:
+for my $dir ( @dirs ) {
+	open my $prefs, '<', catfile( $dir, 'server.prefs' ) or next;
+	while ( <$prefs> ) {
+		if ( /^httpport: (\d+)/ ) {
+			$httpport = $1;
+			last;
+		}
 	}
+	close $prefs;
+	last if $httpport;
 }
-close $prefs;
+
+if ( !$httpport ) {
+	die "ERROR: Cannot find server.prefs file\n";
+}
 
 my $time = 0;
 
