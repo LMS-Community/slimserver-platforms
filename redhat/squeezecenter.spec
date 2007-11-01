@@ -60,7 +60,7 @@ mkdir -p $RPM_BUILD_ROOT%{_initrddir}
 mkdir -p $RPM_BUILD_ROOT%{_var}/log/squeezecenter
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/squeezecenter
-mkdir -p $RPM_BUILD_ROOT%{perl_sitelib}
+mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 mkdir -p $RPM_BUILD_ROOT%{_sbindir}
 mkdir -p $RPM_BUILD_ROOT%{_var}/cache/squeezecenter
@@ -75,7 +75,7 @@ cp -Rp HTML $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 cp -Rp IR $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 cp -Rp lib $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 cp -Rp MySQL $RPM_BUILD_ROOT%{_datadir}/squeezecenter
-cp -Rp Slim $RPM_BUILD_ROOT%{perl_sitelib}
+cp -Rp Slim $RPM_BUILD_ROOT%{perl_vendorlib}
 cp -Rp SQL $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 cp -p revision.txt $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 cp -p strings.txt $RPM_BUILD_ROOT%{_datadir}/squeezecenter
