@@ -40,7 +40,12 @@ start() {
 
 stop() {
 	echo -n "Shutting down SqueezeCenter: "
-	killproc -d 6 $SLIMSERVER_BIN
+	# Support old versions of RHEL and still fix bug 5620
+	KILLPROC_ARGS=""
+	if [ `grep -c 'Usage: killproc.*-d delay' /etc/init.d/functions` -ge 1 ]; then
+		KILLPROC_ARGS="-d 6"
+	fi
+	killproc $KILLPROC_ARGS $SLIMSERVER_BIN
 	RETVAL=$?
 	echo
 	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/slimserver
