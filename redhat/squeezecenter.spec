@@ -60,7 +60,7 @@ mkdir -p $RPM_BUILD_ROOT%{_initrddir}
 mkdir -p $RPM_BUILD_ROOT%{_var}/log/squeezecenter
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/squeezecenter
-mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}
+mkdir -p $RPM_BUILD_ROOT%{_usr}/lib/perl5/vendor_perl
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 mkdir -p $RPM_BUILD_ROOT%{_sbindir}
 mkdir -p $RPM_BUILD_ROOT%{_var}/cache/squeezecenter
@@ -75,7 +75,7 @@ cp -Rp HTML $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 cp -Rp IR $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 cp -Rp lib $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 cp -Rp MySQL $RPM_BUILD_ROOT%{_datadir}/squeezecenter
-cp -Rp Slim $RPM_BUILD_ROOT%{perl_vendorlib}
+cp -Rp Slim $RPM_BUILD_ROOT%{_usr}/lib/perl5/vendor_perl
 cp -Rp SQL $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 cp -p revision.txt $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 cp -p strings.txt $RPM_BUILD_ROOT%{_datadir}/squeezecenter
@@ -125,9 +125,9 @@ if [ -f /etc/redhat-release ] ; then
 	# Add SELinux contexts
 	if [ -x /usr/sbin/selinuxenabled ] ; then
 		if /usr/sbin/selinuxenabled ; then
-			/usr/sbin/semanage port -a -t mysqld_port_t -p tcp ${MYSQLPORT}
-			/usr/sbin/semanage fcontext -a -t mysqld_db_t "${CACHEDIR}(/.*)?"
-			/usr/sbin/semanage fcontext -a -t mysqld_var_run_t "${CACHEDIR}/squeezecenter-mysql.sock"
+			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage port -a -t mysqld_port_t -p tcp ${MYSQLPORT}
+			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -a -t mysqld_db_t "${CACHEDIR}(/.*)?"
+			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -a -t mysqld_var_run_t "${CACHEDIR}/squeezecenter-mysql.sock"
 			/sbin/restorecon -R ${CACHEDIR}
 		fi
 	fi
@@ -154,9 +154,9 @@ if [ "$1" -eq "0" ] ; then
 		# Remove SELinux contexts
 		if [ -x /usr/sbin/selinuxenabled ] ; then
 			if /usr/sbin/selinuxenabled; then
-				/usr/sbin/semanage port -d -t mysqld_port_t -p tcp ${MYSQLPORT}
-				/usr/sbin/semanage fcontext -d -t mysqld_db_t "${CACHEDIR}(/.*)?"
-				/usr/sbin/semanage fcontext -d -t mysqld_var_run_t "${CACHEDIR}/squeezecenter-mysql.sock"
+				[ -x /usr/sbin/semanage ] && /usr/sbin/semanage port -d -t mysqld_port_t -p tcp ${MYSQLPORT}
+				[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -d -t mysqld_db_t "${CACHEDIR}(/.*)?"
+				[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -d -t mysqld_var_run_t "${CACHEDIR}/squeezecenter-mysql.sock"
 				/sbin/restorecon -R ${CACHEDIR}
 			fi
 		fi
@@ -177,7 +177,7 @@ fi
 %doc Changelog*.html Installation.txt License.* README.lib README.HTML
 
 # Main files
-%{perl_vendorlib}/Slim
+%{_usr}/lib/perl5/vendor_perl/Slim
 %{_datadir}/squeezecenter
 
 # Empty directories
