@@ -1,20 +1,9 @@
 # $Id$
 # 
-# SqueezeTray.exe controls the starting & stopping of the squeezesvc Windows Service.
-#
-# If the service is not installed, we'll install it first.
+# SqueezeTray.exe controls the starting & stopping of the SqueezeCenter application
 #
 # This program relies on Win32::Daemon, which is not part of CPAN.
 # http://www.roth.net/perl/Daemon/
-#
-# The user can choose to run SqueezeCenter as a service, or as an application.
-# Running as an application will allow access to mapped network drives.
-#
-# The checkbox selection will be:
-# 'at system start' (service) or 'at login' (app). 
-# 
-# If the user chooses app - the service will still be installed, but set to
-# Manual start.
 
 use strict;
 use PerlTray;
@@ -27,32 +16,17 @@ use Encode;
 
 use Win32 qw(GetOSName);
 use Win32::Locale;
-use Win32::Daemon;
 use Win32::Process qw(DETACHED_PROCESS CREATE_NO_WINDOW NORMAL_PRIORITY_CLASS);
 use Win32::Process::List;
 use Win32::TieRegistry ('Delimiter' => '/');
 use Win32::Service;
 
-
-# Vista only:
-#
-# When running on Vista SqueezeTray may be run as a normal user or as administrator depending on how it is started
-# With the default install it will run as admin the first time when launched from the installer, all subsequent times it will
-# run as a normal user.  Vista UAC means that we can only install windows services and start/stop them when running as admin.
-# To avoid user confusion we therefore disable all options which are not available when running as a normal user.
-#
-# prefs and the SqueezeCenter url are stored in a different location on Vista to avoid Vista file virtualisation.
-
-my $vista          = ((Win32::GetOSName())[0] =~ /Vista/);  # running on Vista
-my $vistaUser      = $vista && !Win32::IsAdminUser();       # running on Vista as a user (not admin) - reduce menu options
-
 my $timerSecs      = 10;
-my $ssActive       = 0;
+my $scActive       = 0;
 my $starting       = 0;
 my $processObj     = 0;
 my $checkHTTP      = 0;
 my $lastHTTPPort   = 0;
-my $stopMySQL      = 0;
 
 my %strings        = ();
 
@@ -66,11 +40,6 @@ my $registryKey    = 'CUser/Software/Logitech/SqueezeCenter';
 
 # Migrate SlimServer settings
 if (my $ssRegistryKey  = 'CUser/Software/SlimDevices/SlimServer') {
-	if (defined $Registry->{"$ssRegistryKey/StartAtBoot"}) {
-		$Registry->{"$registryKey/StartAtBoot"} = $Registry->{"$ssRegistryKey/StartAtBoot"};
-		delete $Registry->{"$ssRegistryKey/StartAtBoot"};
-	}
-	
 	if (defined $Registry->{"$ssRegistryKey/StartAtLogin"}) {
 		$Registry->{"$registryKey/StartAtLogin"} = $Registry->{"$ssRegistryKey/StartAtLogin"};
 		delete $Registry->{"$ssRegistryKey/StartAtLogin"};
@@ -80,14 +49,12 @@ if (my $ssRegistryKey  = 'CUser/Software/SlimDevices/SlimServer') {
 	delete $Registry->{'CUser/Software/SlimDevices/'};
 }
 
-my $atBoot         = $Registry->{"$registryKey/StartAtBoot"};
 my $atLogin        = $Registry->{"$registryKey/StartAtLogin"};
 
 my $serviceName    = 'squeezesvc';
-my $sqlServiceName = 'SqueezeMySQL';
 
 my $appExe         = File::Spec->catdir(installDir(), 'server', 'squeezecenter.exe');
-my $serverUrl      = File::Spec->catdir($vista ? writableDir() : installDir(), "SqueezeCenter Web Interface.url");
+my $serverUrl      = File::Spec->catdir(writableDir(), "SqueezeCenter Web Interface.url");
 my $prefFile       = File::Spec->catdir(writableDir(), 'prefs', 'server.prefs');
 my $language       = getPref('language') || 'EN';
 
@@ -97,65 +64,38 @@ sub PopupMenu {
 
 	my $type = startupType(); # = none, login or auto
 
-	# As a user on Vista we only allow the following as these are all a user can perform:
-	# - starting/stopping of the server if type is none, login
-	# - toggling of startup type between login and none
-
-	if ($ssActive) {
+	if ($type eq 'auto') {
+		push @menu, [sprintf('*%s', string('OPEN_SQUEEZECENTER')), $scActive ? \&openSqueezeCenter : undef];
+	}
+	elsif ($scActive) {
 		push @menu, [sprintf('*%s', string('OPEN_SQUEEZECENTER')), \&openSqueezeCenter];
 		push @menu, ["--------"];
-		push @menu, [string('STOP_SQUEEZECENTER'), \&stopSqueezeCenterMySQL] if (!$vistaUser || $type =~ /none|login/);
+		push @menu, [string('STOP_SQUEEZECENTER'), \&stopSqueezeCenter];
 	}
 	elsif ($starting) {
 		push @menu, [string('STARTING_SQUEEZECENTER'), ""];
 	}
 	else {
-		push @menu, [sprintf('*%s', string('START_SQUEEZECENTER')), \&startSqueezeCenter] if (!$vistaUser || $type =~ /none|login/);
+		push @menu, [sprintf('*%s', string('START_SQUEEZECENTER')), \&startSqueezeCenter];
 	}
 
-	my $serviceString = string('RUN_AT_BOOT');
 	my $appString     = string('RUN_AT_LOGIN');
 
-	# We can't modify the service while it's running
-	# So show a grayed out menu.
-	my $setNone   = undef;
-	my $setAuto   = undef;
-	my $setLogin  = undef;
-
-	if (!$ssActive && !$starting) {
-
-		$setNone  = sub { setStartupType('none') };
-		$setAuto  = sub { setStartupType('auto') };
-		$setLogin = sub { setStartupType('login') };
-	}
+	my $setNone  = sub { setStartupType('none') };
+	my $setLogin = sub { setStartupType('login') };
 
 	if ($type eq 'login') {
-
-		push @menu, ["_ $serviceString", $setAuto, undef] unless $vistaUser;
 		push @menu, ["v $appString", $setNone, 1];
-
-	} elsif ($type eq 'auto') {
-
-		push @menu, ["v $serviceString", $setNone, 1] unless $vistaUser;
-		push @menu, ["_ $appString", $setLogin, undef]  unless $vistaUser;
-
-	} else {
-
-		push @menu, ["_ $serviceString", $setAuto, undef] unless $vistaUser;
+	}
+	elsif ($type ne 'auto') {
 		push @menu, ["_ $appString", $setLogin, undef];
 	}
-
-	push @menu, [string('ADDITIONAL_OPTIONS'), \&vistaHelp] if $vistaUser;
 
 	push @menu, ["--------"];
 	push @menu, [string('GO_TO_WEBSITE'), "Execute 'http://www.slimdevices.com'"];
 	push @menu, [string('EXIT'), "exit"];
 
 	return \@menu;
-}
-
-sub vistaHelp {
-	MessageBox(string('VISTA_RESTART_AS_ADMIN'), "SqueezeCenter", MB_OK | MB_ICONINFORMATION);
 }
 
 # Called when the tray application is invoked again. This can handle
@@ -169,12 +109,12 @@ sub Singleton {
 
 		if ($_[1] eq '--start') {
 
-			if (!$ssActive && !$starting) {
+			if (!$scActive && !$starting) {
 
 				startSqueezeCenter();
 			}
 
-			if ($ssActive) {
+			if ($scActive) {
 
 				checkForHTTP();
 				Execute($serverUrl);
@@ -198,7 +138,7 @@ sub Singleton {
 # double click on tray icon - attempt to avoid accidental call of exit
 sub DoubleClick {
 
-	if ($ssActive) {
+	if ($scActive) {
 
 		openSqueezeCenter();
 
@@ -219,7 +159,7 @@ sub ToolTip {
 		$state = string('SQUEEZECENTER_STARTING', $lang);
  	}
  
- 	elsif ($ssActive) {
+ 	elsif ($scActive) {
 		$state = string('SQUEEZECENTER_RUNNING', $lang);
  	}
     
@@ -236,26 +176,17 @@ sub ToolTip {
 # and modifies state variables.
 sub Timer {
 
-	checkSSActive();
+	checkSCActive();
 
 	if ($starting) {
 
 		SetAnimation($timerSecs * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
 
-	} elsif ($ssActive && $checkHTTP && checkForHTTP()) {
+	} elsif ($scActive && $checkHTTP && checkForHTTP()) {
 
 		$checkHTTP = 0;
 
 		Execute($serverUrl);
-	}
-
-	# Check if user has requested to stop SqueezeCenter And MySQL
-	# Only try to stop MySQL service when SqueezeCenter has stopped.
-	if (!$ssActive && $stopMySQL) {
-
-		stopMySQLd();
-
-   		$stopMySQL = 0;
 	}
 }
 
@@ -274,35 +205,17 @@ sub checkAndStart {
 		exit;
 	}
 
-	# Install the service if it isn't already.
-	my %status = ();
-
-	Win32::Service::GetStatus('', $serviceName, \%status);
-
-	if (scalar keys %status == 0) {
-
-		installService();
-	}
-
 	if ($cliInstall) {
-
-		my $serviceStart = $Registry->{"LMachine/SYSTEM/CurrentControlSet/Services/$serviceName/Start"};
-
-		$atBoot  = ($serviceStart && oct($serviceStart) == 2) ? 1 : 0;
-		$atLogin = $atBoot ? 0 : $atLogin ;
 
 		$Registry->{'CUser/Software/'}->{'Logitech/'} = {
 			'SqueezeCenter/' => {
-				'/StartAtBoot'  => $atBoot,
-				'/StartAtLogin' => $atLogin,
+				'/StartAtLogin' => $atLogin || 0
 			},
 		};
 
-		checkSSActive();
+		checkSCActive();
 
 		$checkHTTP = 1; # check server and open browser when it comes up
-
-		return;
 	}
 
 	my $startupType = startupType();
@@ -314,23 +227,18 @@ sub checkAndStart {
 		startSqueezeCenter();
 	}
 
-	# Now see if the service happens to be up already.
-	checkSSActive();
-
-	if ($vistaUser && !$ssActive && !$starting && $startupType eq 'auto') {
-		# running as a user on Vista so we can't start a service, fallback to running as an app
-		setStartupType('none');
-	}
+	# Now see if the app happens to be up already.
+	checkSCActive();
 
 	# Handle the command line --start flag.
 	if ($cliStart) {
 
-		if (!$ssActive && !$starting) {
+		if (!$scActive && !$starting) {
 
 			startSqueezeCenter();
 		}
 
-		if ($ssActive) {
+		if ($scActive) {
 
 			checkForHTTP();
 			Execute($serverUrl);
@@ -344,7 +252,7 @@ sub checkAndStart {
 	}
 }
 
-sub checkSSActive {
+sub checkSCActive {
 	my $state = 'stopped';
 
 	if (startupTypeIsService()) {
@@ -374,120 +282,31 @@ sub checkSSActive {
 
 			$state = 'running';
 		}
-	}
 
+	}
 	if ($state eq 'running') {
 
 		SetIcon("SqueezeCenter");
-		$ssActive = 1;
+		$scActive = 1;
 		$starting = 0;
 
 	} else {
 
 		SetIcon("SqueezeCenterOff");
-		$ssActive = 0;
+		$scActive = 0;
 	}
 }
 
 sub startSqueezeCenter {
 
-	if (startupTypeIsService()) {
+	runBackground($appExe);
 
-		if (!Win32::Service::StartService('', $serviceName)) {
-
-			showErrorMessage(string('START_FAILED'));
-
-			$starting = 0;
-			$ssActive = 0;
-
-			return;
-		}
-
-	} else {
-
-		runBackground($appExe);
-	}
-
-	if (!$ssActive) {
+	if (!$scActive) {
 
 		Balloon(string('STARTING_SQUEEZECENTER'), "SqueezeCenter", "", 1);
 		SetAnimation($timerSecs * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
 
 		$starting = 1;
-	}
-}
-
-sub stopSqueezeCenter {
-	my $suppressMsg = shift;
-
-	if (startupTypeIsService()) {
-
-		if (!Win32::Service::StopService('', $serviceName) && !$suppressMsg) {
-
-			showErrorMessage(string('STOP_FAILED'));
-
-			return;
-		}
-
-	} else {
-
-		my $pid = processID();
-
-		if ($pid == -1 && !$suppressMsg) {
-
-			showErrorMessage(string('STOP_FAILED'));
-
-			return;
-		}
-
-		Win32::Process::KillProcess($pid, 1<<8);
-	}
-
-	if ($ssActive) {
-
-		Balloon(string('STOPPING_SQUEEZECENTER'), "SqueezeCenter", "", 1);
-
-		$ssActive = 0;
-	}
-}
-
-sub stopMySQLd {
-
-	my %status = ();
-	Win32::Service::GetStatus('', $sqlServiceName, \%status);
-
-	if (scalar keys %status != 0) {
-
-		if ($status{'CurrentState'} == 1) {
-
-			# Service already stopped
-
-		} elsif (Win32::Service::StopService('', $sqlServiceName)) {
-
-			# Sucessfully stopped service
-
-		} elsif (!$vistaUser) {
-
-			# Service running which we can't stop
-			# Display warning, unless running as a user on Vista as we can't stop in this case
-
-			my $t = 'GetStatus Failed';
-
-			Win32::Service::GetStatus('', $sqlServiceName, \%status);
-
-			if (scalar keys %status != 0) {
-
-				$t = "GetStatus CurrentState=$status{'CurrentState'}";
-			}
-
-			showErrorMessage(sprintf('%s %s', string('STOP_MYSQL_FAILURE', $t)));
-		}
-	}
-
-	# if mysqld was run as an app attempt to kill it
-	if (my $pid = mysqldID()) {
-
-		Win32::Process::KillProcess($pid, 0);
 	}
 }
 
@@ -499,12 +318,6 @@ sub openSqueezeCenter {
 	Execute($serverUrl);
 }
 
-sub stopSqueezeCenterMySQL {
-
-	stopSqueezeCenter();
-	$stopMySQL = 1;
-}
-
 sub showErrorMessage {
 	my $message = shift;
 
@@ -512,27 +325,21 @@ sub showErrorMessage {
 }
 
 sub startupTypeIsService {
-
-	my $type = startupType();
-
-	# These are the service types.
-	if ($type eq 'auto' || $type eq 'manual') {
-
-		return 1;
-	}
-
-	return 0;
+	return (startupType() eq 'auto');
 }
 
 # Determine how the user wants to start SqueezeCenter
 sub startupType {
+	my %services;
+
+	Win32::Service::GetServices('', \%services);
+
+	if (grep /$serviceName/, map {$services{$_}} keys %services) {
+		return 'auto';
+	}
 
 	if ($atLogin) {
 		return 'login';
-	}
-
-	if ($atBoot) {
-		return 'auto';
 	}
 
 	return 'none';
@@ -541,32 +348,18 @@ sub startupType {
 sub setStartupType {
 	my $type = shift;
 
-	if ($type !~ /^(?:login|auto|none)$/) {
+	if ($type !~ /^(?:login|none)$/) {
 
 		return;
 	}
 
 	if ($type eq 'login') {
 
-		$Registry->{"$registryKey/StartAtBoot"}  = $atBoot  = 0;
 		$Registry->{"$registryKey/StartAtLogin"} = $atLogin = 1;
-
-		# Force the service to manual start, don't remove it.
-		setServiceManual();
 
 	} elsif ($type eq 'none') {
 
-		$Registry->{"$registryKey/StartAtBoot"}  = $atBoot  = 0;
 		$Registry->{"$registryKey/StartAtLogin"} = $atLogin = 0;
-
-		setServiceManual();
-
-	} else {
-
-		$Registry->{"$registryKey/StartAtBoot"}  = $atBoot  = 1;
-		$Registry->{"$registryKey/StartAtLogin"} = $atLogin = 0;
-		
-		setServiceAuto();
 	}
 }
 
@@ -603,11 +396,12 @@ sub installDir {
 }
 
 # Return directory for files which SqueezeCenter can save - i.e. location of prefs file
-# This is the server dir unless we are running on Vista when it is %ALLUSERSPROFILE%\SqueezeCenter
 sub writableDir {
 
-	if ($vista) {
-		return File::Spec->catdir($ENV{'ALLUSERSPROFILE'}, 'SqueezeCenter');
+	my $swKey = $Registry->{'LMachine/Software/Microsoft/Windows/CurrentVersion/Explorer/Shell Folders/Common AppData'};
+
+	if (defined $swKey) {
+		return File::Spec->catdir($swKey, 'SqueezeCenter');
 	}
 
 	return File::Spec->catdir(installDir(), 'server');
@@ -665,39 +459,6 @@ sub checkForHTTP {
 	return 0;
 }
 
-sub setServiceAuto {
-
-	_configureService(SERVICE_AUTO_START);
-}
-
-sub setServiceManual {
-
-	_configureService(SERVICE_DEMAND_START);
-}
-
-sub _configureService {
-	my $type = shift;
-
-	Win32::Daemon::ConfigureService({
-		'machine'     => '',
-		'name'        => $serviceName,
-		'start_type'  => $type,
-	});
-}
-
-sub installService {
-	my $type = shift || SERVICE_DEMAND_START;
-
-	Win32::Daemon::CreateService({
-		'machine'     => '',
-		'name'        => $serviceName,
-		'display'     => 'SqueezeCenter',
-		'description' => "SqueezeCenter Music Server",
-		'path'        => $appExe,
-		'start_type'  => $type,
-	});
-}
-
 sub runBackground {
 	my @args = @_;
 
@@ -722,26 +483,11 @@ sub processID {
 		showErrorMessage("ProcessID: an error occured: " . $p->GetErrorText . " ");
 	}
 
-	my $pid = ($p->GetProcessPid(qr/^squeezecenter\.exe$/))[1];
+	# Windows sometimes only displays squeez~1.exe or similar
+	my $pid = ($p->GetProcessPid(qr/^squeez(ecenter|~\d).exe$/))[1];
 
 	return $pid if defined $pid;
 	return -1;
-}
-
-sub mysqldID {
-
-	my $pidFile  = File::Spec->catdir(writableDir(), 'Cache', 'squeezecenter-mysql.pid');
-	my $pid = undef;
-
-	if (-r $pidFile) {
-
-		open PIDFILE, $pidFile;
-		$pid = <PIDFILE>;
-		close PIDFILE;
-		chomp($pid);
-	}
-
-	return $pid;
 }
 
 # update SqueezeCenter Web Interface.url
@@ -762,10 +508,32 @@ sub updateSqueezeCenterWebInterface {
 	}
 }
 
-# attempt to stop server and mysql and exit
+sub stopSqueezeCenter {
+	my $suppressMsg = shift;
+
+	my $pid = processID();
+
+	if ($pid == -1 && !$suppressMsg) {
+
+		showErrorMessage(string('STOP_FAILED'));
+
+		return;
+	}
+
+	Win32::Process::KillProcess($pid, 1<<8);
+
+	if ($scActive) {
+
+		Balloon(string('STOPPING_SQUEEZECENTER'), "SqueezeCenter", "", 1);
+
+		$scActive = 0;
+	}
+}
+
+
+# attempt to stop SqueezeCenter and exit
 sub uninstall {
 	stopSqueezeCenter(1);
-	stopMySQLd();
 
 	exit;
 }
@@ -956,14 +724,6 @@ EXIT
 	IT	E&sci
 	NL	Af&sluiten
 
-STOP_MYSQL_FAILURE
-	DE	Fehler beim Ausführen von StopService in MySQL!
-	EN	Running StopService on MySQL failed!
-	ES	Error de ejecución de StopService en MySQL.
-	HE	כשל בהפעלת StopService ב-MySQL!
-	IT	Esecuzione di StopService in MySQL non riuscita.
-	NL	Kan StopService niet op MySQL uitvoeren!
-
 WRITE_FAILED
 	DE	Speichern nicht möglich in:
 	EN	Unable to write to
@@ -979,12 +739,3 @@ ADDITIONAL_OPTIONS
 	HE	אפשרויות נוספות
 	IT	Opzioni aggiuntive
 	NL	Extra opties
-
-VISTA_RESTART_AS_ADMIN
-	DE	Wenn Sie SqueezeCenter unter Windows Vista als Administrator ausführen, stehen Ihnen weitere Startoptionen zur Verfügung. Schließen Sie dazu die Anwendung, wählen Sie im Startmenü 'Alle Programme' und 'SqueezeCenter', klicken Sie mit der rechten Maustaste auf 'SqueezeCenter' und wählen Sie 'Als Administrator ausführen'.
-	EN	On Windows Vista, running SqueezeCenter as an administrator gives access to additional startup options. To run as an administrator, close this program, navigate to 'All Programs', 'SqueezeCenter', 'SqueezeCenter' from the start menu, right click and select 'Run as administrator'.
-	ES	En Windows Vista, ejecutar SqueezeCenter como administrador da acceso a opciones de inicio adicionales. Para ejecutar como administrador, cierre este programa, vaya al menú inicio, 'Todos los programas', 'SqueezeCenter'. Haga clic con el botón derecho del ratón en 'SqueezeCenter' y seleccione 'Ejecutar como administrador'.
-	HE	ב-Windows Vista, הפעלת SqueezeCenter כמנהל מערכת מאפשרת גישה לאפשרויות הפעלה נוספות. להפעלה כמנהל מערכת, סגור את התוכנית, נווט אל All Programs (כל התוכניות), SqueezeCenter‏, SqueezeCenter מתפריט Start (התחל), לחץ לחיצה ימנית ובחר את האפשרות Run as administrator (הפעל כמנהל).
-	IT	In Windows Vista, se si esegue SqueezeCenter con privilegi di amministratore è possibile accedere a opzioni di avvio aggiuntive. Per eseguirlo con privilegi di amministratore, chiudere questo programma, selezionare Tutti i programmi, SqueezeCenter, SqueezeCenter dal menu Start, fare clic col pulsante destro del mouse e selezionare Esegui come amministratore.
-	NL	Wanneer je SqueezeCenter op Windows Vista met beheerdersrechten uitvoert, heb je toegang tot extra opstartopties. Sluit hiervoor dit programma en ga via het Start-menu naar 'Alle programma's', 'SqueezeCenter', 'SqueezeCenter'. Rechtsklik vervolgens op 'Als beheerder uitvoeren'.
-

@@ -1,5 +1,14 @@
 // Service management routines on http://www.vincenzo.net/isxkb/index.php?title=Service
 type
+	SERVICE_STATUS = record
+    	dwServiceType				: cardinal;
+    	dwCurrentState				: cardinal;
+    	dwControlsAccepted			: cardinal;
+    	dwWin32ExitCode				: cardinal;
+    	dwServiceSpecificExitCode	: cardinal;
+    	dwCheckPoint				: cardinal;
+    	dwWaitHint					: cardinal;
+	end;
 	HANDLE = cardinal;
 
 const
@@ -47,6 +56,12 @@ external 'StartServiceA@advapi32.dll stdcall';
 function DeleteService(hService: HANDLE): boolean;
 external 'DeleteService@advapi32.dll stdcall';
 
+function ControlService(hService :HANDLE; dwControl :cardinal;var ServiceStatus :SERVICE_STATUS) : boolean;
+external 'ControlService@advapi32.dll stdcall';
+
+function QueryServiceStatus(hService :HANDLE;var ServiceStatus :SERVICE_STATUS) : boolean;
+external 'QueryServiceStatus@advapi32.dll stdcall';
+
 function OpenServiceManager() : HANDLE;
 begin
 	if UsingWinNT() = true then begin
@@ -70,6 +85,26 @@ begin
 			CloseServiceHandle(hService)
 		end;
 		CloseServiceHandle(hSCM)
+	end
+end;
+
+function IsServiceRunning(ServiceName: string) : boolean;
+var
+	hSCM	: HANDLE;
+	hService: HANDLE;
+	Status	: SERVICE_STATUS;
+begin
+	hSCM := OpenServiceManager();
+	Result := false;
+	if hSCM <> 0 then begin
+		hService := OpenService(hSCM,ServiceName,SERVICE_QUERY_STATUS);
+    	if hService <> 0 then begin
+			if QueryServiceStatus(hService,Status) then begin
+				Result :=(Status.dwCurrentState = SERVICE_RUNNING)
+        	end;
+            CloseServiceHandle(hService)
+		    end;
+        CloseServiceHandle(hSCM)
 	end
 end;
 
@@ -101,6 +136,24 @@ begin
 		hService := OpenService(hSCM,ServiceName,SERVICE_START);
         if hService <> 0 then begin
         	Result := StartNTService(hService,0,0);
+            CloseServiceHandle(hService)
+		end;
+        CloseServiceHandle(hSCM)
+	end;
+end;
+
+function StopService(ServiceName: string) : boolean;
+var
+	hSCM	: HANDLE;
+	hService: HANDLE;
+	Status	: SERVICE_STATUS;
+begin
+	hSCM := OpenServiceManager();
+	Result := false;
+	if hSCM <> 0 then begin
+		hService := OpenService(hSCM,ServiceName,SERVICE_STOP);
+        if hService <> 0 then begin
+        	Result := ControlService(hService,SERVICE_CONTROL_STOP,Status);
             CloseServiceHandle(hService)
 		end;
         CloseServiceHandle(hSCM)

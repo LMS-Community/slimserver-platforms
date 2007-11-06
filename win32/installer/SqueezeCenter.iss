@@ -62,7 +62,7 @@ Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de
 Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*,*cygwin*"; Flags: comparetimestamp recursesubdirs
 
 [Dirs]
-Name: {%ALLUSERSPROFILE}\SqueezeCenter; Permissions: users-modify; MinVersion: 0,6.0
+Name: {commonappdata}\SqueezeCenter; Permissions: users-modify
 Name: {app}\server\Plugins; Permissions: users-modify
 
 [INI]
@@ -86,7 +86,7 @@ Name: {commonstartup}\{cm:SqueezeCenterTrayTool}; Filename: {app}\SqueezeTray.ex
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9000:TCP"; ValueData: "9000:TCP:*:Enabled:SqueezeCenter 9000 tcp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:SqueezeCenter 3483 udp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:SqueezeCenter 3483 tcp"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SOFTWARE\Logitech\SqueezeCenter; ValueType: string; ValueName: Path; ValueData: {app}; MinVersion: 0,5.01
+Root: HKLM; Subkey: SOFTWARE\Logitech\SqueezeCenter; ValueType: string; ValueName: Path; ValueData: {app}
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
@@ -96,7 +96,7 @@ Type: dirifempty; Name: {app}\server\Plugins
 Type: dirifempty; Name: {app}\server\HTML
 Type: dirifempty; Name: {app}\server\SQL
 Type: filesandordirs; Name: {app}\server\Cache
-Type: filesandordirs; Name: {%ALLUSERSPROFILE}\SqueezeCenter; MinVersion: 0,6.0
+Type: filesandordirs; Name: {commonappdata}\SqueezeCenter\Cache
 Type: files; Name: {app}\server\slimserver.pref
 Type: files; Name: {app}\{cm:SlimDevicesWebSite}.url
 Type: files; Name: {app}\{cm:SqueezeCenterWebInterface}.url
@@ -112,13 +112,10 @@ Filename: {app}\SqueezeTray.exe; Parameters: --exit --uninstall; WorkingDir: {ap
 
 [Code]
 #include "ServiceManager.iss"
-#include "StartupModeWizardPage.iss"
 
 var
 	ProgressPage: TOutputProgressWizardPage;
 	StartupMode: String;
-	Username: String;
-	Password: String;
 
 function GetInstallFolder(Param: String) : String;
 var
@@ -130,13 +127,9 @@ begin
 	Result := InstallFolder;
 end;
 
-// NB don't call this until after {app} is set
 function GetWritablePath() : String;
 begin
-	if (GetWindowsVersion shr 24 >= 6) then
-		Result := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SqueezeCenter'
-	else
-		Result := AddBackslash(ExpandConstant('{app}')) + 'server'
+	Result := AddBackslash(ExpandConstant('{commonappdata}')) + 'SqueezeCenter';
 end;	
 
 function GetPrefsFolder() : String;
@@ -178,6 +171,9 @@ var
 	MaxProgress: Integer;
 
 begin
+	ProgressPage.show();
+	ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
+
 	// remove SlimTray if it's still running
 	if (UpperCase(Version) = 'SC') then
 		begin
@@ -186,6 +182,10 @@ begin
 			Svc := 'squeezesvc';
 			MySQLSvc := 'SqueezeMySQL';
 			TrayExe := 'SqueezeTray.exe';
+
+			// stop SqueezeCenter services if installed
+			StopService(Svc);
+			RemoveService(MySQLSvc);
 		end
 	else
 		begin
@@ -194,14 +194,11 @@ begin
 			Svc := 'slimsvc';
 			MySQLSvc := 'SlimServerMySQL';
 			TrayExe := 'SlimTray.exe';
+
+			// old SlimServer services
+			RemoveService(Svc);
+			RemoveService(MySQLSvc);
 		end;
-
-	ProgressPage.show();
-	ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
-
-	// stop and remove our services
-	RemoveService(Svc);
-	RemoveService(MySQLSvc);
 
 	ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
@@ -218,7 +215,7 @@ begin
 	// wait up to 60 seconds for the services to be deleted
 	Wait := 60;
 	MaxProgress := ProgressPage.ProgressBar.Position + Wait;
-	while (Wait > 0) and (IsServiceInstalled(Svc) or IsServiceInstalled(MySQLSvc)) do
+	while (Wait > 0) and (IsServiceRunning(Svc) or IsServiceRunning(MySQLSvc)) do
 	begin
 		ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
 		Sleep(1000);
@@ -364,7 +361,7 @@ var
 begin
 	// 'auto'   - service to be started automatically
 	// 'demand' - to be started on demand (application mode)
-	StartupMode := 'demand';
+	StartupMode := '';
 
 	if GetStartType('squeezesvc') <> '' then
 		StartupMode := GetStartType('squeezesvc')
@@ -374,14 +371,9 @@ begin
 
 	else
 		begin
-			if RegQueryStringValue(HKCU, SCRegkey, 'StartAtBoot', StartAtBoot) then
+			if RegQueryStringValue(HKCU, SSRegkey, 'StartAtBoot', StartAtBoot) then
 				if (StartAtBoot = '1') then
-					StartupMode := 'auto'
-
-			else
-				if RegQueryStringValue(HKCU, SSRegkey, 'StartAtBoot', StartAtBoot) then
-					if (StartAtBoot = '1') then
-						StartupMode := 'auto';
+					StartupMode := 'logon';
 		end;
 end;
 
@@ -389,8 +381,6 @@ procedure InitializeWizard();
 begin
 	// try to remember whether SS/SC was running as a service before we're uninstalling
 	GetStartupMode();
-
-	Startup_CreatePage(wpSelectDir, StartupMode);		
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
@@ -400,7 +390,6 @@ var
 	PrefsFile: String;
 	PrefsPath: String;
 	PrefString: String;
-	Credentials: String;
 
 begin
 	if CurStep = ssInstall then
@@ -456,16 +445,6 @@ begin
 	
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
-
-				StartupMode := 'demand';
-
-				if (RadioAtBoot.checked) then
-					begin
-						Credentials := ' --username=' + EditUsername.text + ' --password=' + EditPassword1.text;
-						StartupMode := 'auto';
-					end;
-
-				Exec(NewServerDir + 'squeezecenter.exe', '-install ' + StartupMode + Credentials, NewServerDir, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
 				if StartupMode = 'auto' then
 					StartService('squeezesvc');
