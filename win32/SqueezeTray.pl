@@ -209,7 +209,7 @@ sub checkAndStart {
 
 		$Registry->{'CUser/Software/'}->{'Logitech/'} = {
 			'SqueezeCenter/' => {
-				'/StartAtLogin' => $atLogin || 0
+				'/StartAtLogin' => defined $atLogin ? $atLogin : 1
 			},
 		};
 
