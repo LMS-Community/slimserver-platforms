@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title>Inno Setup 5 Revision History</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<!-- $jrsoftware: issrc/whatsnew.htm,v 1.506 2007/04/24 19:32:06 jr Exp $ -->
+<!-- $jrsoftware: issrc/whatsnew.htm,v 1.531 2007/10/22 22:10:47 jr Exp $ -->
 
 <div class="bluehead"><span class="head1">Inno Setup 5</span><br /><span class="head2">Revision History</span></div>
 
@@ -27,6 +27,107 @@
 Portions Copyright &copy; 2000-2007 Martijn Laan. All rights reserved.<br />
 For conditions of distribution and use, see <a href="http://www.jrsoftware.org/files/is/license.txt">LICENSE.TXT</a>.
 </p>
+
+<p><a name="5.2.2"></a><span class="ver">5.2.2 </span><span class="date">(2007-10-22)</span></p>
+<ul>
+<li>The Setup loader now extracts the Setup program executable file with a ".tmp" extension. Versions 5.2.0 and 5.2.1 used a ".exe.tmp" extension, which reportedly, in some cases, caused an "Unable to execute file in temporary directory" error message on systems with a certain antivirus program installed. We were unable to reproduce the error in our own tests, however; it is suspected that this may have only impacted users with custom filename blocking rules defined in their antivirus configuration.</li>
+<li>Pascal Scripting: Added new <tt>GetSaveFileName</tt> support function.</li>
+<li><i>Fix:</i> The compiler could fail with an "Out of memory" error on script files containing more than ~100,000 lines, due to a heap fragmentation issue.</li>
+</ul>
+
+<p><a name="5.2.1"></a><span class="ver">5.2.1 </span><span class="date">(2007-10-13)</span></p>
+<ul>
+<li>Added new [Setup] section directive: <tt>SignedUninstaller</tt>, which makes it possible to attach a digital signature to the uninstaller program (unins???.exe). When the uninstaller has a valid digital signature, Windows Vista users will not see an "unidentified program" warning when launching it from outside of Control Panel.</li>
+<li>Added new [Setup] section directive: <tt>SignedUninstallerDir</tt>.</li>
+<li><tt>Check</tt> functions associated with [Tasks] entries are now called when the <i>Select Tasks</i> wizard page is entered. Previously, they were called prior to the wizard being shown, which meant they couldn't depend on the user's selections in preceding wizard pages. (There are plans to make the same change to [Components] in the future.)</li>
+<li>Brought back the pre-5.1.13 duplicate [Components]/[Tasks] entry semantics. For example, in the following case:
+<blockquote><tt>
+[Tasks]<br />
+Name: foo; Description: "foo #1"; Components: bar<br />
+Name: foo; Description: "foo #2"; Components: not bar<br />
+Name: foo\child; Description: "foo\child"
+</tt></blockquote>
+"foo\child" will now, once again, be shown regardless of which "foo" is conditionally created.
+</li>
+<li>Pascal Scripting: "files:" function imports may now include multiple filenames. "files:A.dll,B.dll" will cause both A.dll and B.dll to be extracted before A.dll is loaded.</li>
+<li>On Windows Vista, Setup no longer alters the uninstaller program's manifest resource to request elevation, because this would invalidate a digital signature. Instead, the uninstaller now respawns itself when elevation is required, much like Setup does beginning with version 5.2.0.</li>
+<li>The uninstall program's version is now 51.49.0.0.</li>
+<li>Minor tweaks.</li>
+</ul>
+
+<p><a name="5.2.0"></a><span class="ver">5.2.0 </span><span class="date">(2007-09-19)</span></p>
+<ul>
+<li>On Windows Vista, [Run] section entries with the <tt>postinstall</tt> flag no longer inherit Setup's elevated privileges by default, and instead now execute with the (normally non-elevated) credentials of the user that started Setup initially. (There are some exceptions; see the <tt>runasoriginaluser</tt> flag documentation for details.)</li>
+<li>Added new [Run] section flags: <tt>runascurrentuser</tt> and <tt>runasoriginaluser</tt>. These control which user credentials are used on Windows Vista when spawning processes. (<tt>runasoriginaluser</tt> is the default when the <tt>postinstall</tt> flag is used; <tt>runascurrentuser</tt> is the default otherwise.)</li>
+<li>Improved compression of x86 executable files. (This reduced the size of Inno Setup's own installer by approximately 10 KB.)</li>
+<li>Added new [Files] section parameter: <tt>ExternalSize</tt>.</li>
+<li>Added new constant: <tt>{log}</tt>. Translates to the log file name, or an empty string if logging is not enabled.</li>
+<li>Added new [Files] and [Dirs] sections flags: <tt>setntfscompression</tt> and <tt>unsetntfscompression</tt>. These flags instruct Setup to enable or disable NTFS compression on the file or directory.</li>
+<li>Pascal Scripting:
+  <ul>
+  <li>Added new <tt>ExecAsOriginalUser</tt>, <tt>ShellExecAsOriginalUser</tt>, and <tt>SetNTFSCompression</tt> support functions.</li>
+  <li>Now supports new DLL loading flag <tt>loadwithalteredsearchpath</tt> to load DLLs with the Windows flag LOAD_WITH_ALTERED_SEARCH_PATH.</li>
+  </ul>
+</li>
+<li>The Setup loader now uses the original Setup EXE filename + .tmp as the filename for the extracted Setup executable instead of a name comprised of random letters and numbers, which may have seemed suspicious to firewall users.</li>
+<li>In a multilingual installation, Setup now waits until after the <i>Select Language</i> dialog is shown to display any error messages concerning the user's Windows version or privilege level.</li>
+<li><i>Fix:</i> On Windows Vista, AutoPlay wasn't being suppressed when the user swapped out discs in a disk-spanned install.</li>
+<li><i>Fix:</i> When the <tt>waituntilidle</tt> flag was used in the [UninstallRun] section, it behaved like <tt>waituntilterminated</tt>.</li>
+<li>Based on RemObjects Pascal Script SVN code revision 1045a.</li>
+<li>The uninstall program's version is now 51.48.0.0.</li>
+<li>Minor tweaks.</li>
+</ul>
+
+<hr />
+
+<p><a name="5.1.14"></a><span class="ver">5.1.14 </span><span class="date">(2007-08-07)</span></p>
+<ul>
+<li>Updated the <a href="http://www.7-zip.org/sdk.html">LZMA SDK</a> compression code to version 4.49. This version adds support for multi-threading, which can speed up the compression process by 50% or more on systems with multiple processor cores, and 20% or more on systems with single-core Intel processors featuring Hyper-Threading Technology.</li>
+<li>Added new <tt>CompressionThreads</tt> [Setup] section directive.</li>
+<li><i>Fix:</i> When cleaning the output directory, the compiler would not only delete files matching <tt><i>OutputBaseFilename</i></tt>-*.bin, but files matching <tt><i>OutputBaseFilename</i></tt>-*-*.bin as well.</li>
+</ul>
+
+<p><a name="5.1.13"></a><span class="ver">5.1.13 </span><span class="date">(2007-07-22)</span></p>
+<ul>
+<li>Added new <tt>lzma/ultra64</tt> compression level. Same as <tt>lzma/ultra</tt>, but uses a dictionary size that is twice as large (64 MB).</li>
+<li>Added new <tt>SetupLogging</tt> [Setup] section directive. If set to <tt>yes</tt>, Setup will always create a log file (equivalent to passing /LOG on the command line).</li>
+<li>Added new <tt>AppSupportPhone</tt> [Setup] section directive.</li>
+<li>Added new [Files] section flag: <tt>solidbreak</tt>.</li>
+<li>Added new [Run] and [UninstallRun] sections parameter: <tt>Verb</tt>. When used with the <tt>shellexec</tt> flag, specifies the action to be performed on the file.</li>
+<li>When the <tt>shellexec</tt> flag is used in the [Run] and [UninstallRun] sections, it now uses the default verb for the file type instead of hardcoding "open". (If necessary, you can override this by adding a <tt>Verb</tt> parameter.)</li>
+<li>Setup now supports a /TYPE parameter to override the default setup type.</li>
+<li>Components/tasks-related changes:
+  <ul>
+  <li>/COMPONENTS &amp; /TASKS: When a parent component/task is specified, it no longer automatically checks every child component/task. To achieve the old behavior, prefix the name of the parent component/task with a "*" character, or list each child component/task individually.</li>
+  <li>/COMPONENTS: It is now possible to force a child component to be deselected by including its name in the list with a "!" prefix. (/TASKS already supports this.)</li>
+  <li>/COMPONENTS is now ignored if no custom type is defined.</li>
+  <li>/SAVEINF now writes the selected setup type in the INF file. Previously, using /LOADINF would always select a custom type.</li>
+  <li>/SAVEINF now writes the selected tasks in the INF file.</li>
+  <li>When a <tt>MinVersion</tt>/<tt>OnlyBelowVersion</tt>/<tt>Languages</tt>/<tt>Check</tt>/<tt>Components</tt> parameter causes a parent component/task to be hidden from view, child items will now be hidden as well. (Previously, it was necessary to include the same conditions on every child item in order for them to be hidden along with the parent item.)</li>
+  <li><i>Fix:</i> When new child components/tasks were introduced in a new install, they would always be selected by default if the parent component/task was selected in the previous installation.</li>
+  <li><i>Fix:</i> /LOADINF would select child components that weren't selected during the initial install.</li>
+  <li><i>Fix:</i> In a /COMPONENTS parameter, it is no longer necessary to list <tt>fixed</tt> components in order for them to be selected.</li>
+  </ul>
+</li>
+<li>Pascal Scripting changes:
+  <ul>
+  <li>FindFirst/FindNext: Add <tt>CreationTime</tt>, <tt>LastAccessTime</tt>, <tt>LastWriteTime</tt>, <tt>AlternateName</tt> fields to TFindRec.</li>
+  <li>TInputFileWizardPage: Added new <tt>IsSaveButton</tt> property. This can be used to make a button open a <i>Save As</i> dialog instead of the default <i>Open</i> dialog.</li>
+  <li>TNewCheckListBox: Setting <tt>Checked[]</tt> to True will no longer automatically check an item's child check boxes. To do that now, call the new <tt>CheckItem</tt> method with <tt>coCheckWithChildren</tt> in the <tt>AOperation</tt> parameter.</li>
+  <li>ParamStr/ParamCount: Empty parameters ("") are no longer skipped.</li>
+  </ul>
+</li>
+<li>/LOG: Logged times now include milliseconds.</li>
+<li>Compiler IDE changes:
+  <ul>
+  <li>During the compression phase of a compile, the status bar now shows the estimated time remaining and KB compressed/second.</li>
+  <li>The <i>Edit | Redo</i> shortcut is now Ctrl+Y. The previous shortcut (Shift+Ctrl+Z) still works too.</li>
+  </ul>
+</li>
+<li><i>Fix:</i> In the [INI] section, if <tt>Filename</tt> was blank, the <tt>uninsdelete*</tt> flags didn't actually delete anything.</li>
+<li>The uninstall program's version is now 51.47.0.0.</li>
+<li>Minor tweaks.</li>
+</ul>
 
 <p><a name="5.1.12"></a><span class="ver">5.1.12 </span><span class="date">(2007-04-24)</span></p>
 <ul>
@@ -97,7 +198,7 @@ For conditions of distribution and use, see <a href="http://www.jrsoftware.org/f
 <li>URLs (web site addresses) may now be specified in the <tt>Filename</tt> parameter of [Icons] section entries. When a URL is detected, Setup will create an Internet Shortcut (.url) file instead of a regular shortcut.<br />
 (Note: While you could sometimes get away with specifying URLs in previous versions of Inno Setup, it was never recommended because the shortcuts would fail to resolve on Windows 95 or NT 4.0. Internet Shortcuts, on the other hand, will work on any version of Windows, as long as Internet Explorer is installed.)</li>
 <li>Added workaround for bug in the 64-bit version of Windows Vista: The fields on the <i>User Information</i> wizard page would default to "Microsoft".</li>
-<li>Pascal Scripting: Added new <tt>FontExists</tt> function.</li>
+<li>Pascal Scripting: Added new <tt>FontExists</tt> support function.</li>
 <li>The uninstall program's version is now 51.44.0.0.</li>
 <li>Minor tweaks.</li>
 </ul>
