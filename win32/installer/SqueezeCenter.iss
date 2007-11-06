@@ -359,8 +359,8 @@ var
 	StartAtBoot: String;
 
 begin
-	// 'auto'   - service to be started automatically
-	// 'demand' - to be started on demand (application mode)
+	// 'auto'  - service to be started automatically
+	// 'logon' - to be started on at logon (application mode)
 	StartupMode := '';
 
 	if GetStartType('squeezesvc') <> '' then
