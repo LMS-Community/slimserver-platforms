@@ -551,7 +551,13 @@ sub loadStrings {
 	my $language   = '';
 	my $stringname = '';
 
-	LINE: foreach my $line (split('\n', strings())) {
+	my $file = 'strings.txt';
+
+	open(STRINGS, '<:utf8', $file) || do {
+		die "Couldn't open $file - FATAL!";
+	};
+
+	LINE: while (my $line = <STRINGS>) {
 
 		chomp($line);
 		
@@ -574,6 +580,8 @@ sub loadStrings {
 			$strings{$stringname}->{$language} = $string;
 		}
 	}
+
+	close STRINGS;
 }
 
 *PerlTray::ToolTip = \&ToolTip;
@@ -595,150 +603,3 @@ SetTimer(":1", \&checkAndStart);
 # SS. We could have combined the two timers, but changing the
 # frequency of the timer proved problematic.
 SetTimer(":" . $timerSecs);
-
-
-sub strings {
-	return q/
-START_FAILED
-	DE	SqueezeCenter konnte nicht gestartet werden. Weitere Informationen finden Sie in der Ereignisanzeige und vom Support
-	EN	SqueezeCenter would not open. SqueezeCenter may be starting or stopping. Please wait a minute and try again.
-	ES	Fallo al iniciar SqueezeCenter. Consulte el Visor de sucesos y póngase en contacto con el servicio de asistencia
-	FR	Echec du démarrage du SqueezeCenter. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
-	HE	כשל בהפעלת SqueezeCenter. עיין במציג האירועים ופנה למרכז התמיכה.
-	IT	Avvio di SqueezeCenter non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
-	NL	SqueezeCenter kan niet gestart worden. Zie de logboeken en neem contact op met ondersteuning
-
-STOP_FAILED
-	DE	SqueezeCenter konnte nicht angehalten werden. Weitere Informationen finden Sie in der Ereignisanzeige und vom Support
-	EN	Stopping SqueezeCenter Failed. Please see the Event Viewer & Contact Support
-	ES	Fallo al detener SqueezeCenter. Consulte el Visor de sucesos y póngase en contacto con el servicio de asistencia
-	FR	Echec de l'arrêt du SqueezeCenter. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
-	HE	כשל בעצירת SqueezeCenter. עיין במציג האירועים ופנה למרכז התמיכה.
-	IT	Arresto di SqueezeCenter non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
-	NL	SqueezeCenter kan niet gestopt worden. Zie de logboeken en neem contact op met ondersteuning
-
-RUN_AT_BOOT
-	DE	Automatisch bei Systemstart ausführen
-	EN	Automatically run at system start
-	ES	Ejecutar automáticamente al iniciar el sistema
-	FR	Démarrer automatiquement au démarrage du système
-	HE	הפעלה אוטומטית עם הפעלת המערכת
-	IT	Esegui automaticamente all'avvio del sistema
-	NL	Automatisch uitvoeren bij systeemstart
-
-RUN_AT_LOGIN
-	DE	Automatisch bei Anmeldung ausführen
-	EN	Automatically run at login
-	ES	Ejecutar automáticamente al iniciar sesión
-	FR	Démarrer automatiquement lors de la connexion
-	HE	הפעלה אוטומטית עם הכניסה למערכת
-	IT	Esegui automaticamente all'accesso al sistema
-	NL	Automatisch uitvoeren bij aanmelden
-
-OPEN_SQUEEZECENTER
-	DE	SqueezeCenter öffnen
-	EN	Open SqueezeCenter
-	ES	Abrir SqueezeCenter
-	FR	Ouvrir le SqueezeCenter
-	HE	פתח את SqueezeCenter
-	IT	Apri SqueezeCenter
-	NL	SqueezeCenter openen
-
-START_SQUEEZECENTER
-	DE	SqueezeCenter starten
-	EN	Start SqueezeCenter
-	ES	Iniciar SqueezeCenter
-	FR	Démarrer le SqueezeCenter
-	HE	הפעל את SqueezeCenter
-	IT	Avvia SqueezeCenter
-	NL	SqueezeCenter starten
-
-STARTING_SQUEEZECENTER
-	DE	SqueezeCenter wird gestartet...
-	EN	Starting SqueezeCenter...
-	ES	Iniciando SqueezeCenter...
-	FR	Démarrage du SqueezeCenter
-	HE	מפעיל את SqueezeCenter...
-	IT	Avvio di SqueezeCenter in corso...
-	NL	SqueezeCenter wordt gestart...
-
-STOPPING_SQUEEZECENTER
-	DE	SqueezeCenter wird angehalten...
-	EN	Stopping SqueezeCenter...
-	ES	Deteniendo SqueezeCenter...
-	FR	Arrêt du SqueezeCenter…
-	HE	עוצר את SqueezeCenter...
-	IT	Arresto di SqueezeCenter in corso...
-	NL	SqueezeCenter wordt gestopt...
-
-STOP_SQUEEZECENTER
-	DE	SqueezeCenter anhalten
-	EN	Stop SqueezeCenter
-	ES	Detener SqueezeCenter
-	FR	Arrêter le SqueezeCenter
-	HE	עצור את SqueezeCenter
-	IT	Arresta SqueezeCenter
-	NL	SqueezeCenter stoppen
-
-SQUEEZECENTER_STARTING
-	DE	SqueezeCenter wird gestartet
-	EN	SqueezeCenter Starting
-	ES	SqueezeCenter en inicio
-	FR	Démarrage du SqueezeCenter
-	HE	‏SqueezeCenter מופעל
-	IT	Avvio di SqueezeCenter in corso
-	NL	SqueezeCenter wordt gestart
-
-SQUEEZECENTER_RUNNING
-	DE	SqueezeCenter wird ausgeführt
-	EN	SqueezeCenter Running
-	ES	SqueezeCenter en ejecución
-	FR	SqueezeCenter en cours d'exécution
-	HE	‏SqueezeCenter פועל
-	IT	SqueezeCenter è in esecuzione
-	NL	SqueezeCenter is actief
-
-SQUEEZECENTER_STOPPED
-	DE	SqueezeCenter angehalten
-	EN	SqueezeCenter Stopped
-	ES	SqueezeCenter detenido
-	FR	SqueezeCenter arrêté
-	HE	‏SqueezeCenter נעצר
-	IT	SqueezeCenter è stato arrestato
-	NL	SqueezeCenter is gestopt
-
-GO_TO_WEBSITE
-	DE	Logitech Website öffnen
-	EN	Go to Logitech Web Site
-	ES	Ir al sitio Web de Logitech
-	FR	Accéder au site Web de Logitech
-	HE	עבור אל אתר האינטרנט של Logitech
-	IT	Vai al sito Web Logitech
-	NL	Naar de Logitech-website
-
-EXIT
-	DE	B&eenden
-	EN	E&xit
-	ES	&Salir
-	FR	&Quitter
-	HE	י&ציאה
-	IT	E&sci
-	NL	Af&sluiten
-
-WRITE_FAILED
-	DE	Speichern nicht möglich in:
-	EN	Unable to write to
-	ES	Imposible escribir en
-	HE	אין אפשרות לכתוב אל
-	IT	Impossibile scrivere in
-	NL	Kan niet wegschrijven naar
-
-ADDITIONAL_OPTIONS
-	DE	Weitere Optionen
-	EN	Additional Options
-	ES	Opciones adicionales
-	HE	אפשרויות נוספות
-	IT	Opzioni aggiuntive
-	NL	Extra opties
-/;
-}
