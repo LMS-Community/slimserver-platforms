@@ -82,9 +82,9 @@ en.WaitingForServices=Waiting for SqueezeCenter services to be stopped...
 de.WaitingForServices=Warte auf SqueezeCenter Dienste...
 
 ; Strings for the startup option page
-en.Startup_Caption=Select startup option
+en.Startup_Caption=SqueezeCenter Service Enabler
 
-en.Startup_Description=SqueezeCenter can be set to run automatically. Choose how you'd like to run SqueezeCenter.
+en.Startup_Description=Configure SqueezeCenter Windows service
 
 en.Startup_LabelUsername_Caption0=Username:
 
@@ -97,8 +97,6 @@ en.Startup_RadioAtLogin_Caption0=Start SqueezeCenter when I &log in.
 en.Startup_RadioAtBoot_Caption0=Start SqueezeCenter &automatically when the computer starts.
 
 en.Startup_LabelAtBootDesc_Caption0=You need to enter your Windows user name and password so SqueezeCenter can access your music library.
-
-en.Startup_RadioManual_Caption0=&Don't start SqueezeCenter automatically.
 
 en.Startup_PasswordsDontMatch=The entered passwords don't match. Please try again.
 

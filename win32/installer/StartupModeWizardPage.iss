@@ -6,7 +6,6 @@ var
 	RadioAtLogin: TRadioButton;
 	RadioAtBoot: TRadioButton;
 	LabelAtBootDesc: TNewStaticText;
-	RadioManual: TRadioButton;
 	EditUsername: TEdit;
 	EditPassword1: TPasswordEdit;
 	EditPassword2: TPasswordEdit;
@@ -72,7 +71,7 @@ begin
 		Parent := Page.Surface;
 		Caption := ExpandConstant('{cm:Startup_LabelUsername_Caption0}');
 		Left := ScaleX(18);
-		Top := ScaleY(94);
+		Top := ScaleY(114);
 		Width := ScaleX(52);
 		Height := ScaleY(13);
 	end;
@@ -83,7 +82,7 @@ begin
 		Parent := Page.Surface;
 		Caption := ExpandConstant('{cm:Startup_LabelPassword1_Caption0}');
 		Left := ScaleX(18);
-		Top := ScaleY(124);
+		Top := ScaleY(144);
 		Width := ScaleX(50);
 		Height := ScaleY(13);
 	end;
@@ -94,7 +93,7 @@ begin
 		Parent := Page.Surface;
 		Caption := ExpandConstant('{cm:Startup_LabelPassword2_Caption0}');
 		Left := ScaleX(18);
-		Top := ScaleY(148);
+		Top := ScaleY(168);
 		Width := ScaleX(90);
 		Height := ScaleY(13);
 	end;
@@ -105,7 +104,7 @@ begin
 		Parent := Page.Surface;
 		Caption := ExpandConstant('{cm:Startup_RadioAtLogin_Caption0}');
 		Left := ScaleX(0);
-		Top := ScaleY(8);
+		Top := ScaleY(28);
 		Width := ScaleX(409);
 		Height := ScaleY(17);
 		TabOrder := 3;
@@ -120,7 +119,7 @@ begin
 		Parent := Page.Surface;
 		Caption := ExpandConstant('{cm:Startup_RadioAtBoot_Caption0}');
 		Left := ScaleX(0);
-		Top := ScaleY(40);
+		Top := ScaleY(60);
 		Width := ScaleX(409);
 		Height := ScaleY(17);
 		TabOrder := 4;
@@ -134,32 +133,18 @@ begin
 		Parent := Page.Surface;
 		Caption := ExpandConstant('{cm:Startup_LabelAtBootDesc_Caption0}');
 		Left := ScaleX(18);
-		Top := ScaleY(56);
+		Top := ScaleY(76);
 		Width := ScaleX(396);
 		Height := ScaleY(27);
 		WordWrap := True;
 	end;
 	
-	RadioManual := TRadioButton.Create(Page);
-	with RadioManual do
-	begin
-		Parent := Page.Surface;
-		Caption := ExpandConstant('{cm:Startup_RadioManual_Caption0}');
-		Left := ScaleX(0);
-		Top := ScaleY(200);
-		Width := ScaleX(417);
-		Height := ScaleY(17);
-		TabOrder := 5;
-		Checked := False;
-		OnClick := @DisableCredentials;
-	end;
-
 	EditUsername := TEdit.Create(Page);
 	with EditUsername do
 	begin
 		Parent := Page.Surface;
 		Left := ScaleX(168);
-		Top := ScaleY(90);
+		Top := ScaleY(110);
 		Width := ScaleX(217);
 		Height := ScaleY(21);
 		TabOrder := 6;
@@ -170,7 +155,7 @@ begin
 	begin
 		Parent := Page.Surface;
 		Left := ScaleX(168);
-		Top := ScaleY(120);
+		Top := ScaleY(140);
 		Width := ScaleX(217);
 		Height := ScaleY(21);
 		TabOrder := 7;
@@ -181,7 +166,7 @@ begin
 	begin
 		Parent := Page.Surface;
 		Left := ScaleX(168);
-		Top := ScaleY(144);
+		Top := ScaleY(164);
 		Width := ScaleX(217);
 		Height := ScaleY(21);
 		TabOrder := 8;
@@ -192,7 +177,7 @@ begin
 		OnNextButtonClick := @Startup_NextButtonClick;
 	end;
 
-	if (StartupMode = 'auto') then
+	if (StartupMode = 'auto') or (StartupMode = 'demand') then
 		begin
 			EnableCredentials(Page);
 			RadioAtBoot.checked := true;
