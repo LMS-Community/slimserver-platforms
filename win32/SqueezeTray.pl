@@ -551,7 +551,7 @@ sub loadStrings {
 	my $language   = '';
 	my $stringname = '';
 
-	LINE: while (my $line = <DATA>) {
+	LINE: foreach my $line (split('\n', strings())) {
 
 		chomp($line);
 		
@@ -597,7 +597,8 @@ SetTimer(":1", \&checkAndStart);
 SetTimer(":" . $timerSecs);
 
 
-__END__
+sub strings {
+	return q/
 START_FAILED
 	DE	SqueezeCenter konnte nicht gestartet werden. Weitere Informationen finden Sie in der Ereignisanzeige und vom Support
 	EN	SqueezeCenter would not open. SqueezeCenter may be starting or stopping. Please wait a minute and try again.
@@ -739,3 +740,5 @@ ADDITIONAL_OPTIONS
 	HE	אפשרויות נוספות
 	IT	Opzioni aggiuntive
 	NL	Extra opties
+/;
+}
