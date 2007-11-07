@@ -30,6 +30,7 @@ WizardImageFile=squeezebox.bmp
 WizardImageBackColor=$ffffff
 WizardSmallImageFile=logitech.bmp
 OutputBaseFilename=SqueezeSetup
+DirExistsWarning=no
 MinVersion=0,4
 
 [Tasks]

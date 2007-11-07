@@ -1,6 +1,7 @@
 [Setup]
 AppName=SqueezeCenter Service Enabler
 AppVerName=SqueezeCenter
+OutputBaseFilename=SqueezeCenterServiceEnabler
 WizardImageFile=squeezebox.bmp
 WizardImageBackColor=$ffffff
 WizardSmallImageFile=logitech.bmp
@@ -15,6 +16,7 @@ DisableReadyPage=yes
 DisableStartupPrompt=yes
 ShowLanguageDialog=no
 Uninstallable=no
+MinVersion=0,4
 
 [Languages]
 Name: nl; MessagesFile: "Dutch.isl"
