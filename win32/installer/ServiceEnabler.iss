@@ -1,7 +1,7 @@
 [Setup]
 AppName=SqueezeCenter Service Enabler
 AppVerName=SqueezeCenter
-OutputBaseFilename=SqueezeCenterServiceEnabler
+OutputBaseFilename=ServiceEnabler
 WizardImageFile=squeezebox.bmp
 WizardImageBackColor=$ffffff
 WizardSmallImageFile=logitech.bmp
