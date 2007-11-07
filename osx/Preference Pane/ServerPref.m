@@ -96,6 +96,56 @@
 	return 0;
 }
 
+
+-(int)serverPort
+{
+    NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"check-web.pl"];
+	
+    /*
+	 **  Run a simple shell script to get the server's HTTP port, if it's running.
+	 */
+	
+    NSTask *pipeTask = [[NSTask alloc] init];
+    NSPipe *outputPipe = [NSPipe pipe];
+    NSFileHandle *readHandle = [outputPipe fileHandleForReading];
+    NSData *inData = nil;
+    NSMutableString *portString = [NSMutableString string];
+    int port;
+	
+    [pipeTask setStandardOutput:outputPipe];
+    [pipeTask setLaunchPath:pathToScript];
+    [pipeTask launch];
+	
+    /*
+	 **	There's a pretty serious bug in the availableData API: it leaks approximately 4K
+	 ** when there's no data to read and it returns an NSData that's "empty". To get around
+	 ** this serious bug, I've switched to waiting until the process ends, and reading the
+	 ** whole thing at once.
+	 **
+	 **	Nasty.
+	 */
+    
+#ifdef AVAILABLE_DATA_LEAK_FIXED
+    while ((inData = [readHandle availableData]) && [inData length])
+		[portString appendString:[NSString stringWithCString:[inData bytes] length:[inData length]]];
+#else
+    [pipeTask waitUntilExit];
+	
+    inData = [readHandle readDataToEndOfFile];
+	
+    if ([inData length])
+		[portString appendString:[NSString stringWithCString:[inData bytes] length:[inData length]]];
+#endif
+    
+    [pipeTask release];
+	
+    if (sscanf([portString UTF8String], "%d", &port) == 1)
+		return port;
+    else
+		return 0;
+}
+
+
 -(bool)authorizeUser
 {
     OSStatus myStatus;
@@ -127,11 +177,13 @@
 -(void)updateUI
 {
     bool currentServerState = ([self serverPID] != 0);
+	bool currentWebState = currentServerState && [self serverPort];
     
-    if (currentServerState != [self serverState])
+    if (currentServerState != [self serverState] || currentWebState != [self webState])
     {
 	[self setServerState:currentServerState];
-	[webLaunchButton setEnabled:currentServerState];
+				
+	[webLaunchButton setEnabled:currentWebState];
 	
 	if (currentServerState)
 	{
@@ -149,7 +201,16 @@
 
 -(void)openWebInterface:(id)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://localhost:9000"]];
+	int port = [self serverPort];
+	char* url = malloc(100);
+
+	if (!port) { port = 9000; }
+	
+	sprintf(url, "http://localhost:%i", port);
+	
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: [NSString stringWithCString:url] ]];
+
+	free((void*)url);
 }
 
 -(IBAction)changeStartupPreference:(id)sender
@@ -323,4 +384,15 @@
 {
     serverState = newState;
 }
+
+-(bool)webState
+{
+    return webState;
+}
+
+-(void)setWebState:(bool)newState
+{
+    webState = newState;
+}
+
 @end

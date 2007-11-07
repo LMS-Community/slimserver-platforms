@@ -17,6 +17,7 @@
 @interface Slim_ServerPref : NSPreferencePane 
 {
     bool serverState;
+    bool webState;
 
     IBOutlet NSButton *toggleServerButton;
     IBOutlet NSTextField *serverStateDescription;
@@ -31,9 +32,12 @@
 
 -(bool)serverState;
 -(void)setServerState:(bool)newState;
+-(bool)webState;
+-(void)setWebState:(bool)newState;
 -(bool)changeAutoStartupFrom:(int)oldState to:(int)newState;
 
 -(int)serverPID;
+-(int)serverPort;
 -(void)updateUI;
 
 -(IBAction)openWebInterface:(id)sender;
