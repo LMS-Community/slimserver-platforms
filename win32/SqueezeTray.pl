@@ -553,7 +553,7 @@ sub loadStrings {
 
 	my $file = 'strings.txt';
 
-	open(STRINGS, '<:utf8', $file) || do {
+	open(STRINGS, $file) || do {
 		die "Couldn't open $file - FATAL!";
 	};
 
@@ -574,8 +574,6 @@ sub loadStrings {
 
 			$language = uc($1);
 			$string   = $2;
-
-			$string = pack "U0C*", unpack "C*", $string;
 
 			$strings{$stringname}->{$language} = $string;
 		}
