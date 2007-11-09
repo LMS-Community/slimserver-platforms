@@ -39,6 +39,7 @@ Name: quicklaunchicon; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescripti
 
 [Files]
 Source: SqueezeTray.exe; DestDir: {app}; Flags: replacesameversion
+Source: strings.txt; DestDir: {app}
 Source: Release Notes.html; DestDir: {app}
 
 Source: Getting Started.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: en; Flags: isreadme
