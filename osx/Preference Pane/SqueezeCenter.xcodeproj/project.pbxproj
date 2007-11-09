@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		052452BD0CE2687C00513B2A /* check-web.pl in Resources */ = {isa = PBXBuildFile; fileRef = 052452BC0CE2687B00513B2A /* check-web.pl */; };
 		058257D20BF90D7B0000DD33 /* Pref.nib in Resources */ = {isa = PBXBuildFile; fileRef = F506C042013D9D8C01CA16C8 /* Pref.nib */; };
 		1477C981098864CD0087109C /* Launcher.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1477C980098864CD0087109C /* Launcher.plist */; };
 		1477C985098865030087109C /* Pref_Tester.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1477C982098865030087109C /* Pref_Tester.plist */; };
@@ -92,6 +93,7 @@
 		0503792F0BF901140075151F /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		050379300BF9011E0075151F /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		052088B506377B540020810E /* German */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = German; path = Installer/German.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		052452BC0CE2687B00513B2A /* check-web.pl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.perl; path = "check-web.pl"; sourceTree = "<group>"; };
 		05286B0705D4480F00E88B81 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		05286B0C05D4482600E88B81 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/Pref.nib; sourceTree = "<group>"; };
 		05286B1505D4483900E88B81 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -134,7 +136,7 @@
 		1477C983098865030087109C /* Installer.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Installer.plist; sourceTree = "<group>"; };
 		1477C984098865030087109C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
 		14A9402709875F57001992EB /* SqueezeCenter.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SqueezeCenter.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
-		14A9403C09875F57001992EB /* Launcher.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Launcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		14A9403C09875F57001992EB /* Launcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Launcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9405009875F57001992EB /* Preference Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Preference Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9407D09875F57001992EB /* Launcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Launcher; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6A9CF550601257A00C3E0BF /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = French; path = Installer/French.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 		F5F1B9FC0360A2F101A80172 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				052452BC0CE2687B00513B2A /* check-web.pl */,
 				E7EDF7BB03C5D22300A80172 /* create-startup.sh */,
 				E7EDF7C303C5D25800A80172 /* remove-startup.sh */,
 				E7EDF7BC03C5D22300A80172 /* get-server.sh */,
@@ -629,6 +632,7 @@
 				1477C986098865030087109C /* Installer.plist in Resources */,
 				1477C987098865030087109C /* Info.plist in Resources */,
 				058257D20BF90D7B0000DD33 /* Pref.nib in Resources */,
+				052452BD0CE2687C00513B2A /* check-web.pl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
