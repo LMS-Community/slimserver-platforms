@@ -179,12 +179,10 @@
     bool currentServerState = ([self serverPID] != 0);
 	bool currentWebState = currentServerState && [self serverPort];
     
-    if (currentServerState != [self serverState] || currentWebState != [self webState])
+    if (currentServerState != [self serverState])
     {
 	[self setServerState:currentServerState];
 				
-	[webLaunchButton setEnabled:currentWebState];
-	
 	if (currentServerState)
 	{
 	    [toggleServerButton setTitle:LocalizedPrefString(@"Stop Server", "Stop Server")];
@@ -197,6 +195,8 @@
 	}
 	[toggleServerButton setEnabled:YES];
     }
+	
+	[webLaunchButton setEnabled:currentWebState];
 }
 
 -(void)openWebInterface:(id)sender
