@@ -72,6 +72,13 @@ if [ -f /etc/redhat-release ] ; then
 		fi
 		killproc $KILLPROC_ARGS $SQUEEZECENTER_BIN
 		RETVAL=$?
+                if [ $RETVAL -ne 0 ]; then
+                        # If killproc fails, try killall (fix for RHEL4)
+                        killall squeezecenter-server
+                        RETVAL=$?
+                        [ $RETVAL -eq 0 ] && echo_success
+                        [ $RETVAL -ne 0 ] && echo_failure
+                fi
 		echo
 		[ $RETVAL -eq 0 ] && rm -f $LOCKFILE
 		return $RETVAL
@@ -79,6 +86,7 @@ if [ -f /etc/redhat-release ] ; then
 
 	restart() {
 		stop
+		sleep 2
 		start
 	}
 

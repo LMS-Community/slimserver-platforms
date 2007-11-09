@@ -19,7 +19,7 @@ Source2:	squeezecenter.init
 Source3:	squeezecenter.logrotate
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Requires:	/usr/bin/mysqld_safe, perl >= 5.8.1, flac, sox
+Requires:	/usr/bin/mysqld_safe, perl >= 5.8.1
 Obsoletes:	slimserver, SliMP3
 AutoReqProv:	no
 
@@ -40,13 +40,11 @@ player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
 mv lib/README README.lib
 mv HTML/README.txt README.HTML
 
-# Remove mysqld, flac, sox and other unneeded files
+# Remove mysqld and other unneeded files
 rm MySQL/COPYING
 rm MySQL/README
 rm MySQL/errmsg.*
 rm Bin/i386-linux/mysqld
-rm Bin/i386-linux/flac
-rm Bin/i386-linux/sox
 rm -rf Bin/darwin
 rm -rf Bin/powerpc-hardhat-linux
 rm -rf CPAN/arch/5.8/darwin-thread-multi-2level
