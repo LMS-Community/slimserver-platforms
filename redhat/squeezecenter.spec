@@ -54,15 +54,17 @@ rm -rf CPAN/arch/5.8/darwin-thread-multi-2level
 rm -rf $RPM_BUILD_ROOT
 
 # FHS compatible directory structure
-mkdir -p $RPM_BUILD_ROOT%{_initrddir}
-mkdir -p $RPM_BUILD_ROOT%{_var}/log/squeezecenter
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/init.d
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/squeezecenter
 mkdir -p $RPM_BUILD_ROOT%{_usr}/lib/perl5/vendor_perl
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/squeezecenter
-mkdir -p $RPM_BUILD_ROOT%{_sbindir}
-mkdir -p $RPM_BUILD_ROOT%{_var}/cache/squeezecenter
+mkdir -p $RPM_BUILD_ROOT%{_usr}/libexec
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/cache
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/Plugins
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/Plugins/Bin
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs
+mkdir -p $RPM_BUILD_ROOT%{_var}/log/squeezecenter
 
 # Copy over the files
 cp -Rp Bin $RPM_BUILD_ROOT%{_datadir}/squeezecenter
@@ -77,8 +79,8 @@ cp -Rp Slim $RPM_BUILD_ROOT%{_usr}/lib/perl5/vendor_perl
 cp -Rp SQL $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 cp -p revision.txt $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 cp -p strings.txt $RPM_BUILD_ROOT%{_datadir}/squeezecenter
-cp -p slimserver.pl $RPM_BUILD_ROOT%{_sbindir}/squeezecenter-server
-cp -p scanner.pl $RPM_BUILD_ROOT%{_sbindir}/squeezecenter-scanner
+cp -p slimserver.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezecenter-server
+cp -p scanner.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezecenter-scanner
 
 # Create symlink to 3rd Party Plugins
 ln -s %{_var}/lib/squeezecenter/Plugins \
@@ -88,7 +90,7 @@ ln -s %{_var}/lib/squeezecenter/Plugins \
 install -Dp -m755 %SOURCE1 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/squeezecenter
 install -Dp -m755 %SOURCE2 $RPM_BUILD_ROOT%{_sysconfdir}/init.d/squeezecenter
 install -Dp -m644 %SOURCE3 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/squeezecenter
-touch $RPM_BUILD_ROOT%{_sysconfdir}/squeezecenter/server.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/server.prefs
 cp -p convert.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezecenter
 cp -p modules.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezecenter
 cp -p types.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezecenter
@@ -96,6 +98,10 @@ touch $RPM_BUILD_ROOT%{_var}/log/squeezecenter/log.conf
 touch $RPM_BUILD_ROOT%{_var}/log/squeezecenter/perfmon.log 
 touch $RPM_BUILD_ROOT%{_var}/log/squeezecenter/server.log 
 touch $RPM_BUILD_ROOT%{_var}/log/squeezecenter/scanner.log 
+
+# Create symlink to server prefs file
+ln -s %{_var}/lib/squeezecenter/prefs/server.prefs \
+	$RPM_BUILD_ROOT%{_sysconfdir}/squeezecenter/server.conf
 
 
 %clean
@@ -118,7 +124,7 @@ exit 0
 #CACHEDIR=`awk '/^cachedir/ {print $2}' /etc/squeezecenter/server.prefs`
 #[ -z "$CACHEDIR" ] && CACHEDIR=9092
 MYSQLPORT=9092
-CACHEDIR=/var/cache/squeezecenter
+CACHEDIR=%{_var}/lib/squeezecenter/cache
 if [ -f /etc/redhat-release ] ; then
 	# Add SELinux contexts
 	if [ -x /usr/sbin/selinuxenabled ] ; then
@@ -135,7 +141,7 @@ elif [ -f /etc/SuSE-release ] ; then
 	/usr/lib/lsb/install_initd /etc/init.d/squeezecenter
 	/etc/init.d/squeezecenter restart  > /dev/null 2>&1
 fi
-PORT=`awk '/^httpport/ {print $2}' /etc/squeezecenter/server.prefs`
+PORT=`awk '/^httpport/ {print $2}' %{_var}/lib/squeezecenter/prefs/server.prefs`
 [ -z "$PORT" ] && PORT=9000
 HOSTNAME=`uname -n`
 echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure SqueezeCenter."
@@ -143,7 +149,7 @@ echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure SqueezeCent
 
 %preun
 MYSQLPORT=9092
-CACHEDIR=/var/cache/squeezecenter
+CACHEDIR=%{_var}/lib/squeezecenter/cache
 if [ "$1" -eq "0" ] ; then
 	# If not upgrading
 	if [ -f /etc/redhat-release ] ; then
@@ -179,13 +185,14 @@ fi
 %{_datadir}/squeezecenter
 
 # Empty directories
-%attr(0775,root,squeezecenter) %dir %{_var}/cache/squeezecenter
+%attr(0775,root,squeezecenter) %dir %{_var}/lib/squeezecenter/cache
 %attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter
 %attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter/Plugins
+%attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter/Plugins/Bin
 
 # Executables
-%{_sbindir}/squeezecenter-server
-%{_sbindir}/squeezecenter-scanner
+%{_usr}/libexec/squeezecenter-server
+%{_usr}/libexec/squeezecenter-scanner
 
 # Log files
 %attr(0755,squeezecenter,squeezecenter) %dir %{_var}/log/squeezecenter
@@ -196,7 +203,9 @@ fi
 
 # Configuration files and init script
 %attr(0775,root,squeezecenter) %dir %{_sysconfdir}/squeezecenter
-%attr(0644,squeezecenter,squeezecenter) %config(noreplace) %{_sysconfdir}/squeezecenter/server.prefs
+%attr(0775,root,squeezecenter) %dir %{_var}/lib/squeezecenter/prefs
+%attr(0644,squeezecenter,squeezecenter) %config(noreplace) %{_var}/lib/squeezecenter/prefs/server.prefs
+%attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/server.conf
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/convert.conf
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/modules.conf
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/types.conf
