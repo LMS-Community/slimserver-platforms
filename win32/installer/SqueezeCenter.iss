@@ -187,7 +187,6 @@ begin
 
 			// stop SqueezeCenter services if installed
 			StopService(Svc);
-			RemoveService(MySQLSvc);
 		end
 	else
 		begin
@@ -198,9 +197,12 @@ begin
 			TrayExe := 'SlimTray.exe';
 
 			// old SlimServer services
+			StopService(Svc);
 			RemoveService(Svc);
-			RemoveService(MySQLSvc);
 		end;
+
+	StopService(MySQLSvc);
+	RemoveService(MySQLSvc);
 
 	ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 

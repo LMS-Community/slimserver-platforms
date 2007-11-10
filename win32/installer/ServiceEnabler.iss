@@ -82,7 +82,14 @@ begin
 			ProgressPage.show();
 
 			try
-				ProgressPage.setProgress(0, 100);
+				ProgressPage.setProgress(0, 120);
+
+				ServerDir := AddBackslash(GetInstallFolder(''));
+			
+				if (FileExists(ServerDir + 'SqueezeTray.exe')) then
+					Exec(ServerDir + 'SqueezeTray.exe', '--exit --uninstall', InstallFolder, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
+
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
 				StopService('squeezesvc');
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
