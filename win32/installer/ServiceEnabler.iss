@@ -73,6 +73,7 @@ var
 	Credentials: String;
 	Wait: Integer;
 	MaxProgress: Integer;
+	TrayExe: String;
 
 begin
 	if CurStep = ssInstall then
@@ -84,10 +85,10 @@ begin
 			try
 				ProgressPage.setProgress(0, 120);
 
-				ServerDir := AddBackslash(GetInstallFolder(''));
-			
-				if (FileExists(ServerDir + 'SqueezeTray.exe')) then
-					Exec(ServerDir + 'SqueezeTray.exe', '--exit --uninstall', InstallFolder, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
+				TrayExe := AddBackslash(GetInstallFolder('')) + 'SqueezeTray.exe';
+
+				if FileExists(TrayExe) then
+					Exec(TrayExe, '--exit --uninstall', InstallFolder, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
 
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
@@ -121,6 +122,10 @@ begin
 						Exec(ServerDir + 'squeezecenter.exe', '-install auto' + Credentials, ServerDir, SW_HIDE, ewWaitUntilIdle, ErrorCode);
 						ProgressPage.setProgress(ProgressPage.ProgressBar.Max, ProgressPage.ProgressBar.Max);
 					end	 
+
+				if FileExists(TrayExe) then
+					Exec(TrayExe, '--install', InstallFolder, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
+
 			finally
 				ProgressPage.Hide;
 			end;
