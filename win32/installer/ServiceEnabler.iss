@@ -73,6 +73,7 @@ var
 	Credentials: String;
 	Wait: Integer;
 	MaxProgress: Integer;
+	TrayFolder: String;
 	TrayExe: String;
 
 begin
@@ -85,10 +86,11 @@ begin
 			try
 				ProgressPage.setProgress(0, 120);
 
-				TrayExe := AddBackslash(GetInstallFolder('')) + 'SqueezeTray.exe';
+				TrayFolder := AddBackslash(GetInstallFolder(''));
+				TrayExe := TrayFolder + 'SqueezeTray.exe';
 
 				if FileExists(TrayExe) then
-					Exec(TrayExe, '--exit --uninstall', InstallFolder, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
+					Exec(TrayExe, '--exit --uninstall', TrayFolder, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
 
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
@@ -124,7 +126,7 @@ begin
 					end	 
 
 				if FileExists(TrayExe) then
-					Exec(TrayExe, '--install', InstallFolder, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
+					Exec(TrayExe, '--install', TrayFolder, SW_HIDE, ewWaitUntilIdle, ErrorCode)
 
 			finally
 				ProgressPage.Hide;
