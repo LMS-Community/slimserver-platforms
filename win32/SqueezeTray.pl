@@ -335,7 +335,7 @@ sub startupType {
 
 	Win32::Service::GetServices('', \%services);
 
-	if (grep /$serviceName/, map {$services{$_}} keys %services) {
+	if (grep {$services{$_} =~ /$serviceName/} keys %services) {
 		return 'auto';
 	}
 
