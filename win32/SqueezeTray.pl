@@ -298,6 +298,7 @@ sub checkSCActive {
 }
 
 sub startSqueezeCenter {
+	return if startupTypeIsService();
 
 	runBackground($appExe);
 
