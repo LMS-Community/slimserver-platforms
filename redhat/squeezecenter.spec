@@ -185,8 +185,8 @@ fi
 %{_datadir}/squeezecenter
 
 # Empty directories
-%attr(0775,root,squeezecenter) %dir %{_var}/lib/squeezecenter/cache
 %attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter
+%attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter/cache
 %attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter/Plugins
 %attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter/Plugins/Bin
 
@@ -202,8 +202,8 @@ fi
 %attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/log/squeezecenter/scanner.log
 
 # Configuration files and init script
-%attr(0775,root,squeezecenter) %dir %{_sysconfdir}/squeezecenter
-%attr(0775,root,squeezecenter) %dir %{_var}/lib/squeezecenter/prefs
+%dir %{_sysconfdir}/squeezecenter
+%attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter/prefs
 %attr(0644,squeezecenter,squeezecenter) %config(noreplace) %{_var}/lib/squeezecenter/prefs/server.prefs
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/server.conf
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/convert.conf
