@@ -206,10 +206,12 @@ sub checkAndStart {
 	}
 
 	if ($cliInstall) {
+		# preset $atLogin if it isn't defined yet
+		$atLogin = 1 if ($atLogin ne '0' && $atLogin ne '1');
 
 		$Registry->{'CUser/Software/'}->{'Logitech/'} = {
 			'SqueezeCenter/' => {
-				'/StartAtLogin' => defined $atLogin ? $atLogin : 1
+				'/StartAtLogin' => $atLogin
 			},
 		};
 
