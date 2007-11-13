@@ -286,7 +286,14 @@ sub checkSCActive {
 		}
 
 	}
-	if ($state eq 'running') {
+
+	if ($state eq 'running' && $checkHTTP && !checkForHTTP()) {
+
+		$starting = 1;
+		$scActive = 0;
+
+	}
+	elsif ($state eq 'running') {
 
 		SetIcon("SqueezeCenter");
 		$scActive = 1;
@@ -309,6 +316,7 @@ sub startSqueezeCenter {
 		Balloon(string('STARTING_SQUEEZECENTER'), "SqueezeCenter", "", 1);
 		SetAnimation($timerSecs * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
 
+		$checkHTTP = 1;
 		$starting = 1;
 	}
 }
