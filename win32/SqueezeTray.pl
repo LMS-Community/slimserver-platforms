@@ -544,6 +544,9 @@ sub stopSqueezeCenter {
 
 # attempt to stop SqueezeCenter and exit
 sub uninstall {
+	# Kill the timer, we don't want SC to be restarted
+	SetTimer(0);
+
 	stopSqueezeCenter(1);
 
 	exit;
