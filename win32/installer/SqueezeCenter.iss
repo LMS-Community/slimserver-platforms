@@ -39,6 +39,7 @@ Name: quicklaunchicon; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescripti
 
 [Files]
 Source: SqueezeTray.exe; DestDir: {app}; Flags: replacesameversion
+Source: ServiceEnabler.exe; DestDir: {app}; Flags: replacesameversion
 Source: strings.txt; DestDir: {app}
 Source: Release Notes.html; DestDir: {app}
 
@@ -73,6 +74,7 @@ Filename: {app}\{cm:SqueezeCenterWebInterface}.url; Section: InternetShortcut; K
 
 [Icons]
 Name: {group}\SqueezeCenter; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
+Name: {group}\{cm:ManageService}; Filename: {app}\ServiceEnabler.exe;
 Name: {group}\{cm:SlimDevicesWebSite}; Filename: {app}\{cm:SlimDevicesWebSite}.url
 Name: {group}\{cm:License}; Filename: {app}\{cm:License}.txt
 Name: {group}\{cm:GettingStarted}; Filename: {app}\{cm:GettingStarted}.html

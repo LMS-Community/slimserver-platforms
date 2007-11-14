@@ -63,6 +63,8 @@ he.SqueezeCenterTrayTool=כלי המגש של SqueezeCenter
 it.SqueezeCenterTrayTool=Strumento notifica SqueezeCenter
 nl.SqueezeCenterTrayTool=SqueezeCenter-systeempictogram
 
+en.ManageService=SqueezeCenter Startup options
+
 en.RegisterServices=Registering Services
 de.RegisterServices=Dienste Installation
 
