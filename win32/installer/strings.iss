@@ -80,7 +80,7 @@ de.UnregisterServices=Dienste Deinstallation
 en.UnregisterServicesDesc=Please wait while previous SqueezeCenter services are uninstalled.
 de.UnregisterServicesDesc=Warten Sie bitte während SqueezeCenter Dienste deinstalliert werden.
 
-en.WaitingForServices=Waiting for SqueezeCenter services to be stopped...
+en.WaitingForServices=Waiting for SqueezeCenter to stop...
 de.WaitingForServices=Warte auf SqueezeCenter Dienste...
 
 ; Strings for the startup option page
@@ -100,6 +100,6 @@ en.Startup_RadioAtBoot_Caption0=Start SqueezeCenter &automatically when the comp
 
 en.Startup_LabelAtBootDesc_Caption0=You need to enter your Windows user name and password so SqueezeCenter can access your music library.
 
-en.Startup_PasswordsDontMatch=The entered passwords don't match. Please try again.
+en.Startup_PasswordsDontMatch=Your passwords don't match, please try again.
 
-en.Startup_CredentialsRequired=If you don't specify a name and password, the SqueezeCenter service will run as the anonymous "System" user which may have difficulty finding your music.  Do you want to continue run SqueezeCenter as the "System" user?
+en.Startup_CredentialsRequired=If you don't enter your user name and password, SqueezeCenter will run as an "anonymous" system user and you may not have access to your music library. Do you want to continue to run as an anonymous user?
