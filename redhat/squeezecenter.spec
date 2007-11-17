@@ -64,6 +64,7 @@ mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/cache
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/Plugins
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/Plugins/Bin
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin
 mkdir -p $RPM_BUILD_ROOT%{_var}/log/squeezecenter
 
 # Copy over the files
@@ -205,6 +206,17 @@ fi
 %dir %{_sysconfdir}/squeezecenter
 %attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter/prefs
 %attr(0644,squeezecenter,squeezecenter) %config(noreplace) %{_var}/lib/squeezecenter/prefs/server.prefs
+%attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter/prefs/plugin
+%attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/cli.prefs
+%attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/datetime.prefs
+%attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/infobrowser.prefs
+%attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/itunes.prefs
+%attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/musicmagic.prefs
+%attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/podcast.prefs
+%attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/radiotime.prefs
+%attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/randomplay.prefs
+%attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/rescan.prefs
+%attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/rssnews.prefs
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/server.conf
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/convert.conf
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/modules.conf
