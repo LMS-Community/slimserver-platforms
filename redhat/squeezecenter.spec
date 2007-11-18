@@ -99,6 +99,16 @@ touch $RPM_BUILD_ROOT%{_var}/log/squeezecenter/log.conf
 touch $RPM_BUILD_ROOT%{_var}/log/squeezecenter/perfmon.log 
 touch $RPM_BUILD_ROOT%{_var}/log/squeezecenter/server.log 
 touch $RPM_BUILD_ROOT%{_var}/log/squeezecenter/scanner.log 
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/cli.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/datetime.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/infobrowser.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/itunes.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/musicmagic.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/podcast.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/radiotime.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/randomplay.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/rescan.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/rssnews.prefs
 
 # Create symlink to server prefs file
 ln -s %{_var}/lib/squeezecenter/prefs/server.prefs \
