@@ -15,7 +15,7 @@ it.ProblemUninstallingSLIMP3=Problema durante la disinstallazione del software S
 nl.ProblemUninstallingSLIMP3=Probleem tijdens verwijderen van SLIMP3-software:
 
 en.ProblemUninstallingSlimServer=Problem uninstalling SlimServer software:
-de.ProblemUninstallingSlimServer=Problem bei Deinstallation von SlimServer-Software:
+de.ProblemUninstallingSlimServer=Problem bei Deinstallation der SlimServer-Software:
 es.ProblemUninstallingSlimServer=Problema al desinstalar el software SlimServer:
 fr.ProblemUninstallingSlimServer=Un problème est survenu en désinstallant le logiciel SlimServer:
 he.ProblemUninstallingSlimServer=áòéä áäñøú ääú÷ðä ùì úåëðú SlimServer:
@@ -23,8 +23,8 @@ it.ProblemUninstallingSlimServer=Problema durante la disinstallazione del softwa
 nl.ProblemUninstallingSlimServer=Probleem tijdens verwijderen van SlimServer-software:
 
 ; don't use localized file names as long as we don't have them
-;de.License=Lizenz
 en.License=License
+;de.License=Lizenz
 ;es.License=Licencia
 ;fr.License=Licence
 ;he.License=øéùéåï
@@ -64,42 +64,121 @@ it.SqueezeCenterTrayTool=Strumento notifica SqueezeCenter
 nl.SqueezeCenterTrayTool=SqueezeCenter-systeempictogram
 
 en.ManageService=SqueezeCenter Startup options
+de.ManageService=SqueezeCenter-Startoptionen
+es.ManageService=Opciones de inicio de SqueezeCenter
+fr.ManageService=Options de démarrage du SqueezeCenter
+it.ManageService=Opzioni di avvio di SqueezeCenter
+nl.ManageService=Opstartopties van SqueezeCenter
 
 en.RegisterServices=Registering Services
-de.RegisterServices=Dienste Installation
+de.RegisterServices=Dienste werden registriert...
+es.RegisterServices=Registrando servicios
+fr.RegisterServices=Enregistrement des services
+it.RegisterServices=Registrazione dei servizi
+nl.RegisterServices=Services registreren
 
 en.RegisterServicesDesc=Please wait while new SqueezeCenter services are configured.
-de.RegisterServicesDesc=Warten Sie bitte während SqueezeCenter Dienste konfiguriert werden.
+de.RegisterServicesDesc=Die neuen SqueezeCenter-Dienste werden konfiguriert. Bitte warten.
+es.RegisterServicesDesc=Espere mientras se configuran los nuevos servicios de SqueezeCenter.
+fr.RegisterServicesDesc=Veuillez patienter pendant la configuration des nouveaux services SqueezeCenter.
+it.RegisterServicesDesc=Attendere. Configurazione dei nuovi servizi SqueezeCenter in corso.
+nl.RegisterServicesDesc=Een ogenblik geduld terwijl nieuwe SqueezeCenter-services worden geconfigureerd.
 
 en.RegisteringServices=Waiting for services to be configured...
-de.RegisteringServices=Dienste werden configured...
+de.RegisteringServices=Dienste werden konfiguriert...
+es.RegisteringServices=Esperando a que se configuren los servicios...
+fr.RegisteringServices=En attente de la configuration des services...
+it.RegisteringServices=In attesa della configurazione dei servizi...
+nl.RegisteringServices=Services worden geconfigureerd. Een ogenblik geduld...
 
 en.UnregisterServices=Unregistering Services
-de.UnregisterServices=Dienste Deinstallation
+de.UnregisterServices=Registrierung der Dienste wird aufgehoben
+es.UnregisterServices=Anulando registro de servicios
+fr.UnregisterServices=Annulation de l'enregistrement des services
+it.UnregisterServices=Annullamento della registrazione dei servizi
+nl.UnregisterServices=Registratie van services opheffen
 
 en.UnregisterServicesDesc=Please wait while previous SqueezeCenter services are uninstalled.
-de.UnregisterServicesDesc=Warten Sie bitte während SqueezeCenter Dienste deinstalliert werden.
+de.UnregisterServicesDesc=Vorherige SqueezeCenter-Dienste werden deinstalliert. Bitte warten.
+es.UnregisterServicesDesc=Espere mientras se desinstalan servicios anteriores de SqueezeCenter.
+fr.UnregisterServicesDesc=Veuillez patienter pendant la désinstallation des services SqueezeCenter précédents.
+it.UnregisterServicesDesc=Attendere. Disinstallazione dei servizi SqueezeCenter precedenti in corso.
+nl.UnregisterServicesDesc=Een ogenblik geduld terwijl vorige SqueezeCenter-services worden verwijderd.
 
 en.WaitingForServices=Waiting for SqueezeCenter to stop...
-de.WaitingForServices=Warte auf SqueezeCenter Dienste...
+de.WaitingForServices=SqueezeCenter wird angehalten. Bitte warten...
+es.WaitingForServices=Esperando a que SqueezeCenter se detenga...
+fr.WaitingForServices=En attente de l'arrêt du SqueezeCenter...
+it.WaitingForServices=In attesa dell'arresto di SqueezeCenter...
+nl.WaitingForServices=SqueezeCenter wordt gestopt. Een ogenblik geduld...
 
 ; Strings for the startup option page
 en.Startup_Caption=SqueezeCenter Service Enabler
+de.Startup_Caption=SqueezeCenter-Dienst aktivieren
+es.Startup_Caption=Habilitador de servicios de SqueezeCenter
+fr.Startup_Caption=Activer le service SqueezeCenter
+it.Startup_Caption=Attivatore dei servizi SqueezeCenter
+nl.Startup_Caption=Service-enabler van SqueezeCenter
 
 en.Startup_Description=Configure SqueezeCenter Windows service
+de.Startup_Description=SqueezeCenter-Windows-Dienst konfigurieren
+es.Startup_Description=Configurar servicio de Windows de SqueezeCenter
+fr.Startup_Description=Configuration du service Windows du SqueezeCenter
+it.Startup_Description=Configura servizio Windows per SqueezeCenter
+nl.Startup_Description=Windows-service van SqueezeCenter configureren
 
 en.Startup_LabelUsername_Caption0=Username:
+de.Startup_LabelUsername_Caption0=Benutzername:
+es.Startup_LabelUsername_Caption0=Nombre de usuario:
+fr.Startup_LabelUsername_Caption0=Nom d'utilisateur:
+it.Startup_LabelUsername_Caption0=Nome utente:
+nl.Startup_LabelUsername_Caption0=Gebruikersnaam:
 
 en.Startup_LabelPassword1_Caption0=Password:
+de.Startup_LabelPassword1_Caption0=Kennwort:
+es.Startup_LabelPassword1_Caption0=Contraseña:
+fr.Startup_LabelPassword1_Caption0=Mot de passe:
+it.Startup_LabelPassword1_Caption0=Password:
+nl.Startup_LabelPassword1_Caption0=Wachtwoord:
 
 en.Startup_LabelPassword2_Caption0=Confirm password:
+de.Startup_LabelPassword2_Caption0=Kennwort bestätigen:
+es.Startup_LabelPassword2_Caption0=Confirmar contraseña:
+fr.Startup_LabelPassword2_Caption0=Confirmer le mot de passe:
+it.Startup_LabelPassword2_Caption0=Conferma password:
+nl.Startup_LabelPassword2_Caption0=Wachtwoord bevestigen:
 
 en.Startup_RadioAtLogin_Caption0=Start SqueezeCenter when I &log in.
+de.Startup_RadioAtLogin_Caption0=SqueezeCenter beim &Anmelden starten.
+es.Startup_RadioAtLogin_Caption0=Iniciar SqueezeCenter al iniciar &sesión.
+fr.Startup_RadioAtLogin_Caption0=Démarrer le SqueezeCenter à l'&ouverture de session.
+it.Startup_RadioAtLogin_Caption0=Avvia SqueezeCenter quando si esegue &l'accesso.
+nl.Startup_RadioAtLogin_Caption0=SqueezeCenter starten &wanneer ik me aanmeld.
 
 en.Startup_RadioAtBoot_Caption0=Start SqueezeCenter &automatically when the computer starts.
+de.Startup_RadioAtBoot_Caption0=SqueezeCenter automatisch beim &Systemstart starten.
+es.Startup_RadioAtBoot_Caption0=Iniciar SqueezeCenter &automáticamente al iniciarse el sistema.
+fr.Startup_RadioAtBoot_Caption0=Démarrer le SqueezeCenter &automatiquement au démarrage de l'ordinateur.
+it.Startup_RadioAtBoot_Caption0=Avvia SqueezeCenter &automaticamente all'avvio del computer.
+nl.Startup_RadioAtBoot_Caption0=SqueezeCenter &automatisch starten wanneer de computer start.
 
 en.Startup_LabelAtBootDesc_Caption0=You need to enter your Windows user name and password so SqueezeCenter can access your music library.
+de.Startup_LabelAtBootDesc_Caption0=Sie müssen Ihren Windows-Benutzernamen und das -Kennwort eingeben, damit SqueezeCenter auf Ihre Musiksammlung zugreifen kann.
+es.Startup_LabelAtBootDesc_Caption0=Debe introducir su nombre de usuario y su contraseña de Windows para que SqueezeCenter pueda acceder a su biblioteca de música.
+fr.Startup_LabelAtBootDesc_Caption0=Vous devez spécifier le nom d'utilisateur et le mot de passe Windows pour que le SqueezeCenter puisse accéder à la bibliothèque musicale.
+it.Startup_LabelAtBootDesc_Caption0=Per consentire l'accesso di SqueezeCenter alla libreria musicale è necessario immettere il nome utente e la password Windows.
+nl.Startup_LabelAtBootDesc_Caption0=Voer je Windows-gebruikersnaam en -wachtwoord in om SqueezeCenter toegang tot je muziekcollectie te geven.
 
 en.Startup_PasswordsDontMatch=Your passwords don't match, please try again.
+de.Startup_PasswordsDontMatch=Die eingegebenen Kennwörter stimmen nicht überein. Wiederholen Sie die Eingabe.
+es.Startup_PasswordsDontMatch=Las contraseñas no coinciden; debe escribirlas de nuevo.
+fr.Startup_PasswordsDontMatch=Vos mots de passe ne correspondent pas. Veuillez réessayer.
+it.Startup_PasswordsDontMatch=Le password immesse non corrispondono. Riprovare.
+nl.Startup_PasswordsDontMatch=Je wachtwoorden komen niet overeen. Probeer het opnieuw.
 
 en.Startup_CredentialsRequired=If you don't enter your user name and password, SqueezeCenter will run as an "anonymous" system user and you may not have access to your music library. Do you want to continue to run as an anonymous user?
+de.Startup_CredentialsRequired=Wenn Sie Benutzername und Kennwort nicht eingeben, wird SqueezeCenter als "anonymer" Systembenutzer ausgeführt und hat evtl. keinen Zugriff auf Ihre Musiksammlung. Soll SqueezeCenter als anonymer Benutzer ausgeführt werden?
+es.Startup_CredentialsRequired=Si no introduce su nombre de usuario y su contraseña, SqueezeCenter se ejecutará como usuario de sistema "anónimo" y tal vez no pueda acceder a su biblioteca de música. ¿Desea continuar con la ejecución como usuario anónimo?
+fr.Startup_CredentialsRequired=Si vous ne spécifiez pas un nom d'utilisateur et un mot de passe, le SqueezeCenter sera exécuté sous la session d'un utilisateur système anonyme et vous risquez de ne pas avoir accès à votre bibliothèque musicale. Voulez-vous poursuivre l'exécution en tant qu'utilisateur anonyme?
+it.Startup_CredentialsRequired=Se non si immette nome utente e password, SqueezeCenter viene eseguito come sistema con utente anonimo e l'accesso alla libreria musicale potrebbe non essere consentito. Continuare a eseguire SqueezeCenter come utente anonimo?
+nl.Startup_CredentialsRequired=Als je je gebruikersnaam en wachtwoord niet invoert, wordt SqueezeCenter als 'anonieme' systeemgebruiker uitgevoerd en kun je misschien niet bij je muziekcollectie. Wil je verdergaan als anonieme gebruiker?
