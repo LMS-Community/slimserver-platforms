@@ -109,6 +109,8 @@ sub Singleton {
 
 		if ($_[1] eq '--start') {
 
+			$cliStart = 1;
+
 			if (!$scActive && !$starting) {
 
 				startSqueezeCenter();
@@ -116,8 +118,7 @@ sub Singleton {
 
 			if ($scActive) {
 
-				checkForHTTP();
-				Execute($serverUrl);
+				openSqueezeCenter();
 
 			} else {
 
@@ -167,7 +168,8 @@ sub ToolTip {
 		$state = string('SQUEEZECENTER_STOPPED', $lang);
  	}
  
-	$state = encode($lang eq 'HE' ? 'cp1255' : 'cp1250', $state);
+	# try to prevent intermittent "Unknown encoding 'cp1250' at SqueezeTray.pl line 170" crasher
+	eval "$state = encode($lang eq 'HE' ? 'cp1255' : 'cp1250', $state);";
 
 	return $state;
 }
@@ -185,8 +187,7 @@ sub Timer {
 	} elsif ($scActive && $checkHTTP && checkForHTTP()) {
 
 		$checkHTTP = 0;
-
-		Execute($serverUrl);
+		openSqueezeCenter() if ($cliStart)
 	}
 }
 
@@ -242,15 +243,13 @@ sub checkAndStart {
 
 		if ($scActive) {
 
-			checkForHTTP();
-			Execute($serverUrl);
+			openSqueezeCenter();
 
 		} else {
 
 			$checkHTTP = 1;
 		}
 
-		$cliStart = 0;
 	}
 }
 
@@ -325,8 +324,10 @@ sub startSqueezeCenter {
 sub openSqueezeCenter {
 
 	# Check HTTP first in case SqueezeCenter has changed the HTTP port while running
-	checkForHTTP ();	
+	checkForHTTP();	
 	Execute($serverUrl);
+
+	$cliStart = 0;
 }
 
 sub showErrorMessage {
