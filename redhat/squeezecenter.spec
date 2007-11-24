@@ -92,10 +92,10 @@ install -Dp -m755 %SOURCE1 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/squeezecenter
 install -Dp -m755 %SOURCE2 $RPM_BUILD_ROOT%{_sysconfdir}/init.d/squeezecenter
 install -Dp -m644 %SOURCE3 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/squeezecenter
 touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/server.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/log.conf
 cp -p convert.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezecenter
 cp -p modules.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezecenter
 cp -p types.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezecenter
-touch $RPM_BUILD_ROOT%{_var}/log/squeezecenter/log.conf
 touch $RPM_BUILD_ROOT%{_var}/log/squeezecenter/perfmon.log 
 touch $RPM_BUILD_ROOT%{_var}/log/squeezecenter/server.log 
 touch $RPM_BUILD_ROOT%{_var}/log/squeezecenter/scanner.log 
@@ -109,6 +109,7 @@ touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/radiotime.prefs
 touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/randomplay.prefs
 touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/rescan.prefs
 touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/rssnews.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin/state.prefs
 
 # Create symlink to server prefs file
 ln -s %{_var}/lib/squeezecenter/prefs/server.prefs \
@@ -207,7 +208,6 @@ fi
 
 # Log files
 %attr(0755,squeezecenter,squeezecenter) %dir %{_var}/log/squeezecenter
-%attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/log/squeezecenter/log.conf
 %attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/log/squeezecenter/perfmon.log
 %attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/log/squeezecenter/server.log
 %attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/log/squeezecenter/scanner.log
@@ -216,6 +216,7 @@ fi
 %dir %{_sysconfdir}/squeezecenter
 %attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter/prefs
 %attr(0644,squeezecenter,squeezecenter) %config(noreplace) %{_var}/lib/squeezecenter/prefs/server.prefs
+%attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/log.conf
 %attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter/prefs/plugin
 %attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/cli.prefs
 %attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/datetime.prefs
@@ -227,6 +228,7 @@ fi
 %attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/randomplay.prefs
 %attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/rescan.prefs
 %attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/rssnews.prefs
+%attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/state.prefs
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/server.conf
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/convert.conf
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/modules.conf
