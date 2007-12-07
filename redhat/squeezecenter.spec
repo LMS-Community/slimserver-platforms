@@ -1,6 +1,6 @@
 # The following macros can either be defined here or passed into rpmbuild as macros
 # This is required:
-# %%define _version 7.00
+# %%define _version 7.0.0
 # One (and only one) of the following is required:
 # %%define _with_trunk 1
 # %%define _with_branch 1
