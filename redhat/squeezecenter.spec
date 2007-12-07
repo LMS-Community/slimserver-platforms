@@ -1,19 +1,44 @@
-# The following 3 macros MUST be passed to rpmbuild
-# %%define _version 7.0
-# %%define _nightly 2007-10-26
-# %%define _alphatag 20071026
+# The following macros can either be defined here or passed into rpmbuild as macros
+# This is required:
+# %%define _version 7.00
+# One (and only one) of the following is required:
+# %%define _with_trunk 1
+# %%define _with_branch 1
+# %%define _with_release 1
+# These are required with _with_trunk or _with_branch
+# %%define _src_date 2007-12-07
+# %%define _rpm_date 20071207
+# The following is required with _with_branch
+# %%define _branch 7.0
+
 %define increment 1
 
+%define build_trunk %{?_with_trunk:1}0
+%define build_branch %{?_with_branch:1}0
+%define build_release %{?_with_release:1}0
+
+%if %{build_trunk}
+%define src_basename SlimServer_trunk_v%{_src_date}
+%define rpm_release 0.%{increment}.%{_rpm_date}
+%endif
+%if %{build_branch}
+%define src_basename SlimServer_%{_branch}_v%{_src_date}
+%define rpm_release 0.%{increment}.%{_rpm_date}
+%endif
+%if %{build_release}
+%define src_basename SlimServer_v%{_version}
+%define rpm_release 1
+%endif
 
 Name:		squeezecenter           
 Version:	%{_version}     
-Release:	0.%{increment}.%{_alphatag}
+Release:	%{rpm_release}
 Summary:        SqueezeCenter Music Server
 
 Group:		System Environment/Daemons          
 License:	GPL and proprietary        
 URL:		http://www.slimdevices.com            
-Source0:	http://www.slimdevices.com/downloads/nightly/latest/%{version}/SlimServer_trunk_v%{_nightly}.tar.gz
+Source0:	%{src_basename}.tar.gz
 Source1:	squeezecenter.config
 Source2:	squeezecenter.init
 Source3:	squeezecenter.logrotate
@@ -32,7 +57,7 @@ player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
 
 
 %prep
-%setup -q -n SlimServer_trunk_v%{_nightly}
+%setup -q -n %{src_basename}
 
 
 %build
