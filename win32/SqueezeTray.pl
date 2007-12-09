@@ -55,7 +55,7 @@ my $serviceName    = 'squeezesvc';
 
 my $appExe         = File::Spec->catdir(installDir(), 'server', 'squeezecenter.exe');
 my $serverUrl      = File::Spec->catdir(writableDir(), "SqueezeCenter Web Interface.url");
-my $prefFile       = File::Spec->catdir(writableDir(), 'prefs', 'server.prefs');
+my $serverPrefFile = File::Spec->catdir(writableDir(), 'prefs', 'server.prefs');
 my $language       = getPref('language') || 'EN';
 
 # Dynamically create the popup menu based on SqueezeCenter state
@@ -422,6 +422,15 @@ sub writableDir {
 # Read pref from the server preference file - lighter weight than loading YAML
 sub getPref {
 	my $pref = shift;
+	my $prefFile = shift;
+	
+	if ($prefFile) {
+		$prefFile = File::Spec->catdir(writableDir(), 'prefs', 'plugin', $prefFile);
+	}
+	else {
+		$prefFile = $serverPrefFile;
+	}
+
 	my $ret;
 
 	if (-r $prefFile) {
@@ -522,17 +531,31 @@ sub updateSqueezeCenterWebInterface {
 
 sub stopSqueezeCenter {
 	my $suppressMsg = shift;
+	my $cliPort = getPref('cliport', 'cli.prefs') || 9090;
 
-	my $pid = processID();
+	# Use low-level socket code. IO::Socket returns a 'Invalid Descriptor'
+	# erorr. It also sucks more memory than it should.
+	my $raddr = '127.0.0.1';
+	my $rport = $cliPort;
 
-	if ($pid == -1 && !$suppressMsg) {
+	my $iaddr = inet_aton($raddr);
+	my $paddr = sockaddr_in($rport, $iaddr);
+
+	socket(SSERVER, PF_INET, SOCK_STREAM, getprotobyname('tcp'));
+
+	if (connect(SSERVER, $paddr)) {
+
+		print SSERVER "stopserver\n", ;
+
+		close(SSERVER);
+	}
+
+	elsif (!$suppressMsg) {
 
 		showErrorMessage(string('STOP_FAILED'));
 
 		return;
 	}
-
-	Win32::Process::KillProcess($pid, 1<<8);
 
 	if ($scActive) {
 
