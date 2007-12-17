@@ -1,0 +1,18 @@
+[squeezecenter]
+name = SqueezeCenter Release Repository
+baseurl = http://repos.slimdevices.com/yum/squeezecenter/releases/RPMS/
+enabled=1
+gpgcheck=0
+
+[squeezecenter-branch]
+name = SqueezeCenter Branch Nightly Repository
+baseurl = http://repos.slimdevices.com/yum/squeezecenter/nightly/branch/RPMS/
+enabled=0
+gpgcheck=0
+
+[squeezecenter-trunk]
+name = SqueezeCenter Trunk Nightly Repository
+baseurl = http://repos.slimdevices.com/yum/squeezecenter/nightly/trunk/RPMS/
+enabled=0
+gpgcheck=0
+
