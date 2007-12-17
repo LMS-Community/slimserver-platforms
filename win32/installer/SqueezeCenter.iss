@@ -40,6 +40,7 @@ Name: quicklaunchicon; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescripti
 [Files]
 Source: SqueezeTray.exe; DestDir: {app}; Flags: replacesameversion
 Source: ServiceEnabler.exe; DestDir: {app}; Flags: replacesameversion
+Source: psvince.dll; Flags: dontcopy
 Source: strings.txt; DestDir: {app}
 Source: Release Notes.html; DestDir: {app}
 
@@ -117,6 +118,11 @@ Filename: {app}\SqueezeTray.exe; Parameters: "--exit --uninstall"; WorkingDir: {
 [Code]
 #include "ServiceManager.iss"
 
+; a dll to verify if a process is still running
+; http://www.vincenzo.net/isxkb/index.php?title=PSVince
+function IsModuleLoaded(modulename: String): Boolean;
+external 'IsModuleLoaded@files:psvince.dll stdcall';
+
 var
 	ProgressPage: TOutputProgressWizardPage;
 	StartupMode: String;
@@ -169,6 +175,7 @@ var
 	InstallFolder: String;
 	InstallDefault: String;
 	Svc: String;
+	Executable: String;
 	MySQLSvc: String;
 	TrayExe: String;
 	Wait: Integer;
@@ -184,6 +191,7 @@ begin
 			RegKey := 'Software\Logitech\SqueezeCenter';
 			InstallDefault := ExpandConstant('{app}');
 			Svc := 'squeezesvc';
+			Executable := 'squeez~1.exe';
 			MySQLSvc := 'SqueezeMySQL';
 			TrayExe := 'SqueezeTray.exe';
 
@@ -195,6 +203,7 @@ begin
 			RegKey := 'Software\SlimDevices\SlimServer';
 			InstallDefault := AddBackslash(ExpandConstant('{pf}')) + 'SlimServer';
 			Svc := 'slimsvc';
+			Executable := 'slimserver.exe';
 			MySQLSvc := 'SlimServerMySQL';
 			TrayExe := 'SlimTray.exe';
 
@@ -221,7 +230,7 @@ begin
 	// wait up to 60 seconds for the services to be deleted
 	Wait := 60;
 	MaxProgress := ProgressPage.ProgressBar.Position + Wait;
-	while (Wait > 0) and (IsServiceRunning(Svc) or IsServiceRunning(MySQLSvc)) do
+	while (Wait > 0) and (IsServiceRunning(Svc) or IsServiceRunning(MySQLSvc) or IsModuleLoaded(Executable) or IsModuleLoaded('squeezecenter.exe')) do
 	begin
 		ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
 		Sleep(1000);
