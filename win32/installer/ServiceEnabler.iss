@@ -119,8 +119,8 @@ begin
 				if (RadioAtBoot.checked) then
 					begin
 						ServerDir := AddBackslash(AddBackslash(GetInstallFolder('')) + 'server');
-						Credentials := ' --username=' + EditUsername.text + ' --password=' + EditPassword1.text;
-	
+						Credentials := ' --username="' + EditUsername.text + '" --password="' + EditPassword1.text + '"';
+
 						Exec(ServerDir + 'squeezecenter.exe', '-install auto' + Credentials, ServerDir, SW_HIDE, ewWaitUntilIdle, ErrorCode);
 						ProgressPage.setProgress(ProgressPage.ProgressBar.Max, ProgressPage.ProgressBar.Max);
 					end	 
