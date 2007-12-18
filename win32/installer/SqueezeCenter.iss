@@ -40,9 +40,12 @@ Name: quicklaunchicon; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescripti
 [Files]
 Source: SqueezeTray.exe; DestDir: {app}; Flags: replacesameversion
 Source: ServiceEnabler.exe; DestDir: {app}; Flags: replacesameversion
-Source: psvince.dll; Flags: dontcopy
 Source: strings.txt; DestDir: {app}
 Source: Release Notes.html; DestDir: {app}
+
+; a dll to verify if a process is still running
+; http://www.vincenzo.net/isxkb/index.php?title=PSVince
+Source: psvince.dll; Flags: dontcopy
 
 Source: Getting Started.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: en; Flags: isreadme
 Source: Getting Started.de.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: de; Flags: isreadme
@@ -118,14 +121,13 @@ Filename: {app}\SqueezeTray.exe; Parameters: "--exit --uninstall"; WorkingDir: {
 [Code]
 #include "ServiceManager.iss"
 
-; a dll to verify if a process is still running
-; http://www.vincenzo.net/isxkb/index.php?title=PSVince
-function IsModuleLoaded(modulename: String): Boolean;
-external 'IsModuleLoaded@files:psvince.dll stdcall';
-
 var
 	ProgressPage: TOutputProgressWizardPage;
 	StartupMode: String;
+
+
+function IsModuleLoaded(modulename: String): Boolean;
+external 'IsModuleLoaded@files:psvince.dll stdcall';
 
 function GetInstallFolder(Param: String) : String;
 var
@@ -137,15 +139,30 @@ begin
 	Result := InstallFolder;
 end;
 
+
 function GetWritablePath() : String;
+var
+	DataPath: String;
 begin
-	Result := AddBackslash(ExpandConstant('{commonappdata}')) + 'SqueezeCenter';
+	if ExpandConstant('{commonappdata}') = '' then
+		begin
+			if GetEnv('ProgramData') = '' then
+				DataPath := 'c:\ProgramData'
+			else
+				DataPath := GetEnv('ProgramData');
+		end
+	else
+		DataPath := ExpandConstant('{commonappdata}');
+
+	Result := AddBackslash(DataPath) + 'SqueezeCenter';
 end;	
+
 
 function GetPrefsFolder() : String;
 begin
 	Result := AddBackslash(GetWritablePath()) + 'prefs'
 end;	
+
 
 function GetPrefsFile() : String;
 begin
