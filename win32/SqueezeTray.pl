@@ -187,7 +187,7 @@ sub Timer {
 	} elsif ($scActive && $checkHTTP && checkForHTTP()) {
 
 		$checkHTTP = 0;
-		openSqueezeCenter() if ($cliStart)
+		openSqueezeCenter() if ($cliStart || $cliInstall)
 	}
 }
 
