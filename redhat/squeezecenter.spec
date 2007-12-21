@@ -18,26 +18,29 @@
 %define build_release %{?_with_release:1}0
 
 %if %{build_trunk}
+%define src_basename SqueezeCenter_trunk_v%{_src_date}
 %define rpm_release 0.%{increment}.%{_rpm_date}
 %endif
 %if %{build_branch}
+%define src_basename SqueezeCenter_%{_branch}_v%{_src_date}
 %define rpm_release 0.%{increment}.%{_rpm_date}
 %endif
 %if %{build_release}
+%define src_basename SqueezeCenter_v%{_version}
 %define rpm_release 1
 %endif
 
 
 Name:		squeezecenter           
 Packager:	Slim Devices/Logitech <support@slimdevices.com>
-Version:	_VERSION_
+Version:	%{_version}
 Release:	%{rpm_release}
 Summary:        SqueezeCenter Music Server
 
 Group:		System Environment/Daemons          
 License:	GPL and proprietary        
 URL:		http://www.slimdevices.com            
-Source0:	_SOURCE_
+Source0:	%{src_basename}.tar.gz
 Source1:	squeezecenter.config
 Source2:	squeezecenter.init
 Source3:	squeezecenter.logrotate
@@ -58,7 +61,7 @@ player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
 
 
 %prep
-%setup -q -n _SOURCEFILE_
+%setup -q -n %{src_basename}
 
 
 %build
