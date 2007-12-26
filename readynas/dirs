@@ -1,0 +1,5 @@
+etc/squeezecenter
+usr/sbin
+usr/share/squeezecenter
+var/cache/squeezecenter
+var/log/squeezecenter

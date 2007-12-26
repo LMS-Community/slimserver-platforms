@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# $Id$
+
+if [ $# = 0 ]
+then
+  echo "Script to restart SqueezeCenter over and over again."
+  echo "This has to be done since the mysql-server is sometimes"
+  echo "restarted due to upgrades and log-rotation and this causes"
+  echo "SqueezeCenter to exit."
+  echo
+  echo "To stop SqueezeCenter, kill this script instead of the"
+  echo "actual SqueezeCenter process."
+  echo
+  echo "Usage: $0 <squeezecenter-binary> <squeezecenter-arguments>"
+  exit 1
+fi
+
+function clean_up {
+  # Kill the SqueezeCenter daemon if it is running
+  kill $SLIMPID
+  echo `date "+%F %H:%M:%S"` "squeezecenter_safe stopped." >> /var/log/squeezecenter/server.log
+  exit
+}
+
+trap clean_up SIGINT SIGHUP SIGTERM
+
+echo `date "+%F %H:%M:%S"` "squeezecenter_safe started." >> /var/log/squeezecenter/server.log
+
+while true
+do
+  # From the Bash Reference Manual:
+  # When Bash receives a signal for which a trap has been set 
+  # while waiting for a command to complete, the trap will not 
+  # be executed until the command completes. When Bash is waiting
+  # for an asynchronous command via the wait builtin, the reception
+  # of a signal for which a trap has been set will cause the wait
+  # builtin to return immediately with an exit status greater than
+  # 128, immediately after which the trap is executed.
+
+  "$@" > /dev/null 2>&1 &
+  SLIMPID=$!
+  
+  # wait for SqueezeCenter to get started before wait()
+  sleep 5
+  
+  wait $SLIMPID
+  echo `date "+%F %H:%M:%S"` "SqueezeCenter died. Restarting." >> /var/log/squeezecenter/server.log
+
+  # Normally, when SqueezeCenter realizes that the mysql-connection is gone,
+  # the mysql server has already been started again. So no need to sleep
+  # here.
+
+done

@@ -1,0 +1,19 @@
+Source: squeezecenter
+Section: sound
+Priority: optional
+Maintainer: Logitech/Slim Devices <debian@slimdevices.com>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.6.2
+
+Package: squeezecenter-readynas
+Version: 7.0.0
+Architecture: sparc
+Conflicts: slimp3
+Depends: perl (>= 5.8.1),
+ mysql-server-4.1 | mysql-server-5.0, libmysqlclient15off,
+ mysql-client-4.1 | mysql-client-5.0, flac, sox, adduser
+Description: Streaming Audio Server
+ SqueezeCenter is a cross-platform streaming server that supports a wide range
+ of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and
+ WMA.
+ .
