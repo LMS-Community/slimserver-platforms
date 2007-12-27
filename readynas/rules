@@ -38,7 +38,7 @@ install:
 
 	# Copy our server files to the appropriate Debian locations.
 	install -m0755 ${source}/slimserver.pl ${base}/${share}/slimserver.pl
-	install -m0755 ${source}/scanner.pl ${base}/${share}/squeezecenter-scanner
+	install -m0755 ${source}/scanner.pl ${base}/${share}/scanner.pl
 
 	# We need to copy the Slim directory over...
 	cp -r ${source}/Slim ${base}/${share}
