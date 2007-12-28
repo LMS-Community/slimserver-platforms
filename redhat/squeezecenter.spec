@@ -17,16 +17,14 @@
 %define build_branch %{?_with_branch:1}0
 %define build_release %{?_with_release:1}0
 
+
 %if %{build_trunk}
-%define src_basename SqueezeCenter_trunk_v%{_src_date}
 %define rpm_release 0.%{increment}.%{_rpm_date}
 %endif
 %if %{build_branch}
-%define src_basename SqueezeCenter_%{_branch}_v%{_src_date}
 %define rpm_release 0.%{increment}.%{_rpm_date}
 %endif
 %if %{build_release}
-%define src_basename SqueezeCenter_v%{_version}
 %define rpm_release 1
 %endif
 
@@ -40,7 +38,7 @@ Summary:        SqueezeCenter Music Server
 Group:		System Environment/Daemons          
 License:	GPL and proprietary        
 URL:		http://www.slimdevices.com            
-Source0:	%{src_basename}.tar.gz
+Source0:	%{src_basename}.tgz
 Source1:	squeezecenter.config
 Source2:	squeezecenter.init
 Source3:	squeezecenter.logrotate
