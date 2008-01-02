@@ -1,13 +1,13 @@
-Source: slimserver
+Source: squeezecenter
 Section: sound
 Priority: optional
 Maintainer: Logitech/Slim Devices <debian@slimdevices.com>
 Build-Depends: debhelper (>= 4.0.0)
 Standards-Version: 3.6.2
 
-Package: slimserver
+Package: squeezecenter
 Architecture: all
-Conflicts: slimp3
+Conflicts: slimp3, slimserver
 Depends: perl (>= 5.8.1),
  mysql-server-4.1 | mysql-server-5.0, libmysqlclient14-dev | libmysqlclient15-dev,
  mysql-client-4.1 | mysql-client-5.0, flac, sox, adduser

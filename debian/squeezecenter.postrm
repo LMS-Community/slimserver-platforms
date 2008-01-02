@@ -2,11 +2,11 @@
 
 if [ "$1" = purge ]; then
 
-	rm -rf /var/cache/slimserver
-	rm -rf /var/log/slimserver
+	rm -rf /var/cache/squeezecenter
+	rm -rf /var/log/squeezecenter
 
 	if [ -x `which deluser` ]; then
-		deluser slimserver 
+		deluser squeezecenter 
 	fi
 fi
 

@@ -1,5 +1,5 @@
-etc/slimserver
+etc/squeezecenter
 usr/sbin
-usr/share/slimserver
-var/cache/slimserver
-var/log/slimserver
+usr/share/squeezecenter
+var/cache/squeezecenter
+var/log/squeezecenter

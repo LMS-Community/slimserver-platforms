@@ -1,33 +1,33 @@
-/var/log/slimserver/server.log {
+/var/log/squeezecenter/server.log {
   weekly
   rotate 5
   size 200k
   compress
   missingok
   prerotate
-    invoke-rc.d slimserver stop || true
+    invoke-rc.d squeezecenter stop || true
   endscript
 
   postrotate
     # Only starts SqueezeCenter if it is supposed to
     # run in the current run-level
-    invoke-rc.d slimserver start || true
+    invoke-rc.d squeezecenter start || true
   endscript
 }
 
-/var/log/slimserver/scanner.log {
+/var/log/squeezecenter/scanner.log {
   weekly
   rotate 5
   size 200k
   compress
   missingok
   prerotate
-    invoke-rc.d slimserver stop || true
+    invoke-rc.d squeezecenter stop || true
   endscript
 
   postrotate
     # Only starts SqueezeCenter if it is supposed to
     # run in the current run-level
-    invoke-rc.d slimserver start || true
+    invoke-rc.d squeezecenter start || true
   endscript
 }

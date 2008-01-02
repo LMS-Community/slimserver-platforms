@@ -12,20 +12,20 @@ then
   echo "To stop SqueezeCenter, kill this script instead of the"
   echo "actual SqueezeCenter process."
   echo
-  echo "Usage: $0 <slimserver-binary> <slimserver-arguments>"
+  echo "Usage: $0 <squeezecenter-binary> <squeezecenter-arguments>"
   exit 1
 fi
 
 function clean_up {
   # Kill the SqueezeCenter daemon if it is running
   kill $SLIMPID
-  echo `date "+%F %H:%M:%S"` "slimserver_safe stopped." >> /var/log/slimserver/server.log
+  echo `date "+%F %H:%M:%S"` "squeezecenter_safe stopped." >> /var/log/squeezecenter/server.log
   exit
 }
 
 trap clean_up SIGINT SIGHUP SIGTERM
 
-echo `date "+%F %H:%M:%S"` "slimserver_safe started." >> /var/log/slimserver/server.log
+echo `date "+%F %H:%M:%S"` "squeezecenter_safe started." >> /var/log/squeezecenter/server.log
 
 while true
 do
@@ -45,7 +45,7 @@ do
   sleep 5
   
   wait $SLIMPID
-  echo `date "+%F %H:%M:%S"` "SqueezeCenter died. Restarting." >> /var/log/slimserver/server.log
+  echo `date "+%F %H:%M:%S"` "SqueezeCenter died. Restarting." >> /var/log/squeezecenter/server.log
 
   # Normally, when SqueezeCenter realizes that the mysql-connection is gone,
   # the mysql server has already been started again. So no need to sleep

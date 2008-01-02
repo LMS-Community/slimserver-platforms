@@ -3,11 +3,11 @@
 # $Id$
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+export DH_VERBOSE=1
 
-package=slimserver
+package=squeezecenter
 base=$(CURDIR)/debian/$(package)
-share=usr/share/slimserver/
+share=usr/share/squeezecenter/
 source=$(CURDIR)/../server
 
 clean:
@@ -22,14 +22,14 @@ install:
 
 	# Create directories needed.
 	install -d -m0755 ${base}/etc/default/
-	install -d -m0755 ${base}/etc/slimserver/
+	install -d -m0755 ${base}/etc/squeezecenter/
 	install -d -m0755 ${base}/usr/share/perl5/
 	install -d -m0755 ${base}/${share}
-	install -d -m0755 ${base}/usr/share/doc/slimserver/
+	install -d -m0755 ${base}/usr/share/doc/squeezecenter/
 
 	# Copy our server files to the appropriate Debian locations.
-	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/slimserver
-	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/slimserver-scanner
+	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezecenter
+	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/squeezecenter-scanner
 
 	cp -r ${source}/Slim ${base}/usr/share/perl5/
 
@@ -55,15 +55,15 @@ install:
 	# up with the installed version's
 	rm ${base}/${share}/MySQL/errmsg.*
 
-	cp -r ${source}/*.conf ${base}/etc/slimserver/
-	cp -r $(CURDIR)/debian/slimserver.default ${base}/etc/default/slimserver
+	cp -r ${source}/*.conf ${base}/etc/squeezecenter/
+	cp -r $(CURDIR)/debian/squeezecenter.default ${base}/etc/default/squeezecenter
 
 	# Wrapper to keep SqueezeCenter alive.
-	cp -r $(CURDIR)/debian/slimserver_safe ${base}/usr/sbin/slimserver_safe
+	cp -r $(CURDIR)/debian/squeezecenter_safe ${base}/usr/sbin/squeezecenter_safe
 
 	# Documentation
-	cp ${source}/Change* ${base}/usr/share/doc/slimserver/
-	cp ${source}/Installation.txt ${base}/usr/share/doc/slimserver/
+	cp ${source}/Change* ${base}/usr/share/doc/squeezecenter/
+	cp ${source}/Installation.txt ${base}/usr/share/doc/squeezecenter/
 	cp ${source}/License.txt $(CURDIR)/debian/copyright
 
 	# Copy the revision file
