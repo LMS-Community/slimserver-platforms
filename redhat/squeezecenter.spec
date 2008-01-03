@@ -89,7 +89,6 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 mkdir -p $RPM_BUILD_ROOT%{_usr}/libexec
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/cache
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/Plugins
-mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/Plugins/Bin
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs/plugin
 mkdir -p $RPM_BUILD_ROOT%{_var}/log/squeezecenter
@@ -227,7 +226,6 @@ fi
 %attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter
 %attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter/cache
 %attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter/Plugins
-%attr(0755,squeezecenter,squeezecenter) %dir %{_var}/lib/squeezecenter/Plugins/Bin
 
 # Executables
 %{_usr}/libexec/squeezecenter-server
