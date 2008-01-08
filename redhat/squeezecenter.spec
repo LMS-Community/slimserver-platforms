@@ -11,7 +11,7 @@
 # The following is required with _with_branch
 # %%define _branch 7.0
 
-%define increment 1
+%define increment 2
 
 %define build_trunk %{?_with_trunk:1}0
 %define build_branch %{?_with_branch:1}0
@@ -19,10 +19,10 @@
 
 
 %if %{build_trunk}
-%define rpm_release 0.%{increment}.%{_rpm_date}
+%define rpm_release 0.%{increment}.%{_revision}
 %endif
 %if %{build_branch}
-%define rpm_release 0.%{increment}.%{_rpm_date}
+%define rpm_release 0.%{increment}.%{_revision}
 %endif
 %if %{build_release}
 %define rpm_release 1
