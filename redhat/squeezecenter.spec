@@ -46,7 +46,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Vendor:		Logitech
 
 
-Requires:	/usr/share/mysql/errmsg.txt, perl >= 5.8.3
+Requires:	/usr/bin/mysqld_safe, perl >= 5.8.3
 Obsoletes:	slimserver, SliMP3
 AutoReqProv:	no
 
