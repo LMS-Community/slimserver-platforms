@@ -585,6 +585,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 1416136B0982CC9600E949A0 /* Build configuration list for PBXProject "SqueezeCenter" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -600,6 +601,7 @@
 			mainGroup = 089C166AFE841209C02AAC07 /* SqueezeCenter */;
 			productRefGroup = F58B0871035DF7DA01A80172 /* Products */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				14A9400309875F57001992EB /* SqueezeCenter */,
 				14A9402809875F57001992EB /* Launcher */,
