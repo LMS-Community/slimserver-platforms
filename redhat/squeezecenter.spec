@@ -11,7 +11,7 @@
 # The following is required with _with_branch
 # %%define _branch 7.0
 
-%define increment 2
+%define increment 1
 
 %define build_trunk %{?_with_trunk:1}0
 %define build_branch %{?_with_branch:1}0
