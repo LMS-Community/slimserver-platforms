@@ -30,6 +30,7 @@ install:
 	install -d -m0755 ${base}/${share}
 	install -d -m0755 ${base}/usr/share/doc/squeezecenter/
 	install -d -m0755 ${base}/${varlib}/prefs
+	install -d -m0755 ${base}/${varlib}/cache
 
 	# Copy our server files to the appropriate Debian locations.
 	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezecenter-server
