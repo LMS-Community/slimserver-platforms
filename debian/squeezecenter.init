@@ -14,14 +14,14 @@ set -e
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="SqueezeCenter Audio Server"
 NAME=squeezecenter
-DAEMON=/usr/sbin/$NAME
+DAEMON=/usr/sbin/$NAME-server
 DAEMON_SAFE=/usr/sbin/${NAME}_safe
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 SLIMUSER=$NAME
-PREFSFILE=/etc/$NAME/$NAME.pref
+PREFSDIR=/var/lib/$NAME/prefs
 LOGDIR=/var/log/$NAME/
-CACHEDIR=/var/cache/$NAME
+CACHEDIR=/var/lib/$NAME/cache
 SLIMOPTIONS=
 
 # Read config file if it is present.
@@ -44,7 +44,7 @@ d_start() {
                 --make-pidfile \
                 -- \
                 $DAEMON \
-                --prefsfile $PREFSFILE \
+                --prefsdir $PREFSDIR \
                 --logdir $LOGDIR \
                 --cachedir $CACHEDIR \
                 $SLIMOPTIONS
@@ -58,7 +58,7 @@ d_start_direct() {
                 -- \
                 --pidfile $PIDFILE \
                 --daemon \
-                --prefsfile $PREFSFILE \
+                --prefsdir $PREFSDIR \
                 --logdir $LOGDIR \
                 --cachedir $CACHEDIR \
                 $SLIMOPTIONS

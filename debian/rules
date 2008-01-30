@@ -10,6 +10,9 @@ base=$(CURDIR)/debian/$(package)
 share=usr/share/squeezecenter/
 source=$(CURDIR)/../server
 
+varlib=var/lib/squeezecenter
+
+
 clean:
 	dh_testdir
 	dh_testroot
@@ -26,9 +29,10 @@ install:
 	install -d -m0755 ${base}/usr/share/perl5/
 	install -d -m0755 ${base}/${share}
 	install -d -m0755 ${base}/usr/share/doc/squeezecenter/
+	install -d -m0755 ${base}/${varlib}/prefs
 
 	# Copy our server files to the appropriate Debian locations.
-	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezecenter
+	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezecenter-server
 	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/squeezecenter-scanner
 
 	cp -r ${source}/Slim ${base}/usr/share/perl5/
@@ -46,16 +50,21 @@ install:
 	cp -r ${source}/Graphics ${base}/${share}
 	cp -r ${source}/HTML ${base}/${share}
 	cp -r ${source}/IR ${base}/${share}
-	cp -r ${source}/MySQL ${base}/${share}
-	cp -r ${source}/Plugins ${base}/${share}
 	cp -r ${source}/SQL ${base}/${share}
 	cp -r ${source}/strings.txt ${base}/${share}
+	cp -r ${source}/MySQL ${base}/${share}
+
+	# We put the Plugins into /var/lib/ because they are modifiable, 
+	# and shouldn't be put into /usr. 
+	cp -r ${source}/Plugins ${base}/${varlib}
+	ln -s ${base}/${varlib}/Plugins ${base}/${share}/Plugins
 
 	# Remove errmsg.sys files from the MySQL dir, since they may not match
 	# up with the installed version's
 	rm ${base}/${share}/MySQL/errmsg.*
 
-	cp -r ${source}/*.conf ${base}/etc/squeezecenter/
+	cp -r ${source}/*.conf ${base}/${varlib}/prefs
+	ln -s ${base}/${varlib}/prefs/server.prefs ${base}/etc/squeezecenter/server.conf
 	cp -r $(CURDIR)/debian/squeezecenter.default ${base}/etc/default/squeezecenter
 
 	# Wrapper to keep SqueezeCenter alive.

@@ -17,7 +17,7 @@ case "$1" in
 	fi
 
 	# Remove the old Favorites module.
-	rm -rf /usr/share/squeezecenter/Plugins/Favorites
+	rm -rf /var/lib/squeezecenter/Plugins/Favorites
 
 	# Create a "squeezecenter" user. This has modeled after the code in the postfix.deb
 	# postinst. We first try to set the ownership of /var/lib/squeezecenter. If that
@@ -27,7 +27,7 @@ case "$1" in
 	if chown squeezecenter:nogroup /var/log/squeezecenter 2>/dev/null ; then
 
 	    chown $VERBOSE squeezecenter:nogroup /etc/squeezecenter -R
-	    chown $VERBOSE squeezecenter:nogroup /var/cache/squeezecenter -R
+	    chown $VERBOSE squeezecenter:nogroup /var/lib/squeezecenter -R
 	    chown $VERBOSE squeezecenter:nogroup /var/log/squeezecenter -R
 
 	elif adduser --system --home /usr/share/squeezecenter --no-create-home --gecos "SqueezeCenter" squeezecenter ; then
@@ -35,7 +35,7 @@ case "$1" in
 	    sleep 1 # wait for user creation
 
 	    chown $VERBOSE squeezecenter:nogroup /etc/squeezecenter -R
-	    chown $VERBOSE squeezecenter:nogroup /var/cache/squeezecenter -R
+	    chown $VERBOSE squeezecenter:nogroup /var/lib/squeezecenter -R
 	    chown $VERBOSE squeezecenter:nogroup /var/log/squeezecenter -R
 
 	fi

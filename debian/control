@@ -7,7 +7,8 @@ Standards-Version: 3.6.2
 
 Package: squeezecenter
 Architecture: all
-Conflicts: slimp3, slimserver
+Conflicts: slimp3,slimserver
+Replaces: slimp3,slimserver
 Depends: perl (>= 5.8.1),
  mysql-server-4.1 | mysql-server-5.0, libmysqlclient14-dev | libmysqlclient15-dev,
  mysql-client-4.1 | mysql-client-5.0, flac, sox, adduser
