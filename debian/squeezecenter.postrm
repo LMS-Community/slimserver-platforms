@@ -2,7 +2,7 @@
 
 if [ "$1" = purge ]; then
 
-	rm -rf /var/cache/squeezecenter
+	rm -rf /var/lib/squeezecenter/cache
 	rm -rf /var/log/squeezecenter
 
 	if [ -x `which deluser` ]; then
