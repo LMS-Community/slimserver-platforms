@@ -75,6 +75,7 @@ install:
 
 
 	cp -r ${source}/*.conf ${base}/${varlib}/prefs
+	touch /${varlib}/prefs/server.prefs 
 	ln -s /${varlib}/prefs/server.prefs ${base}/etc/squeezecenter/server.conf
 	cp -r $(CURDIR)/debian/squeezecenter.default ${base}/etc/default/squeezecenter
 
