@@ -64,7 +64,7 @@ install:
 	# We put the Plugins into /var/lib/ because they are modifiable, 
 	# and shouldn't be put into /usr. 
 	cp -r ${source}/Plugins ${base}/${varlib}
-	ln -s ${base}/${varlib}/Plugins ${base}/${share}/Plugins
+	ln -s /${varlib}/Plugins ${base}/${share}/Plugins
 
 	# Remove errmsg.sys files from the MySQL dir, since they may not match
 	# up with the installed version's
@@ -75,7 +75,7 @@ install:
 
 
 	cp -r ${source}/*.conf ${base}/${varlib}/prefs
-	ln -s ${base}/${varlib}/prefs/server.prefs ${base}/etc/squeezecenter/server.conf
+	ln -s /${varlib}/prefs/server.prefs ${base}/etc/squeezecenter/server.conf
 	cp -r $(CURDIR)/debian/squeezecenter.default ${base}/etc/default/squeezecenter
 
 	# Wrapper to keep SqueezeCenter alive.
