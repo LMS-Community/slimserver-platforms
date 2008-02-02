@@ -255,9 +255,9 @@ fi
 %attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/rssnews.prefs
 %attr(0644,squeezecenter,squeezecenter) %ghost %{_var}/lib/squeezecenter/prefs/plugin/state.prefs
 %attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/server.conf
-%attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/convert.conf
-%attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/modules.conf
-%attr(0644,squeezecenter,squeezecenter) %{_sysconfdir}/squeezecenter/types.conf
+%attr(0644,squeezecenter,squeezecenter) %config(noreplace) %{_sysconfdir}/squeezecenter/convert.conf
+%attr(0644,squeezecenter,squeezecenter) %config(noreplace) %{_sysconfdir}/squeezecenter/modules.conf
+%attr(0644,squeezecenter,squeezecenter) %config(noreplace) %{_sysconfdir}/squeezecenter/types.conf
 %{_sysconfdir}/init.d/squeezecenter
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/squeezecenter
 %config(noreplace) %{_sysconfdir}/logrotate.d/squeezecenter
