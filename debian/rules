@@ -73,10 +73,10 @@ install:
 	# Make sure we copy in the Bin directory
 	cp -r ${source}/Bin ${base}/${share}
 
+	# Set up the pref's file locations...
+	cp -r ${source}/*.conf ${base}/etc/squeezecenter
 
-	cp -r ${source}/*.conf ${base}/${varlib}/prefs
-	touch ${base}/${varlib}/prefs/server.prefs 
-	ln -s /${varlib}/prefs/server.prefs ${base}/etc/squeezecenter/server.conf
+	# Copy over the squeezecenter init script...
 	cp -r $(CURDIR)/debian/squeezecenter.default ${base}/etc/default/squeezecenter
 
 	# Wrapper to keep SqueezeCenter alive.
