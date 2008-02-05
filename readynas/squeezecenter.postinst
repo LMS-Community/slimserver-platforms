@@ -17,7 +17,7 @@ case "$1" in
 	fi
 
 	# Remove the old Favorites module.
-	rm -rf /usr/share/squeezecenter/Plugins/Favorites
+	rm -rf /var/lib/squeezecenter/Plugins/Favorites
 
 	# Create a "squeezecenter" user. This has modeled after the code in the postfix.deb
 	# postinst. We first try to set the ownership of /var/lib/squeezecenter. If that

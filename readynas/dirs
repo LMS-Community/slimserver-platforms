@@ -1,5 +1,5 @@
 etc/squeezecenter
 usr/sbin
 usr/share/squeezecenter
-var/cache/squeezecenter
+var/lib/squeezecenter
 var/log/squeezecenter
