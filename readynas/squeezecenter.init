@@ -14,14 +14,14 @@ set -e
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="SqueezeCenter Audio Server"
 NAME=squeezecenter
-DAEMON=/usr/sbin/$NAME
+DAEMON=/usr/sbin/$NAME-server
 DAEMON_SAFE=/usr/sbin/${NAME}_safe
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 SLIMUSER=$NAME
-PREFSFILE=/etc/$NAME/$NAME.pref
+PREFSDIR=/var/lib/$NAME/prefs
 LOGDIR=/var/log/$NAME/
-CACHEDIR=/var/cache/$NAME
+CACHEDIR=/var/lib/$NAME/cache
 SLIMOPTIONS=
 
 # Read config file if it is present.
@@ -44,7 +44,7 @@ d_start() {
                 --make-pidfile \
                 -- \
                 $DAEMON \
-                --prefsfile $PREFSFILE \
+                --prefsdir $PREFSDIR \
                 --logdir $LOGDIR \
                 --cachedir $CACHEDIR \
                 $SLIMOPTIONS
@@ -58,7 +58,7 @@ d_start_direct() {
                 -- \
                 --pidfile $PIDFILE \
                 --daemon \
-                --prefsfile $PREFSFILE \
+                --prefsdir $PREFSDIR \
                 --logdir $LOGDIR \
                 --cachedir $CACHEDIR \
                 $SLIMOPTIONS
@@ -67,7 +67,11 @@ d_start_direct() {
 #	Function that stops the daemon/service.
 #
 d_stop() {
-	start-stop-daemon --stop --pidfile $PIDFILE --name squeezecenter_safe
+        ## This is a bug in the start-stop-daemon that checks the PID name from the /proc/PID/stat filesystem...
+        ## Unfortunately this cuts-off the name of the daemon because its longer now, and then it doesnt get 
+        ## caught by the start-stop-daemon. The daemon actually reports it as squeezecenter_s instead of 
+        ## squeezecenter_safe.
+	start-stop-daemon -o --stop --pidfile $PIDFILE --name squeezecenter_s
 }
 
 #

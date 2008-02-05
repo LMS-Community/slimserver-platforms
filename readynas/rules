@@ -3,12 +3,14 @@
 # $Id$
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+export DH_VERBOSE=1
 
 package=squeezecenter-readynas
 base=$(CURDIR)/readynas/$(package)
 share=usr/share/squeezecenter/
 source=$(CURDIR)/../server
+
+varlib=var/lib/squeezecenter
 
 clean:
 	dh_testdir
@@ -26,6 +28,8 @@ install:
 	install -d -m0755 ${base}/usr/share/perl5/
 	install -d -m0755 ${base}/${share}
 	install -d -m0755 ${base}/usr/share/doc/squeezecenter/
+	install -d -m0755 ${base}/${varlib}/prefs
+	install -d -m0755 ${base}/${varlib}/cache
 
 	# We need to disable the changeEffectiveUserAndGroup call to run on the readynas
 	cp -r $(CURDIR)/readynas/MySQLHelper.pm ${source}/Slim/Utils
@@ -34,14 +38,14 @@ install:
 	cp -r $(CURDIR)/readynas/CPAN ${source}/
 
 	# Finally, we disable a specific call to the changeEffectiveUserAndGroup in the startup script
-	cat ${source}/slimserver.pl | sed -e 's/changeEffectiveUserAndGroup();/#changeEffectiveUserAndGroup();/g' > ${source}/slimserver.pl
+	cat ${source}/slimserver.pl | sed -e 's/changeEffectiveUserAndGroup();/#changeEffectiveUserAndGroup();/g' > ${source}/slimserver-modified.pl
 
 	# Copy our server files to the appropriate Debian locations.
-	install -m0755 ${source}/slimserver.pl ${base}/${share}/slimserver.pl
-	install -m0755 ${source}/scanner.pl ${base}/${share}/scanner.pl
+	install -m0755 ${source}/slimserver-modified.pl ${base}/usr/sbin/squeezecenter-server
+	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/squeezecenter-scanner
 
 	# We need to copy the Slim directory over...
-	cp -r ${source}/Slim ${base}/${share}
+	cp -r ${source}/Slim ${base}/usr/share/perl5
 
 	# Copy our CPAN directory and locally modified perl modules
 	cp -r ${source}/CPAN ${base}/${share}
@@ -50,26 +54,40 @@ install:
 	# Remove non-Linux binary modules
 	rm -rf ${base}/${share}/CPAN/arch/5.8/darwin-thread-multi-2level
 	rm -rf ${base}/${share}/CPAN/arch/5.8/MSWin32-x86-multi-thread
+        rm -rf ${source}/Bin/darwin
+        rm -rf ${source}/Bin/MSWin32-x86-multi-thread
+        rm -rf ${source}/Bin/powerpc-hardhat-linux
+
 
 	# And aux files needed to run SqueezeCenter
 	cp -r ${source}/Firmware ${base}/${share}
 	cp -r ${source}/Graphics ${base}/${share}
 	cp -r ${source}/HTML ${base}/${share}
 	cp -r ${source}/IR ${base}/${share}
-	cp -r ${source}/MySQL ${base}/${share}
-	cp -r ${source}/Plugins ${base}/${share}
 	cp -r ${source}/SQL ${base}/${share}
 	cp -r ${source}/strings.txt ${base}/${share}
+	cp -r ${source}/MySQL ${base}/${share}
+
+	# Make sure we copy in the Bin directory
+        cp -r ${source}/Bin ${base}/${share}
+
+	# We put the Plugins into /var/lib/ because they are modifiable, 
+        # and shouldn't be put into /usr. 
+        cp -r ${source}/Plugins ${base}/${varlib}
+        ln -s /${varlib}/Plugins ${base}/${share}/Plugins
 
 	# Remove errmsg.sys files from the MySQL dir, since they may not match
 	# up with the installed version's
 	rm ${base}/${share}/MySQL/errmsg.*
 
-	cp -r ${source}/*.conf ${base}/etc/squeezecenter/
+        # Set up the pref's file locations...
+        cp -r ${source}/*.conf ${base}/etc/squeezecenter
+
+        # Copy over the squeezecenter init script...
 	cp -r $(CURDIR)/readynas/squeezecenter.default ${base}/etc/default/squeezecenter
 
 	# Wrapper to keep SqueezeCenter alive.
-	cp -r $(CURDIR)/readynas/squeezecenter_safe ${base}/${share}
+	cp -r $(CURDIR)/readynas/squeezecenter_safe ${base}/usr/sbin/squeezecenter_safe
 
 	# Documentation
 	cp ${source}/Change* ${base}/usr/share/doc/squeezecenter/
