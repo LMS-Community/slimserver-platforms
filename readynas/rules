@@ -54,9 +54,9 @@ install:
 	# Remove non-Linux binary modules
 	rm -rf ${base}/${share}/CPAN/arch/5.8/darwin-thread-multi-2level
 	rm -rf ${base}/${share}/CPAN/arch/5.8/MSWin32-x86-multi-thread
-        rm -rf ${source}/Bin/darwin
-        rm -rf ${source}/Bin/MSWin32-x86-multi-thread
-        rm -rf ${source}/Bin/powerpc-hardhat-linux
+	rm -rf ${source}/Bin/darwin
+	rm -rf ${source}/Bin/MSWin32-x86-multi-thread
+	rm -rf ${source}/Bin/powerpc-hardhat-linux
 
 
 	# And aux files needed to run SqueezeCenter
@@ -69,21 +69,21 @@ install:
 	cp -r ${source}/MySQL ${base}/${share}
 
 	# Make sure we copy in the Bin directory
-        cp -r ${source}/Bin ${base}/${share}
+	cp -r ${source}/Bin ${base}/${share}
 
 	# We put the Plugins into /var/lib/ because they are modifiable, 
-        # and shouldn't be put into /usr. 
-        cp -r ${source}/Plugins ${base}/${varlib}
-        ln -s /${varlib}/Plugins ${base}/${share}/Plugins
+	# and shouldn't be put into /usr. 
+	cp -r ${source}/Plugins ${base}/${varlib}
+	ln -s /${varlib}/Plugins ${base}/${share}/Plugins
 
 	# Remove errmsg.sys files from the MySQL dir, since they may not match
 	# up with the installed version's
 	rm ${base}/${share}/MySQL/errmsg.*
 
-        # Set up the pref's file locations...
-        cp -r ${source}/*.conf ${base}/etc/squeezecenter
+	# Set up the pref's file locations...
+	cp -r ${source}/*.conf ${base}/etc/squeezecenter
 
-        # Copy over the squeezecenter init script...
+	# Copy over the squeezecenter init script...
 	cp -r $(CURDIR)/readynas/squeezecenter.default ${base}/etc/default/squeezecenter
 
 	# Wrapper to keep SqueezeCenter alive.
