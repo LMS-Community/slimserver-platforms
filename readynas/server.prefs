@@ -1,0 +1,2 @@
+dbsource: dbi:mysql:database=slimserver
+dbusername: slimserver
