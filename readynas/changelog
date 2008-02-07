@@ -1,4 +1,4 @@
-squeezecenter (7.0) unstable; urgency=low
+squeezecenter (_VERSION_) unstable; urgency=low
 
   * Set up initial package for ReadyNas nightly builds... 
 
