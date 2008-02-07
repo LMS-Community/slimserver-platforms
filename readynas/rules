@@ -24,6 +24,7 @@ install:
 
 	# Create directories needed.
 	install -d -m0755 ${base}/etc/default/
+	install -d -m0755 ${base}/etc/init.d/
 	install -d -m0755 ${base}/etc/squeezecenter/
 	install -d -m0755 ${base}/usr/share/perl5/
 	install -d -m0755 ${base}/${share}
@@ -83,8 +84,13 @@ install:
 	# Set up the pref's file locations...
 	cp -r ${source}/*.conf ${base}/etc/squeezecenter
 
+	## Overwrite some default settings with ReadyNas specific settings
+	cp -r ${CURDIR}/readynas/convert.conf ${base}/etc/squeezecenter
+	cp -r ${CURDIR}/readynas/server.prefs ${base}/${varlib}/prefs/
+
 	# Copy over the squeezecenter init script...
 	cp -r $(CURDIR)/readynas/squeezecenter.default ${base}/etc/default/squeezecenter
+	cp -r $(CURDIR)/readynas/squeezecenter.init ${base}/etc/init.d/squeezecenter
 
 	# Wrapper to keep SqueezeCenter alive.
 	cp -r $(CURDIR)/readynas/squeezecenter_safe ${base}/usr/sbin/squeezecenter_safe
