@@ -41,13 +41,16 @@ install:
 	# Copy our CPAN directory and locally modified perl modules
 	cp -r ${source}/CPAN ${base}/${share}
 	cp -r ${source}/lib ${base}/${share}
+
+	# Make sure we copy in the Bin directory
+#	cp -r ${source}/Bin ${base}/${share}
 	
 	# Remove non-Linux binary modules and binaries
 	rm -rf ${base}/${share}/CPAN/arch/5.8/darwin-thread-multi-2level
 	rm -rf ${base}/${share}/CPAN/arch/5.8/MSWin32-x86-multi-thread
-	rm -rf ${source}/Bin/darwin
-	rm -rf ${source}/Bin/MSWin32-x86-multi-thread
-	rm -rf ${source}/Bin/powerpc-hardhat-linux
+#	rm -rf ${base}/${share}/Bin/darwin
+#	rm -rf ${base}/${share}/Bin/MSWin32-x86-multi-thread
+#	rm -rf ${base}/${share}/Bin/powerpc-hardhat-linux
 
 	# And aux files needed to run SlimServer
 	cp -r ${source}/Firmware ${base}/${share}
@@ -58,8 +61,6 @@ install:
 	cp -r ${source}/strings.txt ${base}/${share}
 	cp -r ${source}/MySQL ${base}/${share}
 
-	# Make sure we copy in the Bin directory
-	cp -r ${source}/Bin ${base}/${share}
 
 	# We put the Plugins into /var/lib/ because they are modifiable, 
 	# and shouldn't be put into /usr. 
@@ -69,9 +70,6 @@ install:
 	# Remove errmsg.sys files from the MySQL dir, since they may not match
 	# up with the installed version's
 	rm ${base}/${share}/MySQL/errmsg.*
-
-	# Make sure we copy in the Bin directory
-	cp -r ${source}/Bin ${base}/${share}
 
 	# Set up the pref's file locations...
 	cp -r ${source}/*.conf ${base}/etc/squeezecenter
