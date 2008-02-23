@@ -19,8 +19,8 @@ Uninstallable=no
 MinVersion=0,4
 
 [Languages]
-Name: nl; MessagesFile: "Dutch.isl"
 Name: en; MessagesFile: "English.isl"
+Name: nl; MessagesFile: "Dutch.isl"
 Name: fr; MessagesFile: "French.isl"
 Name: de; MessagesFile: "German.isl"
 Name: he; MessagesFile: "Hebrew.isl"
