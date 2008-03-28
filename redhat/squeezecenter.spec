@@ -174,6 +174,11 @@ if [ -f /etc/redhat-release ] ; then
 		fi
 	fi
 	/sbin/chkconfig --add squeezecenter
+	if [ -f /etc/e-smith-release -a -d /etc/rc7.d ] ; then
+		#SME Server uses runlevel 7
+		ln -s /etc/init.d/squeezecenter /etc/rc7.d/S80squeezecenter
+		db configuration set squeezecenter service status enabled
+	fi
 	/sbin/service squeezecenter restart >/dev/null 2>&1 || :
 elif [ -f /etc/SuSE-release ] ; then
 	/usr/lib/lsb/install_initd /etc/init.d/squeezecenter
@@ -192,6 +197,11 @@ if [ "$1" -eq "0" ] ; then
 	# If not upgrading
 	if [ -f /etc/redhat-release ] ; then
 		/sbin/service squeezecenter stop >/dev/null 2>&1 || :
+		if [ -f /etc/e-smith-release -a -d /etc/rc7.d ] ; then
+			#SME Server uses runlevel 7
+			db configuration set squeezecenter service status disabled
+			rm /etc/rc7.d/S80squeezecenter
+		fi
         	/sbin/chkconfig --del squeezecenter
 		# Remove SELinux contexts
 		if [ -x /usr/sbin/selinuxenabled ] ; then
