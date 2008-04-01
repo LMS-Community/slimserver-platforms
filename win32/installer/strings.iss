@@ -1,24 +1,24 @@
 en.GettingStarted=Getting Started
 de.GettingStarted=Erste Schritte
-es.GettingStarted=Introducciï¿½n
-fr.GettingStarted=Guide de dï¿½marrage
-he.GettingStarted=ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 'ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'
+es.GettingStarted=Introducción
+fr.GettingStarted=Guide de démarrage
+he.GettingStarted=àú äîñîê 'úçéìú äùéîåù'
 it.GettingStarted=Guida introduttiva
 nl.GettingStarted=De beginselen
 
 en.ProblemUninstallingSLIMP3=Problem uninstalling SLIMP3 software:
 de.ProblemUninstallingSLIMP3=Problem bei Deinstallation von SLIMP3-Software:
 es.ProblemUninstallingSLIMP3=Problema al desinstalar el software SLIMP3:
-fr.ProblemUninstallingSLIMP3=Un problï¿½me est survenu en dï¿½sinstallant le logiciel SLIMP3:
-he.ProblemUninstallingSLIMP3=ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ SLIMP3:
+fr.ProblemUninstallingSLIMP3=Un problème est survenu en désinstallant le logiciel SLIMP3:
+he.ProblemUninstallingSLIMP3=áòéä áäñøú ääú÷ðä ùì úåëðú SLIMP3:
 it.ProblemUninstallingSLIMP3=Problema durante la disinstallazione del software SLIMP3:
 nl.ProblemUninstallingSLIMP3=Probleem tijdens verwijderen van SLIMP3-software:
 
 en.ProblemUninstallingSlimServer=Problem uninstalling SlimServer software:
 de.ProblemUninstallingSlimServer=Problem bei Deinstallation der SlimServer-Software:
 es.ProblemUninstallingSlimServer=Problema al desinstalar el software SlimServer:
-fr.ProblemUninstallingSlimServer=Un problï¿½me est survenu en dï¿½sinstallant le logiciel SlimServer:
-he.ProblemUninstallingSlimServer=ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ SlimServer:
+fr.ProblemUninstallingSlimServer=Un problème est survenu en désinstallant le logiciel SlimServer:
+he.ProblemUninstallingSlimServer=áòéä áäñøú ääú÷ðä ùì úåëðú SlimServer:
 it.ProblemUninstallingSlimServer=Problema durante la disinstallazione del software SlimServer:
 nl.ProblemUninstallingSlimServer=Probleem tijdens verwijderen van SlimServer-software:
 
@@ -27,46 +27,46 @@ en.License=License
 ;de.License=Lizenz
 ;es.License=Licencia
 ;fr.License=Licence
-;he.License=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+;he.License=øéùéåï
 ;it.License=Licenza
 ;nl.License=Licentie
 
 en.SlimDevicesWebSite=Slim Devices/Logitech Web Site
 de.SlimDevicesWebSite=Slim Devices/Logitech-Website
-es.SlimDevicesWebSite=Pï¿½gina Web de Slim Devices/Logitech
+es.SlimDevicesWebSite=Página Web de Slim Devices/Logitech
 fr.SlimDevicesWebSite=Site Web Slim Devices/Logitech
-he.SlimDevicesWebSite=ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Slim Devices/Logitech
+he.SlimDevicesWebSite=àúø äàéðèøðè ùì Slim Devices/Logitech
 it.SlimDevicesWebSite=Sito Web Slim Devices/Logitech
 nl.SlimDevicesWebSite=Slim Devices/Logitech-website
 
 en.SqueezeCenterWebInterface=SqueezeCenter Web Interface
-de.SqueezeCenterWebInterface=SqueezeCenter-Web-Benutzeroberflï¿½che
+de.SqueezeCenterWebInterface=SqueezeCenter-Web-Benutzeroberfläche
 es.SqueezeCenterWebInterface=Interfaz Web de SqueezeCenter
 fr.SqueezeCenterWebInterface=Interface Web SqueezeCenter
-he.SqueezeCenterWebInterface=ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ SqueezeCenter
+he.SqueezeCenterWebInterface=îîù÷ äàéðèøðè ùì SqueezeCenter
 it.SqueezeCenterWebInterface=Interfaccia Web SqueezeCenter
 nl.SqueezeCenterWebInterface=SqueezeCenter-webinterface
 
 en.UninstallSqueezeCenter=Uninstall SqueezeCenter
 de.UninstallSqueezeCenter=SqueezeCenter deinstallieren
 es.UninstallSqueezeCenter=Desinstalar SqueezeCenter
-fr.UninstallSqueezeCenter=Dï¿½sinstaller SqueezeCenter
-he.UninstallSqueezeCenter=ï¿½ï¿½ï¿½ ï¿½ï¿½ SqueezeCenter
+fr.UninstallSqueezeCenter=Désinstaller SqueezeCenter
+he.UninstallSqueezeCenter=äñø àú SqueezeCenter
 it.UninstallSqueezeCenter=Disinstalla SqueezeCenter
 nl.UninstallSqueezeCenter=SqueezeCenter verwijderen
 
 en.SqueezeCenterTrayTool=SqueezeCenter Tray Tool
 de.SqueezeCenterTrayTool=SqueezeCenter-Taskleisten-Tool
 es.SqueezeCenterTrayTool=Herramienta de bandeja de SqueezeCenter
-fr.SqueezeCenterTrayTool=Outil de la barre d'ï¿½tat systï¿½me SqueezeCenter
-he.SqueezeCenterTrayTool=ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ SqueezeCenter
+fr.SqueezeCenterTrayTool=Outil de la barre d'état système SqueezeCenter
+he.SqueezeCenterTrayTool=ëìé äîâù ùì SqueezeCenter
 it.SqueezeCenterTrayTool=Strumento notifica SqueezeCenter
 nl.SqueezeCenterTrayTool=SqueezeCenter-systeempictogram
 
 en.ManageService=SqueezeCenter Startup options
 de.ManageService=SqueezeCenter-Startoptionen
 es.ManageService=Opciones de inicio de SqueezeCenter
-fr.ManageService=Options de dï¿½marrage du SqueezeCenter
+fr.ManageService=Options de démarrage du SqueezeCenter
 it.ManageService=Opzioni di avvio di SqueezeCenter
 nl.ManageService=Opstartopties van SqueezeCenter
 
@@ -101,14 +101,14 @@ nl.UnregisterServices=Registratie van services opheffen
 en.UnregisterServicesDesc=Please wait while previous SqueezeCenter services are uninstalled.
 de.UnregisterServicesDesc=Vorherige SqueezeCenter-Dienste werden deinstalliert. Bitte warten.
 es.UnregisterServicesDesc=Espere mientras se desinstalan servicios anteriores de SqueezeCenter.
-fr.UnregisterServicesDesc=Veuillez patienter pendant la dï¿½sinstallation des services SqueezeCenter prï¿½cï¿½dents.
+fr.UnregisterServicesDesc=Veuillez patienter pendant la désinstallation des services SqueezeCenter précédents.
 it.UnregisterServicesDesc=Attendere. Disinstallazione dei servizi SqueezeCenter precedenti in corso.
 nl.UnregisterServicesDesc=Een ogenblik geduld terwijl vorige SqueezeCenter-services worden verwijderd.
 
 en.WaitingForServices=Waiting for SqueezeCenter to stop...
 de.WaitingForServices=SqueezeCenter wird angehalten. Bitte warten...
 es.WaitingForServices=Esperando a que SqueezeCenter se detenga...
-fr.WaitingForServices=En attente de l'arrï¿½t du SqueezeCenter...
+fr.WaitingForServices=En attente de l'arrêt du SqueezeCenter...
 it.WaitingForServices=In attesa dell'arresto di SqueezeCenter...
 nl.WaitingForServices=SqueezeCenter wordt gestopt. Een ogenblik geduld...
 
@@ -136,49 +136,49 @@ nl.Startup_LabelUsername_Caption0=Gebruikersnaam:
 
 en.Startup_LabelPassword1_Caption0=Password:
 de.Startup_LabelPassword1_Caption0=Kennwort:
-es.Startup_LabelPassword1_Caption0=Contraseï¿½a:
+es.Startup_LabelPassword1_Caption0=Contraseña:
 fr.Startup_LabelPassword1_Caption0=Mot de passe:
 it.Startup_LabelPassword1_Caption0=Password:
 nl.Startup_LabelPassword1_Caption0=Wachtwoord:
 
 en.Startup_LabelPassword2_Caption0=Confirm password:
-de.Startup_LabelPassword2_Caption0=Kennwort bestï¿½tigen:
-es.Startup_LabelPassword2_Caption0=Confirmar contraseï¿½a:
+de.Startup_LabelPassword2_Caption0=Kennwort bestätigen:
+es.Startup_LabelPassword2_Caption0=Confirmar contraseña:
 fr.Startup_LabelPassword2_Caption0=Confirmer le mot de passe:
 it.Startup_LabelPassword2_Caption0=Conferma password:
 nl.Startup_LabelPassword2_Caption0=Wachtwoord bevestigen:
 
 en.Startup_RadioAtLogin_Caption0=Start SqueezeCenter when I &log in.
 de.Startup_RadioAtLogin_Caption0=SqueezeCenter beim &Anmelden starten.
-es.Startup_RadioAtLogin_Caption0=Iniciar SqueezeCenter al iniciar &sesiï¿½n.
-fr.Startup_RadioAtLogin_Caption0=Dï¿½marrer le SqueezeCenter ï¿½ l'&ouverture de session.
+es.Startup_RadioAtLogin_Caption0=Iniciar SqueezeCenter al iniciar &sesión.
+fr.Startup_RadioAtLogin_Caption0=Démarrer le SqueezeCenter à l'&ouverture de session.
 it.Startup_RadioAtLogin_Caption0=Avvia SqueezeCenter quando si esegue &l'accesso.
 nl.Startup_RadioAtLogin_Caption0=SqueezeCenter starten &wanneer ik me aanmeld.
 
 en.Startup_RadioAtBoot_Caption0=Start SqueezeCenter &automatically when the computer starts.
 de.Startup_RadioAtBoot_Caption0=SqueezeCenter automatisch beim &Systemstart starten.
-es.Startup_RadioAtBoot_Caption0=Iniciar SqueezeCenter &automï¿½ticamente al iniciarse el sistema.
-fr.Startup_RadioAtBoot_Caption0=Dï¿½marrer le SqueezeCenter &automatiquement au dï¿½marrage de l'ordinateur.
+es.Startup_RadioAtBoot_Caption0=Iniciar SqueezeCenter &automáticamente al iniciarse el sistema.
+fr.Startup_RadioAtBoot_Caption0=Démarrer le SqueezeCenter &automatiquement au démarrage de l'ordinateur.
 it.Startup_RadioAtBoot_Caption0=Avvia SqueezeCenter &automaticamente all'avvio del computer.
 nl.Startup_RadioAtBoot_Caption0=SqueezeCenter &automatisch starten wanneer de computer start.
 
 en.Startup_LabelAtBootDesc_Caption0=You need to enter your Windows user name and password so SqueezeCenter can access your music library.
-de.Startup_LabelAtBootDesc_Caption0=Sie mï¿½ssen Ihren Windows-Benutzernamen und das -Kennwort eingeben, damit SqueezeCenter auf Ihre Musiksammlung zugreifen kann.
-es.Startup_LabelAtBootDesc_Caption0=Debe introducir su nombre de usuario y contraseï¿½a de Windows para que SqueezeCenter pueda acceder a su biblioteca de mï¿½sica.
-fr.Startup_LabelAtBootDesc_Caption0=Vous devez spï¿½cifier le nom d'utilisateur et le mot de passe Windows pour que le SqueezeCenter puisse accï¿½der ï¿½ la bibliothï¿½que musicale.
-it.Startup_LabelAtBootDesc_Caption0=Per consentire l'accesso di SqueezeCenter alla libreria musicale ï¿½ necessario immettere il nome utente e la password Windows.
+de.Startup_LabelAtBootDesc_Caption0=Sie müssen Ihren Windows-Benutzernamen und das -Kennwort eingeben, damit SqueezeCenter auf Ihre Musiksammlung zugreifen kann.
+es.Startup_LabelAtBootDesc_Caption0=Debe introducir su nombre de usuario y contraseña de Windows para que SqueezeCenter pueda acceder a su biblioteca de música.
+fr.Startup_LabelAtBootDesc_Caption0=Vous devez spécifier le nom d'utilisateur et le mot de passe Windows pour que le SqueezeCenter puisse accéder à la bibliothèque musicale.
+it.Startup_LabelAtBootDesc_Caption0=Per consentire l'accesso di SqueezeCenter alla libreria musicale è necessario immettere il nome utente e la password Windows.
 nl.Startup_LabelAtBootDesc_Caption0=Voer je Windows-gebruikersnaam en -wachtwoord in om SqueezeCenter toegang tot je muziekcollectie te geven.
 
 en.Startup_PasswordsDontMatch=Your passwords don't match, please try again.
-de.Startup_PasswordsDontMatch=Die eingegebenen Kennwï¿½rter stimmen nicht ï¿½berein. Wiederholen Sie die Eingabe.
-es.Startup_PasswordsDontMatch=Las contraseï¿½as no coinciden; debe escribirlas de nuevo.
-fr.Startup_PasswordsDontMatch=Vos mots de passe ne correspondent pas. Veuillez rï¿½essayer.
+de.Startup_PasswordsDontMatch=Die eingegebenen Kennwörter stimmen nicht überein. Wiederholen Sie die Eingabe.
+es.Startup_PasswordsDontMatch=Las contraseñas no coinciden; debe escribirlas de nuevo.
+fr.Startup_PasswordsDontMatch=Vos mots de passe ne correspondent pas. Veuillez réessayer.
 it.Startup_PasswordsDontMatch=Le password immesse non corrispondono. Riprovare.
 nl.Startup_PasswordsDontMatch=Je wachtwoorden komen niet overeen. Probeer het opnieuw.
 
 en.Startup_CredentialsRequired=If you don't enter your user name and password, SqueezeCenter will run as an "anonymous" system user and you may not have access to your music library. Do you want to continue to run as an anonymous user?
-de.Startup_CredentialsRequired=Wenn Sie Benutzername und Kennwort nicht eingeben, wird SqueezeCenter als "anonymer" Systembenutzer ausgefï¿½hrt und hat evtl. keinen Zugriff auf Ihre Musiksammlung. Soll SqueezeCenter als anonymer Benutzer ausgefï¿½hrt werden?
-es.Startup_CredentialsRequired=Si no introduce su nombre de usuario y su contraseï¿½a, SqueezeCenter se ejecutarï¿½ como usuario de sistema "anï¿½nimo" y tal vez no pueda acceder a su biblioteca de mï¿½sica. ï¿½Desea continuar con la ejecuciï¿½n como usuario anï¿½nimo?
-fr.Startup_CredentialsRequired=Si vous ne spï¿½cifiez pas un nom d'utilisateur et un mot de passe, le SqueezeCenter sera exï¿½cutï¿½ sous la session d'un utilisateur systï¿½me anonyme et vous risquez de ne pas avoir accï¿½s ï¿½ votre bibliothï¿½que musicale. Voulez-vous poursuivre l'exï¿½cution en tant qu'utilisateur anonyme?
+de.Startup_CredentialsRequired=Wenn Sie Benutzername und Kennwort nicht eingeben, wird SqueezeCenter als "anonymer" Systembenutzer ausgeführt und hat evtl. keinen Zugriff auf Ihre Musiksammlung. Soll SqueezeCenter als anonymer Benutzer ausgeführt werden?
+es.Startup_CredentialsRequired=Si no introduce su nombre de usuario y su contraseña, SqueezeCenter se ejecutará como usuario de sistema "anónimo" y tal vez no pueda acceder a su biblioteca de música. ¿Desea continuar con la ejecución como usuario anónimo?
+fr.Startup_CredentialsRequired=Si vous ne spécifiez pas un nom d'utilisateur et un mot de passe, le SqueezeCenter sera exécuté sous la session d'un utilisateur système anonyme et vous risquez de ne pas avoir accès à votre bibliothèque musicale. Voulez-vous poursuivre l'exécution en tant qu'utilisateur anonyme?
 it.Startup_CredentialsRequired=Se non si immette nome utente e password, SqueezeCenter viene eseguito come sistema con utente anonimo e l'accesso alla libreria musicale potrebbe non essere consentito. Continuare a eseguire SqueezeCenter come utente anonimo?
 nl.Startup_CredentialsRequired=Als je je gebruikersnaam en wachtwoord niet invoert, wordt SqueezeCenter als 'anonieme' systeemgebruiker uitgevoerd en kun je misschien niet bij je muziekcollectie. Wil je verdergaan als anonieme gebruiker?

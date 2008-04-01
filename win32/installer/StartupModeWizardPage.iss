@@ -72,7 +72,7 @@ begin
 		Caption := ExpandConstant('{cm:Startup_LabelUsername_Caption0}');
 		Left := ScaleX(18);
 		Top := ScaleY(114);
-		Width := ScaleX(52);
+		Width := ScaleX(150);
 		Height := ScaleY(13);
 	end;
 	
@@ -83,7 +83,7 @@ begin
 		Caption := ExpandConstant('{cm:Startup_LabelPassword1_Caption0}');
 		Left := ScaleX(18);
 		Top := ScaleY(144);
-		Width := ScaleX(50);
+		Width := ScaleX(150);
 		Height := ScaleY(13);
 	end;
 	
@@ -94,7 +94,7 @@ begin
 		Caption := ExpandConstant('{cm:Startup_LabelPassword2_Caption0}');
 		Left := ScaleX(18);
 		Top := ScaleY(168);
-		Width := ScaleX(90);
+		Width := ScaleX(150);
 		Height := ScaleY(13);
 	end;
 	
@@ -119,7 +119,7 @@ begin
 		Parent := Page.Surface;
 		Caption := ExpandConstant('{cm:Startup_RadioAtBoot_Caption0}');
 		Left := ScaleX(0);
-		Top := ScaleY(60);
+		Top := ScaleY(55);
 		Width := ScaleX(409);
 		Height := ScaleY(17);
 		TabOrder := 4;
