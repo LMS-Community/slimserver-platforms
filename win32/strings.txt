@@ -1,20 +1,20 @@
 START_FAILED
-	DE	SqueezeCenter konnte nicht gestartet werden. Weitere Informationen finden Sie in der Ereignisanzeige und vom Support
+	DE	SqueezeCenter konnte nicht geöffnet werden. Es wird evtl. gerade gestartet oder angehalten. Versuchen Sie es in einer Minute noch einmal.
 	EN	SqueezeCenter would not open. SqueezeCenter may be starting or stopping. Please wait a minute and try again.
-	ES	Fallo al iniciar SqueezeCenter. Consulte el Visor de sucesos y póngase en contacto con el servicio de asistencia
+	ES	Fallo al abrir SqueezeCenter. Puede que SqueezeCenter esté iniciándose o deteniéndose. Espere un minuto y vuelva a intentarlo.
 	FR	Echec du démarrage du SqueezeCenter. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
 	HE	??? ?????? SqueezeCenter. ???? ????? ???????? ???? ????? ??????.
 	IT	Avvio di SqueezeCenter non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
-	NL	SqueezeCenter kan niet gestart worden. Zie de logboeken en neem contact op met ondersteuning
+	NL	SqueezeCenter kan niet worden geopend. De toepassing wordt misschien gestart of gestopt. Wacht even en probeer het overnieuw.
 
 STOP_FAILED
-	DE	SqueezeCenter konnte nicht angehalten werden. Weitere Informationen finden Sie in der Ereignisanzeige und vom Support
+	DE	SqueezeCenter konnte nicht angehalten werden. Weitere Informationen erhalten Sie in der Ereignisanzeige und vom Support
 	EN	Stopping SqueezeCenter Failed. Please see the Event Viewer & Contact Support
 	ES	Fallo al detener SqueezeCenter. Consulte el Visor de sucesos y póngase en contacto con el servicio de asistencia
 	FR	Echec de l'arrêt du SqueezeCenter. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
 	HE	??? ?????? SqueezeCenter. ???? ????? ???????? ???? ????? ??????.
 	IT	Arresto di SqueezeCenter non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
-	NL	SqueezeCenter kan niet gestopt worden. Zie de logboeken en neem contact op met ondersteuning
+	NL	SqueezeCenter kan niet worden gestopt. Zie de logboeken en neem contact op met ondersteuning
 
 RUN_AT_BOOT
 	DE	Automatisch bei Systemstart ausführen
@@ -65,7 +65,7 @@ STOPPING_SQUEEZECENTER
 	DE	SqueezeCenter wird angehalten...
 	EN	Stopping SqueezeCenter...
 	ES	Deteniendo SqueezeCenter...
-	FR	Arrêt du SqueezeCenter…
+	FR	Arrêt du SqueezeCenter
 	HE	???? ?? SqueezeCenter...
 	IT	Arresto di SqueezeCenter in corso...
 	NL	SqueezeCenter wordt gestopt...
@@ -128,6 +128,7 @@ WRITE_FAILED
 	DE	Speichern nicht möglich in:
 	EN	Unable to write to
 	ES	Imposible escribir en
+	FR	Ecriture impossible dans
 	HE	??? ?????? ????? ??
 	IT	Impossibile scrivere in
 	NL	Kan niet wegschrijven naar
@@ -136,6 +137,7 @@ ADDITIONAL_OPTIONS
 	DE	Weitere Optionen
 	EN	Additional Options
 	ES	Opciones adicionales
+	FR	Options supplémentaires
 	HE	???????? ??????
 	IT	Opzioni aggiuntive
 	NL	Extra opties
