@@ -39,9 +39,11 @@ d_start() {
 	start-stop-daemon --start --quiet \
                 --chuid $SLIMUSER \
                 --pidfile $PIDFILE \
-		--exec $DAEMON_SAFE \
+		--exec /bin/bash \ 
                 --background \
                 --make-pidfile \
+		--name squeezecenter_s \ 
+		--startas $DAEMON_SAFE \
                 -- \
                 $DAEMON \
                 --prefsdir $PREFSDIR \
