@@ -8,6 +8,14 @@ if [ "$1" = purge ]; then
 	if [ -x `which deluser` ]; then
 		deluser squeezecenter 
 	fi
+
+fi
+
+## if we had moved the original apparmor config file out of the way,
+## then lets put it back in place... 
+if [ -f /etc/apparmor.d/usr.sbin.mysqld.squeezecenter.orig ]; then
+	rm /etc/apparmor.d/usr.sbin.mysqld
+	mv /etc/apparmor.d/usr.sbin.mysqld.squeezecenter.orig /etc/apparmor.d/usr.sbin.mysqld
 fi
 
 # dh_installdeb will replace this with shell code automatically
