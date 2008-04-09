@@ -39,6 +39,27 @@ case "$1" in
 	    chown $VERBOSE squeezecenter:nogroup /var/log/squeezecenter -R
 
 	fi
+
+	# If there's an apparmor config, we need to update it to allow mysql to work properly
+	if [ -f /etc/apparmor.d/usr.sbin.mysqld ]; then 
+		## Remove the end-bracket so we can input our data into the file...
+		sed -e 's/}//' /etc/apparmor.d/usr.sbin.mysqld > /etc/apparmor.d/usr.sbin.mysqld.squeezecenter.new
+		echo "  # SqueezeCenter Apparmor Changes for MySqld
+  /var/lib/squeezecenter/cache/ r,
+  /var/lib/squeezecenter/cache/my.cnf r,
+  /var/lib/squeezecenter/cache/mysql.startup rw,
+  /var/lib/squeezecenter/cache/mysql-error-log.txt rw,
+  /var/lib/squeezecenter/cache/squeezecenter-mysql.pid w,
+  /var/lib/squeezecenter/cache/squeezecenter-mysql.sock w,
+  /var/lib/squeezecenter/cache/MySQL/ r,
+  /var/lib/squeezecenter/cache/MySQL/** rwk,
+ } " >> /etc/apparmor.d/usr.sbin.mysqld.squeezecenter.new
+
+		mv /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/usr.sbin.mysqld.squeezecenter.orig
+		mv /etc/apparmor.d/usr.sbin.mysqld.squeezecenter.new /etc/apparmor.d/usr.sbin.mysqld
+		/etc/init.d/apparmor restart		 
+		echo "\n"
+	fi
 	
 	db_stop
     ;;
