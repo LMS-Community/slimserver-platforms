@@ -75,6 +75,7 @@ rm Bin/i386-linux/mysqld
 rm -rf Bin/darwin
 rm -rf Bin/powerpc-hardhat-linux
 rm -rf CPAN/arch/5.8/darwin-thread-multi-2level
+rm -rf Slim/Plugin/PreventStandby
 
 
 %install
