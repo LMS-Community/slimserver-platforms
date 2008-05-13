@@ -19,7 +19,7 @@ Name: es; MessagesFile: "Spanish.isl"
 
 [Setup]
 AppName=SqueezeCenter
-AppVerName=SqueezeCenter 7.0.1
+AppVerName=SqueezeCenter 7.2
 AppPublisher=Logitech
 AppPublisherURL=http://www.slimdevices.com
 AppSupportURL=http://www.slimdevices.com
