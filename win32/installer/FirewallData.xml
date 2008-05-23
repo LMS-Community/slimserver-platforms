@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<d:BlockerData
+ xmlns:d="urn:wilife-com:BlockerData"
+ version="1.0"
+ revision="4">
+  <d:Culture xml:lang="en-US">
+    <d:Firewall ServiceName="CCAPP" ProgramName="Norton" HelpId="HID_Firewall_Norton"/>
+    <d:Firewall ServiceName="CCEVTMGR" ProgramName="Norton" HelpId="HID_Firewall_Norton"/>
+    <d:Firewall ServiceName="CCSETMGR" ProgramName="Norton" HelpId="HID_Firewall_Norton"/>
+    <d:Firewall ServiceName="MSSSRV" ProgramName="McAfee" HelpId="HID_Firewall_McAfee"/>
+    <d:Firewall ServiceName="MSSCLLI" ProgramName="McAfee" HelpId="HID_Firewall_McAfee"/>
+    <d:Firewall ServiceName="MPFSERVICE" ProgramName="McAfee" HelpId="HID_Firewall_McAfee"/>
+    <d:Firewall ServiceName="MPFAGENT" ProgramName="McAfee" HelpId="HID_Firewall_McAfee"/>
+    <d:Firewall ServiceName="ZLCLIENT" ProgramName="Zone Alarm" HelpId="HID_Firewall_ZoneAlarm"/>
+    <d:Firewall ServiceName="BLACKD" ProgramName="BlackICE" HelpId="HID_Firewall_BlackICE" />
+    <d:Firewall ServiceName="WINSS" ProgramName="WindowsLive One Care" HelpId="HID_Firewall_WindowsOneCare" />
+    <d:Firewall ServiceName="MCODS" ProgramName="McAfee SecurityCenter" HelpId="HID_Firewall_McAfeeSecurityCenter" />
+    <d:Firewall ServiceName="MCSHIELD" ProgramName="McAfee SecurityCenter" HelpId="HID_Firewall_McAfeeSecurityCenter" />
+    <d:Firewall ServiceName="MCSYSMON" ProgramName="McAfee SecurityCenter" HelpId="HID_Firewall_McAfeeSecurityCenter" />
+    <d:LSP FileName="mclsp.dll" ProgramName="McAfee" HelpId="HID_Firewall_McAfeePrivacyService" />
+    <d:LSP FileName="gdlsphlr.dll" ProgramName="McAfee Privacy Service" HelpId="HID_Firewall_McAfeePrivacyService"/>
+    <d:LSP FileName="gapsp.dll" ProgramName="Neoteris/Juniper Networks Secure Application Manager" />
+  </d:Culture>
+</d:BlockerData>
