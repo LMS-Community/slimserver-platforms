@@ -29,6 +29,7 @@ Name: es; MessagesFile: "Spanish.isl"
 
 [Files]
 Source: "FirewallData.xml"; Flags: dontcopy
+Source: "sockettest.dll"; Flags: dontcopy
 
 ; a dll to verify if a process is still running
 ; http://www.vincenzo.net/isxkb/index.php?title=PSVince
@@ -41,6 +42,14 @@ CustomForm_Description=Let's probe your system
 CustomForm_Label1_Caption0=The following processes have been found running on your system:
 
 [Code]
+function IsPortOpen(IPAddress, Port: PChar): Boolean;
+external 'IsPortOpen@files:sockettest.dll stdcall delayload';
+
+function ProbePort(Port: PChar): Boolean;
+external 'ProbePort@files:sockettest.dll stdcall delayload';
+
+function GetLocalIP: PChar;
+external 'GetLocalIP@files:sockettest.dll stdcall delayload';
 
 function IsModuleLoaded(modulename: String): Boolean;
 external 'IsModuleLoaded@files:psvince.dll stdcall';
@@ -128,6 +137,17 @@ begin
 end;
 
 
+procedure ProbePortMsg(Port: String);
+var
+  msg: String;
+begin
+  msg := 'Port ' + Port + ': ';
+  if ProbePort(Port) then
+    Memo1.Lines.add(msg + 'ok')
+  else
+    Memo1.Lines.add(msg + 'ok');
+end;
+
 function NextButtonClick(CurPage: Integer): Boolean;
 var
   XMLDoc, NewNode, RootNode: Variant;
@@ -136,6 +156,10 @@ var
 
 begin
   if CurPage = wpWelcome then begin
+    // probe connection to our ports
+    ProbePortMsg('9000');
+    ProbePortMsg('9090');
+    ProbePortMsg('3483');
 
     // Load the firewall data
     XMLDoc := CreateOleObject('MSXML2.DOMDocument');
