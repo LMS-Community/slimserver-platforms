@@ -30,13 +30,94 @@ Name: es; MessagesFile: "Spanish.isl"
 [Files]
 Source: "FirewallData.xml"; Flags: dontcopy
 
+; a dll to verify if a process is still running
+; http://www.vincenzo.net/isxkb/index.php?title=PSVince
+Source: psvince.dll; Flags: dontcopy
+
 [CustomMessages]
 #include "strings.iss"
+CustomForm_Caption=SqueezeCenter Troubleshooting Wizard
+CustomForm_Description=Let's probe your system
+CustomForm_Label1_Caption0=The following processes have been found running on your system:
 
 [Code]
 
+function IsModuleLoaded(modulename: String): Boolean;
+external 'IsModuleLoaded@files:psvince.dll stdcall';
+
 const
   XMLFileName = 'FirewallData.xml';
+
+var
+  Label1: TLabel;
+  Memo1: TMemo;
+
+{ CustomForm_Activate }
+
+procedure CustomForm_Activate(Page: TWizardPage);
+begin
+  // enter code here...
+end;
+
+{ CustomForm_CancelButtonClick }
+
+procedure CustomForm_CancelButtonClick(Page: TWizardPage; var Cancel, Confirm: Boolean);
+begin
+  // enter code here...
+end;
+
+{ CustomForm_CreatePage }
+
+function CustomForm_CreatePage(PreviousPageId: Integer): Integer;
+var
+  Page: TWizardPage;
+begin
+  Page := CreateCustomPage(
+    PreviousPageId,
+    ExpandConstant('{cm:CustomForm_Caption}'),
+    ExpandConstant('{cm:CustomForm_Description}')
+  );
+
+{ Label1 }
+  Label1 := TLabel.Create(Page);
+  with Label1 do
+  begin
+    Parent := Page.Surface;
+    Caption := ExpandConstant('{cm:CustomForm_Label1_Caption0}');
+    Left := ScaleX(8);
+    Top := ScaleY(16);
+    Width := ScaleX(319);
+    Height := ScaleY(13);
+  end;
+
+  { Memo1 }
+  Memo1 := TMemo.Create(Page);
+  with Memo1 do
+  begin
+    Parent := Page.Surface;
+    Left := ScaleX(8);
+    Top := ScaleY(40);
+    Width := ScaleX(393);
+    Height := ScaleY(185);
+    TabOrder := 0;
+  end;
+
+  with Page do
+  begin
+    OnActivate := @CustomForm_Activate;
+    OnCancelButtonClick := @CustomForm_CancelButtonClick;
+  end;
+
+  Result := Page.ID;
+end;
+
+{ CustomForm_InitializeWizard }
+
+procedure InitializeWizard();
+begin
+  CustomForm_CreatePage(wpWelcome);
+end;
+
 
 
 procedure CurPageChanged(CurPageID: Integer);
@@ -76,11 +157,10 @@ begin
         for i := 0 to RootNode.length - 1 do
         begin
           NewNode := RootNode.item(i);
-          for x := 0 to NewNode.attributes.length do
-            if NewNode.attributes.item(x).name = 'ServiceName' then
-              break;
 
-          MsgBox(NewNode.attributes.item(x).value, mbInformation, mb_Ok);
+          if IsModuleLoaded(NewNode.getAttribute('ServiceName') + '.exe') or  IsModuleLoaded(NewNode.getAttribute('ServiceName')) then
+            Memo1.Lines.add(NewNode.getAttribute('ServiceName') + ': ' + NewNode.getAttribute('ProgramName'));
+
         end;
       end;
     end;
