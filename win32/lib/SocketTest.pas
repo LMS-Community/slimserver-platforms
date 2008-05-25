@@ -1,7 +1,11 @@
 library SocketTest;
 
 uses
-        classes, blcksock;
+        classes, blcksock, socketlistener;
+
+var
+        listener: TTCPTestDaemon;
+
 
 
 function IsPortOpen(Address, Port: PChar): Boolean; stdcall;
@@ -28,10 +32,10 @@ begin
 end;
 
 
-function GetLocalIP : PChar; stdcall;
+function GetLocalIP : AnsiString; stdcall;
 var
         IPList : TStringList;
-        a, IP : AnsiString;
+        a, IP: AnsiString;
 
 begin
         IPLIst := TStringList.Create;
@@ -44,9 +48,18 @@ begin
         end;
 end;
 
+function ProbePort(Port: PChar): Boolean; stdcall;
+var
+        socket: TTCPTestDaemon;
+begin
+        socket := TTCPTestDaemon.Create(Port);
+        ProbePort := IsPortOpen(PChar(GetLocalIP), Port);
+        socket.Terminate;
+end;
+
 
 exports
-        IsPortOpen, GetLocalIP;
+        IsPortOpen, GetLocalIP, ProbePort;
 
 end.
 
