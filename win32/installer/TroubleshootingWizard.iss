@@ -42,6 +42,8 @@ CustomForm_Description=Let's probe your system
 CustomForm_Label1_Caption0=The following processes have been found running on your system:
 
 [Code]
+#include "ServiceManager.iss"
+
 function IsPortOpen(IPAddress, Port: PChar): Boolean;
 external 'IsPortOpen@files:sockettest.dll stdcall delayload';
 
@@ -60,20 +62,8 @@ const
 var
   Label1: TLabel;
   Memo1: TMemo;
-
-{ CustomForm_Activate }
-
-procedure CustomForm_Activate(Page: TWizardPage);
-begin
-  // enter code here...
-end;
-
-{ CustomForm_CancelButtonClick }
-
-procedure CustomForm_CancelButtonClick(Page: TWizardPage; var Cancel, Confirm: Boolean);
-begin
-  // enter code here...
-end;
+  ProgressPage: Integer;
+  Done: Boolean;
 
 { CustomForm_CreatePage }
 
@@ -93,8 +83,8 @@ begin
   begin
     Parent := Page.Surface;
     Caption := ExpandConstant('{cm:CustomForm_Label1_Caption0}');
-    Left := ScaleX(8);
-    Top := ScaleY(16);
+    Left := ScaleX(0);
+    Top := ScaleY(0);
     Width := ScaleX(319);
     Height := ScaleY(13);
   end;
@@ -104,17 +94,18 @@ begin
   with Memo1 do
   begin
     Parent := Page.Surface;
-    Left := ScaleX(8);
-    Top := ScaleY(40);
-    Width := ScaleX(393);
-    Height := ScaleY(185);
+    Left := ScaleX(0);
+    Top := ScaleY(20);
+    Width := ScaleX(420);
+    Height := ScaleY(210);
     TabOrder := 0;
+    ReadOnly := true;
+    ScrollBars := ssVertical;
   end;
 
   with Page do
   begin
-    OnActivate := @CustomForm_Activate;
-    OnCancelButtonClick := @CustomForm_CancelButtonClick;
+//    OnActivate := @CustomForm_Activate;
   end;
 
   Result := Page.ID;
@@ -124,7 +115,8 @@ end;
 
 procedure InitializeWizard();
 begin
-  CustomForm_CreatePage(wpWelcome);
+  Done := False;
+  ProgressPage := CustomForm_CreatePage(wpWelcome);
 end;
 
 
@@ -141,7 +133,7 @@ procedure ProbePortMsg(Port: String);
 var
   msg: String;
 begin
-  msg := 'Port ' + Port + ': ';
+  msg := '-> Port ' + Port + ': ';
   if ProbePort(Port) then
     Memo1.Lines.add(msg + 'ok')
   else
@@ -155,11 +147,38 @@ var
   i, x: Integer;
 
 begin
-  if CurPage = wpWelcome then begin
+  if CurPage = ProgressPage then
+    if Done then
+      Result := True
+    else
+  begin
+    Done := true;
+
+    // check whether our ports are used by other applications or SC already running
+    Memo1.Lines.add('Checking availability of port 9000 to be used by SqueezeCenter web interface:');
+
+    if (IsServiceRunning('squeezesvc') or IsServiceRunning('slimsvc') or IsModuleLoaded('squeeze~1.exe') or IsModuleLoaded('squeezecenter.exe') or IsModuleLoaded('slimserver.exe')) then
+      if IsPortOpen('127.0.0.1', '9000') then
+        Memo1.Lines.add('-> SqueezeCenter seems to be running and available')
+      else
+        Memo1.Lines.add('-> SqueezeCenter seems to be running but con''t be connected to on port 9000')
+    else
+      if IsPortOpen('127.0.0.1', '9000') then
+        Memo1.Lines.add('-> SqueezeCenter seems not to be running, but port 9000 is busy')
+      else
+        Memo1.Lines.add('-> Port 9000 seems to be unused - let''s grab it before someone else does!')
+
+
+    Memo1.Lines.add('');
+    Memo1.Lines.add('Probing our ports to see whether a firewall is blocking:');
+
     // probe connection to our ports
     ProbePortMsg('9000');
     ProbePortMsg('9090');
     ProbePortMsg('3483');
+
+    Memo1.Lines.add('');
+    Memo1.Lines.add('Let''s see whether there are some well known process which might be firewall products or other applications known to be in our way:');
 
     // Load the firewall data
     XMLDoc := CreateOleObject('MSXML2.DOMDocument');
@@ -183,11 +202,17 @@ begin
           NewNode := RootNode.item(i);
 
           if IsModuleLoaded(NewNode.getAttribute('ServiceName') + '.exe') or  IsModuleLoaded(NewNode.getAttribute('ServiceName')) then
-            Memo1.Lines.add(NewNode.getAttribute('ServiceName') + ': ' + NewNode.getAttribute('ProgramName'));
+            Memo1.Lines.add('-> ' + NewNode.getAttribute('ServiceName') + ': ' + NewNode.getAttribute('ProgramName'));
 
         end;
       end;
-    end;
+      Result := False;
+
+    Memo1.Lines.add('');
+    Memo1.Lines.add('The End.');
+
+    end
+  else
     Result := True;
 end;
 
