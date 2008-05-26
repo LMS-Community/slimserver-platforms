@@ -28,7 +28,7 @@ Name: it; MessagesFile: "Italian.isl"
 Name: es; MessagesFile: "Spanish.isl"
 
 [Files]
-Source: "FirewallData.xml"; Flags: dontcopy
+Source: "ApplicationData.xml"; Flags: dontcopy
 Source: "sockettest.dll"; Flags: dontcopy
 
 ; a dll to verify if a process is still running
@@ -57,7 +57,7 @@ function IsModuleLoaded(modulename: String): Boolean;
 external 'IsModuleLoaded@files:psvince.dll stdcall';
 
 const
-  XMLFileName = 'FirewallData.xml';
+  XMLFileName = 'ApplicationData.xml';
 
 var
   Label1: TLabel;
@@ -194,14 +194,14 @@ begin
 
     else
       begin
-        RootNode := XMLDoc.getElementsByTagName('d:Firewall');
+        RootNode := XMLDoc.getElementsByTagName('d:process');
 
         // Loop through the list of known firewall service IDs
         for i := 0 to RootNode.length - 1 do
         begin
           NewNode := RootNode.item(i);
 
-          if IsModuleLoaded(NewNode.getAttribute('ServiceName') + '.exe') or  IsModuleLoaded(NewNode.getAttribute('ServiceName')) then
+          if IsModuleLoaded(NewNode.getAttribute('ServiceName') + '.exe') or IsModuleLoaded(NewNode.getAttribute('ServiceName')) or IsServiceRunning(NewNode.getAttribute('ServiceName')) then
             Memo1.Lines.add('-> ' + NewNode.getAttribute('ServiceName') + ': ' + NewNode.getAttribute('ProgramName'));
 
         end;
