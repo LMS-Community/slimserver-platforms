@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <d:BlockerData
  xmlns:d="urn:wilife-com:BlockerData"
  version="1.0"
@@ -17,6 +17,9 @@
     <d:Firewall ServiceName="MCODS" ProgramName="McAfee SecurityCenter" HelpId="HID_Firewall_McAfeeSecurityCenter" />
     <d:Firewall ServiceName="MCSHIELD" ProgramName="McAfee SecurityCenter" HelpId="HID_Firewall_McAfeeSecurityCenter" />
     <d:Firewall ServiceName="MCSYSMON" ProgramName="McAfee SecurityCenter" HelpId="HID_Firewall_McAfeeSecurityCenter" />
+    <d:Firewall ServiceName="VPNGUI" ProgramName="Cisco Systems VPN Client" Help="Turn stateful firewall 'Always On' off" />
+    <d:Firewall ServiceName="CVPND" ProgramName="Cisco Systems VPN Client" Help="Turn stateful firewall 'Always On' off" />
+    <d:Firewall ServiceName="IPSECLOG" ProgramName="Cisco Systems VPN Client" Help="Turn stateful firewall 'Always On' off" />
     <d:LSP FileName="mclsp.dll" ProgramName="McAfee" HelpId="HID_Firewall_McAfeePrivacyService" />
     <d:LSP FileName="gdlsphlr.dll" ProgramName="McAfee Privacy Service" HelpId="HID_Firewall_McAfeePrivacyService"/>
     <d:LSP FileName="gapsp.dll" ProgramName="Neoteris/Juniper Networks Secure Application Manager" />
