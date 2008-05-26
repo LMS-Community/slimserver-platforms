@@ -108,3 +108,9 @@ Windows
 -------
 A proper Windows build of GD 2.35 built with libgd 2.0.34 is available here:
 http://www.gknw.net/development/perl/zipped/
+
+rpaths
+------
+Make sure all Linux binary modules don't contain rpaths, this is needed for Fedora packaging.
+$ chrpath --list /path/to/file.so
+$ chrpath --delete /path/to/file.so
