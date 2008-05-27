@@ -39,7 +39,7 @@ Source: psvince.dll; Flags: dontcopy
 #include "strings.iss"
 CustomForm_Caption=SqueezeCenter Troubleshooting Wizard
 CustomForm_Description=Let's probe your system
-CustomForm_Label1_Caption0=The following processes have been found running on your system:
+CustomForm_Label1_Caption0=Please press Next to probe your system.
 
 [Code]
 #include "ServiceManager.iss"
@@ -137,7 +137,7 @@ begin
   if ProbePort(Port) then
     Memo1.Lines.add(msg + 'ok')
   else
-    Memo1.Lines.add(msg + 'ok');
+    Memo1.Lines.add(msg + 'nope');
 end;
 
 function NextButtonClick(CurPage: Integer): Boolean;
@@ -155,22 +155,24 @@ begin
     Done := true;
 
     // check whether our ports are used by other applications or SC already running
-    Memo1.Lines.add('Checking availability of port 9000 to be used by SqueezeCenter web interface:');
+    Memo1.Lines.add('Checking availability of port 9000 (SqueezeCenter web interface):');
 
     if (IsServiceRunning('squeezesvc') or IsServiceRunning('slimsvc') or IsModuleLoaded('squeeze~1.exe') or IsModuleLoaded('squeezecenter.exe') or IsModuleLoaded('slimserver.exe')) then
       if IsPortOpen('127.0.0.1', '9000') then
-        Memo1.Lines.add('-> SqueezeCenter seems to be running and available')
+        Memo1.Lines.add('-> SqueezeCenter seems to be running and accessible')
       else
-        Memo1.Lines.add('-> SqueezeCenter seems to be running but con''t be connected to on port 9000')
+        Memo1.Lines.add('-> SqueezeCenter seems to be running but can''t be connected to on port 9000')
     else
       if IsPortOpen('127.0.0.1', '9000') then
-        Memo1.Lines.add('-> SqueezeCenter seems not to be running, but port 9000 is busy')
+        Memo1.Lines.add('-> SqueezeCenter binary seems not to be running, but port 9000 is busy')
       else
-        Memo1.Lines.add('-> Port 9000 seems to be unused - let''s grab it before someone else does!')
-
+        if (ProbePort('9000')) then
+          Memo1.Lines.add('-> Port 9000 seems to be unused')
+        else
+          Memo1.Lines.add('-> Port 9000 seems to be blocked by your firewall');
 
     Memo1.Lines.add('');
-    Memo1.Lines.add('Probing our ports to see whether a firewall is blocking:');
+    Memo1.Lines.add('Probing ports to see whether a firewall is blocking:');
 
     // probe connection to our ports
     ProbePortMsg('9000');
@@ -210,6 +212,8 @@ begin
 
     Memo1.Lines.add('');
     Memo1.Lines.add('The End.');
+
+    Label1.Caption := 'Please copy the following information and post it on http://forums.slimdevices.com:';
 
     end
   else
