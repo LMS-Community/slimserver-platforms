@@ -137,7 +137,7 @@ begin
   if ProbePort(Port) then
     Memo1.Lines.add(msg + 'ok')
   else
-    Memo1.Lines.add(msg + 'ok');
+    Memo1.Lines.add(msg + 'nope');
 end;
 
 function NextButtonClick(CurPage: Integer): Boolean;
