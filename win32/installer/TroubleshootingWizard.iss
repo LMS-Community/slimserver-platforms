@@ -157,7 +157,7 @@ begin
     // check whether our ports are used by other applications or SC already running
     Memo1.Lines.add('Checking availability of port 9000 (SqueezeCenter web interface):');
 
-    if (IsServiceRunning('squeezesvc') or IsServiceRunning('slimsvc') or IsModuleLoaded('squeeze~1.exe') or IsModuleLoaded('squeezecenter.exe') or IsModuleLoaded('slimserver.exe')) then
+    if (IsServiceRunning('squeezesvc') or IsServiceRunning('slimsvc') or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('squeezecenter.exe') or IsModuleLoaded('slimserver.exe')) then
       if IsPortOpen('127.0.0.1', '9000') then
         Memo1.Lines.add('-> SqueezeCenter seems to be running and accessible')
       else
