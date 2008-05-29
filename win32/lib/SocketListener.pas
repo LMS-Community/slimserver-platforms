@@ -10,21 +10,21 @@ uses
 type
   TTCPTestDaemon = Class(TThread)
   private
-    Sock:TTCPBlockSocket;
-    Port:String;
+    Sock: TTCPBlockSocket;
+    Port: String;
   public
-    Constructor Create(UsePort:String);
+    Constructor Create(UsePort: String);
     Destructor Destroy; override;
     procedure Execute; override;
     function lastError: Integer;
   end;
 
-  TTCPTestThrd = class(TThread)
+  TTCPTestThrd = Class(TThread)
   private
-    Sock:TTCPBlockSocket;
+    Sock: TTCPBlockSocket;
     CSock: TSocket;
   public
-    Constructor Create (hsock:tSocket);
+    Constructor Create (hsock: tSocket);
     procedure Execute; override;
   end;
 
@@ -32,17 +32,17 @@ implementation
 
 { TTestDaemon }
 
-Constructor TTCPTestDaemon.Create(UsePort:String);
+Constructor TTCPTestDaemon.Create(UsePort: String);
 begin
-  inherited create(false);
-  sock:=TTCPBlockSocket.create;
-  Port:=UsePort;
-  FreeOnTerminate:=true;
+  inherited Create(false);
+  Sock := TTCPBlockSocket.Create;
+  Port := UsePort;
+  FreeOnTerminate := true;
 end;
 
 function TTCPTestDaemon.lastError: Integer;
 begin
-  lastError := sock.lastError;
+  lastError := Sock.lastError;
 end;
 
 Destructor TTCPTestDaemon.Destroy;
@@ -52,19 +52,19 @@ end;
 
 procedure TTCPTestDaemon.Execute;
 var
-  ClientSock:TSocket;
+  ClientSock: TSocket;
 begin
-  with sock do
+  with Sock do
     begin
       CreateSocket;
-      setLinger(true,10);
-      bind('0.0.0.0',Port);
+      setLinger(true, 10);
+      bind('0.0.0.0', Port);
       listen;
       repeat
         if terminated then break;
         if canread(1000) then
           begin
-            ClientSock:=accept;
+            ClientSock := accept;
             if lastError=0 then TTCPTestThrd.create(ClientSock);
           end;
       until false;
@@ -73,27 +73,27 @@ end;
 
 { TTestThrd }
 
-Constructor TTCPTestThrd.Create(Hsock:TSocket);
+Constructor TTCPTestThrd.Create(Hsock: TSocket);
 begin
-  inherited create(false);
+  inherited Create(false);
   Csock := Hsock;
-  FreeOnTerminate:=true;
+  FreeOnTerminate := true;
 end;
 
 procedure TTCPTestThrd.Execute;
 var
   s: string;
 begin
-  sock:=TTCPBlockSocket.create;
+  Sock := TTCPBlockSocket.create;
   try
     Sock.socket:=CSock;
-    sock.GetSins;
-    with sock do
+    Sock.GetSins;
+    with Sock do
       begin
         repeat
           if terminated then break;
           s := RecvPacket(60000);
-          if lastError<>0 then break;
+          if lastError <> 0 then break;
         until false;
       end;
   finally

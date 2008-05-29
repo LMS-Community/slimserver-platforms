@@ -50,8 +50,8 @@ external 'IsPortOpen@files:sockettest.dll stdcall delayload';
 function ProbePort(Port: PChar): Boolean;
 external 'ProbePort@files:sockettest.dll stdcall delayload';
 
-function GetLocalIP: PChar;
-external 'GetLocalIP@files:sockettest.dll stdcall delayload';
+function Ping(Host: PChar): Integer;
+external 'Ping@files:sockettest.dll stdcall delayload';
 
 function IsModuleLoaded(modulename: String): Boolean;
 external 'IsModuleLoaded@files:psvince.dll stdcall';
@@ -170,6 +170,14 @@ begin
           Memo1.Lines.add('-> Port 9000 seems to be unused')
         else
           Memo1.Lines.add('-> Port 9000 seems to be blocked by your firewall');
+
+    Memo1.Lines.add('');
+    Memo1.Lines.add('Ping www.squeezenetwork.com:');
+    x := Ping('www.squeezenetwork.com');
+    if x >= 0 then
+      Memo1.Lines.add('-> ok (' + IntToStr(x) + ' ms)')
+    else
+      Memo1.Lines.add('-> nope (' + IntToStr(x) + ')');
 
     Memo1.Lines.add('');
     Memo1.Lines.add('Probing ports to see whether a firewall is blocking:');
