@@ -43,7 +43,6 @@ Source: psvince.dll; Flags: dontcopy
 #include "strings.iss"
 ResultForm_Caption=SqueezeCenter Troubleshooting Wizard
 ResultForm_Description=Let's probe your system
-ResultForm_Label1_Caption0=Please copy the following information and post it on http://forums.slimdevices.com:;
 
 [Code]
 #include "ServiceManager.iss"
@@ -51,7 +50,6 @@ ResultForm_Label1_Caption0=Please copy the following information and post it on 
 
 
 var
-  Label1: TLabel;
   Memo1: TMemo;
   ResultPage: Integer;
 	ProgressPage: TOutputProgressWizardPage;
@@ -75,27 +73,15 @@ begin
     ExpandConstant('{cm:ResultForm_Description}')
   );
 
-{ Label1 }
-  Label1 := TLabel.Create(Page);
-  with Label1 do
-  begin
-    Parent := Page.Surface;
-    Caption := ExpandConstant('{cm:ResultForm_Label1_Caption0}');
-    Left := ScaleX(0);
-    Top := ScaleY(0);
-    Width := ScaleX(319);
-    Height := ScaleY(13);
-  end;
-
   { Memo1 }
   Memo1 := TMemo.Create(Page);
   with Memo1 do
   begin
     Parent := Page.Surface;
     Left := ScaleX(0);
-    Top := ScaleY(20);
-    Width := ScaleX(420);
-    Height := ScaleY(210);
+    Top := ScaleY(0);
+    Width := ScaleX(410);
+    Height := ScaleY(230);
     TabOrder := 0;
     ReadOnly := true;
     ScrollBars := ssVertical;
@@ -139,6 +125,9 @@ var
 begin
   ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
   ProgressPage.setText('Let''s see whether there are some well known processes which might be firewall products or other applications known to be in our way', '');
+
+  Memo1.Lines.add('');
+  Memo1.Lines.add('List of processes known to potentially cause issues with SqueezeCenters');
 
   // Load the firewall data
   XMLDoc := CreateOleObject('MSXML2.DOMDocument');
@@ -189,12 +178,16 @@ begin
 
     	ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
     	ProgressPage.setText('Ping www.squeezenetwork.com', '');
+    	Memo1.Lines.add('');
+    	Memo1.Lines.add('Ping www.squeezenetwork.com');
       x := Ping('www.squeezenetwork.com');
       if x >= 0 then
         Memo1.Lines.add('-> ok (' + IntToStr(x) + ' ms)')
       else
         Memo1.Lines.add('-> nope (' + IntToStr(x) + ')');
 
+    	Memo1.Lines.add('');
+    	Memo1.Lines.add('Probing Ports');
       ProbePortMsg('9000');
       ProbePortMsg('9090');
 //      ProbePortMsg('9092');

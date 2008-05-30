@@ -30,7 +30,7 @@
     <d:process type="Antivirus" ServiceName="AVGWDSVC" ProgramName="AVG Watchdog Service" />
     <d:process type="Antivirus" ServiceName="FSAV32" ProgramName="F-Secure Anti-Virus" />
     <d:process type="Antivirus" ServiceName="AVKWCTL" ProgramName="MicroWorld eScan" />
-    <d:process type="Antivirus" ServiceName="MCSHIELD" ProgramName="McAfee Realtime Scanner" />
+    <d:process type="Antivirus" ServiceName="MCSHIELD" ProgramName="McAfee Realtime Scanner" Help="McAfee AV scanner needs to be configured to ignore MySQL's *.my* files. Otherwise SqueezeCenter's scanner can fail." />
     <d:process type="Antivirus" ServiceName="MCODS" ProgramName="McAfee On Demand Scanner" />
     <d:process type="Antivirus" ServiceName="NAVAPSVC" ProgramName="Norton Antivirus" />
     <d:process type="Antivirus" ServiceName="NTRTSCAN" ProgramName="TrendMicro OfficeScan" />
