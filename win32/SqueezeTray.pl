@@ -525,7 +525,7 @@ sub updateSqueezeCenterWebInterface {
 
 	} else {
 
-		showErrorMessage(sprintf('%s %s: %s', string('WRITE_FAILED', $serverUrl, $!)));
+		showErrorMessage(sprintf('%s %s: %s', string('WRITE_FAILED'), $serverUrl, $!));
 	}
 }
 

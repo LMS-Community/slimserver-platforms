@@ -4,20 +4,39 @@
  version="1.0"
  revision="4">
   <d:Culture xml:lang="en-US">
-    <d:process type="Firewall" ServiceName="MSSCLLI" ProgramName="McAfee"/>
-    <d:process type="Firewall" ServiceName="MPFSERVICE" ProgramName="McAfee Personal Firewall"/>
-    <d:process type="Firewall" ServiceName="MCSHELL" ProgramName="McAfee"/>
-    <d:process type="Firewall" ServiceName="MPFAGENT" ProgramName="McAfee Personal Firewall"/>
-    <d:process type="Firewall" ServiceName="ZLCLIENT" ProgramName="Zone Alarm"/>
     <d:process type="Firewall" ServiceName="BLACKD" ProgramName="BlackICE" />
-    <d:process type="Firewall" ServiceName="WINSS" ProgramName="WindowsLive One Care" />
-    <d:process type="Firewall" ServiceName="MCSYSMON" ProgramName="McAfee SystemGuard service" />
-    <d:process type="Firewall" ServiceName="VPNGUI" ProgramName="Cisco Systems VPN Client" Help="Turn stateful firewall 'Always On' off" />
     <d:process type="Firewall" ServiceName="CVPND" ProgramName="Cisco Systems VPN Client" Help="Turn stateful firewall 'Always On' off" />
+    <d:process type="Firewall" ServiceName="EFPEADM" ProgramName="CA eTrust EZ Firewall" />	
+    <d:process type="Firewall" ServiceName="FSDFWD" ProgramName="F-Secure Distributed Firewall" />	
+    <d:process type="Firewall" ServiceName="FSGUIEXE" ProgramName="F-Secure Internet Security" /> 	
     <d:process type="Firewall" ServiceName="IPSECLOG" ProgramName="Cisco Systems VPN Client" Help="Turn stateful firewall 'Always On' off" />
+    <d:process type="Firewall" ServiceName="KPF4GUI" ProgramName="Kerio Personal Firewall" />	
+    <d:process type="Firewall" ServiceName="MCSHELL" ProgramName="McAfee" />
+    <d:process type="Firewall" ServiceName="MCSYSMON" ProgramName="McAfee SystemGuard service" />
+    <d:process type="Firewall" ServiceName="MPFSERVICE" ProgramName="McAfee Personal Firewall" />
+    <d:process type="Firewall" ServiceName="MPFAGENT" ProgramName="McAfee Personal Firewall" />
+    <d:process type="Firewall" ServiceName="MSSCLLI" ProgramName="McAfee" />
+    <d:process type="Firewall" ServiceName="NISUM" ProgramName="Norton Personal Firewall" />	
+    <d:process type="Firewall" ServiceName="PCCPFW" ProgramName="Trend Micro Internet Security" />
+    <d:process type="Firewall" ServiceName="PERSFW" ProgramName="Tiny Firewall" />	
+    <d:process type="Firewall" ServiceName="SMC" ProgramName="Sygate Personal Firewall" />	
+    <d:process type="Firewall" ServiceName="VPNGUI" ProgramName="Cisco Systems VPN Client" Help="Turn stateful firewall 'Always On' off" />
+    <d:process type="Firewall" ServiceName="WINSS" ProgramName="WindowsLive One Care" />
+    <d:process type="Firewall" ServiceName="ZLCLIENT" ProgramName="Zone Alarm" />
 
+    <d:process type="Antivirus" ServiceName="ASHSERV" ProgramName="avast! antivirus" />
+    <d:process type="Antivirus" ServiceName="AVGUARD" ProgramName="AntiVir PersonalEdition" />
+    <d:process type="Antivirus" ServiceName="AVENGINE" ProgramName="Panda AntiVirus Titanium" />
+    <d:process type="Antivirus" ServiceName="AVGEMC" ProgramName="AVG Anti-Virus" />
+    <d:process type="Antivirus" ServiceName="AVGRSX" ProgramName="AVG Resident Shield Service" />
+    <d:process type="Antivirus" ServiceName="AVGWDSVC" ProgramName="AVG Watchdog Service" />
+    <d:process type="Antivirus" ServiceName="FSAV32" ProgramName="F-Secure Anti-Virus" />
+    <d:process type="Antivirus" ServiceName="AVKWCTL" ProgramName="MicroWorld eScan" />
     <d:process type="Antivirus" ServiceName="MCSHIELD" ProgramName="McAfee Realtime Scanner" />
     <d:process type="Antivirus" ServiceName="MCODS" ProgramName="McAfee On Demand Scanner" />
+    <d:process type="Antivirus" ServiceName="NAVAPSVC" ProgramName="Norton Antivirus" />
+    <d:process type="Antivirus" ServiceName="NTRTSCAN" ProgramName="TrendMicro OfficeScan" />
+    <d:process type="Antivirus" ServiceName="TMNTSRV" ProgramName="TrendMicro Internet Security" />
 
     <d:process type="Portconflict" Port="9000" ServiceName="McAfeeDataBackup" ProgramName="McAfee Backup"/>
     <d:process type="Portconflict" Port="9000" ServiceName="ExDomusKNX_Service" ProgramName="ExDomus Home Automation"/>

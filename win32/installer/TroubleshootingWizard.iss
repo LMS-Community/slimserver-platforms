@@ -53,6 +53,9 @@ external 'ProbePort@files:sockettest.dll stdcall delayload';
 function Ping(Host: PChar): Integer;
 external 'Ping@files:sockettest.dll stdcall delayload';
 
+function Ping(Host: PChar): Integer;
+external 'Ping@files:sockettest.dll stdcall delayload';
+
 function IsModuleLoaded(modulename: String): Boolean;
 external 'IsModuleLoaded@files:psvince.dll stdcall';
 
@@ -158,18 +161,15 @@ begin
     Memo1.Lines.add('Checking availability of port 9000 (SqueezeCenter web interface):');
 
     if (IsServiceRunning('squeezesvc') or IsServiceRunning('slimsvc') or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('squeezecenter.exe') or IsModuleLoaded('slimserver.exe')) then
-      if IsPortOpen('127.0.0.1', '9000') then
-        Memo1.Lines.add('-> SqueezeCenter seems to be running and accessible')
+      if IsPortOpen(GetLocalIP, '9000') then
+        Memo1.Lines.add('-> SqueezeCenter is running and accessible')
       else
-        Memo1.Lines.add('-> SqueezeCenter seems to be running but can''t be connected to on port 9000')
+        Memo1.Lines.add('-> SqueezeCenter is running but can''t be connected to on port 9000')
     else
       if IsPortOpen('127.0.0.1', '9000') then
-        Memo1.Lines.add('-> SqueezeCenter binary seems not to be running, but port 9000 is busy')
+        Memo1.Lines.add('-> SqueezeCenter seems not to be running, but port 9000 is busy')
       else
-        if (ProbePort('9000')) then
-          Memo1.Lines.add('-> Port 9000 seems to be unused')
-        else
-          Memo1.Lines.add('-> Port 9000 seems to be blocked by your firewall');
+        Memo1.Lines.add('-> Port 9000 seems to be unused')
 
     Memo1.Lines.add('');
     Memo1.Lines.add('Ping www.squeezenetwork.com:');
@@ -185,10 +185,11 @@ begin
     // probe connection to our ports
     ProbePortMsg('9000');
     ProbePortMsg('9090');
+//    ProbePortMsg('9092');
     ProbePortMsg('3483');
 
     Memo1.Lines.add('');
-    Memo1.Lines.add('Let''s see whether there are some well known process which might be firewall products or other applications known to be in our way:');
+    Memo1.Lines.add('Let''s see whether there are some well known processes which might be firewall products or other applications known to be in our way:');
 
     // Load the firewall data
     XMLDoc := CreateOleObject('MSXML2.DOMDocument');
