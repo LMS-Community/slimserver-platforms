@@ -1,18 +1,20 @@
 library SocketTest;
 
 uses
-        classes, blcksock, socketlistener;
+        classes, blcksock, socketlistener, pingsend, sysutils;
 
 
 function IsPortOpen(Address, Port: PChar): Boolean; stdcall;
 var
         sock: TTCPBlockSocket;
+        r: Boolean;
 
 begin
         sock := TTCPBlockSocket.Create;
         sock.Connect(Address, Port);
-        IsPortOpen := ((sock.LastError = 0) and sock.CanWrite(5));
+        r := ((sock.LastError = 0) and sock.CanWrite(5));
         sock.CloseSocket;
+        IsPortOpen := r;
 end;
 
 
@@ -27,7 +29,7 @@ begin
 end;
 
 
-function GetLocalIP : AnsiString; stdcall;
+function GetLocalIP : PChar; stdcall;
 var
         IPList : TStringList;
         a, IP: AnsiString;
@@ -39,7 +41,7 @@ begin
         if IPList.Count > 0 then
         begin
                 IPList.GetNameValue(0, a, IP);
-                GetLocalIP := IP;
+                GetLocalIP := PChar(IP);
         end;
 end;
 
@@ -47,15 +49,30 @@ end;
 function ProbePort(Port: PChar): Boolean; stdcall;
 var
         socket: TTCPTestDaemon;
+        r: Boolean;
 begin
         socket := TTCPTestDaemon.Create(Port);
-        ProbePort := IsPortOpen(PChar(GetLocalIP), Port);
+        r := IsPortOpen(PChar(GetLocalIP), Port);
         socket.Terminate;
+        ProbePort := r;
+end;
+
+function Ping(Host: PChar): LongInt; stdcall;
+var
+        myPing: TPingSend;
+        t: Integer;
+begin
+        myPing := TPingSend.Create;
+        t := -1;
+        myPing.ping(Host);
+        t := myPing.pingtime;
+        myPing.Free;
+        Ping := t;
 end;
 
 
 exports
-        IsPortOpen, GetLocalIP, ProbePort;
+        IsPortOpen, GetLocalIP, ProbePort, Ping;
 
 end.
 
