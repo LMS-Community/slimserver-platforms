@@ -11,9 +11,9 @@ type
   TTCPTestDaemon = Class(TThread)
   private
     Sock: TTCPBlockSocket;
-    Port: String;
+    Port: PChar;
   public
-    Constructor Create(UsePort: String);
+    Constructor Create(UsePort: PChar);
     Destructor Destroy; override;
     procedure Execute; override;
     function lastError: Integer;
@@ -32,7 +32,7 @@ implementation
 
 { TTestDaemon }
 
-Constructor TTCPTestDaemon.Create(UsePort: String);
+Constructor TTCPTestDaemon.Create(UsePort: PChar);
 begin
   inherited Create(false);
   Sock := TTCPBlockSocket.Create;
@@ -81,8 +81,6 @@ begin
 end;
 
 procedure TTCPTestThrd.Execute;
-var
-  s: string;
 begin
   Sock := TTCPBlockSocket.create;
   try
@@ -92,7 +90,7 @@ begin
       begin
         repeat
           if terminated then break;
-          s := RecvPacket(60000);
+          RecvPacket(60000);
           if lastError <> 0 then break;
         until false;
       end;
