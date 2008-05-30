@@ -11,11 +11,9 @@
     <d:process type="Firewall" ServiceName="FSGUIEXE" ProgramName="F-Secure Internet Security" /> 	
     <d:process type="Firewall" ServiceName="IPSECLOG" ProgramName="Cisco Systems VPN Client" Help="Turn stateful firewall 'Always On' off" />
     <d:process type="Firewall" ServiceName="KPF4GUI" ProgramName="Kerio Personal Firewall" />	
-    <d:process type="Firewall" ServiceName="MCSHELL" ProgramName="McAfee" />
     <d:process type="Firewall" ServiceName="MCSYSMON" ProgramName="McAfee SystemGuard service" />
     <d:process type="Firewall" ServiceName="MPFSERVICE" ProgramName="McAfee Personal Firewall" />
     <d:process type="Firewall" ServiceName="MPFAGENT" ProgramName="McAfee Personal Firewall" />
-    <d:process type="Firewall" ServiceName="MSSCLLI" ProgramName="McAfee" />
     <d:process type="Firewall" ServiceName="NISUM" ProgramName="Norton Personal Firewall" />	
     <d:process type="Firewall" ServiceName="PCCPFW" ProgramName="Trend Micro Internet Security" />
     <d:process type="Firewall" ServiceName="PERSFW" ProgramName="Tiny Firewall" />	
@@ -38,12 +36,15 @@
     <d:process type="Antivirus" ServiceName="NTRTSCAN" ProgramName="TrendMicro OfficeScan" />
     <d:process type="Antivirus" ServiceName="TMNTSRV" ProgramName="TrendMicro Internet Security" />
 
-    <d:process type="Portconflict" Port="9000" ServiceName="McAfeeDataBackup" ProgramName="McAfee Backup"/>
-    <d:process type="Portconflict" Port="9000" ServiceName="ExDomusKNX_Service" ProgramName="ExDomus Home Automation"/>
-    <d:process type="Portconflict" Port="9000" ServiceName="GoogleDesktop" ProgramName="Google Desktop"/>
+    <d:process type="PortConflict" Port="9000" ServiceName="McAfeeDataBackup" ProgramName="McAfee Backup"/>
+    <d:process type="PortConflict" Port="9000" ServiceName="ExDomusKNX_Service" ProgramName="ExDomus Home Automation"/>
+    <d:process type="PortConflict" Port="9000" ServiceName="GoogleDesktop" ProgramName="Google Desktop"/>
+    <d:process type="XXPortConflict" Port="9000" ServiceName="Perl" ProgramName="Perl Executable"/>
 
     <d:process type="Other" ServiceName="CCAPP" ProgramName="Norton"/>
     <d:process type="Other" ServiceName="CCEVTMGR" ProgramName="Norton"/>
     <d:process type="Other" ServiceName="CCSETMGR" ProgramName="Norton"/>
+    <d:process type="Other" ServiceName="MCSHELL" ProgramName="McAfee" />
+    <d:process type="Other" ServiceName="MSSCLLI" ProgramName="McAfee" />
   </d:Culture>
 </d:BlockerData>
