@@ -58,7 +58,13 @@ begin
         begin
           s := NewNode.getAttribute('ServiceName');
           if IsModuleLoaded(s + '.exe') or IsModuleLoaded(s) or IsServiceRunning(s) then
-            Result := NewNode.getAttribute('ProgramName');
+          begin
+            s := NewNode.getAttribute('ProgramName');
+            if NewNode.getAttribute('Help') > '' then
+              s := s + ': ' + NewNode.getAttribute('Help');
+              
+            Result := s;
+          end
         end;
       end;
     end;
@@ -89,11 +95,17 @@ begin
       r := CustomMessage('Port9000ok')
 
     101:
-      r := CustomMessage('Port9000blocked')
+      begin
+        r := CustomMessage('Port9000blocked')
+
+        s := GetConflictingApp('Firewall');
+        if s > '' then
+          r := r + ': ' + s;
+      end;
 
     102:
       begin
-      r := CustomMessage('Port9000busyOther');
+        r := CustomMessage('Port9000busyOther');
 
         s := GetConflictingApp('PortConflict');
         if s > '' then
