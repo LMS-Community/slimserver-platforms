@@ -1,7 +1,7 @@
 library SocketTest;
 
 uses
-        classes, blcksock, socketlistener;
+        classes, blcksock, socketlistener, pingsend, sysutils;
 
 
 function IsPortOpen(Address, Port: PChar): Boolean; stdcall;
@@ -53,9 +53,22 @@ begin
         socket.Terminate;
 end;
 
+function Ping(Host: PChar): LongInt; stdcall;
+var
+        myPing: TPingSend;
+        t: Integer;
+begin
+        myPing := TPingSend.Create;
+        t := -1;
+        myPing.ping(Host);
+        t := myPing.pingtime;
+        myPing.Free;
+        Ping := t;
+end;
+
 
 exports
-        IsPortOpen, GetLocalIP, ProbePort;
+        IsPortOpen, GetLocalIP, ProbePort, Ping;
 
 end.
 
