@@ -18,6 +18,8 @@
 
     <d:process type="Antivirus" ServiceName="MCSHIELD" ProgramName="McAfee Realtime Scanner" />
     <d:process type="Antivirus" ServiceName="MCODS" ProgramName="McAfee On Demand Scanner" />
+    <d:process type="Antivirus" ServiceName="AVGRSX" ProgramName="AVG Resident Shield Service" />
+    <d:process type="Antivirus" ServiceName="AVGWDSVC" ProgramName="AVG Watchdog Service" />
 
     <d:process type="Portconflict" Port="9000" ServiceName="McAfeeDataBackup" ProgramName="McAfee Backup"/>
     <d:process type="Portconflict" Port="9000" ServiceName="ExDomusKNX_Service" ProgramName="ExDomus Home Automation"/>
