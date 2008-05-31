@@ -76,14 +76,14 @@ begin
     or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('squeezecenter.exe') or IsModuleLoaded('slimserver.exe')) then
 
     if IsPortOpen(GetLocalIP, '9000') then
-      Result := 0
+      Result := 1           // SC running and available
     else
-      Result := 101
+      Result := 101         // SC running, but port blocked
   else
     if IsPortOpen('127.0.0.1', '9000') then
-      Result := 102
+      Result := 102         // Port used by other application
     else
-      Result := 3
+      Result := 0           // Port unused
 end;
 
 function GetPort9000ResultString(ErrCode: Integer): String;
@@ -91,7 +91,7 @@ var
   r, s: String;
 begin
   case ErrCode of
-    0:
+    1:
       r := CustomMessage('Port9000ok')
 
     101:
@@ -112,7 +112,7 @@ begin
           r := r + ': ' + s;
       end;
 
-    3:
+    0:
       r := CustomMessage('Port9000unused');
   end;
 
