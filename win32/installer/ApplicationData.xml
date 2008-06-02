@@ -7,6 +7,7 @@
     <d:process type="Firewall" ServiceName="BLACKD" ProgramName="BlackICE" />
     <d:process type="Firewall" ServiceName="CVPND" ProgramName="Cisco Systems VPN Client" Help="Turn stateful firewall 'Always On' off" />
     <d:process type="Firewall" ServiceName="EFPEADM" ProgramName="CA eTrust EZ Firewall" />	
+    <d:process type="Firewall" ServiceName="CFP" ProgramName="Comodo Firewall Pro" />	
     <d:process type="Firewall" ServiceName="FSDFWD" ProgramName="F-Secure Distributed Firewall" />	
     <d:process type="Firewall" ServiceName="FSGUIEXE" ProgramName="F-Secure Internet Security" /> 	
     <d:process type="Firewall" ServiceName="IPSECLOG" ProgramName="Cisco Systems VPN Client" Help="Turn stateful firewall 'Always On' off" />
