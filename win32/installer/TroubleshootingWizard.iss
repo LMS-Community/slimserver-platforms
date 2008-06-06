@@ -52,10 +52,17 @@ NoProblemForm_Description=Lucky you - no problem found!
 NoProblem=We run port probing, network access, firewall and antivirus product tests, %nbut no obvious problem showed up.%n%nFree your Music!
 PortConflict=Port Conflict
 PortConflict_Description=We have encountered an application using the same port (9000) as Squeezecenter:
-PortConflict_Solution=We can configure SqueezeCenter to run on an alternative port which is unused,%neg. port 9001.
+PortConflict_Solution=You could configure SqueezeCenter to run on an alternative port which is unused,%neg. port 9001.
 PingProblem=Problem pinging www.squeezenetwork.com
 PingProblem_Description=We were not able to ping www.squeezenetwork.com
 PingProblem_Solution=This might be a temporary internet issue, or a limitation by your ISP.%n%nIf it isn't, please make sure your firewall isn't blocking outgoing traffic.
+AppConflict=Potentially conflicting application found
+AppConflict_Description=A process has been found running on your machine which is known to cause issues %nwith SqueezeCenter under certain conditions.
+
+AVGFalsePositive=We have seen reports of false positives in AVG 8. AVG identified scanner.exe as %n'Generic 10.AINU'. %n%nTo work around this issue you can add an exception to AVG to ignored by the scanner %n(Advanced Settings/Resident Shield/Exceptions) until AVG have updated their patterns.
+CiscoVPNStatefulInspection=Turn stateful firewall 'Always On' off
+McAfeeMySQL=McAfee AV scanner needs to be configured to ignore MySQL's *.my* files. %nOtherwise SqueezeCenter's scanner can fail.
+SCPerl=%nIf you're running SC using the perl version, then this is ok and expected.
 
 [Code]
 #include "ServiceManager.iss"
@@ -67,6 +74,7 @@ var
   SummaryPage, NoProblemPage, PortConflictPage, PingProblemPage: Integer;
 	ProgressPage: TOutputProgressWizardPage;
 	Msg: String;
+	AllFine: Boolean;
 
 procedure SummaryForm_Activate(Page: TWizardPage);
 begin
@@ -243,9 +251,23 @@ begin
       begin
         NewNode := RootNode.item(i);
 
+        if String(NewNode.getAttribute('type')) = 'PortConflict' then
+          continue;
+
         if IsModuleLoaded(NewNode.getAttribute('ServiceName') + '.exe') or IsModuleLoaded(NewNode.getAttribute('ServiceName')) or IsServiceRunning(NewNode.getAttribute('ServiceName')) then
+        begin
+          AllFine := false;
           Summary.Lines.add('-> ' + NewNode.getAttribute('ServiceName') + ': ' + NewNode.getAttribute('ProgramName'));
 
+          if NewNode.getAttribute('Help') <> Null then
+
+            ProblemForm_CreatePage(
+              NoProblemPage,
+              ExpandConstant('{cm:AppConflict}'),
+              ExpandConstant('{cm:AppConflict_Description}'),
+              ExpandConstant('{cm:' + String(NewNode.getAttribute('Help')) + '}')
+            );
+        end;
       end;
     end;
 end;
@@ -256,7 +278,7 @@ begin
     SummaryPage:
       Result := (Summary.Lines.Count = 0);
     NoProblemPage:
-      Result := (Summary.Lines.Count > 0);
+      Result := not AllFine;
   end;
 end;
 
@@ -270,6 +292,7 @@ var
 begin
   if CurPageID = wpWelcome then
   begin
+    AllFine := true;
     ProgressPage := CreateOutputProgressPage(CustomMessage('ProgressForm_Caption'), CustomMessage('ProgressForm_Description'));
 
     try
@@ -280,6 +303,8 @@ begin
     	PortConflict := CheckPort9000();
     	if PortConflict > 100 then
     	begin
+        AllFine := false;
+
         // PageFromID
         s := GetPort9000ResultString(PortConflict);
       	Summary.Lines.add(s);
@@ -301,6 +326,8 @@ begin
 
       if x < 0 then
       begin
+        AllFine := false;
+
       	Summary.Lines.add('Ping www.squeezenetwork.com');
         Summary.Lines.add('-> nope (' + IntToStr(x) + ')');
       	Summary.Lines.add('');
