@@ -61,7 +61,7 @@ begin
           begin
             s := NewNode.getAttribute('ProgramName');
             if NewNode.getAttribute('Help') > '' then
-              s := s + ': ' + NewNode.getAttribute('Help');
+              s := s + ': ' + ExpandConstant('{cm:' + String(NewNode.getAttribute('Help')) + '}');
               
             Result := s;
           end
