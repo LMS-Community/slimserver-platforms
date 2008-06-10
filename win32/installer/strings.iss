@@ -55,6 +55,9 @@ he.UninstallSqueezeCenter=הסר את SqueezeCenter
 it.UninstallSqueezeCenter=Disinstalla SqueezeCenter
 nl.UninstallSqueezeCenter=SqueezeCenter verwijderen
 
+en.UninstallPrefs=Do you want to delete all preferences and log files as well?
+de.UninstallPrefs=Wollen Sie die Einstellungs- und Logdateien ebenfalls entfernen?
+
 en.SqueezeCenterTrayTool=SqueezeCenter Tray Tool
 de.SqueezeCenterTrayTool=SqueezeCenter-Taskleisten-Tool
 es.SqueezeCenterTrayTool=Herramienta de bandeja de SqueezeCenter
