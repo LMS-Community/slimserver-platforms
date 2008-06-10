@@ -106,6 +106,7 @@ Type: dirifempty; Name: {app}\server\HTML
 Type: dirifempty; Name: {app}\server\SQL
 Type: filesandordirs; Name: {app}\server\Cache
 Type: filesandordirs; Name: {commonappdata}\SqueezeCenter\Cache
+Type: filesandordirs; Name: {code:GetWritablePath}\Cache
 Type: files; Name: {app}\server\slimserver.pref
 Type: files; Name: {app}\{cm:SlimDevicesWebSite}.url
 Type: files; Name: {app}\{cm:SqueezeCenterWebInterface}.url
@@ -141,7 +142,7 @@ begin
 end;
 
 
-function GetWritablePath() : String;
+function GetWritablePath(Param: String) : String;
 var
 	DataPath: String;
 begin
@@ -161,7 +162,7 @@ end;
 
 function GetPrefsFolder() : String;
 begin
-	Result := AddBackslash(GetWritablePath()) + 'prefs'
+	Result := AddBackslash(GetWritablePath('')) + 'prefs'
 end;	
 
 
@@ -470,7 +471,7 @@ begin
 		
 				if not FileExists(PrefsFile) then
 					begin
-						PrefString := '---' + #13#10 + 'cachedir: ' + AddBackslash(GetWritablePath()) + 'Cache' + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
+						PrefString := '---' + #13#10 + 'cachedir: ' + AddBackslash(GetWritablePath('')) + 'Cache' + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
 						SaveStringToFile(PrefsFile, PrefString, False);
 					end;
 
@@ -491,3 +492,15 @@ begin
 			end;
 		end;	
 end;
+
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+begin
+	if CurUninstallStep = usPostUninstall then
+  	if MsgBox(CustomMessage('UninstallPrefs'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDYES then
+		begin
+      DelTree(GetWritablePath(''), True, True, True);
+      RegDeleteKeyIncludingSubkeys(HKCU, 'SOFTWARE\Logitech\SqueezeCenter');
+      RegDeleteKeyIncludingSubkeys(HKLM, 'SOFTWARE\Logitech\SqueezeCenter');
+		end;	
+end;
+
