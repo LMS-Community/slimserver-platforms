@@ -428,11 +428,7 @@ end;
 procedure CurStepChanged(CurStep: TSetupStep);
 var
 	ErrorCode: Integer;
-	NewServerDir: String;
-	PrefsFile: String;
-	PrefsPath: String;
-	PrefString: String;
-	PortConflict: String;
+	NewServerDir, PrefsFile, PrefsPath, PrefString, PortConflict, s: String;
 
 begin
 	if CurStep = ssInstall then
@@ -486,7 +482,11 @@ begin
 
 				if not ProbePort(GetHttpPort('')) and not ProbePort('9090') and not ProbePort('3483') then
 				begin
-					MsgBox(GetConflictingApp('Firewall'), mbError, MB_OK);
+				  s := GetConflictingApp('Firewall');
+				  if s <> '' then
+					 MsgBox(s, mbError, MB_OK)
+					else
+					 MsgBox(CustomMessage('UnknownFirewall'), mbError, MB_OK);
 				end;
 
 				// Add firewall rules for Windows XP/Vista

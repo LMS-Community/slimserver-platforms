@@ -210,6 +210,8 @@ en.NoProblem=We run port probing, network access, firewall and antivirus product
 
 en.PortConflict=Port Conflict
 
+en.UnknownFirewall=We've encountered issues connecting to network services. This very likely is due to some firewall blocking access. Please check http://wiki.slimdevices.com/index.php/FirewallAvAndOtherOffenders whether there's a known issue with your product. Feel free to update that page if not.
+
 en.PrefsExistButPortConflict=We've discovered there might be a port conflict with another application using Port 9000. But as there's already a server.prefs file we can't change the port for SqueezeCenter.%n%nIf you encounter problems starting SqueezeCenter, then please set the value for httpport in server.prefs to some unused value, eg. 9010 instead of 9000.
 
 en.PortConflict_Description=We have encountered an application using the same port (9000) as Squeezecenter:
