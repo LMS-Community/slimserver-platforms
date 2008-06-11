@@ -185,3 +185,60 @@ es.Startup_CredentialsRequired=Si no introduce su nombre de usuario y su contras
 fr.Startup_CredentialsRequired=Si vous ne spécifiez pas un nom d'utilisateur et un mot de passe, le SqueezeCenter sera exécuté sous la session d'un utilisateur système anonyme et vous risquez de ne pas avoir accès à votre bibliothèque musicale. Voulez-vous poursuivre l'exécution en tant qu'utilisateur anonyme?
 it.Startup_CredentialsRequired=Se non si immette nome utente e password, SqueezeCenter viene eseguito come sistema con utente anonimo e l'accesso alla libreria musicale potrebbe non essere consentito. Continuare a eseguire SqueezeCenter come utente anonimo?
 nl.Startup_CredentialsRequired=Als je je gebruikersnaam en wachtwoord niet invoert, wordt SqueezeCenter als 'anonieme' systeemgebruiker uitgevoerd en kun je misschien niet bij je muziekcollectie. Wil je verdergaan als anonieme gebruiker?
+
+en.ProgressForm_Caption=SqueezeCenter Troubleshooting Wizard
+
+en.ProgressForm_Description=Let's probe your system
+
+en.PortConflict=Potential port conflicts
+
+en.ProbingPorts=Probing ports to see whether a firewall is blocking
+
+en.Details=Details
+
+en.Problem=Problem
+
+en.Solution=Solution
+
+en.Caption=SqueezeCenter Troubleshooting Wizard
+
+en.SummaryForm_Description=Summary
+
+en.NoProblemForm_Description=Lucky you - no problem found!
+
+en.NoProblem=We run port probing, network access, firewall and antivirus product tests, %nbut no obvious problem showed up.%n%nFree your Music!
+
+en.PortConflict=Port Conflict
+
+en.PrefsExistButPortConflict=We've discovered there might be a port conflict with another application using Port 9000. But as there's already a server.prefs file we can't change the port for SqueezeCenter.%n%nIf you encounter problems starting SqueezeCenter, then please set the value for httpport in server.prefs to some unused value, eg. 9010 instead of 9000.
+
+en.PortConflict_Description=We have encountered an application using the same port (9000) as Squeezecenter:
+
+en.PortConflict_Solution=You could configure SqueezeCenter to run on an alternative port which is unused,%neg. port 9001.
+
+en.PingProblem=Problem pinging www.squeezenetwork.com
+
+en.PingProblem_Description=We were not able to ping www.squeezenetwork.com
+
+en.PingProblem_Solution=This might be a temporary internet issue, or a limitation by your ISP.%n%nIf it isn't, please make sure your firewall isn't blocking outgoing traffic.
+
+en.AppConflict=Potentially conflicting application found
+
+en.AppConflict_Description=A process has been found running on your machine which is known to possibly cause issues %nwith SqueezeCenter under certain conditions.
+
+en.Port9000ok=SqueezeCenter is running and accessible
+
+en.Port9000blocked=SqueezeCenter is running but can''t be connected to on port 9000
+
+en.Port9000busyOther=SqueezeCenter seems not to be running, but port 9000 is busy
+
+en.Port9000unused=Port 9000 seems to be unused
+
+; help messages concerning some applications
+en.CiscoVPNStatefulInspection=If you encounter connectivity issues with SqueezeCenter,%nthen please make sure "Stateful Firewall (Always On)" is set to off
+
+en.McAfeeMySQL=McAfee AV scanner needs to be configured to ignore MySQL's *.my* files. %nOtherwise SqueezeCenter's scanner can fail.
+
+en.SCPerl=%nIf you're running SC using the perl version, then this is ok and expected.
+
+
