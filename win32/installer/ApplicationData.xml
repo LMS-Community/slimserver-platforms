@@ -27,7 +27,7 @@
     <d:process type="Antivirus" ServiceName="AVGUARD" ProgramName="AntiVir PersonalEdition" />
     <d:process type="Antivirus" ServiceName="AVENGINE" ProgramName="Panda AntiVirus Titanium" />
     <d:process type="Antivirus" ServiceName="AVGEMC" ProgramName="AVG Anti-Virus" />
-    <d:process type="Antivirus" ServiceName="AVGRSX" ProgramName="AVG Resident Shield Service" Help="AVGFalsePositive" />
+    <d:process type="Antivirus" ServiceName="AVGRSX" ProgramName="AVG Resident Shield Service" />
     <d:process type="Antivirus" ServiceName="AVGWDSVC" ProgramName="AVG Watchdog Service" />
     <d:process type="Antivirus" ServiceName="FSAV32" ProgramName="F-Secure Anti-Virus" />
     <d:process type="Antivirus" ServiceName="AVKWCTL" ProgramName="MicroWorld eScan" />

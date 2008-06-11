@@ -1,13 +1,17 @@
 [Files]
+; a dll to verify if a process is still running
+; http://www.vincenzo.net/isxkb/index.php?title=PSVince
+Source: psvince.dll; Flags: dontcopy
+
+Source: "ApplicationData.xml"; Flags: dontcopy
 Source: "sockettest.dll"; Flags: dontcopy
 
 [CustomMessages]
-Port9000ok=SqueezeCenter is running and accessible
-Port9000blocked=SqueezeCenter is running but can''t be connected to on port 9000
-Port9000busyOther=SqueezeCenter seems not to be running, but port 9000 is busy
-Port9000unused=Port 9000 seems to be unused
+#include "strings.iss"
 
 [Code]
+#include "ServiceManager.iss"
+
 function IsPortOpen(IPAddress, Port: PChar): Boolean;
 external 'IsPortOpen@files:sockettest.dll stdcall delayload';
 
@@ -59,7 +63,7 @@ begin
           s := NewNode.getAttribute('ServiceName');
           if IsModuleLoaded(s + '.exe') or IsModuleLoaded(s) or IsServiceRunning(s) then
           begin
-            s := NewNode.getAttribute('ProgramName');
+            s := CustomMessage('AppConflict_Description') + #13#10 + #13#10 + NewNode.getAttribute('ProgramName');
             if NewNode.getAttribute('Help') > '' then
               s := s + ': ' + ExpandConstant('{cm:' + String(NewNode.getAttribute('Help')) + '}');
               

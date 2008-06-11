@@ -92,7 +92,7 @@ Name: {commonstartup}\{cm:SqueezeCenterTrayTool}; Filename: {app}\SqueezeTray.ex
 ;
 ; The following keys open required SqueezeCenter ports in the XP Firewall
 ;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9000:TCP"; ValueData: "9000:TCP:*:Enabled:SqueezeCenter 9000 tcp"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "{code:GetHttpPort}:TCP"; ValueData: "{code:GetHttpPort}:TCP:*:Enabled:SqueezeCenter {code:GetHttpPort} tcp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:SqueezeCenter 3483 udp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:SqueezeCenter 3483 tcp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SOFTWARE\Logitech\SqueezeCenter; ValueType: string; ValueName: Path; ValueData: {app}
@@ -121,15 +121,24 @@ Filename: {app}\server\squeezecenter.exe; Parameters: -remove; WorkingDir: {app}
 Filename: {app}\SqueezeTray.exe; Parameters: "--exit --uninstall"; WorkingDir: {app}; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
 
 [Code]
-#include "ServiceManager.iss"
+#include "SocketTest.iss"
 
 var
 	ProgressPage: TOutputProgressWizardPage;
 	StartupMode: String;
+	HttpPort: String;
 
-
-function IsModuleLoaded(modulename: String): Boolean;
-external 'IsModuleLoaded@files:psvince.dll stdcall';
+function GetHttpPort(Param: String) : String;
+begin
+  if HttpPort = '' then
+  begin
+     if CheckPort9000 = 102 then
+       HttpPort := '9010'
+     else
+       HttpPort := '9000';
+  end
+  Result := HttpPort
+end;
 
 function GetInstallFolder(Param: String) : String;
 var
@@ -420,10 +429,7 @@ end;
 procedure CurStepChanged(CurStep: TSetupStep);
 var
 	ErrorCode: Integer;
-	NewServerDir: String;
-	PrefsFile: String;
-	PrefsPath: String;
-	PrefString: String;
+	NewServerDir, PrefsFile, PrefsPath, PrefString, PortConflict, s: String;
 
 begin
 	if CurStep = ssInstall then
@@ -458,9 +464,33 @@ begin
 
 			try
 				ProgressPage.Show;
-				ProgressPage.setProgress(0, 2);
+				ProgressPage.setProgress(0, 5);
 
-				// Add firewall rules for Vista
+				// check network configuration and potential port conflicts
+				ProgressPage.setText(CustomMessage('ProgressForm_Description'), CustomMessage('PortConflict'));
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
+
+				// we discovered a port conflict with another application - user alternative port
+				if GetHttpPort('') <> '9000' then
+				begin
+					PrefString := 'httpport: ' + GetHttpPort('') + #13#10;
+					PortConflict := GetConflictingApp('PortConflict');
+				end;
+
+				// probing ports to see whether we have a firewall blocking or something
+				ProgressPage.setText(CustomMessage('ProgressForm_Description'), CustomMessage('ProbingPorts'));
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
+
+				if not ProbePort(GetHttpPort('')) and not ProbePort('9090') and not ProbePort('3483') then
+				begin
+				  s := GetConflictingApp('Firewall');
+				  if s <> '' then
+					 MsgBox(s, mbError, MB_OK)
+					else
+					 MsgBox(CustomMessage('UnknownFirewall'), mbError, MB_OK);
+				end;
+
+				// Add firewall rules for Windows XP/Vista
 				if (GetWindowsVersion shr 24 >= 6) then
 					Exec('netsh', 'advfirewall firewall add rule name="SqueezeCenter" description="Allow SqueezeCenter to accept inbound connections." dir=in action=allow program="' + ExpandConstant('{app}') + '\server\squeezecenter.exe' + '"', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 	
@@ -471,9 +501,11 @@ begin
 		
 				if not FileExists(PrefsFile) then
 					begin
-						PrefString := '---' + #13#10 + 'cachedir: ' + AddBackslash(GetWritablePath('')) + 'Cache' + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10;
+						PrefString := '---' + #13#10 + 'cachedir: ' + AddBackslash(GetWritablePath('')) + 'Cache' + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10 + PrefString;
 						SaveStringToFile(PrefsFile, PrefString, False);
-					end;
+					end
+				else if PrefString <> '' then
+					MsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbError, MB_OK);
 
 				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 	

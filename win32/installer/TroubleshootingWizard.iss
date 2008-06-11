@@ -31,43 +31,11 @@ Name: es; MessagesFile: "Spanish.isl"
 WelcomeLabel1=Welcome to the [name]
 WelcomeLabel2=This will help analyzing common SqueezeCenter problems on your computer.%n%nIt is recommended that you close all other applications before continuing.
 
-[Files]
-Source: "ApplicationData.xml"; Flags: dontcopy
-Source: "sockettest.dll"; Flags: dontcopy
-
-; a dll to verify if a process is still running
-; http://www.vincenzo.net/isxkb/index.php?title=PSVince
-Source: psvince.dll; Flags: dontcopy
-
 [CustomMessages]
 #include "strings.iss"
-ProgressForm_Caption=SqueezeCenter Troubleshooting Wizard
-ProgressForm_Description=Let's probe your system
-Details=Details
-Problem=Problem
-Solution=Solution
-Caption=SqueezeCenter Troubleshooting Wizard
-SummaryForm_Description=Summary
-NoProblemForm_Description=Lucky you - no problem found!
-NoProblem=We run port probing, network access, firewall and antivirus product tests, %nbut no obvious problem showed up.%n%nFree your Music!
-PortConflict=Port Conflict
-PortConflict_Description=We have encountered an application using the same port (9000) as Squeezecenter:
-PortConflict_Solution=You could configure SqueezeCenter to run on an alternative port which is unused,%neg. port 9001.
-PingProblem=Problem pinging www.squeezenetwork.com
-PingProblem_Description=We were not able to ping www.squeezenetwork.com
-PingProblem_Solution=This might be a temporary internet issue, or a limitation by your ISP.%n%nIf it isn't, please make sure your firewall isn't blocking outgoing traffic.
-AppConflict=Potentially conflicting application found
-AppConflict_Description=A process has been found running on your machine which is known to cause issues %nwith SqueezeCenter under certain conditions.
-
-AVGFalsePositive=We have seen reports of false positives in AVG 8. AVG identified scanner.exe as %n'Generic 10.AINU'. %n%nTo work around this issue you can add an exception to AVG to ignored by the scanner %n(Advanced Settings/Resident Shield/Exceptions) until AVG have updated their patterns.
-CiscoVPNStatefulInspection=Turn stateful firewall 'Always On' off
-McAfeeMySQL=McAfee AV scanner needs to be configured to ignore MySQL's *.my* files. %nOtherwise SqueezeCenter's scanner can fail.
-SCPerl=%nIf you're running SC using the perl version, then this is ok and expected.
 
 [Code]
-#include "ServiceManager.iss"
 #include "SocketTest.iss"
-
 
 var
   Summary: TMemo;
@@ -341,7 +309,7 @@ begin
         );
       end;
 
-    	Summary.Lines.add('Probing Ports');
+    	Summary.Lines.add('{cm:ProbingPorts}');
       ProbePortMsg('9000');
       ProbePortMsg('9090');
 //      ProbePortMsg('9092');
