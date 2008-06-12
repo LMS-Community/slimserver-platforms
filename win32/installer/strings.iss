@@ -224,6 +224,14 @@ en.PingProblem_Description=We were not able to ping www.squeezenetwork.com
 
 en.PingProblem_Solution=This might be a temporary internet issue, or a limitation by your ISP.%n%nIf it isn't, please make sure your firewall isn't blocking outgoing traffic.
 
+en.SNConnecting=Connecting to www.squeezenetwork.com...
+
+en.SNConnectFailed=Connecting to www.squeezenetwork.com failed
+
+en.SNConnectFailed_Description=We tried to connect to www.squeezenetwork.com on port 3483, which is used by %nSqueezebox. But the connection failed.
+
+en.SNConnectFailed_Solution=If your internet connection is otherwise working fine, check your firewall settings. %nMake sure outgoing connections to port 3483 are not blocked. %n%nMany corporate firewalls might block this port.
+
 en.AppConflict=Potentially conflicting application found
 
 en.AppConflict_Description=A process has been found running on your machine which is known to possibly cause issues %nwith SqueezeCenter under certain conditions.
