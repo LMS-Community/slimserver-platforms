@@ -482,11 +482,11 @@ begin
 
 				if not ProbePort(GetHttpPort('')) and not ProbePort('9090') and not ProbePort('3483') then
 				begin
-				  s := GetConflictingApp('Firewall');
-				  if s <> '' then
-					 MsgBox(s, mbError, MB_OK)
+					s := GetConflictingApp('Firewall');
+					if s <> '' then
+						MsgBox(s, mbError, MB_OK)
 					else
-					 MsgBox(CustomMessage('UnknownFirewall'), mbError, MB_OK);
+						MsgBox(CustomMessage('UnknownFirewall'), mbError, MB_OK);
 				end;
 
 				// Add firewall rules for Windows XP/Vista
@@ -507,7 +507,16 @@ begin
 					MsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbError, MB_OK);
 
 				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-	
+
+				// trying to connect to SN
+				ProgressPage.setText(CustomMessage('ProgressForm_Description'), CustomMessage('SNConnecting'));
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
+
+				if not IsPortOpen('www.squeezenetwork.com', '3483') then
+				begin
+					MsgBox(CustomMessage('SNConnectFailed_Description') + #13#10 + #13#10 + CustomMessage('SNConnectFailed_Solution'), mbError, MB_OK);
+				end;
+
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
 
