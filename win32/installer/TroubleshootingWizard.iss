@@ -265,7 +265,7 @@ begin
     ProgressPage := CreateOutputProgressPage(CustomMessage('ProgressForm_Caption'), CustomMessage('ProgressForm_Description'));
 
     try
-      ProgressPage.setProgress(0, 6);
+      ProgressPage.setProgress(0, 7);
 			ProgressPage.Show;
 
     	ProgressPage.setText('Checking availability of port 9000 (SqueezeCenter web interface)', '');
@@ -308,6 +308,24 @@ begin
           ExpandConstant('{cm:PingProblem_Solution}')
         );
       end;
+
+     	ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
+    	ProgressPage.setText('Connecting to www.squeezenetwork.com...', '');
+    	
+    	if not IsPortOpen('www.squeezenetwork.com', '3483') then
+    	begin
+        AllFine := false;
+
+      	Summary.Lines.add('Connecting to www.squeezenetwork.com failed');
+      	Summary.Lines.add('');
+
+        PingProblemPage := ProblemForm_CreatePage(
+          NoProblemPage,
+          ExpandConstant('{cm:SNConnectFailed}'),
+          ExpandConstant('{cm:SNConnectFailed_Description}'),
+          ExpandConstant('{cm:SNConnectFailed_Solution}')
+        );
+    	end;
 
     	Summary.Lines.add('{cm:ProbingPorts}');
       ProbePortMsg('9000');
