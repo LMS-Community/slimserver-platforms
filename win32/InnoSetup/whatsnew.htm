@@ -19,14 +19,52 @@
 </head>
 <body>
 
-<!-- $jrsoftware: issrc/whatsnew.htm,v 1.531 2007/10/22 22:10:47 jr Exp $ -->
+<!-- $jrsoftware: issrc/whatsnew.htm,v 1.539 2008/03/10 23:55:31 jr Exp $ -->
 
 <div class="bluehead"><span class="head1">Inno Setup 5</span><br /><span class="head2">Revision History</span></div>
 
-<p>Copyright &copy; 1997-2007 <a href="http://www.jrsoftware.org/">Jordan Russell</a>. All rights reserved.<br />
-Portions Copyright &copy; 2000-2007 Martijn Laan. All rights reserved.<br />
+<p>Copyright &copy; 1997-2008 <a href="http://www.jrsoftware.org/">Jordan Russell</a>. All rights reserved.<br />
+Portions Copyright &copy; 2000-2008 Martijn Laan. All rights reserved.<br />
 For conditions of distribution and use, see <a href="http://www.jrsoftware.org/files/is/license.txt">LICENSE.TXT</a>.
 </p>
+
+<p><a name="5.2.3"></a><span class="ver">5.2.3 </span><span class="date">(2008-03-10)</span></p>
+<ul>
+<li>Improved support for right-to-left languages (Arabic and Hebrew):<br />Added new [LangOptions] section directive: <tt>RightToLeft</tt>. If set to <tt>yes</tt>, text alignment and reading order will be reversed (with some intentional exceptions), and controls will be arranged from right to left ("flipped").</li>
+<li>Added new [Setup] section directives: <tt>VersionInfoProductName</tt> and <tt>VersionInfoProductVersion</tt>.</li>
+<li>Changed the fixed Language field in Setup's version info from "English (United States)" to "Language Neutral".</li>
+<li>Uninstall now supports custom message constants (<tt>{cm:...}</tt>) like Setup.</li>
+<li>Right-to-left-related Pascal Scripting changes:
+  <ul>
+  <li>The control flipping that is performed when <tt>RightToLeft=yes</tt> is mostly transparent, normally requiring no changes to existing code. Controls created on custom wizard pages will be flipped automatically after the <tt>InitializeWizard</tt> event function returns, and controls created on custom forms will, by default, be flipped the first time the form is shown.</li>
+  <li>Changes to TSetupForm (the class used for custom forms):
+    <ul>
+    <li>Added <tt>RightToLeft</tt> Boolean property (read-only): True if right-to-left text alignment and reading order is enabled on the form. The <tt>RightToLeft</tt> [LangOptions] directive determines the value of this property.</li>
+    <li>Added <tt>FlipControlsOnShow</tt> Boolean property: If True (the default setting if <tt>RightToLeft</tt> is True), controls on the form will be flipped the next time the form is shown. After the form has been shown, the property is reset to <tt>False</tt> automatically.</li>
+    <li>Added <tt>ControlsFlipped</tt> Boolean property (read-only): True if the controls have been flipped.</li>
+    <li>Added <tt>FlipControlsIfNeeded</tt> method. This flips the controls immediately if <tt>FlipControlsOnShow</tt> is True, then resets <tt>FlipControlsOnShow</tt> to False.</li>
+    </ul>
+  </li>
+  <li>Added new classes: TNewEdit, TNewMemo, TNewComboBox, TNewButton, TNewCheckBox, TNewRadioButton, and TNewListBox. On these classes, right-to-left text alignment and reading order is used when the parent TSetupForm's <tt>RightToLeft</tt> property is True.</li>
+  <li>TNewStaticText: Added <tt>ForceLTRReading</tt> property. If set to True, the text will always be rendered with left-to-right reading order, overriding the parent form's <tt>RightToLeft</tt> setting.</li>
+  </ul>
+</li>
+<li>Other Pascal Scripting changes:
+  <ul>
+  <li>TNewStaticText: Added <tt>AdjustHeight</tt> method. This adjusts the value of the <tt>Height</tt> property to fit the text. Only useful when <tt>AutoSize</tt> is set to False.</li>
+  <li>Added new object <tt>UninstallProgressForm</tt> of class <tt>TUninstallProgressForm</tt>. Also added new event function <tt>InitializeUninstallProgressForm</tt>, which is called after the Uninstall progress form has been created and before it is shown. See the help file and the <i>CodeClasses.iss</i> example script for more information.</li>
+  </ul>
+</li>
+<li>Added workaround for bug in Windows Vista (still present in SP1): With UAC turned off, launching an uninstaller from the <i>Programs and Features</i> Control Panel applet and answering No at the confirmation message box would cause a "This program might not have uninstalled correctly" dialog to be displayed, even though the uninstaller includes a proper "Vista-aware" manifest.</li>
+<li>IDE changes:
+  <ul>
+  <li>The New Script Wizard now generates random unique <tt>AppId</tt> [Setup] section directives.</li>
+  <li>Added new <i>Tools | Generate GUID</i> command.</li>
+  </ul>
+</li>
+<li>QuickStart Pack: added ISPP functions <tt>GetMD5OfFile</tt>, <tt>GetMD5OfString</tt> and <tt>GetFileDateTimeString</tt>.</li>
+<li>Minor tweaks.</li>
+</ul>
 
 <p><a name="5.2.2"></a><span class="ver">5.2.2 </span><span class="date">(2007-10-22)</span></p>
 <ul>
@@ -71,6 +109,7 @@ Name: foo\child; Description: "foo\child"
 </li>
 <li>The Setup loader now uses the original Setup EXE filename + .tmp as the filename for the extracted Setup executable instead of a name comprised of random letters and numbers, which may have seemed suspicious to firewall users.</li>
 <li>In a multilingual installation, Setup now waits until after the <i>Select Language</i> dialog is shown to display any error messages concerning the user's Windows version or privilege level.</li>
+<li>QuickStart Pack: added ISPP function <tt>GetDateTimeString</tt>.</li>
 <li><i>Fix:</i> On Windows Vista, AutoPlay wasn't being suppressed when the user swapped out discs in a disk-spanned install.</li>
 <li><i>Fix:</i> When the <tt>waituntilidle</tt> flag was used in the [UninstallRun] section, it behaved like <tt>waituntilterminated</tt>.</li>
 <li>Based on RemObjects Pascal Script SVN code revision 1045a.</li>
