@@ -58,6 +58,7 @@ install:
 	rm -rf ${base}/${share}/Bin/darwin
 	rm -rf ${base}/${share}/Bin/MSWin32-x86-multi-thread
 	rm -rf ${base}/${share}/Bin/powerpc-hardhat-linux
+	rm -rf ${base}/${share}/Slim/Plugin/PreventStandby
 	
 
 	# And aux files needed to run SlimServer
