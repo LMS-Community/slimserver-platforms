@@ -531,26 +531,8 @@ sub updateSqueezeCenterWebInterface {
 
 sub stopSqueezeCenter {
 	my $suppressMsg = shift;
-	my $cliPort = getPref('cliport', 'cli.prefs') || 9090;
 
-	# Use low-level socket code. IO::Socket returns a 'Invalid Descriptor'
-	# erorr. It also sucks more memory than it should.
-	my $raddr = '127.0.0.1';
-	my $rport = $cliPort;
-
-	my $iaddr = inet_aton($raddr);
-	my $paddr = sockaddr_in($rport, $iaddr);
-
-	socket(SSERVER, PF_INET, SOCK_STREAM, getprotobyname('tcp'));
-
-	if (connect(SSERVER, $paddr)) {
-
-		print SSERVER "stopserver\n", ;
-
-		close(SSERVER);
-	}
-
-	elsif (!$suppressMsg) {
+	unless (sendCLICommand('stopserver') || $suppressMsg) {
 
 		showErrorMessage(string('STOP_FAILED'));
 
@@ -565,11 +547,43 @@ sub stopSqueezeCenter {
 	}
 }
 
+sub stopScanner {
+	sendCLICommand('abortscan');
+}
+
+sub sendCLICommand {
+	my $cmd = shift;
+	my $cliPort = getPref('cliport', 'cli.prefs') || 9090;
+
+	# Use low-level socket code. IO::Socket returns a 'Invalid Descriptor'
+	# erorr. It also sucks more memory than it should.
+	my $raddr = '127.0.0.1';
+	my $rport = $cliPort;
+
+	my $iaddr = inet_aton($raddr);
+	my $paddr = sockaddr_in($rport, $iaddr);
+
+	socket(SSERVER, PF_INET, SOCK_STREAM, getprotobyname('tcp'));
+
+	if (connect(SSERVER, $paddr)) {
+
+		print SSERVER "$cmd\n", ;
+
+		close(SSERVER);
+		
+		return 1;
+	}
+
+	return 0;
+}
 
 # attempt to stop SqueezeCenter and exit
 sub uninstall {
 	# Kill the timer, we don't want SC to be restarted
 	SetTimer(0);
+
+	# stop the scanner _before_ SC, as it's talking to SC using the CLI
+	stopScanner();
 
 	stopSqueezeCenter(1);
 
