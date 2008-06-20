@@ -6,7 +6,6 @@ Build-Depends: debhelper (>= 4.0.0)
 Standards-Version: 3.6.2
 
 Package: squeezecenter-readynas
-Version: 7.0.0
 Architecture: sparc
 Conflicts: slimp3,slimserver
 Replaces: slimp3,slimserver
