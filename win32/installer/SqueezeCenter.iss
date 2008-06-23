@@ -39,25 +39,25 @@ Name: desktopicon; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm
 Name: quicklaunchicon; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: SqueezeTray.exe; DestDir: {app}; Flags: replacesameversion
-Source: ServiceEnabler.exe; DestDir: {app}; Flags: replacesameversion
-Source: strings.txt; DestDir: {app}
-Source: Release Notes.html; DestDir: {app}
+Source: SqueezeTray.exe; DestDir: {app}; Flags: ignoreversion
+Source: ServiceEnabler.exe; DestDir: {app}; Flags: ignoreversion
+Source: strings.txt; DestDir: {app}; Flags: ignoreversion
+Source: Release Notes.html; DestDir: {app}; Flags: ignoreversion
 
 ; a dll to verify if a process is still running
 ; http://www.vincenzo.net/isxkb/index.php?title=PSVince
 Source: psvince.dll; Flags: dontcopy
 
-Source: Getting Started.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: en; Flags: isreadme
-Source: Getting Started.de.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: de; Flags: isreadme
-Source: Getting Started.nl.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: nl; Flags: isreadme
-Source: Getting Started.fr.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: fr; Flags: isreadme
-Source: Getting Started.it.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: it; Flags: isreadme
-Source: Getting Started.es.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: es; Flags: isreadme
-Source: Getting Started.he.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: he; Flags: isreadme
+Source: Getting Started.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: en; Flags: isreadme ignoreversion
+Source: Getting Started.de.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: de; Flags: isreadme ignoreversion
+Source: Getting Started.nl.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: nl; Flags: isreadme ignoreversion
+Source: Getting Started.fr.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: fr; Flags: isreadme ignoreversion
+Source: Getting Started.it.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: it; Flags: isreadme ignoreversion
+Source: Getting Started.es.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: es; Flags: isreadme ignoreversion
+Source: Getting Started.he.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: he; Flags: isreadme ignoreversion
 
 ; add the english version for all languages as long as we don't have any translation
-Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de en es fr he it nl
+Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de en es fr he it nl; Flags: ignoreversion
 ;Source: License.de.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de
 ;Source: License.nl.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: nl
 ;Source: License.fr.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: fr
@@ -67,7 +67,7 @@ Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de
 
 ; Next line takes everything from the source '\server' directory and copies it into the setup
 ; it's output into the same location from the users choice.
-Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*,*cygwin*"; Flags: comparetimestamp recursesubdirs
+Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*,*cygwin*"; Flags: comparetimestamp recursesubdirs ignoreversion
 
 [Dirs]
 Name: {commonappdata}\SqueezeCenter; Permissions: users-modify
