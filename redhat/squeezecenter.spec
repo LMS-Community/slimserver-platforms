@@ -1,6 +1,6 @@
 # The following macros can either be defined here or passed into rpmbuild as macros
 # This is required:
-# %%define _version 7.2
+# %%define _version 7.3
 # One (and only one) of the following is required:
 # %%define _with_trunk 1
 # %%define _with_branch 1
@@ -9,7 +9,7 @@
 # %%define _src_date 2007-12-07
 # %%define _rpm_date 20071207
 # The following is required with _with_branch
-# %%define _branch 7.2
+# %%define _branch 7.3
 
 %define increment 1
 

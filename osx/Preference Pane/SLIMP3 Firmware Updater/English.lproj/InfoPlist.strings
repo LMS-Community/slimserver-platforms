@@ -1,6 +1,6 @@
 /* Localized versions of Info.plist keys */
 
 CFBundleName = "SLIMP3 Firmware Updater";
-CFBundleShortVersionString = "7.2";
-CFBundleGetInfoString = "SLIMP3 Firmware Updater version 7.2, Copyright 2008 Logitech";
+CFBundleShortVersionString = "7.3";
+CFBundleGetInfoString = "SLIMP3 Firmware Updater version 7.3, Copyright 2008 Logitech";
 NSHumanReadableCopyright = "Copyright 2008 Logitech";
