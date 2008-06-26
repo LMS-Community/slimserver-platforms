@@ -50,7 +50,7 @@ end;
 
 Destructor TTCPTestDaemon.Destroy;
 begin
-  Sock.free;
+  Sock.Destroy;
 end;
 
 procedure TTCPTestDaemon.Execute;

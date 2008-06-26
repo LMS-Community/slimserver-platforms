@@ -54,7 +54,6 @@ my $atLogin        = $Registry->{"$registryKey/StartAtLogin"};
 my $serviceName    = 'squeezesvc';
 
 my $appExe         = File::Spec->catdir(installDir(), 'server', 'squeezecenter.exe');
-my $serverUrl      = File::Spec->catdir(writableDir(), "SqueezeCenter Web Interface.url");
 my $serverPrefFile = File::Spec->catdir(writableDir(), 'prefs', 'server.prefs');
 my $language       = getPref('language') || 'EN';
 
@@ -324,8 +323,8 @@ sub startSqueezeCenter {
 sub openSqueezeCenter {
 
 	# Check HTTP first in case SqueezeCenter has changed the HTTP port while running
-	checkForHTTP();	
-	Execute($serverUrl);
+	my $serverUrl = checkForHTTP();	
+	Execute($serverUrl) if $serverUrl;
 
 	$cliStart = 0;
 }
@@ -455,12 +454,6 @@ sub getPref {
 sub checkForHTTP {
 	my $httpPort = getPref('httpport') || 9000;
 
-	if ($lastHTTPPort ne $httpPort) {
-
-		updateSqueezeCenterWebInterface($httpPort);
-		$lastHTTPPort = $httpPort
-	}
-
 	# Use low-level socket code. IO::Socket returns a 'Invalid Descriptor'
 	# erorr. It also sucks more memory than it should.
 	my $raddr = '127.0.0.1';
@@ -474,7 +467,7 @@ sub checkForHTTP {
 	if (connect(SSERVER, $paddr)) {
 
 		close(SSERVER);
-		return $httpPort;
+		return "http://$raddr:$httpPort";
 	}
 
 	return 0;
@@ -509,24 +502,6 @@ sub processID {
 
 	return $pid if defined $pid;
 	return -1;
-}
-
-# update SqueezeCenter Web Interface.url
-#
-#  One parameter the new port number
-
-sub updateSqueezeCenterWebInterface {
-	my $port = shift;
-
-	if (open(URLFILE, ">:crlf", $serverUrl)) {
-
-		print URLFILE "[InternetShortcut]\nURL=http://127.0.0.1:$port\n";
-		close URLFILE;
-
-	} else {
-
-		showErrorMessage(sprintf('%s %s: %s', string('WRITE_FAILED'), $serverUrl, $!));
-	}
 }
 
 sub stopSqueezeCenter {
