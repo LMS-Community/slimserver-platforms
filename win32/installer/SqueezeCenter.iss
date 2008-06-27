@@ -254,8 +254,8 @@ begin
 
 	ProgressPage.setText(CustomMessage('WaitingForServices'), '');
 
-	// wait up to 60 seconds for the services to be deleted
-	Wait := 60;
+	// wait up to 120 seconds for the services to be deleted
+	Wait := 120;
 	MaxProgress := ProgressPage.ProgressBar.Position + Wait;
 	while (Wait > 0) and (IsServiceRunning(Svc) or IsServiceRunning(MySQLSvc) or IsModuleLoaded(Executable) or IsModuleLoaded('squeezecenter.exe')) do
 	begin
