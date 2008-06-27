@@ -484,9 +484,9 @@ begin
 				begin
 					s := GetConflictingApp('Firewall');
 					if s <> '' then
-						MsgBox(s, mbError, MB_OK)
+						MsgBox(s, mbInformation, MB_OK)
 					else
-						MsgBox(CustomMessage('UnknownFirewall'), mbError, MB_OK);
+						MsgBox(CustomMessage('UnknownFirewall'), mbInformation, MB_OK);
 				end;
 
 				// Add firewall rules for Windows XP/Vista
@@ -504,7 +504,7 @@ begin
 						SaveStringToFile(PrefsFile, PrefString, False);
 					end
 				else if PrefString <> '' then
-					MsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbError, MB_OK);
+					MsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbInformation, MB_OK);
 
 				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 
@@ -514,7 +514,7 @@ begin
 
 				if not IsPortOpen('www.squeezenetwork.com', '3483') then
 				begin
-					MsgBox(CustomMessage('SNConnectFailed_Description') + #13#10 + #13#10 + CustomMessage('SNConnectFailed_Solution'), mbError, MB_OK);
+					MsgBox(CustomMessage('SNConnectFailed_Description') + #13#10 + #13#10 + CustomMessage('SNConnectFailed_Solution'), mbInformation, MB_OK);
 				end;
 
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
