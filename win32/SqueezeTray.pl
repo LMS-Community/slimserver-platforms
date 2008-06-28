@@ -560,6 +560,9 @@ sub uninstall {
 	# stop the scanner _before_ SC, as it's talking to SC using the CLI
 	stopScanner();
 
+	# let's give the scanner a few seconds to be closed before shutting down SC
+	sleep 5;
+
 	stopSqueezeCenter(1);
 
 	exit;
