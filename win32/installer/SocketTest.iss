@@ -1,10 +1,10 @@
 [Files]
 ; a dll to verify if a process is still running
 ; http://www.vincenzo.net/isxkb/index.php?title=PSVince
-Source: psvince.dll; Flags: dontcopy
+Source: psvince.dll; Flags: dontcopy ignoreversion
 
 Source: "ApplicationData.xml"; Flags: dontcopy
-Source: "sockettest.dll"; Flags: dontcopy
+Source: "sockettest.dll"; Flags: dontcopy ignoreversion
 
 [CustomMessages]
 #include "strings.iss"
