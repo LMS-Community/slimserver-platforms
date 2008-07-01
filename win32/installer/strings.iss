@@ -210,7 +210,7 @@ en.NoProblem=We run port probing, network access, firewall and antivirus product
 
 en.PortConflict=Port Conflict
 
-en.UnknownFirewall=We've encountered issues connecting to network services. This very likely is due to some firewall blocking access. Please check http://wiki.slimdevices.com/index.php/FirewallAvAndOtherOffenders whether there's a known issue with your product. Feel free to update that page if not.
+en.UnknownFirewall=We've detected a problem.%n%nOne or more of the ports required by SqueezeCenter to communicate over your network is blocked. SqueezeCenter uses ports 9000 TCP, 3483 UDP, and 3483 TCP. The most common cause for this is security software on your system, specifically a Firewall.%n%nFor more information, please go to http://www.logitech.com/support and search for articles on your specific security software or on firewalls in general.
 
 en.PrefsExistButPortConflict=We've discovered there might be a port conflict with another application using Port 9000. But as there's already a server.prefs file we can't change the port for SqueezeCenter.%n%nIf you encounter problems starting SqueezeCenter, then please set the value for httpport in server.prefs to some unused value, eg. 9010 instead of 9000.
 
