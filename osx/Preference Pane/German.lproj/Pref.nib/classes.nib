@@ -1,29 +1,66 @@
-{
-    IBClasses = (
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
-        {
-            CLASS = NSPreferencePane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                "_firstKeyView" = id; 
-                "_initialKeyView" = id; 
-                "_lastKeyView" = id; 
-                "_window" = id; 
-            }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            ACTIONS = {changeStartupPreference = id; openWebInterface = id; toggleServer = id; }; 
-            CLASS = "Slim_ServerPref"; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                serverStateDescription = NSTextField; 
-                startupType = NSPopUpButton; 
-                toggleServerButton = NSButton; 
-                webLaunchButton = NSButton; 
-            }; 
-            SUPERCLASS = NSPreferencePane; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSPreferencePane</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>_firstKeyView</key>
+				<string>id</string>
+				<key>_initialKeyView</key>
+				<string>id</string>
+				<key>_lastKeyView</key>
+				<string>id</string>
+				<key>_window</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>changeStartupPreference</key>
+				<string>id</string>
+				<key>openWebInterface</key>
+				<string>id</string>
+				<key>toggleServer</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>Slim_ServerPref</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>serverStateDescription</key>
+				<string>NSTextField</string>
+				<key>startupType</key>
+				<string>NSPopUpButton</string>
+				<key>toggleServerButton</key>
+				<string>NSButton</string>
+				<key>webLaunchButton</key>
+				<string>NSButton</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSPreferencePane</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>
