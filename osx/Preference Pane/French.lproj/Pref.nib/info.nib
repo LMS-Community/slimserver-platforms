@@ -3,15 +3,19 @@
 <plist version="1.0">
 <dict>
 	<key>IBDocumentLocation</key>
-	<string>69 14 356 240 0 0 1680 1028 </string>
+	<string>35 56 356 240 0 0 1024 746 </string>
 	<key>IBFramework Version</key>
-	<string>446.1</string>
+	<string>443.0</string>
 	<key>IBLastKnownRelativeProjectPath</key>
 	<string>../../SqueezeCenter.xcodeproj</string>
 	<key>IBOldestOS</key>
 	<integer>5</integer>
+	<key>IBOpenObjects</key>
+	<array>
+		<integer>12</integer>
+	</array>
 	<key>IBSystem Version</key>
-	<string>8S2167</string>
+	<string>8S169</string>
 	<key>targetFramework</key>
 	<string>IBCocoaFramework</string>
 </dict>
