@@ -191,8 +191,8 @@ _get_mp3tags(char *file, struct song_metadata *psong)
 
 	  native_text = id3_field_getfullstring(&pid3frame->fields[3]);
 	  if (native_text) {
-	    if (psong->comment)
-	      free(psong->comment);
+	    //if (psong->comment)
+	    //  free(psong->comment);
 	    utf8_text = (unsigned char*) id3_ucs4_utf8duplicate(native_text);
 	    if (utf8_text) {
 	      psong->comment = (char*) utf8_text;
@@ -245,7 +245,7 @@ _decode_mp3_frame(unsigned char *frame, struct mp3_frameinfo *pfi)
 	break;
   case 2:
     pfi->mpeg_version = 0x20;			// 2.0
-    sample_index=1;
+    sample_index = 1;
     if (pfi->layer == 1)
       layer_index = 3;
     if ((pfi->layer == 2) || (pfi->layer == 3))
@@ -268,7 +268,7 @@ _decode_mp3_frame(unsigned char *frame, struct mp3_frameinfo *pfi)
     return -1;
   }
 
-  if ((sample_index < 0) || (sample_index > 2)) {
+  if ((sample_index < 0) || (sample_index >= 2)) {
     pfi->is_valid = 0;
     return -1;
   }
