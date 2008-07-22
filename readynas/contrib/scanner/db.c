@@ -573,7 +573,8 @@ _insertdb_plist(MYSQL *mysql, struct song_metadata *psong)
 {
   char *p;
   size_t room;
-  int n, err, update;
+  int n, err;
+  int update = 0;
   unsigned long track_id=0;
 
   // disable auto commit

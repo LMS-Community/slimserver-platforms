@@ -27,6 +27,7 @@
 #include <sys/stat.h>
 #include <mysql/mysql.h>
 #include <dirent.h>
+#include <limits.h>
 #include <unistd.h>
 
 #include "scanner.h"
@@ -406,8 +407,11 @@ main(int argc, char **argv) {
   if (logfile || logdir) {
     int err;
     char *logfile_path = malloc(PATH_MAX);
-    if (!(logfile_path))
+    if (!(logfile_path)) {
       DPRINTF(E_FATAL, L_SCAN, "Out of memory\n");
+      usage();
+    }
+
     snprintf(logfile_path, PATH_MAX, "%s/%s",
 	     logdir ? logdir : defval.logdir,
 	     logfile ? logfile : defval.logfile);
@@ -427,8 +431,11 @@ main(int argc, char **argv) {
   }
   else {
     char *prefsfile_path = malloc(PATH_MAX);
-    if (!(prefsfile_path))
+    if (!(prefsfile_path)) {
       DPRINTF(E_FATAL, L_SCAN, "Out of memory\n");
+      usage();
+    }
+
     snprintf(prefsfile_path, PATH_MAX, "%s/%s",
 	     prefsdir ? prefsdir : defval.prefsdir,
 	     prefsfile ? prefsfile : defval.prefsfile);
@@ -441,7 +448,7 @@ main(int argc, char **argv) {
       audiodir = prefs.audiodir;
     }
     else {
-      DPRINTF(E_FATAL, L_SCAN, "audiodir need to be specified\n");
+      DPRINTF(E_FATAL, L_SCAN, "audiodir needs to be specified\n");
       usage();
     }
   }
@@ -451,7 +458,7 @@ main(int argc, char **argv) {
       playlistdir = prefs.playlistdir;
     }
     else {
-      DPRINTF(E_INFO, L_SCAN, "playlistdir to be specified\n");
+      DPRINTF(E_INFO, L_SCAN, "playlistdir needs to be specified\n");
     }
   }
 
@@ -464,10 +471,13 @@ main(int argc, char **argv) {
     err = 1;
     goto exit0;
   }
-  if (!(importers[1].dir = realpath(playlistdir, NULL))) {
-    DPRINTF(E_FATAL, L_SCAN, "Not valid path: %s\n", playlistdir);
-    err = 1;
-    goto exit1;
+
+  if (playlistdir) {
+    if (!(importers[1].dir = realpath(playlistdir, NULL))) {
+      DPRINTF(E_FATAL, L_SCAN, "Not valid path: %s\n", playlistdir);
+      err = 1;
+      goto exit1;
+    }
   }
 
   // open db
