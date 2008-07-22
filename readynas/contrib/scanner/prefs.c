@@ -69,6 +69,7 @@ _read_prefs_ignoredwords(const char *words)
     i++;
   }
 
+  free(words_dup);
 }
 
 int

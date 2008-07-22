@@ -406,6 +406,7 @@ _get_oggfileinfo(char *filename, struct song_metadata *psong)
   if (!file) {
     DPRINTF(E_FATAL, L_SCAN_SCANNER,
 	    "Error opening input file \"%s\": %s\n", filename,  strerror(errno));
+    _ogg_free_stream_set(processors);
     return -1;
   }
 
@@ -419,6 +420,7 @@ _get_oggfileinfo(char *filename, struct song_metadata *psong)
 
     if (!p) {
       DPRINTF(E_FATAL, L_SCAN_SCANNER, "Could not find a processor for stream, bailing\n");
+      _ogg_free_stream_set(processors);
       return -1;
     }
 
