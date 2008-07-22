@@ -1,0 +1,533 @@
+//=========================================================================
+// FILENAME	: scanner.c
+// DESCRIPTION	: Main program for scanner
+//=========================================================================
+// Copyright (c) 2008- NETGEAR, Inc. All Rights Reserved.
+//=========================================================================
+
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+#include <sys/stat.h>
+#include <mysql/mysql.h>
+#include <dirent.h>
+#include <unistd.h>
+
+#include "scanner.h"
+#include "tagutils.h"
+#include "db.h"
+#include "log.h"
+#include "prefs.h"
+
+char *progname;
+struct _defval {
+  char *dbname;
+  char *prefsdir;
+  char *prefsfile;
+  char *logdir;
+  char *logfile;
+} defval  = {
+  "slimserver",
+  "/var/lib/squeezecenter/prefs",
+  "server.prefs",
+  "/var/log/squeezecenter",
+  "scanner.log"
+};
+
+struct _types {
+  char *type;
+  char *sstype;
+  char *suffix[7];
+};
+struct _importers {
+  char name[8];
+  char *dir;
+  struct _types *types;
+  void (*importer)(char*, char*, struct stat*, char*, struct _types*, MYSQL*);
+};
+
+
+// Prototype
+static void audio_import(char*, char*, struct stat*, char*, struct _types*, MYSQL*);
+static void plist_import(char*, char*, struct stat*, char*, struct _types*, MYSQL*);
+static int scan_directory(char *dirpath, char *lang, MYSQL *mysql, struct _importers*);
+static void usage(void);
+
+// Options flag
+struct _g G = {
+  .wipe = 0,
+  .lastrescantime = 0,
+  .skipped_songs = 0,
+  .added_songs = 0,
+  .deleted_songs = 0
+};
+
+static void
+usage(void) {
+  printf("Usage: %s [options] directory_path\n", progname);
+  printf("  --help            ... help message\n");
+  printf("  --dbname=name     ... database name [default=%s]\n", defval.dbname);
+  printf("  --prefsfile=name  ... preference file [default = %s]\n", defval.prefsfile);
+  printf("  --prefsdir=name   ... preference file directry [default = %s]\n", defval.prefsdir);
+  printf("  --wipe            ... wipe before scan\n");
+  printf("  --debug dbgarg    ... set debug flag (dbgarg = facility[,facility]...=level)\n");
+  printf("\n");
+  printf("  Example:\n");
+  printf("    %s\\\n", progname);
+  printf("      --prefsdir=/var/lib/squeezecenter/prefs\\\n");
+  printf("      --logdir=/var/log/squeezecenter/\\\n");
+  printf("      --wipe\\\n");
+  printf("      --debug artwork,scan,scan.scanner,scan.import=debug\\\n");
+  printf("      /c/media/Music\n");
+  exit(-1);
+}
+
+enum _opttype {
+  OPT_NOT_IMPLEMENTED = 0,
+  OPT_HELP,
+  OPT_WIPE,
+  OPT_PREFSDIR,
+  OPT_PREFSFILE,
+  OPT_LOGDIR,
+  OPT_LOGFILE,
+  OPT_DBNAME,
+  OPT_DEBUG,
+
+  OPT_UNKNOWN,
+  OPT_MALFORMED,
+  OPT_NOT_OPTION
+};
+
+struct _opt {
+  int len;
+  char name[16];
+  enum _opttype opt;
+  int f_arg;
+} options[] = {
+  {5, "force", OPT_NOT_IMPLEMENTED, 0},
+  {7, "cleanup", OPT_NOT_IMPLEMENTED, 0},
+  {4, "wipe", OPT_WIPE, 0},
+  {8, "playlist", OPT_NOT_IMPLEMENTED, 0},
+  {6, "itunes", OPT_NOT_IMPLEMENTED, 0},
+  {10, "musicmagic", OPT_NOT_IMPLEMENTED, 0},
+  {9, "prefsfile", OPT_PREFSFILE, 1},
+  {8, "prefsdir", OPT_PREFSDIR, 1},
+  {7, "logfile", OPT_LOGFILE, 1},
+  {6, "logdir", OPT_LOGDIR, 1},
+  {8, "progress", OPT_NOT_IMPLEMENTED, 0},
+  {8, "priority", OPT_NOT_IMPLEMENTED, 1},
+  {9, "logconfig", OPT_NOT_IMPLEMENTED, 1},
+  {5, "debug", OPT_DEBUG, 1},
+  {5, "quiet", OPT_NOT_IMPLEMENTED, 0},
+
+  {4, "help", OPT_HELP, 0},
+  {6, "dbname", OPT_DBNAME, 1},
+  {0, "", 0, 0}
+};
+
+static int
+find_opt(int argc, char **argv, struct _opt *options, int *pos, enum _opttype *opt, char **optargp)
+{
+  int i;
+  char c;
+
+  *optargp = 0;
+
+  (*pos)++;
+  if (*pos >= argc)
+    return 0;
+
+  if (argv[*pos][0]=='-' && argv[*pos][1]=='-') {
+    for (i=0; options[i].len; i++) {
+      if (!strncmp(options[i].name, argv[*pos]+2, options[i].len)) {
+	c = argv[*pos][2+options[i].len];
+	if (options[i].f_arg && (c != '=' && c != '\0')) {
+	  *opt = OPT_MALFORMED;
+	  return 1;
+	}
+	*opt = options[i].opt;
+	if (!options[i].f_arg)
+	  return 1;
+	if (c == '=')
+	  *optargp = argv[*pos] + 3 + options[i].len;
+	else
+	  *optargp = argv[++(*pos)];
+	return 1;
+      }
+    }
+    *opt = OPT_UNKNOWN;
+  }
+  else {
+    *opt = OPT_NOT_OPTION;
+  }
+
+  return 1;
+}
+
+
+struct _types audio_types[] = {
+  // audio
+  {"aac", "mov", {"mp4", "mp4", "m4a", "m4p", 0}},
+  {"mp3", "mp3", {"mp3", "mp2", 0}},
+  {"ogg", "ogg", {"ogg", "oga", 0}},
+  {"flc", "flc", {"flc", "flac", "fla", 0}},
+   // sentinel
+  {0, 0, {0}}
+};
+struct _types plist_types[] = {
+  // playlist
+  {"m3u", "ssp", {"m3u", 0}},
+  {"pls", "ssp", {"pls", 0}},
+   // sentinel
+  {0, 0, {0}}
+};
+
+struct _importers importers[] = {
+  {"audio", 0, audio_types, audio_import},
+  {"plist", 0, plist_types, plist_import},
+  {"", 0, 0, 0}
+};
+
+static void
+audio_import(char *dirpath, char *path, struct stat *stat, char *lang, struct _types *types, MYSQL *mysql)
+{
+  struct song_metadata song;
+
+  if (!G.wipe) {
+    if (G.lastrescantime >= stat->st_mtime) {
+      DPRINTF(E_INFO, L_SCAN, "Skip <%s> because mtime <%ld> is older than last scan <%ld>\n",
+	      path, stat->st_mtime, G.lastrescantime);
+      G.skipped_songs++;
+      return;
+    }
+    DPRINTF(E_INFO, L_SCAN, "Scan <%s> because mtime <%ld> is newer than last scan <%ld>\n",
+	    path, stat->st_mtime, G.lastrescantime);
+  }
+
+  if (readtags(path, &song, stat, lang, types->type)) {
+    DPRINTF(E_WARN, L_SCAN, "Cannot extract rtags from %s\n", path);
+  }
+  else {
+    G.scanned_songs++;
+    song.sstype = types->sstype;
+    song.dirpath = dirpath;
+    insertdb(mysql, &song);
+  }
+  freetags(&song);
+}
+
+static void
+plist_import(char *dirpath, char *path, struct stat *stat, char *lang, struct _types *types, MYSQL *mysql)
+{
+  struct song_metadata song;
+  int playlist_id = 0;
+  int position;
+
+  if (!G.wipe) {
+    if (G.lastrescantime >= stat->st_mtime) {
+      DPRINTF(E_INFO, L_SCAN, "Skip <%s> because mtime <%ld> is older than last scan <%ld>\n",
+	      path, stat->st_mtime, G.lastrescantime);
+      G.skipped_songs++;
+      return;
+    }
+    DPRINTF(E_INFO, L_SCAN, "Scan <%s> because mtime <%ld> is newer than last scan <%ld>\n",
+	    path, stat->st_mtime, G.lastrescantime);
+  }
+
+  // playlist
+  if (start_plist(path, &song, stat, lang, types->type)) {
+    DPRINTF(E_ERROR, L_SCAN, "Cannot scan playlist <%s>\n", path);
+    return;
+  }
+  song.dirpath = dirpath;
+  if (insertdb(mysql, &song)) {
+    freetags(&song);
+    return;
+  }
+  playlist_id = song.plist_id;
+
+  // playlist items
+  position = 0;
+  while (!next_plist_track(&song, stat, lang, types->type)) {
+    position++;
+    song.sstype = types->sstype;
+    song.is_plist = 1;
+    song.plist_id = playlist_id;
+    song.plist_position = position;
+    song.dirpath = dirpath;
+    insertdb(mysql, &song);
+    freetags(&song);
+  }
+
+  return;
+}
+
+static int
+scan_directory(char *dirpath, char *lang, MYSQL *mysql, struct _importers *importer)
+{
+  DIR *dir;
+  int typeindex;
+  char *path;
+  struct dirent *dp;
+  struct stat stat;
+
+  if (!(dir = opendir(dirpath))) {
+    return -1;
+  }
+  while ((dp = readdir(dir))) {
+    if (!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, ".."))
+      continue;
+
+    path = calloc(strlen(dirpath) + strlen(dp->d_name) + 2, sizeof(char));
+    sprintf(path, "%s/%s", dirpath, dp->d_name);
+    if (lstat(path, &stat) == -1) {
+      DPRINTF(E_ERROR, L_SCAN, "%s on lstat(%s)\n", strerror(errno), path)
+      free(path);
+      closedir(dir);
+      return -1;
+    }
+    if (stat.st_mode & S_IFDIR) {
+      // descending
+      scan_directory(path, lang, mysql, &(importers[0]));
+    }
+    else {
+      int i, j;
+      char *suffix = strrchr(path, '.');
+      if (!suffix) {
+	free(path);
+	continue;
+      }
+      suffix++;
+      typeindex = -1;
+      for (i=0; typeindex==-1 && importer->types[i].type; i++) {
+	for (j=0; typeindex==-1 && importer->types[i].suffix[j]; j++) {
+	  if (!strcasecmp(importer->types[i].suffix[j], suffix)) {
+	    typeindex = i;
+	    break;
+	  }
+	}
+      }
+      if (typeindex>=0) {
+	importer->importer(dirpath, path, &stat, lang, &(importer->types[typeindex]), mysql);
+      }
+    }
+    free(path);
+  }
+  closedir(dir);
+  return 0;
+}
+
+int
+main(int argc, char **argv) {
+  //
+  int err = 0;
+  int i;
+  int pos;
+  enum _opttype opt;
+  char *optarg = NULL;
+  char *dbname = NULL;
+  char *prefsfile = NULL, *prefsdir = NULL;
+  char *logfile = NULL, *logdir = NULL, *debug = NULL;
+  char *audiodir = NULL;
+  char *playlistdir = NULL;
+  int scanning;
+  // mysql related
+  MYSQL mysql;
+
+  // log init for command line argument pursing
+  log_init(NULL, NULL);
+
+  progname = argv[0];
+  pos = 0;
+  while ((find_opt(argc, argv, options, &pos, &opt, &optarg))) {
+    switch (opt) {
+    case OPT_HELP:
+      usage();
+      break;
+    case OPT_NOT_OPTION:
+      audiodir = argv[pos];
+      break;
+    case OPT_DBNAME:
+      dbname = optarg;
+      break;
+    case OPT_PREFSFILE:
+      prefsfile = optarg;
+      break;
+    case OPT_PREFSDIR:
+      prefsdir = optarg;
+      break;
+    case OPT_LOGFILE:
+      logfile = optarg;
+      break;
+    case OPT_LOGDIR:
+      logdir = optarg;
+      break;
+    case OPT_WIPE:
+      G.wipe = 1;
+      break;
+    case OPT_DEBUG:
+      debug = optarg;
+      break;
+
+    case OPT_UNKNOWN:
+      DPRINTF(E_FATAL, L_SCAN, "Unknown otion %s.\n", argv[pos]);
+      err = 1;
+      goto exit0;
+    case OPT_MALFORMED:
+      DPRINTF(E_FATAL, L_SCAN, "Malformed option %s\n", argv[pos]);
+      err = 1;
+      goto exit0;
+    case OPT_NOT_IMPLEMENTED:
+      break;
+
+    default:
+      DPRINTF(E_FATAL, L_SCAN, "Internal error\n");
+      usage();
+    }
+  }
+
+  // logfile
+  if (logfile || logdir) {
+    int err;
+    char *logfile_path = malloc(PATH_MAX);
+    if (!(logfile_path))
+      DPRINTF(E_FATAL, L_SCAN, "Out of memory\n");
+    snprintf(logfile_path, PATH_MAX, "%s/%s",
+	     logdir ? logdir : defval.logdir,
+	     logfile ? logfile : defval.logfile);
+    err = log_init(logfile_path, debug);
+    free(logfile_path);
+  }
+  else {
+    (void) log_init(NULL, debug);
+  }
+
+  // Greeting
+  DPRINTF(E_OFF, L_SCAN, "Start scanner ...\n");
+
+  // prefsfile
+  if (prefsfile && prefsfile[0]=='/') {
+    read_prefs(prefsfile);
+  }
+  else {
+    char *prefsfile_path = malloc(PATH_MAX);
+    if (!(prefsfile_path))
+      DPRINTF(E_FATAL, L_SCAN, "Out of memory\n");
+    snprintf(prefsfile_path, PATH_MAX, "%s/%s",
+	     prefsdir ? prefsdir : defval.prefsdir,
+	     prefsfile ? prefsfile : defval.prefsfile);
+    read_prefs(prefsfile_path);
+    free(prefsfile_path);
+  }
+
+  if (!audiodir) {
+    if (prefs.audiodir) {
+      audiodir = prefs.audiodir;
+    }
+    else {
+      DPRINTF(E_FATAL, L_SCAN, "audiodir need to be specified\n");
+      usage();
+    }
+  }
+
+  if (!playlistdir) {
+    if (prefs.playlistdir) {
+      playlistdir = prefs.playlistdir;
+    }
+    else {
+      DPRINTF(E_INFO, L_SCAN, "playlistdir to be specified\n");
+    }
+  }
+
+  if (!dbname)
+    dbname = defval.dbname;
+
+  // setup importer
+  if (!(importers[0].dir = realpath(audiodir, NULL))) {
+    DPRINTF(E_FATAL, L_SCAN, "Not valid path: %s\n", audiodir);
+    err = 1;
+    goto exit0;
+  }
+  if (!(importers[1].dir = realpath(playlistdir, NULL))) {
+    DPRINTF(E_FATAL, L_SCAN, "Not valid path: %s\n", playlistdir);
+    err = 1;
+    goto exit1;
+  }
+
+  // open db
+  mysql_init(&mysql);
+  if (!(mysql_real_connect(&mysql, "localhost", "", "",
+			   dbname, 0, NULL, 0))) {
+    DPRINTF(E_FATAL, L_SCAN, "Cannot connect DB <%s>\n", dbname);
+    mysql_close(&mysql);
+    err = -1;
+    goto exit2;
+  }
+  DPRINTF(E_INFO, L_SCAN, "Database <%s> is opened.\n", dbname);
+
+  // check if scanner already running
+  (void) db_get_scanning(&mysql, &scanning);
+  while (scanning) {
+    sleep(10);
+    (void) db_get_scanning(&mysql, &scanning);
+  };
+  (void) db_set_scanning(&mysql, 1);
+
+  if (G.wipe) {
+    DPRINTF(E_OFF, L_SCAN, "Wipe database and artwork cache.\n", dbname);
+    db_wipe(&mysql);
+    system("rm -rf /var/lib/squeezecenter/cache/Artwork");
+  }
+  else {
+    (void) db_get_lastrescantime(&mysql, &G.lastrescantime);
+  }
+
+  db_set_lastrescantime(&mysql);
+
+  for (i=0; importers[i].types; i++) {
+    DPRINTF(E_OFF, L_SCAN, "Directory <%s> is scanning type=%s...\n",
+	    importers[i].dir, importers[i].name);
+    if (scan_directory(importers[i].dir, prefs.language, &mysql, &(importers[i]))) {
+      mysql_close(&mysql);
+      err = -1;
+      goto exit2;
+    }
+  }
+
+  // post process
+  DPRINTF(E_OFF, L_SCAN, "Looking for album art...\n");
+  db_merge_artists_albums(&mysql);
+  db_find_artworks(&mysql);
+
+  db_set_scanning(&mysql, 0);
+  mysql_close(&mysql);
+
+  // epilogue
+  DPRINTF(E_OFF, L_SCAN, "%lu songs skipped and %lu songs scanned "
+	  "(%lu songs added and %lu songs updated).\n",
+	  G.skipped_songs, G.scanned_songs, G.added_songs, G.updated_songs);
+  DPRINTF(E_OFF, L_SCAN, "Scan finish. Exiting...\n");
+
+ exit2:
+  if (importers[1].dir) free(importers[1].dir);
+ exit1:
+  if (importers[0].dir) free(importers[0].dir);
+ exit0:
+  return err;
+}
