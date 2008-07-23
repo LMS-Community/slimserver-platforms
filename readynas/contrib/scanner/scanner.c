@@ -29,6 +29,7 @@
 #include <dirent.h>
 #include <limits.h>
 #include <unistd.h>
+#include <time.h>
 
 #include "scanner.h"
 #include "tagutils.h"
@@ -61,6 +62,7 @@ struct _importers {
   char *dir;
   struct _types *types;
   void (*importer)(char*, char*, struct stat*, char*, struct _types*, MYSQL*);
+  int progress_id;
 };
 
 
@@ -70,10 +72,15 @@ static void plist_import(char*, char*, struct stat*, char*, struct _types*, MYSQ
 static int scan_directory(char *dirpath, char *lang, MYSQL *mysql, struct _importers*);
 static void usage(void);
 
-// Options flag
+// Global
 struct _g G = {
   .wipe = 0,
+  .show_progress = 1,				// TBD
   .lastrescantime = 0,
+
+  .progress_total = {0,},
+  .progress_done = {0,},
+
   .skipped_songs = 0,
   .added_songs = 0,
   .deleted_songs = 0
@@ -105,6 +112,7 @@ enum _opttype {
   OPT_WIPE,
   OPT_PREFSDIR,
   OPT_PREFSFILE,
+  OPT_PROGRESS,
   OPT_LOGDIR,
   OPT_LOGFILE,
   OPT_DBNAME,
@@ -131,7 +139,7 @@ struct _opt {
   {8, "prefsdir", OPT_PREFSDIR, 1},
   {7, "logfile", OPT_LOGFILE, 1},
   {6, "logdir", OPT_LOGDIR, 1},
-  {8, "progress", OPT_NOT_IMPLEMENTED, 0},
+  {8, "progress", OPT_PROGRESS, 0},
   {8, "priority", OPT_NOT_IMPLEMENTED, 1},
   {9, "logconfig", OPT_NOT_IMPLEMENTED, 1},
   {5, "debug", OPT_DEBUG, 1},
@@ -200,8 +208,8 @@ struct _types plist_types[] = {
 };
 
 struct _importers importers[] = {
-  {"audio", 0, audio_types, audio_import},
-  {"plist", 0, plist_types, plist_import},
+  {"audio", 0, audio_types, audio_import, PROGRESS_DIRECTORY},
+  {"plist", 0, plist_types, plist_import, PROGRESS_PLAYLIST},
   {"", 0, 0, 0}
 };
 
@@ -225,7 +233,6 @@ audio_import(char *dirpath, char *path, struct stat *stat, char *lang, struct _t
     DPRINTF(E_WARN, L_SCAN, "Cannot extract rtags from %s\n", path);
   }
   else {
-    G.scanned_songs++;
     song.sstype = types->sstype;
     song.dirpath = dirpath;
     insertdb(mysql, &song);
@@ -244,7 +251,6 @@ plist_import(char *dirpath, char *path, struct stat *stat, char *lang, struct _t
     if (G.lastrescantime >= stat->st_mtime) {
       DPRINTF(E_INFO, L_SCAN, "Skip <%s> because mtime <%ld> is older than last scan <%ld>\n",
 	      path, stat->st_mtime, G.lastrescantime);
-      G.skipped_songs++;
       return;
     }
     DPRINTF(E_INFO, L_SCAN, "Scan <%s> because mtime <%ld> is newer than last scan <%ld>\n",
@@ -256,6 +262,7 @@ plist_import(char *dirpath, char *path, struct stat *stat, char *lang, struct _t
     DPRINTF(E_ERROR, L_SCAN, "Cannot scan playlist <%s>\n", path);
     return;
   }
+
   song.dirpath = dirpath;
   if (insertdb(mysql, &song)) {
     freetags(&song);
@@ -275,7 +282,6 @@ plist_import(char *dirpath, char *path, struct stat *stat, char *lang, struct _t
     insertdb(mysql, &song);
     freetags(&song);
   }
-
   return;
 }
 
@@ -292,7 +298,8 @@ scan_directory(char *dirpath, char *lang, MYSQL *mysql, struct _importers *impor
     return -1;
   }
   while ((dp = readdir(dir))) {
-    if (!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, ".."))
+    if (!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, "..") ||
+	!strncmp(dp->d_name, "._", 2) || !strcmp(dp->d_name, ".AppleDouble"))
       continue;
 
     path = calloc(strlen(dirpath) + strlen(dp->d_name) + 2, sizeof(char));
@@ -325,7 +332,18 @@ scan_directory(char *dirpath, char *lang, MYSQL *mysql, struct _importers *impor
 	}
       }
       if (typeindex>=0) {
-	importer->importer(dirpath, path, &stat, lang, &(importer->types[typeindex]), mysql);
+	if (mysql) {
+	  importer->importer(dirpath, path, &stat, lang, &(importer->types[typeindex]), mysql);
+	  // update progress
+	  G.progress_done[importer->progress_id]++;
+	  if (G.show_progress &&
+	      (G.progress_done[importer->progress_id]&PROGRESS_MASK)==PROGRESS_MASK)
+	    db_set_progress(mysql, PROGRESS_UPDATE, importer->progress_id, path);
+	}
+	else {
+	  // dry run
+	  G.progress_total[importer->progress_id]++;
+	}
       }
     }
     free(path);
@@ -373,6 +391,9 @@ main(int argc, char **argv) {
     case OPT_PREFSDIR:
       prefsdir = optarg;
       break;
+    case OPT_PROGRESS:
+      G.show_progress = 1;
+      break;
     case OPT_LOGFILE:
       logfile = optarg;
       break;
@@ -411,7 +432,6 @@ main(int argc, char **argv) {
       DPRINTF(E_FATAL, L_SCAN, "Out of memory\n");
       usage();
     }
-
     snprintf(logfile_path, PATH_MAX, "%s/%s",
 	     logdir ? logdir : defval.logdir,
 	     logfile ? logfile : defval.logfile);
@@ -431,11 +451,8 @@ main(int argc, char **argv) {
   }
   else {
     char *prefsfile_path = malloc(PATH_MAX);
-    if (!(prefsfile_path)) {
+    if (!(prefsfile_path))
       DPRINTF(E_FATAL, L_SCAN, "Out of memory\n");
-      usage();
-    }
-
     snprintf(prefsfile_path, PATH_MAX, "%s/%s",
 	     prefsdir ? prefsdir : defval.prefsdir,
 	     prefsfile ? prefsfile : defval.prefsfile);
@@ -448,7 +465,7 @@ main(int argc, char **argv) {
       audiodir = prefs.audiodir;
     }
     else {
-      DPRINTF(E_FATAL, L_SCAN, "audiodir needs to be specified\n");
+      DPRINTF(E_FATAL, L_SCAN, "audiodir need to be specified\n");
       usage();
     }
   }
@@ -458,7 +475,7 @@ main(int argc, char **argv) {
       playlistdir = prefs.playlistdir;
     }
     else {
-      DPRINTF(E_INFO, L_SCAN, "playlistdir needs to be specified\n");
+      DPRINTF(E_INFO, L_SCAN, "playlistdir to be specified\n");
     }
   }
 
@@ -471,13 +488,10 @@ main(int argc, char **argv) {
     err = 1;
     goto exit0;
   }
-
-  if (playlistdir) {
-    if (!(importers[1].dir = realpath(playlistdir, NULL))) {
-      DPRINTF(E_FATAL, L_SCAN, "Not valid path: %s\n", playlistdir);
-      err = 1;
-      goto exit1;
-    }
+  if (!(importers[1].dir = realpath(playlistdir, NULL))) {
+    DPRINTF(E_FATAL, L_SCAN, "Not valid path: %s\n", playlistdir);
+    err = 1;
+    goto exit1;
   }
 
   // open db
@@ -499,6 +513,7 @@ main(int argc, char **argv) {
   };
   (void) db_set_scanning(&mysql, 1);
 
+  // Wipe
   if (G.wipe) {
     DPRINTF(E_OFF, L_SCAN, "Wipe database and artwork cache.\n", dbname);
     db_wipe(&mysql);
@@ -510,28 +525,66 @@ main(int argc, char **argv) {
 
   db_set_lastrescantime(&mysql);
 
+  // count total first
+  if (G.show_progress) {
+    for (i=0; importers[i].types; i++) {
+      scan_directory(importers[i].dir, prefs.language, NULL, &(importers[i]));
+    }
+  }
+  else {
+    DPRINTF(E_OFF, L_SCAN, "Preparing progress update (counting tracks).\n", dbname);
+    for (i=0; importers[i].types; i++) {
+      db_set_progress(&mysql, PROGRESS_DELETE, importers[i].progress_id, NULL);
+    }
+  }
+
+  // Main Loop
   for (i=0; importers[i].types; i++) {
-    DPRINTF(E_OFF, L_SCAN, "Directory <%s> is scanning type=%s...\n",
-	    importers[i].dir, importers[i].name);
+    DPRINTF(E_OFF, L_SCAN, "Directory <%s> is scanning type=%s total=%lu ...\n",
+	    importers[i].dir, importers[i].name,
+	    G.progress_total[importers[i].progress_id]);
+    if (G.show_progress)
+      db_set_progress(&mysql, PROGRESS_START, importers[i].progress_id, NULL);
+    G.progress_start[importers[i].progress_id] = (unsigned long long) time(0);
     if (scan_directory(importers[i].dir, prefs.language, &mysql, &(importers[i]))) {
       mysql_close(&mysql);
       err = -1;
+      if (G.show_progress)
+	db_set_progress(&mysql, PROGRESS_FINISH, importers[i].progress_id, NULL);
+      G.progress_finish[importers[i].progress_id] = (unsigned long long) time(0);
       goto exit2;
     }
+    if (G.show_progress)
+      db_set_progress(&mysql, PROGRESS_FINISH, importers[i].progress_id, NULL);
+    G.progress_finish[importers[i].progress_id] = (unsigned long long) time(0);
   }
 
   // post process
   DPRINTF(E_OFF, L_SCAN, "Looking for album art...\n");
+  if (G.show_progress)
+    db_set_progress(&mysql, PROGRESS_START, PROGRESS_ARTWORK, NULL);
+  G.progress_start[PROGRESS_ARTWORK] = (unsigned long long) time(0);
   db_merge_artists_albums(&mysql);
   db_find_artworks(&mysql);
+  if (G.show_progress)
+    db_set_progress(&mysql, PROGRESS_FINISH, PROGRESS_ARTWORK, NULL);
+  G.progress_finish[PROGRESS_ARTWORK] = (unsigned long long) time(0);
 
+  // updates stats
+  if (!G.show_progress) {
+    for (i=0; importers[i].types; i++) {
+      db_set_progress(&mysql, PROGRESS_ALL, importers[i].progress_id, NULL);
+    }
+  }
+
+  // finishing
   db_set_scanning(&mysql, 0);
   mysql_close(&mysql);
 
   // epilogue
   DPRINTF(E_OFF, L_SCAN, "%lu songs skipped and %lu songs scanned "
 	  "(%lu songs added and %lu songs updated).\n",
-	  G.skipped_songs, G.scanned_songs, G.added_songs, G.updated_songs);
+	  G.skipped_songs, G.progress_done[PROGRESS_DIRECTORY], G.added_songs, G.updated_songs);
   DPRINTF(E_OFF, L_SCAN, "Scan finish. Exiting...\n");
 
  exit2:

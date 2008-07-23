@@ -20,10 +20,14 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+enum _progress_event {
+  PROGRESS_NOP=0, PROGRESS_START, PROGRESS_UPDATE, PROGRESS_FINISH, PROGRESS_DELETE, PROGRESS_ALL
+};
 
 int insertdb(MYSQL*, struct song_metadata*);
 int db_set_lastrescantime(MYSQL*);
 int db_get_lastrescantime(MYSQL*, time_t*);
+int db_set_progress(MYSQL*, enum _progress_event, int, char*);
 int db_set_scanning(MYSQL*, int);
 int db_get_scanning(MYSQL*, int*);
 int db_wipe(MYSQL*);
