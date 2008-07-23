@@ -481,14 +481,15 @@ begin
 				ProgressPage.setText(CustomMessage('ProgressForm_Description'), CustomMessage('ProbingPorts'));
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
 
-				if not ProbePort(GetHttpPort('')) and not ProbePort('9090') and not ProbePort('3483') then
-				begin
-					s := GetConflictingApp('Firewall');
-					if s <> '' then
-						MsgBox(s, mbInformation, MB_OK)
-					else
-						MsgBox(CustomMessage('UnknownFirewall'), mbInformation, MB_OK);
-				end;
+// bug 8537 - disabling port probing until we've decided how to continue
+//				if not ProbePort(GetHttpPort('')) and not ProbePort('9090') and not ProbePort('3483') then
+//				begin
+//					s := GetConflictingApp('Firewall');
+//					if s <> '' then
+//						MsgBox(s, mbInformation, MB_OK)
+//					else
+//						MsgBox(CustomMessage('UnknownFirewall'), mbInformation, MB_OK);
+//				end;
 
 				// Add firewall rules for Windows XP/Vista
 				if (GetWindowsVersion shr 24 >= 6) then
