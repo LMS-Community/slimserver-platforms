@@ -1,0 +1,10 @@
+"Start Server" = "Start Server";
+"Stop Server" = "Stop Server";
+"Start Server Description" = "Click this button to start the SqueezeCenter. Once started,
+players will be able to access your music library.";
+"Stop Server Description" = "Click this button to stop the SqueezeCenter. Once stopped,
+players will not be able to access your music library.";
+"Authorization Launch Error" = "Unable to update firmware: missing file Update Firmware.sh.";
+"Expired Authorization Error" = "Unable to update firmware: authorization expired.";
+"Firmware version" = "Firmware version %@.";
+"Firmware version invalid" = "Firmware version invalid.";
