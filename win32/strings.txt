@@ -1,143 +1,192 @@
 START_FAILED
-	DE	SqueezeCenter konnte nicht ge�ffnet werden. Es wird evtl. gerade gestartet oder angehalten. Versuchen Sie es in einer Minute noch einmal.
+	DA	SqueezeCenter kunne ikke åbnes. SqueezeCenter er muligvis ved at starte eller stoppe. Vent et minut, og prøv igen.
+	DE	SqueezeCenter konnte nicht geöffnet werden. Es wird evtl. gerade gestartet oder angehalten. Versuchen Sie es in einer Minute noch einmal.
 	EN	SqueezeCenter would not open. SqueezeCenter may be starting or stopping. Please wait a minute and try again.
-	ES	Fallo al abrir SqueezeCenter. Puede que SqueezeCenter est� inici�ndose o deteni�ndose. Espere un minuto y vuelva a intentarlo.
-	FR	Echec du d�marrage du SqueezeCenter. Veuillez consulter le journal des �v�nements et contacter le service d'assistance technique.
-	HE	??? ?????? SqueezeCenter. ???? ????? ???????? ???? ????? ??????.
+	ES	Fallo al abrir SqueezeCenter. Puede que SqueezeCenter esté iniciándose o deteniéndose. Espere un minuto y vuelva a intentarlo.
+	FI	SqueezeCenter ei auennut. SqueezeCenter saattaa olla käynnistymässä, tai se on saattanut pysähtyä. Odota hetki ja yritä uudelleen.
+	FR	Echec du démarrage du SqueezeCenter. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
 	IT	Avvio di SqueezeCenter non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
 	NL	SqueezeCenter kan niet worden geopend. De toepassing wordt misschien gestart of gestopt. Wacht even en probeer het overnieuw.
+	NO	SqueezeCenter kunne ikke åpnes. SqueezeCenter holder kanskje på å starte eller stoppe. Vent et øyeblikk, og prøv igjen.
+	SV	Det gick inte att öppna SqueezeCenter. SqueezeCenter kanske håller på att startas eller avslutas. Vänta någon minut och försök igen.
 
 STOP_FAILED
+	DA	Det lykkedes ikke at stoppe SqueezeCenter. Tjek Logbog, og kontakt supportafdelingen
 	DE	SqueezeCenter konnte nicht angehalten werden. Weitere Informationen erhalten Sie in der Ereignisanzeige und vom Support
 	EN	Stopping SqueezeCenter Failed. Please see the Event Viewer & Contact Support
-	ES	Fallo al detener SqueezeCenter. Consulte el Visor de sucesos y p�ngase en contacto con el servicio de asistencia
-	FR	Echec de l'arr�t du SqueezeCenter. Veuillez consulter le journal des �v�nements et contacter le service d'assistance technique.
-	HE	??? ?????? SqueezeCenter. ???? ????? ???????? ???? ????? ??????.
+	ES	Fallo al detener SqueezeCenter. Consulte el Visor de sucesos y póngase en contacto con el servicio de asistencia
+	FI	SqueezeCenterin pysäyttäminen epäonnistui. Katso Tapahtumien tarkastelu ja Tekninen tuki
+	FR	Echec de l'arrêt du SqueezeCenter. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
 	IT	Arresto di SqueezeCenter non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
 	NL	SqueezeCenter kan niet worden gestopt. Zie de logboeken en neem contact op met ondersteuning
+	NO	Mislyktes med å stoppe SqueezeCenter. Se i hendelsesoversikten, og ring kundestøtte
+	SV	Det gick inte att avsluta SqueezeCenter. Se loggboken och kontakta supportavdelningen.
 
 RUN_AT_BOOT
-	DE	Automatisch bei Systemstart ausf�hren
+	DA	Kør automatisk ved systemstart
+	DE	Automatisch bei Systemstart ausführen
 	EN	Automatically run at system start
-	ES	Ejecutar autom�ticamente al iniciar el sistema
-	FR	D�marrer automatiquement au d�marrage du syst�me
-	HE	????? ???????? ?? ????? ??????
+	ES	Ejecutar automáticamente al iniciar el sistema
+	FI	Suorita automaattisesti järjestelmän käynnistyessä
+	FR	Démarrer automatiquement au démarrage du système
 	IT	Esegui automaticamente all'avvio del sistema
 	NL	Automatisch uitvoeren bij systeemstart
+	NO	Kjør automatisk når systemet starter
+	SV	Kör automatiskt vid systemstart
 
 RUN_AT_LOGIN
-	DE	Automatisch bei Anmeldung ausf�hren
+	DA	Kør automatisk ved logon
+	DE	Automatisch bei Anmeldung ausführen
 	EN	Automatically run at login
-	ES	Ejecutar autom�ticamente al iniciar sesi�n
-	FR	D�marrer automatiquement lors de la connexion
-	HE	????? ???????? ?? ?????? ??????
+	ES	Ejecutar automáticamente al iniciar sesión
+	FI	Suorita automaattisesti kirjautuessa
+	FR	Démarrer automatiquement lors de la connexion
 	IT	Esegui automaticamente all'accesso al sistema
 	NL	Automatisch uitvoeren bij aanmelden
+	NO	Kjør automatisk ved pålogging
+	SV	Kör automatiskt vid inloggning
 
 OPEN_SQUEEZECENTER
-	DE	SqueezeCenter �ffnen
+	DA	Åbn SqueezeCenter
+	DE	SqueezeCenter öffnen
 	EN	Open SqueezeCenter
 	ES	Abrir SqueezeCenter
+	FI	Avaa SqueezeCenter
 	FR	Ouvrir le SqueezeCenter
-	HE	??? ?? SqueezeCenter
 	IT	Apri SqueezeCenter
 	NL	SqueezeCenter openen
+	NO	Åpne SqueezeCenter
+	SV	Öppna SqueezeCenter
 
 START_SQUEEZECENTER
+	DA	Start SqueezeCenter
 	DE	SqueezeCenter starten
 	EN	Start SqueezeCenter
 	ES	Iniciar SqueezeCenter
-	FR	D�marrer le SqueezeCenter
-	HE	???? ?? SqueezeCenter
+	FI	Käynnistä SqueezeCenter
+	FR	Démarrer le SqueezeCenter
 	IT	Avvia SqueezeCenter
 	NL	SqueezeCenter starten
+	NO	Start SqueezeCenter
+	SV	Starta SqueezeCenter
 
 STARTING_SQUEEZECENTER
+	DA	Starter SqueezeCenter...
 	DE	SqueezeCenter wird gestartet...
 	EN	Starting SqueezeCenter...
 	ES	Iniciando SqueezeCenter...
-	FR	D�marrage du SqueezeCenter
-	HE	????? ?? SqueezeCenter...
+	FI	SqueezeCenter käynnistetään...
+	FR	Démarrage du SqueezeCenter
 	IT	Avvio di SqueezeCenter in corso...
 	NL	SqueezeCenter wordt gestart...
+	NO	Starter SqueezeCenter...
+	SV	Startar SqueezeCenter ...
 
 STOPPING_SQUEEZECENTER
+	DA	Stopper SqueezeCenter...
 	DE	SqueezeCenter wird angehalten...
 	EN	Stopping SqueezeCenter...
 	ES	Deteniendo SqueezeCenter...
-	FR	Arr�t du SqueezeCenter
-	HE	???? ?? SqueezeCenter...
+	FI	SqueezeCenter pysäytetään...
+	FR	Arrêt du SqueezeCenter
 	IT	Arresto di SqueezeCenter in corso...
 	NL	SqueezeCenter wordt gestopt...
+	NO	Stopper SqueezeCenter...
+	SV	Stoppar SqueezeCenter ...
 
 STOP_SQUEEZECENTER
+	DA	Stop SqueezeCenter
 	DE	SqueezeCenter anhalten
 	EN	Stop SqueezeCenter
 	ES	Detener SqueezeCenter
-	FR	Arr�ter le SqueezeCenter
-	HE	???? ?? SqueezeCenter
+	FI	Pysäytä SqueezeCenter
+	FR	Arrêter le SqueezeCenter
 	IT	Arresta SqueezeCenter
 	NL	SqueezeCenter stoppen
+	NO	Stopp SqueezeCenter
+	SV	Avsluta SqueezeCenter
 
 SQUEEZECENTER_STARTING
+	DA	SqueezeCenter starter
 	DE	SqueezeCenter wird gestartet
 	EN	SqueezeCenter Starting
 	ES	SqueezeCenter en inicio
-	FR	D�marrage du SqueezeCenter
-	HE	?SqueezeCenter ?????
+	FI	SqueezeCenter käynnistyy
+	FR	Démarrage du SqueezeCenter
 	IT	Avvio di SqueezeCenter in corso
 	NL	SqueezeCenter wordt gestart
+	NO	SqueezeCenter starter
+	SV	SqueezeCenter startas
 
 SQUEEZECENTER_RUNNING
-	DE	SqueezeCenter wird ausgef�hrt
+	DA	SqueezeCenter kører
+	DE	SqueezeCenter wird ausgeführt
 	EN	SqueezeCenter Running
-	ES	SqueezeCenter en ejecuci�n
-	FR	SqueezeCenter en cours d'ex�cution
-	HE	?SqueezeCenter ????
-	IT	SqueezeCenter � in esecuzione
+	ES	SqueezeCenter en ejecución
+	FI	SqueezeCenter on käynnissä
+	FR	SqueezeCenter en cours d'exécution
+	IT	SqueezeCenter è in esecuzione
 	NL	SqueezeCenter is actief
+	NO	SqueezeCenter kjører
+	SV	SqueezeCenter körs
 
 SQUEEZECENTER_STOPPED
+	DA	SqueezeCenter er stoppet
 	DE	SqueezeCenter angehalten
 	EN	SqueezeCenter Stopped
 	ES	SqueezeCenter detenido
-	FR	SqueezeCenter arr�t�
-	HE	?SqueezeCenter ????
-	IT	SqueezeCenter � stato arrestato
+	FI	SqueezeCenter pysäytettiin
+	FR	SqueezeCenter arrêté
+	IT	SqueezeCenter è stato arrestato
 	NL	SqueezeCenter is gestopt
+	NO	SqueezeCenter ble stoppet
+	SV	SqueezeCenter har stoppats
 
 GO_TO_WEBSITE
-	DE	Logitech Website �ffnen
+	DA	Gå til Logitechs websted
+	DE	Logitech Website öffnen
 	EN	Go to Logitech Web Site
 	ES	Ir al sitio Web de Logitech
-	FR	Acc�der au site Web de Logitech
-	HE	???? ?? ??? ???????? ?? Logitech
+	FI	Siirry Logitechin sivustoon
+	FR	Accéder au site Web de Logitech
 	IT	Vai al sito Web Logitech
 	NL	Naar de Logitech-website
+	NO	Gå til Logitechs nettside
+	SV	Gå till Logitechs webbplats
 
 EXIT
+	DA	&Afslut
 	DE	B&eenden
 	EN	E&xit
 	ES	&Salir
+	FI	&Lopeta
 	FR	&Quitter
-	HE	?&????
 	IT	E&sci
 	NL	Af&sluiten
+	NO	&Lukk
+	SV	A&vsluta
 
 WRITE_FAILED
-	DE	Speichern nicht m�glich in:
+	DA	Kunne ikke skrive til
+	DE	Speichern nicht möglich in:
 	EN	Unable to write to
 	ES	Imposible escribir en
+	FI	Ei voi kirjoittaa kohteeseen
 	FR	Ecriture impossible dans
-	HE	??? ?????? ????? ??
 	IT	Impossibile scrivere in
 	NL	Kan niet wegschrijven naar
+	NO	Klarer ikke å skrive til
+	SV	Det går inte att skriva till
 
 ADDITIONAL_OPTIONS
+	DA	Flere muligheder
 	DE	Weitere Optionen
 	EN	Additional Options
 	ES	Opciones adicionales
-	FR	Options suppl�mentaires
-	HE	???????? ??????
+	FI	Lisäasetuksia
+	FR	Options supplémentaires
 	IT	Opzioni aggiuntive
 	NL	Extra opties
+	NO	Tilleggsalternativer
+	SV	Fler alternativ
+
