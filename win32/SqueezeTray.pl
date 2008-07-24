@@ -583,7 +583,7 @@ sub loadStrings {
 
 	my $file = 'strings.txt';
 
-	open(STRINGS, $file) || do {
+	open(STRINGS, "<:utf8", $file) || do {
 		die "Couldn't open $file - FATAL!";
 	};
 
