@@ -20,12 +20,26 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#define PROGRESS_DIRECTORY 0
+#define PROGRESS_PLAYLIST 1
+#define PROGRESS_ARTWORK 2
+#define PROGRESS_NR 3
+
+// determin how often update 'progress' table in db
+#define PROGRESS_MASK 127
+
 
 struct _g {
   int wipe;
+  int show_progress;
   time_t lastrescantime;
+
+  unsigned long progress_total[PROGRESS_NR];
+  unsigned long progress_done[PROGRESS_NR];
+  unsigned long long progress_start[PROGRESS_NR];
+  unsigned long long progress_finish[PROGRESS_NR];
+
   unsigned long skipped_songs;
-  unsigned long scanned_songs;
   unsigned long added_songs;
   unsigned long updated_songs;
   unsigned long deleted_songs;
