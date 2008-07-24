@@ -771,6 +771,97 @@ db_set_scanning(MYSQL *mysql, int f)
 }
 
 int
+db_set_progress(MYSQL *mysql, enum _progress_event event, int what, char *info)
+{
+  char *p;
+  size_t room;
+  int err, n;
+  char name[PROGRESS_NR][16] = {
+    "directory",
+    "playlist",
+    "artwork"
+  };
+
+  if (what<0 || what>=PROGRESS_NR)
+    return -1;
+
+  if (G.progress_total[what]<G.progress_done[what])
+    G.progress_total[what] = G.progress_done[what];
+
+  switch (event) {
+  case PROGRESS_START:
+  case PROGRESS_DELETE:
+    // delete
+    p = qstr;
+    room = sizeof(qstr) - 1;
+    (void) sql_snprintf(p, room, "delete from progress where name='%s'", name[what]);
+    if ((err = _db_query(mysql, qstr, 0)))
+      return err;
+    if (event==PROGRESS_DELETE)
+      return 0;
+    // then insert
+    p = qstr;
+    room = sizeof(qstr) - 1;
+    n = snprintf(p, room, "insert into progress (type,name,active,total,done,start,finish,info) values ");
+    p += n; room -= n;
+    n = snprintf(p, room, "('importer','%s',1,%lu,%lu,%llu,NULL,NULL)",
+		 name[what], G.progress_total[what], G.progress_done[what],
+		 (long long unsigned int) time(0));
+    if ((err = _db_query(mysql, qstr, 0)))
+      return err;
+    break;
+
+  case PROGRESS_UPDATE:
+    p = qstr;
+    room = sizeof(qstr) - 1;
+    n = snprintf(p, room,
+		 "update progress SET active=1,total=%lu,done=%lu,info='%s' "
+		 "where name='%s'",
+		 G.progress_total[what], G.progress_done[what], info ? info : "",
+		 name[what]);
+    if ((err = _db_query(mysql, qstr, 0)))
+      return err;
+    break;
+
+  case PROGRESS_FINISH:
+    p = qstr;
+    room = sizeof(qstr) - 1;
+    n = snprintf(p, room,
+		 "update progress SET active=0,total=%lu,done=%lu,finish=%llu,info=NULL "
+		 "where name='%s'",
+		 G.progress_total[what], G.progress_done[what],
+		 (long long unsigned int) time(0),
+		 name[what]);
+    if ((err = _db_query(mysql, qstr, 0)))
+      return err;
+    break;
+
+  case PROGRESS_ALL:
+    p = qstr;
+    room = sizeof(qstr) - 1;
+    n = snprintf(p, room, "insert into progress (type,name,active,total,done,start,finish,info) values ");
+    p += n; room -= n;
+    n = snprintf(p, room, "('importer','%s',0,%lu,%lu,%llu,%llu,NULL)",
+		 name[what], G.progress_total[what], G.progress_done[what],
+		 G.progress_start[what], G.progress_finish[what]);
+    if ((err = _db_query(mysql, qstr, 0)))
+      return err;
+    break;
+
+  default:
+    return -1;
+  }
+
+  // commit
+  if ((err = mysql_commit(mysql))) {
+    DPRINTF(E_DEBUG, L_DB_MYSQL, "commit: %s\n", mysql_error(mysql));
+    return err;
+  }
+
+  return 0;
+}
+
+int
 db_get_scanning(MYSQL *mysql, int *scanning)
 {
   char *p;
@@ -921,6 +1012,11 @@ db_find_artworks(MYSQL *mysql)
 	free(cover_file);
       }
     }
+
+    // update progress
+    G.progress_done[PROGRESS_ARTWORK]++;
+    if (G.show_progress && (G.progress_done[PROGRESS_ARTWORK]&PROGRESS_MASK)==PROGRESS_MASK)
+      db_set_progress(mysql, PROGRESS_UPDATE, PROGRESS_ARTWORK, cover_file);
   }
 
   mysql_free_result(result);
