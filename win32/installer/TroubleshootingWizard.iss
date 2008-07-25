@@ -19,13 +19,17 @@ Uninstallable=no
 MinVersion=0,4
 
 [Languages]
-Name: en; MessagesFile: "English.isl"
-Name: nl; MessagesFile: "Dutch.isl"
-Name: fr; MessagesFile: "French.isl"
+Name: en; MessagesFile: "Default.isl"
 Name: de; MessagesFile: "German.isl"
+Name: da; MessagesFile: "Danish.isl"
+Name: es; MessagesFile: "Spanish.isl"
+Name: fr; MessagesFile: "French.isl"
+Name: fi; MessagesFile: "Finnish.isl"
 Name: he; MessagesFile: "Hebrew.isl"
 Name: it; MessagesFile: "Italian.isl"
-Name: es; MessagesFile: "Spanish.isl"
+Name: nl; MessagesFile: "Dutch.isl"
+Name: no; MessagesFile: "Norwegian.isl"
+Name: sv; MessagesFile: "Swedish.isl"
 
 [Messages]
 WelcomeLabel1=Welcome to the [name]
