@@ -6,7 +6,7 @@
 ; Script by Chris Eastwood, January 2003 - http://www.vbcodelibrary.co.uk
 
 [Languages]
-Name: en; MessagesFile: "English.isl"
+Name: en; MessagesFile: "Default.isl"
 Name: de; MessagesFile: "German.isl"
 Name: da; MessagesFile: "Danish.isl"
 Name: es; MessagesFile: "Spanish.isl"
