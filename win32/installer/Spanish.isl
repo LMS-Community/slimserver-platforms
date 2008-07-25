@@ -1,7 +1,7 @@
 ; *** Inno Setup version 5.1.11+ Spanish messages ***
 ;
 ; Maintained by Jorge Andres Brugger (jbrugger@gmx.net)
-; Spanish.isl version 0.7 (20070227)
+; Spanish.isl version 0.8 (20070328)
 ; Default.isl version 1.69
 ; 
 ; Thanks to Germán Giraldo, Jordi Latorre, Ximo Tamarit, Emiliano Llano, 
@@ -94,7 +94,7 @@ SelectLanguageLabel=Seleccione el idioma a utilizar durante la instalación:
 ClickNext=Haga clic en Siguiente para continuar, o en Cancelar para salir de la instalación.
 BeveledLabel=
 BrowseDialogTitle=Buscar Carpeta
-BrowseDialogLabel=Seleccione una carpeta de la siguiente lista, y luego haga clic en Aceptar.
+BrowseDialogLabel=Seleccione una carpeta, y luego haga clic en Aceptar.
 NewFolderName=Nueva Carpeta
 
 ; *** "Welcome" wizard page

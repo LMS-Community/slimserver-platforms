@@ -7,12 +7,16 @@
 
 [Languages]
 Name: en; MessagesFile: "English.isl"
-Name: nl; MessagesFile: "Dutch.isl"
-Name: fr; MessagesFile: "French.isl"
 Name: de; MessagesFile: "German.isl"
+Name: da; MessagesFile: "Danish.isl"
+Name: es; MessagesFile: "Spanish.isl"
+Name: fr; MessagesFile: "French.isl"
+Name: fi; MessagesFile: "Finnish.isl"
 Name: he; MessagesFile: "Hebrew.isl"
 Name: it; MessagesFile: "Italian.isl"
-Name: es; MessagesFile: "Spanish.isl"
+Name: nl; MessagesFile: "Dutch.isl"
+Name: no; MessagesFile: "Norwegian.isl"
+Name: sv; MessagesFile: "Swedish.isl"
 
 [CustomMessages]
 #include "strings.iss"
@@ -48,7 +52,7 @@ Source: Release Notes.html; DestDir: {app}; Flags: ignoreversion
 ; http://www.vincenzo.net/isxkb/index.php?title=PSVince
 Source: psvince.dll; Flags: dontcopy
 
-Source: Getting Started.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: en; Flags: isreadme ignoreversion
+Source: Getting Started.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: en sv fi no da; Flags: isreadme ignoreversion
 Source: Getting Started.de.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: de; Flags: isreadme ignoreversion
 Source: Getting Started.nl.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: nl; Flags: isreadme ignoreversion
 Source: Getting Started.fr.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: fr; Flags: isreadme ignoreversion

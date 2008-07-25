@@ -4,7 +4,7 @@
 ;
 ; Maintained by Martijn Laan (mlaan@wintax.nl)
 ;
-; $jrsoftware: issrc/Files/Languages/Dutch.isl,v 1.20 2007/02/26 23:19:59 jr Exp $
+; $jrsoftware: issrc/Files/Languages/Dutch.isl,v 1.21 2007/03/06 12:56:38 mlaan Exp $
                                      
 [LangOptions]                
 LanguageName=Nederlands      
@@ -255,7 +255,7 @@ ErrorReplacingExistingFile=Er is een fout opgetreden bij het vervangen van het b
 ErrorRestartReplace=Vervangen na opnieuw starten is mislukt:
 ErrorRenamingTemp=Er is een fout opgetreden bij het hernoemen van een bestand in de doelmap:
 ErrorRegisterServer=Kan de DLL/OCX niet registreren: %1
-ErrorRegSvr32Failed=RegSvr32 mislukt met code %1
+ErrorRegSvr32Failed=RegSvr32 mislukt met afsluitcode %1
 ErrorRegisterTypeLib=Kan de type library niet registreren: %1
 
 ; *** Post-installation errors
