@@ -22,6 +22,7 @@ SLIMUSER=$NAME
 PREFSDIR=/var/lib/$NAME/prefs
 LOGDIR=/var/log/$NAME/
 CACHEDIR=/var/lib/$NAME/cache
+CHARSET=utf8
 SLIMOPTIONS=
 
 # Read config file if it is present.
@@ -47,6 +48,7 @@ d_start() {
                 --prefsdir $PREFSDIR \
                 --logdir $LOGDIR \
                 --cachedir $CACHEDIR \
+		--charset=$CHARSET \
                 $SLIMOPTIONS
 }
 
@@ -61,6 +63,7 @@ d_start_direct() {
                 --prefsdir $PREFSDIR \
                 --logdir $LOGDIR \
                 --cachedir $CACHEDIR \
+		--charset=$CHARSET \
                 $SLIMOPTIONS
 }
 
