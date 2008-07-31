@@ -1,0 +1,4 @@
+"Authorization Launch Error" = "Kunne ikke oppdatere fastvaren: filen Update Firmware.sh mangler.";
+"Expired Authorization Error" = "Kunne ikke oppdatere fastvare: autorisasjonen har utløpt.";
+"Firmware version" = "Fastvareversjon %@.";
+"Firmware version invalid" = "Ugyldig fastvareversjon.";

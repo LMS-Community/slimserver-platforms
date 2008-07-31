@@ -1,0 +1,6 @@
+/* Localized versions of Info.plist keys */
+
+CFBundleName = "SLIMP3-laiteohjelmiston päivittäjä";
+CFBundleShortVersionString = "7.2";
+CFBundleGetInfoString = "SLIMP3-laiteohjelmiston päivittäjä, versio 7.2, Copyright 2008 Logitech";
+NSHumanReadableCopyright = "Copyright 2008 Logitech";
