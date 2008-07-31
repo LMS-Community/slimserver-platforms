@@ -1,0 +1,4 @@
+"Authorization Launch Error" = "Impossibile aggiornare il firmware: File Update Firmware.sh mancante.";
+"Expired Authorization Error" = "Impossibile aggiornare il firmware: autorizzazione scaduta.";
+"Firmware version" = "Firmware versione %@.";
+"Firmware version invalid" = "Firmware versione non valida.";
