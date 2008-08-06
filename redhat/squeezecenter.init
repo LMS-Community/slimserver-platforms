@@ -86,7 +86,7 @@ if [ -f /etc/redhat-release ] ; then
 
 	restart() {
 		stop
-		sleep 2
+		sleep 5
 		start
 	}
 
