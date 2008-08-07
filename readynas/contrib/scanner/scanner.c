@@ -271,16 +271,18 @@ plist_import(char *dirpath, char *path, struct stat *stat, char *lang, struct _t
   playlist_id = song.plist_id;
 
   // playlist items
-  position = 0;
-  while (!next_plist_track(&song, stat, lang, types->type)) {
-    position++;
-    song.sstype = types->sstype;
-    song.is_plist = 1;
-    song.plist_id = playlist_id;
-    song.plist_position = position;
-    song.dirpath = dirpath;
-    insertdb(mysql, &song);
-    freetags(&song);
+  if (0) {
+    position = 0;
+    while (!next_plist_track(&song, stat, lang, types->type)) {
+      position++;
+      song.sstype = types->sstype;
+      song.is_plist = 1;
+      song.plist_id = playlist_id;
+      song.plist_position = position;
+      song.dirpath = dirpath;
+      insertdb(mysql, &song);
+      freetags(&song);
+    }
   }
   return;
 }
