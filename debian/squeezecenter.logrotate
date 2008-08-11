@@ -5,13 +5,13 @@
   compress
   missingok
   prerotate
-    invoke-rc.d squeezecenter stop || true
+    invoke-rc.d squeezecenter stop >/dev/null || true
   endscript
 
   postrotate
     # Only starts SqueezeCenter if it is supposed to
     # run in the current run-level
-    invoke-rc.d squeezecenter start || true
+    invoke-rc.d squeezecenter start >/dev/null || true
   endscript
 }
 
@@ -22,12 +22,12 @@
   compress
   missingok
   prerotate
-    invoke-rc.d squeezecenter stop || true
+    invoke-rc.d squeezecenter stop >/dev/null || true
   endscript
 
   postrotate
     # Only starts SqueezeCenter if it is supposed to
     # run in the current run-level
-    invoke-rc.d squeezecenter start || true
+    invoke-rc.d squeezecenter start >/dev/null || true
   endscript
 }
