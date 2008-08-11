@@ -42,7 +42,7 @@ do
   SLIMPID=$!
   
   # wait for SqueezeCenter to get started before wait()
-  sleep 5
+  sleep 15
   
   wait $SLIMPID
   echo `date "+%F %H:%M:%S"` "SqueezeCenter died. Restarting." >> /var/log/squeezecenter/server.log

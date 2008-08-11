@@ -103,7 +103,7 @@ case "$1" in
 	#
 	echo -n "Restarting $NAME"
 	d_stop
-	sleep 1
+	sleep 15
 	d_start
 	echo "."
 	;;
