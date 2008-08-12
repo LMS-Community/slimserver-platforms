@@ -131,6 +131,7 @@ struct _opt {
 } options[] = {
   {5, "force", OPT_NOT_IMPLEMENTED, 0},
   {7, "cleanup", OPT_NOT_IMPLEMENTED, 0},
+  {6, "rescan", OPT_NOT_IMPLEMENTED, 0},
   {4, "wipe", OPT_WIPE, 0},
   {8, "playlist", OPT_NOT_IMPLEMENTED, 0},
   {6, "itunes", OPT_NOT_IMPLEMENTED, 0},
