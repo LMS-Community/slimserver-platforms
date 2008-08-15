@@ -35,9 +35,9 @@
 #include "artwork.h"
 
 struct _cache {
-  int various_artist;
+  int various_artists;
 } cache = {
-  .various_artist = 0
+  .various_artists = 0
 };
 
 static char qstr[2048];
@@ -72,9 +72,9 @@ _song_length_str(int len)
 
 
 static int
-_get_various_artist(int *id, MYSQL *mysql)
+_get_various_artists(int *id, MYSQL *mysql)
 {
-  char *str_va = "Various Artist";		// TBD: This should read from string file
+  char *str_va = "Various Artists";		// TBD: This should read from string file
   char *str_va_canonicalized = canonicalize_name(str_va);
   char *p;
   size_t room;
@@ -376,8 +376,8 @@ _insert_album(MYSQL *mysql, struct song_metadata *psong)
       // set compilation flag, if not set yet AND different contributor
       if (!safe_atoi(row[1]) &&
 	  safe_atoi(row[2]) != psong->contributor_id[ROLE_ALBUMARTIST]) {
-	if (!cache.various_artist) {
-	  if ((err = _get_various_artist(&cache.various_artist, mysql))) {
+	if (!cache.various_artists) {
+	  if ((err = _get_various_artists(&cache.various_artists, mysql))) {
 	    mysql_free_result(result);
 	    return err;
 	  }
@@ -386,7 +386,7 @@ _insert_album(MYSQL *mysql, struct song_metadata *psong)
 	p = qstr;
 	room = sizeof(qstr) - 1;
 	(void) sql_snprintf(p, room, "update albums set compilation=1,contributor=%d where id=%d",
-			    cache.various_artist, psong->album_id);
+			    cache.various_artists, psong->album_id);
 	if ((err = _db_query(mysql, qstr, 0))) {
 	  mysql_free_result(result);
 	  return err;
