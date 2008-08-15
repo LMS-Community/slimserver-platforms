@@ -23,7 +23,6 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "prefs.h"
 #include "textutils.h"
@@ -32,7 +31,7 @@
 static void
 _read_prefs_ignoredwords(const char *words)
 {
-  char *words_dup = strdup(words);
+  char *words_dup = strdup(words);		// dont free(words_dup) !
   char *p, *w;
   int i, n;
 
@@ -69,8 +68,6 @@ _read_prefs_ignoredwords(const char *words)
     *p++ = '\0';
     i++;
   }
-
-  free(words_dup);
 }
 
 int
