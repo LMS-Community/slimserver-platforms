@@ -512,7 +512,7 @@ _insertdb_song(MYSQL *mysql, struct song_metadata *psong)
   }
 
   // contributors
-  for (role=0; role<(N_ROLE-1); role++) {
+  for (role=ROLE_START; role<=ROLE_LAST; role++) {
     if (psong->contributor[role]) {
       if ((err = _insert_contributor(mysql, psong, role)))
 	return err;
@@ -537,7 +537,7 @@ _insertdb_song(MYSQL *mysql, struct song_metadata *psong)
     return err;
 
   // contributor_album, contributor_track
-  for (role=1; role<(N_ROLE-1); role++) {
+  for (role=ROLE_START; role<=ROLE_LAST; role++) {
     if (psong->contributor[role]) {
       if ((err =_insert_contributor_album_track(mysql, psong, role)))
 	return err;

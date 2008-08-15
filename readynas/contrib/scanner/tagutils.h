@@ -32,12 +32,15 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#define ROLE_ARTIST 0
-#define ROLE_COMPOSER 1
-#define ROLE_CONDUCTOR 2
-#define ROLE_BAND 3
-#define ROLE_ALBUMARTIST 4
-#define N_ROLE 5
+#define ROLE_NOUSE 0
+#define ROLE_START 1
+#define ROLE_ARTIST 1
+#define ROLE_COMPOSER 2
+#define ROLE_CONDUCTOR 3
+#define ROLE_BAND 4
+#define ROLE_LAST 4
+#define ROLE_ALBUMARTIST 5
+#define N_ROLE 6
 
 struct song_metadata {
   int file_size;
