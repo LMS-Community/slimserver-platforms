@@ -161,6 +161,7 @@ _insert_contributor(MYSQL *mysql, struct song_metadata *psong, int role)
   int n, err;
   MYSQL_RES *result;
   MYSQL_ROW row;
+  char *canonicalized_contributor;
 
   // check if record already exist
   p = qstr;
@@ -183,8 +184,11 @@ _insert_contributor(MYSQL *mysql, struct song_metadata *psong, int role)
       room = sizeof(qstr) - 1;
       n = snprintf(p, room, "insert into contributors (name,namesort,namesearch) values ");
       p += n; room -= n;
+      canonicalized_contributor = canonicalize_name(psong->contributor[role]);
       sql_snprintf(p, room, "('%S','%S','%S')",
-		   psong->contributor[role], psong->contributor[role],  psong->contributor[role]);
+		   psong->contributor[role], canonicalized_contributor, canonicalized_contributor);
+      if (psong->contributor[role]!=canonicalized_contributor)
+	free(canonicalized_contributor);
       if ((err = _db_query(mysql, qstr, 0)))
 	return err;
       psong->contributor_id[role] = mysql_insert_id(mysql);
