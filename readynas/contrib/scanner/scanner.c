@@ -480,7 +480,7 @@ main(int argc, char **argv) {
       playlistdir = prefs.playlistdir;
     }
     else {
-      DPRINTF(E_INFO, L_SCAN, "playlistdir to be specified\n");
+      DPRINTF(E_INFO, L_SCAN, "playlistdir need to be specified\n");
     }
   }
 
@@ -489,12 +489,12 @@ main(int argc, char **argv) {
 
   // setup importer
   if (!(importers[0].dir = realpath(audiodir, NULL))) {
-    DPRINTF(E_FATAL, L_SCAN, "Not valid path: %s\n", audiodir);
+    DPRINTF(E_FATAL, L_SCAN, "Not valid audiodir: %s\n", audiodir);
     err = 1;
     goto exit0;
   }
   if (!(importers[1].dir = realpath(playlistdir, NULL))) {
-    DPRINTF(E_FATAL, L_SCAN, "Not valid path: %s\n", playlistdir);
+    DPRINTF(E_FATAL, L_SCAN, "Not valid playlistdir: %s\n", playlistdir);
     err = 1;
     goto exit1;
   }
