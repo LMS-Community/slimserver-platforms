@@ -506,10 +506,10 @@ _insertdb_song(MYSQL *mysql, struct song_metadata *psong)
     return err;
 
   // genre
-  if (psong->genre) {
-    if ((err = _insert_genre(mysql, psong)))
-      return err;
-  }
+  if (!psong->genre)
+    psong->genre = G.no_genre;
+  if ((err = _insert_genre(mysql, psong)))
+    return err;
 
   // contributors
   for (role=ROLE_START; role<=ROLE_LAST; role++) {

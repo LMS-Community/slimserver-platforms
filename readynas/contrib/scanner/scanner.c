@@ -83,7 +83,9 @@ struct _g G = {
 
   .skipped_songs = 0,
   .added_songs = 0,
-  .deleted_songs = 0
+  .deleted_songs = 0,
+
+  .no_genre = "No Genre"
 };
 
 static void
