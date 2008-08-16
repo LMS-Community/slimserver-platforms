@@ -39,6 +39,7 @@
 #include "tagutils.h"
 #include "log.h"
 #include "textutils.h"
+#include "scanner.h"
 
 struct id3header {
   unsigned char id[3];
@@ -127,7 +128,8 @@ freetags(struct song_metadata *psong)
     free(psong->titlesort);
   MAYBEFREE(psong->title);
   MAYBEFREE(psong->album);
-  MAYBEFREE(psong->genre);
+  if (psong->genre != G.no_genre)
+    MAYBEFREE(psong->genre);
   MAYBEFREE(psong->comment);
   MAYBEFREE(psong->contributor[ROLE_ARTIST]);
   MAYBEFREE(psong->contributor[ROLE_COMPOSER]);

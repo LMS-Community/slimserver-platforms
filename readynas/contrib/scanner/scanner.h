@@ -43,6 +43,8 @@ struct _g {
   unsigned long added_songs;
   unsigned long updated_songs;
   unsigned long deleted_songs;
+
+  char *no_genre;
 };
 
 extern struct _g G;
