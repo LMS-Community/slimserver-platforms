@@ -182,7 +182,9 @@ vc_scan(struct song_metadata *psong, const char *comment, const size_t length)
     psong->disc = atoi(strbuf+11);
   }
   else if (!strncasecmp(strbuf, "GENRE=", 6)) {
-    psong->genre = strdup(strbuf+6);
+    if (strcmp(strbuf+6, "(empty)")) {
+      psong->genre = strdup(strbuf+6);
+    }
   }
   else if (!strncasecmp(strbuf, "DATE=", 5)) {
     if (length>=(5+10) &&
