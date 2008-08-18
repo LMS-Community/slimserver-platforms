@@ -48,6 +48,9 @@ install:
 	# We need to copy the Slim directory over...
 	cp -r ${source}/Slim ${base}/usr/share/perl5
 
+	# Modify /usr/share/perl5/Slim/Control/Queries.pm so it doesn't confuse ReadyNAS users with folders on root.
+	patch ${base}/usr/share/perl5/Slim/Control/Queries.pm < $(CURDIR)/readynas/Queries.pm.patch
+	
 	# Copy our CPAN directory and locally modified perl modules
 	cp -r ${source}/CPAN ${base}/${share}
 	cp -r ${source}/lib ${base}/${share}
