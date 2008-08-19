@@ -1,0 +1,16 @@
+diff -u Queries.pm.orig Queries.pm
+--- Queries.pm.orig	2008-05-14 19:53:58.000000000 -0700
++++ Queries.pm	2008-06-03 14:45:40.000000000 -0700
+@@ -2575,6 +2575,12 @@
+ 	}
+ 
+ 	if ($filter eq 'foldersonly') {
++		#NETGEAR ReadyNAS
++		if ($folder eq '/' && -f '/etc/raidiator_version') {
++			foreach (qw(bin dev etc frontview home initrd lib mnt opt proc ramfs root sbin sys tmp USB usr var)) {
++				delete $fsitems{$_};
++			}
++		}
+ 		@fsitems = grep { $fsitems{$_}->{d} } @fsitems;
+ 	}
+ 
