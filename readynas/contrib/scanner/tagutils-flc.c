@@ -36,7 +36,7 @@ _get_flctags(char *filename, struct song_metadata *psong)
   }
 
   block_number = 0;
-  if (FLAC__metadata_simple_iterator_init(iterator, filename, true, true)) {
+  if (!FLAC__metadata_simple_iterator_init(iterator, filename, true, true)) {
     DPRINTF(E_ERROR, L_SCAN, "Cannot extract tag from %s\n", filename);
     return -1;
   }
