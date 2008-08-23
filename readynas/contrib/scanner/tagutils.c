@@ -41,7 +41,6 @@
 #include "log.h"
 #include "misc.h"
 #include "textutils.h"
-#include "scanner.h"
 
 struct id3header {
   unsigned char id[3];
@@ -132,8 +131,6 @@ freetags(struct song_metadata *psong)
     free(psong->titlesort);
   MAYBEFREE(psong->title);
   MAYBEFREE(psong->album);
-  if (psong->genre != G.no_genre_str)
-    MAYBEFREE(psong->genre);
   MAYBEFREE(psong->comment);
   for (role=ROLE_START; role<=ROLE_LAST; role++) {
     MAYBEFREE(psong->contributor[role]);

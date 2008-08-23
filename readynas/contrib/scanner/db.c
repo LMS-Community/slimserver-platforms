@@ -425,10 +425,16 @@ _insert_genre(MYSQL *mysql, struct song_metadata *psong)
   int n, err = 0;
   MYSQL_RES *result;
   MYSQL_ROW row;
+  char *genre_str;
+
+  if (!psong->genre || psong->genre[0]=='\0')
+    genre_str = G.no_genre_str;
+  else
+    genre_str = psong->genre;
 
   p = qstr;
   room = sizeof(qstr) - 1;
-  (void) sql_snprintf(p, room, "select id from genres where name='%S'", psong->genre);
+  (void) sql_snprintf(p, room, "select id from genres where name='%S'", genre_str);
   if ((err = _db_query(mysql, qstr, 0)))
     return err;
   if (!(result = mysql_store_result(mysql))) {
@@ -442,14 +448,14 @@ _insert_genre(MYSQL *mysql, struct song_metadata *psong)
     }
     else {
       // not exist, insert it
-      char *canonicalized_genre = canonicalize_name(psong->genre);
+      char *canonicalized_genre = canonicalize_name(genre_str);
       p = qstr;
       room = sizeof(qstr) - 1;
       n = sql_snprintf(p, room, "insert into genres (name,namesort,namesearch) values");
       p += n; room -= n;
       sql_snprintf(p, room, "('%S','%S','%S')",
-		   psong->genre, canonicalized_genre, canonicalized_genre);
-      if (canonicalized_genre != psong->genre)
+		   genre_str, canonicalized_genre, canonicalized_genre);
+      if (canonicalized_genre != genre_str)
 	free(canonicalized_genre);
       if ((err = _db_query(mysql, qstr, 0))) {
 	mysql_free_result(result);
@@ -729,12 +735,6 @@ _insertdb_song(MYSQL *mysql, struct song_metadata *psong)
     return err;
 
   // genre
-  if (!psong->genre)
-    psong->genre = G.no_genre_str;
-  else if (psong->genre[0]=='\0') {
-    free(psong->genre);
-    psong->genre = G.no_genre_str;
-  }
   if ((err = _insert_genre(mysql, psong)))
     return err;
 
