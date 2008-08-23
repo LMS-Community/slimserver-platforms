@@ -66,9 +66,9 @@ struct {
   char *lang;
   char *cpnames[N_LANG_ALT];
 } iconv_map[] = {
-  {"JA", {"CP932", "CP950", "CP936", 0}},
-  {"ZH_CN", {"CP936", "CP950", "CP932", 0}},
-  {"ZH_TW", {"CP950", "CP936", "CP932", 0}},
+  {"JA", {"ISO-8859-1", "CP932", "ISO8859-1", "CP950", "CP936", 0}},
+  {"ZH_CN", {"ISO-8859-1", "CP936", "CP950", "CP932", 0}},
+  {"ZH_TW", {"ISO-8859-1", "CP950", "CP936", "CP932", 0}},
   {0, {0}}
 };
 static int lang_index = -1;

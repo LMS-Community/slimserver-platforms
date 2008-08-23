@@ -20,7 +20,11 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#include <stdarg.h>
+
 extern void urldecode(char *src);
 extern char * canonicalize_name(const char *src);
 extern char * skipspaces(const char *src);
 extern int safe_atoi(char *s);
+extern int utf16le_to_utf8(char *dst, int n, __u16 utf16le);
+extern void fetch_string_txt(char *fname, char *lang, int n, ...);

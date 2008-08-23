@@ -39,7 +39,7 @@ endif
 
 
 EXES = scanner
-OBJS = tagutils.o tagutils-plist.o log.o sqlprintf.o textutils.o prefs.o artwork.o db.o
+OBJS = tagutils.o tagutils-plist.o log.o sqlprintf.o textutils.o prefs.o artwork.o db.o misc.o
 
 .PHONY: usage all clean TAGS
 

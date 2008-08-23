@@ -20,6 +20,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#include <time.h>
+
 #define PROGRESS_DIRECTORY 0
 #define PROGRESS_PLAYLIST 1
 #define PROGRESS_ARTWORK 2
@@ -44,7 +46,11 @@ struct _g {
   unsigned long updated_songs;
   unsigned long deleted_songs;
 
-  char *no_genre;
+  char *no_genre_str;
+  char *no_album_str;
+  char *no_title_str;
+  char *no_artist_str;
+  char *variousartists_str;
 };
 
 extern struct _g G;
