@@ -370,10 +370,12 @@ _get_asffileinfo(char *file, struct song_metadata *psong)
       RatingLength = fget_le16(fp);
 
       if (_asf_load_string(fp, ASF_VT_UNICODE, TitleLength, buf, sizeof(buf))) {
-	psong->title = strdup(buf);
+	if (buf[0])
+	  psong->title = strdup(buf);
       }
       if (_asf_load_string(fp, ASF_VT_UNICODE, AuthorLength, buf, sizeof(buf))) {
-	psong->contributor[ROLE_TRACKARTIST] = strdup(buf);
+	if (buf[0])
+	  psong->contributor[ROLE_TRACKARTIST] = strdup(buf);
       }
       if (CopyrightLength)
 	fseek(fp, CopyrightLength, SEEK_CUR);
@@ -392,35 +394,42 @@ _get_asffileinfo(char *file, struct song_metadata *psong)
 
 	if (!strcasecmp(buf, "AlbumTitle") || !strcasecmp(buf, "WM/AlbumTitle")) {
 	  if (_asf_load_string(fp, ValueType, ValueLength, buf, sizeof(buf)))
-	    psong->album = strdup(buf);
+	    if (buf[0])
+	      psong->album = strdup(buf);
 	}
 	else if (!strcasecmp(buf, "AlbumArtist") || !strcasecmp(buf, "WM/AlbumArtist")) {
 	  if (_asf_load_string(fp, ValueType, ValueLength, buf, sizeof(buf))) {
-	    psong->contributor[ROLE_ALBUMARTIST] = strdup(buf);
+	    if (buf[0])
+	      psong->contributor[ROLE_ALBUMARTIST] = strdup(buf);
 	  }
 	}
 	else if (!strcasecmp(buf, "Description") || !strcasecmp(buf, "WM/Track")) {
 	  if (_asf_load_string(fp, ValueType, ValueLength, buf, sizeof(buf)))
-	    psong->track = atoi(buf);
+	    if (buf[0])
+	      psong->track = atoi(buf);
 	}
 	else if (!strcasecmp(buf, "Genre") || !strcasecmp(buf, "WM/Genre")) {
 	  if (_asf_load_string(fp, ValueType, ValueLength, buf, sizeof(buf)))
-	    psong->genre = strdup(buf);
+	    if (buf[0])
+	      psong->genre = strdup(buf);
 	}
 	else if (!strcasecmp(buf, "Year") || !strcasecmp(buf, "WM/Year")) {
 	  if (_asf_load_string(fp, ValueType, ValueLength, buf, sizeof(buf)))
-	    psong->year = atoi(buf);
+	    if (buf[0])
+	      psong->year = atoi(buf);
 	}
 	else if (!strcasecmp(buf, "WM/Director")) {
 	  if (_asf_load_string(fp, ValueType, ValueLength, buf, sizeof(buf)))
-	    psong->contributor[ROLE_CONDUCTOR] = strdup(buf);
+	    if (buf[0])
+	      psong->contributor[ROLE_CONDUCTOR] = strdup(buf);
 	}
 	else if (!strcasecmp(buf, "WM/Picture") && (ValueType == ASF_VT_BYTEARRAY)) {
 	  _asf_load_picture(fp, ValueLength, psong->image, &psong->image_size);
 	}
 	else if (!strcasecmp(buf, "TrackNumber") || !strcasecmp(buf, "WM/TrackNumber")) {
 	  if (_asf_load_string(fp, ValueType, ValueLength, buf, sizeof(buf)))
-	    psong->track = atoi(buf);
+	    if (buf[0])
+	      psong->track = atoi(buf);
 	}
 	else if (ValueLength) {
 	  fseek(fp, ValueLength, SEEK_CUR);

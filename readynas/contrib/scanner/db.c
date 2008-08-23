@@ -196,29 +196,83 @@ _insert_contributor_album_track(MYSQL *mysql, struct song_metadata *psong, int r
   char *p;
   size_t room;
   int err;
+  unsigned long contributor_id;
 
-  if (psong->album &&
-      !(role==ROLE_ARTIST &&
-	psong->contributor[ROLE_ALBUMARTIST] &&
-	psong->contributor[ROLE_TRACKARTIST]) &&
-      !(role==ROLE_ALBUMARTIST &&
-	psong->contributor[ROLE_ARTIST])) {
+  // cache
+  if (!cache.no_artist_id) {
+    if ((err = _get_no_artist(&cache.no_artist_id, mysql)))
+      return err;
+  }
+
+  // contributor_album
+  contributor_id = 0;
+  switch (role) {
+  case ROLE_ARTIST:
+    if (!psong->contributor_id[ROLE_ALBUMARTIST]) {
+      if (psong->contributor_id[ROLE_ARTIST])
+	contributor_id = psong->contributor_id[ROLE_ARTIST];
+      else if (psong->contributor_id[ROLE_TRACKARTIST])
+	contributor_id = psong->contributor_id[ROLE_TRACKARTIST];
+      else
+	contributor_id = cache.no_artist_id;
+    }
+    break;
+  case ROLE_ALBUMARTIST:
+    if (psong->contributor_id[ROLE_ALBUMARTIST] &&
+	psong->contributor_id[ROLE_TRACKARTIST])
+      contributor_id = psong->contributor_id[ROLE_ALBUMARTIST];
+    break;
+  case ROLE_TRACKARTIST:
+    if (!psong->contributor_id[ROLE_ARTIST] &&
+	psong->contributor_id[ROLE_ALBUMARTIST])
+      contributor_id = psong->contributor_id[role];
+    break;
+  default:
+    contributor_id = psong->contributor_id[role];
+    break;
+  }
+  if (contributor_id) {
     p = qstr;
     room = sizeof(qstr) - 1;
     (void) snprintf(p, room, "insert ignore into contributor_album "
 		    "(role,contributor,album) values (%d,%ld,%ld)",
-		    role, psong->contributor_id[role], psong->album_id);
+		    role, contributor_id, psong->album_id);
     if ((err = _db_query(mysql, qstr, 0)))
       return err;
   }
 
-  if (!(role==ROLE_ALBUMARTIST &&
-	psong->contributor[ROLE_ARTIST])) {
+  // contributor_track
+  contributor_id = 0;
+  switch (role) {
+  case ROLE_ARTIST:
+    if (!psong->contributor_id[ROLE_ARTIST]) {
+      if (!psong->contributor_id[ROLE_ALBUMARTIST]) {
+	if (psong->contributor_id[ROLE_TRACKARTIST])
+	  contributor_id = psong->contributor_id[ROLE_TRACKARTIST];
+	else
+	  contributor_id = cache.no_artist_id;
+      }
+    }
+    else {
+      contributor_id = psong->contributor_id[role];
+    }
+    break;
+  case ROLE_TRACKARTIST:
+    if (psong->contributor_id[ROLE_ARTIST] ||
+	psong->contributor_id[ROLE_ALBUMARTIST] ||
+	!psong->contributor_id[ROLE_TRACKARTIST])
+      contributor_id = psong->contributor_id[role];
+    break;
+  default:
+    contributor_id = psong->contributor_id[role];
+    break;
+  }
+  if (contributor_id) {
     p = qstr;
     room = sizeof(qstr) - 1;
     (void) snprintf(p, room, "insert into contributor_track "
 		    "(role,contributor,track) values (%d,%ld,%ld)",
-		    role, psong->contributor_id[role], psong->track_id);
+		    role, contributor_id, psong->track_id);
     if ((err = _db_query(mysql, qstr, 0)))
       return err;
   }
@@ -416,6 +470,28 @@ _insert_album(MYSQL *mysql, struct song_metadata *psong)
   int n, err = 0;
   MYSQL_RES *result;
   MYSQL_ROW row;
+  unsigned long albumartist_id;
+
+  // cache
+  if (!cache.various_artists_id) {
+    if ((err = _get_various_artists(&cache.various_artists_id, mysql))) {
+      return err;
+    }
+  }
+  if (!cache.no_artist_id) {
+    if ((err = _get_no_artist(&cache.no_artist_id, mysql)))
+      return err;
+  }
+
+  // select albumartist
+  if (psong->contributor_id[ROLE_ALBUMARTIST])
+    albumartist_id = psong->contributor_id[ROLE_ALBUMARTIST];
+  else if (psong->contributor_id[ROLE_ARTIST])
+    albumartist_id = psong->contributor_id[ROLE_ARTIST];
+  else if (psong->contributor_id[ROLE_TRACKARTIST])
+    albumartist_id = psong->contributor_id[ROLE_TRACKARTIST];
+  else
+    albumartist_id = cache.no_artist_id;
 
   // check if record already exist.
   p = qstr;
@@ -448,7 +524,7 @@ _insert_album(MYSQL *mysql, struct song_metadata *psong)
       psong->album_id = atoi(row[0]);
       // set compilation flag, if not set yet AND different contributor
       if (!safe_atoi(row[1]) &&
-	  safe_atoi(row[2]) != psong->contributor_id[ROLE_ALBUMARTIST]) {
+	  safe_atoi(row[2]) != albumartist_id) {
 	if (!cache.various_artists_id) {
 	  if ((err = _get_various_artists(&cache.various_artists_id, mysql))) {
 	    mysql_free_result(result);
@@ -484,7 +560,7 @@ _insert_album(MYSQL *mysql, struct song_metadata *psong)
 		  " %I,%I,%d)",			// disc
 		   psong->album, canonicalized_album, canonicalized_album,
 		   psong->compilation, psong->year,
-		   psong->disc, psong->total_discs, psong->contributor_id[ROLE_ALBUMARTIST]
+		   psong->disc, psong->total_discs, albumartist_id
 		   );
       if (canonicalized_album != psong->album)
 	free(canonicalized_album);
@@ -636,23 +712,6 @@ _delete_track_by_id(MYSQL *mysql, struct song_metadata *psong)
   return 0;
 }
 
-static void
-_rehash_contributors(struct song_metadata *psong)
-{
-  if (psong->contributor[ROLE_ARTIST]) {
-    if (!psong->contributor[ROLE_ALBUMARTIST]) {
-      psong->contributor[ROLE_ALBUMARTIST] = strdup(psong->contributor[ROLE_ARTIST]);
-    }
-  }
-  else if (psong->contributor[ROLE_TRACKARTIST] && !psong->contributor[ROLE_ALBUMARTIST]) {
-    psong->contributor[ROLE_ARTIST] = psong->contributor[ROLE_TRACKARTIST];
-    psong->contributor[ROLE_TRACKARTIST] = 0;
-  }
-  else if (psong->contributor[ROLE_ALBUMARTIST] && !psong->contributor[ROLE_TRACKARTIST]) {
-    psong->contributor[ROLE_ARTIST] = strdup(psong->contributor[ROLE_ALBUMARTIST]);
-  }
-}
-
 int
 _insertdb_song(MYSQL *mysql, struct song_metadata *psong)
 {
@@ -680,19 +739,8 @@ _insertdb_song(MYSQL *mysql, struct song_metadata *psong)
     return err;
 
   // contributors
-  _rehash_contributors(psong);
   for (role=ROLE_START; role<=ROLE_LAST; role++) {
-    if (role==ROLE_ARTIST &&
-	(!psong->contributor[role] || psong->contributor[role][0]=='\0') &&
-	!psong->contributor[ROLE_ALBUMARTIST] &&
-	!psong->contributor[ROLE_TRACKARTIST]) {
-      if (!cache.no_artist_id) {
-	if ((err = _get_no_artist(&cache.no_artist_id, mysql)))
-	  return err;
-      }
-      psong->contributor_id[role] = cache.no_artist_id;
-    }
-    else if (psong->contributor[role]) {
+    if (psong->contributor[role]) {
       if ((err = _insert_contributor(mysql, psong, role)))
 	return err;
     }
@@ -722,10 +770,8 @@ _insertdb_song(MYSQL *mysql, struct song_metadata *psong)
 
   // contributor_album, contributor_track
   for (role=ROLE_START; role<=ROLE_LAST; role++) {
-    if (psong->contributor_id[role]) {
-      if ((err =_insert_contributor_album_track(mysql, psong, role)))
-	return err;
-    }
+    if ((err =_insert_contributor_album_track(mysql, psong, role)))
+      return err;
   }
 
   // genre_track
