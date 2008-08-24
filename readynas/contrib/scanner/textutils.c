@@ -22,9 +22,11 @@
 
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 
+#include "misc.h"
 #include "textutils.h"
 #include "prefs.h"
 #include "log.h"
@@ -213,13 +215,37 @@ canonicalize_name(const char *src)
       *p++ = lastc = u&0xff;
       converted = 1;
     }
-    else if (c==0xe3 && ((s[1]==0x80 && 0x80<=s[2] && s[2]<=0xbf) ||
+    else if (c==0xe3 && ((s[1]==0x80 && 0x81<=s[2] && s[2]<=0xbf) ||
 	     (s[1]==0x83 && s[2]==0xbb))) {
-      // CJK Symbol -- 3 bytes sequence
+      // CJK Symbol (except U+3000) -- 3 bytes sequence
       s += 2;
       if (lastc!=' ')
 	*p++ = lastc = ' ';
       converted = 1;
+    }
+    else if (c==0xef && ((s[1]==0xbc && 0x80<=s[2] && s[2]<=0xbf) ||
+			 (s[1]==0xbd && 0x80<=s[2] && s[2]<=0x9f))) {
+      // full-width -- 3 bytes sequence
+      char ascii = s[1]==0xbc ? 0x20 + (s[2] & 0x3f) : 0x60 + (s[2] & 0x1f);
+      if (ispunct(ascii) && ascii!='~' && ascii!='|') {
+	if (lastc!=' ')
+	  *p++ = lastc = ' ';
+	converted = 1;
+      }
+      else if (islower(ascii)) {
+	char xx[4];
+	xx[0] = c; xx[1] = 0xbc; xx[2] = s[2] | 0x20; xx[3] = '\0';
+	*p++ = c;
+	*p++ = 0xbc;
+	*p++ = lastc = s[2] | 0x20;
+	converted = 1;
+      }
+      else {
+	*p++ = c;
+	*p++ = s[1];
+	*p++ = lastc = s[2];
+      }
+      s += 2;
     }
     else {
       *p++ = lastc = c;
@@ -249,4 +275,127 @@ safe_atoi(char *s)
   if ((s[0]>='0' && s[0]<='9') || s[0]=='-' || s[0]=='+')
     return atoi(s);
   return 0;
+}
+
+// NOTE: support U+0000 ~ U+FFFF only.
+int
+utf16le_to_utf8(char *dst, int n, __u16 utf16le)
+{
+  __u16 wc = le16_to_cpu(utf16le);
+  if (wc < 0x80) {
+    if (n<1) return 0;
+    *dst++ = wc & 0xff;
+    return 1;
+  }
+  else if (wc < 0x800) {
+    if (n<2) return 0;
+    *dst++ = 0xc0 | (wc>>6);
+    *dst++ = 0x80 | (wc & 0x3f);
+    return 2;
+  }
+  else {
+    if (n<3) return 0;
+    *dst++ = 0xe0 | (wc>>12);
+    *dst++ = 0x80 | ((wc>>6) & 0x3f);
+    *dst++ = 0x80 | (wc & 0x3f);
+    return 3;
+  }
+}
+
+void
+fetch_string_txt(char *fname, char *lang, int n, ...)
+{
+  va_list args;
+  char **keys;
+  char ***strs;
+  char **defstr;
+  int i;
+  FILE *fp;
+  char buf[4096];
+  int state;
+  char *p;
+  char *langid;
+  const char *lang_en = "EN";
+
+  if (!(keys = malloc(sizeof(keys) * n))) {
+    DPRINTF(E_FATAL, L_SCAN, "Out of memory\n");
+  }
+  if (!(strs = malloc(sizeof(strs) * n))) {
+    DPRINTF(E_FATAL, L_SCAN, "Out of memory\n");
+  }
+  if (!(defstr = malloc(sizeof(defstr) * n))) {
+    DPRINTF(E_FATAL, L_SCAN, "Out of memory\n");
+  }
+
+  va_start(args, n);
+  for (i=0; i<n; i++) {
+    keys[i] = va_arg(args, char *);
+    strs[i] = va_arg(args, char **);
+    defstr[i] = va_arg(args, char *);
+  }
+  va_end(args);
+
+  if (!(fp = fopen(fname, "rb"))) {
+    DPRINTF(E_ERROR, L_SCAN, "Cannot open <%s>\n", fname);
+    goto _exit;
+  }
+
+  state = -1;
+  while (fgets(buf, sizeof(buf), fp)) {
+    int len = strlen(buf);
+
+    if (buf[len-1]=='\n') buf[len-1] = '\0';
+
+    if (state<0) {
+      if (isalpha(buf[0])) {
+	for (i=0; i<n; i++) {
+	  if (!(strcmp(keys[i], buf))) {
+	    state = i;
+	    break;
+	  }
+	}
+      }
+    }
+    else {
+      int found = 0;
+
+      if (isalpha(buf[0]) || buf[0]=='\0') {
+	state = -1;
+	continue;
+      }
+
+      p = buf;
+      while (isspace(*p)) p++;
+      if (*p == '\0') {
+	state = -1;
+	continue;
+      }
+      langid = p;
+      while (!isspace(*p)) p++;
+      *p++ = '\0';
+
+      if (!strcmp(lang, langid))
+	found = 1;
+      else if (strcmp(lang_en, langid))
+	continue;
+
+      while (isspace(*p)) p++;
+      if (*strs[state])
+	free(*strs[state]);
+      *strs[state] = strdup(p);
+
+      if (found)
+	state = -1;
+    }
+  }
+
+  for (i=0; i<n; i++) {
+    if (!*strs[i])
+      *strs[i] = defstr[i];
+  }
+
+ _exit:
+  free(keys);
+  free(strs);
+  free(defstr);
 }

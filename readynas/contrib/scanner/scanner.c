@@ -31,8 +31,10 @@
 #include <unistd.h>
 #include <time.h>
 
+#include "misc.h"
 #include "scanner.h"
 #include "tagutils.h"
+#include "textutils.h"
 #include "db.h"
 #include "log.h"
 #include "prefs.h"
@@ -44,12 +46,24 @@ struct _defval {
   char *prefsfile;
   char *logdir;
   char *logfile;
+  char *strings;
+  char *no_genre_str;
+  char *no_album_str;
+  char *no_title_str;
+  char *no_artist_str;
+  char *variousartists_str;
 } defval  = {
   "slimserver",
   "/var/lib/squeezecenter/prefs",
   "server.prefs",
   "/var/log/squeezecenter",
-  "scanner.log"
+  "scanner.log",
+  "/usr/share/squeezecenter/strings.txt",
+  "No Genre",
+  "No Album",
+  "No Title",
+  "No Artist",
+  "Various Artists"
 };
 
 struct _types {
@@ -85,7 +99,11 @@ struct _g G = {
   .added_songs = 0,
   .deleted_songs = 0,
 
-  .no_genre = "No Genre"
+  .no_genre_str = 0,
+  .no_album_str = 0,
+  .no_title_str = 0,
+  .no_artist_str = 0,
+  .variousartists_str = 0
 };
 
 static void
@@ -199,6 +217,7 @@ struct _types audio_types[] = {
   {"mp3", "mp3", {"mp3", "mp2", 0}},
   {"ogg", "ogg", {"ogg", "oga", 0}},
   {"flc", "flc", {"flc", "flac", "fla", 0}},
+  {"asf", "wma", {"wma", 0}},
    // sentinel
   {0, 0, {0}}
 };
@@ -486,6 +505,14 @@ main(int argc, char **argv) {
 
   if (!dbname)
     dbname = defval.dbname;
+
+  // Read string
+  fetch_string_txt(defval.strings, prefs.language, 5,
+		   "NO_GENRE", &G.no_genre_str, defval.no_genre_str,
+		   "NO_ALBUM", &G.no_album_str, defval.no_album_str,
+		   "NO_TITLE", &G.no_title_str, defval.no_title_str,
+		   "NO_ARTIST", &G.no_artist_str, defval.no_artist_str,
+		   "VARIOUSARTISTS", &G.variousartists_str, defval.variousartists_str);
 
   // setup importer
   if (!(importers[0].dir = realpath(audiodir, NULL))) {

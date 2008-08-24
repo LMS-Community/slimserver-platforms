@@ -25,6 +25,7 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "misc.h"
 #include "artwork.h"
 #include "log.h"
 #include "textutils.h"

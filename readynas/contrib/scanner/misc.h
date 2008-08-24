@@ -1,6 +1,6 @@
 //=========================================================================
-// FILENAME	: scanner.h
-// DESCRIPTION	: Header for Scanner
+// FILENAME	: misc.h
+// DESCRIPTION	: Header for misc.c
 //=========================================================================
 // Copyright (c) 2008- NETGEAR, Inc. All Rights Reserved.
 //=========================================================================
@@ -20,37 +20,25 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <time.h>
 
-#define PROGRESS_DIRECTORY 0
-#define PROGRESS_PLAYLIST 1
-#define PROGRESS_ARTWORK 2
-#define PROGRESS_NR 3
+typedef unsigned char __u8;
+typedef signed char __s8;
+typedef unsigned short __u16;
+typedef signed short __s16;
+typedef unsigned int __u32;
+typedef signed int __s32;
+#if __WORDSIZE == 64
+typedef unsigned long __u64;
+typedef signed long __s64;
+#else
+typedef unsigned long long __u64;
+typedef signed long long __s64;
+#endif
 
-// determin how often update 'progress' table in db
-#define PROGRESS_MASK 127
 
-
-struct _g {
-  int wipe;
-  int show_progress;
-  time_t lastrescantime;
-
-  unsigned long progress_total[PROGRESS_NR];
-  unsigned long progress_done[PROGRESS_NR];
-  unsigned long long progress_start[PROGRESS_NR];
-  unsigned long long progress_finish[PROGRESS_NR];
-
-  unsigned long skipped_songs;
-  unsigned long added_songs;
-  unsigned long updated_songs;
-  unsigned long deleted_songs;
-
-  char *no_genre_str;
-  char *no_album_str;
-  char *no_title_str;
-  char *no_artist_str;
-  char *variousartists_str;
-};
-
-extern struct _g G;
+inline __u16 le16_to_cpu(__u16 le16);
+inline __u32 le32_to_cpu(__u32 le32);
+inline __u64 le64_to_cpu(__u64 le64);
+inline __u8 fget_byte(FILE *fp);
+inline __u16 fget_le16(FILE *fp);
+inline __u32 fget_le32(FILE *fp);
