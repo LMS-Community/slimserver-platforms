@@ -21,6 +21,7 @@
  */
 
 #include <stdio.h>
+#include <endian.h>
 
 #include "misc.h"
 
@@ -30,7 +31,7 @@ le16_to_cpu(__u16 le16)
 #if __BYTE_ORDER == __LITTLE_ENDIAN
   return le16;
 #else
-  __u16 be16 = ((le16<<8) & 0xff00) | (le16 & 0x00ff);
+  __u16 be16 = ((le16<<8) & 0xff00) | ((le16>>8) & 0x00ff);
   return be16;
 #endif
 }
@@ -43,10 +44,31 @@ le32_to_cpu(__u32 le32)
 #else
   __u32 be32 =
     ((le32<<24) & 0xff000000) |
-    ((le32<<16) & 0x00ff0000) |
-    ((le32<< 8) & 0x0000ff00) |
-    ((le32<< 0) & 0x000000ff);
+    ((le32<< 8) & 0x00ff0000) |
+    ((le32>> 8) & 0x0000ff00) |
+    ((le32>>24) & 0x000000ff);
   return be32;
+#endif
+}
+
+inline __u64
+le64_to_cpu(__u64 le64)
+{
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+  return le64;
+#else
+  __u64 be64;
+  __u8 *le64p = (__u8*) &le64;
+  __u8 *be64p = (__u8*) &be64;
+  be64p[0] = le64p[7];
+  be64p[1] = le64p[6];
+  be64p[2] = le64p[5];
+  be64p[3] = le64p[4];
+  be64p[4] = le64p[3];
+  be64p[5] = le64p[2];
+  be64p[6] = le64p[1];
+  be64p[7] = le64p[0];
+  return be64;
 #endif
 }
 

@@ -53,9 +53,9 @@ _asf_read_audio_stream(FILE *fp, struct song_metadata *psong, int size)
   if (len != fread(&s.wfx, 1, len, fp))
     return -1;
 
-  psong->channels = s.wfx.nChannels;
-  psong->bitrate = s.wfx.nAvgBytesPerSec * 8;
-  psong->samplerate = s.wfx.nSamplesPerSec;
+  psong->channels = le16_to_cpu(s.wfx.nChannels);
+  psong->bitrate = le32_to_cpu(s.wfx.nAvgBytesPerSec) * 8;
+  psong->samplerate = le32_to_cpu(s.wfx.nSamplesPerSec);
 
   return 0;
 }
@@ -80,9 +80,9 @@ _asf_read_media_stream(FILE *fp, struct song_metadata *psong, __u32 size)
     if (sizeof(wfx) != fread(&wfx, 1, sizeof(wfx), fp))
       return -1;
 
-    psong->channels = wfx.nChannels;
-    psong->bitrate = wfx.nAvgBytesPerSec * 8;
-    psong->samplerate = wfx.nSamplesPerSec;
+    psong->channels = le16_to_cpu(wfx.nChannels);
+    psong->bitrate = le32_to_cpu(wfx.nAvgBytesPerSec) * 8;
+    psong->samplerate = le32_to_cpu(wfx.nSamplesPerSec);
   }
   return 0;
 }
@@ -224,19 +224,20 @@ _asf_load_string(FILE *fp, int type, int size, char *buf, int len)
     case ASF_VT_BOOL:
     case ASF_VT_DWORD:
       if (size >= 4)
-	i = snprintf(buf, len, "%d", *(__s32*)&data[0]);
+	i = snprintf(buf, len, "%d", le32_to_cpu(*(__s32*)&data[0]));
       break;
     case ASF_VT_QWORD:
-      if (size >= 8)
+      if (size >= 8) {
 #if __WORDSIZE == 64
-	i = snprintf(buf, len, "%ld", *(__s64*)&data[0]);
+	i = snprintf(buf, len, "%ld", le64_to_cpu(*(__s64*)&data[0]));
 #else
-	i = snprintf(buf, len, "%lld", *(__s64*)&data[0]);
+        i = snprintf(buf, len, "%lld", le64_to_cpu(*(__s64*)&data[0]));
 #endif
+      }
       break;
     case ASF_VT_WORD:
       if (size >= 2)
-	i = snprintf(buf, len, "%d", *(__s16*)&data[0]);
+	i = snprintf(buf, len, "%d", le16_to_cpu(*(__s16*)&data[0]));
       break;
     }
 
@@ -338,6 +339,8 @@ _get_asffileinfo(char *file, struct song_metadata *psong)
     fclose(fp);
     return -1;
   }
+  hdr.Size = le64_to_cpu(hdr.Size);
+
   if (!IsEqualGUID(&hdr.ID, &ASF_HeaderObject)) {
     DPRINTF(E_ERROR, L_SCAN_SCANNER, "Not a valid header\n");
     fclose(fp);
@@ -351,6 +354,7 @@ _get_asffileinfo(char *file, struct song_metadata *psong)
   while (NumObjects > 0) {
     if (sizeof(tmp) != fread(&tmp, 1, sizeof(tmp), fp))
       break;
+    tmp.Size = le64_to_cpu(tmp.Size);
 
     if (pos + tmp.Size > hdr.Size) {
       DPRINTF(E_ERROR, L_SCAN_SCANNER, "Size overrun reading header object %I64x\n", tmp.Size);
@@ -359,8 +363,8 @@ _get_asffileinfo(char *file, struct song_metadata *psong)
 
     if (IsEqualGUID(&tmp.ID, &ASF_FileProperties)) {
       _asf_read_file_properties(fp, &FileProperties, tmp.Size);
-      psong->song_length = FileProperties.PlayDuration / 10000;
-      psong->bitrate = FileProperties.MaxBitrate;
+      psong->song_length = le64_to_cpu(FileProperties.PlayDuration) / 10000;
+      psong->bitrate = le64_to_cpu(FileProperties.MaxBitrate);
     }
     else if (IsEqualGUID(&tmp.ID, &ASF_ContentDescription)) {
       TitleLength = fget_le16(fp);
