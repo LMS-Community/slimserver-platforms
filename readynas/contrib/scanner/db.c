@@ -23,9 +23,11 @@
 #include <mysql/mysql.h>
 #include <mysql/mysqld_error.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <time.h>
 
+#include "misc.h"
 #include "scanner.h"
 #include "tagutils.h"
 #include "log.h"
@@ -35,9 +37,16 @@
 #include "artwork.h"
 
 struct _cache {
-  int various_artists;
+  int various_artists_id;
+  char *va_canonicalized_str;
+  int no_album_id;
+  char *no_album_canonicalized_str;
+  int no_artist_id;
+  char *no_artist_canonicalized_str;
 } cache = {
-  .various_artists = 0
+  .various_artists_id = 0,
+  .va_canonicalized_str = 0,
+  .no_album_id = 0
 };
 
 static char qstr[2048];
@@ -74,18 +83,20 @@ _song_length_str(int len)
 static int
 _get_various_artists(int *id, MYSQL *mysql)
 {
-  char *str_va = "Various Artists";		// TBD: This should read from string file
-  char *str_va_canonicalized = canonicalize_name(str_va);
   char *p;
   size_t room;
   int n, err;
   MYSQL_RES *result = 0;
   MYSQL_ROW row;
 
+  // cache
+  if (!cache.va_canonicalized_str)
+    cache.va_canonicalized_str = canonicalize_name(G.variousartists_str);
+
   // check if record already exist
   p = qstr;
   room = sizeof(qstr) - 1;
-  (void) sql_snprintf(p, room, "select id from contributors where name='%S'", str_va);
+  (void) sql_snprintf(p, room, "select id from contributors where name='%S'", G.variousartists_str);
   if ((err = _db_query(mysql, qstr, 0)))
     goto _exit;
   if (!(result = mysql_store_result(mysql))) {
@@ -105,7 +116,7 @@ _get_various_artists(int *id, MYSQL *mysql)
       n = snprintf(p, room, "insert into contributors (name,namesort,namesearch) values ");
       p += n; room -= n;
       sql_snprintf(p, room, "('%S','%S','%S')",
-		      str_va, str_va_canonicalized, str_va_canonicalized);
+		      G.variousartists_str, cache.va_canonicalized_str, cache.va_canonicalized_str);
       if ((err = _db_query(mysql, qstr, 0)))
 	goto _exit;
       *id = mysql_insert_id(mysql);
@@ -120,8 +131,61 @@ _get_various_artists(int *id, MYSQL *mysql)
  _exit:
   if (result)
     mysql_free_result(result);
-  if (str_va_canonicalized)
-    free(str_va_canonicalized);
+
+  return err;
+}
+
+static int
+_get_no_artist(int *id, MYSQL *mysql)
+{
+  char *p;
+  size_t room;
+  int n, err;
+  MYSQL_RES *result = 0;
+  MYSQL_ROW row;
+
+  // cache
+  if (!cache.no_artist_canonicalized_str)
+    cache.no_artist_canonicalized_str = canonicalize_name(G.no_artist_str);
+
+  // check if record already exist
+  p = qstr;
+  room = sizeof(qstr) - 1;
+  (void) sql_snprintf(p, room, "select id from contributors where name='%S'", G.no_artist_str);
+  if ((err = _db_query(mysql, qstr, 0)))
+    goto _exit;
+  if (!(result = mysql_store_result(mysql))) {
+    DPRINTF(E_DEBUG, L_DB_MYSQL, "No return result on select\n");
+    err = -1;
+    goto _exit;
+  }
+  if ((mysql_num_fields(result))) {
+    if ((row = mysql_fetch_row(result))) {
+      // exist, get id
+      *id = atoi(row[0]);
+    }
+    else {
+      // not exist, insert it
+      p = qstr;
+      room = sizeof(qstr) - 1;
+      n = snprintf(p, room, "insert into contributors (name,namesort,namesearch) values ");
+      p += n; room -= n;
+      sql_snprintf(p, room, "('%S','%S','%S')",
+		      G.no_artist_str, cache.no_artist_canonicalized_str, cache.no_artist_canonicalized_str);
+      if ((err = _db_query(mysql, qstr, 0)))
+	goto _exit;
+      *id = mysql_insert_id(mysql);
+    }
+  }
+  else {
+    DPRINTF(E_INFO, L_DB_SQL, "Unexpected error\n");
+    err = -1;
+    goto _exit;
+  }
+
+ _exit:
+  if (result)
+    mysql_free_result(result);
 
   return err;
 }
@@ -132,23 +196,86 @@ _insert_contributor_album_track(MYSQL *mysql, struct song_metadata *psong, int r
   char *p;
   size_t room;
   int err;
+  unsigned long contributor_id;
 
-  if (psong->album) {
+  // cache
+  if (!cache.no_artist_id) {
+    if ((err = _get_no_artist(&cache.no_artist_id, mysql)))
+      return err;
+  }
+
+  // contributor_album
+  contributor_id = 0;
+  switch (role) {
+  case ROLE_ARTIST:
+    if (!psong->contributor_id[ROLE_ALBUMARTIST]) {
+      if (psong->contributor_id[ROLE_ARTIST])
+	contributor_id = psong->contributor_id[ROLE_ARTIST];
+      else if (psong->contributor_id[ROLE_TRACKARTIST])
+	contributor_id = psong->contributor_id[ROLE_TRACKARTIST];
+      else
+	contributor_id = cache.no_artist_id;
+    }
+    break;
+  case ROLE_ALBUMARTIST:
+    if (psong->contributor_id[ROLE_ALBUMARTIST] &&
+	psong->contributor_id[ROLE_TRACKARTIST])
+      contributor_id = psong->contributor_id[ROLE_ALBUMARTIST];
+    break;
+  case ROLE_TRACKARTIST:
+    if (!psong->contributor_id[ROLE_ARTIST] &&
+	psong->contributor_id[ROLE_ALBUMARTIST])
+      contributor_id = psong->contributor_id[role];
+    break;
+  default:
+    contributor_id = psong->contributor_id[role];
+    break;
+  }
+  if (contributor_id) {
     p = qstr;
     room = sizeof(qstr) - 1;
     (void) snprintf(p, room, "insert ignore into contributor_album "
 		    "(role,contributor,album) values (%d,%ld,%ld)",
-		    role, psong->contributor_id[role], psong->album_id);
+		    role, contributor_id, psong->album_id);
     if ((err = _db_query(mysql, qstr, 0)))
       return err;
   }
-  p = qstr;
-  room = sizeof(qstr) - 1;
-  (void) snprintf(p, room, "insert into contributor_track "
-		  "(role,contributor,track) values (%d,%ld,%ld)",
-		  role, psong->contributor_id[role], psong->track_id);
-  if ((err = _db_query(mysql, qstr, 0)))
-    return err;
+
+  // contributor_track
+  contributor_id = 0;
+  switch (role) {
+  case ROLE_ARTIST:
+    if (!psong->contributor_id[ROLE_ARTIST]) {
+      if (!psong->contributor_id[ROLE_ALBUMARTIST]) {
+	if (psong->contributor_id[ROLE_TRACKARTIST])
+	  contributor_id = psong->contributor_id[ROLE_TRACKARTIST];
+	else
+	  contributor_id = cache.no_artist_id;
+      }
+    }
+    else {
+      contributor_id = psong->contributor_id[role];
+    }
+    break;
+  case ROLE_TRACKARTIST:
+    if (psong->contributor_id[ROLE_ARTIST] ||
+	psong->contributor_id[ROLE_ALBUMARTIST] ||
+	!psong->contributor_id[ROLE_TRACKARTIST])
+      contributor_id = psong->contributor_id[role];
+    break;
+  default:
+    contributor_id = psong->contributor_id[role];
+    break;
+  }
+  if (contributor_id) {
+    p = qstr;
+    room = sizeof(qstr) - 1;
+    (void) snprintf(p, room, "insert into contributor_track "
+		    "(role,contributor,track) values (%d,%ld,%ld)",
+		    role, contributor_id, psong->track_id);
+    if ((err = _db_query(mysql, qstr, 0)))
+      return err;
+  }
 
   return 0;
 }
@@ -298,10 +425,16 @@ _insert_genre(MYSQL *mysql, struct song_metadata *psong)
   int n, err = 0;
   MYSQL_RES *result;
   MYSQL_ROW row;
+  char *genre_str;
+
+  if (!psong->genre || psong->genre[0]=='\0')
+    genre_str = G.no_genre_str;
+  else
+    genre_str = psong->genre;
 
   p = qstr;
   room = sizeof(qstr) - 1;
-  (void) sql_snprintf(p, room, "select id from genres where name='%S'", psong->genre);
+  (void) sql_snprintf(p, room, "select id from genres where name='%S'", genre_str);
   if ((err = _db_query(mysql, qstr, 0)))
     return err;
   if (!(result = mysql_store_result(mysql))) {
@@ -315,14 +448,14 @@ _insert_genre(MYSQL *mysql, struct song_metadata *psong)
     }
     else {
       // not exist, insert it
-      char *canonicalized_genre = canonicalize_name(psong->genre);
+      char *canonicalized_genre = canonicalize_name(genre_str);
       p = qstr;
       room = sizeof(qstr) - 1;
       n = sql_snprintf(p, room, "insert into genres (name,namesort,namesearch) values");
       p += n; room -= n;
       sql_snprintf(p, room, "('%S','%S','%S')",
-		   psong->genre, canonicalized_genre, canonicalized_genre);
-      if (canonicalized_genre != psong->genre)
+		   genre_str, canonicalized_genre, canonicalized_genre);
+      if (canonicalized_genre != genre_str)
 	free(canonicalized_genre);
       if ((err = _db_query(mysql, qstr, 0))) {
 	mysql_free_result(result);
@@ -343,6 +476,28 @@ _insert_album(MYSQL *mysql, struct song_metadata *psong)
   int n, err = 0;
   MYSQL_RES *result;
   MYSQL_ROW row;
+  unsigned long albumartist_id;
+
+  // cache
+  if (!cache.various_artists_id) {
+    if ((err = _get_various_artists(&cache.various_artists_id, mysql))) {
+      return err;
+    }
+  }
+  if (!cache.no_artist_id) {
+    if ((err = _get_no_artist(&cache.no_artist_id, mysql)))
+      return err;
+  }
+
+  // select albumartist
+  if (psong->contributor_id[ROLE_ALBUMARTIST])
+    albumartist_id = psong->contributor_id[ROLE_ALBUMARTIST];
+  else if (psong->contributor_id[ROLE_ARTIST])
+    albumartist_id = psong->contributor_id[ROLE_ARTIST];
+  else if (psong->contributor_id[ROLE_TRACKARTIST])
+    albumartist_id = psong->contributor_id[ROLE_TRACKARTIST];
+  else
+    albumartist_id = cache.no_artist_id;
 
   // check if record already exist.
   p = qstr;
@@ -375,9 +530,9 @@ _insert_album(MYSQL *mysql, struct song_metadata *psong)
       psong->album_id = atoi(row[0]);
       // set compilation flag, if not set yet AND different contributor
       if (!safe_atoi(row[1]) &&
-	  safe_atoi(row[2]) != psong->contributor_id[ROLE_ALBUMARTIST]) {
-	if (!cache.various_artists) {
-	  if ((err = _get_various_artists(&cache.various_artists, mysql))) {
+	  safe_atoi(row[2]) != albumartist_id) {
+	if (!cache.various_artists_id) {
+	  if ((err = _get_various_artists(&cache.various_artists_id, mysql))) {
 	    mysql_free_result(result);
 	    return err;
 	  }
@@ -386,7 +541,7 @@ _insert_album(MYSQL *mysql, struct song_metadata *psong)
 	p = qstr;
 	room = sizeof(qstr) - 1;
 	(void) sql_snprintf(p, room, "update albums set compilation=1,contributor=%d where id=%d",
-			    cache.various_artists, psong->album_id);
+			    cache.various_artists_id, psong->album_id);
 	if ((err = _db_query(mysql, qstr, 0))) {
 	  mysql_free_result(result);
 	  return err;
@@ -411,7 +566,7 @@ _insert_album(MYSQL *mysql, struct song_metadata *psong)
 		  " %I,%I,%d)",			// disc
 		   psong->album, canonicalized_album, canonicalized_album,
 		   psong->compilation, psong->year,
-		   psong->disc, psong->total_discs, psong->contributor_id[ROLE_ALBUMARTIST]
+		   psong->disc, psong->total_discs, albumartist_id
 		   );
       if (canonicalized_album != psong->album)
 	free(canonicalized_album);
@@ -420,6 +575,80 @@ _insert_album(MYSQL *mysql, struct song_metadata *psong)
 	return err;
       }
       psong->album_id = mysql_insert_id(mysql);
+    }
+  }
+  else {
+    DPRINTF(E_INFO, L_DB_SQL, "Unexpected error\n");
+    mysql_free_result(result);
+    return -1;
+  }
+  mysql_free_result(result);
+  return 0;
+}
+
+static int
+_get_no_album(int *id, MYSQL *mysql)
+{
+  char *p;
+  size_t room;
+  int n, err = 0;
+  MYSQL_RES *result;
+  MYSQL_ROW row;
+
+  // cache
+  if (!cache.no_album_canonicalized_str)
+    cache.no_album_canonicalized_str = canonicalize_name(G.no_album_str);
+
+  if (!cache.various_artists_id) {
+    if ((err = _get_various_artists(&cache.various_artists_id, mysql))) {
+      return err;
+    }
+  }
+
+  // check if record already exist.
+  p = qstr;
+  room = sizeof(qstr) - 1;
+  n = sql_snprintf(p, room, "select me.id,me.compilation,me.contributor from albums me "
+		   "join tracks on (me.id=tracks.album) "
+		   "where me.title='%S' and compilation=1 and "
+		   "me.year=0 and me.disc=0 and discc=0 and contributor=%d",
+		   G.no_album_str, cache.various_artists_id);
+
+  if ((err = _db_query(mysql, qstr, 0)))
+    return err;
+  if (!(result = mysql_store_result(mysql))) {
+    DPRINTF(E_INFO, L_DB_SQL, "Internal Error%s\n");
+    return -1;
+  }
+
+  if ((mysql_num_fields(result))) {
+    if ((row = mysql_fetch_row(result))) {
+      // exist, get id
+      *id = atoi(row[0]);
+    }
+    else {
+      // not exist, insert it
+      p = qstr;
+      room = sizeof(qstr) - 1;
+      n = snprintf(p, room, "insert into albums ("
+		   "title,titlesort,titlesearch,"
+		   "compilation,year,"
+		   "disc,discc,contributor"
+		   ") values ");
+      p += n; room -= n;
+      sql_snprintf(p, room,
+		   "('%S','%S','%S',"		// album
+		   "%I,%d,"			// compilation
+		  " %I,%I,%d)",			// disc
+		   G.no_album_str, cache.no_album_canonicalized_str, cache.no_album_canonicalized_str,
+		   1, 0,
+		   0, 0, cache.various_artists_id
+		   );
+      if ((err = _db_query(mysql, qstr, 0))) {
+	mysql_free_result(result);
+	return err;
+      }
+      *id = mysql_insert_id(mysql);
     }
   }
   else {
@@ -506,8 +735,6 @@ _insertdb_song(MYSQL *mysql, struct song_metadata *psong)
     return err;
 
   // genre
-  if (!psong->genre)
-    psong->genre = G.no_genre;
   if ((err = _insert_genre(mysql, psong)))
     return err;
 
@@ -519,12 +746,17 @@ _insertdb_song(MYSQL *mysql, struct song_metadata *psong)
     }
   }
 
-  psong->contributor_id[ROLE_ALBUMARTIST] = psong->contributor_id[ROLE_ARTIST];
-
   // albums
   if (psong->album) {
     if ((err = _insert_album(mysql, psong)))
       return err;
+  }
+  else {
+    if (!cache.no_album_id) {
+      if ((err = _get_no_album(&cache.no_album_id, mysql)))
+	return err;
+    }
+    psong->album_id = cache.no_album_id;
   }
 
   // tracks
@@ -538,10 +770,8 @@ _insertdb_song(MYSQL *mysql, struct song_metadata *psong)
 
   // contributor_album, contributor_track
   for (role=ROLE_START; role<=ROLE_LAST; role++) {
-    if (psong->contributor[role]) {
-      if ((err =_insert_contributor_album_track(mysql, psong, role)))
-	return err;
-    }
+    if ((err =_insert_contributor_album_track(mysql, psong, role)))
+      return err;
   }
 
   // genre_track
@@ -798,7 +1028,7 @@ db_set_progress(MYSQL *mysql, enum _progress_event event, int what, char *info)
     // delete
     p = qstr;
     room = sizeof(qstr) - 1;
-    (void) sql_snprintf(p, room, "delete from progress where name='%s'", name[what]);
+    (void) snprintf(p, room, "delete from progress where name='%s'", name[what]);
     if ((err = _db_query(mysql, qstr, 0)))
       return err;
     if (event==PROGRESS_DELETE)
@@ -818,11 +1048,11 @@ db_set_progress(MYSQL *mysql, enum _progress_event event, int what, char *info)
   case PROGRESS_UPDATE:
     p = qstr;
     room = sizeof(qstr) - 1;
-    n = snprintf(p, room,
-		 "update progress SET active=1,total=%lu,done=%lu,info='%s' "
-		 "where name='%s'",
-		 G.progress_total[what], G.progress_done[what], info ? info : "",
-		 name[what]);
+    n = sql_snprintf(p, room,
+		     "update progress SET active=1,total=%lu,done=%lu,info='%S' "
+		     "where name='%s'",
+		     G.progress_total[what], G.progress_done[what], info ? info : "",
+		     name[what]);
     if ((err = _db_query(mysql, qstr, 0)))
       return err;
     break;

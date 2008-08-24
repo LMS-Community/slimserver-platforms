@@ -25,9 +25,11 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "misc.h"
 #include "tagutils.h"
 #include "textutils.h"
 #include "log.h"
+
 
 #define MAX_BUF 1024
 
@@ -62,7 +64,7 @@ start_plist(char *path, struct song_metadata *psong, struct stat *stat, char *la
   psong->is_plist = 1;
   psong->path = strdup(path);
   psong->type = type;
-  
+
   fname = strrchr(psong->path, '/');
   psong->basename = fname ? fname+1 : psong->path;
 
@@ -128,4 +130,3 @@ next_plist_track(struct song_metadata *psong, struct stat *stat, char *lang, cha
     return _next_track(psong, stat, lang, type);
   return -1;
 }
-

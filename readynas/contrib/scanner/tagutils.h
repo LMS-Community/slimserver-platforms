@@ -38,9 +38,10 @@
 #define ROLE_COMPOSER 2
 #define ROLE_CONDUCTOR 3
 #define ROLE_BAND 4
-#define ROLE_LAST 4
 #define ROLE_ALBUMARTIST 5
-#define N_ROLE 6
+#define ROLE_TRACKARTIST 6
+#define ROLE_LAST 6
+#define N_ROLE 7
 
 struct song_metadata {
   int file_size;
@@ -50,6 +51,9 @@ struct song_metadata {
   char *type;
   char *sstype;
   int time_modified;
+
+  char *image;					// coverart
+  int image_size;
 
   char *title;					// TIT2
   char *album;					// TALB
@@ -75,7 +79,7 @@ struct song_metadata {
   int samplerate;
   int samplesize;
   int channels;
-  int song_length;
+  int song_length;				// TLEN
   int audio_size;
   int audio_offset;
   int vbr_scale;

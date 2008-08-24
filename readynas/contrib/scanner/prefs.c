@@ -24,6 +24,7 @@
 #include <ctype.h>
 #include <stdio.h>
 
+#include "misc.h"
 #include "prefs.h"
 #include "textutils.h"
 #include "log.h"

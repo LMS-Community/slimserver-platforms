@@ -26,6 +26,7 @@
 #include <errno.h>
 #include <id3tag.h>
 #include <stdlib.h>
+#include <stddef.h>
 #include <string.h>
 #include <time.h>
 #include <iconv.h>
@@ -38,8 +39,8 @@
 
 #include "tagutils.h"
 #include "log.h"
+#include "misc.h"
 #include "textutils.h"
-#include "scanner.h"
 
 struct id3header {
   unsigned char id[3];
@@ -80,6 +81,7 @@ char *winamp_genre[] = {
 #include "tagutils-aac.h"
 #include "tagutils-ogg.h"
 #include "tagutils-flc.h"
+#include "tagutils-asf.h"
 
 static int _get_tags(char *file, struct song_metadata *psong);
 static int _get_fileinfo(char *file, struct song_metadata *psong);
@@ -97,12 +99,10 @@ typedef struct {
 
 static taghandler taghandlers[] = {
   { "aac", _get_aactags, _get_aacfileinfo },
-  { "mp4", _get_aactags, _get_aacfileinfo },
-  { "m4a", _get_aactags, _get_aacfileinfo },
-  { "m4p", _get_aactags, _get_aacfileinfo },
   { "mp3", _get_mp3tags, _get_mp3fileinfo },
   { "flc", _get_flctags, _get_flcfileinfo },
   { "ogg", 0,            _get_oggfileinfo },
+  { "asf", 0,            _get_asffileinfo },
   { NULL, 0 }
 };
 
@@ -114,6 +114,7 @@ static taghandler taghandlers[] = {
 #include "tagutils-aac.c"
 #include "tagutils-ogg.c"
 #include "tagutils-flc.c"
+#include "tagutils-asf.c"
 
 //*********************************************************************************
 // freetags()
@@ -121,20 +122,19 @@ static taghandler taghandlers[] = {
 void
 freetags(struct song_metadata *psong)
 {
+  int role;
   MAYBEFREE(psong->path);
+  MAYBEFREE(psong->image);
   if (psong->titlesearch && psong->titlesearch != psong->titlesort)
     free(psong->titlesearch);
   if (psong->titlesort && psong->titlesort != psong->title)
     free(psong->titlesort);
   MAYBEFREE(psong->title);
   MAYBEFREE(psong->album);
-  if (psong->genre != G.no_genre)
-    MAYBEFREE(psong->genre);
   MAYBEFREE(psong->comment);
-  MAYBEFREE(psong->contributor[ROLE_ARTIST]);
-  MAYBEFREE(psong->contributor[ROLE_COMPOSER]);
-  MAYBEFREE(psong->contributor[ROLE_BAND]);
-  MAYBEFREE(psong->contributor[ROLE_CONDUCTOR]);
+  for (role=ROLE_START; role<=ROLE_LAST; role++) {
+    MAYBEFREE(psong->contributor[role]);
+  }
   MAYBEFREE(psong->grouping);
   MAYBEFREE(psong->tagversion);
 }
