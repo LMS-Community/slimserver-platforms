@@ -134,9 +134,14 @@ freetags(struct song_metadata *psong)
   MAYBEFREE(psong->comment);
   for (role=ROLE_START; role<=ROLE_LAST; role++) {
     MAYBEFREE(psong->contributor[role]);
+    MAYBEFREE(psong->contributor_sort[role]);
   }
   MAYBEFREE(psong->grouping);
   MAYBEFREE(psong->tagversion);
+  MAYBEFREE(psong->musicbrainz_albumid);
+  MAYBEFREE(psong->musicbrainz_trackid);
+  MAYBEFREE(psong->musicbrainz_artistid);
+  MAYBEFREE(psong->musicbrainz_albumartistid);
 }
 
 // _get_fileinfo

@@ -289,6 +289,8 @@ _insert_contributor(MYSQL *mysql, struct song_metadata *psong, int role)
   MYSQL_RES *result;
   MYSQL_ROW row;
   char *canonicalized_contributor;
+  char *contributor_sort;
+  char *musicbrainz_id;
 
   // check if record already exist
   p = qstr;
@@ -307,15 +309,35 @@ _insert_contributor(MYSQL *mysql, struct song_metadata *psong, int role)
     }
     else {
       // not exist, insert it
+      if (role==ROLE_ARTIST)
+	musicbrainz_id = psong->musicbrainz_artistid;
+      else if (role==ROLE_ALBUMARTIST)
+	musicbrainz_id = psong->musicbrainz_albumartistid;
+      else
+	musicbrainz_id = 0;
+
+      canonicalized_contributor = canonicalize_name(psong->contributor[role]);
+
+      if (psong->contributor_sort[role])
+	contributor_sort = canonicalize_name(psong->contributor_sort[role]);
+      else
+	contributor_sort = canonicalized_contributor;
+
       p = qstr;
       room = sizeof(qstr) - 1;
-      n = snprintf(p, room, "insert into contributors (name,namesort,namesearch) values ");
+      n = snprintf(p, room, "insert into contributors ("
+		   "name,namesort,namesearch,musicbrainz_id) values ");
       p += n; room -= n;
-      canonicalized_contributor = canonicalize_name(psong->contributor[role]);
-      sql_snprintf(p, room, "('%S','%S','%S')",
-		   psong->contributor[role], canonicalized_contributor, canonicalized_contributor);
+      sql_snprintf(p, room, "('%S','%S','%S',%T)",
+		   psong->contributor[role], contributor_sort, canonicalized_contributor,
+		   musicbrainz_id
+		   );
+      if (psong->contributor_sort[role]!=contributor_sort &&
+	 canonicalized_contributor!=contributor_sort)
+	free(contributor_sort);
       if (psong->contributor[role]!=canonicalized_contributor)
 	free(canonicalized_contributor);
+
       if ((err = _db_query(mysql, qstr, 0)))
 	return err;
       psong->contributor_id[role] = mysql_insert_id(mysql);
@@ -354,7 +376,7 @@ _insert_tracks(MYSQL *mysql, struct song_metadata *psong)
 	       "audio_size,audio_offset,year,secs,"
 	       "vbr_scale,bitrate,samplerate,samplesize,channels,block_alignment,"
 	       "bpm,tagversion,drm,rating,"
-	       "disc,audio,remote,lossless"
+	       "disc,audio,remote,lossless,musicbrainz_id"
 	       ") values (");
   p += n; room -= n;
   if (psong->track_id) {
@@ -366,7 +388,7 @@ _insert_tracks(MYSQL *mysql, struct song_metadata *psong)
 	       "%I,%d,%d,%S,"			// audio_size, ...
 	       "%D,%D,%D,%I,%I,%I,"		// vbr_scale, ...
 	       "%I,%T,%d,%d,"			// bpm, ...
-	       "%I,%d,%d,%d)",			// disc ...
+	       "%I,%d,%d,%d,%T)",		// disc ...
 	       psong->path,			// url
 	       psong->title,
 	       psong->titlesort,
@@ -393,7 +415,8 @@ _insert_tracks(MYSQL *mysql, struct song_metadata *psong)
 	       psong->disc,			// disc
 	       1,
 	       0,
-	       psong->lossless
+	       psong->lossless,
+	       psong->musicbrainz_trackid
 	       );
   if ((err = _db_query(mysql, qstr, 0)))
     return err;
@@ -556,17 +579,17 @@ _insert_album(MYSQL *mysql, struct song_metadata *psong)
       n = snprintf(p, room, "insert into albums ("
 		   "title,titlesort,titlesearch,"
 		   "compilation,year,"
-		   "disc,discc,contributor"
+		   "disc,discc,contributor,musicbrainz_id"
 		   ") values ");
       p += n; room -= n;
       canonicalized_album = canonicalize_name(psong->album);
       sql_snprintf(p, room,
 		   "('%S','%S','%S',"		// album
 		   "%I,%d,"			// compilation
-		  " %I,%I,%d)",			// disc
+		  " %I,%I,%d,%T)",		// disc
 		   psong->album, canonicalized_album, canonicalized_album,
 		   psong->compilation, psong->year,
-		   psong->disc, psong->total_discs, albumartist_id
+		   psong->disc, psong->total_discs, albumartist_id, psong->musicbrainz_albumid
 		   );
       if (canonicalized_album != psong->album)
 	free(canonicalized_album);

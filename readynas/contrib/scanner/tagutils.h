@@ -64,6 +64,7 @@ struct song_metadata {
   						// TCOM  (composer)
   						// TPE3  (conductor)
   						// TPE2  (orchestra)
+  char *contributor_sort[N_ROLE];
 
 
   char *grouping;				// TIT1
@@ -94,6 +95,11 @@ struct song_metadata {
   unsigned long track_id;
   unsigned long genre_id;
   unsigned long contributor_id[N_ROLE];
+
+  char *musicbrainz_albumid;
+  char *musicbrainz_trackid;
+  char *musicbrainz_artistid;
+  char *musicbrainz_albumartistid;
 
   int is_plist;
   int plist_position;
