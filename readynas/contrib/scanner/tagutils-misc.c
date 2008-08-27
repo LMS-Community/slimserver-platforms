@@ -172,6 +172,9 @@ vc_scan(struct song_metadata *psong, const char *comment, const size_t length)
   else if (!strncasecmp(strbuf, "ARTIST=", 7)) {
     psong->contributor[ROLE_ARTIST] = strdup(strbuf+7);
   }
+  else if (!strncasecmp(strbuf, "ARTISTSORT=", 11)) {
+    psong->contributor_sort[ROLE_ARTIST] = strdup(strbuf+11);
+  }
   else if (!strncasecmp(strbuf, "TITLE=",6)) {
     psong->title = strdup(strbuf+6);
   }
@@ -201,5 +204,20 @@ vc_scan(struct song_metadata *psong, const char *comment, const size_t length)
   }
   else if (!strncasecmp(strbuf, "COMMENT=", 8)) {
     psong->comment = strdup(strbuf+8);
+  }
+  else if (!strncasecmp(strbuf, "MUSICBRAINZ_ALBUMID=",20)) {
+    psong->musicbrainz_albumid = strdup(strbuf+20);
+  }
+  else if (!strncasecmp(strbuf, "MUSICBRAINZ_TRACKID=",20)) {
+    psong->musicbrainz_trackid = strdup(strbuf+20);
+  }
+  else if (!strncasecmp(strbuf, "MUSICBRAINZ_TRACKID=",20)) {
+    psong->musicbrainz_trackid = strdup(strbuf+20);
+  }
+  else if (!strncasecmp(strbuf, "MUSICBRAINZ_ARTISTID=",21)) {
+    psong->musicbrainz_artistid = strdup(strbuf+21);
+  }
+  else if (!strncasecmp(strbuf, "MUSICBRAINZ_ALBUMARTISTID=",26)) {
+    psong->musicbrainz_albumartistid = strdup(strbuf+26);
   }
 }
