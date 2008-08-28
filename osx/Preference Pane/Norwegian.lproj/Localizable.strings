@@ -1,8 +1,8 @@
 "Start Server" = "Start server";
 "Stop Server" = "Stopp server";
-"Start Server Description" = "Klikk på denne knappen for å starte SqueezeCenter. Spillerne får tilgang til musikkbiblioteket ditt når SqueezeCenter startes.";
-"Stop Server Description" = "Klikk på denne knappen for å stoppe SqueezeCenter. Spillerne har ikke tilgang til musikkbiblioteket ditt når SqueezeCenter er stoppet.";
+"Start Server Description" = "Klikk pÃ¥ denne knappen for Ã¥ starte SqueezeCenter. Spillerne fÃ¥r tilgang til musikkbiblioteket ditt nÃ¥r SqueezeCenter startes.";
+"Stop Server Description" = "Klikk pÃ¥ denne knappen for Ã¥ stoppe SqueezeCenter. Spillerne har ikke tilgang til musikkbiblioteket ditt nÃ¥r SqueezeCenter er stoppet.";
 "Authorization Launch Error" = "Kunne ikke finne fastvare: filen Update Firmware.sh mangler";
-"Expired Authorization Error" = "Kunne ikke oppdatere fastvare: autorisasjonen har utløpt.";
+"Expired Authorization Error" = "Kunne ikke oppdatere fastvare: autorisasjonen har utlÃ¸pt.";
 "Firmware version" = "Fastvareversjon %@.";
 "Firmware version invalid" = "Fastvareversjonen er ugyldig.";

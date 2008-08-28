@@ -1,8 +1,8 @@
 "Install" = "Asenna";
-"Update" = "P‰ivit‰";
+"Update" = "P√§ivit√§";
 "Install Results" = "Asennustulokset";
 "OK" = "OK";
 "SqueezeCenter installed successfully.\n" = "SqueezeCenterin asennus onnistui.";
-"SqueezeCenter install failed.\n" = "SqueezeCenterin asennus ep‰onnistui.";
-"You must have OS X 10.3 or later to run SqueezeCenter.\n" = "SqueezeCenterin k‰ytt‰miseen tarvitaan OS X -k‰yttˆj‰rjestelm‰n versio 10.3 tai uudempi.";
+"SqueezeCenter install failed.\n" = "SqueezeCenterin asennus ep√§onnistui.";
+"You must have OS X 10.3 or later to run SqueezeCenter.\n" = "SqueezeCenterin k√§ytt√§miseen tarvitaan OS X -k√§ytt√∂j√§rjestelm√§n versio 10.3 tai uudempi.";
 "Mac OS X 10.3 Required" = "Vaaditaan Mac OS X 10.3";
