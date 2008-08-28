@@ -1,8 +1,8 @@
 "Start Server" = "Start server";
 "Stop Server" = "Stop server";
-"Start Server Description" = "Klik på denne knap for at starte SqueezeCenter. Når den kører, får afspillerne adgang til dit musikbibliotek.";
-"Stop Server Description" = "Klik på denne knap for at stoppe SqueezeCenter. Når den er stoppet, har afspillerne ikke længere adgang til dit musikbibliotek.";
+"Start Server Description" = "Klik pÃ¥ denne knap for at starte SqueezeCenter. NÃ¥r den kÃ¸rer, fÃ¥r afspillerne adgang til dit musikbibliotek.";
+"Stop Server Description" = "Klik pÃ¥ denne knap for at stoppe SqueezeCenter. NÃ¥r den er stoppet, har afspillerne ikke lÃ¦ngere adgang til dit musikbibliotek.";
 "Authorization Launch Error" = "Firmwaren kunne ikke opdateres: filen Update Firmware.sh mangler.";
-"Expired Authorization Error" = "Firmwaren kunne ikke opdateres: godkendelsen er udløbet.";
+"Expired Authorization Error" = "Firmwaren kunne ikke opdateres: godkendelsen er udlÃ¸bet.";
 "Firmware version" = "Firmwareversion %@.";
 "Firmware version invalid" = "Firmwareversionen er ugyldig.";

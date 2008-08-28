@@ -1,7 +1,7 @@
 "Start Server" = "Start server";
 "Stop Server" = "Stop server";
-"Start Server Description" = "Klik op deze knop om de SqueezeCenter te starten. Nadat de  SqueezeCenter gestart is, hebben spelers toegang tot je muziekcollectie.";
-"Stop Server Description" = "Klik op deze knop om de SqueezeCenter te stoppen. Nadat de SqueezeCenter gestopt is, hebben spelers geen toegang meer tot je muziekcollectie.";
+"Start Server Description" = "Klik op deze knop om de SqueezeCenter te starten. Nadat de  SqueezeCenter gestart is, hebben muzieksystemen toegang tot je muziekcollectie.";
+"Stop Server Description" = "Klik op deze knop om de SqueezeCenter te stoppen. Nadat de SqueezeCenter gestopt is, hebben muzieksystemen geen toegang meer tot je muziekcollectie.";
 "Authorization Launch Error" = "Kan firmware niet updaten: bestand Update Firmware.sh ontbreekt.";
 "Expired Authorization Error" = "Kan firmware niet updaten: autorisatie verlopen.";
 "Firmware version" = "Firmwareversie %@.";

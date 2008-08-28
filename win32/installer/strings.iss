@@ -292,7 +292,7 @@ en.ProgressForm_Description=Let's probe your system
 
 en.PortConflict=Potential port conflicts
 
-en.ProbingPorts=Probing ports to see whether a firewall is blocking
+en.ProbingPorts=Probing ports to see if they are being blocked by firewall software
 
 en.Details=Details
 
@@ -310,37 +310,37 @@ en.NoProblem=We ran network access, firewall and antivirus product tests, %nbut 
 
 en.PortConflict=Port Conflict
 
-en.UnknownFirewall=We've detected a problem.%n%nOne or more of the network ports used by SqueezeCenter is blocked. SqueezeCenter uses port numbers 9000 (TCP) and 3483 (TCP and UDP). The most common cause for this is security software on your system, specifically a firewall.%n%nFor more information, visit http://www.logitech.com/support and search for articles on your specific security software or on firewalls in general.
+en.UnknownFirewall=We've detected a problem.%n%nOne or more of the network ports used by SqueezeCenter is blocked. SqueezeCenter uses port numbers 9000 (TCP) and 3483 (TCP and UDP). The most common cause for this is security software on your system, specifically a firewall.%n%nFor more information, visit http://faq.slimdevices.com and search for articles on your specific security software or on firewalls in general.
 
-en.PrefsExistButPortConflict=There may be a conflict with another application using network port 9000, but we can't change the existing server.prefs file.%n%nIf you encounter problems starting SqueezeCenter, try changing the value for httpport in server.prefs to some other value, eg. 9010 instead of 9000.
+en.PrefsExistButPortConflict=We've detected a problem.%n%nSqueezeCenter uses port 9000 to communicate over your network, and there may be a conflict with another application using the same port.%n%nIf you encounter problems starting SqueezeCenter, try editing the SqueezeCenter preference file and changing the port to some other value.%n%nTo do this, search for "server.prefs" on your computer and edit that file in notepad.  Find the entry for "httpport" and change it from 9000 to 9010, some 9100. Save and close the file.  This will solve the conflict and allow SqueezeCenter to run successfully.%n%nFor more information, visit http://faq.slimdevices.com
 
-en.PortConflict_Description=There may be a network conflict.  The following program is already using port 9000:
+en.PortConflict_Description=We've detected a problem.%n%nThere may be a network conflict.  The following program is already using port 9000:
 
-en.PortConflict_Solution=You can configure SqueezeCenter to run on an an unused port, such as 9001.
+en.PortConflict_Solution=You can configure SqueezeCenter to run on an unused port, such as 9001.
 
 en.PingProblem=Problem pinging www.squeezenetwork.com
 
-en.PingProblem_Description=We were not able to ping www.squeezenetwork.com
+en.PingProblem_Description=We were not able to successfully communicate with SqueezeNetwork.com
 
-en.PingProblem_Solution=This might be a temporary internet issue, or a limitation by your ISP.%n%nIf the problem persists, please make sure your firewall isn't blocking outgoing traffic.
+en.PingProblem_Solution=This might be a temporary internet issue, or a limitation imposed by your ISP.%n%nIf the problem persists, please make sure your firewall is not blocking outgoing traffic.
 
 en.SNConnecting=Connecting to www.squeezenetwork.com...
 
 en.SNConnectFailed=Connecting to www.squeezenetwork.com failed
 
-en.SNConnectFailed_Description=We failed to connect to www.squeezenetwork.com on port 3483, which is used by %nSqueezebox.
+en.SNConnectFailed_Description=We were not able to connect to SqueezeNetwork.com on port 3483, which is used by %nSqueezebox.
 
 en.SNConnectFailed_Solution=If your internet connection is otherwise working fine, check your firewall settings. %nMake sure outgoing connections to port 3483 are not blocked. %n%nMany corporate firewalls block this port.
 
 en.AppConflict=Possible software conflict found
 
-en.AppConflict_Description=A program has been found running on your machine which may conflict%nwith SqueezeCenter under certain conditions.%n%nIf you have problems using SqueezeCenter, contact technical support.
+en.AppConflict_Description=A program has been found running on your machine which may conflict%nwith SqueezeCenter under certain conditions.%n%nIf you have problems using SqueezeCenter, please contact technical support.%n%nFor more information, visit http://faq.slimdevices.com
 
 en.Port9000ok=SqueezeCenter is running and accessible
 
-en.Port9000blocked=SqueezeCenter is running but can''t be contacted on port 9000
+en.Port9000blocked=SqueezeCenter is running but can't be contacted on port 9000
 
-en.Port9000busyOther=SqueezeCenter does not appear to be running, but port 9000 is busy
+en.Port9000busyOther=Port 9000 is busy and may be in use by another application and SqueezeCenter does not appear to be running
 
 en.Port9000unused=Port 9000 appears to be unused
 
@@ -350,5 +350,6 @@ en.CiscoVPNStatefulInspection=If you encounter connectivity issues with SqueezeC
 en.McAfeeMySQL=McAfee AV scanner needs to be configured to ignore MySQL's *.my* files. %nOtherwise SqueezeCenter's music scanning can fail.
 
 en.SCPerl=%nIf you're running SC using the perl version, then this is ok and expected.
+
 
 

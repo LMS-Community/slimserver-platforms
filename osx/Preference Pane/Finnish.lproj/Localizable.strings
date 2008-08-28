@@ -1,10 +1,8 @@
-"Start Server" = "K‰ynnist‰ palvelin";
-"Stop Server" = "Pys‰yt‰ palvelin";
-"Start Server Description" = "K‰ynnist‰ SqueezeCenter t‰ll‰ painikkeella. Kun se on k‰ynniss‰,
-soittimet voivat k‰ytt‰‰ musiikkikirjastoa.";
-"Stop Server Description" = "Sulje SqueezeCenter t‰ll‰ painikkeella. Kun se on suljettu,
-soittimet eiv‰t voi k‰ytt‰‰ musiikkikirjastoa.";
-"Authorization Launch Error" = "Laiteohjelmistoa ei voida p‰ivitt‰‰: tiedosto Update Firmware.sh puuttuu.";
-"Expired Authorization Error" = "Laiteohjelmistoa ei voida p‰ivitt‰‰: valtuutus vanhentunut.";
+"Start Server" = "K√§ynnist√§ palvelin";
+"Stop Server" = "Pys√§yt√§ palvelin";
+"Start Server Description" = "K√§ynnist√§ SqueezeCenter t√§ll√§ painikkeella. Kun se on k√§ynniss√§, soittimet voivat k√§ytt√§√§ musiikkikirjastoa.";
+"Stop Server Description" = "Sulje SqueezeCenter t√§ll√§ painikkeella. Kun se on suljettu, soittimet eiv√§t voi k√§ytt√§√§ musiikkikirjastoa.";
+"Authorization Launch Error" = "Laiteohjelmistoa ei voida p√§ivitt√§√§: tiedosto Update Firmware.sh puuttuu.";
+"Expired Authorization Error" = "Laiteohjelmistoa ei voida p√§ivitt√§√§: valtuutus vanhentunut.";
 "Firmware version" = "Laiteohjelmistoversio %@.";
-"Firmware version invalid" = "V‰‰r‰ laiteohjelmistoversio.";
+"Firmware version invalid" = "V√§√§r√§ laiteohjelmistoversio.";

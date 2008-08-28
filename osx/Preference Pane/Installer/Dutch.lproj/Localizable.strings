@@ -1,8 +1,8 @@
-"Install" = "Installeer";
+﻿"Install" = "Installeer";
 "Update" = "Update";
 "Install Results" = "Installatieresultaten";
 "OK" = "OK";
-"SqueezeCenter installed successfully.\n" = "SqueezeCenter is ge�nstalleerd.";
+"SqueezeCenter installed successfully.\n" = "SqueezeCenter is geïnstalleerd.";
 "SqueezeCenter install failed.\n" = "SqueezeCenter-installatie mislukt.";
 "You must have OS X 10.3 or later to run SqueezeCenter.\n" = "Je moet OS X 10.3 of hoger hebben om SqueezeCenter uit te voeren.";
 "Mac OS X 10.3 Required" = "Mac OS X 10.3 vereist";
