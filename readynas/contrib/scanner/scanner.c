@@ -39,6 +39,8 @@
 #include "log.h"
 #include "prefs.h"
 
+char *compiled_on = __DATE__ ", " __TIME__ ;
+
 char *progname;
 struct _defval {
   char *dbname;
@@ -46,6 +48,7 @@ struct _defval {
   char *prefsfile;
   char *logdir;
   char *logfile;
+  char *cachedir;
   char *strings;
   char *no_genre_str;
   char *no_album_str;
@@ -58,6 +61,7 @@ struct _defval {
   "server.prefs",
   "/var/log/squeezecenter",
   "scanner.log",
+  "/var/lib/squeezecenter/cache",
   "/usr/share/squeezecenter/strings.txt",
   "No Genre",
   "No Album",
@@ -376,6 +380,43 @@ scan_directory(char *dirpath, char *lang, MYSQL *mysql, struct _importers *impor
   return 0;
 }
 
+static int
+rmtree(char *dirpath)
+{
+  DIR *dir;
+  char *path;
+  struct dirent *dp;
+  struct stat stat;
+
+  if (!(dir = opendir(dirpath))) {
+    return -1;
+  }
+  while ((dp = readdir(dir))) {
+    if (!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, ".."))
+      continue;
+
+    path = calloc(strlen(dirpath) + strlen(dp->d_name) + 2, sizeof(char));
+    sprintf(path, "%s/%s", dirpath, dp->d_name);
+    if (lstat(path, &stat) == -1) {
+      DPRINTF(E_ERROR, L_SCAN, "%s on lstat(%s)\n", strerror(errno), path)
+      free(path);
+      closedir(dir);
+      return -1;
+    }
+    if (stat.st_mode & S_IFDIR) {
+      // descending
+      rmtree(path);
+    }
+    else {
+      unlink(path);
+    }
+    free(path);
+  }
+  closedir(dir);
+  rmdir(dirpath);
+  return 0;
+}
+
 int
 main(int argc, char **argv) {
   //
@@ -467,7 +508,7 @@ main(int argc, char **argv) {
   }
 
   // Greeting
-  DPRINTF(E_OFF, L_SCAN, "Start scanner ...\n");
+  DPRINTF(E_OFF, L_SCAN, "Start scanner (compiled on %s)...\n", compiled_on);
 
   // prefsfile
   if (prefsfile && prefsfile[0]=='/') {
@@ -502,6 +543,9 @@ main(int argc, char **argv) {
       DPRINTF(E_INFO, L_SCAN, "playlistdir need to be specified\n");
     }
   }
+
+  if (!prefs.cachedir)
+    prefs.cachedir = defval.cachedir;
 
   if (!dbname)
     dbname = defval.dbname;
@@ -547,9 +591,18 @@ main(int argc, char **argv) {
 
   // Wipe
   if (G.wipe) {
+    char *artwork_cachedir;
+    struct stat stat;
     DPRINTF(E_OFF, L_SCAN, "Wipe database and artwork cache.\n", dbname);
     db_wipe(&mysql);
-    system("rm -rf /var/lib/squeezecenter/cache/Artwork");
+    if (!(artwork_cachedir = malloc(PATH_MAX)))
+      DPRINTF(E_FATAL, L_SCAN, "Out of memory\n");
+    snprintf(artwork_cachedir, PATH_MAX, "%s/Artwork", prefs.cachedir);
+    if (!lstat(artwork_cachedir, &stat) &&
+	stat.st_mode & S_IFDIR) {
+      (void) rmtree(artwork_cachedir);
+    }
+    free(artwork_cachedir);
   }
   else {
     (void) db_get_lastrescantime(&mysql, &G.lastrescantime);

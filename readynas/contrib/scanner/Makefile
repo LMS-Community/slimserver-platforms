@@ -26,7 +26,7 @@ LANG=C
 
 #CC = sparc-linux-gcc
 CC = gcc
-LDFLAGS := -lmysqlclient -lid3tag -logg -lvorbis -lFLAC
+LDFLAGS := -lmysqlclient -lid3tag -logg -lvorbis -lFLAC -lssl -lgd
 
 ifeq (${DEBUG},1)
   CFLAGS = -O -Wall -ggdb
@@ -39,7 +39,8 @@ endif
 
 
 EXES = scanner
-OBJS = tagutils.o tagutils-plist.o log.o sqlprintf.o textutils.o prefs.o artwork.o db.o misc.o
+OBJS = tagutils.o tagutils-plist.o log.o sqlprintf.o textutils.o prefs.o artwork.o db.o \
+	misc.o filecache.o
 
 .PHONY: usage all clean TAGS
 

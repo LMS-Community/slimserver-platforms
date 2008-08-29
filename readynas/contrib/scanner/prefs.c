@@ -95,6 +95,8 @@ read_prefs(const char *prefsfile)
       prefs.audiodir = strdup(skipspaces(buf+9));
     else if (!strncmp(buf, "playlistdir:", 12))
       prefs.playlistdir = strdup(skipspaces(buf+12));
+    else if (!strncmp(buf, "cachedir:", 9))
+      prefs.cachedir = strdup(skipspaces(buf+9));
     else if (!strncmp(buf, "language:", 9))
       // CS/DA/DE/EN/ES/FI/FR/HE/IT/JA/NL/NO/PT/SV/ZH_CN/ZH_TW
       prefs.language = strdup(skipspaces(buf+9));

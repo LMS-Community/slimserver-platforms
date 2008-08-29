@@ -29,7 +29,9 @@ struct _prefs {
   struct _ignoredwords *ignoredwords;
   char *audiodir;
   char *playlistdir;
+  char *cachedir;
   char *language;
+  int thumbSize;
 } prefs;
 
 

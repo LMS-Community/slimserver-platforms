@@ -20,6 +20,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#ifndef _SCANNER_MISC_H
+#define _SCANNER_MISC_H
 
 typedef unsigned char __u8;
 typedef signed char __s8;
@@ -42,3 +44,9 @@ inline __u64 le64_to_cpu(__u64 le64);
 inline __u8 fget_byte(FILE *fp);
 inline __u16 fget_le16(FILE *fp);
 inline __u32 fget_le32(FILE *fp);
+
+inline __u32 cpu_to_be32(__u32 cpu32);
+
+extern char * sha1_hex(char *key);
+
+#endif

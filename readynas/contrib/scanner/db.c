@@ -35,6 +35,7 @@
 #include "db.h"
 #include "textutils.h"
 #include "artwork.h"
+#include "filecache.h"
 
 struct _cache {
   int various_artists_id;
@@ -375,7 +376,7 @@ _insert_tracks(MYSQL *mysql, struct song_metadata *psong)
 	       "album,tracknum,content_type,timestamp,filesize,"
 	       "audio_size,audio_offset,year,secs,"
 	       "vbr_scale,bitrate,samplerate,samplesize,channels,block_alignment,"
-	       "bpm,tagversion,drm,rating,"
+	       "bpm,tagversion,drm,"
 	       "disc,audio,remote,lossless,musicbrainz_id"
 	       ") values (");
   p += n; room -= n;
@@ -387,7 +388,7 @@ _insert_tracks(MYSQL *mysql, struct song_metadata *psong)
 	       "%I,%I,'%S',%u,%u,"		// album, ...
 	       "%I,%d,%d,%S,"			// audio_size, ...
 	       "%D,%D,%D,%I,%I,%I,"		// vbr_scale, ...
-	       "%I,%T,%d,%d,"			// bpm, ...
+	       "%I,%T,%d,"			// bpm, ...
 	       "%I,%d,%d,%d,%T)",		// disc ...
 	       psong->path,			// url
 	       psong->title,
@@ -410,7 +411,6 @@ _insert_tracks(MYSQL *mysql, struct song_metadata *psong)
 	       psong->blockalignment,
 	       psong->bpm,			// bpm
 	       psong->tagversion,
-	       0,
 	       0,
 	       psong->disc,			// disc
 	       1,
@@ -858,7 +858,7 @@ _insertdb_plist(MYSQL *mysql, struct song_metadata *psong)
   n = snprintf(p, room,
 	       "url,title,titlesort,titlesearch,"
 	       "content_type,timestamp,filesize,"
-	       "rating,remote,musicmagic_mixable"
+	       "remote,musicmagic_mixable"
 	       ") values (");
   p += n; room -= n;
   if (update) {
@@ -868,7 +868,7 @@ _insertdb_plist(MYSQL *mysql, struct song_metadata *psong)
   sql_snprintf(p, room,
 	       "'file://%U','%S','%S','%S',"	// url, ...
 	       "'%S',%u,%d,"			// content_type, ...
-	       "%d,%d,%d"			// raiting
+	       "%d,%d"				// remote
 	       ")",
 	       psong->path,			// url
 	       psong->title,
@@ -877,8 +877,7 @@ _insertdb_plist(MYSQL *mysql, struct song_metadata *psong)
 	       "ssp",				// content_type
 	       psong->time_modified,
 	       psong->file_size,
-	       0,				// rating
-	       0,
+	       0,				// remote
 	       1
 	       );
   if ((err = _db_query(mysql, qstr, 0))) {
@@ -1223,10 +1222,15 @@ db_find_artworks(MYSQL *mysql)
   }
 
   // find album without artwork
-  if ((err = _db_query(mysql,
-		       "SELECT me.id,cover,albums.id,url FROM tracks me"
-		       " JOIN albums ON (albums.id = me.album)"
-		       " WHERE (albums.artwork IS NULL) GROUP BY album", 0)))
+  (void) snprintf(qstr, sizeof(qstr),
+		  "SELECT me.id,cover,albums.id,url FROM tracks me"
+		  " JOIN albums ON (albums.id = me.album)"
+		  " WHERE (me.audio=1 and me.timestamp>=%llu and"
+		  " albums.artwork IS NULL"
+		  ") GROUP BY album",
+		  (unsigned long long) G.lastrescantime);
+
+  if ((err = _db_query(mysql, qstr, 0)))
     return err;
   if (!(result = mysql_store_result(mysql))) {
     DPRINTF(E_DEBUG, L_DB_MYSQL, "No return result on select in db_find_artworks()\n");
@@ -1266,6 +1270,11 @@ db_find_artworks(MYSQL *mysql)
 	  mysql_free_result(result);
 	  return -1;
 	}
+
+	// cache
+	if (create_coverart_cache(track_id, cover_file))
+	  DPRINTF(E_WARN, L_DB_INFO, "Cannot create cache for %s\n", cover_file);
+
 	free(cover_file);
       }
     }
@@ -1274,6 +1283,7 @@ db_find_artworks(MYSQL *mysql)
     G.progress_done[PROGRESS_ARTWORK]++;
     if (G.show_progress && (G.progress_done[PROGRESS_ARTWORK]&PROGRESS_MASK)==PROGRESS_MASK)
       db_set_progress(mysql, PROGRESS_UPDATE, PROGRESS_ARTWORK, cover_file);
+
   }
 
   mysql_free_result(result);
