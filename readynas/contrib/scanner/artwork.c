@@ -22,13 +22,22 @@
 
 #include <limits.h>
 #include <sys/stat.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <gd.h>
 
 #include "misc.h"
 #include "artwork.h"
 #include "log.h"
 #include "textutils.h"
+#include "filecache.h"
+#include "prefs.h"
+
+#define CACHE_TYPE_GD	0
+#define CACHE_TYPE_PNG	1
+#define CACHE_TYPE_GIF	2
+#define CACHE_TYPE_JPG	3
 
 char *basenames[] = {
   "cover", "Cover",
@@ -80,4 +89,252 @@ artwork_find_file(const char *url)
     }
   }
   return 0;
+}
+
+#define N_FRAC 8
+#define MASK_FRAC ((1<<N_FRAC)-1)
+#define ROUND2(v) (((v)+(1<<(N_FRAC-1)))>>N_FRAC)
+#define DIV(x,y) ( ((x)<<(N_FRAC-3)) / ((y)>>3) )
+static void
+_boxfilter_resizer (gdImagePtr dst,
+		    gdImagePtr src,
+		    int dstX, int dstY,
+		    int srcX, int srcY,
+		    int dstW, int dstH, int srcW, int srcH)
+{
+  int x, y;
+  int sy1, sy2, sx1, sx2;
+
+  if (!dst->trueColor) {
+    gdImageCopyResized (dst, src, dstX, dstY, srcX, srcY, dstW, dstH,
+			srcW, srcH);
+    return;
+  }
+  for (y = dstY; y < (dstY + dstH); y++) {
+    sy1 = (((y - dstY) * srcH) << N_FRAC) / dstH;
+    sy2 = (((y - dstY + 1) * srcH) << N_FRAC) / dstH;
+    for (x = dstX; x < (dstX + dstW); x++) {
+      int sx, sy;
+      int spixels = 0;
+      int red = 0, green = 0, blue = 0, alpha = 0;
+      sx1 = (((x - dstX) * srcW) << N_FRAC) / dstW;
+      sx2 = (((x - dstX + 1) * srcW) << N_FRAC) / dstW;
+      sy = sy1;
+      do {
+	int yportion;
+	if ((sy>>N_FRAC) == (sy1>>N_FRAC)) {
+	  yportion = (1<<N_FRAC) - (sy & MASK_FRAC);
+	  if (yportion > sy2 - sy1) {
+	    yportion = sy2 - sy1;
+	  }
+	  sy = sy & ~MASK_FRAC;
+	}
+	else if (sy == (sy2 & ~MASK_FRAC)) {
+	  yportion = sy2 & MASK_FRAC;
+	}
+	else {
+	  yportion = (1<<N_FRAC);
+	}
+	sx = sx1;
+	do {
+	  int xportion;
+	  int pcontribution;
+	  int p;
+	  if ((sx>>N_FRAC) == (sx1>>N_FRAC)) {
+	    xportion = (1<<N_FRAC) - (sx & MASK_FRAC);
+	    if (xportion > sx2 - sx1) {
+	      xportion = sx2 - sx1;
+	    }
+	    sx = sx & ~MASK_FRAC;
+	  }
+	  else if (sx == (sx2 & ~MASK_FRAC)) {
+	    xportion = sx2 & MASK_FRAC;
+	  }
+	  else {
+	    xportion = (1<<N_FRAC);
+	  }
+
+	  if (xportion && yportion) {
+	    pcontribution = (xportion * yportion) >> N_FRAC;
+	    p = gdImageGetTrueColorPixel (src, ROUND2(sx) + srcX, ROUND2(sy) + srcY);
+	    if (pcontribution == (1<<N_FRAC)) {
+	      // optimization for down-scaler, which many pixel has pcontribution=1
+	      red += gdTrueColorGetRed(p) << N_FRAC;
+	      green += gdTrueColorGetGreen(p) << N_FRAC;
+	      blue += gdTrueColorGetBlue(p) << N_FRAC;
+	      alpha += gdTrueColorGetAlpha(p) << N_FRAC;
+	      spixels += (1<<N_FRAC);
+	    }
+	    else {
+	      red += gdTrueColorGetRed(p) * pcontribution;
+	      green += gdTrueColorGetGreen(p) * pcontribution;
+	      blue += gdTrueColorGetBlue(p) * pcontribution;
+	      alpha += gdTrueColorGetAlpha(p) * pcontribution;
+	      spixels += pcontribution;
+	    }
+	  }
+	  sx += (1<<N_FRAC);
+	}
+	while (sx < sx2);
+	sy += (1<<N_FRAC);
+      }
+      while (sy < sy2);
+      if (spixels != 0) {
+	red = DIV(red,spixels);
+	green = DIV(green,spixels);
+	blue = DIV(blue,spixels);
+	alpha = DIV(alpha,spixels);
+      }
+      /* Clamping to allow for rounding errors above */
+      if (red > (255<<N_FRAC))
+	red = (255<<N_FRAC);
+      if (green > (255<<N_FRAC))
+	green = (255<<N_FRAC);
+      if (blue > (255<<N_FRAC))
+	blue = (255<<N_FRAC);
+      if (alpha > (gdAlphaMax<<N_FRAC))
+	alpha = (gdAlphaMax<<N_FRAC);
+      gdImageSetPixel (dst,
+		       x, y,
+		       gdTrueColorAlpha (ROUND2(red), ROUND2(green), ROUND2(blue), ROUND2(alpha)));
+    }
+  }
+}
+
+
+
+static void
+_resizer(gdImagePtr d, gdImagePtr s, int dx, int dy, int sx, int sy,
+	 int dw, int dh, int sw, int sh)
+{
+  switch(2) {
+  case 0:
+    // better quality
+    gdImageCopyResampled(d, s, dx, dy, sx, sy, dw, dh, sw, sh);
+    break;
+  case 1:
+    // faster processing
+    gdImageCopyResized(d, s, dx, dy, sx, sy, dw, dh, sw, sh);
+    break;
+  case 2:
+    // compromized
+    _boxfilter_resizer(d, s, dx, dy, sx, sy, dw, dh, sw, sh);
+    break;
+  }
+}
+
+static int
+_resize_and_cache(int track_id, struct _Cache_Object *data,
+		  gdImagePtr im, int dim, char *resize_mode, int cache_type)
+{
+  gdImagePtr im_resized;
+  char key[64];
+  int srcX, srcY, srcDim;
+  void *p;
+  int sz;
+  char *suffix;
+  int bgcolor = 0;
+
+  // resize
+  if (im->sx > im->sy) {
+    srcDim =  im->sy;
+    srcX = (im->sx - srcDim) >> 1;
+    srcY = 0;
+  }
+  else {
+    srcDim =  im->sx;
+    srcX = 0;
+    srcY = (im->sy - srcDim) >> 1;
+  }
+  im_resized = gdImageCreateTrueColor(dim, dim);
+  _resizer(im_resized, im, 0, 0, srcX, srcY, dim, dim, srcDim, srcDim);
+  switch (cache_type) {
+  case CACHE_TYPE_GD:
+    p = gdImageGdPtr(im_resized, &sz);
+    suffix = "gd";
+    break;
+  case CACHE_TYPE_PNG:
+    p = gdImagePngPtr(im_resized, &sz);
+    suffix = "png";
+    break;
+  case CACHE_TYPE_GIF:
+    p = gdImageGifPtr(im_resized, &sz);
+    suffix = "gif";
+    break;
+  case CACHE_TYPE_JPG:
+    p = gdImageJpegPtr(im_resized, &sz, 90);
+    suffix = ".jpg";
+    bgcolor = 0xffffff;
+    break;
+  default:
+    free(im_resized);
+    return -1;
+  }
+  free(im_resized);
+
+  // found cache key
+  sprintf(key, "%d-%s-%d-%d-%d-%s", track_id, resize_mode, dim, dim, bgcolor, suffix);
+
+  // save to data
+  data->body = p;
+  data->body_len = sz;
+  if (save_to_cache(key, data)) {
+    gdFree(p);
+    return -1;
+  }
+
+  gdFree(p);
+  return 0;
+}
+
+int
+create_coverart_cache(int track_id, char *imgfilename)
+{
+  FILE *fsrc;
+  char *ext;
+  gdImagePtr imsrc;
+  int err = 0;
+  int thumbSize = 100;
+  struct _Cache_Object data;
+  struct stat stat;
+
+  if (lstat(imgfilename, &stat) == -1)
+    return -1;
+
+  data.orig = imgfilename;
+  data.mtime = (__u32) stat.st_mtime;
+
+  if (!(fsrc = fopen(imgfilename, "rb")) ||
+      !(ext = rindex(imgfilename, '.')))
+    return -1;
+
+  if (!strcasecmp(ext, ".jpg")) {
+    imsrc = gdImageCreateFromJpeg(fsrc);
+    data.contentType = "image/jpeg";
+  }
+  else if (!strcasecmp(ext, ".png")) {
+    imsrc = gdImageCreateFromPng(fsrc);
+    data.contentType = "image/png";
+  }
+  else if (!strcasecmp(ext, ".gif")) {
+    imsrc = gdImageCreateFromGif(fsrc);
+    data.contentType = "image/gif";
+  }
+  else {
+    return -1;
+  }
+  fclose(fsrc);
+
+  thumbSize = prefs.thumbSize ? prefs.thumbSize : 100;
+
+  if ((err = _resize_and_cache(track_id, &data, imsrc, 50, "pad", CACHE_TYPE_PNG)))
+    goto _exit;
+  if ((err = _resize_and_cache(track_id, &data, imsrc, thumbSize, "pad", CACHE_TYPE_PNG)))
+    goto _exit;
+  if ((err = _resize_and_cache(track_id, &data, imsrc, 56, "original", CACHE_TYPE_JPG)))
+    goto _exit;
+
+ _exit:
+  free(imsrc);
+  return err;
 }

@@ -1,6 +1,6 @@
 //=========================================================================
-// FILENAME	: artwork.h
-// DESCRIPTION  : Header for artwork
+// FILENAME	: filecache.h
+// DESCRIPTION	: Header for filecache.c
 //=========================================================================
 // Copyright (c) 2008- NETGEAR, Inc. All Rights Reserved.
 //=========================================================================
@@ -20,5 +20,14 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-extern char * artwork_find_file(const char *url);
-extern int create_coverart_cache(int trackid, char *imgfilename);
+#include "misc.h"
+
+struct _Cache_Object {
+  void *body;
+  __u32 body_len;
+  __u32 mtime;
+  char *orig;
+  char *contentType;
+};
+
+extern int save_to_cache(char *key, struct _Cache_Object *data);

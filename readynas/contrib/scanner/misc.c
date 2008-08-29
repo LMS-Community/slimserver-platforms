@@ -21,7 +21,9 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 #include <endian.h>
+#include <openssl/sha.h>
 
 #include "misc.h"
 
@@ -96,4 +98,39 @@ fget_le32(FILE *fp)
   (void) fread(&d, sizeof(d), 1, fp);
   d = le32_to_cpu(d);
   return d;
+}
+
+inline __u32
+cpu_to_be32(__u32 cpu32)
+{
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+  __u32 be32 =
+    ((cpu32<<24) & 0xff000000) |
+    ((cpu32<< 8) & 0x00ff0000) |
+    ((cpu32>> 8) & 0x0000ff00) |
+    ((cpu32>>24) & 0x000000ff);
+  return be32;
+#else
+  return cpu32;
+#endif
+}
+
+
+static unsigned char hexdigit[] = "0123456789abcdef";
+
+char *
+sha1_hex(char *key)
+{
+  unsigned char md[SHA_DIGEST_LENGTH];
+  static char md_str[SHA_DIGEST_LENGTH*2+1];
+  int i;
+
+  SHA1((unsigned char*) key, strlen((char*) key), md);
+  for (i=0; i<SHA_DIGEST_LENGTH; i++) {
+    md_str[(i<<1)+0] = hexdigit[(md[i]>>4)&15];
+    md_str[(i<<1)+1] = hexdigit[(md[i]>>0)&15];
+  }
+  md_str[SHA_DIGEST_LENGTH<<1] = '\0';
+
+  return md_str;
 }
