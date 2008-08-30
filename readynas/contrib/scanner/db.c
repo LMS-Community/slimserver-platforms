@@ -1273,7 +1273,9 @@ db_find_artworks(MYSQL *mysql)
 
 	// cache
 	if (create_coverart_cache(track_id, cover_file))
-	  DPRINTF(E_WARN, L_DB_INFO, "Cannot create cache for %s\n", cover_file);
+	  DPRINTF(E_ERROR, L_DB_INFO, "Cannot create cache for %s\n", cover_file);
+	else
+	  DPRINTF(E_INFO, L_DB_INFO, "Created cache for %s\n", cover_file);
 
 	free(cover_file);
       }

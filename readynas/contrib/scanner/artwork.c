@@ -225,7 +225,7 @@ _resizer(gdImagePtr d, gdImagePtr s, int dx, int dy, int sx, int sy,
 
 static int
 _resize_and_cache(int track_id, struct _Cache_Object *data,
-		  gdImagePtr im, int dim, char *resize_mode, int cache_type)
+		  gdImagePtr im, int dim, char resize_mode, int cache_type)
 {
   gdImagePtr im_resized;
   char key[64];
@@ -251,15 +251,15 @@ _resize_and_cache(int track_id, struct _Cache_Object *data,
   switch (cache_type) {
   case CACHE_TYPE_GD:
     p = gdImageGdPtr(im_resized, &sz);
-    suffix = "gd";
+    suffix = "";
     break;
   case CACHE_TYPE_PNG:
     p = gdImagePngPtr(im_resized, &sz);
-    suffix = "png";
+    suffix = "";
     break;
   case CACHE_TYPE_GIF:
     p = gdImageGifPtr(im_resized, &sz);
-    suffix = "gif";
+    suffix = "";
     break;
   case CACHE_TYPE_JPG:
     p = gdImageJpegPtr(im_resized, &sz, 90);
@@ -273,7 +273,7 @@ _resize_and_cache(int track_id, struct _Cache_Object *data,
   free(im_resized);
 
   // found cache key
-  sprintf(key, "%d-%s-%d-%d-%d-%s", track_id, resize_mode, dim, dim, bgcolor, suffix);
+  sprintf(key, "music/%d/cover_%dx%d_%c%s", track_id, dim, dim, resize_mode, suffix);
 
   // save to data
   data->body = p;
@@ -327,11 +327,11 @@ create_coverart_cache(int track_id, char *imgfilename)
 
   thumbSize = prefs.thumbSize ? prefs.thumbSize : 100;
 
-  if ((err = _resize_and_cache(track_id, &data, imsrc, 50, "pad", CACHE_TYPE_PNG)))
+  if ((err = _resize_and_cache(track_id, &data, imsrc, 50, 'p', CACHE_TYPE_PNG)))
     goto _exit;
-  if ((err = _resize_and_cache(track_id, &data, imsrc, thumbSize, "pad", CACHE_TYPE_PNG)))
+  if ((err = _resize_and_cache(track_id, &data, imsrc, thumbSize, 'p', CACHE_TYPE_PNG)))
     goto _exit;
-  if ((err = _resize_and_cache(track_id, &data, imsrc, 56, "original", CACHE_TYPE_JPG)))
+  if ((err = _resize_and_cache(track_id, &data, imsrc, 56, 'o', CACHE_TYPE_JPG)))
     goto _exit;
 
  _exit:
