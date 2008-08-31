@@ -215,6 +215,14 @@ canonicalize_name(const char *src)
       *p++ = lastc = u&0xff;
       converted = 1;
     }
+    else if (c==0xe2 && ((s[1]==0x80 && 0x81<=s[2] && s[2]<=0xbf) ||
+			 (s[1]==0x81 && 0x81<=s[2] && s[2]<=0xaf))) {
+      // General Punctuation (except U+2000~U+206F) -- 3 bytes sequence
+      s += 2;
+      if (lastc!=' ')
+	*p++ = lastc = ' ';
+      converted = 1;
+    }
     else if (c==0xe3 && ((s[1]==0x80 && 0x81<=s[2] && s[2]<=0xbf) ||
 	     (s[1]==0x83 && s[2]==0xbb))) {
       // CJK Symbol (except U+3000) -- 3 bytes sequence

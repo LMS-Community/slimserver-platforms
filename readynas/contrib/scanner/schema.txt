@@ -13,8 +13,10 @@ mysql> show tables ;
 | metainformation      | 
 | playlist_track       | 
 | pluginversion        | 
+| progress             | 
 | rescans              | 
 | tracks               | 
+| tracks_persistent    | 
 | unreadable_tracks    | 
 | years                | 
 +----------------------+
@@ -23,47 +25,41 @@ mysql> show fields from tracks ;
 +--------------------+----------------------+------+-----+---------+----------------+
 | Field              | Type                 | Null | Key | Default | Extra          |
 +--------------------+----------------------+------+-----+---------+----------------+
-| id                 | int(10) unsigned     | NO   | PRI | NULL    | auto_increment |
-| url                | text                 | NO   | MUL |         |                |
-| title              | blob                 | YES  | MUL | NULL    |                |
-| titlesort          | text                 | YES  | MUL | NULL    |                |
-| titlesearch        | text                 | YES  | MUL | NULL    |                |
-| customsearch       | text                 | YES  | MUL | NULL    |                |
-| album              | int(10) unsigned     | YES  | MUL | NULL    |                |
-| tracknum           | int(10) unsigned     | YES  | MUL | NULL    |                |
-| content_type       | varchar(255)         | YES  | MUL | NULL    |                |
-| timestamp          | int(10) unsigned     | YES  | MUL | NULL    |                |
-| filesize           | int(10) unsigned     | YES  | MUL | NULL    |                |
-| audio_size         | int(10) unsigned     | YES  |     | NULL    |                |
-| audio_offset       | int(10) unsigned     | YES  |     | NULL    |                |
-| year               | smallint(5) unsigned | YES  |     | NULL    |                |
-| secs               | float unsigned       | YES  |     | NULL    |                |
-| cover              | blob                 | YES  |     | NULL    |                |
-| thumb              | blob                 | YES  |     | NULL    |                |
-| vbr_scale          | varchar(255)         | YES  |     | NULL    |                |
-| bitrate            | float unsigned       | YES  | MUL | NULL    |                |
-| samplerate         | int(10) unsigned     | YES  |     | NULL    |                |
-| samplesize         | int(10) unsigned     | YES  |     | NULL    |                |
-| channels           | tinyint(1) unsigned  | YES  |     | NULL    |                |
-| block_alignment    | int(10) unsigned     | YES  |     | NULL    |                |
-| endian             | tinyint(1)           | YES  |     | NULL    |                |
-| bpm                | smallint(5) unsigned | YES  |     | NULL    |                |
-| tagversion         | varchar(255)         | YES  |     | NULL    |                |
-| drm                | tinyint(1)           | YES  |     | NULL    |                |
-| rating             | tinyint(1) unsigned  | YES  | MUL | NULL    |                |
-| disc               | tinyint(1) unsigned  | YES  | MUL | NULL    |                |
-| playCount          | int(10) unsigned     | YES  | MUL | NULL    |                |
-| lastPlayed         | int(10) unsigned     | YES  | MUL | NULL    |                |
-| audio              | tinyint(1)           | YES  | MUL | NULL    |                |
-| remote             | tinyint(1)           | YES  | MUL | NULL    |                |
-| lossless           | tinyint(1)           | YES  | MUL | NULL    |                |
-| lyrics             | text                 | YES  | MUL | NULL    |                |
-| moodlogic_id       | int(10) unsigned     | YES  |     | NULL    |                |
-| moodlogic_mixable  | tinyint(1)           | YES  |     | NULL    |                |
-| musicbrainz_id     | varchar(40)          | YES  |     | NULL    |                |
-| musicmagic_mixable | tinyint(1)           | YES  |     | NULL    |                |
-| replay_gain        | float                | YES  |     | NULL    |                |
-| replay_peak        | float                | YES  |     | NULL    |                |
+| id                 | int(10) unsigned     | NO   | PRI | NULL    | auto_increment | 
+| url                | text                 | NO   | MUL |         |                | 
+| title              | blob                 | YES  | MUL | NULL    |                | 
+| titlesort          | text                 | YES  | MUL | NULL    |                | 
+| titlesearch        | text                 | YES  | MUL | NULL    |                | 
+| customsearch       | text                 | YES  | MUL | NULL    |                | 
+| album              | int(10) unsigned     | YES  | MUL | NULL    |                | 
+| tracknum           | int(10) unsigned     | YES  | MUL | NULL    |                | 
+| content_type       | varchar(255)         | YES  | MUL | NULL    |                | 
+| timestamp          | int(10) unsigned     | YES  | MUL | NULL    |                | 
+| filesize           | int(10) unsigned     | YES  | MUL | NULL    |                | 
+| audio_size         | int(10) unsigned     | YES  |     | NULL    |                | 
+| audio_offset       | int(10) unsigned     | YES  |     | NULL    |                | 
+| year               | smallint(5) unsigned | YES  |     | NULL    |                | 
+| secs               | float unsigned       | YES  |     | NULL    |                | 
+| cover              | blob                 | YES  |     | NULL    |                | 
+| vbr_scale          | varchar(255)         | YES  |     | NULL    |                | 
+| bitrate            | float unsigned       | YES  | MUL | NULL    |                | 
+| samplerate         | int(10) unsigned     | YES  |     | NULL    |                | 
+| samplesize         | int(10) unsigned     | YES  |     | NULL    |                | 
+| channels           | tinyint(1) unsigned  | YES  |     | NULL    |                | 
+| block_alignment    | int(10) unsigned     | YES  |     | NULL    |                | 
+| endian             | tinyint(1)           | YES  |     | NULL    |                | 
+| bpm                | smallint(5) unsigned | YES  |     | NULL    |                | 
+| tagversion         | varchar(255)         | YES  |     | NULL    |                | 
+| drm                | tinyint(1)           | YES  |     | NULL    |                | 
+| disc               | tinyint(1) unsigned  | YES  | MUL | NULL    |                | 
+| audio              | tinyint(1)           | YES  | MUL | NULL    |                | 
+| remote             | tinyint(1)           | YES  | MUL | NULL    |                | 
+| lossless           | tinyint(1)           | YES  | MUL | NULL    |                | 
+| lyrics             | text                 | YES  | MUL | NULL    |                | 
+| musicbrainz_id     | varchar(40)          | YES  |     | NULL    |                | 
+| musicmagic_mixable | tinyint(1)           | YES  |     | NULL    |                | 
+| replay_gain        | float                | YES  |     | NULL    |                | 
+| replay_peak        | float                | YES  |     | NULL    |                | 
 +--------------------+----------------------+------+-----+---------+----------------+
 mysql> show fields from contributors ;
 +--------------------+------------------+------+-----+---------+----------------+
@@ -74,8 +70,6 @@ mysql> show fields from contributors ;
 | namesort           | text             | YES  | MUL | NULL    |                | 
 | namesearch         | text             | YES  | MUL | NULL    |                | 
 | customsearch       | text             | YES  | MUL | NULL    |                | 
-| moodlogic_id       | int(10) unsigned | YES  |     | NULL    |                | 
-| moodlogic_mixable  | tinyint(1)       | YES  |     | NULL    |                | 
 | musicbrainz_id     | varchar(40)      | YES  |     | NULL    |                | 
 | musicmagic_mixable | tinyint(1)       | YES  |     | NULL    |                | 
 +--------------------+------------------+------+-----+---------+----------------+
@@ -124,8 +118,6 @@ mysql> show fields from genres ;
 | namesort           | text             | YES  | MUL | NULL    |                | 
 | namesearch         | text             | YES  | MUL | NULL    |                | 
 | customsearch       | text             | YES  | MUL | NULL    |                | 
-| moodlogic_id       | int(10) unsigned | YES  |     | NULL    |                | 
-| moodlogic_mixable  | tinyint(1)       | YES  |     | NULL    |                | 
 | musicmagic_mixable | tinyint(1)       | YES  |     | NULL    |                | 
 +--------------------+------------------+------+-----+---------+----------------+
 mysql> show fields from genre_track ;

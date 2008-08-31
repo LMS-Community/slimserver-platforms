@@ -327,7 +327,7 @@ _get_asffileinfo(char *file, struct song_metadata *psong)
   int mask;
   asf_file_properties_t FileProperties;
 
-  psong->vbr_scale = 0;
+  psong->vbr_scale = -1;
 
   if (!(fp = fopen(file, "rb"))) {
     DPRINTF(E_ERROR, L_SCAN_SCANNER, "Could not open %s for reading\n",file);
@@ -434,6 +434,10 @@ _get_asffileinfo(char *file, struct song_metadata *psong)
 	  if (_asf_load_string(fp, ValueType, ValueLength, buf, sizeof(buf)))
 	    if (buf[0])
 	      psong->track = atoi(buf);
+	}
+	else if (!strcasecmp(buf, "isVBR")) {
+	  fseek(fp, ValueLength, SEEK_CUR);
+	  psong->vbr_scale = 0;
 	}
 	else if (ValueLength) {
 	  fseek(fp, ValueLength, SEEK_CUR);

@@ -22,6 +22,7 @@
 
 #include <mysql/mysql.h>
 #include <mysql/mysqld_error.h>
+#include <ctype.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -452,8 +453,10 @@ _insert_genre(MYSQL *mysql, struct song_metadata *psong)
 
   if (!psong->genre || psong->genre[0]=='\0')
     genre_str = G.no_genre_str;
-  else
+  else {
     genre_str = psong->genre;
+    genre_str[0] = toupper(genre_str[0]);
+  }
 
   p = qstr;
   room = sizeof(qstr) - 1;
@@ -1222,13 +1225,25 @@ db_find_artworks(MYSQL *mysql)
   }
 
   // find album without artwork
-  (void) snprintf(qstr, sizeof(qstr),
-		  "SELECT me.id,cover,albums.id,url FROM tracks me"
-		  " JOIN albums ON (albums.id = me.album)"
-		  " WHERE (me.audio=1 and me.timestamp>=%llu and"
-		  " albums.artwork IS NULL"
-		  ") GROUP BY album",
-		  (unsigned long long) G.lastrescantime);
+  if (0) {
+    (void) snprintf(qstr, sizeof(qstr),
+		    "SELECT me.id,cover,albums.id,url FROM tracks me"
+		    " JOIN albums ON (albums.id = me.album)"
+		    " WHERE (me.audio=1 and me.timestamp>=%llu and"
+		    " albums.artwork IS NULL"
+		    ") GROUP BY album",
+		    (unsigned long long) G.lastrescantime);
+  }
+  else {
+    (void) snprintf(qstr, sizeof(qstr),
+		    "SELECT t_id,t_cover,t_album,t_url FROM ("
+		    "SELECT me.id as t_id,cover as t_cover,album as t_album,url as t_url "
+		    "FROM tracks me join albums on (albums.id = me.album)"
+		    " WHERE (me.audio=1 and me.timestamp>=%llu and"
+		    " albums.artwork IS NULL"
+		    ") ORDER BY tracknum) as t group by t_album",
+		    (unsigned long long) G.lastrescantime);
+  }
 
   if ((err = _db_query(mysql, qstr, 0)))
     return err;

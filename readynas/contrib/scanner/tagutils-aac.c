@@ -120,12 +120,15 @@ _get_aactags(char *file, struct song_metadata *psong)
 
       if (!memcmp(current_atom, "\xA9" "nam",4))
 	psong->title = strdup((char*)&current_data[16]);
-      else if (!memcmp(current_atom, "\xA9" "ART",4))
+      else if (!memcmp(current_atom, "\xA9" "ART",4) ||
+	       !memcmp(current_atom, "\xA9" "art",4))
 	psong->contributor[ROLE_ARTIST] = strdup((char*)&current_data[16]);
       else if (!memcmp(current_atom, "\xA9" "alb",4))
 	psong->album = strdup((char*)&current_data[16]);
       else if (!memcmp(current_atom, "\xA9" "cmt",4))
 	psong->comment = strdup((char*)&current_data[16]);
+      else if (!memcmp(current_atom, "\xA9" "dir",4))
+	psong->contributor[ROLE_CONDUCTOR] = strdup((char*)&current_data[16]);
       else if (!memcmp(current_atom, "\xA9" "wrt",4))
 	psong->contributor[ROLE_COMPOSER] = strdup((char*)&current_data[16]);
       else if (!memcmp(current_atom, "\xA9" "grp",4))
