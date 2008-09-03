@@ -239,20 +239,31 @@ struct _importers importers[] = {
   {"", 0, 0, 0}
 };
 
+static int
+check_if_can_skip(MYSQL *mysql, char *path, struct stat *stat)
+{
+  time_t timestamp;
+  unsigned int filesize;
+  int id;
+
+  id = db_get_track_by_path(mysql, path, &timestamp, &filesize);
+  if ((id > 0) && (timestamp == stat->st_mtime) && (filesize == stat->st_size))
+    return id;
+
+  return 0;
+}
+
 static void
 audio_import(char *dirpath, char *path, struct stat *stat, char *lang, struct _types *types, MYSQL *mysql)
 {
   struct song_metadata song;
+  int id;
 
-  if (!G.wipe) {
-    if (G.lastrescantime >= stat->st_mtime) {
-      DPRINTF(E_INFO, L_SCAN, "Skip <%s> because mtime <%ld> is older than last scan <%ld>\n",
-	      path, stat->st_mtime, G.lastrescantime);
-      G.skipped_songs++;
-      return;
-    }
-    DPRINTF(E_INFO, L_SCAN, "Scan <%s> because mtime <%ld> is newer than last scan <%ld>\n",
-	    path, stat->st_mtime, G.lastrescantime);
+  if (!G.wipe &&
+      ((id = check_if_can_skip(mysql, path, stat)))) {
+    DPRINTF(E_INFO, L_SCAN, "Skip %d:<%s> for scan\n", id, path);
+    G.skipped_songs++;
+    return;
   }
 
   if (readtags(path, &song, stat, lang, types->type)) {
@@ -272,15 +283,12 @@ plist_import(char *dirpath, char *path, struct stat *stat, char *lang, struct _t
   struct song_metadata song;
   int playlist_id = 0;
   int position;
+  int id;
 
-  if (!G.wipe) {
-    if (G.lastrescantime >= stat->st_mtime) {
-      DPRINTF(E_INFO, L_SCAN, "Skip <%s> because mtime <%ld> is older than last scan <%ld>\n",
-	      path, stat->st_mtime, G.lastrescantime);
-      return;
-    }
-    DPRINTF(E_INFO, L_SCAN, "Scan <%s> because mtime <%ld> is newer than last scan <%ld>\n",
-	    path, stat->st_mtime, G.lastrescantime);
+  if (!G.wipe &&
+      ((id = check_if_can_skip(mysql, path, stat)))) {
+    DPRINTF(E_INFO, L_SCAN, "Skip %d:<%s> for scan\n", id, path);
+    return;
   }
 
   // playlist
@@ -642,6 +650,11 @@ main(int argc, char **argv) {
     if (G.show_progress)
       db_set_progress(&mysql, PROGRESS_FINISH, importers[i].progress_id, NULL);
     G.progress_finish[importers[i].progress_id] = (unsigned long long) time(0);
+  }
+
+  // post process -- check deleted file
+  if (!G.wipe) {
+    db_sync(&mysql);
   }
 
   // post process
