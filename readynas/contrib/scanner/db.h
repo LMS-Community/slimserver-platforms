@@ -30,6 +30,8 @@ int db_get_lastrescantime(MYSQL*, time_t*);
 int db_set_progress(MYSQL*, enum _progress_event, int, char*);
 int db_set_scanning(MYSQL*, int);
 int db_get_scanning(MYSQL*, int*);
+int db_get_track_by_path(MYSQL*, char*, time_t*, unsigned int*);
 int db_wipe(MYSQL*);
+int db_sync(MYSQL*);
 int db_merge_artists_albums(MYSQL*);
 int db_find_artworks(MYSQL*);
