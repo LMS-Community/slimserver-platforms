@@ -25,8 +25,8 @@
  * This file is derived from mt-daap project.
  */
 
-#ifndef _TAG_H_
-#define _TAG_H_
+#ifndef _TAGUTILS_H_
+#define _TAGUTILS_H_
 
 #include <stdio.h>
 #include <sys/types.h>

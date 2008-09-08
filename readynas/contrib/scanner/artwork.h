@@ -20,5 +20,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#ifndef _ARTWORK_H
+#define _ARTWORK_H
+#include "tagutils.h"
+
 extern char * artwork_find_file(const char *url);
+extern void artwork_cache_embedded_image(struct song_metadata *psong);
 extern int create_coverart_cache(int trackid, char *imgfilename);
+
+#endif

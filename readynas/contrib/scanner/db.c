@@ -375,7 +375,7 @@ _insert_tracks(MYSQL *mysql, struct song_metadata *psong)
   n = snprintf(p, room,
 	       "url,title,titlesort,titlesearch,"
 	       "album,tracknum,content_type,timestamp,filesize,"
-	       "audio_size,audio_offset,year,secs,"
+	       "audio_size,audio_offset,year,secs,cover,"
 	       "vbr_scale,bitrate,samplerate,samplesize,channels,block_alignment,"
 	       "bpm,tagversion,drm,"
 	       "disc,audio,remote,lossless,musicbrainz_id"
@@ -387,7 +387,7 @@ _insert_tracks(MYSQL *mysql, struct song_metadata *psong)
   }
   sql_snprintf(p, room, "'file://%U','%S','%S','%S',"
 	       "%I,%I,'%S',%u,%u,"		// album, ...
-	       "%I,%d,%d,%S,"			// audio_size, ...
+	       "%I,%d,%d,%S,%I,"		// audio_size, ...
 	       "%D,%D,%D,%I,%I,%I,"		// vbr_scale, ...
 	       "%I,%T,%d,"			// bpm, ...
 	       "%I,%d,%d,%d,%T)",		// disc ...
@@ -404,6 +404,7 @@ _insert_tracks(MYSQL *mysql, struct song_metadata *psong)
 	       psong->audio_offset,
 	       psong->year,
 	       _song_length_str(psong->song_length),
+	       psong->image ? 1 : 0,
 	       psong->vbr_scale,		// vbr_scale
 	       psong->bitrate,
 	       psong->samplerate,
@@ -861,6 +862,36 @@ _delete_comments_by_track(MYSQL *mysql, unsigned long track)
   p = qstr;
   room = sizeof(qstr) - 1;
   (void) snprintf(p, room, "delete from comments where track=%lu", track);
+  if (_db_query(mysql, qstr, 0))
+    return -1;
+
+  return 0;
+}
+
+static int
+_delete_years_by_id(MYSQL *mysql, unsigned long id)
+{
+  char *p;
+  size_t room;
+
+  p = qstr;
+  room = sizeof(qstr) - 1;
+  (void) snprintf(p, room, "delete from years where id=%lu", id);
+  if (_db_query(mysql, qstr, 0))
+    return -1;
+
+  return 0;
+}
+
+static int
+_delete_genres_by_id(MYSQL *mysql, unsigned long id)
+{
+  char *p;
+  size_t room;
+
+  p = qstr;
+  room = sizeof(qstr) - 1;
+  (void) snprintf(p, room, "delete from genres where id=%lu", id);
   if (_db_query(mysql, qstr, 0))
     return -1;
 
@@ -1371,12 +1402,6 @@ db_sync(MYSQL *mysql)
   }
   mysql_free_result(result);
 
-  // commit
-  if ((err = mysql_commit(mysql))) {
-    DPRINTF(E_DEBUG, L_DB_MYSQL, "commit: %s\n", mysql_error(mysql));
-    return err;
-  }
-
   // Clean  'albums' table, 'contributor_album'
   // Find tracks which does not have any tracks, and then delete it
   (void) snprintf(qstr, sizeof(qstr),
@@ -1403,18 +1428,12 @@ db_sync(MYSQL *mysql)
   }
   mysql_free_result(result);
 
-  // commit
-  if ((err = mysql_commit(mysql))) {
-    DPRINTF(E_DEBUG, L_DB_MYSQL, "commit: %s\n", mysql_error(mysql));
-    return err;
-  }
-
   // Clean  'contributors' table
   (void) snprintf(qstr, sizeof(qstr),
 		  "SELECT t1.id,t1.name from contributors t1 WHERE "
 		  "NOT EXISTS (SELECT * FROM contributor_track t2 WHERE t2.contributor=t1.id) AND "
 		  "NOT EXISTS (SELECT * FROM contributor_album t3 WHERE t3.contributor=t1.id) AND "
-		  "NOT EXISTS (SELECT * FROM albums t4 WHERE t4.contributor=t1.id);");
+		  "NOT EXISTS (SELECT * FROM albums t4 WHERE t4.contributor=t1.id)");
   if ((err = _db_query(mysql, qstr, 0)))
     return err;
   if (!(result = mysql_store_result(mysql))) {
@@ -1431,6 +1450,52 @@ db_sync(MYSQL *mysql)
     name = row[1];
     _delete_contributors_by_id(mysql, id);
     DPRINTF(E_INFO, L_DB_INFO, "Deleted contributor %d:%s\n", id, name);
+  }
+  mysql_free_result(result);
+
+  // Clean  'years' table
+  (void) snprintf(qstr, sizeof(qstr),
+		  "SELECT t1.id from years t1 WHERE "
+		  "NOT EXISTS (SELECT * FROM tracks t2 WHERE t2.year=t1.id) AND "
+		  "NOT EXISTS (SELECT * FROM albums t3 WHERE t3.year=t1.id)");
+  if ((err = _db_query(mysql, qstr, 0)))
+    return err;
+  if (!(result = mysql_store_result(mysql))) {
+    DPRINTF(E_DEBUG, L_DB_MYSQL, "No return result on select in db_sync()\n");
+    return -1;
+  }
+  if (!(mysql_num_fields(result))) {
+    DPRINTF(E_DEBUG, L_DB_MYSQL, "Unexpected error in db_sync()\n");
+    mysql_free_result(result);
+    return -1;
+  }
+  while ((row = mysql_fetch_row(result))) {	// loop for contributors to be deleted
+    id = atoi(row[0]);
+    _delete_years_by_id(mysql, id);
+    DPRINTF(E_INFO, L_DB_INFO, "Deleted year %d\n", id);
+  }
+  mysql_free_result(result);
+
+  // Clean  'genres' table
+  (void) snprintf(qstr, sizeof(qstr),
+		  "SELECT t1.id,t1.name from genres t1 WHERE "
+		  "NOT EXISTS (SELECT * FROM genre_track t2 WHERE t2.genre=t1.id)");
+  if ((err = _db_query(mysql, qstr, 0)))
+    return err;
+  if (!(result = mysql_store_result(mysql))) {
+    DPRINTF(E_DEBUG, L_DB_MYSQL, "No return result on select in db_sync()\n");
+    return -1;
+  }
+  if (!(mysql_num_fields(result))) {
+    DPRINTF(E_DEBUG, L_DB_MYSQL, "Unexpected error in db_sync()\n");
+    mysql_free_result(result);
+    return -1;
+  }
+  while ((row = mysql_fetch_row(result))) {	// loop for contributors to be deleted
+    id = atoi(row[0]);
+    name = row[1];
+    _delete_genres_by_id(mysql, id);
+    DPRINTF(E_INFO, L_DB_INFO, "Deleted genre %d:%s\n", id, name);
   }
   mysql_free_result(result);
 
