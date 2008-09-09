@@ -156,6 +156,12 @@ _get_aactags(char *file, struct song_metadata *psong)
       else if (!memcmp(current_atom, "cpil", 4)) {
 	psong->compilation = current_data[16];
       }
+      else if (!memcmp(current_atom, "covr", 4)) {
+	psong->image_size = current_size - 8 - 16;
+	if (!(psong->image = malloc(psong->image_size)))
+	  DPRINTF(E_FATAL, L_SCAN_SCANNER, "Out of memory\n");
+	memcpy(psong->image, current_data+16, psong->image_size);
+      }
 
       free(current_data);
       current_offset += current_size;

@@ -34,6 +34,7 @@
 #include "misc.h"
 #include "scanner.h"
 #include "tagutils.h"
+#include "artwork.h"
 #include "textutils.h"
 #include "db.h"
 #include "log.h"
@@ -267,12 +268,16 @@ audio_import(char *dirpath, char *path, struct stat *stat, char *lang, struct _t
   }
 
   if (readtags(path, &song, stat, lang, types->type)) {
-    DPRINTF(E_WARN, L_SCAN, "Cannot extract rtags from %s\n", path);
+    DPRINTF(E_WARN, L_SCAN, "Cannot extract tags from %s\n", path);
   }
   else {
     song.sstype = types->sstype;
     song.dirpath = dirpath;
     insertdb(mysql, &song);
+    if (song.image) {
+      DPRINTF(E_INFO, L_SCAN, "Cache embedded image in track %s\n", path);
+      artwork_cache_embedded_image(&song);
+    }
   }
   freetags(&song);
 }

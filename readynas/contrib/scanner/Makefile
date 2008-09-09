@@ -29,12 +29,12 @@ CC = gcc
 LDFLAGS := -lmysqlclient -lid3tag -logg -lvorbis -lFLAC -lssl -lgd
 
 ifeq (${DEBUG},1)
-  CFLAGS = -O -Wall -ggdb
+  CFLAGS = ${EXTRACFLAGS} -O -Wall -ggdb
   STRIP = touch
 else
-  CFLAGS = -O2 -Wall
+  CFLAGS = ${EXTRACFLAGS} -O2 -Wall
   STRIP = strip
-  LDFLAGS := ${LDFLAGS} -s
+  LDFLAGS := ${EXTRALDFLAGS} ${LDFLAGS} -s
 endif
 
 
@@ -47,10 +47,12 @@ OBJS = tagutils.o tagutils-plist.o log.o sqlprintf.o textutils.o prefs.o artwork
 usage:
 	@echo
 	@echo "Usage:"
-	@echo "  make all          ... build normally"
-	@echo "  make DEBUG=1 all  ... build with -ggdb"
-	@echo "  make clean        ... clean"
-	@echo "  make TAGS         ... create tag file for emacs"
+	@echo "  make all                        ... build normally"
+	@echo "  make EXTRACFLAGS='-I xxxl all   ... build normally with EXTRACFLAGS"
+	@echo "  make EXTRALDFLAGS='-I xxxl all  ... build normally with EXTRALDFLAGS"
+	@echo "  make DEBUG=1 all                ... build with -ggdb"
+	@echo "  make clean                      ... clean"
+	@echo "  make TAGS                       ... create tag file for emacs"
 	@echo
 
 all: .depend ${EXES}

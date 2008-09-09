@@ -51,6 +51,18 @@ char *extentions[] = {
   "png", "jpg", "jpeg", "gif", 0
 };
 
+static struct _content {
+  char *jpg;
+  char *png;
+  char *gif;
+  char *gd;
+} content_type = {
+  .jpg = "image/jpeg",
+  .png = "image/png",
+  .gif = "image/gif",
+  .gd = "image/gd"
+};
+
 char *
 artwork_find_file(const char *url)
 {
@@ -72,8 +84,7 @@ artwork_find_file(const char *url)
     return 0;
 
   *dirend = '\0';
-  lstat(buf, &stat);
-  if (!(stat.st_mode & S_IFDIR)) {
+  if (lstat(buf, &stat) || !(stat.st_mode & S_IFDIR)) {
     return 0;
   }
 
@@ -81,13 +92,13 @@ artwork_find_file(const char *url)
   for (i=0; basenames[i]; i++) {
     for (j=0; extentions[j]; j++) {
       sprintf(dirend, "/%s.%s", basenames[i], extentions[j]);
-      lstat(buf, &stat);
-      if ((stat.st_mode & S_IFREG)) {
+      if (!lstat(buf, &stat) && (stat.st_mode & S_IFREG)) {
 	DPRINTF(E_INFO, L_ARTWORK, "Found artwork file <%s> for <%s>\n", buf, url);
 	return strdup(buf);
       }
     }
   }
+
   return 0;
 }
 
@@ -251,18 +262,22 @@ _resize_and_cache(int track_id, struct _Cache_Object *data,
   switch (cache_type) {
   case CACHE_TYPE_GD:
     p = gdImageGdPtr(im_resized, &sz);
+    data->contentType = content_type.gd;
     suffix = "";
     break;
   case CACHE_TYPE_PNG:
     p = gdImagePngPtr(im_resized, &sz);
+    data->contentType = content_type.png;
     suffix = "";
     break;
   case CACHE_TYPE_GIF:
     p = gdImageGifPtr(im_resized, &sz);
+    data->contentType = content_type.gif;
     suffix = "";
     break;
   case CACHE_TYPE_JPG:
     p = gdImageJpegPtr(im_resized, &sz, 90);
+    data->contentType = content_type.jpg;
     suffix = ".jpg";
     bgcolor = 0xffffff;
     break;
@@ -310,15 +325,12 @@ create_coverart_cache(int track_id, char *imgfilename)
 
   if (!strcasecmp(ext, ".jpg")) {
     imsrc = gdImageCreateFromJpeg(fsrc);
-    data.contentType = "image/jpeg";
   }
   else if (!strcasecmp(ext, ".png")) {
     imsrc = gdImageCreateFromPng(fsrc);
-    data.contentType = "image/png";
   }
   else if (!strcasecmp(ext, ".gif")) {
     imsrc = gdImageCreateFromGif(fsrc);
-    data.contentType = "image/gif";
   }
   else {
     return -1;
@@ -334,7 +346,52 @@ create_coverart_cache(int track_id, char *imgfilename)
   if ((err = _resize_and_cache(track_id, &data, imsrc, 56, 'o', CACHE_TYPE_JPG)))
     goto _exit;
 
+  DPRINTF(E_INFO, L_ARTWORK, "Created artwork cache from file <%s>\n", imgfilename);
+
  _exit:
   free(imsrc);
   return err;
+}
+
+void
+artwork_cache_embedded_image(struct song_metadata *psong)
+{
+  gdImagePtr imsrc;
+  int err = 0;
+  int thumbSize = 100;
+  struct _Cache_Object data;
+
+  if (!memcmp(psong->image, "\x89" "PNG" "\x0d\x0a\x1a\x0a", 8)) {
+    // PNG file
+    imsrc = gdImageCreateFromPngPtr(psong->image_size, psong->image);
+  }
+  else if (!memcmp(psong->image, "\xff\xd8", 2)) {
+    // JPG file
+    imsrc = gdImageCreateFromJpegPtr(psong->image_size, psong->image);
+  }
+  else {
+    // unknown
+    DPRINTF(E_WARN, L_ARTWORK, "Unknown embedded image in <%s> %02x %02x %02x %02x\n",
+	    psong->path,
+	    psong->image[0] & 0xff, psong->image[1] & 0xff, psong->image[2] & 0xff, psong->image[3] & 0xff);
+    return;
+  }
+
+  data.orig = psong->path;
+  data.mtime = psong->time_modified;
+
+  thumbSize = prefs.thumbSize ? prefs.thumbSize : 100;
+
+  if ((err = _resize_and_cache(psong->track_id, &data, imsrc, 50, 'p', CACHE_TYPE_PNG)))
+    goto _exit;
+  if ((err = _resize_and_cache(psong->track_id, &data, imsrc, thumbSize, 'p', CACHE_TYPE_PNG)))
+    goto _exit;
+  if ((err = _resize_and_cache(psong->track_id, &data, imsrc, 56, 'o', CACHE_TYPE_JPG)))
+    goto _exit;
+
+  DPRINTF(E_INFO, L_ARTWORK, "Created artwork cache from track <%d:%s>\n", psong->track_id, psong->path);
+
+ _exit:
+  free(imsrc);
+  return;
 }

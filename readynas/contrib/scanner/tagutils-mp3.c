@@ -71,10 +71,17 @@ _get_mp3tags(char *file, struct song_metadata *psong)
       psong->compilation = 1;
       DPRINTF(E_DEBUG, L_SCAN_SCANNER, "Compilation: %d\n", psong->compilation);
     }
-
-    if (((pid3frame->id[0] == 'T') || (strcmp(pid3frame->id, "COMM")==0)) &&
-	(id3_field_getnstrings(&pid3frame->fields[1])))
+    else if (!strcmp(pid3frame->id, "APIC") &&
+	     pid3frame->fields[4].binary.length &&
+	     pid3frame->fields[4].binary.data) {
+      psong->image_size = pid3frame->fields[4].binary.length;
+      psong->image = malloc(psong->image_size);
+      memcpy(psong->image, pid3frame->fields[4].binary.data, psong->image_size);
+    }
+    else if (((pid3frame->id[0] == 'T') || (strcmp(pid3frame->id, "COMM")==0)) &&
+	     (id3_field_getnstrings(&pid3frame->fields[1]))) {
       have_text = 1;
+    }
 
     if (have_text) {
       native_text = id3_field_getstrings(&pid3frame->fields[1], 0);
