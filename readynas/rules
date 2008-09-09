@@ -38,11 +38,8 @@ install:
 	# We also add in some sparc-specific modules
 	cp -r $(CURDIR)/readynas/CPAN ${source}/
 
-	# Finally, we disable a specific call to the changeEffectiveUserAndGroup in the startup script
-	cat ${source}/slimserver.pl | sed -e 's/changeEffectiveUserAndGroup();/#changeEffectiveUserAndGroup();/g' > ${source}/slimserver-modified.pl
-
 	# Copy our server files to the appropriate Debian locations.
-	install -m0755 ${source}/slimserver-modified.pl ${base}/usr/sbin/squeezecenter-server
+	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezecenter-server
 	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/squeezecenter-scanner
 
 	# We need to copy the Slim directory over...
@@ -86,7 +83,6 @@ install:
 
 	## Overwrite some default settings with ReadyNas specific settings
 	cp -r ${CURDIR}/readynas/convert.conf ${base}/etc/squeezecenter
-	cp -r ${CURDIR}/readynas/server.prefs ${base}/${varlib}/prefs/
 
 	# Copy over the squeezecenter init script...
 	cp -r $(CURDIR)/readynas/squeezecenter.default ${base}/etc/default/squeezecenter

@@ -1,5 +1,0 @@
-dbsource: dbi:mysql:database=slimserver
-dbusername: slimserver
-scannerPriority: 20
-resampleArtwork: 0
-disableStatistics: 1
