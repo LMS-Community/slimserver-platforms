@@ -203,6 +203,19 @@ begin
 		end;
 end;
 
+procedure RegisterPort(Port: String);
+var
+  RegKey, RegValue, ReservedPorts: String;
+  
+begin
+  RegKey := 'System\CurrentControlSet\Services\Tcpip\Parameters';
+  RegValue := 'ReservedPorts';
+  
+	RegQueryMultiStringValue(HKLM, RegKey, RegValue, ReservedPorts);
+
+  if Pos(Port, ReservedPorts) = 0 then
+    RegWriteMultiStringValue(HKLM, RegKey, RegValue, ReservedPorts + #0 + Port + '-' + Port);
+end;
 
 procedure RemoveServices(Version: String);
 var
@@ -529,6 +542,11 @@ begin
 
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
+
+				RegisterPort('9000');
+				RegisterPort('9090');
+				RegisterPort('9092');
+				RegisterPort('3483');
 
 				if StartupMode = 'auto' then
 					StartService('squeezesvc');
