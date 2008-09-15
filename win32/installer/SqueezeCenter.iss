@@ -131,6 +131,10 @@ var
 	StartupMode: String;
 	HttpPort: String;
 
+const
+	SSRegKey = 'Software\SlimDevices\SlimServer';
+	SCRegKey = 'Software\Logitech\SqueezeCenter';
+
 function GetHttpPort(Param: String) : String;
 begin
   if HttpPort = '' then
@@ -147,7 +151,7 @@ function GetInstallFolder(Param: String) : String;
 var
 	InstallFolder: String;
 begin
-	if (not RegQueryStringValue(HKLM, 'Software\Logitech\SqueezeCenter', 'Path', InstallFolder)) then
+	if (not RegQueryStringValue(HKLM, SCRegKey, 'Path', InstallFolder)) then
 		InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'SqueezeCenter';
 
 	Result := InstallFolder;
@@ -184,6 +188,20 @@ begin
 end;	
 
 
+procedure RegisterPort(Port: String);
+var
+  RegKey, RegValue, ReservedPorts: String;
+
+begin
+  RegKey := 'System\CurrentControlSet\Services\Tcpip\Parameters';
+  RegValue := 'ReservedPorts';
+
+	RegQueryMultiStringValue(HKLM, RegKey, RegValue, ReservedPorts);
+
+  if Pos(Port, ReservedPorts) = 0 then
+    RegWriteMultiStringValue(HKLM, RegKey, RegValue, ReservedPorts + #0 + Port + '-' + Port);
+end;
+
 procedure UninstallSliMP3();
 var
 	ErrorCode: Integer;
@@ -196,20 +214,6 @@ begin
 			if not Exec(RemoveQuotes(Uninstaller), '/SILENT','', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
 				MsgBox(CustomMessage('ProblemUninstallingSLIMP3') + SysErrorMessage(ErrorCode), mbError, MB_OK);
 		end;
-end;
-
-procedure RegisterPort(Port: String);
-var
-  RegKey, RegValue, ReservedPorts: String;
-  
-begin
-  RegKey := 'System\CurrentControlSet\Services\Tcpip\Parameters';
-  RegValue := 'ReservedPorts';
-  
-	RegQueryMultiStringValue(HKLM, RegKey, RegValue, ReservedPorts);
-
-  if Pos(Port, ReservedPorts) = 0 then
-    RegWriteMultiStringValue(HKLM, RegKey, RegValue, ReservedPorts + #0 + Port + '-' + Port);
 end;
 
 procedure RemoveServices(Version: String);
@@ -232,7 +236,7 @@ begin
 	// remove SlimTray if it's still running
 	if (UpperCase(Version) = 'SC') then
 		begin
-			RegKey := 'Software\Logitech\SqueezeCenter';
+			RegKey := SCRegKey;
 			InstallDefault := ExpandConstant('{app}');
 			Svc := 'squeezesvc';
 			Executable := 'squeez~1.exe';
@@ -244,7 +248,7 @@ begin
 		end
 	else
 		begin
-			RegKey := 'Software\SlimDevices\SlimServer';
+			RegKey := SSRegKey;
 			InstallDefault := AddBackslash(ExpandConstant('{pf}')) + 'SlimServer';
 			Svc := 'slimsvc';
 			Executable := 'slimserver.exe';
@@ -274,13 +278,12 @@ begin
 	// wait up to 120 seconds for the services to be deleted
 	Wait := 120;
 	MaxProgress := ProgressPage.ProgressBar.Position + Wait;
-	while (Wait > 0) and (IsServiceRunning(Svc) or IsServiceRunning(MySQLSvc) or IsModuleLoaded(Executable) or IsModuleLoaded('squeezecenter.exe')) do
+	while (Wait > 0) and (IsServiceRunning(Svc) or IsServiceRunning(MySQLSvc) or IsModuleLoaded(Executable) or IsModuleLoaded(TrayExe) or IsModuleLoaded('squeezecenter.exe')) do
 	begin
 		ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
 		Sleep(1000);
 		Wait := Wait - 1;
 	end;	
-	ProgressPage.setProgress(MaxProgress, ProgressPage.ProgressBar.Max);
 end;
 
 
@@ -303,7 +306,7 @@ begin
 
 			PrefsFile := AddBackslash(PrefsPath) + '..\slimserver.pref';
 
-			if ((RegQueryStringValue(HKLM, 'Software\SlimDevices\SlimServer', 'Path', OldPrefsPath) and DirExists(AddBackslash(OldPrefsPath) + 'server'))) then
+			if ((RegQueryStringValue(HKLM, SSRegKey, 'Path', OldPrefsPath) and DirExists(AddBackslash(OldPrefsPath) + 'server'))) then
 				OldPrefsPath := AddBackslash(OldPrefsPath) + 'server'
 			else
 				OldPrefsPath := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SlimServer';
@@ -370,6 +373,7 @@ begin
 
 	// Remove old Favorites plugin - now standard
 	DelTree(DelDir + AddBackslash('Favorites'), true, true, true);
+	DelTree(DelDir + AddBackslash('MyRadio'), true, true, true);
 
 	// Remove defunct radio plugins (now replaced by new
 	// in their own directories)
@@ -407,11 +411,12 @@ begin
 	DelTree(DelDir + AddBackslash('RS232'), true, true, true);
 	DelTree(DelDir + AddBackslash('ShoutcastBrowser'), true, true, true);
 	DelTree(DelDir + AddBackslash('TT'), true, true, true);
-end;
 
-const
-	SSRegkey = 'Software\SlimDevices\SlimServer';
-	SCRegkey = 'Software\Logitech\SqueezeCenter';
+	// Remove other defunct pieces
+	DeleteFile(ServerDir + 'psapi.dll');
+	DeleteFile(ServerDir + 'SlimServer.exe');
+
+end;
 
 procedure GetStartupMode();
 var
@@ -430,7 +435,7 @@ begin
 
 	else
 		begin
-			if RegQueryStringValue(HKCU, SSRegkey, 'StartAtBoot', StartAtBoot) then
+			if RegQueryStringValue(HKCU, SSRegKey, 'StartAtBoot', StartAtBoot) then
 				if (StartAtBoot = '1') then
 					StartupMode := 'logon';
 		end;
@@ -449,6 +454,7 @@ var
 
 begin
 	if CurStep = ssInstall then
+  if (RegQueryStringValue(HKLM, SCRegKey, 'Path', PrefsPath) or RegQueryStringValue(HKLM, SSRegKey, 'Path', PrefsPath)) then
 		begin
 			// add custom progress bar to be displayed while unregistering services
 			ProgressPage := CreateOutputProgressPage(CustomMessage('UnregisterServices'), CustomMessage('UnregisterServicesDesc'));
@@ -463,10 +469,6 @@ begin
 				RemoveServices('SC');
 
 				RemoveLegacyFiles();
-
-				// Remove other defunct pieces
-				DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'psapi.dll');
-				DeleteFile(AddBackslash(ExpandConstant('{app}')) + 'SlimServer.exe');
 
 			finally
 				ProgressPage.Hide;
@@ -563,8 +565,10 @@ begin
   	if MsgBox(CustomMessage('UninstallPrefs'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDYES then
 		begin
       DelTree(GetWritablePath(''), True, True, True);
-      RegDeleteKeyIncludingSubkeys(HKCU, 'SOFTWARE\Logitech\SqueezeCenter');
-      RegDeleteKeyIncludingSubkeys(HKLM, 'SOFTWARE\Logitech\SqueezeCenter');
+      RegDeleteKeyIncludingSubkeys(HKCU, SCRegKey);
+      RegDeleteKeyIncludingSubkeys(HKLM, SCRegKey);
+      RegDeleteKeyIncludingSubkeys(HKCU, SSRegKey);
+      RegDeleteKeyIncludingSubkeys(HKLM, SSRegKey);
 		end;	
 end;
 
