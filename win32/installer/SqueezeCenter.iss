@@ -212,7 +212,7 @@ begin
 	if RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then
 		begin
 			if not Exec(RemoveQuotes(Uninstaller), '/SILENT','', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
-				MsgBox(CustomMessage('ProblemUninstallingSLIMP3') + SysErrorMessage(ErrorCode), mbError, MB_OK);
+				SuppressibleMsgBox(CustomMessage('ProblemUninstallingSLIMP3') + SysErrorMessage(ErrorCode), mbError, MB_OK, IDOK);
 		end;
 end;
 
@@ -324,7 +324,7 @@ begin
 		and RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SlimServer_is1', 'InstallLocation', UninstallPath)) then
 		begin
 			if not Exec(RemoveQuotes(Uninstaller), '', UninstallPath, SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
-				MsgBox(CustomMessage('ProblemUninstallingSlimServer') + SysErrorMessage(ErrorCode), mbError, MB_OK);
+				SuppressibleMsgBox(CustomMessage('ProblemUninstallingSlimServer') + SysErrorMessage(ErrorCode), mbError, MB_OK, IDOK);
 		end;
 
 	// some manual cleanup work, in case previous uninstall didn't succeed
@@ -504,9 +504,9 @@ begin
 //				begin
 //					s := GetConflictingApp('Firewall');
 //					if s <> '' then
-//						MsgBox(s, mbInformation, MB_OK)
+//						SuppressibleMsgBox(s, mbInformation, MB_OK, IDOK)
 //					else
-//						MsgBox(CustomMessage('UnknownFirewall'), mbInformation, MB_OK);
+//						SuppressibleMsgBox(CustomMessage('UnknownFirewall'), mbInformation, MB_OK, IDOK);
 //				end;
 
 				// Add firewall rules for Windows XP/Vista
@@ -524,7 +524,7 @@ begin
 						SaveStringToFile(PrefsFile, PrefString, False);
 					end
 				else if PrefString <> '' then
-					MsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbInformation, MB_OK);
+					SuppressibleMsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbInformation, MB_OK, IDOK);
 
 				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 
@@ -534,7 +534,7 @@ begin
 
 				if not IsPortOpen('www.squeezenetwork.com', '3483') then
 				begin
-					MsgBox(CustomMessage('SNConnectFailed_Description') + #13#10 + #13#10 + CustomMessage('SNConnectFailed_Solution'), mbInformation, MB_OK);
+					SuppressibleMsgBox(CustomMessage('SNConnectFailed_Description') + #13#10 + #13#10 + CustomMessage('SNConnectFailed_Solution'), mbInformation, MB_OK, IDOK);
 				end;
 
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
@@ -562,7 +562,7 @@ end;
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
 	if CurUninstallStep = usPostUninstall then
-  	if MsgBox(CustomMessage('UninstallPrefs'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDYES then
+  	if SuppressibleMsgBox(CustomMessage('UninstallPrefs'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2, IDNO) = IDYES then
 		begin
       DelTree(GetWritablePath(''), True, True, True);
       RegDeleteKeyIncludingSubkeys(HKCU, SCRegKey);
