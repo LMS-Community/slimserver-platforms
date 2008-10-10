@@ -23,10 +23,10 @@ Name: sv; MessagesFile: "Swedish.isl"
 
 [Setup]
 AppName=SqueezeCenter
-AppVerName=SqueezeCenter 7.2.0
-AppVersion=7.2.0
-VersionInfoProductName=SqueezeCenter 7.2.0
-VersionInfoProductVersion=7.2.0
+AppVerName=SqueezeCenter 7.2.1
+AppVersion=7.2.1
+VersionInfoProductName=SqueezeCenter 7.2.1
+VersionInfoProductVersion=7.2.1
 VersionInfoVersion=0.0.0.0
 
 AppPublisher=Logitech
