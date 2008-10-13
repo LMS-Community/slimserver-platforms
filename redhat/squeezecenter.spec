@@ -87,6 +87,7 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/squeezecenter
 mkdir -p $RPM_BUILD_ROOT%{_usr}/lib/perl5/vendor_perl
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 mkdir -p $RPM_BUILD_ROOT%{_usr}/libexec
+mkdir -p $RPM_BUILD_ROOT%{_usr}/bin
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/cache
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/Plugins
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezecenter/prefs
@@ -108,6 +109,7 @@ cp -p revision.txt $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 cp -p strings.txt $RPM_BUILD_ROOT%{_datadir}/squeezecenter
 cp -p slimserver.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezecenter-server
 cp -p scanner.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezecenter-scanner
+cp -p cleanup.pl $RPM_BUILD_ROOT%{_usr}/bin/squeezecenter-cleanup
 
 # Create symlink to 3rd Party Plugins
 ln -s %{_var}/lib/squeezecenter/Plugins \
@@ -240,6 +242,7 @@ fi
 # Executables
 %{_usr}/libexec/squeezecenter-server
 %{_usr}/libexec/squeezecenter-scanner
+%{_usr}/bin/squeezecenter-cleanup
 
 # Log files
 %attr(0755,squeezecenter,squeezecenter) %dir %{_var}/log/squeezecenter
