@@ -55,7 +55,7 @@ case "$1" in
   /var/lib/squeezecenter/cache/MySQL/** rwk,
  } " >> /etc/apparmor.d/usr.sbin.mysqld.squeezecenter.new
 
-		mv /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/usr.sbin.mysqld.squeezecenter.orig
+		mv /etc/apparmor.d/usr.sbin.mysqld /var/lib/squeezecenter/usr.sbin.mysqld.orig
 		mv /etc/apparmor.d/usr.sbin.mysqld.squeezecenter.new /etc/apparmor.d/usr.sbin.mysqld
 		/etc/init.d/apparmor restart		 
 		echo "\n"
