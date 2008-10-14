@@ -35,7 +35,7 @@ install:
 	# Copy our server files to the appropriate Debian locations.
 	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezecenter-server
 	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/squeezecenter-scanner
-	install -m0755 ${source}/cleanup.pl ${base}/usr/bin/squeezecenter-cleanup
+	install -m0755 ${source}/cleanup.pl ${base}/usr/sbin/squeezecenter-cleanup
 
 	cp -r ${source}/Slim ${base}/usr/share/perl5/
 	
