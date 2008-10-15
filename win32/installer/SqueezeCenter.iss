@@ -412,6 +412,10 @@ begin
 	DelTree(DelDir + AddBackslash('RS232'), true, true, true);
 	DelTree(DelDir + AddBackslash('ShoutcastBrowser'), true, true, true);
 	DelTree(DelDir + AddBackslash('TT'), true, true, true);
+
+	// Remove defunct plugins from new (7.0+) location
+	DelDir := ServerDir + AddBackslash('Plugin');
+	DelTree(DelDir + AddBackslash('MyRadio'), true, true, true);	
 end;
 
 const
