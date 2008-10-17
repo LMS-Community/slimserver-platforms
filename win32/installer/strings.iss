@@ -352,4 +352,4 @@ en.McAfeeMySQL=McAfee AV scanner needs to be configured to ignore MySQL's *.my* 
 en.SCPerl=%nIf you're running SC using the perl version, then this is ok and expected.
 
 
-
+en.Cleanup=Reset configuration to defaults
