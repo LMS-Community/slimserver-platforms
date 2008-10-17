@@ -59,7 +59,7 @@ Source: Getting Started.nl.html; DestName: "{cm:GettingStarted}.html"; DestDir: 
 Source: Getting Started.fr.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: fr; Flags: ignoreversion
 Source: Getting Started.it.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: it; Flags: ignoreversion
 Source: Getting Started.es.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: es; Flags: ignoreversion
-Source: Getting Started.he.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: he; Flags: ignoreversion
+;Source: Getting Started.he.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: he; Flags: ignoreversion
 
 ; add the english version for all languages as long as we don't have any translation
 Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de en es fr he it nl; Flags: ignoreversion
