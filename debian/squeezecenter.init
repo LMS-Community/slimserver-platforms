@@ -9,6 +9,22 @@
 #
 # Updated By: Dan Sully
 
+#
+### BEGIN INIT INFO
+# Provides:          	squeezecenter
+# Required-Start:    	$all
+# Required-Stop:     	$all
+# Should-Start:      	$all
+# Should-Stop:       	$all
+# Default-Start:     	3 5
+# Default-Stop:      	0 1 2 6
+# Short-Description:	Startup script for the SqueezeCenter Music Server
+# Description:		SqueezeCenter powers the Squeezebox, Transporter and SLIMP3 network music \
+#			players and is the best software to stream your music to any software MP3 \
+#			player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
+### END INIT INFO
+#
+
 set -e
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
