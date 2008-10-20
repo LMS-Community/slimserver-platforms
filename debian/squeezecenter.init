@@ -16,8 +16,8 @@
 # Required-Stop:     	$all
 # Should-Start:      	$all
 # Should-Stop:       	$all
-# Default-Start:     	3 5
-# Default-Stop:      	0 1 2 6
+# Default-Start:     	2 3 4 5
+# Default-Stop:      	0 1 6
 # Short-Description:	Startup script for the SqueezeCenter Music Server
 # Description:		SqueezeCenter powers the Squeezebox, Transporter and SLIMP3 network music \
 #			players and is the best software to stream your music to any software MP3 \
