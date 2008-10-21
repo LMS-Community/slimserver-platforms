@@ -48,11 +48,7 @@ fi
 ditto "$1" "$2"
 
 if [ -e "$2" ] ; then
-	if [ -e "$HOME/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server" ] ; then
-		pushd "$HOME/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server"
-	else
-		pushd "/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server"
-	fi
+	cd "$2/Contents/server"
 	sudo -H -u \$USER "../Resources/start-server.sh"
 
     echo "SqueezeCenter installed successfully."
