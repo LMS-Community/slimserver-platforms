@@ -57,7 +57,6 @@
 */
 }
 
-/*
 -(IBAction)installTypeChanged:(id)sender
 {
     if ([[installType selectedItem] tag] == kInstallGlobal && foundGlobal)
@@ -67,7 +66,6 @@
     else
 		[installButton setTitle:LocalizedPrefString(@"Install", "Install")];
 }
-*/
 
 -(bool)authorizeUser
 {
