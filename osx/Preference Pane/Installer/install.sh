@@ -53,8 +53,7 @@ if [ -e "$2" ] ; then
 	else
 		pushd "/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server"
 	fi
-	sudo -H -u \$USER "SqueezeCenter.app/Contents/Resources/start-server.sh"
-	popd
+	sudo -H -u \$USER "../Resources/start-server.sh"
 
     echo "SqueezeCenter installed successfully."
     exit 0
