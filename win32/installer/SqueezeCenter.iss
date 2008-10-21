@@ -36,6 +36,7 @@ AppUpdatesURL=http://www.slimdevices.com
 DefaultDirName={code:GetInstallFolder}
 DefaultGroupName=SqueezeCenter
 DisableProgramGroupPage=yes
+DisableReadyPage=yes
 WizardImageFile=squeezebox.bmp
 WizardImageBackColor=$ffffff
 WizardSmallImageFile=logitech.bmp
@@ -91,6 +92,7 @@ Name: {group}\{cm:License}; Filename: {app}\{cm:License}.txt
 Name: {group}\{cm:GettingStarted}; Filename: {app}\{cm:GettingStarted}.html
 Name: {group}\{cm:UninstallSqueezeCenter}; Filename: {uninstallexe}
 Name: {commonstartup}\{cm:SqueezeCenterTrayTool}; Filename: {app}\SqueezeTray.exe; WorkingDir: "{app}"
+Name: {userdesktop}\SqueezeCenter; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
 
 [Registry]
 ;
@@ -436,7 +438,7 @@ begin
 
 	else
 		begin
-			if RegQueryStringValue(HKCU, SSRegKey, 'StartAtBoot', StartAtBoot) then
+			if RegQueryStringValue(HKCU, SCRegKey, 'StartAtBoot', StartAtBoot) then
 				if (StartAtBoot = '1') then
 					StartupMode := 'logon';
 		end;
@@ -450,31 +452,40 @@ end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
 var
-	ErrorCode: Integer;
+	Wait, ErrorCode, i: Integer;
 	NewServerDir, PrefsFile, PrefsPath, PrefString, PortConflict, s: String;
+	Started, Failed: Boolean;
 
 begin
 	if CurStep = ssInstall then
-  if (RegQueryStringValue(HKLM, SCRegKey, 'Path', PrefsPath) or RegQueryStringValue(HKLM, SSRegKey, 'Path', PrefsPath)) then
-		begin
-			// add custom progress bar to be displayed while unregistering services
-			ProgressPage := CreateOutputProgressPage(CustomMessage('UnregisterServices'), CustomMessage('UnregisterServicesDesc'));
+		if (RegQueryStringValue(HKLM, SCRegKey, 'Path', PrefsPath) or RegQueryStringValue(HKLM, SSRegKey, 'Path', PrefsPath)) then
+			begin
+				// add custom progress bar to be displayed while unregistering services
+				ProgressPage := CreateOutputProgressPage(CustomMessage('UnregisterServices'), CustomMessage('UnregisterServicesDesc'));
 
-			try
-				ProgressPage.setProgress(0, 160);
-				UninstallSliMP3();
+				try
+					ProgressPage.setProgress(0, 160);
+					if (StartupMode = '') and (IsServiceRunning('squeezesvc') or IsServiceRunning('slimsvc')
+						or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('squeezecenter.exe') or IsModuleLoaded('slimserver.exe')) then
+						StartupMode := 'running';
 
-				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
+					UninstallSliMP3();
 
-				UninstallSlimServer();
-				RemoveServices('SC');
+					ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
-				RemoveLegacyFiles();
+					UninstallSlimServer();
+					RemoveServices('SC');
 
-			finally
-				ProgressPage.Hide;
-			end;
-		end;
+					RemoveLegacyFiles();
+
+				finally
+					ProgressPage.Hide;
+				end;
+
+			end
+	else
+		if (StartupMode = '') then
+			StartupMode := 'logon';
 
 	if CurStep = ssPostInstall then 
 		begin
@@ -483,11 +494,11 @@ begin
 
 			try
 				ProgressPage.Show;
-				ProgressPage.setProgress(0, 5);
+				ProgressPage.setProgress(0, 170);
 
 				// check network configuration and potential port conflicts
 				ProgressPage.setText(CustomMessage('ProgressForm_Description'), CustomMessage('PortConflict'));
-				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
 				// we discovered a port conflict with another application - user alternative port
 				if GetHttpPort('') <> '9000' then
@@ -498,7 +509,7 @@ begin
 
 				// probing ports to see whether we have a firewall blocking or something
 				ProgressPage.setText(CustomMessage('ProgressForm_Description'), CustomMessage('ProbingPorts'));
-				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
 // bug 8537 - disabling port probing until we've decided how to continue
 //				if not ProbePort(GetHttpPort('')) and not ProbePort('9090') and not ProbePort('3483') then
@@ -531,7 +542,7 @@ begin
 
 				// trying to connect to SN
 				ProgressPage.setText(CustomMessage('ProgressForm_Description'), CustomMessage('SNConnecting'));
-				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
 				if not IsPortOpen('www.squeezenetwork.com', '3483') then
 				begin
@@ -539,7 +550,7 @@ begin
 				end;
 
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
-				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
 				RegisterPort('9000');
 				RegisterPort(GetHttpPort(''));
@@ -551,9 +562,47 @@ begin
 					StartService('squeezesvc');
 
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeTray');
-				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
 				Exec(ExpandConstant('{app}') + '\SqueezeTray.exe', '--install', ExpandConstant('{app}'), SW_SHOW, ewWaitUntilIdle, ErrorCode);
+				
+				if (StartupMode = 'auto') or (StartupMode = 'logon') or (StartupMode = 'running') then
+					begin
+	    				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
+	
+	    				// wait up to 120 seconds for the services to be started
+						Wait := 120;
+						Started := false;
+						
+						while (Wait > 0) do
+							begin
+								ProgressPage.setProgress(ProgressPage.ProgressBar.Position+2, ProgressPage.ProgressBar.Max);
+								Sleep(2000);
+								
+								if IsPortOpen('127.0.0.1', GetHttpPort('')) then
+									// SC is ready - let's give it some more time to open the browser
+									begin
+										for i:=1 to 20 do
+											begin
+												ProgressPage.setProgress(ProgressPage.ProgressBar.Position+2, ProgressPage.ProgressBar.Max);
+												Sleep(500);
+											end;
+										break;
+									end
+								
+								else if (IsServiceRunning('squeezesvc') or IsModuleLoaded('squeez~1') or IsModuleLoaded('squeezecenter.exe')) then
+									Started := true
+									  
+								else if Started then
+									begin
+										Failed := true;
+										break;
+									end;
+								  
+									Wait := Wait - 1;
+							end;	
+					end;
+
 			finally
 				ProgressPage.Hide;
 			end;
