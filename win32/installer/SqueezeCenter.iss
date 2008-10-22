@@ -609,6 +609,12 @@ begin
 		end;	
 end;
 
+procedure CurPageChanged(CurPageID: Integer);
+begin
+	if CurPageID = wpSelectDir then
+		WizardForm.NextButton.Caption:=SetupMessage(msgButtonInstall)
+end;
+
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
 	if CurUninstallStep = usPostUninstall then
