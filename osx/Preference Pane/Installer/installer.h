@@ -31,7 +31,6 @@
 
 -(IBAction)doInstall:(id)sender;
 -(IBAction)quitInstall:(id)sender;
--(IBAction)installTypeChanged:(id)sender;
 -(IBAction)cancelWait:(id)sender;
 
 @end

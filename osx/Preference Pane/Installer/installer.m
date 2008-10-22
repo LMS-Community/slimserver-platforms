@@ -46,25 +46,6 @@
     }
     if (foundLocal || foundGlobal)
 	[installButton setTitle:LocalizedPrefString(@"Update", "Update")];
-
-/*
-    if (foundGlobal)
-	[installType selectItemAtIndex:[installType indexOfItemWithTag:kInstallGlobal]];
-    else
-	[installType selectItemAtIndex:[installType indexOfItemWithTag:kInstallLocal]];
-
-    [installType synchronizeTitleAndSelectedItem];
-*/
-}
-
--(IBAction)installTypeChanged:(id)sender
-{
-    if ([[installType selectedItem] tag] == kInstallGlobal && foundGlobal)
-		[installButton setTitle:LocalizedPrefString(@"Update", "Update")];
-    else if ([[installType selectedItem] tag] == kInstallLocal && foundLocal)
-		[installButton setTitle:LocalizedPrefString(@"Update", "Update")];
-    else
-		[installButton setTitle:LocalizedPrefString(@"Install", "Install")];
 }
 
 -(bool)authorizeUser
