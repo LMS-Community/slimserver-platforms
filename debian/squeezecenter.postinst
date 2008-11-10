@@ -41,7 +41,7 @@ case "$1" in
 	fi
 
 	# If there's an apparmor config, we need to update it to allow mysql to work properly
-	if [ -f /etc/apparmor.d/usr.sbin.mysqld ]; then 
+	if [ -f /etc/apparmor.d/usr.sbin.mysqld ]; then
 		## Remove the end-bracket so we can input our data into the file...
 		sed -e 's/}//' /etc/apparmor.d/usr.sbin.mysqld > /etc/apparmor.d/usr.sbin.mysqld.squeezecenter.new
 		echo "  # SqueezeCenter Apparmor Changes for MySqld
@@ -57,7 +57,9 @@ case "$1" in
 
 		mv /etc/apparmor.d/usr.sbin.mysqld /var/lib/squeezecenter/usr.sbin.mysqld.orig
 		mv /etc/apparmor.d/usr.sbin.mysqld.squeezecenter.new /etc/apparmor.d/usr.sbin.mysqld
-		/etc/init.d/apparmor restart		 
+		if [ -x /etc/init.d/apparmor ]; then
+			/etc/init.d/apparmor restart		 
+		fi
 		echo "\n"
 	fi
 	
