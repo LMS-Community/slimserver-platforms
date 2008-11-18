@@ -345,7 +345,7 @@ en.Port9000busyOther=Port 9000 is busy and may be in use by another application 
 en.Port9000unused=Port 9000 appears to be unused
 
 ; help messages concerning some applications
-en.CiscoVPNStatefulInspection=If you encounter connectivity issues with SqueezeCenter,%n please make sure "Stateful Firewall (Always On)" is turned off
+en.CiscoVPNStatefulInspection=If you encounter connectivity issues with SqueezeCenter,%n please make sure "Stateful Firewall (Always On)" is turned off in the VPN software.
 
 en.McAfeeMySQL=McAfee AV scanner needs to be configured to ignore MySQL's *.my* files. %nOtherwise SqueezeCenter's music scanning can fail.
 
