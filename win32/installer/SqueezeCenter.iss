@@ -134,6 +134,13 @@ var
 	ProgressPage: TOutputProgressWizardPage;
 	StartupMode: String;
 	HttpPort: String;
+	
+	// custom exit codes
+	// 1001 - SC configuration was found using port 9000, but port 9000 seems to be busy with an other application (PrefsExistButPortConflict)
+	// 1002 - SC wasn't able to establish a connection to SqueezeNetwork on port 3483 (SNConnectFailed_Description)
+	// 1101 - SliMP3 uninstall failed
+	// 1102 - SlimServer uninstall failed
+	CustomExitCode: Integer;
 
 const
 	SSRegKey = 'Software\SlimDevices\SlimServer';
@@ -216,7 +223,10 @@ begin
 	if RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then
 		begin
 			if not Exec(RemoveQuotes(Uninstaller), '/SILENT','', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
-				SuppressibleMsgBox(CustomMessage('ProblemUninstallingSLIMP3') + SysErrorMessage(ErrorCode), mbError, MB_OK, IDOK);
+				begin
+					SuppressibleMsgBox(CustomMessage('ProblemUninstallingSLIMP3') + SysErrorMessage(ErrorCode), mbError, MB_OK, IDOK);
+					CustomExitCode := 1101;
+				end
 		end;
 end;
 
@@ -328,7 +338,10 @@ begin
 		and RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SlimServer_is1', 'InstallLocation', UninstallPath)) then
 		begin
 			if not Exec(RemoveQuotes(Uninstaller), '', UninstallPath, SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
-				SuppressibleMsgBox(CustomMessage('ProblemUninstallingSlimServer') + SysErrorMessage(ErrorCode), mbError, MB_OK, IDOK);
+				begin
+					SuppressibleMsgBox(CustomMessage('ProblemUninstallingSlimServer') + SysErrorMessage(ErrorCode), mbError, MB_OK, IDOK);
+					CustomExitCode := 1102;
+				end
 		end;
 
 	// some manual cleanup work, in case previous uninstall didn't succeed
@@ -462,6 +475,8 @@ var
 
 begin
 	if CurStep = ssInstall then
+		CustomExitCode := 0;
+  	
 		if (RegQueryStringValue(HKLM, SCRegKey, 'Path', PrefsPath) or RegQueryStringValue(HKLM, SSRegKey, 'Path', PrefsPath)) then
 			begin
 				// add custom progress bar to be displayed while unregistering services
@@ -540,7 +555,10 @@ begin
 						SaveStringToFile(PrefsFile, PrefString, False);
 					end
 				else if PrefString <> '' then
-					SuppressibleMsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbInformation, MB_OK, IDOK);
+					begin
+  						SuppressibleMsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbInformation, MB_OK, IDOK);
+  						CustomExitCode := 1001;
+  					end
 
 				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 
@@ -551,6 +569,7 @@ begin
 				if not IsPortOpen('www.squeezenetwork.com', '3483') then
 				begin
 					SuppressibleMsgBox(CustomMessage('SNConnectFailed_Description') + #13#10 + #13#10 + CustomMessage('SNConnectFailed_Solution'), mbInformation, MB_OK, IDOK);
+ 					CustomExitCode := 1002;
 				end;
 
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
@@ -611,6 +630,11 @@ begin
 				ProgressPage.Hide;
 			end;
 		end;	
+end;
+
+function GetCustomSetupExitCode: Integer;
+begin
+	Result := CustomExitCode;
 end;
 
 procedure CurPageChanged(CurPageID: Integer);
