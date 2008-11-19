@@ -35,7 +35,8 @@ install:
 	# We need to disable the changeEffectiveUserAndGroup call to run on the readynas
 	cp -r $(CURDIR)/readynas/MySQLHelper.pm ${source}/Slim/Utils
 
-	# We also add in some sparc-specific modules
+	## This only occurs if the files exist ... if they do not exist here, they were probably
+	## removed by the buildme.pl script on purpose.
 	cp -r $(CURDIR)/readynas/CPAN ${source}/
 
 	# Copy our server files to the appropriate Debian locations.
