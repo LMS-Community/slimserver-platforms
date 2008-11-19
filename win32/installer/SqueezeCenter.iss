@@ -383,6 +383,7 @@ begin
 	DelTree(DelDir + AddBackslash('Nokia770'), true, true, true);
 	DelTree(DelDir + AddBackslash('NBMU'), true, true, true);
 	DelTree(DelDir + AddBackslash('Ruttenberg'), true, true, true);
+	DelTree(DelDir + AddBackslash('ScreenReader'), true, true, true);
 	DelTree(DelDir + AddBackslash('SenseMaker'), true, true, true);
 	DelTree(DelDir + AddBackslash('Touch'), true, true, true);
 	DelTree(DelDir + AddBackslash('WebPad'), true, true, true);
@@ -475,36 +476,38 @@ var
 
 begin
 	if CurStep = ssInstall then
-		CustomExitCode := 0;
-  	
-		if (RegQueryStringValue(HKLM, SCRegKey, 'Path', PrefsPath) or RegQueryStringValue(HKLM, SSRegKey, 'Path', PrefsPath)) then
-			begin
-				// add custom progress bar to be displayed while unregistering services
-				ProgressPage := CreateOutputProgressPage(CustomMessage('UnregisterServices'), CustomMessage('UnregisterServicesDesc'));
-
-				try
-					ProgressPage.setProgress(0, 160);
-					if (StartupMode = '') and (IsServiceRunning('squeezesvc') or IsServiceRunning('slimsvc')
-						or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('squeezecenter.exe') or IsModuleLoaded('slimserver.exe')) then
-						StartupMode := 'running';
-
-					UninstallSliMP3();
-
-					ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
-
-					UninstallSlimServer();
-					RemoveServices('SC');
-
-					RemoveLegacyFiles();
-
-				finally
-					ProgressPage.Hide;
-				end;
-
-			end
-	else
-		if (StartupMode = '') then
-			StartupMode := 'logon';
+		begin
+			CustomExitCode := 0;
+	  	
+			if (RegQueryStringValue(HKLM, SCRegKey, 'Path', PrefsPath) or RegQueryStringValue(HKLM, SSRegKey, 'Path', PrefsPath)) then
+				begin
+					// add custom progress bar to be displayed while unregistering services
+					ProgressPage := CreateOutputProgressPage(CustomMessage('UnregisterServices'), CustomMessage('UnregisterServicesDesc'));
+	
+					try
+						ProgressPage.setProgress(0, 160);
+						if (StartupMode = '') and (IsServiceRunning('squeezesvc') or IsServiceRunning('slimsvc')
+							or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('squeezecenter.exe') or IsModuleLoaded('slimserver.exe')) then
+							StartupMode := 'running';
+	
+						UninstallSliMP3();
+	
+						ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
+	
+						UninstallSlimServer();
+						RemoveServices('SC');
+	
+						RemoveLegacyFiles();
+	
+					finally
+						ProgressPage.Hide;
+					end;
+	
+				end
+			else
+				if (StartupMode = '') then
+					StartupMode := 'logon';
+		end
 
 	if CurStep = ssPostInstall then 
 		begin
