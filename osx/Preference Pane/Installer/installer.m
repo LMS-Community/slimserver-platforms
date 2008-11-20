@@ -151,7 +151,7 @@
     // First, get the install type, and check if we need to be authorized:
 
 //    int	doInstallType = [[installType selectedItem] tag];
-    int	doInstallType = kInstallGlobal;
+    int	doInstallType = kInstallLocal;
 
     NSString *fileToInstall = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"../Install Files/SqueezeCenter.prefPane"];
     NSString *installerScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"install.sh"];
