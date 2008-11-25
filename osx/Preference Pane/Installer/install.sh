@@ -47,7 +47,7 @@ fi
 
 # Check for OSX 10.5 or later, and strip quarantine information if so
 if [ `sw_vers -productVersion | grep -o "^10\.[5678]"` ] ; then
-    ditto -noqtn "$1" "$2"
+    ditto --noqtn "$1" "$2"
 else
     ditto "$1" "$2"
 fi
