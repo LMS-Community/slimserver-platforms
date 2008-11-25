@@ -45,7 +45,12 @@ if [ -e ~/Library/PreferencePanes/SlimServer.prefPane ] ; then
     rm -r ~/Library/PreferencePanes/SlimServer.prefPane 2>&1
 fi
 
-ditto "$1" "$2"
+# Check for OSX 10.5 or later, and strip quarantine information if so
+if [ `sw_vers -productVersion | grep -o "^10\.[5678]"` ] ; then
+    ditto -noqtn "$1" "$2"
+else
+    ditto "$1" "$2"
+fi
 
 if [ -e "$2" ] ; then
 	cd "$2/Contents/server"
