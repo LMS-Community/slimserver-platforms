@@ -53,6 +53,9 @@ else
 fi
 
 if [ -e "$2" ] ; then
+	# install SC to start at boot time
+	sudo -b -H -u $USER "../Resources/create-startup.sh"
+
 	cd "$2/Contents/server"
 	sudo -b -H -u $USER "../Resources/start-server.sh"
 
