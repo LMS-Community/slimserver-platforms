@@ -54,6 +54,10 @@ fi
 
 if [ -e "$2" ] ; then
 	cd "$2/Contents/server"
+
+	# install SC to start at boot time
+	../Resources/create-startup.sh
+
 	sudo -b -H -u $USER "../Resources/start-server.sh"
 
     echo "SqueezeCenter installed successfully."
