@@ -29,20 +29,7 @@ for my $dir ( @dirs ) {
 	last if $httpport;
 }
 
-if ( !$httpport ) {
-	die "ERROR: Cannot find server.prefs file\n";
-}
-
-#my $time = 0;
-
-#while ( check_port( '127.0.0.1', $httpport ) != 1 ) {
-#	sleep 1;
-#	if ( $time++ > $timeout ) {
-#		die "ERROR: Server failed to start in $timeout seconds\n";
-#	}
-#}
-
-if ( check_port( '127.0.0.1', $httpport ) != 1 ) {
+if ( !$httpport || check_port( '127.0.0.1', $httpport ) != 1 ) {
 	print "0\n";
 } else {
 	print "$httpport\n";
