@@ -23,9 +23,6 @@ done
 
 if [ $PORT -ne 0 ]; then
 	osascript <<ENDSCRIPT
-		tell application "Safari" 
-			activate
-			open location "http://localhost:$PORT/"
-		end tell
+		open location "http://localhost:$PORT/"
 ENDSCRIPT
 fi
