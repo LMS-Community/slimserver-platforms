@@ -31,7 +31,7 @@
 
 	if ([defaultValues objectForKey:@"StartupMenuTag"] == nil)
 	{
-		[defaultValues setObject:[NSNumber numberWithInt:kNoAutomaticStartup] forKey:@"StartupMenuTag"];
+		[defaultValues setObject:[NSNumber numberWithInt:kStartupAtBoot] forKey:@"StartupMenuTag"];
 		rewrite = YES;
 	}
 	
@@ -300,7 +300,7 @@
 	 */
 
 	if (allLoginItems == nil)
-	allLoginItems = [[NSMutableArray alloc] init];
+		allLoginItems = [[NSMutableArray alloc] init];
 
 	/*
 	 **  Remove all instances of our server startup.

@@ -155,10 +155,10 @@
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		1477C980098864CD0087109C /* Launcher.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Launcher.plist; sourceTree = "<group>"; };
-		1477C982098865030087109C /* Pref_Tester.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Pref_Tester.plist; sourceTree = "<group>"; };
-		1477C983098865030087109C /* Installer.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Installer.plist; sourceTree = "<group>"; };
-		1477C984098865030087109C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1477C980098864CD0087109C /* Launcher.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Launcher.plist; sourceTree = "<group>"; };
+		1477C982098865030087109C /* Pref_Tester.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Pref_Tester.plist; sourceTree = "<group>"; };
+		1477C983098865030087109C /* Installer.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Installer.plist; sourceTree = "<group>"; };
+		1477C984098865030087109C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
 		14A9402709875F57001992EB /* SqueezeCenter.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SqueezeCenter.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9403C09875F57001992EB /* Launcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Launcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9405009875F57001992EB /* Preference Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Preference Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -609,7 +609,6 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 1416136B0982CC9600E949A0 /* Build configuration list for PBXProject "SqueezeCenter" */;
-			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,

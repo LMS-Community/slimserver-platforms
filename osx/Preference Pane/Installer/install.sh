@@ -55,8 +55,10 @@ fi
 if [ -e "$2" ] ; then
 	cd "$2/Contents/server"
 
-	# install SC to start at boot time
-	../Resources/create-startup.sh
+	# install SC to start at boot time if it hasn't been configured yet
+	if [ ! -e ~/Library/Preferences/com.slimdevices.slim.plist ] ; then
+		../Resources/create-startup.sh
+	fi
 
 	sudo -b -H -u $USER "../Resources/start-server.sh"
 
