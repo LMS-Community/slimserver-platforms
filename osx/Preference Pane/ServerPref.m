@@ -264,19 +264,20 @@
 	
 			if (myStatus == errAuthorizationSuccess)
 			{
-			for (;;)
-			{
-				int bytesRead = read (fileno (myCommunicationsPipe), myReadBuffer, sizeof (myReadBuffer));
-	
-				if (bytesRead < 1)
-				break;
-			}
-			AuthorizationFree (myAuthorizationRef, kAuthorizationFlagDefaults);
+				for (;;)
+				{
+					int bytesRead = read (fileno (myCommunicationsPipe), myReadBuffer, sizeof (myReadBuffer));
+		
+					if (bytesRead < 1)
+						break;
+				}
+				
+				AuthorizationFree (myAuthorizationRef, kAuthorizationFlagDefaults);
 			}
 			else
 			{
-			AuthorizationFree (myAuthorizationRef, kAuthorizationFlagDefaults);
-			return NO;
+				AuthorizationFree (myAuthorizationRef, kAuthorizationFlagDefaults);
+				return NO;
 			}
 		}
 	}
