@@ -84,7 +84,15 @@ sv.UninstallSqueezeCenter=Avinstallera SqueezeCenter
 fi.UninstallSqueezeCenter=Poista SqueezeCenter
 
 en.UninstallPrefs=Do you want to delete all preferences and log files as well?
+it.UninstallPrefs=Eliminare tutte le preferenze e tutti i file di registro?
+fi.UninstallPrefs=Haluatko poistaa kaikki määritykset ja lokitiedostot?
+da.UninstallPrefs=Vil du slette alle indstillinger og logfiler?
+no.UninstallPrefs=Vil du slette alle innstillingene og loggfilene også?
+sv.UninstallPrefs=Vill du ta bort alla inställningar och loggfiler?
+fr.UninstallPrefs=Voulez-vous également supprimer les fichiers journaux et des préférences?
+nl.UninstallPrefs=Wil je ook alle voorkeuren en logboekbestanden verwijderen?
 de.UninstallPrefs=Wollen Sie die Einstellungs- und Logdateien ebenfalls entfernen?
+es.UninstallPrefs=¿Desea eliminar también todos los archivos de preferencias y de registro?
 
 en.SqueezeCenterTrayTool=SqueezeCenter Tray Tool
 da.SqueezeCenterTrayTool=SqueezeCenter-ikon i systembakken
@@ -286,70 +294,356 @@ no.Startup_CredentialsRequired=Hvis du ikke oppgir brukernavn og passord, kjøres
 fi.Startup_CredentialsRequired=Jos et anna käyttäjätunnusta ja salasanaa, SqueezeCenter suoritetaan "anonyyminä" järjestelmän käyttäjänä. Tällöin et ehkä voi käyttää musiikkikirjastoasi. Haluatko jatkaa ohjelman suorittamista anonyyminä käyttäjänä?
 sv.Startup_CredentialsRequired=Om du inte anger användarnamn och lösenord kommer SqueezeCenter att köras som en anonym systemanvändare, och du får kanske inte tillgång till musikbiblioteket. Vill du fortsätta vara köra som anonym användare?
 
+es.ProgressForm_Caption=Asistente para resolución de problemas de SqueezeCenter
+fr.ProgressForm_Caption=Assistant de dépannage du SqueezeCenter
+no.ProgressForm_Caption=Feilsøkingsveiviser for SqueezeCenter
+sv.ProgressForm_Caption=Felsökningsguide för SqueezeCenter
+it.ProgressForm_Caption=Risoluzione guidata dei problemi SqueezeCenter
+de.ProgressForm_Caption=SqueezeCenter - Assistent zur Fehlerbehebung
 en.ProgressForm_Caption=SqueezeCenter Troubleshooting Wizard
+da.ProgressForm_Caption=SqueezeCenter-guiden Problemløsning
+nl.ProgressForm_Caption=SqueezeCenter-wizard voor probleemoplossing
+fi.ProgressForm_Caption=SqueezeCenterin ohjattu vianetsintä
 
+fr.ProgressForm_Description=Analyse de votre système
+de.ProgressForm_Description=Das System wird geprüft.
+nl.ProgressForm_Description=Laten we je systeem eens onderzoeken
 en.ProgressForm_Description=Let's probe your system
+sv.ProgressForm_Description=Systemet genomsöks
+da.ProgressForm_Description=Systemet vil blive undersøgt
+fi.ProgressForm_Description=Tutkitaanpa järjestelmäsi
+no.ProgressForm_Description=Undersøk systemet
+es.ProgressForm_Description=Vamos a sondear su sistema
+it.ProgressForm_Description=Verifichiamo il sistema
 
-en.PortConflict=Potential port conflicts
+es.PortConflict=Conflicto de puertos
+fr.PortConflict=Conflit de port
+it.PortConflict=Conflitto porta
+nl.PortConflict=Poortconflict
+en.PortConflict=Port Conflict
+de.PortConflict=Port-Konflikt
+da.PortConflict=Portkonflikt
+no.PortConflict=Portkonflikt
+sv.PortConflict=Portkonflikt
+fi.PortConflict=Porttiristiriita
 
+da.ProbingPorts=Det undersøges om portene blokeres af firewallen
+nl.ProbingPorts=Poorten worden onderzocht om te zien of ze door firewallsoftware worden geblokkeerd
+sv.ProbingPorts=Portarna söks av för att kontrollera om de blockeras av en brandvägg.
 en.ProbingPorts=Probing ports to see if they are being blocked by firewall software
+es.ProbingPorts=Sondeando puertos para ver si los ha bloqueado el software de servidor de seguridad
+de.ProbingPorts=Testen der Ports, um festzustellen, ob sie durch die Firewall-Software blockiert werden.
+fi.ProbingPorts=Tutkitaan portteja, jotta havaitaan, estääkö palomuuriohjelma ne
+no.ProbingPorts=Undersøker porter for å se om de blokkeres av brannmurprogramvare
+it.ProbingPorts=Verifica in corso della presenza di eventuali blocchi delle porte mediante software firewall
+fr.ProbingPorts=Vérification des ports pour déterminer s'ils sont bloqués par un pare-feu
 
+de.Details=Beschreibung
 en.Details=Details
+nl.Details=Details
+da.Details=Detaljer
+no.Details=Detaljer
+sv.Details=Detaljer
+es.Details=Detalles
+it.Details=Dettagli
+fr.Details=Détails
+fi.Details=Tiedot
 
+fi.Problem=Ongelma
+nl.Problem=Probleem
+da.Problem=Problem
+de.Problem=Problem
 en.Problem=Problem
+no.Problem=Problem
+sv.Problem=Problem
+es.Problem=Problema
+it.Problem=Problema
+fr.Problem=Problème
 
+sv.Solution=Lösning
+de.Solution=Lösung
+da.Solution=Løsning
+no.Solution=Løsning
+nl.Solution=Oplossing
+fi.Solution=Ratkaisu
+es.Solution=Solución
 en.Solution=Solution
+fr.Solution=Solution
+it.Solution=Soluzione
 
+es.Caption=Asistente para resolución de problemas de SqueezeCenter
+fr.Caption=Assistant de dépannage du SqueezeCenter
+no.Caption=Feilsøkingsveiviser for SqueezeCenter
+sv.Caption=Felsökningsguide för SqueezeCenter
+it.Caption=Risoluzione guidata dei problemi SqueezeCenter
+de.Caption=SqueezeCenter - Assistent zur Fehlerbehebung
 en.Caption=SqueezeCenter Troubleshooting Wizard
+da.Caption=SqueezeCenter-guiden Problemløsning
+nl.Caption=SqueezeCenter-wizard voor probleemoplossing
+fi.Caption=SqueezeCenterin ohjattu vianetsintä
 
+da.SummaryForm_Description=Oversigt
+es.SummaryForm_Description=Resumen
+it.SummaryForm_Description=Riepilogo
+fr.SummaryForm_Description=Résumé
+nl.SummaryForm_Description=Samenvatting
+no.SummaryForm_Description=Sammendrag
 en.SummaryForm_Description=Summary
+fi.SummaryForm_Description=Yhteenveto
+de.SummaryForm_Description=Zusammenfassung
+sv.SummaryForm_Description=Översikt
 
+fr.NoProblemForm_Description=Aucun problème détecté.
+da.NoProblemForm_Description=Der blev ingen problemer fundet.
+nl.NoProblemForm_Description=Geen problemen gevonden.
+sv.NoProblemForm_Description=Inga problem upptäcktes.
+no.NoProblemForm_Description=Ingen problemer.
+de.NoProblemForm_Description=Keine Probleme gefunden.
+it.NoProblemForm_Description=Nessun problema rilevato.
 en.NoProblemForm_Description=No problems found.
+es.NoProblemForm_Description=No se han encontrado problemas.
+fi.NoProblemForm_Description=Ongelmia ei löytynyt.
 
+es.NoProblem=Hemos realizado pruebas de acceso a red, productos de servidor de seguridad y antivirus, %npero no se encontraron problemas.
+fr.NoProblem=Les tests d'accès réseau, de pare-feu et d'antivirus ont été effectués et %naucun problème n'a été détecté.
+da.NoProblem=Netværksadgangen, firewallen og antivirusprogrammet blev testet, %nmen der blev ikke fundet nogen problemer.
+de.NoProblem=Netzwerkzugriff sowie Firewall- und Antivirus-Produkte wurden getestet. %nDabei wurden jedoch keine Probleme festgestellt.
+sv.NoProblem=Nätverksåtkomsten testades, liksom brandväggen och antivirusprogrammen, %nmen inget problem upptäcktes.
+it.NoProblem=Sono state eseguite verifiche dell'accesso di rete, del firewall e di prodotti antivirus: %nnessun problema rilevato.
+fi.NoProblem=Suoritimme verkon käytön sekä palomuuri- ja virustorjuntatuotteiden testit, %nmutta ongelmia ei löytynyt.
+no.NoProblem=Vi testet nettverkstilgang, brannmur og antivirusprodukter, %nmen fant ingen problemer.
+nl.NoProblem=We hebben de netwerktoegang, firewall en antivirusproducten getest, %nmaar er zijn geen problemen gevonden.
 en.NoProblem=We ran network access, firewall and antivirus product tests, %nbut no problems were found.
 
-en.PortConflict=Port Conflict
-
+da.UnknownFirewall=Der er opdaget et problem.%n%nEn eller flere af de netværksporte som benyttes af SqueezeCenter, er blokeret. SqueezeCenter benytter port nummer 9000 (TCP) og 3483 (TCP og UDP). Det skyldes normalt sikkerhedssoftware, især firewallen.%n%nDer er flere oplysninger på http://faq.slimdevices.com hvor du kan søge efter artikler om dine sikkerhedsprogrammer og om firewalls i almindelighed.
+no.UnknownFirewall=Det har blitt oppdaget et problem.%n%nEn eller flere av nettverksportene som brukes av SqueezeCenter, er blokkerte. SqueezeCenter bruker portene 9000 (TCP) og 3483 (TCP og UDP). Den vanligste årsaken til dette problemet er sikkerhetsprogramvaren på systemet, nærmere bestemt brannmuren.%n%nGå til http://faq.slimdevices.com og søk etter artikler vedrørerende din sikkerhetsprogramvare eller brannmurer generelt, hvis du vil vite mer.
+de.UnknownFirewall=Ein Problem wurde festgestellt.%n%nEin oder mehrere Ports, die von SqueezeCenter genutzt werden, sind blockiert. SqueezeCenter nutzt die Portnummern 9000 (TCP) und 3483 (TCP und UDP). Meist wird dieses Problem durch Sicherheitssoftware (z.B. Firewall) auf dem Rechner verursacht.%n%nWeitere Informationen unter http://faq.slimdevices.com. Suchen Sie dort nach Einträgen über Ihre Sicherheitssoftware und Firewalls im Allgemeinen.
+sv.UnknownFirewall=Ett problem har upptäckts.%n%nEn eller flera av nätverksportarna som SqueezeCenter använder är blockerad. SqueezeCenter använder portarna 9000 (TCP) samt 3483 (TCP och UDP). Detta beror vanligtvis på säkerhetsprogramvara som installerats, i synnerhet brandväggar.%n%nGå in på http://faq.slimdevices.com om du vill veta mer. Du kan söka efter artiklar som behandlar ditt säkerhetsprogram eller brandväggar i allmänhet.
+fi.UnknownFirewall=Havaittiin ongelma.%n%nVähintään yksi SqueezeCenterin käyttämistä verkkoporteista on estetty. SqueezeCenter käyttää portteja 9000 (TCP) ja 3483 (TCP ja UDP). Tämän ongelman yleisin syy on järjestelmään asennettu tietoturvaohjelma, erityisesti palomuuri.%n%nJos haluat lisätietoja, käy osoitteessa http://faq.slimdevices.com ja etsi artikkeleita, jotka koskevat kyseistä tietoturvaohjelmaa tai palomuureja yleisesti.
+es.UnknownFirewall=Hemos detectado un problema.%n%nUno o más puertos de la red usados por SqueezeCenter están bloqueados. SqueezeCenter usa los puertos 9000 (TCP) y 3483 (TCP y UDP). La causa más probable de esto es el software de seguridad del sistema, específicamente un servidor de seguridad.%n%nPara más información, visite http://faq.slimdevices.com y busque artículos sobre su software de seguridad concreto o sobre servidores de seguridad en general.
+fr.UnknownFirewall=Un problème a été détecté.%n%nUn ou plusieurs ports réseau utilisés par le  SqueezeCenter sont bloqués. Le SqueezeCenter utilise les ports 9000 (TCP) et 3483 (TCP et UDP). Ce problème est vraisemblablement dû au logiciel de sécurité présent sur votre système, en particulier le pare-feu.%n%nPour plus d'informations, rendez-vous sur http://faq.slimdevices.com et consultez les articles relatifs à votre logiciel de sécurité ou pare-feu.
+nl.UnknownFirewall=We hebben een probleem gedetecteerd.%n%nEen of meer van de netwerkpoorten die door SqueezeCenter worden gebruikt, worden geblokkeerd. SqueezeCenter gebruikt poortnummers 9000 (TCP) en 3483 (TCP en UDP). De meest waarschijnlijke oorzaak hiervan is beveiligingssoftware op je systeem, met name een firewall.%n%nVoor meer informatie ga je naar http://faq.slimdevices.com en zoek je naar artikelen over je specifieke beveiligingssoftware of over firewalls in het algemeen.
 en.UnknownFirewall=We've detected a problem.%n%nOne or more of the network ports used by SqueezeCenter is blocked. SqueezeCenter uses port numbers 9000 (TCP) and 3483 (TCP and UDP). The most common cause for this is security software on your system, specifically a firewall.%n%nFor more information, visit http://faq.slimdevices.com and search for articles on your specific security software or on firewalls in general.
+it.UnknownFirewall=È stato rilevato un problema.%n%nUna o più porte di rete utilizzate da SqueezeCenter sono bloccate. SqueezeCenter utilizza le porte 9000 (TCP) e 3483 (TCP e UDP). La causa più comune del problema è la presenza di software di protezione nel sistema in uso, in particolare un firewall.%n%nPer ulteriori informazioni, visitare il sito Web http://faq.slimdevices.com e cercare gli articoli relativi al software di protezione specifico in uso o sui firewall in generale.
 
+da.PrefsExistButPortConflict=Der er opdaget et problem.%n%nSqueezeCenter bruger port 9000 til at kommunikere over dit netværk, men der er muligvis en konflikt med et andet program som bruger samme port.%n%nHvis du har problemer med at starte SqueezeCenter, kan du redigere filen med indstillinger for SqueezeCenter og der ændre portnummeret til et andet.%n%nDet gør du ved at finde filen "server.prefs" på computeren og redigere den i Notesblok. Find linjen med "httpport" og skift værdi fra 9000 til 9010 eller 9100. Gem filen og luk den. Det burde løse konflikten hvorefter SqueezeCenter igen kan køre.%n%nDer er flere oplysninger på http://faq.slimdevices.com
+no.PrefsExistButPortConflict=Det har blitt oppdaget et problem.%n%nSqueezeCenter bruker port 9000 til å kommunisere via nettverket, og det ser ut til å være en konflikt med et annet program som bruker samme port.%n%nHvis du har problemer med å starte SqueezeCenter, kan du prøve å redigere innstillingsfilen til SqueezeCenter og endre porten til en annen verdi.%n%nDette gjør du ved å søke etter "server.prefs" på datamaskinen og redigere filen i notisblokken. Dette løser konflikten og lar SqueezeCenter kjøre som det skal.%n%nGå til http://faq.slimdevices.com hvis du vil vite mer.
+de.PrefsExistButPortConflict=Ein Problem wurde festgestellt.%n%nSqueezeCenter nutzt Port 9000 zur Kommunikation über das Netzwerk. Eventuell besteht ein Konflikt zwischen SqueezeCenter und einer anderen Anwendung, die den gleichen Port nutzt.%n%nFalls beim Starten von SqueezeCenter Probleme auftreten,  bearbeiten Sie die SqueezeCenter-Einstellungsdatei und wählen Sie einen anderen Port.%n%nSuchen Sie dazu auf dem Computer die Datei "server.prefs" und bearbeiten Sie diese im Editor. Suchen Sie den Eintrag für "httpport" und wählen Sie Port 9010 oder 9100 statt 9000. Speichern und schließen Sie die Datei. Der Konflikt ist damit aufgehoben und SqueezeCenter kann wieder ausgeführt werden.%n%nWeitere Informationen unter http://faq.slimdevices.com.
+sv.PrefsExistButPortConflict=Ett problem har upptäckts.%n%nSqueezeCenter kommunicerar över nätverket via port 9000, men det verkar som om ett annat program använder samma port.%n%nOm det uppstår problem i SqueezeCenter bör du redigera inställningsfilen och ändra portnumret till ett annat värde.%n%nSök efter server.prefs på din dator och redigera den filen i Anteckningar. Leta reda på posten httpport och ändra 9000 till 9010 eller 9100. Därefter sparar du filen och stänger den. På så vis kommer du till rätta med problemet, och kan köra SqueezeCenter felfritt.%n%nMer information finns på http://faq.slimdevices.com
+fi.PrefsExistButPortConflict=Havaittiin ongelma.%n%nSqueezeCenter käyttää porttia 9000 verkossa kommunikointiin. Tämä saattaa aiheuttaa ristiriidan toisen sovelluksen kanssa, joka käyttää samaa porttia.%n%nJos SqueezeCenterin käynnistämisessä on ongelmia, kokeile muokata SqueezeCenterin asetustiedostoa ja vaihtaa portille toinen arvo.%n%nTee tämä suorittamalla server.prefs-haku tietokoneella ja muokkaamalla tätä tiedostoa muistiossa.  Etsi "httpport" ja vaihda se arvosta 9000 arvoon 9010, joissakin tapauksissa arvoon 9100. Tallenna ja sulje tiedosto.  Tämä ratkaisee ristiriidan ja sallii SqueezeCenterin käyttämisen.%n%nLisätietoja on osoitteessa http://faq.slimdevices.com
+es.PrefsExistButPortConflict=Hemos detectado un problema.%n%nSqueezeCenter usa el puerto 9000 para comunicarse a través de la red y puede que exista un conflicto con otra aplicación que use el mismo puerto.%n%nSi tiene problemas al iniciar SqueezeCenter, edite el archivo de preferencias de SqueezeCenter y cambie el puerto a otro valor.%n%nPara ello, busque "server.prefs" en el ordenador y edite el archivo en el Bloc de notas. Busque la entrada para "httpport" y cámbiela de 9000 a 9010, o a 9100. Guarde y cierre el archivo. Así se resolverá el conflicto y SqueezeCenter podrá ejecutarse correctamente.%n%nPara más información, visite http://faq.slimdevices.com
+fr.PrefsExistButPortConflict=Un problème a été détecté.%n%nLe SqueezeCenter utilise le port 9000 pour communiquer sur le réseau et un conflit se produit avec une autre application utilisant ce port.%n%nSi vous rencontrez des problèmes lors de l'utilisation du SqueezeCenter, modifiez le fichier de préférences du SqueezeCenter et changez le numéro de port.%n%nPour cela, recherchez le fichier "server.prefs" sur votre ordinateur et modifiez-le à l'aide du Bloc-notes.  Recherchez "httpport" et modifiez la valeur 9000 en 9010 ou 9100. Enregistrez le fichier et fermez-le.  Cela résoudra le problème et permettra au SqueezeCenter de fonctionner correctement.%n%nPour plus d'informations, rendez-vous sur http://faq.slimdevices.com.
+nl.PrefsExistButPortConflict=We hebben een probleem gedetecteerd.%n%nSqueezeCenter gebruikt poort 9000 om via je netwerk te communiceren, en er is misschien een conflict met een andere toepassing die dezelfde poort gebruikt.%n%nAls je problemen ondervindt met het starten van SqueezeCenter, bewerk je het SqueezeCenter-voorkeurenbestand en verander je de waarde van de poort.%n%nZoek hiervoor naar 'server.prefs' op je computer en bewerk dat bestand in Kladblok. Zoek de ingang voor 'httpport' en verander deze van 9000 naar 9010, of soms 9100. Sla het bestand op en sluit het. Hiermee wordt het conflict opgelost en kan SqueezeCenter worden uitgevoerd.%n%nGa naar http://faq.slimdevices.com voor meer informatie.
 en.PrefsExistButPortConflict=We've detected a problem.%n%nSqueezeCenter uses port 9000 to communicate over your network, and there may be a conflict with another application using the same port.%n%nIf you encounter problems starting SqueezeCenter, try editing the SqueezeCenter preference file and changing the port to some other value.%n%nTo do this, search for "server.prefs" on your computer and edit that file in notepad.  Find the entry for "httpport" and change it from 9000 to 9010, some 9100. Save and close the file.  This will solve the conflict and allow SqueezeCenter to run successfully.%n%nFor more information, visit http://faq.slimdevices.com
+it.PrefsExistButPortConflict=È stato rilevato un problema.%n%nSqueezeCenter utilizza la porta 9000 per le comunicazioni di rete e potrebbe esserci un conflitto con un'altra applicazione che utilizza tale porta.%n%nIn caso di problemi con l'avvio di SqueezeCenter, provare a modificare il file delle preferenze di SqueezeCenter e cambiare porta.%n%nA tale scopo, cercare "server.prefs" nel computer in uso e modificare il file con il Blocco note. Individuare la voce "httpport" e cambiarne l'impostazione da 9000 a 9010, in alcuni casi 9100. Salvare e chiudere il file. In tal modo il conflitto verrà risolto e SqueezeCenter verrà eseguito correttamente.%n%nPer ulteriori informazioni, visitare il sito Web http://faq.slimdevices.com
 
+da.PortConflict_Description=Der er et problem.%n%nDer kan være en netværkskonflikt da følgende program allerede bruger port 9000:
+no.PortConflict_Description=Det ble oppdaget et problem.%n%nDet kan ha oppstått en nettverkskonflikt. Følgende program bruker allerede port 9000:
+de.PortConflict_Description=Es wurde ein Problem erkannt.%n%nMöglicher Netzwerkkonflikt. Das folgende Programm nutzt bereits Port 9000:
+sv.PortConflict_Description=Ett problem har upptäckts.%n%nDet kan röra sig om en nätverkskonflikt. Följande program använder redan port 9000:
+fi.PortConflict_Description=Havaittiin ongelma.%n%nSaattaa esiintyä verkon ristiriita. Portti 9000 on jo seuraavan ohjelman käytössä:
+es.PortConflict_Description=Hemos detectado un problema.%n%nPuede existir un conflicto de red. El siguiente programa ya usa el puerto 9000:
+fr.PortConflict_Description=Un problème a été détecté.%n%nUn conflit réseau est peut-être présent.  Le programme suivant utilise déjà le port 9000:
+nl.PortConflict_Description=We hebben een probleem gedetecteerd.%n%nEr is misschien een netwerkconflict. Poort 9000 wordt al door het volgende programma gebruikt:
 en.PortConflict_Description=We've detected a problem.%n%nThere may be a network conflict.  The following program is already using port 9000:
+it.PortConflict_Description=È stato rilevato un problema.%n%nPotrebbe essersi verificato un conflitto di rete. La porta 9000 è già utilizzata dal programma seguente:
 
+sv.PortConflict_Solution=Du kan konfigurera så att SqueezeCenter körs på en port som inte används, t.ex. 9001.
+da.PortConflict_Solution=Du kan konfigurere SqueezeCenter til at kommunikere over en ubenyttet port, fx 9001.
+no.PortConflict_Solution=Du kan konfigurere SqueezeCenter til å benytte en ubrukt port, som 9001.
+nl.PortConflict_Solution=Je kunt SqueezeCenter configureren voor uitvoering op een ongebruikte poort, zoals 9001.
+es.PortConflict_Solution=Puede configurar SqueezeCenter para que se ejecute en un puerto no usado, como el 9001.
+de.PortConflict_Solution=SqueezeCenter kann so konfiguriert werden, dass dieser auf einem nicht genutzten Port wie Port 9001 ausgeführt wird.
+fi.PortConflict_Solution=Voit määrittää SqueezeCenterin käyttämään vapaata porttia, esimerkiksi 9001.
+fr.PortConflict_Solution=Vous pouvez configurer le SqueezeCenter pour utiliser un port différent, par exemple 9001.
 en.PortConflict_Solution=You can configure SqueezeCenter to run on an unused port, such as 9001.
+it.PortConflict_Solution=È possibile configurare SqueezeCenter per l'esecuzione su una porta inutilizzata, ad esempio la porta 9001.
 
+da.PingProblem=Der er et problem med at sende pingkommando til www.squeezenetwork.com
+sv.PingProblem=Det gick inte att skicka ping till www.squeezenetwork.com
+no.PingProblem=Kan ikke sende ping-kommando til www.squeezenetwork.com
+fi.PingProblem=Ongelma testattaessa osoitetta www.squeezenetwork.com
+de.PingProblem=Ping kann nicht an www.squeezenetwork.com gesendet werden.
+nl.PingProblem=Probleem met pingen van www.squeezenetwork.com
 en.PingProblem=Problem pinging www.squeezenetwork.com
+es.PingProblem=Problema al hacer ping a www.squeezenetwork.com
+it.PingProblem=Problema durante il ping di www.squeezenetwork.com
+fr.PingProblem=Problème lors du ping de www.squeezenetwork.com
 
+fr.PingProblem_Description=Communication avec SqueezeNetwork.com impossible.
+sv.PingProblem_Description=Det gick inte att kommunicera med SqueezeNetwork.com
+da.PingProblem_Description=Det var ikke muligt at kommunikere med SqueezeNetwork.com
+de.PingProblem_Description=Die Verbindung zu SqueezeNetwork.com konnte nicht hergestellt werden.
+it.PingProblem_Description=Impossibile comunicare con SqueezeNetwork.com
+fi.PingProblem_Description=Kommunikointi osoitteen SqueezeNetwork.com kanssa ei onnistunut
+es.PingProblem_Description=No ha sido posible comunicarse correctamente con SqueezeNetwork.com
+no.PingProblem_Description=Vi kunne ikke kommunisere med SqueezeNetwork.com
+nl.PingProblem_Description=We kunnen niet met SqueezeNetwork.com communiceren
 en.PingProblem_Description=We were not able to successfully communicate with SqueezeNetwork.com
 
+sv.PingProblem_Solution=Det kan röra sig om ett tillfälligt internetproblem eller om begränsningar som internetleverantören har infört.%n%nOm problemet kvarstår bör du kontrollera om brandväggen blockerar utgående trafik.
+da.PingProblem_Solution=Det kan skyldes et midlertidigt problem på internettet eller en begrænsning fra din internetudbyders side.%n%nHvis problemet fortsætter, skal du kontrollere at din firewall ikke blokerer udgående trafik.
+no.PingProblem_Solution=Dette kan skyldes et midlertidig problem med Internett, eller en begrensning fra Internett-leverandøren.%n%nSjekk at brannmuren ikke blokkerer utgående trafikk hvis problemet vedvarer.
+nl.PingProblem_Solution=Dit is misschien een tijdelijk internetprobleem, of een beperking die door je ISP is opgelegd.%n%nAls het probleem zich blijft voordoen, zorg je ervoor dat je firewall geen uitgaand verkeer blokkeert.
+de.PingProblem_Solution=Es handelt sich eventuell um ein zeitweiliges Internetproblem oder eine Einschränkung Ihres Internetanbieters.%n%nWenn das Problem bestehen bleibt, vergewissern Sie sich, dass die Firewall den abgehenden Datenverkehr nicht blockiert.
+fr.PingProblem_Solution=Il s'agit d'un problème Internet temporaire ou d'une limitation imposée par votre FAI.%n%nSi le problème persiste, vérifiez que votre pare-feu ne bloque pas le trafic sortant.
+it.PingProblem_Solution=Potrebbe trattarsi di un problema Internet temporaneo o di una limitazione imposta dal provider di servizi Internet.%n%nSe il problema persiste, verificare che il traffico in uscita non sia bloccato dal firewall.
+es.PingProblem_Solution=Puede tratarse de un problema de Internet temporal o de una limitación impuesta por su ISP.%n%nSi el problema continúa, asegúrese de que el servidor de seguridad no esté bloqueando el tráfico de salida.
 en.PingProblem_Solution=This might be a temporary internet issue, or a limitation imposed by your ISP.%n%nIf the problem persists, please make sure your firewall is not blocking outgoing traffic.
+fi.PingProblem_Solution=Tämä saattaa olla tilapäinen internet-ongelma tai internet-palveluntarjoajasi määrittämä rajoitus.%n%nJos ongelma jatkuu, tarkista, ettei palomuurisi estä lähtevää liikennettä.
 
+sv.SNConnecting=Ansluter till www.squeezenetwork.com ...
+es.SNConnecting=Conectando a www.squeezenetwork.com...
 en.SNConnecting=Connecting to www.squeezenetwork.com...
+it.SNConnecting=Connessione a www.squeezenetwork.com in corso...
+fr.SNConnecting=Connexion à www.squeezenetwork.com...
+nl.SNConnecting=Er wordt een verbinding met www.squeezenetwork.com gemaakt...
+da.SNConnecting=Etablerer forbindelse til www.squeezenetwork.com...
+no.SNConnecting=Kopler til www.squeezenetwork.com...
+fi.SNConnecting=Muodostetaan yhteyttä osoitteeseen www.squeezenetwork.com...
+de.SNConnecting=Verbindung zu www.squeezenetwork.com wird hergestellt...
 
 en.SNConnectFailed=Connecting to www.squeezenetwork.com failed
+it.SNConnectFailed=Connessione a www.squeezenetwork.com non riuscita
+da.SNConnectFailed=Der kunne ikke etableres forbindelse til www.squeezenetwork.com
+sv.SNConnectFailed=Det gick inte att ansluta till www.squeezenetwork.com
+de.SNConnectFailed=Die Verbindung zu www.squeezenetwork.com ist fehlgeschlagen
+fr.SNConnectFailed=Echec de la connexion à www.squeezenetwork.com
+es.SNConnectFailed=Fallo al conectar a www.squeezenetwork.com
+no.SNConnectFailed=Oppkopling til www.squeezenetwork.com mislyktes
+nl.SNConnectFailed=Verbinding met www.squeezenetwork.com mislukt
+fi.SNConnectFailed=Yhteyden muodostaminen osoitteeseen www.squeezenetwork.com epäonnistui
 
+da.SNConnectFailed_Description=Der kunne ikke etableres forbindelse til SqueezeNetwork.com på port 3483 som bruges af %nSqueezebox.
+sv.SNConnectFailed_Description=Det gick inte att ansluta till SqueezeNetwork.com via port 3483, som används av %nSqueezebox.
+de.SNConnectFailed_Description=Die Verbindung zu SqueezeNetwork.com an Port 3483 konnte nicht hergestellt werden. Dieser Port wird von %nSqueezebox genutzt.
+it.SNConnectFailed_Description=Impossibile eseguire la connessione a SqueezeNetwork.com sulla porta 3483. La porta è utilizzata da %nSqueezebox.
+fr.SNConnectFailed_Description=Impossible d'effectuer la connexion à SqueezeNetwork.com sur le port 3483, qui est utilisé par %nSqueezebox.
+es.SNConnectFailed_Description=No ha sido posible conectar a SqueezeNetwork.com en el puerto 3483, que lo usa %nSqueezebox.
+no.SNConnectFailed_Description=Vi kunne ikke kople til SqueezeNetwork.com gjennom port 3483, som brukes av %nSqueezebox.
+nl.SNConnectFailed_Description=We kunnen geen verbinding maken met SqueezeNetwork.com op poort 3483, die door %nSqueezebox wordt gebruikt.
 en.SNConnectFailed_Description=We were not able to connect to SqueezeNetwork.com on port 3483, which is used by %nSqueezebox.
+fi.SNConnectFailed_Description=Yhteyttä ei voitu muodostaa osoitteeseen SqueezeNetwork.com portissa 3483. Portti on %nSqueezeboxin käytössä.
 
+nl.SNConnectFailed_Solution=Als je internetverbinding verder goed werkt, controleer je de firewallinstellingen. %nZorg dat uitgaande verbindingen naar poort 3483 niet worden geblokkeerd. %n%nVele bedrijfsfirewalls blokkeren deze poort.
+de.SNConnectFailed_Solution=Falls Ihre Internetverbindung sonst richtig funktioniert, prüfen Sie die Firewall-Einstellungen. %nStellen Sie sicher, dass ausgehende Verbindungen zu Port 3483 nicht blockiert werden. %n%nViele Firmen-Firewalls blockieren diesen Port.
+da.SNConnectFailed_Solution=Hvis internetforbindelsen i øvrigt fungerer fint, skal du tjekke firewallindstillingerne. %nSørg for at udgående forbindelser på port 3483 ikke blokeres. %n%nMange virksomheders firewall blokerer denne port.
 en.SNConnectFailed_Solution=If your internet connection is otherwise working fine, check your firewall settings. %nMake sure outgoing connections to port 3483 are not blocked. %n%nMany corporate firewalls block this port.
+fi.SNConnectFailed_Solution=Jos internet-yhteytesi toimii muuten hyvin, tarkista palomuurin asetukset. %nTarkista, ettei lähteviä yhteyksiä porttiin 3483 ole estetty. %n%nMonet yritysten palomuurit estävät tämän portin.
+sv.SNConnectFailed_Solution=Om internetanslutningen i övrigt fungerar som den ska bör du kontrollera inställningarna för brandväggen. %nSe till att utgående anslutningar till port 3483 inte blockeras. %n%nDen porten blockeras av många företagsbrandväggar.
+it.SNConnectFailed_Solution=Se la connessione a Internet funziona correttamente negli altri casi, controllare le impostazioni del firewall. %nVerificare che le connessioni in uscita sulla porta 3483 non siano bloccate. %n%nTale porta viene bloccata da molti firewall aziendali.
+es.SNConnectFailed_Solution=Si la conexión a Internet funciona correctamente para lo demás, compruebe la configuración del servidor de seguridad. %nAsegúrese de que las conexiones de salida al puerto 3483 no están bloqueadas. %n%nMuchos servidores de seguridad de empresa bloquean este puerto.
+fr.SNConnectFailed_Solution=Si votre connexion Internet fonctionne correctement, vérifiez les paramètres du pare-feu. %nVérifiez que les connexions sortantes sur le port 3483 ne sont pas bloquées. %n%nCe port est souvent bloqué par les pare-feu.
+no.SNConnectFailed_Solution=Sjekk brannmurinnstillingene hvis Internett-tilkoplingen ellers fungerer som den skal. %nSørg for at utgående tilkoplinger til port 3483 ikke blokkeres. %n%nMange bedriftsbrannmurer blokkerer denne porten.
 
+fr.AppConflict=Conflit logiciel possible détecté
+da.AppConflict=Der er fundet en mulig softwarekonflikt
+es.AppConflict=Encontrado posible conflicto de software
+sv.AppConflict=Eventuellt programvarukonflikt upptäcktes
+fi.AppConflict=Löytyi mahdollinen ohjelmiston ristiriita
+nl.AppConflict=Mogelijk softwareconflict gevonden
+no.AppConflict=Mulig programvarekonflikt oppdaget
+de.AppConflict=Möglicher Software-Konflikt gefunden
+it.AppConflict=Possibile conflitto software rilevato
 en.AppConflict=Possible software conflict found
 
 en.AppConflict_Description=A program has been found running on your machine which may conflict%nwith SqueezeCenter under certain conditions.%n%nIf you have problems using SqueezeCenter, please contact technical support.%n%nFor more information, visit http://faq.slimdevices.com
+de.AppConflict_Description=Auf dem Computer wird ein Programm ausgeführt, das möglicherweise zu Konflikten%nmit SqueezeCenter führen könnte.%n%nWenn bei der Nutzung von SqueezeCenter Probleme auftreten, wenden Sie sich an den Kundendienst.%n%nWeitere Informationen unter http://faq.slimdevices.com
+da.AppConflict_Description=Der er fundet et program på computeren som måske vil skabe konflikt %nmed SqueezeCenter i visse situationer.%n%nHvis du har problemer med at bruge SqueezeCenter, bedes du kontakte den tekniske support.%n%nDer er flere oplysninger på http://faq.slimdevices.com
+no.AppConflict_Description=Det har blitt oppdaget et program på maskinen som kan skape konflikt%nmed SqueezeCenter under visse forhold.%n%nHvis du har problemer med å bruke SqueezeCenter, ta kontakt med teknisk støtte.%n%nGå til  http://faq.slimdevices.com hvis du vil vite mer.
+nl.AppConflict_Description=Er is een programma op je computer gevonden dat onder bepaalde%n omstandigheden misschien conflicteert met SqueezeCenter.%n%nAls je problemen ondervindt met het gebruik van SqueezeCenter, neem je contact op met de technische support.%n%nGa naar http://faq.slimdevices.com voor meer informatie.
+sv.AppConflict_Description=Ett program som under vissa omständigheter kan orsaka konflikt med SqueezeCenter har upptäckts.%nOm det uppstår problem i SqueezeCenter bör du ta kontakt med teknisk support.%n%n Mer information finns på http://faq.slimdevices.com
+it.AppConflict_Description=Nel computer in uso è stato rilevato un programma in esecuzione che potrebbe causare conflitti%ncon SqueezeCenter in determinate condizioni.%n%nIn caso di problemi con l'utilizzo di SqueezeCenter, contattare il servizio di assistenza tecnica.%n%nPer ulteriori informazioni, visitare il sito Web http://faq.slimdevices.com
+es.AppConflict_Description=Se ha detectado un programa en ejecución en el equipo que podría entrar en conflicto%ncon SqueezeCenter en ciertas circunstancias.%n%nSi tiene problemas al usar SqueezeCenter, póngase en contacto con el servicio de asistencia técnica.%n%nPara más información, visite http://faq.slimdevices.com
+fi.AppConflict_Description=Tietokoneelta löytyi käynnissä oleva ohjelma, joka saattaa aiheuttaa ristiriidan%nSqueezeCenterin kanssa tietyissä olosuhteissa.%n%nJos sinulla on ongelmia SqueezeCenterin käytössä, ota yhteyttä tekniseen tukeen.%n%nLisätietoja on osoitteessa http://faq.slimdevices.com
+fr.AppConflict_Description=Un programme en cours d'exécution sur l'ordinateur peut entrer en conflit%navec le SqueezeCenter sous certaines conditions.%n%nSi vous rencontrez des problèmes en utilisant le SqueezeCenter, veuillez contacter le service d'assistance technique.%n%nPour de plus amples informations, rendez-vous sur http://faq.slimdevices.com.
 
+fr.Port9000ok=Le SqueezeCenter est en cours d'exécution et accessible.
+es.Port9000ok=SqueezeCenter está en ejecución y es accesible
 en.Port9000ok=SqueezeCenter is running and accessible
+no.Port9000ok=SqueezeCenter kjører og er tilgjengelig
+sv.Port9000ok=SqueezeCenter körs och är åtkomligt
+da.Port9000ok=SqueezeCenter kører og er tilgængelig
+fi.Port9000ok=SqueezeCenter on käynnissä ja käytettävissä
+de.Port9000ok=SqueezeCenter wird ausgeführt und ist erreichbar
+nl.Port9000ok=SqueezeCenter wordt uitgevoerd en is toegankelijk
+it.Port9000ok=SqueezeCenter è in esecuzione ed è accessibile
 
+fr.Port9000blocked=Le SqueezeCenter est en cours d'exécution mais ne peut être contacté sur le port 9000.
+es.Port9000blocked=SqueezeCenter está en ejecución pero no se puede contactar con él en el puerto 9000
 en.Port9000blocked=SqueezeCenter is running but can't be contacted on port 9000
+no.Port9000blocked=SqueezeCenter kjører, men kan ikke kontaktes på port 9000
+sv.Port9000blocked=SqueezeCenter körs men går inte att ansluta till port 9000
+da.Port9000blocked=SqueezeCenter kører men kan ikke kontaktes på port 9000
+fi.Port9000blocked=SqueezeCenter on käynnissä, mutta siihen ei saada yhteyttä portissa 9000
+de.Port9000blocked=SqueezeCenter wird ausgeführt, kann aber an Port 9000 nicht erreicht werden.
+nl.Port9000blocked=SqueezeCenter wordt uitgevoerd maar is niet toegankelijk via poort 9000
+it.Port9000blocked=SqueezeCenter è in esecuzione ma non può essere contattato sulla porta 9000
 
+es.Port9000busyOther=El puerto 9000 está ocupado y puede que lo use otra aplicación y no parece que SqueezeCenter se esté ejecutando
+it.Port9000busyOther=La porta 9000 è occupata e potrebbe essere utilizzata da un'altra applicazione. SqueezeCenter non sembra essere in esecuzione.
+fr.Port9000busyOther=Le port 9000 est occupé et est peut-être utilisé par une autre application et le SqueezeCenter n'est pas en cours d'exécution.
+nl.Port9000busyOther=Poort 9000 is bezig en wordt misschien door een andere toepassing gebruikt, en SqueezeCenter lijkt niet te worden uitgevoerd
+no.Port9000busyOther=Port 9000 er opptatt og brukes kanskje av et annet program, og det ser ikke ut til at SqueezeCenter kjører.
+da.Port9000busyOther=Port 9000 er optaget og bruges muligvis af et andet program; SqueezeCenter kører tilsyneladende ikke
 en.Port9000busyOther=Port 9000 is busy and may be in use by another application and SqueezeCenter does not appear to be running
+de.Port9000busyOther=Port 9000 ist belegt und wird von einer anderen Anwendung genutzt. SqueezeCenter wird scheinbar nicht ausgeführt.
+sv.Port9000busyOther=Port 9000 är upptagen och används kanske av ett annat program. SqueezeCenter verkar inte vara i gång.
+fi.Port9000busyOther=Portti 9000 on varattu. Se saattaa olla jonkin toisen sovelluksen käytössä. SqueezeCenter ei näytä olevan käynnissä.
 
+sv.Port9000unused=Det verkar som om port 9000 inte används.
+it.Port9000unused=La porta 9000 sembra non essere utilizzata
+fr.Port9000unused=Le port 9000 est disponible.
+es.Port9000unused=Parece que el puerto 9000 no se usa
+nl.Port9000unused=Poort 9000 lijkt niet in gebruik te zijn
 en.Port9000unused=Port 9000 appears to be unused
+da.Port9000unused=Port 9000 er tilsyneladende ikke i brug
+no.Port9000unused=Port 9000 ser ut til å være ledig
+de.Port9000unused=Port 9000 wird scheinbar nicht genutzt
+fi.Port9000unused=Portti 9000 näyttää olevan käyttämätön
 
 ; help messages concerning some applications
-en.CiscoVPNStatefulInspection=If you encounter connectivity issues with SqueezeCenter,%n please make sure "Stateful Firewall (Always On)" is turned off in the VPN software.
+nl.CiscoVPNStatefulInspection=Als je verbindingsproblemen met SqueezeCenter ondervindt,%n zorg je ervoor dat 'Stateful Firewall (Altijd aan)' is uitgeschakeld
+da.CiscoVPNStatefulInspection=Hvis du har problemer med forbindelsen til og fra SqueezeCenter,%n skal du kontrollere at "Stateful Firewall (Always On)" er slået fra
+no.CiscoVPNStatefulInspection=Hvis du har tilkoplingsproblemer med SqueezeCenter, %n må du sørge for at "Tilstandsbevisst brannmur (Alltid på)" er slått av
+en.CiscoVPNStatefulInspection=If you encounter connectivity issues with SqueezeCenter,%n please make sure "Stateful Firewall (Always On)" is turned off
+it.CiscoVPNStatefulInspection=In caso di problemi di connessione con SqueezeCenter,%n verificare che il firewall con stato non sia sempre attivato.
+fi.CiscoVPNStatefulInspection=Jos sinulla on yhteysongelmia SqueezeCenterin kanssa,%n tarkista, että "Tilallinen palomuuri (aina käytössä)" on kytketty pois käytöstä.
+sv.CiscoVPNStatefulInspection=Om det uppstår anslutningsproblem med SqueezeCenter bör du kontrollera att Tillståndskänslig brandvägg (alltid på) är avstängd
+es.CiscoVPNStatefulInspection=Si surgen problemas de conectividad con SqueezeCenter,%n asegúrese de que la opción "Stateful Firewall (Always On)" está desactivada
+fr.CiscoVPNStatefulInspection=Si vous rencontrez des problèmes de connectivité avec le SqueezeCenter,%n vérifiez que l'option "Pare-feu stateful (toujours activé)" est désactivée.
+de.CiscoVPNStatefulInspection=Vergewissern Sie sich bei Verbindungsproblemen mit SqueezeCenter,%n dass "Stateful Firewall (Always On)" deaktiviert ist.
 
+es.McAfeeMySQL=Debe configurar el detector de virus de McAfee para que ignore archivos *.my* de MySQL. %nDe lo contrario el examen de música de SqueezeCenter puede fallar.
+de.McAfeeMySQL=Der McAfee-Virusscanner muss so konfiguriert werden, dass *.my*-Dateien von MySQL ignoriert werden. %nAndernfalls kann der Musik-Scan von SqueezeCenter fehlschlagen.
+fr.McAfeeMySQL=L'analyseur antivirus McAfee doit être configuré pour ignorer les fichiers MySQL *.my*. %nL'analyse musicale du SqueezeCenter risque d'échouer.
+fi.McAfeeMySQL=McAfee AV -skanneri pitää määrittää ohittamaan MySQL:n *.my*-tiedostot. %nMuutoin SqueezeCenterin suorittama musiikin tarkistus saattaa epäonnistua.
 en.McAfeeMySQL=McAfee AV scanner needs to be configured to ignore MySQL's *.my* files. %nOtherwise SqueezeCenter's music scanning can fail.
+nl.McAfeeMySQL=McAfee AV-scanner moet worden geconfigureerd om *.my*-bestanden van MySQL te negeren, %nanders kan het scannen van muziek van SqueezeCenter mislukken.
+da.McAfeeMySQL=McAfee antivirusscanner skan konfigureres til at ignorere MySQL-filer *.my*. %nEllers kan SqueezeCenter ikke søge efter musik.
+sv.McAfeeMySQL=McAfees viruskontroll måste vara inställd så att .my-filer (MySQL) ignoreras. %nAnnars kan det hända att SqueezeCenter inte kan söka igenom musiken.
+no.McAfeeMySQL=McAfees virussøk må konfigureres til å ignorere *.my*-filer fra MySQL.%nHvis ikke, kan SqueezeCenters musikksøk mislykkes.
+it.McAfeeMySQL=È necessario configurare la scansione antivirus di McAfee in modo che i file *.my* di MySQL vengano ignorati. %nIn caso contrario, l'analisi musicale di SqueezeCenter potrebbe non essere eseguita correttamente.
 
+nl.SCPerl=%nAls je SC met de perl-versie uitvoert, is dit normaal gedrag.
+de.SCPerl=%nDas Ausführen von SC mithilfe der Perl-Version wird akzeptiert und erwartet.
+no.SCPerl=%nHvis du kjører SC med perl-versjonen, er dette greit og forventet.
+da.SCPerl=%nHvis du kører SC i Perl-versionen, er det OK og forventet.
 en.SCPerl=%nIf you're running SC using the perl version, then this is ok and expected.
+fi.SCPerl=%nJos SC on käynnissä ja käytät Perl-versiota, tämä on odotettavissa eikä aiheuta ongelmia.
+sv.SCPerl=%nOm du kör du perlversionen av SC är detta inget fel, utan OK och förväntat.
+it.SCPerl=%nSe è in esecuzione la versione Perl di SC, il problema non sussiste.
+es.SCPerl=%nSi ejecuta SC con la versión perl, es correcto y está previsto.
+fr.SCPerl=%nSi vous exécutez SC à l'aide de la version perl, cet événement est attendu.
 
-
+nl.Cleanup=Configuratie op standaardinstellingen terugzetten
+da.Cleanup=Gendan standardkonfigurationen
+fi.Cleanup=Palauta määritykset oletuksiin
+it.Cleanup=Reimposta valori di configurazione predefiniti
 en.Cleanup=Reset configuration to defaults
+es.Cleanup=Restablecer configuración a valores predeterminados
+fr.Cleanup=Réinitialiser les valeurs par défaut de la configuration
+de.Cleanup=Standardeinstellungen wiederherstellen
+no.Cleanup=Tilbakestill konfigureringen til standard
+sv.Cleanup=Återställ till standardinställningar
+
