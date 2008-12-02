@@ -137,3 +137,9 @@ begin
 			end;
 		end;
 end;
+
+// don't ask for confirmation before canceling the dialog
+procedure CancelButtonClick(CurPageID: Integer; var Cancel, Confirm: Boolean);
+begin
+	Confirm := False;
+end;
