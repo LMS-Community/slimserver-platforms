@@ -32,9 +32,6 @@ install:
 	install -d -m0755 ${base}/${varlib}/prefs
 	install -d -m0755 ${base}/${varlib}/cache
 
-	# We need to disable the changeEffectiveUserAndGroup call to run on the readynas
-	cp -r $(CURDIR)/readynas/MySQLHelper.pm ${source}/Slim/Utils
-
 	## This only occurs if the files exist ... if they do not exist here, they were probably
 	## removed by the buildme.pl script on purpose.
 	cp -r $(CURDIR)/readynas/CPAN ${source}/
