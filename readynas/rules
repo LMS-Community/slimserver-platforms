@@ -54,6 +54,8 @@ install:
 	rm -rf ${source}/Bin/MSWin32-x86-multi-thread
 	rm -rf ${source}/Bin/powerpc-hardhat-linux
 
+	# let's use the system's mysql server
+	rm -rf ${source}/Bin/i386-linux/mysqld
 
 	# And aux files needed to run SqueezeCenter
 	cp -r ${source}/Firmware ${base}/${share}
