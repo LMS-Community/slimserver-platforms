@@ -54,6 +54,9 @@ install:
 	rm -rf ${source}/Bin/MSWin32-x86-multi-thread
 	rm -rf ${source}/Bin/powerpc-hardhat-linux
 
+	# remove win32 only plugin
+	rm -rf ${source}/Slim/Plugin/PreventStandby
+
 	# let's use the system's mysql server
 	rm -rf ${source}/Bin/i386-linux/mysqld
 
