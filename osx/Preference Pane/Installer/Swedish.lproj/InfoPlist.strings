@@ -1,6 +1,6 @@
 /* Localized versions of Info.plist keys */
 
-CFBundleName = "Installationsprogram f�r SqueezeCenter";
-CFBundleShortVersionString = "7.3";
-CFBundleGetInfoString = "Installationsprogram f�r SqueezeCenter version 7.3, � 2003�2008 Logitech";
-NSHumanReadableCopyright = "� 2003�2008 Logitech";
+CFBundleName = "Installationsprogram för SqueezeCenter";
+CFBundleShortVersionString = "7.3.1";
+CFBundleGetInfoString = "Installationsprogram för SqueezeCenter version 7.3.1, © 2002–2008 Logitech";
+NSHumanReadableCopyright = "© 2002–2008 Logitech";
