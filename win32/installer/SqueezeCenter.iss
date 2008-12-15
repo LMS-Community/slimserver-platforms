@@ -23,10 +23,10 @@ Name: sv; MessagesFile: "Swedish.isl"
 
 [Setup]
 AppName=SqueezeCenter
-AppVerName=SqueezeCenter 7.3.1
-AppVersion=7.3.1
-VersionInfoProductName=SqueezeCenter 7.3.1
-VersionInfoProductVersion=7.3.1
+AppVerName=SqueezeCenter 7.4
+AppVersion=7.4
+VersionInfoProductName=SqueezeCenter 7.4
+VersionInfoProductVersion=7.4
 VersionInfoVersion=0.0.0.0
 
 AppPublisher=Logitech
@@ -362,7 +362,7 @@ begin
 
 	DelTree(ServerDir + AddBackslash('CPAN') + AddBackslash('arch'), true, true, true);
 
-	// as of SC 7.3 we include everything but the Plugin folder with the binary
+	// as of SC 7.4 we include everything but the Plugin folder with the binary
 	DelTree(ServerDir + AddBackslash('Slim'), true, true, true);
 
 	DelDir := ServerDir + AddBackslash('HTML');
