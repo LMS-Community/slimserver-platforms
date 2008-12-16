@@ -85,7 +85,7 @@ install:
 	cp -r ${source}/*.conf ${base}/etc/squeezecenter
 
 	## Overwrite some default settings with ReadyNas specific settings
-	cp -r ${CURDIR}/readynas/convert.conf ${base}/etc/squeezecenter
+	cp -r ${CURDIR}/readynas/custom-convert.conf ${base}/etc/squeezecenter
 
 	# Copy over the squeezecenter init script...
 	cp -r $(CURDIR)/readynas/squeezecenter.default ${base}/etc/default/squeezecenter
