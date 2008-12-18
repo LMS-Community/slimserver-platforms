@@ -103,6 +103,7 @@ Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\Fi
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:SqueezeCenter 3483 udp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:SqueezeCenter 3483 tcp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SOFTWARE\Logitech\SqueezeCenter; ValueType: string; ValueName: Path; ValueData: {app}
+Root: HKLM; Subkey: SOFTWARE\Logitech\SqueezeCenter; ValueType: string; ValueName: DataPath; ValueData: {code:GetWritablePath}
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
@@ -173,17 +174,24 @@ function GetWritablePath(Param: String) : String;
 var
 	DataPath: String;
 begin
-	if ExpandConstant('{commonappdata}') = '' then
-		begin
-			if GetEnv('ProgramData') = '' then
-				DataPath := 'c:\ProgramData'
-			else
-				DataPath := GetEnv('ProgramData');
-		end
-	else
-		DataPath := ExpandConstant('{commonappdata}');
 
-	Result := AddBackslash(DataPath) + 'SqueezeCenter';
+	if (not RegQueryStringValue(HKLM, SCRegKey, 'DataPath', DataPath)) then
+		begin
+
+			if ExpandConstant('{commonappdata}') = '' then
+				begin
+					if GetEnv('ProgramData') = '' then
+						DataPath := 'c:\ProgramData'
+					else
+						DataPath := GetEnv('ProgramData');
+				end
+			else
+				DataPath := ExpandConstant('{commonappdata}');
+		
+			DataPath := AddBackslash(DataPath) + 'SqueezeCenter';
+		end;
+
+	Result := DataPath;
 end;	
 
 
