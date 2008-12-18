@@ -408,14 +408,59 @@ sub installDir {
 
 # Return directory for files which SqueezeCenter can save - i.e. location of prefs file
 sub writableDir {
+	my $writablePath;
 
-	my $swKey = $Registry->{'LMachine/Software/Microsoft/Windows/CurrentVersion/Explorer/Shell Folders/Common AppData'};
-
-	if (defined $swKey) {
-		return File::Spec->catdir($swKey, 'SqueezeCenter');
+	# the installer is writing the data folder to the registry - give this the first try
+	my $swKey = $Win32::TieRegistry::Registry->Open(
+		'LMachine/Software/Logitech/SqueezeCenter/', 
+		{ 
+			Access => Win32::TieRegistry::KEY_READ(), 
+			Delimiter =>'/' 
+		}
+	);
+	
+	if (defined $swKey && $swKey->{'DataPath'}) {
+		$writablePath = $swKey->{'DataPath'};
+print $writablePath;
 	}
 
-	return File::Spec->catdir(installDir(), 'server');
+	else {
+		# second attempt: use the Windows API (recommended by MS)
+		# use the "Common Application Data" folder to store SqueezeCenter configuration etc.
+		$writablePath = Win32::GetFolderPath(Win32::CSIDL_COMMON_APPDATA);
+			
+		# fall back if no path or invalid path is returned
+		if (!$writablePath || $writablePath eq Win32::GetFolderPath(0)) {
+
+			# third attempt: read the registry's compatibility value
+			# NOTE: this key has proved to be wrong on some Vista systems
+			# only here for backwards compatibility
+			$swKey = $Win32::TieRegistry::Registry->Open(
+				'LMachine/Software/Microsoft/Windows/CurrentVersion/Explorer/Shell Folders/', 
+				{ 
+					Access => Win32::TieRegistry::KEY_READ(), 
+					Delimiter =>'/' 
+				}
+			);
+			
+			if (defined $swKey && $swKey->{'Common AppData'}) {
+				$writablePath = $swKey->{'Common AppData'};
+			}
+				
+			elsif ($ENV{'ProgramData'}) {
+				$writablePath = $ENV{'ProgramData'};
+			}
+
+			# this point hopefully is never reached, as on most systems the program folder isn't writable...
+			else {
+				$writablePath = File::Spec->catdir(installDir(), 'server');
+			}
+		}
+			
+		$writablePath = catdir($writablePath, 'SqueezeCenter');
+	}
+
+	return $writablePath;
 }
 
 # Read pref from the server preference file - lighter weight than loading YAML
