@@ -1,0 +1,29 @@
+# don't transcode to flac on ReadyNAS/Sparc - it's not powerful enough
+
+flc flc * *
+	-
+
+aif flc * *
+	[disable-flac]
+	
+wav flc * *
+	[disable-flac]
+
+ogg flc * *
+	[disable-flac]
+
+wma flc * *
+	[disable-flac]
+
+mpc flc * *
+	[disable-flac]
+
+ape flc * *
+	[disable-flac]
+
+mov flc * *
+	[disable-flac]
+
+alc flc * *
+	[disable-flac]
+
