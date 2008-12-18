@@ -421,7 +421,6 @@ sub writableDir {
 	
 	if (defined $swKey && $swKey->{'DataPath'}) {
 		$writablePath = $swKey->{'DataPath'};
-print $writablePath;
 	}
 
 	else {
