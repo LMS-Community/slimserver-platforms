@@ -1,7 +1,8 @@
-# don't transcode to flac on ReadyNAS/Sparc - it's not powerful enough
+mov wav * *
+	# F
+	[mp42aac] $FILE$ -stdout | [aac2wav] -wav -stdin -stdout
 
-flc flc * *
-	-
+# don't transcode to flac on ReadyNAS/Sparc - it's not powerful enough
 
 aif flc * *
 	[disable-flac]
