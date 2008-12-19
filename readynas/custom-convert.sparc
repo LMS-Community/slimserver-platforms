@@ -28,3 +28,7 @@ mov flc * *
 alc flc * *
 	[disable-flac]
 
+flc flc transcode *
+	[disable-flac]
+
+
