@@ -73,7 +73,7 @@ Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de
 
 ; Next line takes everything from the source '\server' directory and copies it into the setup
 ; it's output into the same location from the users choice.
-Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*,*cygwin*"; Flags: recursesubdirs ignoreversion
+Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*"; Flags: recursesubdirs ignoreversion
 
 [Dirs]
 Name: {commonappdata}\SqueezeCenter; Permissions: users-modify
