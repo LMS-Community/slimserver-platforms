@@ -126,6 +126,7 @@ begin
 						Credentials := ' --username="' + EditUsername.text + '" --password="' + EditPassword1.text + '"';
 
 						Exec(ServerDir + 'squeezecenter.exe', '-install auto' + Credentials, ServerDir, SW_HIDE, ewWaitUntilIdle, ErrorCode);
+						StartService('squeezesvc');
 						ProgressPage.setProgress(ProgressPage.ProgressBar.Max, ProgressPage.ProgressBar.Max);
 					end	 
 

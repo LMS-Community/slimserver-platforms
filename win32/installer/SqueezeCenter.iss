@@ -598,43 +598,47 @@ begin
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeTray');
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
-				Exec(ExpandConstant('{app}') + '\SqueezeTray.exe', '--install', ExpandConstant('{app}'), SW_SHOW, ewWaitUntilIdle, ErrorCode);
-				
-				if (StartupMode = 'auto') or (StartupMode = 'logon') or (StartupMode = 'running') then
+				// in silent mode do not wait for SC to be started before quitting the installer
+				if not WizardSilent then
 					begin
-	    				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
-	
-	    				// wait up to 120 seconds for the services to be started
-						Wait := 120;
-						Started := false;
-						
-						while (Wait > 0) do
+						Exec(ExpandConstant('{app}') + '\SqueezeTray.exe', '--install', ExpandConstant('{app}'), SW_SHOW, ewWaitUntilIdle, ErrorCode);
+				
+						if (StartupMode = 'auto') or (StartupMode = 'logon') or (StartupMode = 'running') then
 							begin
-								ProgressPage.setProgress(ProgressPage.ProgressBar.Position+2, ProgressPage.ProgressBar.Max);
-								Sleep(2000);
+			    				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
+			
+			    				// wait up to 120 seconds for the services to be started
+								Wait := 120;
+								Started := false;
 								
-								if IsPortOpen('127.0.0.1', GetHttpPort('')) then
-									// SC is ready - let's give it some more time to open the browser
+								while (Wait > 0) do
 									begin
-										for i:=1 to 20 do
+										ProgressPage.setProgress(ProgressPage.ProgressBar.Position+2, ProgressPage.ProgressBar.Max);
+										Sleep(2000);
+										
+										if IsPortOpen('127.0.0.1', GetHttpPort('')) then
+											// SC is ready - let's give it some more time to open the browser
 											begin
-												ProgressPage.setProgress(ProgressPage.ProgressBar.Position+2, ProgressPage.ProgressBar.Max);
-												Sleep(500);
+												for i:=1 to 20 do
+													begin
+														ProgressPage.setProgress(ProgressPage.ProgressBar.Position+2, ProgressPage.ProgressBar.Max);
+														Sleep(500);
+													end;
+												break;
+											end
+										
+										else if (IsServiceRunning('squeezesvc') or IsModuleLoaded('squeez~1') or IsModuleLoaded('squeezecenter.exe')) then
+											Started := true
+											  
+										else if Started then
+											begin
+												Failed := true;
+												break;
 											end;
-										break;
-									end
-								
-								else if (IsServiceRunning('squeezesvc') or IsModuleLoaded('squeez~1') or IsModuleLoaded('squeezecenter.exe')) then
-									Started := true
-									  
-								else if Started then
-									begin
-										Failed := true;
-										break;
-									end;
-								  
-									Wait := Wait - 1;
-							end;	
+										  
+											Wait := Wait - 1;
+									end;	
+							end;
 					end;
 
 			finally
@@ -659,11 +663,11 @@ begin
 	if CurUninstallStep = usPostUninstall then
   	if SuppressibleMsgBox(CustomMessage('UninstallPrefs'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2, IDNO) = IDYES then
 		begin
-      DelTree(GetWritablePath(''), True, True, True);
-      RegDeleteKeyIncludingSubkeys(HKCU, SCRegKey);
-      RegDeleteKeyIncludingSubkeys(HKLM, SCRegKey);
-      RegDeleteKeyIncludingSubkeys(HKCU, SSRegKey);
-      RegDeleteKeyIncludingSubkeys(HKLM, SSRegKey);
+			DelTree(GetWritablePath(''), True, True, True);
+			RegDeleteKeyIncludingSubkeys(HKCU, SCRegKey);
+			RegDeleteKeyIncludingSubkeys(HKLM, SCRegKey);
+			RegDeleteKeyIncludingSubkeys(HKCU, SSRegKey);
+			RegDeleteKeyIncludingSubkeys(HKLM, SSRegKey);
 		end;	
 end;
 
