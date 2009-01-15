@@ -1,7 +1,7 @@
 ﻿/* Localized versions of Info.plist keys */
 
 CFBundleName = "SqueezeCenter";
-CFBundleShortVersionString = "7.3.2";
-CFBundleGetInfoString = "SqueezeCenter version 7.3.2, © 2002–2008 Logitech";
+CFBundleShortVersionString = "7.3.3";
+CFBundleGetInfoString = "SqueezeCenter version 7.3.3, © 2002–2008 Logitech";
 NSHumanReadableCopyright = "© 2002–2008 Logitech";
 NSPrefPaneIconLabel = "SqueezeCenter";
