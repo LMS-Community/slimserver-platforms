@@ -602,6 +602,10 @@ begin
 				if not WizardSilent then
 					begin
 						Exec(ExpandConstant('{app}') + '\SqueezeTray.exe', '--install', ExpandConstant('{app}'), SW_SHOW, ewWaitUntilIdle, ErrorCode);
+
+						// "running" means: starting manually only, but was running when installer was launched
+						if (StartupMode = 'running') then
+							Exec(ExpandConstant('{app}') + '\SqueezeTray.exe', '--start', ExpandConstant('{app}'), SW_SHOW, ewWaitUntilIdle, ErrorCode);
 				
 						if (StartupMode = 'auto') or (StartupMode = 'logon') or (StartupMode = 'running') then
 							begin
