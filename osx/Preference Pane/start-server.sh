@@ -5,7 +5,7 @@ if [ z"$SERVER_RUNNING" = z ] ; then
     
     if [ z"$#" == z"0" ] ; then
 	if [ ! -e ~/Library/Logs ] ; then mkdir ~/Library/Logs ; fi
-	./slimserver.pl --daemon & 2>&1
+	./slimserver.pl --daemon &> /dev/null &
     else
 	./slimserver.pl & >> /tmp/squeezecentererror.log 2>&1
     fi
