@@ -562,7 +562,7 @@ begin
 		
 				if not FileExists(PrefsFile) then
 					begin
-						PrefString := '---' + #13#10 + 'cachedir: ' + AddBackslash(GetWritablePath('')) + 'Cache' + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10 + PrefString;
+						PrefString := '---' + #13#10 + '_version: 0' + #13#10 + 'cachedir: ' + AddBackslash(GetWritablePath('')) + 'Cache' + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10 + PrefString;
 						SaveStringToFile(PrefsFile, PrefString, False);
 					end
 				else if PrefString <> '' then
