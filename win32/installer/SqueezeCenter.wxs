@@ -1,0 +1,59 @@
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product
+		Name="SqueezeCenter for Windows Home Server"
+		Id="*"
+		UpgradeCode="{1db91230-ebbc-11dd-ba2f-0800200c9a66}"
+		Manufacturer="Logitech"
+		Version="7.3.3.0"
+		Language="1033">
+
+		<Package
+			Manufacturer="Logitech"
+			InstallerVersion="200"
+			Languages="1033"
+			Compressed="yes" />
+
+		<Media Id="1" Cabinet="SqueezeCenter.cab" EmbedCab="yes" />
+
+		<Property Id="WHSLogo">1</Property>
+
+		<Condition Message="[ProductName] requires Windows Home Server. For more information, please refer to the User Guide.">VersionNT = 502</Condition>
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="APPLICATIONROOTDIRECTORY" Name="SqueezeCenter" />
+			</Directory>
+		</Directory>
+
+		<DirectoryRef Id="APPLICATIONROOTDIRECTORY">
+			<Component Id="SqueezeCenter" Guid="{1db91230-ebbc-11dd-ba2f-0800200c9a66}">
+				<File Id="SCUninstallerFile" Name="unins000.exe" />
+				<ServiceControl Id="RemoveSCService" Name="squeezesvc" Remove="uninstall" Wait="yes" />
+			</Component>
+		</DirectoryRef>
+
+		<Binary Id="SCInstallerFile" SourceFile="SqueezeCenter-7.3.3-24779.exe" />
+		
+		<Feature Id="SCInstaller" Title="SqueezeCenter Installer" Level="1" AllowAdvertise="no" Display="hidden">
+			<ComponentRef Id="SqueezeCenter" />
+		</Feature>
+
+		<CustomAction Id="InstallSC" BinaryKey="SCInstallerFile" ExeCommand="/silent" Impersonate="no" Return="ignore" Execute="deferred" />
+		<CustomAction Id="InstallSCService" Directory="APPLICATIONROOTDIRECTORY" ExeCommand="SqueezeCenter/server/squeezecenter.exe --install" Impersonate="no" Return="ignore" Execute="deferred" />
+		<CustomAction Id="UnInstallSC" FileKey="SCUninstallerFile" ExeCommand="" Impersonate="no" Return="ignore" Execute="deferred" />
+		
+		<InstallExecuteSequence>
+			<Custom Action="InstallSC" Before="InstallFinalize">
+				NOT REMOVE="ALL"
+			</Custom>
+			<Custom Action="InstallSCService" Before="InstallSC">
+				NOT REMOVE="ALL"
+			</Custom>
+			<Custom Action="UnInstallSC" After="InstallInitialize">
+				REMOVE="ALL"
+			</Custom>
+		</InstallExecuteSequence>
+
+	</Product>
+
+</Wix>
