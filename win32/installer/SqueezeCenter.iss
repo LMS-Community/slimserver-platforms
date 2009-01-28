@@ -567,7 +567,7 @@ begin
 					end
 				else if PrefString <> '' then
 					begin
-  						SuppressibleMsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbInformation, MB_OK, IDOK);
+//  						SuppressibleMsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbInformation, MB_OK, IDOK);
   						CustomExitCode := 1001;
   					end
 
