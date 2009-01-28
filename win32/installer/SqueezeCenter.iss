@@ -246,6 +246,7 @@ var
 	InstallDefault: String;
 	Svc: String;
 	Executable: String;
+	LongExecutable: String;
 	MySQLSvc: String;
 	TrayExe: String;
 	Wait: Integer;
@@ -262,6 +263,7 @@ begin
 			InstallDefault := ExpandConstant('{app}');
 			Svc := 'squeezesvc';
 			Executable := 'squeez~1.exe';
+			LongExecutable := 'squeezecenter.exe';
 			MySQLSvc := 'SqueezeMySQL';
 			TrayExe := 'SqueezeTray.exe';
 
@@ -274,6 +276,7 @@ begin
 			InstallDefault := AddBackslash(ExpandConstant('{pf}')) + 'SlimServer';
 			Svc := 'slimsvc';
 			Executable := 'slimserver.exe';
+			LongExecutable := Executable;
 			MySQLSvc := 'SlimServerMySQL';
 			TrayExe := 'SlimTray.exe';
 
@@ -300,7 +303,7 @@ begin
 	// wait up to 120 seconds for the services to be deleted
 	Wait := 120;
 	MaxProgress := ProgressPage.ProgressBar.Position + Wait;
-	while (Wait > 0) and (IsServiceRunning(Svc) or IsServiceRunning(MySQLSvc) or IsModuleLoaded(Executable) or IsModuleLoaded(TrayExe) or IsModuleLoaded('squeezecenter.exe')) do
+	while (Wait > 0) and (IsServiceRunning(Svc) or IsServiceRunning(MySQLSvc) or IsModuleLoaded(Executable) or IsModuleLoaded(TrayExe) or IsModuleLoaded(LongExecutable)) do
 	begin
 		ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
 		Sleep(1000);
@@ -539,7 +542,7 @@ begin
 				ProgressPage.setText(CustomMessage('ProgressForm_Description'), CustomMessage('PortConflict'));
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
-				// we discovered a port conflict with another application - user alternative port
+				// we discovered a port conflict with another application - use alternative port
 				if GetHttpPort('') <> '9000' then
 				begin
 					PrefString := 'httpport: ' + GetHttpPort('') + #13#10;
@@ -674,13 +677,13 @@ end;
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
 	if CurUninstallStep = usPostUninstall then
-  	if SuppressibleMsgBox(CustomMessage('UninstallPrefs'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2, IDNO) = IDYES then
-		begin
-			DelTree(GetWritablePath(''), True, True, True);
-			RegDeleteKeyIncludingSubkeys(HKCU, SCRegKey);
-			RegDeleteKeyIncludingSubkeys(HKLM, SCRegKey);
-			RegDeleteKeyIncludingSubkeys(HKCU, SSRegKey);
-			RegDeleteKeyIncludingSubkeys(HKLM, SSRegKey);
-		end;	
+	  	if SuppressibleMsgBox(CustomMessage('UninstallPrefs'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2, IDNO) = IDYES then
+			begin
+				DelTree(GetWritablePath(''), True, True, True);
+				RegDeleteKeyIncludingSubkeys(HKCU, SCRegKey);
+				RegDeleteKeyIncludingSubkeys(HKLM, SCRegKey);
+				RegDeleteKeyIncludingSubkeys(HKCU, SSRegKey);
+				RegDeleteKeyIncludingSubkeys(HKLM, SSRegKey);
+			end;	
 end;
 
