@@ -13,7 +13,7 @@
 			Languages="1033"
 			Compressed="yes" />
 
-		<Media Id="1" Cabinet="SqueezeCenter.cab" EmbedCab="yes" />
+<!--		<Media Id="1" Cabinet="SqueezeCenter.cab" EmbedCab="yes" /> -->
 
 		<Property Id="WHSLogo">1</Property>
 
@@ -21,16 +21,23 @@
 
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
-				<Directory Id="APPLICATIONROOTDIRECTORY" Name="SqueezeCenter" />
+				<Directory Id="APPLICATIONROOTDIRECTORY" Name="SqueezeCenter">
+					<Component Id="SqueezeCenter" Guid="{1db91230-ebbc-11dd-ba2f-0800200c9a66}">
+						<ServiceControl Id="SqueezeSvc" Name="squeezesvc" Start="install" />
+					</Component>
+				</Directory>
 			</Directory>
 		</Directory>
 
-		<DirectoryRef Id="APPLICATIONROOTDIRECTORY">
-			<Component Id="SqueezeCenter" Guid="{1db91230-ebbc-11dd-ba2f-0800200c9a66}">
-				<File Id="SCUninstallerFile" Name="unins000.exe" />
-				<ServiceControl Id="RemoveSCService" Name="squeezesvc" Remove="uninstall" Wait="yes" />
-			</Component>
-		</DirectoryRef>
+		<Property Id="UNINSTALLCOMMAND">
+			<RegistrySearch
+				Id="QuietUninstallString" 
+				Root="HKLM"
+				Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SqueezeCenter_is1"
+				Name="QuietUninstallString"
+				Type="raw"
+			/>
+		</Property>
 
 		<Binary Id="SCInstallerFile" SourceFile="SqueezeCenter-7.3.3-24779.exe" />
 		
@@ -39,17 +46,18 @@
 		</Feature>
 
 		<CustomAction Id="InstallSC" BinaryKey="SCInstallerFile" ExeCommand="/silent" Impersonate="no" Return="ignore" Execute="deferred" />
-		<CustomAction Id="InstallSCService" Directory="APPLICATIONROOTDIRECTORY" ExeCommand="SqueezeCenter/server/squeezecenter.exe --install" Impersonate="no" Return="ignore" Execute="deferred" />
-		<CustomAction Id="UnInstallSC" FileKey="SCUninstallerFile" ExeCommand="" Impersonate="no" Return="ignore" Execute="deferred" />
+		<CustomAction Id="InstallSCService" Directory="APPLICATIONROOTDIRECTORY" ExeCommand='"[APPLICATIONROOTDIRECTORY]server\squeezecenter.exe" --install' Impersonate="no" Return="ignore" Execute="deferred" />
+
+		<CustomAction Id="UnInstallSC" Directory="APPLICATIONROOTDIRECTORY" ExeCommand="[UNINSTALLCOMMAND]" Impersonate="no" Return="ignore" Execute="deferred" />
 		
 		<InstallExecuteSequence>
-			<Custom Action="InstallSC" Before="InstallFinalize">
+			<Custom Action="InstallSC" After="InstallInitialize">
 				NOT REMOVE="ALL"
 			</Custom>
-			<Custom Action="InstallSCService" Before="InstallSC">
+			<Custom Action="InstallSCService" After="InstallSC">
 				NOT REMOVE="ALL"
 			</Custom>
-			<Custom Action="UnInstallSC" After="InstallInitialize">
+			<Custom Action="UnInstallSC" Before="InstallFinalize">
 				REMOVE="ALL"
 			</Custom>
 		</InstallExecuteSequence>
