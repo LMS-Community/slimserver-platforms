@@ -11,9 +11,8 @@
 			Manufacturer="Logitech"
 			InstallerVersion="200"
 			Languages="1033"
-			Compressed="yes" />
-
-<!--		<Media Id="1" Cabinet="SqueezeCenter.cab" EmbedCab="yes" /> -->
+			Compressed="yes" 
+		/>
 
 		<Property Id="WHSLogo">1</Property>
 
