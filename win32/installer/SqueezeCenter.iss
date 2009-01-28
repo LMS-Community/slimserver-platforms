@@ -480,7 +480,7 @@ procedure CurStepChanged(CurStep: TSetupStep);
 var
 	Wait, ErrorCode, i: Integer;
 	NewServerDir, PrefsFile, PrefsPath, PrefString, PortConflict, s: String;
-	Started, Failed: Boolean;
+	Started, Failed, Silent: Boolean;
 
 begin
 	if CurStep = ssInstall then
@@ -520,6 +520,15 @@ begin
 	if CurStep = ssPostInstall then 
 		begin
 
+			for i:= 0 to ParamCount() do begin
+				if (pos('/silent', lowercase(ParamStr(i))) > 0) then
+					Silent:= true
+				else if (pos('/verysilent', lowercase(ParamStr(i))) > 0) then
+					Silent:= true;
+			end;
+			
+			Silent := Silent or WizardSilent;
+    
 			ProgressPage := CreateOutputProgressPage(CustomMessage('RegisterServices'), CustomMessage('RegisterServicesDesc'));
 
 			try
@@ -565,9 +574,9 @@ begin
 						PrefString := '---' + #13#10 + '_version: 0' + #13#10 + 'cachedir: ' + AddBackslash(GetWritablePath('')) + 'Cache' + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10 + PrefString;
 						SaveStringToFile(PrefsFile, PrefString, False);
 					end
-				else if PrefString <> '' then
+				else if (PrefString <> '') and (not Silent) then
 					begin
-//  						SuppressibleMsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbInformation, MB_OK, IDOK);
+  						SuppressibleMsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbInformation, MB_OK, IDOK);
   						CustomExitCode := 1001;
   					end
 
@@ -599,7 +608,7 @@ begin
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
 				// in silent mode do not wait for SC to be started before quitting the installer
-				if not WizardSilent then
+				if not Silent then
 					begin
 						Exec(ExpandConstant('{app}') + '\SqueezeTray.exe', '--install', ExpandConstant('{app}'), SW_SHOW, ewWaitUntilIdle, ErrorCode);
 
