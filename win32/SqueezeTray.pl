@@ -93,7 +93,9 @@ sub PopupMenu {
 
 	if ( my $installer = _getUpdateInstaller() ) {
 		push @menu, ["--------"];
-		push @menu, [string('INSTALL_UPDATE'), "Execute '$installer'"];	
+		push @menu, [string('INSTALL_UPDATE'), sub {
+			system("\"$installer\" /silent");
+		}];	
 	}
 
 	push @menu, ["--------"];
