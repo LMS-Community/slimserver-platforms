@@ -27,6 +27,7 @@ my $starting       = 0;
 my $processObj     = 0;
 my $checkHTTP      = 0;
 my $lastHTTPPort   = 0;
+my $nextUpdateCheck= 0;
 
 my %strings        = ();
 
@@ -88,6 +89,11 @@ sub PopupMenu {
 	}
 	elsif ($type ne 'auto') {
 		push @menu, ["_ $appString", $setLogin, undef];
+	}
+
+	if ( my $installer = _getUpdateInstaller() ) {
+		push @menu, ["--------"];
+		push @menu, [string('INSTALL_UPDATE'), "Execute '$installer'"];	
 	}
 
 	push @menu, ["--------"];
@@ -304,6 +310,24 @@ sub checkSCActive {
 	}
 }
 
+# see whether SC has downloaded an update version
+sub checkForUpdate {
+	# only check when SC is running
+#	return if !$scActive;
+
+	if ( _getUpdateInstaller() ) {
+		Balloon(string('UPDATE_AVAILABLE'), "SqueezeCenter", "", 1);
+		
+		# once the balloon is shown, only poll every 6 hours
+		SetTimer('6:00:00', \&checkForUpdate);
+	}
+}
+
+sub _getUpdateInstaller {
+	my $installer = getPref('updateInstaller');
+	return $installer if ($installer && -r $installer);	
+}
+
 sub startSqueezeCenter {
 	return if startupTypeIsService();
 
@@ -481,8 +505,9 @@ sub getPref {
 		if (open(PREF, $prefFile)) {
 
 			while (<PREF>) {
+			
 				# read YAML (server) and old style prefs (installer)
-				if (/^$pref(:| \=) (\w+)$/) {
+				if (/^$pref(:| \=)? (.+)$/) {
 					$ret = $2;
 					last;
 				}
@@ -670,6 +695,9 @@ loadStrings();
 # Checking for existence & launching of SS in a timer, since it
 # fails if done during Perl initialization.
 SetTimer(":1", \&checkAndStart);
+
+# This is our update checker timer
+SetTimer(":2", \&checkForUpdate);
 
 # This is our regular timer which continually checks for existence of
 # SS. We could have combined the two timers, but changing the
