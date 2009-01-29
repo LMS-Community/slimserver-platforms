@@ -315,7 +315,7 @@ sub checkSCActive {
 # see whether SC has downloaded an update version
 sub checkForUpdate {
 	# only check when SC is running
-#	return if !$scActive;
+	return if !$scActive;
 
 	if ( _getUpdateInstaller() ) {
 		Balloon(string('UPDATE_AVAILABLE'), "SqueezeCenter", "", 1);
