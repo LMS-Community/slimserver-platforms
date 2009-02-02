@@ -4,7 +4,7 @@
 		Id="*"
 		UpgradeCode="{1db91230-ebbc-11dd-ba2f-0800200c9a66}"
 		Manufacturer="Logitech"
-		Version="7.3.3.0"
+		Version="0.0.0.0"
 		Language="1033">
 
 		<Package
@@ -16,7 +16,7 @@
 
 		<Property Id="WHSLogo">1</Property>
 
-		<Condition Message="[ProductName] requires Windows Home Server. For more information, please refer to the User Guide.">VersionNT = 502</Condition>
+<!--		<Condition Message="[ProductName] requires Windows Home Server. For more information, please refer to the User Guide.">VersionNT = 502</Condition> -->
 
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
@@ -38,7 +38,7 @@
 			/>
 		</Property>
 
-		<Binary Id="SCInstallerFile" SourceFile="SqueezeCenter-7.3.3-24779.exe" />
+		<Binary Id="SCInstallerFile" SourceFile="SqueezeSetup.exe" />
 		
 		<Feature Id="SCInstaller" Title="SqueezeCenter Installer" Level="1" AllowAdvertise="no" Display="hidden">
 			<ComponentRef Id="SqueezeCenter" />
