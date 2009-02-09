@@ -2,7 +2,7 @@
 	<Product
 		Name="SqueezeCenter for Windows Home Server"
 		Id="*"
-		UpgradeCode="{1db91230-ebbc-11dd-ba2f-0800200c9a66}"
+		UpgradeCode="{1DB91230-EBBC-11DD-BA2F-0800200C9A66}"
 		Manufacturer="Logitech"
 		Version="0.0.0.0"
 		Language="1033">
@@ -21,7 +21,7 @@
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
 				<Directory Id="APPLICATIONROOTDIRECTORY" Name="SqueezeCenter">
-					<Component Id="SqueezeCenter" Guid="{1db91230-ebbc-11dd-ba2f-0800200c9a66}">
+					<Component Id="SqueezeCenter" Guid="{1DB91230-EBBC-11DD-BA2F-0800200C9A66}">
 						<ServiceControl Id="SqueezeSvc" Name="squeezesvc" Start="install" />
 					</Component>
 				</Directory>
