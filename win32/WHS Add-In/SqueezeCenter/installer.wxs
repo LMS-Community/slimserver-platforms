@@ -1,0 +1,51 @@
+﻿<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product
+    Name="SqueezePanel"
+    Id="5FBE7B80-F692-11DD-87AF-0800200C9A66"
+    UpgradeCode="862E6090-F6B6-11DD-87AF-0800200C9A66"
+    Manufacturer="Michael Herger - Logitech SA"
+    Version="0.0.0.3"
+    Language="1033">
+
+    <Package
+      Manufacturer="Logitech SA"
+      InstallerVersion="200"
+      Languages="1033"
+      Id="*"
+      Compressed="yes" />
+
+    <Media Id="1" Cabinet="SqueezePanel.0.0.0.3.cab" EmbedCab="yes" />
+
+    <Property Id="WHSLogo">1</Property>
+
+    <Condition Message="[ProductName] requires Windows Home Server. For more information, please refer to the User Guide.">VersionNT = 502</Condition>
+
+    <Directory
+      Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="WHS" Name="Windows Home Server">
+
+          <Component
+            Id="HomeServerConsoleTab.SqueezePanel"
+            Guid="7f25fe10-f77a-11dd-87af-0800200c9a66">
+
+            <File
+              Id="HomeServerConsoleTab.SqueezeCenter.dll"
+              Name="HomeServerConsoleTab.SqueezeCenter.dll"
+              Source="bin\Release\HomeServerConsoleTab.SqueezeCenter.dll"
+              Vital="yes"
+              KeyPath="yes"
+              DiskId="1"/>
+          </Component>
+
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="ProductFeature" Title="SqueezePanel" Level="1">
+      <ComponentRef Id="HomeServerConsoleTab.SqueezePanel" />
+    </Feature>
+
+  </Product>
+
+</Wix>
