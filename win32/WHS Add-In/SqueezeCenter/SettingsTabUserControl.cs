@@ -7,6 +7,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.HomeServer.Extensibility;
+using Microsoft.Win32;
 
 namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 {
@@ -14,6 +15,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
     {
         IConsoleServices consoleServices;
         int scStatus;
+        
+        const string svcName = "squeezesvc";
 
         public SettingsTabUserControl()
         {
@@ -32,7 +35,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         {
             try
             {
-                ServiceController scService = new ServiceController("squeezesvc");
+                ServiceController scService = new ServiceController(svcName);
 
                 if (scService != null)
                 {
@@ -72,7 +75,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
             try
             {
-                scService = new ServiceController("squeezesvc");
+                scService = new ServiceController(svcName);
 
                 if (scService != null)
                 {
@@ -95,12 +98,19 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
         private void linkServerLog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("c:\\documents and settings\\all users\\application data\\SqueezeCenter\\logs\\server.log");
+            System.Diagnostics.Process.Start(getLogPath() + @"\server.log");
         }
 
         private void linkScannerLog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("c:\\documents and settings\\all users\\application data\\SqueezeCenter\\logs\\scanner.log");
+            System.Diagnostics.Process.Start(getLogPath() + @"\scanner.log");
+        }
+
+        private string getLogPath()
+        {
+            RegistryKey OurKey = Registry.LocalMachine;
+            OurKey = OurKey.OpenSubKey(@"SOFTWARE\Logitech\SqueezeCenter", true);
+            return OurKey.GetValue("DataPath").ToString() + @"\Logs";
         }
     }
 }
