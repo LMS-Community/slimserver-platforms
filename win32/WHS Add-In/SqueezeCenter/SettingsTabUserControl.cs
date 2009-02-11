@@ -30,19 +30,23 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         }
         private void btnStartStopService_Click(object sender, EventArgs e)
         {
-            ServiceController scService = new ServiceController("squeezesvc");
-
-            if (scService != null)
+            try
             {
-                if (this.scStatus == 1)
+                ServiceController scService = new ServiceController("squeezesvc");
+
+                if (scService != null)
                 {
-                    scService.Stop();
-                }
-                else
-                {
-                    scService.Start();
+                    if (this.scStatus == 1)
+                    {
+                        scService.Stop();
+                    }
+                    else
+                    {
+                        scService.Start();
+                    }
                 }
             }
+            catch { }
         }
 
         private void btnStartStopService_Paint(object sender, PaintEventArgs e)
@@ -55,20 +59,32 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             {
                 btnStartStopService.Text = "Start";
             }
+
+            btnStartStopService.Enabled = this.scStatus != -1;
+            labelSCUnavailable.Visible = this.scStatus == -1;
         }
 
         private void PollSCTimer_Tick(object sender, EventArgs e)
         {
-            ServiceController scService = new ServiceController("squeezesvc");
+            ServiceController scService = null;
+
             int oldStatus = this.scStatus;
 
-            if (scService != null)
+            try
             {
-                this.scStatus = (scService.Status == ServiceControllerStatus.Stopped) ? 0 : 1;
+                scService = new ServiceController("squeezesvc");
+
+                if (scService != null)
+                {
+                    this.scStatus = (scService.Status == ServiceControllerStatus.Stopped) ? 0 : 1;
+                }
+                else
+                {
+                    this.scStatus = -1;
+                }
             }
-            else
-            {
-                this.scStatus = 0;
+            catch {
+                this.scStatus = -1;
             }
 
             if (oldStatus != this.scStatus)

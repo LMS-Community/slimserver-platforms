@@ -37,6 +37,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.line2 = new Microsoft.HomeServer.Controls.Line();
             this.linkServerLog = new System.Windows.Forms.LinkLabel();
             this.linkScannerLog = new System.Windows.Forms.LinkLabel();
+            this.labelSCUnavailable = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // PollSCTimer
@@ -128,10 +129,21 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkScannerLog.Text = "scanner.log";
             this.linkScannerLog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkScannerLog_LinkClicked);
             // 
+            // labelSCUnavailable
+            // 
+            this.labelSCUnavailable.AutoSize = true;
+            this.labelSCUnavailable.Location = new System.Drawing.Point(14, 105);
+            this.labelSCUnavailable.Name = "labelSCUnavailable";
+            this.labelSCUnavailable.Size = new System.Drawing.Size(212, 13);
+            this.labelSCUnavailable.TabIndex = 7;
+            this.labelSCUnavailable.Text = "The SqueezeCenter service is not available";
+            this.labelSCUnavailable.Visible = false;
+            // 
             // SettingsTabUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelSCUnavailable);
             this.Controls.Add(this.linkScannerLog);
             this.Controls.Add(this.linkServerLog);
             this.Controls.Add(this.label1);
@@ -156,6 +168,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private Microsoft.HomeServer.Controls.Line line2;
         private System.Windows.Forms.LinkLabel linkServerLog;
         private System.Windows.Forms.LinkLabel linkScannerLog;
+        private System.Windows.Forms.Label labelSCUnavailable;
 
     }
 }
