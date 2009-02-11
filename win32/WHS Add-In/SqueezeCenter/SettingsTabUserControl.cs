@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.Net;
 using System.ServiceProcess;
 using System.Text;
 using System.Windows.Forms;
@@ -111,6 +112,40 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             RegistryKey OurKey = Registry.LocalMachine;
             OurKey = OurKey.OpenSubKey(@"SOFTWARE\Logitech\SqueezeCenter", true);
             return OurKey.GetValue("DataPath").ToString() + @"\Logs";
+        }
+
+        private void linkSCSettings_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.consoleServices.OpenUrl(getSCUrl() + @"/settings/index.html");
+        }
+
+        private void linkSCWebUI_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.consoleServices.OpenUrl(getSCUrl());
+        }
+
+        private void linkSCWebUI_Paint(object sender, PaintEventArgs e)
+        {
+            linkSCWebUI.Text = getSCUrl();
+        }
+
+        private String getSCUrl()
+        {
+            String url = "";
+
+            url = Dns.GetHostName();
+
+ /*           try
+            {
+                IPAddress[] ip = Dns.GetHostAddresses("");
+                if (ip.Length > 0)
+                {
+                    url = ip[0].ToString();
+                }
+            }
+            catch { }
+            */
+            return @"http://" + url + ":9001";
         }
     }
 }

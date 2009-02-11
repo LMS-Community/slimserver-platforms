@@ -38,6 +38,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkServerLog = new System.Windows.Forms.LinkLabel();
             this.linkScannerLog = new System.Windows.Forms.LinkLabel();
             this.labelSCUnavailable = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.line3 = new Microsoft.HomeServer.Controls.Line();
+            this.linkSCSettings = new System.Windows.Forms.LinkLabel();
+            this.linkSCWebUI = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // PollSCTimer
@@ -139,10 +143,55 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.labelSCUnavailable.Text = "The SqueezeCenter service is not available";
             this.labelSCUnavailable.Visible = false;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(14, 239);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(150, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "SqueezeCenter User Interface";
+            // 
+            // line3
+            // 
+            this.line3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line3.Location = new System.Drawing.Point(176, 246);
+            this.line3.Name = "line3";
+            this.line3.Size = new System.Drawing.Size(200, 1);
+            this.line3.TabIndex = 8;
+            // 
+            // linkSCSettings
+            // 
+            this.linkSCSettings.AutoSize = true;
+            this.linkSCSettings.Location = new System.Drawing.Point(129, 290);
+            this.linkSCSettings.Name = "linkSCSettings";
+            this.linkSCSettings.Size = new System.Drawing.Size(150, 13);
+            this.linkSCSettings.TabIndex = 10;
+            this.linkSCSettings.TabStop = true;
+            this.linkSCSettings.Text = "Open SqueezeCenter Settings";
+            this.linkSCSettings.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSCSettings_LinkClicked);
+            // 
+            // linkSCWebUI
+            // 
+            this.linkSCWebUI.AutoSize = true;
+            this.linkSCWebUI.Location = new System.Drawing.Point(129, 264);
+            this.linkSCWebUI.Name = "linkSCWebUI";
+            this.linkSCWebUI.Size = new System.Drawing.Size(18, 13);
+            this.linkSCWebUI.TabIndex = 11;
+            this.linkSCWebUI.TabStop = true;
+            this.linkSCWebUI.Text = "url";
+            this.linkSCWebUI.Paint += new System.Windows.Forms.PaintEventHandler(this.linkSCWebUI_Paint);
+            this.linkSCWebUI.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSCWebUI_LinkClicked);
+            // 
             // SettingsTabUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.linkSCWebUI);
+            this.Controls.Add(this.linkSCSettings);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.line3);
             this.Controls.Add(this.labelSCUnavailable);
             this.Controls.Add(this.linkScannerLog);
             this.Controls.Add(this.linkServerLog);
@@ -169,6 +218,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private System.Windows.Forms.LinkLabel linkServerLog;
         private System.Windows.Forms.LinkLabel linkScannerLog;
         private System.Windows.Forms.Label labelSCUnavailable;
+        private System.Windows.Forms.Label label2;
+        private Microsoft.HomeServer.Controls.Line line3;
+        private System.Windows.Forms.LinkLabel linkSCSettings;
+        private System.Windows.Forms.LinkLabel linkSCWebUI;
 
     }
 }
