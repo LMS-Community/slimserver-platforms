@@ -45,7 +45,7 @@
 		</Feature>
 
 		<CustomAction Id="InstallSC" BinaryKey="SCInstallerFile" ExeCommand="/silent" Impersonate="no" Return="ignore" Execute="deferred" />
-		<CustomAction Id="InstallSCService" Directory="APPLICATIONROOTDIRECTORY" ExeCommand='"[APPLICATIONROOTDIRECTORY]server\squeezecenter.exe" --install' Impersonate="no" Return="ignore" Execute="deferred" />
+		<CustomAction Id="InstallSCService" Directory="APPLICATIONROOTDIRECTORY" ExeCommand='"[APPLICATIONROOTDIRECTORY]server\squeezecenter.exe" --install auto' Impersonate="no" Return="ignore" Execute="deferred" />
 
 		<CustomAction Id="UnInstallSC" Directory="APPLICATIONROOTDIRECTORY" ExeCommand="[UNINSTALLCOMMAND]" Impersonate="no" Return="ignore" Execute="deferred" />
 		
