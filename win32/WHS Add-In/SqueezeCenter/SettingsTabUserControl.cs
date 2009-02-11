@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.IO;
+using System.Management;
 using System.Net;
 using System.ServiceProcess;
 using System.Text;
@@ -59,15 +60,24 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         {
             if (this.scStatus == 1)
             {
-                btnStartStopService.Text = "Stop";
+                btnStartStopService.Text = "Stop SqueezeCenter";
+                labelSCStatus.Text = "The SqueezeCenter service is running";
             }
             else
             {
-                btnStartStopService.Text = "Start";
+                if (this.scStatus == -1)
+                {
+                    labelSCStatus.Text = "The SqueezeCenter service is not available";
+                }
+                else
+                {
+                    labelSCStatus.Text = "The SqueezeCenter service is stopped";
+                }
+
+                btnStartStopService.Text = "Start SqueezeCenter";
             }
 
             btnStartStopService.Enabled = this.scStatus != -1;
-            labelSCUnavailable.Visible = this.scStatus == -1;
         }
 
         private void PollSCTimer_Tick(object sender, EventArgs e)
@@ -96,7 +106,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             if (oldStatus != this.scStatus)
             {
                 btnStartStopService_Paint(null, null);
-                linkSCWebUI_Paint(null, null);
+                cbStartAtBoot.Enabled = (this.scStatus != -1);
             }
         }
 
@@ -125,6 +135,26 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             linkSCWebUI.Text = getSCUrl();
         }
 
+        private void linkMusicFolder_Paint(object sender, PaintEventArgs e)
+        {
+            linkMusicFolder.Text = readPref("audiodir");
+        }
+
+        private void linkMusicFolder_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            String audiodir = readPref("audiodir");
+
+            // if audiodir is on a share, try to open it on the client
+            if (audiodir.Substring(0, 2) == @"\\")
+            {
+                this.consoleServices.OpenUrl(audiodir);
+            }
+            else
+            {
+                System.Diagnostics.Process.Start(audiodir);
+            }
+        }
+
         private String getSCUrl()
         {
             String url = "";
@@ -142,6 +172,16 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             catch { }
             */
             return @"http://" + url + ":" + readPref("httpport");
+        }
+
+        private void SettingsTabUserControl_Load(object sender, EventArgs e)
+        {
+            cbStartAtBoot.Checked = AutostartSCService();
+        }
+
+        private void cbStartAtBoot_Click(object sender, EventArgs e)
+        {
+            this.consoleServices.EnableSettingsApply();
         }
 
         private String getDataPath()
@@ -187,6 +227,43 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             catch { }
 
             return (value == null ? "" : value);
+        }
+
+        private bool AutostartSCService()
+        {
+            bool auto = true;
+            try
+            {
+                ManagementPath mp = new ManagementPath(@"Win32_Service.Name='" + svcName + "'");
+                ManagementObject svcMgr = new ManagementObject(mp);
+
+                auto = (svcMgr["StartMode"].ToString().ToLower() == "auto");
+            }
+            catch {}
+
+            return auto;
+        }
+
+        public bool Commit()
+        {
+            object [] p = new object[1];
+
+            if (AutostartSCService() != cbStartAtBoot.Checked)
+            {
+                p[0] = (cbStartAtBoot.Checked ? "Automatic" : "Manual");
+
+                try
+                {
+                    ManagementPath mp = new ManagementPath(@"Win32_Service.Name='" + svcName + "'");
+                    ManagementObject svcMgr = new ManagementObject(mp);
+
+                    svcMgr.InvokeMethod("ChangeStartMode", p);
+                }
+                catch {
+                    MessageBox.Show("Changing startup mode failed.");
+                }
+            }
+            return false;
         }
     }
 }

@@ -59,7 +59,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
         public bool Commit()
         {
-            return false;
+            return this.tabControl.Commit();
         }
 
         public bool GetHelp()
