@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.IO;
 using System.Net;
 using System.ServiceProcess;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.HomeServer.Extensibility;
 using Microsoft.Win32;
@@ -94,6 +96,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             if (oldStatus != this.scStatus)
             {
                 btnStartStopService_Paint(null, null);
+                linkSCWebUI_Paint(null, null);
             }
         }
 
@@ -105,13 +108,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private void linkScannerLog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(getLogPath() + @"\scanner.log");
-        }
-
-        private string getLogPath()
-        {
-            RegistryKey OurKey = Registry.LocalMachine;
-            OurKey = OurKey.OpenSubKey(@"SOFTWARE\Logitech\SqueezeCenter", true);
-            return OurKey.GetValue("DataPath").ToString() + @"\Logs";
         }
 
         private void linkSCSettings_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -145,7 +141,52 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             }
             catch { }
             */
-            return @"http://" + url + ":9001";
+            return @"http://" + url + ":" + readPref("httpport");
+        }
+
+        private String getDataPath()
+        {
+            RegistryKey OurKey = Registry.LocalMachine;
+            OurKey = OurKey.OpenSubKey(@"SOFTWARE\Logitech\SqueezeCenter", true);
+            return OurKey.GetValue("DataPath").ToString();
+        }
+
+        private string getLogPath()
+        {
+            return getDataPath() + @"\Logs";
+        }
+
+        private string getPrefsPath()
+        {
+            return getDataPath() + @"\prefs";
+        }
+
+        private String readPref(String pref)
+        {
+            String value = "";
+            Regex prefsRegex = new Regex("^(" + pref + @"):\s*(.*)\s*$");
+
+            try
+            {
+                TextReader prefsFile = new StreamReader(getPrefsPath() + @"\server.prefs");
+                value = prefsFile.ReadLine();
+                while (value != null)
+                {
+                    Match pair = prefsRegex.Match(value);
+                    if (pair.Groups.Count >= 2)
+                    {
+                        value = pair.Groups[2].Value;
+                        break;
+                    }
+
+                    value = prefsFile.ReadLine();
+                }
+
+                prefsFile.Close();
+            }
+            catch { }
+
+            return (value == null ? "" : value);
         }
     }
 }
