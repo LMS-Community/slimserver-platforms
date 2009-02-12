@@ -1,8 +1,8 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product
 		Name="SqueezeCenter for Windows Home Server"
-		Id="*"
-		UpgradeCode="{1DB91230-EBBC-11DD-BA2F-0800200C9A66}"
+		Id="0ba29750-f914-11dd-87af-0800200c9a66"
+		UpgradeCode="1DB91230-EBBC-11DD-BA2F-0800200C9A66"
 		Manufacturer="Logitech"
 		Version="0.0.0.0"
 		Language="1033">
@@ -12,7 +12,10 @@
 			InstallerVersion="200"
 			Languages="1033"
 			Compressed="yes" 
+			Id="*"
 		/>
+
+		<Media Id="1" Cabinet="SqueezeCenter_0.0.0.0.cab" EmbedCab="yes" />
 
 		<Property Id="WHSLogo">1</Property>
 
@@ -20,9 +23,25 @@
 
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
+			
 				<Directory Id="APPLICATIONROOTDIRECTORY" Name="SqueezeCenter">
-					<Component Id="SqueezeCenter" Guid="{1DB91230-EBBC-11DD-BA2F-0800200C9A66}">
+					<Component Id="SqueezeCenter" Guid="1DB91230-EBBC-11DD-BA2F-0800200C9A66">
 						<ServiceControl Id="SqueezeSvc" Name="squeezesvc" Start="install" />
+					</Component>
+				</Directory>
+
+				<Directory Id="WHS" Name="Windows Home Server">
+					<Component
+						Id="HomeServerConsoleTab.SqueezePanel"
+						Guid="7f25fe10-f77a-11dd-87af-0800200c9a66">
+					
+						<File
+							Id="HomeServerConsoleTab.SqueezeCenter.dll"
+							Name="HomeServerConsoleTab.SqueezeCenter.dll"
+							Source="HomeServerConsoleTab.SqueezeCenter.dll"
+							Vital="yes"
+							KeyPath="yes"
+							DiskId="1"/>
 					</Component>
 				</Directory>
 			</Directory>
@@ -43,7 +62,11 @@
 		<Feature Id="SCInstaller" Title="SqueezeCenter Installer" Level="1" AllowAdvertise="no" Display="hidden">
 			<ComponentRef Id="SqueezeCenter" />
 		</Feature>
-
+		
+		<Feature Id="ProductFeature" Title="SqueezePanel" Level="1" AllowAdvertise="no">
+			<ComponentRef Id="HomeServerConsoleTab.SqueezePanel" />
+		</Feature>
+		
 		<CustomAction Id="InstallSC" BinaryKey="SCInstallerFile" ExeCommand="/silent" Impersonate="no" Return="ignore" Execute="deferred" />
 		<CustomAction Id="InstallSCService" Directory="APPLICATIONROOTDIRECTORY" ExeCommand='"[APPLICATIONROOTDIRECTORY]server\squeezecenter.exe" --install auto' Impersonate="no" Return="ignore" Execute="deferred" />
 
