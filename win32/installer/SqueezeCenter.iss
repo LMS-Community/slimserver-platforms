@@ -99,7 +99,20 @@ Name: {userdesktop}\SqueezeCenter; Filename: {app}\SqueezeTray.exe; Parameters: 
 ; The following keys open required SqueezeCenter ports in the XP Firewall
 ;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "{code:GetHttpPort}:TCP"; ValueData: "{code:GetHttpPort}:TCP:*:Enabled:SqueezeCenter {code:GetHttpPort} tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9090:TCP"; ValueData: "9090:TCP:*:Enabled:SqueezeCenter 9090 tcp (CLI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9001:TCP"; ValueData: "9001:TCP:*:Enabled:SqueezeCenter 9001 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9002:TCP"; ValueData: "9002:TCP:*:Enabled:SqueezeCenter 9002 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9003:TCP"; ValueData: "9003:TCP:*:Enabled:SqueezeCenter 9003 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9004:TCP"; ValueData: "9004:TCP:*:Enabled:SqueezeCenter 9004 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9005:TCP"; ValueData: "9005:TCP:*:Enabled:SqueezeCenter 9005 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9006:TCP"; ValueData: "9006:TCP:*:Enabled:SqueezeCenter 9006 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9007:TCP"; ValueData: "9007:TCP:*:Enabled:SqueezeCenter 9007 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9008:TCP"; ValueData: "9008:TCP:*:Enabled:SqueezeCenter 9008 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9009:TCP"; ValueData: "9009:TCP:*:Enabled:SqueezeCenter 9009 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9010:TCP"; ValueData: "9010:TCP:*:Enabled:SqueezeCenter 9010 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9100:TCP"; ValueData: "9100:TCP:*:Enabled:SqueezeCenter 9100 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "8000:TCP"; ValueData: "8000:TCP:*:Enabled:SqueezeCenter 8000 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "10000:TCP"; ValueData: "10000:TCP:*:Enabled:SqueezeCenter 10000 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9090:TCP"; ValueData: "9090:TCP:*:Enabled:SqueezeCenter 9090 tcp (UI)"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:SqueezeCenter 3483 udp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:SqueezeCenter 3483 tcp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SOFTWARE\Logitech\SqueezeCenter; ValueType: string; ValueName: Path; ValueData: {app}
@@ -152,7 +165,7 @@ begin
   if HttpPort = '' then
   begin
      if CheckPort9000 = 102 then
-       HttpPort := '9100'
+       HttpPort := '9001'
      else
        HttpPort := '9000';
   end
