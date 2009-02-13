@@ -602,7 +602,6 @@ sub launchCleanup {
 	}
 	
 	Execute(File::Spec->catdir(installDir(), 'server', 'cleanup.exe'));
-#	system('cd ' . File::Spec->catdir(installDir(), 'server') . ' && cleanup.exe');
 }
 
 sub stopSqueezeCenter {
