@@ -1,20 +1,21 @@
-﻿<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+﻿<?define version="0.0.0.7"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Product
     Name="SqueezePanel"
     Id="5FBE7B80-F692-11DD-87AF-0800200C9A66"
     UpgradeCode="862E6090-F6B6-11DD-87AF-0800200C9A66"
     Manufacturer="Michael Herger - Logitech SA"
-    Version="0.0.0.3"
+    Version="$(var.version)"
     Language="1033">
 
     <Package
-      Manufacturer="Logitech SA"
+      Manufacturer="Logitech"
       InstallerVersion="200"
       Languages="1033"
       Id="*"
       Compressed="yes" />
 
-    <Media Id="1" Cabinet="SqueezePanel.0.0.0.3.cab" EmbedCab="yes" />
+    <Media Id="1" Cabinet="SqueezePanel.$(var.version).cab" EmbedCab="yes" />
 
     <Property Id="WHSLogo">1</Property>
 
@@ -46,6 +47,17 @@
       <ComponentRef Id="HomeServerConsoleTab.SqueezePanel" />
     </Feature>
 
+    <Upgrade Id='862E6090-F6B6-11DD-87AF-0800200C9A66'>
+      <UpgradeVersion
+        Property='OLDVERSIONFOUND'
+        IncludeMinimum='yes'
+        Minimum='0.0.0.0' />
+    </Upgrade>
+
+    <InstallExecuteSequence>
+      <LaunchConditions After='AppSearch' />
+      <RemoveExistingProducts After='InstallValidate' />
+    </InstallExecuteSequence>
   </Product>
 
 </Wix>

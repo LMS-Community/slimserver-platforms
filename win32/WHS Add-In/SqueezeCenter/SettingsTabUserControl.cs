@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Data;
 using System.IO;
@@ -107,6 +108,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             {
                 btnStartStopService_Paint(null, null);
                 cbStartAtBoot.Enabled = (this.scStatus != -1);
+                btnCleanup.Enabled = (this.scStatus != 1);
+                labelPleaseStopSC.Visible = (this.scStatus == 1);
             }
         }
 
@@ -264,6 +267,19 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                 }
             }
             return false;
+        }
+
+        private void btnCleanup_Click(object sender, EventArgs e)
+        {
+            RegistryKey OurKey = Registry.LocalMachine;
+            OurKey = OurKey.OpenSubKey(@"SOFTWARE\Logitech\SqueezeCenter", true);
+            String path = OurKey.GetValue("Path").ToString() + @"\server\";
+
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.FileName = path + "cleanup.exe";
+            p.StartInfo.WorkingDirectory = path;
+            p.Start();
         }
     }
 }

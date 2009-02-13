@@ -33,8 +33,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.btnStartStopService = new Microsoft.HomeServer.Controls.QButton();
             this.line1 = new Microsoft.HomeServer.Controls.Line();
             this.labelStatus = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.line2 = new Microsoft.HomeServer.Controls.Line();
             this.linkServerLog = new System.Windows.Forms.LinkLabel();
             this.linkScannerLog = new System.Windows.Forms.LinkLabel();
             this.labelSCStatus = new System.Windows.Forms.Label();
@@ -46,6 +44,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.line4 = new Microsoft.HomeServer.Controls.Line();
             this.linkMusicFolder = new System.Windows.Forms.LinkLabel();
             this.cbStartAtBoot = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.line5 = new Microsoft.HomeServer.Controls.Line();
+            this.btnCleanup = new Microsoft.HomeServer.Controls.QButton();
+            this.labelPleaseStopSC = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // PollSCTimer
@@ -67,7 +69,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.btnStartStopService.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnStartStopService.IsHovered = false;
             this.btnStartStopService.IsPressed = false;
-            this.btnStartStopService.Location = new System.Drawing.Point(95, 60);
+            this.btnStartStopService.Location = new System.Drawing.Point(95, 54);
             this.btnStartStopService.Margins = 0;
             this.btnStartStopService.MaximumSize = new System.Drawing.Size(360, 21);
             this.btnStartStopService.MinimumSize = new System.Drawing.Size(72, 21);
@@ -98,29 +100,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.labelStatus.TabIndex = 2;
             this.labelStatus.Text = "Service Status";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(4, 129);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Log Files";
-            // 
-            // line2
-            // 
-            this.line2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.line2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.line2.Location = new System.Drawing.Point(96, 136);
-            this.line2.Name = "line2";
-            this.line2.Size = new System.Drawing.Size(280, 1);
-            this.line2.TabIndex = 3;
-            // 
             // linkServerLog
             // 
             this.linkServerLog.AutoSize = true;
-            this.linkServerLog.Location = new System.Drawing.Point(92, 165);
+            this.linkServerLog.Location = new System.Drawing.Point(93, 301);
             this.linkServerLog.Name = "linkServerLog";
             this.linkServerLog.Size = new System.Drawing.Size(53, 13);
             this.linkServerLog.TabIndex = 5;
@@ -131,7 +114,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // linkScannerLog
             // 
             this.linkScannerLog.AutoSize = true;
-            this.linkScannerLog.Location = new System.Drawing.Point(92, 188);
+            this.linkScannerLog.Location = new System.Drawing.Point(93, 322);
             this.linkScannerLog.Name = "linkScannerLog";
             this.linkScannerLog.Size = new System.Drawing.Size(62, 13);
             this.linkScannerLog.TabIndex = 6;
@@ -142,7 +125,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // labelSCStatus
             // 
             this.labelSCStatus.AutoSize = true;
-            this.labelSCStatus.Location = new System.Drawing.Point(92, 99);
+            this.labelSCStatus.Location = new System.Drawing.Point(92, 87);
             this.labelSCStatus.Name = "labelSCStatus";
             this.labelSCStatus.Size = new System.Drawing.Size(35, 13);
             this.labelSCStatus.TabIndex = 7;
@@ -152,7 +135,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(4, 227);
+            this.label2.Location = new System.Drawing.Point(4, 126);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(178, 13);
             this.label2.TabIndex = 9;
@@ -162,7 +145,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.line3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
             this.line3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.line3.Location = new System.Drawing.Point(186, 234);
+            this.line3.Location = new System.Drawing.Point(186, 133);
             this.line3.Name = "line3";
             this.line3.Size = new System.Drawing.Size(190, 1);
             this.line3.TabIndex = 8;
@@ -170,7 +153,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // linkSCSettings
             // 
             this.linkSCSettings.AutoSize = true;
-            this.linkSCSettings.Location = new System.Drawing.Point(92, 280);
+            this.linkSCSettings.Location = new System.Drawing.Point(92, 174);
             this.linkSCSettings.Name = "linkSCSettings";
             this.linkSCSettings.Size = new System.Drawing.Size(150, 13);
             this.linkSCSettings.TabIndex = 10;
@@ -181,7 +164,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // linkSCWebUI
             // 
             this.linkSCWebUI.AutoSize = true;
-            this.linkSCWebUI.Location = new System.Drawing.Point(92, 254);
+            this.linkSCWebUI.Location = new System.Drawing.Point(92, 153);
             this.linkSCWebUI.Name = "linkSCWebUI";
             this.linkSCWebUI.Size = new System.Drawing.Size(18, 13);
             this.linkSCWebUI.TabIndex = 11;
@@ -194,7 +177,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.labelMusicFolder.AutoSize = true;
             this.labelMusicFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMusicFolder.Location = new System.Drawing.Point(4, 311);
+            this.labelMusicFolder.Location = new System.Drawing.Point(4, 216);
             this.labelMusicFolder.Name = "labelMusicFolder";
             this.labelMusicFolder.Size = new System.Drawing.Size(79, 13);
             this.labelMusicFolder.TabIndex = 13;
@@ -204,7 +187,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.line4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
             this.line4.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.line4.Location = new System.Drawing.Point(96, 318);
+            this.line4.Location = new System.Drawing.Point(96, 223);
             this.line4.Name = "line4";
             this.line4.Size = new System.Drawing.Size(280, 1);
             this.line4.TabIndex = 12;
@@ -212,7 +195,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // linkMusicFolder
             // 
             this.linkMusicFolder.AutoSize = true;
-            this.linkMusicFolder.Location = new System.Drawing.Point(92, 340);
+            this.linkMusicFolder.Location = new System.Drawing.Point(92, 240);
             this.linkMusicFolder.Name = "linkMusicFolder";
             this.linkMusicFolder.Size = new System.Drawing.Size(67, 13);
             this.linkMusicFolder.TabIndex = 14;
@@ -232,10 +215,66 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.cbStartAtBoot.UseVisualStyleBackColor = true;
             this.cbStartAtBoot.Click += new System.EventHandler(this.cbStartAtBoot_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(4, 281);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(80, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Maintenance";
+            // 
+            // line5
+            // 
+            this.line5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line5.Location = new System.Drawing.Point(96, 288);
+            this.line5.Name = "line5";
+            this.line5.Size = new System.Drawing.Size(280, 1);
+            this.line5.TabIndex = 16;
+            // 
+            // btnCleanup
+            // 
+            this.btnCleanup.AutoSize = true;
+            this.btnCleanup.BackColor = System.Drawing.Color.Transparent;
+            this.btnCleanup.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.btnCleanup.FlatAppearance.BorderSize = 0;
+            this.btnCleanup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnCleanup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnCleanup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCleanup.Font = new System.Drawing.Font("Tahoma", 8F);
+            this.btnCleanup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnCleanup.IsHovered = false;
+            this.btnCleanup.IsPressed = false;
+            this.btnCleanup.Location = new System.Drawing.Point(96, 352);
+            this.btnCleanup.Margins = 0;
+            this.btnCleanup.MaximumSize = new System.Drawing.Size(360, 21);
+            this.btnCleanup.MinimumSize = new System.Drawing.Size(72, 21);
+            this.btnCleanup.Name = "btnCleanup";
+            this.btnCleanup.Size = new System.Drawing.Size(125, 21);
+            this.btnCleanup.TabIndex = 18;
+            this.btnCleanup.Text = "Run Cleanup Assistant";
+            this.btnCleanup.UseVisualStyleBackColor = true;
+            this.btnCleanup.Click += new System.EventHandler(this.btnCleanup_Click);
+            // 
+            // labelPleaseStopSC
+            // 
+            this.labelPleaseStopSC.AutoSize = true;
+            this.labelPleaseStopSC.Location = new System.Drawing.Point(93, 383);
+            this.labelPleaseStopSC.Name = "labelPleaseStopSC";
+            this.labelPleaseStopSC.Size = new System.Drawing.Size(244, 26);
+            this.labelPleaseStopSC.TabIndex = 19;
+            this.labelPleaseStopSC.Text = "You\'ll have to stop SqueezeCenter before you can\r\nrun the Cleanup Assistant";
+            // 
             // SettingsTabUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelPleaseStopSC);
+            this.Controls.Add(this.btnCleanup);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.line5);
             this.Controls.Add(this.cbStartAtBoot);
             this.Controls.Add(this.linkMusicFolder);
             this.Controls.Add(this.labelMusicFolder);
@@ -247,8 +286,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.Controls.Add(this.labelSCStatus);
             this.Controls.Add(this.linkScannerLog);
             this.Controls.Add(this.linkServerLog);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.line2);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.line1);
             this.Controls.Add(this.btnStartStopService);
@@ -266,8 +303,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private Microsoft.HomeServer.Controls.QButton btnStartStopService;
         private Microsoft.HomeServer.Controls.Line line1;
         private System.Windows.Forms.Label labelStatus;
-        private System.Windows.Forms.Label label1;
-        private Microsoft.HomeServer.Controls.Line line2;
         private System.Windows.Forms.LinkLabel linkServerLog;
         private System.Windows.Forms.LinkLabel linkScannerLog;
         private System.Windows.Forms.Label labelSCStatus;
@@ -279,6 +314,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private Microsoft.HomeServer.Controls.Line line4;
         private System.Windows.Forms.LinkLabel linkMusicFolder;
         private System.Windows.Forms.CheckBox cbStartAtBoot;
+        private System.Windows.Forms.Label label3;
+        private Microsoft.HomeServer.Controls.Line line5;
+        private Microsoft.HomeServer.Controls.QButton btnCleanup;
+        private System.Windows.Forms.Label labelPleaseStopSC;
 
     }
 }
