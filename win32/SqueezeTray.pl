@@ -66,6 +66,8 @@ sub PopupMenu {
 
 	if ($type eq 'auto') {
 		push @menu, [sprintf('*%s', string('OPEN_SQUEEZECENTER')), $scActive ? \&openSqueezeCenter : undef];
+		push @menu, ["--------"];
+		push @menu, [string('STOP_SQUEEZECENTER'), $scActive ? \&stopSqueezeCenter : undef];
 	}
 	elsif ($scActive) {
 		push @menu, [sprintf('*%s', string('OPEN_SQUEEZECENTER')), \&openSqueezeCenter];
@@ -97,6 +99,9 @@ sub PopupMenu {
 			system("\"$installer\" /silent");
 		}];	
 	}
+
+	push @menu, ["--------"];
+	push @menu, [string('CLEANUP'), \&launchCleanup];
 
 	push @menu, ["--------"];
 	push @menu, [string('GO_TO_WEBSITE'), "Execute 'http://www.slimdevices.com'"];
@@ -573,6 +578,31 @@ sub processID {
 
 	return $pid if defined $pid;
 	return -1;
+}
+
+sub launchCleanup {
+
+	# ask whether the user really wants to stop SC to do the cleanup
+	if (sendCLICommand('serverstatus')) {
+		if (MessageBox(
+			string('CLEANUP_ARE_YOU_SURE') . File::Spec->catdir(installDir(), 'server', 'cleanup.exe'),
+			string('CLEANUP_TITLE'),
+			MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2
+		) != IDYES) {
+	
+			return			
+		}
+
+		stopScanner();
+	
+		# let's give the scanner a few seconds to be closed before shutting down SC
+		sleep 5;
+	
+		stopSqueezeCenter();
+	}
+	
+	Execute(File::Spec->catdir(installDir(), 'server', 'cleanup.exe'));
+#	system('cd ' . File::Spec->catdir(installDir(), 'server') . ' && cleanup.exe');
 }
 
 sub stopSqueezeCenter {
