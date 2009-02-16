@@ -252,9 +252,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.btnCleanup.MaximumSize = new System.Drawing.Size(360, 21);
             this.btnCleanup.MinimumSize = new System.Drawing.Size(72, 21);
             this.btnCleanup.Name = "btnCleanup";
-            this.btnCleanup.Size = new System.Drawing.Size(125, 21);
+            this.btnCleanup.Size = new System.Drawing.Size(137, 21);
             this.btnCleanup.TabIndex = 18;
-            this.btnCleanup.Text = "Run Cleanup Assistant";
+            this.btnCleanup.Text = "Run Cleanup Assistant...";
             this.btnCleanup.UseVisualStyleBackColor = true;
             this.btnCleanup.Click += new System.EventHandler(this.btnCleanup_Click);
             // 

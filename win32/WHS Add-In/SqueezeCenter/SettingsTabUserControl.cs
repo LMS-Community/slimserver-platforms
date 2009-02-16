@@ -70,6 +70,14 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                 {
                     labelSCStatus.Text = "The SqueezeCenter service is not available";
                 }
+                else if (this.scStatus == -2)
+                {
+                    labelSCStatus.Text = "SqueezeCenter is stopping...";
+                }
+                else if (this.scStatus == -3)
+                {
+                    labelSCStatus.Text = "SqueezeCenter is starting...";
+                }
                 else
                 {
                     labelSCStatus.Text = "The SqueezeCenter service is stopped";
@@ -78,7 +86,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                 btnStartStopService.Text = "Start SqueezeCenter";
             }
 
-            btnStartStopService.Enabled = this.scStatus != -1;
+            btnStartStopService.Enabled = this.scStatus >= 0;
         }
 
         private void PollSCTimer_Tick(object sender, EventArgs e)
@@ -93,7 +101,21 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
                 if (scService != null)
                 {
-                    this.scStatus = (scService.Status == ServiceControllerStatus.Stopped) ? 0 : 1;
+                    if (scService.Status == ServiceControllerStatus.StartPending) {
+                        this.scStatus = -3;
+                    }
+                    else if (scService.Status == ServiceControllerStatus.StopPending)
+                    {
+                        this.scStatus = -2;
+                    }
+                    else if (scService.Status == ServiceControllerStatus.Stopped)
+                    {
+                        this.scStatus = 0;
+                    }
+                    else
+                    {
+                        this.scStatus = 1;
+                    }
                 }
                 else
                 {
