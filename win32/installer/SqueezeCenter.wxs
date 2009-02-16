@@ -22,14 +22,15 @@
 <!--		<Condition Message="[ProductName] requires Windows Home Server. For more information, please refer to the User Guide.">VersionNT = 502</Condition> -->
 
 		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-			
-				<Directory Id="APPLICATIONROOTDIRECTORY" Name="SqueezeCenter">
+			<Directory Id="APPLICATIONROOTDIRECTORY" Name="SqueezeCenter">
+				<Directory Id="APPPATH" Name=".">
 					<Component Id="SqueezeCenter" Guid="1DB91230-EBBC-11DD-BA2F-0800200C9A66">
 						<ServiceControl Id="SqueezeSvc" Name="squeezesvc" Start="install" />
 					</Component>
 				</Directory>
+			</Directory>
 
+			<Directory Id="ProgramFilesFolder">
 				<Directory Id="WHS" Name="Windows Home Server">
 					<Component
 						Id="HomeServerConsoleTab.SqueezePanel"
@@ -46,6 +47,16 @@
 				</Directory>
 			</Directory>
 		</Directory>
+
+		<Property Id="APPPATH">
+			<RegistrySearch
+				Id="Path" 
+				Root="HKLM"
+				Key="SOFTWARE\Logitech\SqueezeCenter"
+				Name="Path"
+				Type="raw"
+			/>
+		</Property>
 
 		<Property Id="UNINSTALLCOMMAND">
 			<RegistrySearch
