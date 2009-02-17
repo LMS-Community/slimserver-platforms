@@ -22,12 +22,10 @@
 <!--		<Condition Message="[ProductName] requires Windows Home Server. For more information, please refer to the User Guide.">VersionNT = 502</Condition> -->
 
 		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="APPLICATIONROOTDIRECTORY" Name="SqueezeCenter">
-				<Directory Id="APPPATH" Name=".">
-					<Component Id="SqueezeCenter" Guid="1DB91230-EBBC-11DD-BA2F-0800200C9A66">
-						<ServiceControl Id="SqueezeSvc" Name="squeezesvc" Start="install" />
-					</Component>
-				</Directory>
+			<Directory Id="APPPATH" Name=".">
+				<Component Id="SqueezeCenter" Guid="{1DB91230-EBBC-11DD-BA2F-0800200C9A66}">
+					<ServiceControl Id="SqueezeSvc" Name="squeezesvc" Start="install" />
+				</Component>
 			</Directory>
 
 			<Directory Id="ProgramFilesFolder">
@@ -79,9 +77,9 @@
 		</Feature>
 		
 		<CustomAction Id="InstallSC" BinaryKey="SCInstallerFile" ExeCommand="/silent" Impersonate="no" Return="ignore" Execute="deferred" />
-		<CustomAction Id="InstallSCService" Directory="APPLICATIONROOTDIRECTORY" ExeCommand='"[APPLICATIONROOTDIRECTORY]server\squeezecenter.exe" --install auto' Impersonate="no" Return="ignore" Execute="deferred" />
+		<CustomAction Id="InstallSCService" Directory="APPPATH" ExeCommand='"[APPPATH]server\squeezecenter.exe" --install auto' Impersonate="no" Return="ignore" Execute="deferred" />
 
-		<CustomAction Id="UnInstallSC" Directory="APPLICATIONROOTDIRECTORY" ExeCommand="[UNINSTALLCOMMAND]" Impersonate="no" Return="ignore" Execute="deferred" />
+		<CustomAction Id="UnInstallSC" Directory="APPPATH" ExeCommand="[UNINSTALLCOMMAND] /SUPPRESSMSGBOXES" Impersonate="no" Return="ignore" Execute="deferred" />
 		
 		<InstallExecuteSequence>
 			<Custom Action="InstallSC" After="InstallInitialize">
