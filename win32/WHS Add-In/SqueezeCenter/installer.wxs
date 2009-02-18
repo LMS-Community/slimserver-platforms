@@ -1,4 +1,4 @@
-﻿<?define version="125.0.0"?>
+﻿<?define version='0.0.134' ?>
 <?define UpgradeCode = "862E6090-F6B6-11DD-87AF-0800200C9A66" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product
@@ -34,6 +34,10 @@
 							Vital="yes"
 							KeyPath="yes"
 							DiskId="1"/>
+
+						<RemoveRegistryKey Action="removeOnUninstall"
+							Root='HKLM'
+							Key="SOFTWARE\Microsoft\Windows Home Server\RegisteredAdditions\[ProductCode]" />
 					</Component>
 
 				</Directory>
