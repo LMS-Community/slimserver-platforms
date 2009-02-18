@@ -1,27 +1,32 @@
+<?define version='7.3.!!revision!!' ?>
+<?define UpgradeCode = "1DB91230-EBBC-11DD-BA2F-0800200C9A66" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product
-		Name="SqueezeCenter for Windows Home Server"
+		Name="SqueezeCenter 7.3.3-!!revision!! for Windows Home Server"
 		Id="*"
-		UpgradeCode="{1DB91230-EBBC-11DD-BA2F-0800200C9A66}"
+		UpgradeCode="$(var.UpgradeCode)"
 		Manufacturer="Logitech"
-		Version="0.0.0.0"
+		Version="$(var.version)"
 		Language="1033">
 
 		<Package
 			Manufacturer="Logitech"
 			InstallerVersion="200"
 			Languages="1033"
-			Compressed="yes" 
-		/>
+			Compressed="yes" />
 
 		<Property Id="WHSLogo">1</Property>
 
-<!--		<Condition Message="[ProductName] requires Windows Home Server. For more information, please refer to the User Guide.">VersionNT = 502</Condition> -->
+		<Condition Message="[ProductName] requires Windows Home Server. For more information, please refer to the User Guide.">VersionNT = 502</Condition>
 
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="APPPATH" Name=".">
 				<Component Id="SqueezeCenter" Guid="{1DB91230-EBBC-11DD-BA2F-0800200C9A66}">
 					<ServiceControl Id="SqueezeSvc" Name="squeezesvc" Start="install" />
+
+					<RemoveRegistryKey Action="removeOnUninstall"
+						Root='HKLM'
+						Key="SOFTWARE\Microsoft\Windows Home Server\RegisteredAdditions\[ProductCode]" />
 				</Component>
 			</Directory>
 		</Directory>
@@ -57,7 +62,23 @@
 
 		<CustomAction Id="UnInstallSC" Directory="APPPATH" ExeCommand="[UNINSTALLCOMMAND] /SUPPRESSMSGBOXES" Impersonate="no" Return="ignore" Execute="deferred" />
 		
+		<Property Id="OLDERVERSIONBEINGUPGRADED" Secure="yes" />
+		<Property Id="NEWERVERSIONDETECTED" Secure="yes" />
+		
+		<Upgrade Id="$(var.UpgradeCode)">
+			<UpgradeVersion Minimum="$(var.version)" 
+							IncludeMinimum="no" 
+							OnlyDetect="yes" 
+							Property="NEWERVERSIONDETECTED" />
+			<UpgradeVersion Minimum="0.0.0" 
+							Maximum="$(var.version)"
+							IncludeMinimum="yes"
+							IncludeMaximum="no"
+							Property="OLDERVERSIONBEINGUPGRADED" />
+		</Upgrade>
+
 		<InstallExecuteSequence>
+			<RemoveExistingProducts After="InstallValidate" />
 			<Custom Action="InstallSC" After="InstallInitialize">
 				NOT REMOVE="ALL"
 			</Custom>
