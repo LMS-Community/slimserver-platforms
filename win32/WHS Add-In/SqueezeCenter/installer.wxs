@@ -1,20 +1,21 @@
-﻿<?define version='0.0.134' ?>
+﻿<?define version='0.0.142'?>
 <?define UpgradeCode = "862E6090-F6B6-11DD-87AF-0800200C9A66" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product
-		Name="SqueezePanel 7.3.3 $(var.version)"
+		Name="SqueezePanel 7.4 $(var.version)"
 		Id="*"
 		UpgradeCode="$(var.UpgradeCode)"
-		Manufacturer="Michael Herger - Logitech SA"
+		Manufacturer="Logitech SA"
 		Version="$(var.version)"
 		Language="1033">
 
 		<Package
 			Manufacturer="Logitech"
 			InstallerVersion="200"
-			Languages="1033"
 			Compressed="yes" />
 
+		<Condition Message="Another version of SqueezePanel is already installed. Please uninstall before updating.">NOT OTHERVERSIONDETECTED</Condition>
+ 
 		<Media Id="1" Cabinet="SqueezePanel.cab" EmbedCab="yes" />
 		
 		<Property Id="WHSLogo">1</Property>
@@ -48,24 +49,20 @@
 			<ComponentRef Id="HomeServerConsoleTab.SqueezePanel" />
 		</Feature>
 
-		<Property Id="OLDERVERSIONBEINGUPGRADED" Secure="yes" />
-		<Property Id="NEWERVERSIONDETECTED" Secure="yes" />
-		
 		<Upgrade Id="$(var.UpgradeCode)">
-			<UpgradeVersion Minimum="$(var.version)" 
-							IncludeMinimum="no" 
-							OnlyDetect="yes" 
-							Property="NEWERVERSIONDETECTED" />
-			<UpgradeVersion Minimum="0.0.0" 
-							Maximum="$(var.version)"
-							IncludeMinimum="yes"
-							IncludeMaximum="no"
-							Property="OLDERVERSIONBEINGUPGRADED" />
+			<UpgradeVersion Minimum="0.0.0" IncludeMinimum="yes"
+							OnlyDetect="yes"
+							Property="OTHERVERSIONDETECTED" />
 		</Upgrade>
 
 		<InstallExecuteSequence>
+			<FindRelatedProducts Before="LaunchConditions" />
 			<RemoveExistingProducts After="InstallValidate" />
 		</InstallExecuteSequence>
+
+		<InstallUISequence>
+			<FindRelatedProducts Before="LaunchConditions" />
+		</InstallUISequence>
 	</Product>
 
 </Wix>

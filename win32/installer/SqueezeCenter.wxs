@@ -15,11 +15,12 @@
 			Languages="1033"
 			Compressed="yes" />
 
-		<Media Id="1" Cabinet="SqueezeCenter_0.0.0.0.cab" EmbedCab="yes" />
+		<Media Id="1" Cabinet="SqueezeCenter.cab" EmbedCab="yes" />
 
 		<Property Id="WHSLogo">1</Property>
 
 		<Condition Message="[ProductName] requires Windows Home Server. For more information, please refer to the User Guide.">VersionNT = 502</Condition>
+		<Condition Message="Another version of SqueezeCenter is already installed. Please uninstall before updating.">NOT OTHERVERSIONDETECTED</Condition>
 
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="APPPATH" Name=".">
@@ -85,34 +86,32 @@
 
 		<CustomAction Id="UnInstallSC" Directory="APPPATH" ExeCommand="[UNINSTALLCOMMAND] /SUPPRESSMSGBOXES" Impersonate="no" Return="ignore" Execute="deferred" />
 		
-		<Property Id="OLDERVERSIONBEINGUPGRADED" Secure="yes" />
-		<Property Id="NEWERVERSIONDETECTED" Secure="yes" />
-		
 		<Upgrade Id="$(var.UpgradeCode)">
-			<UpgradeVersion Minimum="$(var.version)" 
-							IncludeMinimum="no" 
-							OnlyDetect="yes" 
-							Property="NEWERVERSIONDETECTED" />
-			<UpgradeVersion Minimum="0.0.0" 
-							Maximum="$(var.version)"
-							IncludeMinimum="yes"
-							IncludeMaximum="no"
-							Property="OLDERVERSIONBEINGUPGRADED" />
+			<UpgradeVersion Minimum="0.0.0" IncludeMinimum="yes"
+							OnlyDetect="yes"
+							Property="OTHERVERSIONDETECTED" />
 		</Upgrade>
 
 		<InstallExecuteSequence>
+			<FindRelatedProducts Before="LaunchConditions" />
 			<RemoveExistingProducts After="InstallValidate" />
+
 			<Custom Action="InstallSC" After="InstallInitialize">
 				NOT REMOVE="ALL"
 			</Custom>
+
 			<Custom Action="InstallSCService" After="InstallSC">
 				NOT REMOVE="ALL"
 			</Custom>
+
 			<Custom Action="UnInstallSC" Before="InstallFinalize">
 				REMOVE="ALL"
 			</Custom>
 		</InstallExecuteSequence>
 
+		<InstallUISequence>
+			<FindRelatedProducts Before="LaunchConditions" />
+		</InstallUISequence>
 	</Product>
 
 </Wix>
