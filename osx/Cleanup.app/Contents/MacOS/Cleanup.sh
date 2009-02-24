@@ -6,4 +6,9 @@ else
 fi
 
 wxPerl cleanup.pl &
-osascript -e 'tell application "wxPerl.app" to activate'
+
+for (( i = 0 ; i < 3 ; i++ ))
+do
+	osascript -e 'tell application "wxPerl.app" to activate'
+	sleep 1
+done
