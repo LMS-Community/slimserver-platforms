@@ -53,6 +53,9 @@ else
 fi
 
 if [ -e "$2" ] ; then
+	# install cleanup tool
+	ln -s "$2/Contents/Resources/Cleanup.app" "/Applications/SqueezeCenter Cleanup"
+
 	cd "$2/Contents/server"
 
 	# install SC to start at boot time if it hasn't been configured yet
