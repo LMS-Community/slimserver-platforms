@@ -2,6 +2,7 @@ PAP-Version: 1.0
 Packer: 
 Script: SqueezeTray.pl
 Clean: 1
+Dyndll: 1
 Force: 1
 Icon: res\SqueezeCenter.ico
 Icon: res\SqueezeCenterOff.ico

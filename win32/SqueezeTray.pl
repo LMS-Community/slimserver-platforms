@@ -585,7 +585,7 @@ sub launchCleanup {
 	# ask whether the user really wants to stop SC to do the cleanup
 	if (sendCLICommand('serverstatus')) {
 		if (MessageBox(
-			string('CLEANUP_ARE_YOU_SURE') . File::Spec->catdir(installDir(), 'server', 'cleanup.exe'),
+			string('CLEANUP_ARE_YOU_SURE'),
 			string('CLEANUP_TITLE'),
 			MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2
 		) != IDYES) {
