@@ -125,9 +125,6 @@ Type: dirifempty; Name: {app}\server\IR
 Type: dirifempty; Name: {app}\server\Plugins
 Type: dirifempty; Name: {app}\server\HTML
 Type: dirifempty; Name: {app}\server\SQL
-Type: filesandordirs; Name: {app}\server\Cache
-Type: filesandordirs; Name: {commonappdata}\SqueezeCenter\Cache
-Type: filesandordirs; Name: {code:GetWritablePath}\Cache
 Type: files; Name: {app}\server\slimserver.pref
 Type: files; Name: {app}\{cm:SlimDevicesWebSite}.url
 Type: files; Name: {app}\{cm:SqueezeCenterWebInterface}.url
@@ -162,14 +159,15 @@ const
 
 function GetHttpPort(Param: String) : String;
 begin
-  if HttpPort = '' then
-  begin
-     if CheckPort9000 = 102 then
-       HttpPort := '9001'
-     else
-       HttpPort := '9000';
-  end
-  Result := HttpPort
+	if HttpPort = '' then
+		begin
+			if CheckPort9000 = 102 then
+				HttpPort := '9001'
+			else
+				HttpPort := '9000';
+		end
+		
+	Result := HttpPort
 end;
 
 function GetInstallFolder(Param: String) : String;
@@ -502,7 +500,7 @@ begin
 	if CurStep = ssInstall then
 		begin
 			CustomExitCode := 0;
-	  	
+
 			if (RegQueryStringValue(HKLM, SCRegKey, 'Path', PrefsPath) or RegQueryStringValue(HKLM, SSRegKey, 'Path', PrefsPath)) then
 				begin
 					// add custom progress bar to be displayed while unregistering services
@@ -544,7 +542,7 @@ begin
 			end;
 			
 			Silent := Silent or WizardSilent;
-    
+
 			ProgressPage := CreateOutputProgressPage(CustomMessage('RegisterServices'), CustomMessage('RegisterServicesDesc'));
 
 			try
@@ -592,9 +590,9 @@ begin
 					end
 				else if (PrefString <> '') and (not Silent) then
 					begin
-  						SuppressibleMsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbInformation, MB_OK, IDOK);
-  						CustomExitCode := 1001;
-  					end
+						SuppressibleMsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbInformation, MB_OK, IDOK);
+						CustomExitCode := 1001;
+					end
 
 				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 
@@ -634,9 +632,9 @@ begin
 				
 						if (StartupMode = 'auto') or (StartupMode = 'logon') or (StartupMode = 'running') then
 							begin
-			    				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
+							ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
 			
-			    				// wait up to 120 seconds for the services to be started
+							// wait up to 120 seconds for the services to be started
 								Wait := 120;
 								Started := false;
 								
@@ -664,7 +662,7 @@ begin
 												Failed := true;
 												break;
 											end;
-										  
+
 											Wait := Wait - 1;
 									end;	
 							end;
@@ -690,13 +688,22 @@ end;
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
 	if CurUninstallStep = usPostUninstall then
-	  	if SuppressibleMsgBox(CustomMessage('UninstallPrefs'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2, IDNO) = IDYES then
-			begin
-				DelTree(GetWritablePath(''), True, True, True);
-				RegDeleteKeyIncludingSubkeys(HKCU, SCRegKey);
-				RegDeleteKeyIncludingSubkeys(HKLM, SCRegKey);
-				RegDeleteKeyIncludingSubkeys(HKCU, SSRegKey);
-				RegDeleteKeyIncludingSubkeys(HKLM, SSRegKey);
-			end;	
+		begin
+			if not UninstallSilent then
+				begin
+					Deltree(ExpandConstant('{app}\server\Cache'), True, True, True);
+					Deltree(ExpandConstant('{commonappdata}\SqueezeCenter\Cache'), True, True, True);
+					Deltree(ExpandConstant('{code:GetWritablePath}\Cache'), True, True, True);
+				end;
+
+		  	if SuppressibleMsgBox(CustomMessage('UninstallPrefs'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2, IDNO) = IDYES then
+				begin
+					DelTree(GetWritablePath(''), True, True, True);
+					RegDeleteKeyIncludingSubkeys(HKCU, SCRegKey);
+					RegDeleteKeyIncludingSubkeys(HKLM, SCRegKey);
+					RegDeleteKeyIncludingSubkeys(HKCU, SSRegKey);
+					RegDeleteKeyIncludingSubkeys(HKLM, SSRegKey);
+				end;
+		end;	
 end;
 
