@@ -209,7 +209,7 @@
 			[fileInstalled release];
 			fileInstalled = nil;
 		}
-		NSBeginAlertSheet (LocalizedPrefString(@"Install Results", "Install Results"), LocalizedPrefString(@"OK", "OK"), nil, fileInstalled, [[NSApplication sharedApplication] mainWindow], self, @selector (sheetDidEnd:returnCode:contextInfo:), nil, nil, @"%@", LocalizedPrefString(scriptOutput, scriptOutput));
+		NSBeginAlertSheet (LocalizedPrefString(@"Install Results", "Install Results"), LocalizedPrefString(@"OK", "OK"), nil, nil, [[NSApplication sharedApplication] mainWindow], self, @selector (sheetDidEnd:returnCode:contextInfo:), nil, fileInstalled, @"%@", LocalizedPrefString(scriptOutput, scriptOutput));
 	}
 
 	[scriptOutput release];
