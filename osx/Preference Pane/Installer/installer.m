@@ -3,7 +3,7 @@
 //  SqueezeCenter
 //
 //  Created by Dave Nanian on Fri Jan 03 2003.
-//  Copyright 2003-2007 Logitech
+//  Copyright 2003-2009 Logitech
 //
 
 #include <Security/Authorization.h>
@@ -106,7 +106,6 @@
 
 	// This should automatically show/hide, but doesn't.
 	
-//	[[sender superview] addSubview:progressIndicator];
 	[progressIndicator startAnimation:self];
 	[progressIndicator setNeedsDisplay:YES];
 	[sender displayIfNeeded];
@@ -138,109 +137,59 @@
 	}
 	
 	[preflightTask autorelease];
-
-#if 0
-	// re-checked and errors out in the installer script.
-	if ([preflightTask terminationStatus] != 0)
-	{
-		[sender setEnabled:YES];
-		[progressIndicator stopAnimation:self];
-		[progressIndicator setNeedsDisplay:YES];
-		return;
-	}
-#endif
 	
 	// First, get the install type, and check if we need to be authorized:
 
-//	int	doInstallType = [[installType selectedItem] tag];
-	int	doInstallType = kInstallGlobal;
-
-	NSString *fileToInstall = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"../Install Files/SqueezeCenter.prefPane"];
+	NSString *folderToInstall = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"../Install Files"];
 	NSString *installerScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"install.sh"];
-	NSString *fileInstalled = nil;
 	NSMutableString *scriptOutput = [[NSMutableString alloc] init];
 
 	/*
-	**  Authorize if we're going to install or remove the global preference pane.
+	** Authorize if we're going to install or remove the global preference pane.
 	*/
 	
-	if ((doInstallType == kInstallGlobal || foundGlobal) && [self authorizeUser] == NO)
+	if ([self authorizeUser] == NO)
 	{
 		[sender setEnabled:YES];
 		[progressIndicator stopAnimation:self];
 		[progressIndicator setNeedsDisplay:YES];
 		return;
 	}
-	
-	if (doInstallType == kInstallGlobal)
-		fileInstalled = [[NSString stringWithString:@"/Library/PreferencePanes/SqueezeCenter.prefPane"] retain];
-	else
-		fileInstalled = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/PreferencePanes/SqueezeCenter.prefPane"] retain];
 
-	if (doInstallType == kInstallGlobal || foundGlobal)
+	// We know we're authorized: run the install script, with authorization.
+
+	OSStatus myStatus;
+	AuthorizationFlags myFlags = kAuthorizationFlagDefaults;
+	FILE *myCommunicationsPipe = NULL;
+	char myReadBuffer[128];
+	const char *myArguments[] = { [folderToInstall UTF8String], NULL };
+
+	/*
+	 ** OK, run script with administrator privs, based on the token
+	 ** we retrieved earlier. We might want to retrieve the
+	 ** output of the tool (which is assumed to be the message to display
+	 ** to the user), and display it once
+	 ** execution has finished...
+	 */
+
+	myStatus = AuthorizationExecuteWithPrivileges (myAuthorizationRef, [installerScript UTF8String], myFlags, (char **) myArguments, &myCommunicationsPipe);
+
+	if (myStatus == errAuthorizationSuccess)
 	{
-		// We know we're authorized: run the install script, with authorization.
-	
-		OSStatus myStatus;
-		AuthorizationFlags myFlags = kAuthorizationFlagDefaults;
-		FILE *myCommunicationsPipe = NULL;
-		char myReadBuffer[128];
-		const char *myArguments[] = { [fileToInstall UTF8String], [fileInstalled UTF8String], NULL };
-	
-		/*
-		 **  OK, run script with administrator privs, based on the token
-		 ** we retrieved earlier. We might want to retrieve the
-		 ** output of the tool (which is assumed to be the message to display
-		 ** to the user), and display it once
-		 ** execution has finished...
-		 */
-	
-		myStatus = AuthorizationExecuteWithPrivileges (myAuthorizationRef, [installerScript UTF8String], myFlags, (char **) myArguments, &myCommunicationsPipe);
-	
-		if (myStatus == errAuthorizationSuccess)
+		for (;;)
 		{
-			for (;;)
-			{
-				int bytesRead = read (fileno (myCommunicationsPipe), myReadBuffer, sizeof (myReadBuffer));
-		
-				if (bytesRead < 1)
-					break;
-				
-				[scriptOutput appendString:[NSString stringWithCString:myReadBuffer length:bytesRead]];
-			}
-			fclose (myCommunicationsPipe);
+			int bytesRead = read (fileno (myCommunicationsPipe), myReadBuffer, sizeof (myReadBuffer));
+	
+			if (bytesRead < 1)
+				break;
+			
+			[scriptOutput appendString:[NSString stringWithCString:myReadBuffer length:bytesRead]];
 		}
-		else
-		{
-			NSBeep ();
-			[fileInstalled release];
-			fileInstalled = nil;
-		}
+		fclose (myCommunicationsPipe);
 	}
 	else
 	{
-		NSTask *pipeTask = [[NSTask alloc] init];
-		NSPipe *outputPipe = [NSPipe pipe];
-		NSFileHandle *readHandle = [outputPipe fileHandleForReading];
-		NSData *inData = nil;
-	
-		[pipeTask setStandardOutput:outputPipe];
-		[pipeTask setLaunchPath:installerScript];
-		[pipeTask setArguments:[NSArray arrayWithObjects:fileToInstall, fileInstalled, nil]];
-		[pipeTask launch];
-	
-		while ((inData = [readHandle availableData]) && [inData length])
-			[scriptOutput appendString:[NSString stringWithCString:[inData bytes] length:[inData length]]];
-	
-		if ([pipeTask isRunning])
-			[pipeTask waitUntilExit];
-	
-		if ([pipeTask terminationStatus] != 0)
-		{
-			[fileInstalled release];
-			fileInstalled = nil;
-		}
-		[pipeTask release];
+		NSBeep ();
 	}
 
 	/*
@@ -248,17 +197,11 @@
 	** or install it.
 	*/
 	
-	if (installType == kInstallGlobal || foundGlobal)
-		AuthorizationFree (myAuthorizationRef, kAuthorizationFlagDefaults);
+	AuthorizationFree (myAuthorizationRef, kAuthorizationFlagDefaults);
 	
 	if ([scriptOutput length] > 0)
 	{
-		if (NSEqualRanges ([scriptOutput rangeOfString:@"success" options:NSCaseInsensitiveSearch], NSMakeRange (NSNotFound, 0)))
-		{
-			[fileInstalled release];
-			fileInstalled = nil;
-		}
-		NSBeginAlertSheet (LocalizedPrefString(@"Install Results", "Install Results"), LocalizedPrefString(@"OK", "OK"), nil, nil, [[NSApplication sharedApplication] mainWindow], self, @selector (sheetDidEnd:returnCode:contextInfo:), nil, fileInstalled, @"%@", LocalizedPrefString(scriptOutput, scriptOutput));
+		NSBeginAlertSheet (LocalizedPrefString(@"Install Results", "Install Results"), LocalizedPrefString(@"OK", "OK"), nil, nil, [[NSApplication sharedApplication] mainWindow], self, @selector (sheetDidEnd:returnCode:contextInfo:), nil, nil, @"%@", LocalizedPrefString(scriptOutput, scriptOutput));
 	}
 
 	[scriptOutput release];
