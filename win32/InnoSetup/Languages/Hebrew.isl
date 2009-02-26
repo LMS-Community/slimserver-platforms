@@ -20,7 +20,6 @@ WelcomeFontSize=11
 ;TitleFontSize=29
 ;CopyrightFontName=Arial
 ;CopyrightFontSize=8
-RightToLeft=yes
 
 [Messages]
 

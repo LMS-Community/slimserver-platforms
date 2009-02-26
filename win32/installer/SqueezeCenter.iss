@@ -5,6 +5,12 @@
 ;
 ; Script by Chris Eastwood, January 2003 - http://www.vbcodelibrary.co.uk
 
+#define AppName "SqueezeCenter"
+#define AppVersion "7.4"
+#define ProductURL "http://www.slimdevices.com"
+#define SSRegKey = "Software\SlimDevices\SlimServer"
+#define SCRegKey = "Software\Logitech\SqueezeCenter"
+
 [Languages]
 Name: en; MessagesFile: "Default.isl"
 Name: de; MessagesFile: "German.isl"
@@ -22,19 +28,19 @@ Name: sv; MessagesFile: "Swedish.isl"
 #include "strings.iss"
 
 [Setup]
-AppName=SqueezeCenter
-AppVerName=SqueezeCenter 7.4
-AppVersion=7.4
-VersionInfoProductName=SqueezeCenter 7.4
-VersionInfoProductVersion=7.4
+AppName={#AppName}
+AppVerName={#AppName} {#AppVersion}
+AppVersion={#AppVersion}
+VersionInfoProductName={#AppName} {#AppVersion}
+VersionInfoProductVersion={#AppVersion}
 VersionInfoVersion=0.0.0.0
 
 AppPublisher=Logitech
-AppPublisherURL=http://www.slimdevices.com
-AppSupportURL=http://www.slimdevices.com
-AppUpdatesURL=http://www.slimdevices.com
+AppPublisherURL={#ProductURL}
+AppSupportURL={#ProductURL}
+AppUpdatesURL={#ProductURL}
 DefaultDirName={code:GetInstallFolder}
-DefaultGroupName=SqueezeCenter
+DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 WizardImageFile=squeezebox.bmp
@@ -76,15 +82,15 @@ Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de
 Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*"; Flags: recursesubdirs ignoreversion
 
 [Dirs]
-Name: {commonappdata}\SqueezeCenter; Permissions: users-modify
+Name: {commonappdata}\{#AppName}; Permissions: users-modify
 Name: {app}\server\Plugins; Permissions: users-modify
 
 [INI]
-Filename: {app}\{cm:SlimDevicesWebSite}.url; Section: InternetShortcut; Key: URL; String: http://www.slimdevices.com; Flags: uninsdeletesection
+Filename: {app}\{cm:SlimDevicesWebSite}.url; Section: InternetShortcut; Key: URL; String: {#ProductURL}; Flags: uninsdeletesection
 Filename: {app}\{cm:SqueezeCenterWebInterface}.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000; Flags: uninsdeletesection
 
 [Icons]
-Name: {group}\SqueezeCenter; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
+Name: {group}\{#AppName}; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
 Name: {group}\{cm:ManageService}; Filename: {app}\ServiceEnabler.exe;
 Name: {group}\{cm:Cleanup}; Filename: {app}\server\cleanup.exe; WorkingDir: "{app}\server";
 Name: {group}\{cm:SlimDevicesWebSite}; Filename: {app}\{cm:SlimDevicesWebSite}.url
@@ -92,29 +98,29 @@ Name: {group}\{cm:License}; Filename: {app}\{cm:License}.txt
 Name: {group}\{cm:GettingStarted}; Filename: {app}\{cm:GettingStarted}.html
 Name: {group}\{cm:UninstallSqueezeCenter}; Filename: {uninstallexe}
 Name: {commonstartup}\{cm:SqueezeCenterTrayTool}; Filename: {app}\SqueezeTray.exe; WorkingDir: "{app}"
-Name: {userdesktop}\SqueezeCenter; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
+Name: {userdesktop}\{#AppName}; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
 
 [Registry]
 ;
 ; The following keys open required SqueezeCenter ports in the XP Firewall
 ;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "{code:GetHttpPort}:TCP"; ValueData: "{code:GetHttpPort}:TCP:*:Enabled:SqueezeCenter {code:GetHttpPort} tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9001:TCP"; ValueData: "9001:TCP:*:Enabled:SqueezeCenter 9001 tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9002:TCP"; ValueData: "9002:TCP:*:Enabled:SqueezeCenter 9002 tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9003:TCP"; ValueData: "9003:TCP:*:Enabled:SqueezeCenter 9003 tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9004:TCP"; ValueData: "9004:TCP:*:Enabled:SqueezeCenter 9004 tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9005:TCP"; ValueData: "9005:TCP:*:Enabled:SqueezeCenter 9005 tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9006:TCP"; ValueData: "9006:TCP:*:Enabled:SqueezeCenter 9006 tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9007:TCP"; ValueData: "9007:TCP:*:Enabled:SqueezeCenter 9007 tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9008:TCP"; ValueData: "9008:TCP:*:Enabled:SqueezeCenter 9008 tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9009:TCP"; ValueData: "9009:TCP:*:Enabled:SqueezeCenter 9009 tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9010:TCP"; ValueData: "9010:TCP:*:Enabled:SqueezeCenter 9010 tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9100:TCP"; ValueData: "9100:TCP:*:Enabled:SqueezeCenter 9100 tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "8000:TCP"; ValueData: "8000:TCP:*:Enabled:SqueezeCenter 8000 tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "10000:TCP"; ValueData: "10000:TCP:*:Enabled:SqueezeCenter 10000 tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9090:TCP"; ValueData: "9090:TCP:*:Enabled:SqueezeCenter 9090 tcp (UI)"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:SqueezeCenter 3483 udp"; MinVersion: 0,5.01;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:SqueezeCenter 3483 tcp"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "{code:GetHttpPort}:TCP"; ValueData: "{code:GetHttpPort}:TCP:*:Enabled:{#AppName} {code:GetHttpPort} tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9001:TCP"; ValueData: "9001:TCP:*:Enabled:{#AppName} 9001 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9002:TCP"; ValueData: "9002:TCP:*:Enabled:{#AppName} 9002 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9003:TCP"; ValueData: "9003:TCP:*:Enabled:{#AppName} 9003 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9004:TCP"; ValueData: "9004:TCP:*:Enabled:{#AppName} 9004 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9005:TCP"; ValueData: "9005:TCP:*:Enabled:{#AppName} 9005 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9006:TCP"; ValueData: "9006:TCP:*:Enabled:{#AppName} 9006 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9007:TCP"; ValueData: "9007:TCP:*:Enabled:{#AppName} 9007 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9008:TCP"; ValueData: "9008:TCP:*:Enabled:{#AppName} 9008 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9009:TCP"; ValueData: "9009:TCP:*:Enabled:{#AppName} 9009 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9010:TCP"; ValueData: "9010:TCP:*:Enabled:{#AppName} 9010 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9100:TCP"; ValueData: "9100:TCP:*:Enabled:{#AppName} 9100 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "8000:TCP"; ValueData: "8000:TCP:*:Enabled:{#AppName} 8000 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "10000:TCP"; ValueData: "10000:TCP:*:Enabled:{#AppName} 10000 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9090:TCP"; ValueData: "9090:TCP:*:Enabled:{#AppName} 9090 tcp (UI)"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:{#AppName} 3483 udp"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:{#AppName} 3483 tcp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SOFTWARE\Logitech\SqueezeCenter; ValueType: string; ValueName: Path; ValueData: {app}
 Root: HKLM; Subkey: SOFTWARE\Logitech\SqueezeCenter; ValueType: string; ValueName: DataPath; ValueData: {code:GetWritablePath}
 
@@ -153,10 +159,6 @@ var
 	// 1102 - SlimServer uninstall failed
 	CustomExitCode: Integer;
 
-const
-	SSRegKey = 'Software\SlimDevices\SlimServer';
-	SCRegKey = 'Software\Logitech\SqueezeCenter';
-
 function GetHttpPort(Param: String) : String;
 begin
 	if HttpPort = '' then
@@ -174,7 +176,7 @@ function GetInstallFolder(Param: String) : String;
 var
 	InstallFolder: String;
 begin
-	if (not RegQueryStringValue(HKLM, SCRegKey, 'Path', InstallFolder)) then
+	if (not RegQueryStringValue(HKLM, '{#SCRegKey}', 'Path', InstallFolder)) then
 		InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'SqueezeCenter';
 
 	Result := InstallFolder;
@@ -186,7 +188,7 @@ var
 	DataPath: String;
 begin
 
-	if (not RegQueryStringValue(HKLM, SCRegKey, 'DataPath', DataPath)) then
+	if (not RegQueryStringValue(HKLM, '{#SCRegKey}', 'DataPath', DataPath)) then
 		begin
 
 			if ExpandConstant('{commonappdata}') = '' then
@@ -270,7 +272,7 @@ begin
 	// remove SlimTray if it's still running
 	if (UpperCase(Version) = 'SC') then
 		begin
-			RegKey := SCRegKey;
+			RegKey := '{#SCRegKey}';
 			InstallDefault := ExpandConstant('{app}');
 			Svc := 'squeezesvc';
 			Executable := 'squeez~1.exe';
@@ -283,7 +285,7 @@ begin
 		end
 	else
 		begin
-			RegKey := SSRegKey;
+			RegKey := '{#SSRegKey}';
 			InstallDefault := AddBackslash(ExpandConstant('{pf}')) + 'SlimServer';
 			Svc := 'slimsvc';
 			Executable := 'slimserver.exe';
@@ -342,7 +344,7 @@ begin
 
 			PrefsFile := AddBackslash(PrefsPath) + '..\slimserver.pref';
 
-			if ((RegQueryStringValue(HKLM, SSRegKey, 'Path', OldPrefsPath) and DirExists(AddBackslash(OldPrefsPath) + 'server'))) then
+			if ((RegQueryStringValue(HKLM, '{#SSRegKey}', 'Path', OldPrefsPath) and DirExists(AddBackslash(OldPrefsPath) + 'server'))) then
 				OldPrefsPath := AddBackslash(OldPrefsPath) + 'server'
 			else
 				OldPrefsPath := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SlimServer';
@@ -478,7 +480,7 @@ begin
 
 	else
 		begin
-			if RegQueryStringValue(HKCU, SCRegKey, 'StartAtBoot', StartAtBoot) then
+			if RegQueryStringValue(HKCU, '{#SCRegKey}', 'StartAtBoot', StartAtBoot) then
 				if (StartAtBoot = '1') then
 					StartupMode := 'logon';
 		end;
@@ -501,7 +503,7 @@ begin
 		begin
 			CustomExitCode := 0;
 
-			if (RegQueryStringValue(HKLM, SCRegKey, 'Path', PrefsPath) or RegQueryStringValue(HKLM, SSRegKey, 'Path', PrefsPath)) then
+			if (RegQueryStringValue(HKLM, '{#SCRegKey}', 'Path', PrefsPath) or RegQueryStringValue(HKLM, '{#SSRegKey}', 'Path', PrefsPath)) then
 				begin
 					// add custom progress bar to be displayed while unregistering services
 					ProgressPage := CreateOutputProgressPage(CustomMessage('UnregisterServices'), CustomMessage('UnregisterServicesDesc'));
@@ -576,7 +578,7 @@ begin
 
 				// Add firewall rules for Windows XP/Vista
 				if (GetWindowsVersion shr 24 >= 6) then
-					Exec('netsh', 'advfirewall firewall add rule name="SqueezeCenter" description="Allow SqueezeCenter to accept inbound connections." dir=in action=allow program="' + ExpandConstant('{app}') + '\server\squeezecenter.exe' + '"', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+					Exec('netsh', 'advfirewall firewall add rule name="{#AppName}" description="Allow {#AppName} to accept inbound connections." dir=in action=allow program="' + ExpandConstant('{app}') + '\server\squeezecenter.exe' + '"', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 	
 				PrefsFile := GetPrefsFile();
 	
@@ -606,7 +608,7 @@ begin
  					CustomExitCode := 1002;
 				end;
 
-				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
+				ProgressPage.setText(CustomMessage('RegisteringServices'), '{#AppName}');
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
 				RegisterPort('9000');
@@ -632,7 +634,7 @@ begin
 				
 						if (StartupMode = 'auto') or (StartupMode = 'logon') or (StartupMode = 'running') then
 							begin
-							ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeCenter');
+							ProgressPage.setText(CustomMessage('RegisteringServices'), '{#AppName}');
 			
 							// wait up to 120 seconds for the services to be started
 								Wait := 120;
@@ -699,10 +701,10 @@ begin
 		  	if SuppressibleMsgBox(CustomMessage('UninstallPrefs'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2, IDNO) = IDYES then
 				begin
 					DelTree(GetWritablePath(''), True, True, True);
-					RegDeleteKeyIncludingSubkeys(HKCU, SCRegKey);
-					RegDeleteKeyIncludingSubkeys(HKLM, SCRegKey);
-					RegDeleteKeyIncludingSubkeys(HKCU, SSRegKey);
-					RegDeleteKeyIncludingSubkeys(HKLM, SSRegKey);
+					RegDeleteKeyIncludingSubkeys(HKCU, '{#SCRegKey}');
+					RegDeleteKeyIncludingSubkeys(HKLM, '{#SCRegKey}');
+					RegDeleteKeyIncludingSubkeys(HKCU, '{#SSRegKey}');
+					RegDeleteKeyIncludingSubkeys(HKLM, '{#SSRegKey}');
 				end;
 		end;	
 end;
