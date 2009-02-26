@@ -142,7 +142,6 @@
 
 	NSString *folderToInstall = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"../Install Files"];
 	NSString *installerScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"install.sh"];
-	NSString *fileInstalled = [[NSString stringWithString:@"/Library/PreferencePanes/SqueezeCenter.prefPane"] retain];;
 	NSMutableString *scriptOutput = [[NSMutableString alloc] init];
 
 	/*
@@ -163,7 +162,7 @@
 	AuthorizationFlags myFlags = kAuthorizationFlagDefaults;
 	FILE *myCommunicationsPipe = NULL;
 	char myReadBuffer[128];
-	const char *myArguments[] = { [folderToInstall UTF8String], NULL };
+	const char *myArguments[] = { [folderToInstall UTF8String], [fileInstalled UTF8String], NULL };
 
 	/*
 	 ** OK, run script with administrator privs, based on the token
