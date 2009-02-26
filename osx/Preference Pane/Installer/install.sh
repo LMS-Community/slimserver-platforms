@@ -1,10 +1,10 @@
 #!/bin/sh
 
 SERVER_RUNNING=`ps -ax | grep "slimserver\.pl\|slimserver\|squeezecenter\.pl" | grep -v grep | cat`
-PREFPANE_FROM=$1/SqueezeCenter.prefPane
-PREFPANE_TO=/Library/PreferencePanes/SqueezeCenter.prefPane
-CLEANUP_FROM=$1/Cleanup.app
-CLEANUP_TO=/Applications/SqueezeCenter Cleanup
+PREFPANE_FROM="$1/SqueezeCenter.prefPane"
+PREFPANE_TO="/Library/PreferencePanes/SqueezeCenter.prefPane"
+CLEANUP_FROM="$1/Cleanup.app"
+CLEANUP_TO="/Applications/SqueezeCenter Cleanup.app"
 
 if [ z"$SERVER_RUNNING" != z ] ; then
 	echo "Please stop the SqueezeCenter before running the installer."
