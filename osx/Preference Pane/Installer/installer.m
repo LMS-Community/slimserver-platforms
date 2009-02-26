@@ -142,6 +142,7 @@
 
 	NSString *folderToInstall = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"../Install Files"];
 	NSString *installerScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"install.sh"];
+	NSString *fileInstalled = [[NSString stringWithString:@"/Library/PreferencePanes/SqueezeCenter.prefPane"] retain];;
 	NSMutableString *scriptOutput = [[NSMutableString alloc] init];
 
 	/*
