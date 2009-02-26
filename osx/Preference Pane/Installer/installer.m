@@ -191,6 +191,8 @@
 	else
 	{
 		NSBeep ();
+		[fileInstalled release];
+		fileInstalled = nil;
 	}
 
 	/*
@@ -202,7 +204,12 @@
 	
 	if ([scriptOutput length] > 0)
 	{
-		NSBeginAlertSheet (LocalizedPrefString(@"Install Results", "Install Results"), LocalizedPrefString(@"OK", "OK"), nil, nil, [[NSApplication sharedApplication] mainWindow], self, @selector (sheetDidEnd:returnCode:contextInfo:), nil, nil, @"%@", LocalizedPrefString(scriptOutput, scriptOutput));
+		if (NSEqualRanges ([scriptOutput rangeOfString:@"success" options:NSCaseInsensitiveSearch], NSMakeRange (NSNotFound, 0)))
+		{
+			[fileInstalled release];
+			fileInstalled = nil;
+		}
+		NSBeginAlertSheet (LocalizedPrefString(@"Install Results", "Install Results"), LocalizedPrefString(@"OK", "OK"), nil, fileInstalled, [[NSApplication sharedApplication] mainWindow], self, @selector (sheetDidEnd:returnCode:contextInfo:), nil, nil, @"%@", LocalizedPrefString(scriptOutput, scriptOutput));
 	}
 
 	[scriptOutput release];
