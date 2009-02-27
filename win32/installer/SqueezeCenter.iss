@@ -11,6 +11,10 @@
 #define SSRegKey = "Software\SlimDevices\SlimServer"
 #define SCRegKey = "Software\Logitech\SqueezeCenter"
 
+#ifdef SpAppSourcePath
+  #include SpAppSourcePath + "SqueezePlay-common.iss"
+#endif
+
 [Languages]
 Name: en; MessagesFile: "Default.isl"
 Name: de; MessagesFile: "German.isl"
