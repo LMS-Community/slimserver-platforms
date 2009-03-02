@@ -1,6 +1,7 @@
 PAP-Version: 1.0
 Packer: 
 Script: SqueezeTray.pl
+Bind: strings.txt[file=strings.txt,text,mode=444]
 Clean: 1
 Dyndll: 1
 Force: 1
