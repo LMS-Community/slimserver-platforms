@@ -75,7 +75,7 @@ rm Bin/i386-linux/mysqld
 rm -rf Bin/darwin
 rm -rf Bin/powerpc-hardhat-linux
 rm -rf CPAN/arch/5.8/darwin-thread-multi-2level
-
+rm -rf CPAN/arch/5.8/MSWin32-x86-multi-thread
 
 %install
 rm -rf $RPM_BUILD_ROOT
