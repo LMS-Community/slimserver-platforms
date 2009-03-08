@@ -1,13 +1,17 @@
 PAP-Version: 1.0
 Packer: 
 Script: SqueezeTray.pl
+Add: Slim::Utils::OS::Win32
 Bind: strings.txt[file=strings.txt,text,mode=444]
 Clean: 1
 Dyndll: 1
 Force: 1
 Icon: res\SqueezeCenter.ico
 Icon: res\SqueezeCenterOff.ico
+Lib: lib:..\..\server
+Lib: lib:..\..\server\CPAN
 Lib: lib:..\..\server\CPAN\arch\5.8\MSWin32-x86-multi-thread\auto
 Lib: lib:..\..\server\CPAN\arch\5.8\MSWin32-x86-multi-thread
-Lib: lib:..\..\server\CPAN
 Singleton: 1
+Trim: Slim::Utils::OS::*
+Trim: Slim::Utils::Update
