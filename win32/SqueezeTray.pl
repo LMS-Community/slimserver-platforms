@@ -16,7 +16,7 @@ use constant SLIM_SERVICE => 0;
 use constant SCANNER => 0;
 use constant TIMERSECS => 10;
 
-use Slim::Utils::OS::Win32::ServiceMgr;
+use Slim::Utils::ServiceManager;
 use Slim::Utils::Light;
 
 # Passed on the command line by Getopt::Long
@@ -26,13 +26,14 @@ my $cliInstall     = 0;
 my $cliUninstall   = 0;
 
 my $language       = getPref('language') || 'EN';
+my $svcMgr         = Slim::Utils::ServiceManager->new();
 
 # Dynamically create the popup menu based on SqueezeCenter state
 sub PopupMenu {
 	my @menu = ();
 	
-	my $type = getStartupType();
-	my $state = getServiceState();
+	my $type = $svcMgr->getStartupType();
+	my $state = $svcMgr->getServiceState();
 
 	if ($type == SC_STARTUP_TYPE_SERVICE) {
 		push @menu, [sprintf('*%s', string('OPEN_SQUEEZECENTER')), $state == SC_STATE_RUNNING ? \&openSqueezeCenter : undef];
@@ -44,7 +45,7 @@ sub PopupMenu {
 		push @menu, ["--------"];
 		push @menu, [string('STOP_SQUEEZECENTER'), \&stopSqueezeCenter];
 	}
-	elsif (getServiceState() == SC_STATE_STARTING) {
+	elsif ($svcMgr->getServiceState() == SC_STATE_STARTING) {
 		push @menu, [string('STARTING_SQUEEZECENTER'), ""];
 	}
 	else {
@@ -53,8 +54,8 @@ sub PopupMenu {
 
 	my $appString = string('RUN_AT_LOGIN');
 
-	my $setNone  = sub { Slim::Utils::OS::Win32::ServiceMgr->setStartAtLogin(0) };
-	my $setLogin = sub { Slim::Utils::OS::Win32::ServiceMgr->setStartAtLogin(1) };
+	my $setNone  = sub { $svcMgr->setStartAtLogin(0) };
+	my $setLogin = sub { $svcMgr->setStartAtLogin(1) };
 
 	if ($type == SC_STARTUP_TYPE_LOGIN) {
 		push @menu, ["v $appString", $setNone, 1];
@@ -93,12 +94,12 @@ sub Singleton {
 
 			$cliStart = 1;
 
-			if (getServiceState() == SC_STATE_STOPPED) {
+			if ($svcMgr->getServiceState() == SC_STATE_STOPPED) {
 
 				startSqueezeCenter();
 			}
 
-			if (getServiceState() == SC_STATE_RUNNING) {
+			if ($svcMgr->getServiceState() == SC_STATE_RUNNING) {
 
 				openSqueezeCenter();
 
@@ -118,7 +119,7 @@ sub Singleton {
 # double click on tray icon - attempt to avoid accidental call of exit
 sub DoubleClick {
 
-	if (getServiceState() == SC_STATE_RUNNING) {
+	if ($svcMgr->getServiceState() == SC_STATE_RUNNING) {
 
 		openSqueezeCenter();
 
@@ -135,11 +136,11 @@ sub ToolTip {
 	# use English if HE is selected on western systems, as these can't handle the Hebrew tooltip
 	my $lang = ($language eq 'HE' && Win32::Locale::get_language() ne 'he' ? 'EN' : $language);
 
- 	if (getServiceState() == SC_STATE_STARTING) {
+ 	if ($svcMgr->getServiceState() == SC_STATE_STARTING) {
 		$state = string('SQUEEZECENTER_STARTING', $lang);
  	}
  
- 	elsif (getServiceState() == SC_STATE_RUNNING) {
+ 	elsif ($svcMgr->getServiceState() == SC_STATE_RUNNING) {
 		$state = string('SQUEEZECENTER_RUNNING', $lang);
  	}
     
@@ -157,7 +158,7 @@ sub ToolTip {
 # and modifies state variables.
 sub Timer {
 
-	my $state = Slim::Utils::OS::Win32::ServiceMgr->checkServiceState();
+	my $state = $svcMgr->checkServiceState();
 
 	if ($state == SC_STATE_STARTING) {
 
@@ -187,14 +188,14 @@ sub checkAndStart {
 	}
 
 	if ($cliInstall) {
-		Slim::Utils::OS::Win32::ServiceMgr->initStartupType();
+		$svcMgr->initStartupType();
 
 		checkSCActive();
 	}
 
 	# If we're set to Start at Login, do it, but only if the process isn't
 	# already running.
-	if (processID() == -1 && getStartupType() == SC_STARTUP_TYPE_LOGIN) {
+	if (processID() == -1 && $svcMgr->getStartupType() == SC_STARTUP_TYPE_LOGIN) {
 
 		startSqueezeCenter();
 	}
@@ -205,7 +206,7 @@ sub checkAndStart {
 	# Handle the command line --start flag.
 	if ($cliStart) {
 
-		my $state = getServiceState();
+		my $state = $svcMgr->getServiceState();
 
 		if ($state == SC_STATE_STOPPED) {
 
@@ -224,9 +225,9 @@ sub checkAndStart {
 sub checkSCActive {
 	my $update = shift;
 	
-	Slim::Utils::OS::Win32::ServiceMgr->checkServiceState();
+	$svcMgr->checkServiceState();
 	
-	my $state = getServiceState();
+	my $state = $svcMgr->getServiceState();
 
 	if ($state == SC_STATE_RUNNING) {
 		SetIcon("SqueezeCenter");
@@ -252,9 +253,9 @@ sub _getUpdateInstaller {
 }
 
 sub startSqueezeCenter {
-	Slim::Utils::OS::Win32::ServiceMgr->start();
+	$svcMgr->start();
 
-	if (getServiceState() != SC_STATE_STARTING) {
+	if ($svcMgr->getServiceState() != SC_STATE_STARTING) {
 
 		Balloon(string('STARTING_SQUEEZECENTER'), "SqueezeCenter", "", 1);
 		SetAnimation(TIMERSECS * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
@@ -266,7 +267,7 @@ sub startSqueezeCenter {
 sub openSqueezeCenter {
 
 	# Check HTTP first in case SqueezeCenter has changed the HTTP port while running
-	my $serverUrl = Slim::Utils::OS::Win32::ServiceMgr->checkForHTTP();	
+	my $serverUrl = $svcMgr->checkForHTTP();	
 	Execute($serverUrl) if $serverUrl;
 
 	$cliStart = 0;
@@ -279,7 +280,7 @@ sub showErrorMessage {
 }
 
 sub processID {
-	my $pid = Slim::Utils::OS::Win32::ServiceMgr->getProcessID();
+	my $pid = $svcMgr->getProcessID();
 
 	# if there was an error, getProcessID() will return the error mesasage
 	if ($pid =~ /[^\d\-]/) {
@@ -312,7 +313,7 @@ sub launchCleanup {
 		stopSqueezeCenter();
 	}
 	
-	Execute(catdir(Slim::Utils::OS::Win32::ServiceMgr->installDir(), 'server', 'cleanup.exe'));
+	Execute(catdir($svcMgr->installDir(), 'server', 'cleanup.exe'));
 }
 
 sub stopSqueezeCenter {
@@ -325,7 +326,7 @@ sub stopSqueezeCenter {
 		return;
 	}
 
-	if (getServiceState() == SC_STATE_RUNNING) {
+	if ($svcMgr->getServiceState() == SC_STATE_RUNNING) {
 
 		Balloon(string('STOPPING_SQUEEZECENTER'), "SqueezeCenter", "", 1);
 
