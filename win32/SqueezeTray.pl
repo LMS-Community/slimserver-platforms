@@ -54,13 +54,13 @@ sub PopupMenu {
 
 	my $appString = string('RUN_AT_LOGIN');
 
-	my $setNone  = sub { $svcMgr->setStartAtLogin(0) };
-	my $setLogin = sub { $svcMgr->setStartAtLogin(1) };
+	my $setNone  = sub { $svcMgr->setStartupType(SC_STARTUP_TYPE_NONE) };
+	my $setLogin = sub { $svcMgr->setStartupType(SC_STARTUP_TYPE_LOGIN) };
 
 	if ($type == SC_STARTUP_TYPE_LOGIN) {
 		push @menu, ["v $appString", $setNone, 1];
 	}
-	elsif ($type == SC_STARTUP_TYPE_SERVICE) {
+	elsif ($type == SC_STARTUP_TYPE_NONE) {
 		push @menu, ["_ $appString", $setLogin, undef];
 	}
 
