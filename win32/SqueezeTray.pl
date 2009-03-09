@@ -270,7 +270,7 @@ sub openSqueezeCenter {
 	my $serverUrl = $svcMgr->checkForHTTP();	
 	Execute($serverUrl) if $serverUrl;
 
-	$cliStart = 0;
+	$cliStart = $cliInstall = 0;
 }
 
 sub showErrorMessage {
