@@ -232,7 +232,7 @@ sub checkSCActive {
 	if ($state == SC_STATE_RUNNING) {
 		SetIcon("SqueezeCenter");
 	}
-	else {
+	elsif ($state != SC_STATE_STARTING) {
 		SetIcon("SqueezeCenterOff");
 	}
 }
