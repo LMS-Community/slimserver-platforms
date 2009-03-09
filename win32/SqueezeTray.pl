@@ -131,16 +131,16 @@ sub DoubleClick {
 
 # Display tooltip based on SS state
 sub ToolTip {
-	my $state;
+	my $state = $svcMgr->getServiceState();
 
 	# use English if HE is selected on western systems, as these can't handle the Hebrew tooltip
 	my $lang = ($language eq 'HE' && Win32::Locale::get_language() ne 'he' ? 'EN' : $language);
 
- 	if ($svcMgr->getServiceState() == SC_STATE_STARTING) {
+ 	if ($state == SC_STATE_STARTING) {
 		$state = string('SQUEEZECENTER_STARTING', $lang);
  	}
  
- 	elsif ($svcMgr->getServiceState() == SC_STATE_RUNNING) {
+ 	elsif ($state == SC_STATE_RUNNING) {
 		$state = string('SQUEEZECENTER_RUNNING', $lang);
  	}
     
