@@ -127,6 +127,8 @@ Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\Fi
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:{#AppName} 3483 tcp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SOFTWARE\Logitech\SqueezeCenter; ValueType: string; ValueName: Path; ValueData: {app}
 Root: HKLM; Subkey: SOFTWARE\Logitech\SqueezeCenter; ValueType: string; ValueName: DataPath; ValueData: {code:GetWritablePath}
+; flag the svchelper.exe to be run as administrator on Vista
+Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers; ValueType: string; ValueName: {app}\server\svchelper.exe; ValueData: RUNASADMIN; Flags: uninsdeletevalue; MinVersion: 0,6.0;
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
