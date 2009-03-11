@@ -1,21 +1,20 @@
 use FindBin qw($Bin);
+use Win32;
 
-my $cmd = qq("$Bin/squeezecenter.exe");
-my @args = ();
+my $cmd = Win32::GetShortPathName( "$Bin/squeezecenter.exe" );
 
 # only allow install and remove parameters
 if ($ARGV[0] =~ /\binstall\b/i) {
-	push @args, '--install';
+	$cmd .= ' --install';
 }
 elsif ($ARGV[0] =~ /\bremove\b/i) {
-	push @args, '--remove';
+	$cmd .= ' --remove';
 }
 elsif ($ARGV[0] =~ /\bstart\b/i) {
-	$cmd = 'sc';
-	push @args, qw(start squeezesvc);
+	$cmd = 'sc start squeezesvc';
 }
 else {
 	exit;
 }
 
-system($cmd, @args);
+`$cmd $args`;
