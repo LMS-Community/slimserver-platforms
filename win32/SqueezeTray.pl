@@ -75,7 +75,9 @@ sub PopupMenu {
 	}
 
 	push @menu, ["--------"];
-	push @menu, [string('CLEANUP'), \&launchCleanup];
+	push @menu, [string('OPEN_CONTROLPANEL'), sub {
+		Execute(catdir($svcMgr->installDir(), 'server', 'cleanup.exe'));
+	}];
 
 	push @menu, ["--------"];
 	push @menu, [string('GO_TO_WEBSITE'), "Execute 'http://www.slimdevices.com'"];
@@ -293,30 +295,6 @@ sub processID {
 
 	return $pid if defined $pid;
 	return -1;
-}
-
-sub launchCleanup {
-
-	# ask whether the user really wants to stop SC to do the cleanup
-	if (sendCLICommand('serverstatus')) {
-		if (MessageBox(
-			string('CLEANUP_ARE_YOU_SURE'),
-			string('CLEANUP_TITLE'),
-			MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2
-		) != IDYES) {
-	
-			return			
-		}
-
-		stopScanner();
-	
-		# let's give the scanner a few seconds to be closed before shutting down SC
-		sleep 5;
-	
-		stopSqueezeCenter();
-	}
-	
-	Execute(catdir($svcMgr->installDir(), 'server', 'cleanup.exe'));
 }
 
 sub stopSqueezeCenter {

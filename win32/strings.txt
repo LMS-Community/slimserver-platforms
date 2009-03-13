@@ -190,14 +190,8 @@ ADDITIONAL_OPTIONS
 	NO	Tilleggsalternativer
 	SV	Fler alternativ
 
-CLEANUP
-	EN	Clean preferences, cache, log files...
-
-CLEANUP_TITLE
-	EN	SqueezeCenter Cleanup
-
-CLEANUP_ARE_YOU_SURE
-	EN	In order to reset your configuration, wipe logs, cache etc., SqueezeCenter must be stopped. Do you want to continue?
+OPEN_CONTROLPANEL
+	EN	Open Control Panel...
 
 UPDATE_AVAILABLE
 	EN	An updated SqueezeCenter version is available. Open the menu to install the latest release.
