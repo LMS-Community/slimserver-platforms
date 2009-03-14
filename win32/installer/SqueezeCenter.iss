@@ -96,7 +96,7 @@ Filename: {app}\{cm:SqueezeCenterWebInterface}.url; Section: InternetShortcut; K
 [Icons]
 Name: {group}\{#AppName}; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
 Name: {group}\{cm:ManageService}; Filename: {app}\ServiceEnabler.exe;
-Name: {group}\{cm:Cleanup}; Filename: {app}\server\cleanup.exe; WorkingDir: "{app}\server";
+Name: {group}\{cm:ControlPanel}; Filename: {app}\server\cleanup.exe; WorkingDir: "{app}\server";
 Name: {group}\{cm:SlimDevicesWebSite}; Filename: {app}\{cm:SlimDevicesWebSite}.url
 Name: {group}\{cm:License}; Filename: {app}\{cm:License}.txt
 Name: {group}\{cm:GettingStarted}; Filename: {app}\{cm:GettingStarted}.html

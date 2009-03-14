@@ -636,14 +636,5 @@ it.SCPerl=%nSe è in esecuzione la versione Perl di SC, il problema non sussiste.
 es.SCPerl=%nSi ejecuta SC con la versión perl, es correcto y está previsto.
 fr.SCPerl=%nSi vous exécutez SC à l'aide de la version perl, cet événement est attendu.
 
-nl.Cleanup=Configuratie op standaardinstellingen terugzetten
-da.Cleanup=Gendan standardkonfigurationen
-fi.Cleanup=Palauta määritykset oletuksiin
-it.Cleanup=Reimposta valori di configurazione predefiniti
-en.Cleanup=Reset configuration to defaults
-es.Cleanup=Restablecer configuración a valores predeterminados
-fr.Cleanup=Réinitialiser les valeurs par défaut de la configuration
-de.Cleanup=Standardeinstellungen wiederherstellen
-no.Cleanup=Tilbakestill konfigureringen til standard
-sv.Cleanup=Återställ till standardinställningar
+en.ControlPanel=SqueezeBox Control Panel
 
