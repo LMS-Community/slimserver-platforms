@@ -21,6 +21,8 @@ use constant TIMERSECS => 10;
 
 use Slim::Utils::ServiceManager;
 use Slim::Utils::Light;
+use Slim::Utils::OSDetect;
+Slim::Utils::OSDetect::init();
 
 # Passed on the command line by Getopt::Long
 my $cliStart       = 0;
@@ -31,28 +33,41 @@ my $cliUninstall   = 0;
 my $language       = getPref('language') || 'EN';
 my $svcMgr         = Slim::Utils::ServiceManager->new();
 
+my $restartFlag    = catdir(Slim::Utils::OSDetect::dirsFor('cache'), 'restart.txt');
+
+${^WIN32_SLOPPY_STAT} = 1;
+
 # Dynamically create the popup menu based on SqueezeCenter state
 sub PopupMenu {
 	my @menu = ();
+
+	push @menu, ['*' . string('OPEN_CONTROLPANEL'), sub {
+		Execute(catdir($svcMgr->installDir(), 'server', 'cleanup.exe'));
+	}];
+
+	if ( my $installer = _getUpdateInstaller() ) {
+		push @menu, [string('INSTALL_UPDATE'), sub {
+			system("\"$installer\" /silent");
+		}];	
+	}
+	push @menu, ["--------"];
 	
 	my $type = $svcMgr->getStartupType();
 	my $state = $svcMgr->getServiceState();
 
 	if ($type == SC_STARTUP_TYPE_SERVICE) {
-		push @menu, [sprintf('*%s', string('OPEN_SQUEEZECENTER')), $state == SC_STATE_RUNNING ? \&openSqueezeCenter : undef];
-		push @menu, ["--------"];
+		push @menu, [string('OPEN_SQUEEZECENTER'), $state == SC_STATE_RUNNING ? \&openSqueezeCenter : undef];
 		push @menu, [string('STOP_SQUEEZECENTER'), $state == SC_STATE_RUNNING ? \&stopSqueezeCenter : undef];
 	}
 	elsif ($state == SC_STATE_RUNNING) {
-		push @menu, [sprintf('*%s', string('OPEN_SQUEEZECENTER')), \&openSqueezeCenter];
-		push @menu, ["--------"];
+		push @menu, [string('OPEN_SQUEEZECENTER'), \&openSqueezeCenter];
 		push @menu, [string('STOP_SQUEEZECENTER'), \&stopSqueezeCenter];
 	}
 	elsif ($svcMgr->getServiceState() == SC_STATE_STARTING) {
 		push @menu, [string('STARTING_SQUEEZECENTER'), ""];
 	}
 	else {
-		push @menu, [sprintf('*%s', string('START_SQUEEZECENTER')), \&startSqueezeCenter];
+		push @menu, [string('START_SQUEEZECENTER'), \&startSqueezeCenter];
 	}
 
 	my $appString = string('RUN_AT_LOGIN');
@@ -67,20 +82,8 @@ sub PopupMenu {
 		push @menu, ["_ $appString", $setLogin, undef];
 	}
 
-	if ( my $installer = _getUpdateInstaller() ) {
-		push @menu, ["--------"];
-		push @menu, [string('INSTALL_UPDATE'), sub {
-			system("\"$installer\" /silent");
-		}];	
-	}
-
 	push @menu, ["--------"];
-	push @menu, [string('OPEN_CONTROLPANEL'), sub {
-		Execute(catdir($svcMgr->installDir(), 'server', 'cleanup.exe'));
-	}];
-
-	push @menu, ["--------"];
-	push @menu, [string('GO_TO_WEBSITE'), "Execute 'http://www.slimdevices.com'"];
+#	push @menu, [string('GO_TO_WEBSITE'), "Execute 'http://www.slimdevices.com'"];
 	push @menu, [string('EXIT'), "exit"];
 
 	return \@menu;
@@ -121,17 +124,8 @@ sub Singleton {
 	}
 }
 
-# double click on tray icon - attempt to avoid accidental call of exit
 sub DoubleClick {
-
-	if ($svcMgr->getServiceState() == SC_STATE_RUNNING) {
-
-		openSqueezeCenter();
-
-	} else {
-
-		DisplayMenu();
-	}
+	Execute(catdir($svcMgr->installDir(), 'server', 'cleanup.exe'));
 }
 
 # Display tooltip based on SS state
@@ -318,6 +312,25 @@ sub stopScanner {
 	sendCLICommand('abortscan');
 }
 
+sub runWatchDog {
+	# cut short if file doesn't exist, don't continue if we can't delete it
+	return unless -e $restartFlag && -w _;
+
+	
+	my @filestat = stat(_);
+	my $age = time() - $filestat[9];
+
+	# check timestamp on file: if it's more than 5 minutes old, don't restart
+	if ($age > 300) {
+		unlink $restartFlag;
+	}
+
+	elsif ($svcMgr->getServiceState() == SC_STATE_STOPPED) {
+		unlink $restartFlag;
+		startSqueezeCenter();
+	}
+}
+
 sub sendCLICommand {
 	my $cmd = shift;
 	my $cliPort = getPref('cliport', 'cli.prefs') || 9090;
@@ -375,6 +388,9 @@ SetTimer(":1", \&checkAndStart);
 
 # This is our update checker timer
 SetTimer(":2", \&checkForUpdate);
+
+# Poor man's watchdog: if cache/restart.txt exists, restart SC
+SetTimer(":5", \&runWatchDog);
 
 # This is our regular timer which continually checks for existence of
 # SS. We could have combined the two timers, but changing the
