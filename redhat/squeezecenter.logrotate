@@ -1,8 +1,14 @@
-/var/log/squeezecenter/*.log {
+/var/log/squeezecenter/server.log {
     missingok
     notifempty
     sharedscripts
     postrotate
-        /etc/init.d/squeezecenter condrestart >/dev/null 2>&1 || true
+        /bin/kill -USR1 `pgrep slimserver.pl >/dev/null 2>&1` >/dev/null 2>&1 || true
     endscript
+}
+
+/var/log/squeezecenter/scanner.log {
+    missingok
+    notifempty
+    sharedscripts
 }
