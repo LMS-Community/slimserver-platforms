@@ -6,7 +6,19 @@ my $cmd = Win32::GetShortPathName( "$Bin/squeezecenter.exe" );
 
 # only allow install and remove parameters
 if ($ARGV[0] =~ /\binstall\b/i) {
-	`$cmd --install`;
+	`$cmd --remove`;
+
+	my $args = '';
+	foreach (@ARGV) {
+		if (/username=(.*)/i) {
+			$args .= " --username=$1";
+		}
+		elsif (/password=(.*)/i) {
+			$args .= " --password=$1";
+		}
+	}
+
+	`$cmd --install $args`;
 }
 elsif ($ARGV[0] =~ /\bremove\b/i) {
 	`$cmd --remove`;
