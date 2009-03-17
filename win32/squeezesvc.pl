@@ -1,20 +1,30 @@
 use FindBin qw($Bin);
 use Win32;
+use Win32::Service;
 
 my $cmd = Win32::GetShortPathName( "$Bin/squeezecenter.exe" );
 
 # only allow install and remove parameters
 if ($ARGV[0] =~ /\binstall\b/i) {
-	$cmd .= ' --install';
+	`$cmd --install`;
 }
 elsif ($ARGV[0] =~ /\bremove\b/i) {
-	$cmd .= ' --remove';
+	`$cmd --remove`;
 }
-elsif ($ARGV[0] =~ /\bstart\b/i) {
-	$cmd = 'sc start squeezesvc';
-}
-else {
-	exit;
-}
+elsif ($ARGV[0] =~ /\b(?:re|)start\b/i) {
+	Win32::Service::StopService('', 'squeezesvc') if $ARGV[0] =~ /\brestart\b/i;
+	
+	my %status = ();
+	
+	my $max = 10;
+	
+	# wait a few seconds or until squeezesvc has stopped
+	Win32::Service::GetStatus('', 'squeezesvc', \%status);
 
-`$cmd $args`;
+	while ($status{CurrentState} != 0x01 && $max-- > 0) {
+		sleep 2;
+		Win32::Service::GetStatus('', 'squeezesvc', \%status);
+	}
+	
+	Win32::Service::StartService('', 'squeezesvc');
+}
