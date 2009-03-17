@@ -7,7 +7,7 @@
 
   postrotate
     # send USR1 to squeezecenter PID to reset logging
-    /bin/kill -USR1 `pgrep slimserver.pl 2>/dev/null` 2>/dev/null || :
+    /bin/kill -USR1 `pgrep squeezecenter-s 2>/dev/null` 2>/dev/null || :
   endscript
 }
 
