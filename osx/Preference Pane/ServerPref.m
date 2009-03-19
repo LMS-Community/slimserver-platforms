@@ -199,6 +199,7 @@
 	}
 	
 	[webLaunchButton setEnabled:currentWebState];
+	[advLaunchButton setEnabled:currentWebState];
 }
 
 -(void)openWebInterface:(id)sender
@@ -208,6 +209,19 @@
 
 	if (!port) { port = 9000; }
 		sprintf(url, "http://localhost:%i", port);
+	
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: [NSString stringWithCString:url] ]];
+
+	free((void*)url);
+}
+
+-(void)openSettingsWebInterface:(id)sender
+{
+	int port = [self serverPort];
+	char* url = malloc(100);
+
+	if (!port) { port = 9000; }
+		sprintf(url, "http://localhost:%i/settings/index.html", port);
 	
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: [NSString stringWithCString:url] ]];
 

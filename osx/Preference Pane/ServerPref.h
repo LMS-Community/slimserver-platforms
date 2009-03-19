@@ -3,7 +3,7 @@
 //  SqueezeCenter
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
-//  Copyright 2002-2007 Logitech
+//  Copyright 2002-2008 Logitech
 //
 
 #import <PreferencePanes/PreferencePanes.h>
@@ -18,10 +18,13 @@
 {
     bool serverState;
     bool webState;
+	
+	IBOutlet NSTabView *prefsTab;
 
     IBOutlet NSButton *toggleServerButton;
     IBOutlet NSTextField *serverStateDescription;
     IBOutlet NSButton *webLaunchButton;
+    IBOutlet NSButton *advLaunchButton;
 
     IBOutlet NSPopUpButton *startupType;
 
@@ -41,6 +44,7 @@
 -(void)updateUI;
 
 -(IBAction)openWebInterface:(id)sender;
+-(IBAction)openSettingsWebInterface:(id)sender;
 -(IBAction)toggleServer:(id)sender;
 
 -(IBAction)changeStartupPreference:(id)sender;

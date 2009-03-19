@@ -3,13 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>IBDocumentLocation</key>
-	<string>48 84 356 240 0 0 1280 1002 </string>
+	<string>1471 264 841 280 1280 224 1280 800 </string>
 	<key>IBFramework Version</key>
 	<string>446.1</string>
 	<key>IBLastKnownRelativeProjectPath</key>
 	<string>../../SqueezeCenter.xcodeproj</string>
 	<key>IBOldestOS</key>
 	<integer>5</integer>
+	<key>IBOpenObjects</key>
+	<array>
+		<integer>12</integer>
+	</array>
 	<key>IBSystem Version</key>
 	<string>8S2167</string>
 	<key>targetFramework</key>
