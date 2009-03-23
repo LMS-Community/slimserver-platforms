@@ -13,10 +13,16 @@
             SUPERCLASS = NSObject; 
         }, 
         {
-            ACTIONS = {changeStartupPreference = id; openWebInterface = id; toggleServer = id; }; 
+            ACTIONS = {
+                changeStartupPreference = id; 
+                openSettingsWebInterface = id; 
+                openWebInterface = id; 
+                toggleServer = id; 
+            }; 
             CLASS = "Slim_ServerPref"; 
             LANGUAGE = ObjC; 
             OUTLETS = {
+                advLaunchButton = NSButton; 
                 serverStateDescription = NSTextField; 
                 startupType = NSPopUpButton; 
                 toggleServerButton = NSButton; 
