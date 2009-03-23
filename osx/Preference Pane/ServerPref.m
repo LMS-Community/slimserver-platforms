@@ -412,16 +412,5 @@
 	webState = newState;
 }
 
--(void)cliRequest
-{
-	NSString * urlstr = @"http://localhost:9000/EN/home.html";
-	NSURL    * url    =[NSURL URLWithString: urlstr];
-//	NSString * cmd = @"version";
-	
-	NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL: url];	
-	[request setHTTPMethod: @"GET"];
-
-	NSRunAlertPanel(@wadawada", url, @"Quit", nil, nil);
-}
-
 @end
+
