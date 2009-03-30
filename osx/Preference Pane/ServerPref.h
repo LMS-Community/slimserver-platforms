@@ -7,8 +7,11 @@
 //
 
 #import <PreferencePanes/PreferencePanes.h>
+#import <WebKit/WebKit.h>
 
 #define LocalizedPrefString(key, comment) [[NSBundle bundleForClass:[self class]] localizedStringForKey:(key) value:@"" table:nil]
+
+#define statusUrl @"http://localhost:9000/EN/settings/server/status.html?simple=1"
 
 #define kNoAutomaticStartup 0
 #define kStartupAtLogin 1
@@ -27,6 +30,7 @@
     IBOutlet NSButton *advLaunchButton;
 
     IBOutlet NSPopUpButton *startupType;
+	IBOutlet WebView *statusView;
 
     AuthorizationRef myAuthorizationRef;
 }
@@ -42,10 +46,17 @@
 -(int)serverPID;
 -(int)serverPort;
 -(void)updateUI;
+-(void)cliRequest;
 
 -(IBAction)openWebInterface:(id)sender;
 -(IBAction)openSettingsWebInterface:(id)sender;
 -(IBAction)toggleServer:(id)sender;
 
 -(IBAction)changeStartupPreference:(id)sender;
+
+-(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection;
+
+
 @end

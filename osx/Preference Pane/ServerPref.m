@@ -204,6 +204,9 @@
 
 -(void)openWebInterface:(id)sender
 {
+
+[self cliRequest];
+return;
 	int port = [self serverPort];
 	char* url = malloc(100);
 
@@ -410,6 +413,63 @@
 -(void)setWebState:(bool)newState
 {
 	webState = newState;
+}
+
+NSMutableData   * receivedData;
+
+-(void)cliRequest
+{
+	NSString * urlstr = @"http://localhost:9000/EN/home.html";
+	NSURL    * url    = [NSURL URLWithString: urlstr];
+	NSData   * cmd    = @"version ?";
+	NSString * answer = @"gugus";
+
+	NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL: url];	
+	[request setHTTPBody:cmd];
+	[request addValue:@"multipart/form-data" forHTTPHeaderField: @"Content-Type"];	
+
+	NSURLConnection *conn=[[NSURLConnection alloc] initWithRequest:request delegate:self];  
+	if (conn)
+	{
+		receivedData = [[NSMutableData data] retain];
+//		answer = [[NSString alloc] initWithData:receivedData];
+	}
+	else
+    {
+	}
+	
+	NSRunAlertPanel(@"wadawada", answer, @"Quit", nil, nil);
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response  
+{  
+	[receivedData setLength:0];  
+}  
+  
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data  
+{  
+	[receivedData appendData:data];  
+}  
+  
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection  
+{  
+	// do something with the data  
+	// receivedData is declared as a method instance elsewhere  
+	NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);  
+	NSString *aStr = [[NSString alloc] initWithData:receivedData encoding:NSASCIIStringEncoding];  
+	NSLog(aStr);  
+
+	// release the connection, and the data object  
+	[receivedData release];  
+}  
+
+
+/* display SC server status in webkit frame */
+- (void)tabView:(NSTabView *)sender didSelectTabViewItem:(NSTabViewItem *)item
+{
+	if ([[item identifier] isEqualToString:@"status"]) {
+		[[statusView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:statusUrl]]];
+	}
 }
 
 @end

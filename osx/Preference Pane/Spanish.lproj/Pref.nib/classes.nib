@@ -25,6 +25,7 @@
                 advLaunchButton = NSButton; 
                 serverStateDescription = NSTextField; 
                 startupType = NSPopUpButton; 
+                statusView = WebView; 
                 toggleServerButton = NSButton; 
                 webLaunchButton = NSButton; 
             }; 
