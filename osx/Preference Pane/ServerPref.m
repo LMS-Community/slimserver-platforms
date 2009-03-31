@@ -206,9 +206,6 @@
 
 -(void)openWebInterface:(id)sender
 {
-
-[self cliRequest];
-return;
 	int port = [self serverPort];
 	char* url = malloc(100);
 
@@ -417,54 +414,53 @@ return;
 	webState = newState;
 }
 
-NSMutableData   * receivedData;
 
--(void)cliRequest
+/* button handler to show log files */
+-(IBAction)showServerLog:(id)sender
 {
-	NSString * urlstr = @"http://localhost:9000/EN/home.html";
-	NSURL    * url    = [NSURL URLWithString: urlstr];
-	NSData   * cmd    = @"version ?";
-	NSString * answer = @"gugus";
-
-	NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL: url];	
-	[request setHTTPBody:cmd];
-	[request addValue:@"multipart/form-data" forHTTPHeaderField: @"Content-Type"];	
-
-	NSURLConnection *conn=[[NSURLConnection alloc] initWithRequest:request delegate:self];  
-	if (conn)
-	{
-		receivedData = [[NSMutableData data] retain];
-//		answer = [[NSString alloc] initWithData:receivedData];
-	}
-	else
-    {
-	}
-	
-	NSRunAlertPanel(@"wadawada", answer, @"Quit", nil, nil);
+	[self showLog:@"server.log"];
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response  
-{  
-	[receivedData setLength:0];  
-}  
-  
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data  
-{  
-	[receivedData appendData:data];  
-}  
-  
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection  
-{  
-	// do something with the data  
-	// receivedData is declared as a method instance elsewhere  
-	NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);  
-	NSString *aStr = [[NSString alloc] initWithData:receivedData encoding:NSASCIIStringEncoding];  
-	NSLog(aStr);  
+-(IBAction)showScannerLog:(id)sender
+{
+	[self showLog:@"scanner.log"];
+}
 
-	// release the connection, and the data object  
-	[receivedData release];  
-}  
+-(void)showLog:(NSString *)whichLog
+{
+	NSString *pathToLog;
 
+	pathToLog = [self findLog:whichLog paths:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)];
+	
+	if ([pathToLog length] == 0)
+		pathToLog = [self findLog:whichLog paths:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES)];
+		
+//	NSLog(@"Full path for %@: %@", whichLog, pathToLog);
+	
+	[[NSWorkspace sharedWorkspace] openFile:pathToLog];
+}
+
+-(NSString *)findLog:(NSString *)whichLog paths:(NSArray *)paths
+{
+	NSFileManager *mgr = [NSFileManager defaultManager];
+
+	whichLog = [@"Logs/SqueezeCenter" stringByAppendingPathComponent:whichLog];
+	
+	if ([paths count] > 0)
+	{
+		int i;
+		for (i = 0; i < [paths count]; i++)
+		{
+			NSString *p;
+			p = [[paths objectAtIndex:i] stringByAppendingPathComponent:whichLog];
+
+			if ([mgr fileExistsAtPath:p])
+				return p;
+		}
+	}
+
+	return nil;
+}
 
 /* cleanup panel */
 -(IBAction)setCleanupAction:(id)sender
@@ -499,7 +495,7 @@ NSMutableData   * receivedData;
 		
 	}
 	
-	NSLog(@"go, go, go! '%@ %@'", pathToScript, params);
+//	NSLog(@"go, go, go! '%@ %@'", pathToScript, params);
 
 	NSTask *cleanupTask = [NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:params,nil]];
 	

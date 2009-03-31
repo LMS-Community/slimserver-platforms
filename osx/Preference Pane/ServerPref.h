@@ -7,6 +7,7 @@
 //
 
 #import <PreferencePanes/PreferencePanes.h>
+#import <Foundation/NSPathUtilities.h>
 #import <WebKit/WebKit.h>
 
 #define LocalizedPrefString(key, comment) [[NSBundle bundleForClass:[self class]] localizedStringForKey:(key) value:@"" table:nil]
@@ -55,7 +56,6 @@
 -(int)serverPID;
 -(int)serverPort;
 -(void)updateUI;
--(void)cliRequest;
 
 -(IBAction)openWebInterface:(id)sender;
 -(IBAction)openSettingsWebInterface:(id)sender;
@@ -63,17 +63,13 @@
 
 -(IBAction)changeStartupPreference:(id)sender;
 
+-(IBAction)showServerLog:(id)sender;
+-(IBAction)showScannerLog:(id)sender;
+-(void)showLog:(NSString *)whichLog;
+-(NSString *)findLog:(NSString *)whichLog paths:(NSArray *)paths;
+
 /* cleanup tab */
 -(IBAction)setCleanupAction:(id)sender;
 -(IBAction)doRunCleanup:(id)sender;
-
-//-(bool)doMysql;
-//-(bool)doFilecache;
-//-(bool)
-
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
--(void)connectionDidFinishLoading:(NSURLConnection *)connection;
-
 
 @end

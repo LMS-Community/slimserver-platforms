@@ -19,6 +19,8 @@
                 openSettingsWebInterface = id; 
                 openWebInterface = id; 
                 setCleanupAction = id; 
+                showScannerLog = id; 
+                showServerLog = id; 
                 toggleServer = id; 
             }; 
             CLASS = "Slim_ServerPref"; 
