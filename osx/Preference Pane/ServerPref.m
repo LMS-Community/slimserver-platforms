@@ -200,6 +200,8 @@
 	
 	[webLaunchButton setEnabled:currentWebState];
 	[advLaunchButton setEnabled:currentWebState];
+	[doCleanup setEnabled:!currentWebState];
+	[cleanupHelpShutdown setHidden:!currentWebState];
 }
 
 -(void)openWebInterface:(id)sender
@@ -462,6 +464,48 @@ NSMutableData   * receivedData;
 	// release the connection, and the data object  
 	[receivedData release];  
 }  
+
+
+/* cleanup panel */
+-(IBAction)setCleanupAction:(id)sender
+{
+//	NSLog([NSString stringWithFormat: @"%@: %i", [sender title], [sender state]]);
+}
+
+-(IBAction)doRunCleanup:(id)sender
+{
+	NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"cleanup.sh"];
+	NSString *params = @"";
+
+	if ([cleanupAll state] > 0) {
+		params = @" --all";
+	}
+	else {
+
+		if ([cleanupMysql state] > 0)
+			params = [params stringByAppendingString:@" --mysql"];
+
+		if ([cleanupFilecache state] > 0)
+			params = [params stringByAppendingString:@" --filecache"];
+
+		if ([cleanupPrefs state] > 0)
+			params = [params stringByAppendingString:@" --prefs"];
+		
+		if ([cleanupLogs state] > 0)
+			params = [params stringByAppendingString:@" --logs"];
+		
+		if ([cleanupCache state] > 0)
+			params = [params stringByAppendingString:@" --cache"];
+		
+	}
+	
+	NSLog(@"go, go, go! '%@ %@'", pathToScript, params);
+
+	NSTask *cleanupTask = [NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:params,nil]];
+	
+	[cleanupTask waitUntilExit];
+	
+}
 
 
 /* display SC server status in webkit frame */

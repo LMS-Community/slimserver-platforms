@@ -19,17 +19,26 @@
 
 @interface Slim_ServerPref : NSPreferencePane 
 {
-    bool serverState;
-    bool webState;
+	bool serverState;
+	bool webState;
 	
 	IBOutlet NSTabView *prefsTab;
 
-    IBOutlet NSButton *toggleServerButton;
-    IBOutlet NSTextField *serverStateDescription;
-    IBOutlet NSButton *webLaunchButton;
-    IBOutlet NSButton *advLaunchButton;
+	IBOutlet NSButton *toggleServerButton;
+	IBOutlet NSTextField *serverStateDescription;
+	IBOutlet NSButton *webLaunchButton;
+	IBOutlet NSButton *advLaunchButton;
+	IBOutlet NSPopUpButton *startupType;
 
-    IBOutlet NSPopUpButton *startupType;
+	IBOutlet NSButton *cleanupPrefs;
+	IBOutlet NSButton *cleanupFilecache;
+	IBOutlet NSButton *cleanupMysql;
+	IBOutlet NSButton *cleanupLogs;
+	IBOutlet NSButton *cleanupCache;
+	IBOutlet NSButton *cleanupAll;
+	IBOutlet NSButton *doCleanup;
+	IBOutlet NSTextField *cleanupHelpShutdown;
+	
 	IBOutlet WebView *statusView;
 
     AuthorizationRef myAuthorizationRef;
@@ -53,6 +62,14 @@
 -(IBAction)toggleServer:(id)sender;
 
 -(IBAction)changeStartupPreference:(id)sender;
+
+/* cleanup tab */
+-(IBAction)setCleanupAction:(id)sender;
+-(IBAction)doRunCleanup:(id)sender;
+
+//-(bool)doMysql;
+//-(bool)doFilecache;
+//-(bool)
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;

@@ -15,14 +15,25 @@
         {
             ACTIONS = {
                 changeStartupPreference = id; 
+                doRunCleanup = id; 
                 openSettingsWebInterface = id; 
                 openWebInterface = id; 
+                setCleanupAction = id; 
                 toggleServer = id; 
             }; 
             CLASS = "Slim_ServerPref"; 
             LANGUAGE = ObjC; 
             OUTLETS = {
                 advLaunchButton = NSButton; 
+                cleanupAll = NSButton; 
+                cleanupCache = NSButton; 
+                cleanupFilecache = NSButton; 
+                cleanupHelpShutdown = NSTextField; 
+                cleanupLogs = NSButton; 
+                cleanupMysql = NSButton; 
+                cleanupPrefs = NSButton; 
+                doCleanup = NSButton; 
+                prefsTab = NSTabView; 
                 serverStateDescription = NSTextField; 
                 startupType = NSPopUpButton; 
                 statusView = WebView; 

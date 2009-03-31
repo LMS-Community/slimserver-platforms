@@ -64,6 +64,7 @@
 		14A9407509875F57001992EB /* RendezvousPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = E744CAA003D9BCC700A80172 /* RendezvousPublisher.m */; };
 		14A9407709875F57001992EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C1672FE841209C02AAC07 /* Foundation.framework */; };
 		EC59811C0F8100F40098B526 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC59811B0F8100F40098B526 /* WebKit.framework */; };
+		ECFABFD90F824E0C00997A5B /* cleanup.sh in Resources */ = {isa = PBXBuildFile; fileRef = ECFABFD80F824E0C00997A5B /* cleanup.sh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -188,6 +189,7 @@
 		ECD758820BEE25F8008A40DA /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ECD758A00BEE27E1008A40DA /* Hebrew */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Hebrew; path = Installer/Hebrew.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ECD758A10BEE27E4008A40DA /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Installer/Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ECFABFD80F824E0C00997A5B /* cleanup.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = cleanup.sh; sourceTree = "<group>"; };
 		F506C035013D953901CA16C8 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
 		F506C03C013D9D7901CA16C8 /* ServerPref.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ServerPref.h; sourceTree = "<group>"; };
 		F506C03D013D9D7901CA16C8 /* ServerPref.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ServerPref.m; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 		F5F1B9FC0360A2F101A80172 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				ECFABFD80F824E0C00997A5B /* cleanup.sh */,
 				052452BC0CE2687B00513B2A /* check-web.pl */,
 				E7EDF7BB03C5D22300A80172 /* create-startup.sh */,
 				E7EDF7C303C5D25800A80172 /* remove-startup.sh */,
@@ -665,6 +668,7 @@
 				1477C987098865030087109C /* Info.plist in Resources */,
 				058257D20BF90D7B0000DD33 /* Pref.nib in Resources */,
 				052452BD0CE2687C00513B2A /* check-web.pl in Resources */,
+				ECFABFD90F824E0C00997A5B /* cleanup.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
