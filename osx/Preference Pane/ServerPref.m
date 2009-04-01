@@ -513,17 +513,16 @@
 }
 
 /* JSON/RPC (CLI) helper */
-- (void)cliRequest
-//- (NSDictionary)cliRequest:(NSArray *)query
+- (NSDictionary *)jsonRequest:(NSString *)query
 {
-	// Create new SBJSON parser object
 	SBJSON *parser = [SBJSON new];
 	
-	NSString *post = @"{\"id\":1,\"method\":\"slim.request\",\"params\":[\"\",[\"serverstatus\",0,999]]}";
+	NSString *post = [NSString stringWithFormat:@"{\"id\":1,\"method\":\"slim.request\",\"params\":[\"\",[%@]]}", query];
 	
 	NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding];
 	NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];	
 	
+	// set up our JSON/RPC request
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:9000/jsonrpc.js"]];
 	
 	[request setHTTPMethod:@"POST"];
@@ -533,15 +532,19 @@
 	
 	// Perform request and get JSON back as a NSData object
 	NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-	
-	// Get JSON as a NSString from NSData response
 	NSString *json_string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
 	
-	NSLog(@"JSON: %@", json_string);
+	//	NSLog(@"JSON: %@", json_string);
 	
 	NSDictionary *json = [parser objectWithString:json_string error:nil];
 	
-	NSLog(@"JSON (parsed): %@", json);
+	if (json != nil) {
+		json = [json objectForKey:@"result"];
+	}
+	
+	//	NSLog(@"JSON (parsed): %@", json);
+	
+	return json;
 }
 
 

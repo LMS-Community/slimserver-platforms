@@ -74,7 +74,7 @@
 -(IBAction)doRunCleanup:(id)sender;
 
 
-- (void)cliRequest;
+- (NSDictionary *)jsonRequest:(NSString *)query;
 
 
 @end
