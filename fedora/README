@@ -1,0 +1,4 @@
+Warning: This directory contains a legacy attempt at an RPM for Fedora using dependencies.
+Do not use it to build a SqueezeCenter distribution.
+
+Please see ../redhat for the current RPM build.
