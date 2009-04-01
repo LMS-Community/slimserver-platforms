@@ -427,9 +427,7 @@
 }
 
 -(void)showLog:(NSString *)whichLog
-{
-[self cliRequest];
-	
+{	
 	NSString *pathToLog;
 
 	pathToLog = [self findLog:whichLog paths:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)];

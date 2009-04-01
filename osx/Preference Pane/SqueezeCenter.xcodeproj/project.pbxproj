@@ -65,6 +65,7 @@
 		14A9407709875F57001992EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C1672FE841209C02AAC07 /* Foundation.framework */; };
 		EC568D910F83FA850025274A /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC568D900F83FA850025274A /* JSON.framework */; };
 		EC59811C0F8100F40098B526 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC59811B0F8100F40098B526 /* WebKit.framework */; };
+		ECB12FF30F8423B600E69D81 /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC568D900F83FA850025274A /* JSON.framework */; };
 		ECFABFD90F824E0C00997A5B /* cleanup.sh in Resources */ = {isa = PBXBuildFile; fileRef = ECFABFD80F824E0C00997A5B /* cleanup.sh */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +92,19 @@
 			remoteInfo = SqueezeCenter;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ECB12FDD0F84233300E69D81 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				ECB12FF30F8423B600E69D81 /* JSON.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0503792F0BF901140075151F /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -521,6 +535,7 @@
 				14A9401C09875F57001992EB /* Frameworks */,
 				14A9402009875F57001992EB /* Rez */,
 				14A9402109875F57001992EB /* ShellScript */,
+				ECB12FDD0F84233300E69D81 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -953,7 +968,7 @@
 					ppc,
 					i386,
 				);
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../JSON.framework/Headers/\"";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)\"";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
@@ -967,7 +982,7 @@
 					ppc,
 					i386,
 				);
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../JSON.framework/Headers/\"";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)\"";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
@@ -981,7 +996,7 @@
 					ppc,
 					i386,
 				);
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../JSON.framework/Headers/\"";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)\"";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
