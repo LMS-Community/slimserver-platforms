@@ -428,6 +428,8 @@
 
 -(void)showLog:(NSString *)whichLog
 {
+[self cliRequest];
+	
 	NSString *pathToLog;
 
 	pathToLog = [self findLog:whichLog paths:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)];
@@ -511,6 +513,39 @@
 		[[statusView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:statusUrl]]];
 	}
 }
+
+/* JSON/RPC (CLI) helper */
+- (void)cliRequest
+//- (NSDictionary)cliRequest:(NSArray *)query
+{
+	// Create new SBJSON parser object
+	SBJSON *parser = [SBJSON new];
+	
+	NSString *post = @"{\"id\":1,\"method\":\"slim.request\",\"params\":[\"\",[\"serverstatus\",0,999]]}";
+	
+	NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding];
+	NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];	
+	
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:9000/jsonrpc.js"]];
+	
+	[request setHTTPMethod:@"POST"];
+	[request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+	[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+	[request setHTTPBody:postData];
+	
+	// Perform request and get JSON back as a NSData object
+	NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+	
+	// Get JSON as a NSString from NSData response
+	NSString *json_string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+	
+	NSLog(@"JSON: %@", json_string);
+	
+	NSDictionary *json = [parser objectWithString:json_string error:nil];
+	
+	NSLog(@"JSON (parsed): %@", json);
+}
+
 
 @end
 

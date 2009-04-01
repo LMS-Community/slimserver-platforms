@@ -9,6 +9,7 @@
 #import <PreferencePanes/PreferencePanes.h>
 #import <Foundation/NSPathUtilities.h>
 #import <WebKit/WebKit.h>
+#import <JSON/JSON.h>
 
 #define LocalizedPrefString(key, comment) [[NSBundle bundleForClass:[self class]] localizedStringForKey:(key) value:@"" table:nil]
 
@@ -71,5 +72,9 @@
 /* cleanup tab */
 -(IBAction)setCleanupAction:(id)sender;
 -(IBAction)doRunCleanup:(id)sender;
+
+
+- (void)cliRequest;
+
 
 @end
