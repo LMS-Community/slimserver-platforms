@@ -28,6 +28,7 @@
             LANGUAGE = ObjC; 
             OUTLETS = {
                 advLaunchButton = NSButton; 
+                advLaunchButton2 = NSButton; 
                 cleanupAll = NSButton; 
                 cleanupCache = NSButton; 
                 cleanupFilecache = NSButton; 

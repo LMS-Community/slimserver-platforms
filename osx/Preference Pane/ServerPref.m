@@ -49,7 +49,7 @@
 	[self updateUI];
 
 	// monitor scan progress
-	[NSTimer scheduledTimerWithTimeInterval: 2.0 target:self selector:@selector(scanPoll) userInfo:nil repeats:YES];
+	[NSTimer scheduledTimerWithTimeInterval: 1.9 target:self selector:@selector(scanPoll) userInfo:nil repeats:YES];
 	
 	scStrings = [NSMutableDictionary new];
 }
@@ -206,6 +206,7 @@
 	
 	[webLaunchButton setEnabled:currentWebState];
 	[advLaunchButton setEnabled:currentWebState];
+	[advLaunchButton2 setEnabled:currentWebState];
 	[doCleanup setEnabled:!currentWebState];
 	[cleanupHelpShutdown setHidden:!currentWebState];
 
