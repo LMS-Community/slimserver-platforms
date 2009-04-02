@@ -47,6 +47,9 @@
 	
 	[NSTimer scheduledTimerWithTimeInterval: 1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
 	[self updateUI];
+
+	// monitor scan progress
+	[NSTimer scheduledTimerWithTimeInterval: 2.0 target:self selector:@selector(scanPoll) userInfo:nil repeats:YES];
 }
 
 -(int)serverPID
@@ -462,6 +465,46 @@
 	return nil;
 }
 
+/* rescan buttons and progress */
+-(IBAction)rescan:(id)sender
+{
+	switch ([scanMode indexOfSelectedItem])
+	{
+		case 0:
+			[self jsonRequest:@"\"rescan\""];
+			break;
+		case 1:
+			[self jsonRequest:@"\"wipecache\""];
+			break;
+		case 2:
+			[self jsonRequest:@"\"rescan\", \"playlists\""];
+			break;
+	}
+}
+
+- (void)scanPoll
+{
+	NSDictionary *pollResult = [self jsonRequest:@"\"rescanprogress\""];
+	
+	if (pollResult != nil)
+	{
+		NSString *scanning = [pollResult valueForKey:@"rescan"];
+		NSArray *steps     = [[pollResult valueForKey:@"steps"] componentsSeparatedByString:@","];
+		
+		if (scanning != nil && steps != nil)
+		{
+			NSString *currentStep = [steps lastObject];
+			NSString *currentProgress = [pollResult valueForKey:currentStep];
+			
+			if (currentStep != nil && currentProgress != nil)
+			{
+				NSLog(@"scanning step: %@ - progress: %@", currentStep, currentProgress);
+			}
+		}
+	}
+}
+
+
 /* cleanup panel */
 -(IBAction)setCleanupAction:(id)sender
 {
@@ -538,9 +581,8 @@
 	
 	NSDictionary *json = [parser objectWithString:json_string error:nil];
 	
-	if (json != nil) {
+	if (json != nil) 
 		json = [json objectForKey:@"result"];
-	}
 	
 	//	NSLog(@"JSON (parsed): %@", json);
 	

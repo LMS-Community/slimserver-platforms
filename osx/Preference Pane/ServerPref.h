@@ -31,6 +31,7 @@
 	IBOutlet NSButton *webLaunchButton;
 	IBOutlet NSButton *advLaunchButton;
 	IBOutlet NSPopUpButton *startupType;
+	IBOutlet NSPopUpButton *scanMode;
 
 	IBOutlet NSButton *cleanupPrefs;
 	IBOutlet NSButton *cleanupFilecache;
@@ -53,6 +54,9 @@
 -(bool)webState;
 -(void)setWebState:(bool)newState;
 -(bool)changeAutoStartupFrom:(int)oldState to:(int)newState;
+
+-(IBAction)rescan:(id)sender;
+- (void)scanPoll;
 
 -(int)serverPID;
 -(int)serverPort;
