@@ -23,6 +23,9 @@
 {
 	bool serverState;
 	bool webState;
+	bool isScanning;
+	
+	NSMutableDictionary *scStrings;
 	
 	IBOutlet NSTabView *prefsTab;
 
@@ -31,8 +34,13 @@
 	IBOutlet NSButton *webLaunchButton;
 	IBOutlet NSButton *advLaunchButton;
 	IBOutlet NSPopUpButton *startupType;
-	IBOutlet NSPopUpButton *scanMode;
-
+	
+	IBOutlet NSPopUpButton *scanModeOptions;
+	IBOutlet NSButton *rescanButton;
+	IBOutlet NSProgressIndicator *scanSpinny;
+	IBOutlet NSProgressIndicator *scanProgress;
+	IBOutlet NSTextField *scanProgressDesc;
+	
 	IBOutlet NSButton *cleanupPrefs;
 	IBOutlet NSButton *cleanupFilecache;
 	IBOutlet NSButton *cleanupMysql;
@@ -78,7 +86,8 @@
 -(IBAction)doRunCleanup:(id)sender;
 
 
-- (NSDictionary *)jsonRequest:(NSString *)query;
+-(NSDictionary *)jsonRequest:(NSString *)query;
+-(NSString *)getSCString:(NSString *)stringToken;
 
 
 @end

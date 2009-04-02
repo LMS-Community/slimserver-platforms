@@ -50,6 +50,8 @@
 
 	// monitor scan progress
 	[NSTimer scheduledTimerWithTimeInterval: 2.0 target:self selector:@selector(scanPoll) userInfo:nil repeats:YES];
+	
+	scStrings = [NSMutableDictionary new];
 }
 
 -(int)serverPID
@@ -197,6 +199,7 @@
 		{
 			[toggleServerButton setTitle:LocalizedPrefString(@"Start Server", "Start Server")];
 			[serverStateDescription setStringValue:LocalizedPrefString(@"Start Server Description", "Descriptive text")];
+			isScanning = NO;
 		}
 		[toggleServerButton setEnabled:YES];
 	}
@@ -205,6 +208,16 @@
 	[advLaunchButton setEnabled:currentWebState];
 	[doCleanup setEnabled:!currentWebState];
 	[cleanupHelpShutdown setHidden:!currentWebState];
+
+	[rescanButton setEnabled:(serverState && !isScanning)];
+	[scanModeOptions setEnabled:(serverState && !isScanning)];
+	[scanProgress setHidden:!isScanning];
+	[scanProgressDesc setHidden:!isScanning];
+
+	if (isScanning)
+		[scanSpinny startAnimation:self];
+	else
+		[scanSpinny stopAnimation:self];
 }
 
 -(void)openWebInterface:(id)sender
@@ -417,7 +430,6 @@
 	webState = newState;
 }
 
-
 /* button handler to show log files */
 -(IBAction)showServerLog:(id)sender
 {
@@ -468,7 +480,11 @@
 /* rescan buttons and progress */
 -(IBAction)rescan:(id)sender
 {
-	switch ([scanMode indexOfSelectedItem])
+	isScanning = YES;
+	[self updateUI];
+	[self scanPoll];
+
+	switch ([scanModeOptions indexOfSelectedItem])
 	{
 		case 0:
 			[self jsonRequest:@"\"rescan\""];
@@ -485,11 +501,16 @@
 - (void)scanPoll
 {
 	NSDictionary *pollResult = [self jsonRequest:@"\"rescanprogress\""];
+
+	isScanning = NO;
 	
 	if (pollResult != nil)
 	{
+	NSLog(@"result: %@", pollResult);
 		NSString *scanning = [pollResult valueForKey:@"rescan"];
 		NSArray *steps     = [[pollResult valueForKey:@"steps"] componentsSeparatedByString:@","];
+
+		isScanning = ([scanning intValue] > 0);
 		
 		if (scanning != nil && steps != nil)
 		{
@@ -498,12 +519,13 @@
 			
 			if (currentStep != nil && currentProgress != nil)
 			{
-				NSLog(@"scanning step: %@ - progress: %@", currentStep, currentProgress);
+				[scanProgressDesc setStringValue:[self getSCString:[currentStep stringByAppendingString:@"_PROGRESS"]]];
+				[scanProgress setDoubleValue:[currentProgress doubleValue]];
+//				NSLog(@"scanning step: %@ - progress: %@", currentStep, currentProgress);
 			}
 		}
 	}
 }
-
 
 /* cleanup panel */
 -(IBAction)setCleanupAction:(id)sender
@@ -548,7 +570,7 @@
 
 
 /* display SC server status in webkit frame */
-- (void)tabView:(NSTabView *)sender didSelectTabViewItem:(NSTabViewItem *)item
+-(void)tabView:(NSTabView *)sender didSelectTabViewItem:(NSTabViewItem *)item
 {
 	if ([[item identifier] isEqualToString:@"status"]) {
 		[[statusView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:statusUrl]]];
@@ -556,7 +578,7 @@
 }
 
 /* JSON/RPC (CLI) helper */
-- (NSDictionary *)jsonRequest:(NSString *)query
+-(NSDictionary *)jsonRequest:(NSString *)query
 {
 	SBJSON *parser = [SBJSON new];
 	
@@ -589,6 +611,32 @@
 	return json;
 }
 
+/* get localized string from SqueezeCenter; cache in a dictionary for future uses */
+-(NSString *)getSCString:(NSString *)stringToken
+{
+	stringToken = [stringToken uppercaseString];
+	NSString *s = [scStrings objectForKey:stringToken];
+	
+	// if we don't have that string in our dictionary yet, fetch it from SC
+	if (s == nil)
+	{
+		// initialize entry with empty value to prevent querying string twice
+		[scStrings setObject:@"" forKey:stringToken];
+		
+		NSDictionary *scString = [self jsonRequest:[NSString stringWithFormat:@"\"getstring\", \"%@\"", stringToken]];
+ 
+		if (scString != nil) 
+			s = [scString valueForKey:stringToken];
+
+		// fall back to string token if lookup failed
+		if (s == nil || [s isEqualToString:@""]) 
+			s = stringToken;
+		else 
+			[scStrings setObject:s forKey:stringToken];
+	}
+	
+	return s;
+}
 
 @end
 

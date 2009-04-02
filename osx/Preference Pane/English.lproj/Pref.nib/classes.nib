@@ -37,7 +37,11 @@
                 cleanupPrefs = NSButton; 
                 doCleanup = NSButton; 
                 prefsTab = NSTabView; 
-                scanMode = NSPopUpButton; 
+                rescanButton = NSButton; 
+                scanModeOptions = NSPopUpButton; 
+                scanProgress = NSProgressIndicator; 
+                scanProgressDesc = NSTextField; 
+                scanSpinny = NSProgressIndicator; 
                 serverStateDescription = NSTextField; 
                 startupType = NSPopUpButton; 
                 statusView = WebView; 
