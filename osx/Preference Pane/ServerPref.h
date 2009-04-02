@@ -40,6 +40,7 @@
 	IBOutlet NSProgressIndicator *scanSpinny;
 	IBOutlet NSProgressIndicator *scanProgress;
 	IBOutlet NSTextField *scanProgressDesc;
+	IBOutlet NSTextField *scanProgressTime;
 	
 	IBOutlet NSButton *cleanupPrefs;
 	IBOutlet NSButton *cleanupFilecache;

@@ -213,6 +213,7 @@
 	[scanModeOptions setEnabled:(serverState && !isScanning)];
 	[scanProgress setHidden:!isScanning];
 	[scanProgressDesc setHidden:!isScanning];
+	[scanProgressTime setHidden:!isScanning];
 
 	if (isScanning)
 		[scanSpinny startAnimation:self];
@@ -506,7 +507,6 @@
 	
 	if (pollResult != nil)
 	{
-	NSLog(@"result: %@", pollResult);
 		NSString *scanning = [pollResult valueForKey:@"rescan"];
 		NSArray *steps     = [[pollResult valueForKey:@"steps"] componentsSeparatedByString:@","];
 
@@ -515,14 +515,16 @@
 		if (scanning != nil && steps != nil)
 		{
 			NSString *currentStep = [steps lastObject];
-			NSString *currentProgress = [pollResult valueForKey:currentStep];
-			
-			if (currentStep != nil && currentProgress != nil)
-			{
+			if (currentStep != nil)
 				[scanProgressDesc setStringValue:[self getSCString:[currentStep stringByAppendingString:@"_PROGRESS"]]];
+				
+			NSString *currentProgress = [pollResult valueForKey:currentStep];
+			if (currentProgress != nil)
 				[scanProgress setDoubleValue:[currentProgress doubleValue]];
-//				NSLog(@"scanning step: %@ - progress: %@", currentStep, currentProgress);
-			}
+
+			NSString *currentTime = [pollResult valueForKey:@"totaltime"];
+			if (currentTime != nil)
+				[scanProgressTime setStringValue:currentTime];
 		}
 	}
 }
