@@ -483,7 +483,6 @@
 {
 	isScanning = YES;
 	[self updateUI];
-	[self scanPoll];
 
 	switch ([scanModeOptions indexOfSelectedItem])
 	{
@@ -497,12 +496,16 @@
 			[self jsonRequest:@"\"rescan\", \"playlists\""];
 			break;
 	}
+	
+	isScanning = YES;
+	[self updateUI];
 }
 
 - (void)scanPoll
 {
 	NSDictionary *pollResult = [self jsonRequest:@"\"rescanprogress\""];
 
+	NSLog(@"%@", isScanning ? @"ja" : @"nein");
 	isScanning = NO;
 	
 	if (pollResult != nil)
@@ -512,12 +515,12 @@
 
 		isScanning = ([scanning intValue] > 0);
 		
+		NSLog(@"%@: %@", isScanning ? @"ja" : @"nein", pollResult);
+		
 		if (scanning != nil && steps != nil)
 		{
 			NSString *currentStep = [steps lastObject];
 			int step = [steps count];
-			
-			NSLog(@"%@", [NSString stringWithFormat:@"%d", step]);
 			
 			if (currentStep != nil)
 				[scanProgressDesc setStringValue:[NSString stringWithFormat:@"%d. %@", step, [self getSCString:[currentStep stringByAppendingString:@"_PROGRESS"]] ] ];
