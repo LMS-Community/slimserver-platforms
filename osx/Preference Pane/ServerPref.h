@@ -33,7 +33,6 @@
 	IBOutlet NSTextField *serverStateDescription;
 	IBOutlet NSButton *webLaunchButton;
 	IBOutlet NSButton *advLaunchButton;
-	IBOutlet NSButton *advLaunchButton2;
 	IBOutlet NSPopUpButton *startupType;
 	
 	IBOutlet NSPopUpButton *scanModeOptions;

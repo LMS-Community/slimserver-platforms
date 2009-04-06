@@ -206,7 +206,6 @@
 	
 	[webLaunchButton setEnabled:currentWebState];
 	[advLaunchButton setEnabled:currentWebState];
-	[advLaunchButton2 setEnabled:currentWebState];
 	[doCleanup setEnabled:!currentWebState];
 	[cleanupHelpShutdown setHidden:!currentWebState];
 
