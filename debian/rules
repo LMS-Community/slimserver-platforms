@@ -48,7 +48,6 @@ install:
 
 	# Remove the mysqld daemon on purpose, so that we use the system binary
 	rm -rf ${base}/${share}/Bin/i386-linux/mysqld 
-	rm -rf ${base}/${share}/Bin/i386-linux/mDNSResponderPosix
 
 	# Remove non-Linux binary modules and binaries
 	rm -rf ${base}/${share}/CPAN/arch/5.8/darwin-thread-multi-2level
