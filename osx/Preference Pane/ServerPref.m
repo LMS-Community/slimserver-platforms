@@ -505,7 +505,6 @@
 {
 	NSDictionary *pollResult = [self jsonRequest:@"\"rescanprogress\""];
 
-	NSLog(@"%@", isScanning ? @"ja" : @"nein");
 	isScanning = NO;
 	
 	if (pollResult != nil)
@@ -514,8 +513,6 @@
 		NSArray *steps     = [[pollResult valueForKey:@"steps"] componentsSeparatedByString:@","];
 
 		isScanning = ([scanning intValue] > 0);
-		
-		NSLog(@"%@: %@", isScanning ? @"ja" : @"nein", pollResult);
 		
 		if (scanning != nil && steps != nil)
 		{
