@@ -515,8 +515,12 @@
 		if (scanning != nil && steps != nil)
 		{
 			NSString *currentStep = [steps lastObject];
+			int step = [steps count];
+			
+			NSLog(@"%@", [NSString stringWithFormat:@"%d", step]);
+			
 			if (currentStep != nil)
-				[scanProgressDesc setStringValue:[self getSCString:[currentStep stringByAppendingString:@"_PROGRESS"]]];
+				[scanProgressDesc setStringValue:[NSString stringWithFormat:@"%d. %@", step, [self getSCString:[currentStep stringByAppendingString:@"_PROGRESS"]] ] ];
 				
 			NSString *currentProgress = [pollResult valueForKey:currentStep];
 			if (currentProgress != nil)
