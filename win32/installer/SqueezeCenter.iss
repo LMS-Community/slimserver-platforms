@@ -56,7 +56,6 @@ MinVersion=0,4
 
 [Files]
 Source: SqueezeTray.exe; DestDir: {app}; Flags: ignoreversion
-Source: ServiceEnabler.exe; DestDir: {app}; Flags: ignoreversion
 Source: strings.txt; DestDir: {app}; Flags: ignoreversion
 Source: Release Notes.html; DestDir: {app}; Flags: ignoreversion
 
@@ -95,11 +94,10 @@ Filename: {app}\{cm:SqueezeCenterWebInterface}.url; Section: InternetShortcut; K
 
 [Icons]
 Name: {group}\{#AppName}; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
-Name: {group}\{cm:ManageService}; Filename: {app}\ServiceEnabler.exe;
 Name: {group}\{cm:ControlPanel}; Filename: {app}\server\cleanup.exe; WorkingDir: "{app}\server";
-Name: {group}\{cm:SlimDevicesWebSite}; Filename: {app}\{cm:SlimDevicesWebSite}.url
+;Name: {group}\{cm:SlimDevicesWebSite}; Filename: {app}\{cm:SlimDevicesWebSite}.url
 Name: {group}\{cm:License}; Filename: {app}\{cm:License}.txt
-Name: {group}\{cm:GettingStarted}; Filename: {app}\{cm:GettingStarted}.html
+;Name: {group}\{cm:GettingStarted}; Filename: {app}\{cm:GettingStarted}.html
 Name: {group}\{cm:UninstallSqueezeCenter}; Filename: {uninstallexe}
 Name: {commonstartup}\{cm:SqueezeCenterTrayTool}; Filename: {app}\SqueezeTray.exe; WorkingDir: "{app}"
 Name: {userdesktop}\{#AppName}; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
@@ -129,6 +127,9 @@ Root: HKLM; Subkey: SOFTWARE\Logitech\SqueezeCenter; ValueType: string; ValueNam
 Root: HKLM; Subkey: SOFTWARE\Logitech\SqueezeCenter; ValueType: string; ValueName: DataPath; ValueData: {code:GetWritablePath}
 ; flag the squeezesvc.exe to be run as administrator on Vista
 Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers; ValueType: string; ValueName: {app}\server\squeezesvc.exe; ValueData: RUNASADMIN; Flags: uninsdeletevalue; MinVersion: 0,6.0;
+
+[InstallDelete]
+Name: {group}; Type: filesandordirs
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
