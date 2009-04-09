@@ -52,6 +52,9 @@
 	[NSTimer scheduledTimerWithTimeInterval: 1.9 target:self selector:@selector(scanPoll) userInfo:nil repeats:YES];
 	
 	scStrings = [NSMutableDictionary new];
+	
+	[scanProgressDesc setStringValue:@""];
+	[scanProgressError setStringValue:@""];
 }
 
 -(int)serverPID
@@ -215,8 +218,10 @@
 	[scanProgressDesc setHidden:!isScanning];
 	[scanProgressTime setHidden:!isScanning];
 
-	if (isScanning)
+	if (isScanning) {
 		[scanSpinny startAnimation:self];
+		[scanProgressError setStringValue:@""];
+	}
 	else
 		[scanSpinny stopAnimation:self];
 }
@@ -511,11 +516,14 @@
 	{
 		NSString *scanning = [pollResult valueForKey:@"rescan"];
 		NSArray *steps     = [[pollResult valueForKey:@"steps"] componentsSeparatedByString:@","];
+		NSString *failure  = [pollResult valueForKey:@"lastscanfailed"];
 
 		isScanning = ([scanning intValue] > 0);
 		
 		if (scanning != nil && steps != nil)
 		{
+			[scanProgressError setStringValue:@""];
+
 			NSString *currentStep = [steps lastObject];
 			int step = [steps count];
 			
@@ -529,6 +537,11 @@
 			NSString *currentTime = [pollResult valueForKey:@"totaltime"];
 			if (currentTime != nil)
 				[scanProgressTime setStringValue:currentTime];
+		}
+		
+		else if (failure != nil)
+		{
+			[scanProgressError setStringValue:failure];
 		}
 	}
 }
