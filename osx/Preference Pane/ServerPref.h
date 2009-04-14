@@ -40,6 +40,7 @@
 	IBOutlet NSProgressIndicator *scanSpinny;
 	IBOutlet NSProgressIndicator *scanProgress;
 	IBOutlet NSTextField *scanProgressDesc;
+	IBOutlet NSTextField *scanProgressDetail;
 	IBOutlet NSTextField *scanProgressError;
 	IBOutlet NSTextField *scanProgressTime;
 	

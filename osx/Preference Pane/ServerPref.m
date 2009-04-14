@@ -54,6 +54,7 @@
 	scStrings = [NSMutableDictionary new];
 	
 	[scanProgressDesc setStringValue:@""];
+	[scanProgressDetail setStringValue:@""];
 	[scanProgressError setStringValue:@""];
 }
 
@@ -216,6 +217,7 @@
 	[scanModeOptions setEnabled:(serverState && !isScanning)];
 	[scanProgress setHidden:!isScanning];
 	[scanProgressDesc setHidden:!isScanning];
+	[scanProgressDetail setHidden:!isScanning];
 	[scanProgressTime setHidden:!isScanning];
 
 	if (isScanning) {
@@ -529,7 +531,11 @@
 			
 			if (currentStep != nil)
 				[scanProgressDesc setStringValue:[NSString stringWithFormat:@"%d. %@", step, [self getSCString:[currentStep stringByAppendingString:@"_PROGRESS"]] ] ];
-				
+
+			NSString *detail   = [pollResult valueForKey:@"info"];
+			if (detail != nil)
+				[scanProgressDetail setStringValue:detail];				
+
 			NSString *currentProgress = [pollResult valueForKey:currentStep];
 			if (currentProgress != nil)
 				[scanProgress setDoubleValue:[currentProgress doubleValue]];
