@@ -14,6 +14,9 @@
 
 -(void)awakeFromNib
 {
+	// bring Window to the front
+	[[installButton window] makeKeyAndOrderFront: self];
+	
 	SInt32 vers;
 	Gestalt(gestaltSystemVersion,&vers);
 	if (vers < 0x00001030)
