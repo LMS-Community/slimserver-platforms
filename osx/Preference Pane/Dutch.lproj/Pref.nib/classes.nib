@@ -41,6 +41,8 @@
                 scanModeOptions = NSPopUpButton; 
                 scanProgress = NSProgressIndicator; 
                 scanProgressDesc = NSTextField; 
+                scanProgressDetail = NSTextField; 
+                scanProgressError = NSTextField; 
                 scanProgressTime = NSTextField; 
                 scanSpinny = NSProgressIndicator; 
                 serverStateDescription = NSTextField; 

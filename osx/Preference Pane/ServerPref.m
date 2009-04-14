@@ -224,10 +224,15 @@
 		[scanSpinny startAnimation:self];
 		[scanProgressError setStringValue:@""];
 	}
-	else
+	else {
 		[scanSpinny stopAnimation:self];
+		[scanProgressDesc setStringValue:@""];
+		[scanProgressDetail setStringValue:@""];
+		[scanProgressError setStringValue:@""];
+		[scanProgressTime setStringValue:@"00:00:00"];
+	}
 }
-
+	
 -(void)openWebInterface:(id)sender
 {
 	int port = [self serverPort];
@@ -531,18 +536,26 @@
 			
 			if (currentStep != nil)
 				[scanProgressDesc setStringValue:[NSString stringWithFormat:@"%d. %@", step, [self getSCString:[currentStep stringByAppendingString:@"_PROGRESS"]] ] ];
+			else 
+				[scanProgressDesc setStringValue:@""];
 
-			NSString *detail   = [pollResult valueForKey:@"info"];
+			NSString *detail = [pollResult valueForKey:@"info"];
 			if (detail != nil)
-				[scanProgressDetail setStringValue:detail];				
+				[scanProgressDetail setStringValue:detail];
+			else
+				[scanProgressDetail setStringValue:@""];
 
 			NSString *currentProgress = [pollResult valueForKey:currentStep];
 			if (currentProgress != nil)
 				[scanProgress setDoubleValue:[currentProgress doubleValue]];
+			else
+				[scanProgress setDoubleValue:0];
 
 			NSString *currentTime = [pollResult valueForKey:@"totaltime"];
 			if (currentTime != nil)
 				[scanProgressTime setStringValue:currentTime];
+			else
+				[scanProgressTime setStringValue:@"00:00:00"];
 		}
 		
 		else if (failure != nil)
