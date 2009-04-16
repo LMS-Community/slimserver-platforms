@@ -241,8 +241,8 @@ sub checkForUpdate {
 	if ( _getUpdateInstaller() ) {
 		Balloon(string('UPDATE_AVAILABLE'), "SqueezeCenter", "", 1);
 		
-		# once the balloon is shown, only poll every 6 hours
-		SetTimer('6:00:00', \&checkForUpdate);
+		# once the balloon is shown, only poll every hour 
+		SetTimer('1:00:00', \&checkForUpdate);
 	}
 }
 
