@@ -433,7 +433,7 @@
 -(IBAction)updateBtnHandler:(id)sender
 {
 	NSString *installer = [self getPref:@"updateInstaller"];
-
+	
 	if (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]) {
 		updateURL = nil;
 		[[NSWorkspace sharedWorkspace] openFile:installer];
@@ -444,8 +444,10 @@
 	}
 	
 	else {
-
-		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:updateCheckUrl, @"7.4"]];
+		
+		NSString *version = [[[NSBundle bundleForClass:[self class]] localizedInfoDictionary] objectForKey:@"CFBundleShortVersionString"];
+		
+		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:updateCheckUrl, version]];
 		NSURLRequest *request=[NSURLRequest requestWithURL:url];
 	
 		NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
