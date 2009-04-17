@@ -239,6 +239,10 @@
 		[updateButton setTitle:LocalizedPrefString(@"CONTROLPANEL_INSTALL_UPDATE", @"")];
 		[updateDescription setStringValue:LocalizedPrefString(@"CONTROLPANEL_UPDATE_AVAILABLE", @"")];
 	}			
+	else if (updateURL != nil) {
+		[updateButton setTitle:LocalizedPrefString(@"CONTROLPANEL_DOWNLOAD_UPDATE", @"")];
+		[updateDescription setStringValue:[NSString stringWithFormat:@"%@ (%@)", LocalizedPrefString(@"CONTROLPANEL_UPDATE_AVAILABLE", @""), updateURL] ];
+	}
 	else {
 		[updateButton setTitle:LocalizedPrefString(@"CONTROLPANEL_CHECK_UPDATE", @"")];
 		[updateDescription setStringValue:LocalizedPrefString(@"CONTROLPANEL_NO_UPDATE_AVAILABLE", @"")];
@@ -249,27 +253,17 @@
 -(void)openWebInterface:(id)sender
 {
 	int port = [self serverPort];
-	char* url = malloc(100);
-
-	if (!port) { port = 9000; }
-		sprintf(url, "http://localhost:%i", port);
+	if (!port > 0) { port = 9000; }
 	
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: [NSString stringWithCString:url] ]];
-
-	free((void*)url);
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://localhost:%i/", port] ]];
 }
 
 -(void)openSettingsWebInterface:(id)sender
 {
 	int port = [self serverPort];
-	char* url = malloc(100);
-
-	if (!port) { port = 9000; }
-		sprintf(url, "http://localhost:%i/settings/index.html", port);
+	if (!port > 0) { port = 9000; }
 	
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: [NSString stringWithCString:url] ]];
-
-	free((void*)url);
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://localhost:%i/settings/index.html", port] ]];
 }
 
 -(IBAction)changeStartupPreference:(id)sender
@@ -441,10 +435,29 @@
 	NSString *installer = [self getPref:@"updateInstaller"];
 
 	if (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]) {
+		updateURL = nil;
 		[[NSWorkspace sharedWorkspace] openFile:installer];
 	}
+	
+	else if (updateURL != nil) {
+		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:updateURL]];
+	}
+	
 	else {
-		NSLog(@"adsasfasfasdasfas");
+
+		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:updateCheckUrl, @"7.4"]];
+		NSURLRequest *request=[NSURLRequest requestWithURL:url];
+	
+		NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+		NSString *data = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+
+		if ([data isEqual:@"0\n"] || ![data hasPrefix:@"http"]) {
+			NSRunAlertPanel(LocalizedPrefString(@"CONTROLPANEL_CHECK_UPDATE", @""), LocalizedPrefString(@"CONTROLPANEL_NO_UPDATE_AVAILABLE", @""), @"OK", nil, nil);
+		}
+		else {
+			updateURL = data;
+			NSLog(@"%@", updateURL);
+		}
 	}
 }
 

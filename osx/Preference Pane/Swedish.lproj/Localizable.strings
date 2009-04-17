@@ -6,3 +6,8 @@
 "Expired Authorization Error" = "Det går inte att uppdatera den inbyggda programvaran eftersom auktoriseringen inte gäller längre.";
 "Firmware version" = "Inbyggd programvara version %@.";
 "Firmware version invalid" = "Ogiltig version av inbyggd programvara.";
+"CONTROLPANEL_UPDATE_AVAILABLE" = "An updated SqueezeCenter version is available and ready to be installed.";
+"CONTROLPANEL_NO_UPDATE_AVAILABLE" = "There's no updated SqueezeCenter version available.";
+"CONTROLPANEL_CHECK_UPDATE" = "Check for update";
+"CONTROLPANEL_DOWNLOAD_UPDATE" = "Download update";
+"CONTROLPANEL_INSTALL_UPDATE" = "Install update";

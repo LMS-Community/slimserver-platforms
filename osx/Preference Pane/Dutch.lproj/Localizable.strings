@@ -6,3 +6,8 @@
 "Expired Authorization Error" = "Kan firmware niet updaten: autorisatie verlopen.";
 "Firmware version" = "Firmwareversie %@.";
 "Firmware version invalid" = "Firmwareversie ongeldig.";
+"CONTROLPANEL_UPDATE_AVAILABLE" = "An updated SqueezeCenter version is available and ready to be installed.";
+"CONTROLPANEL_NO_UPDATE_AVAILABLE" = "There's no updated SqueezeCenter version available.";
+"CONTROLPANEL_CHECK_UPDATE" = "Check for update";
+"CONTROLPANEL_DOWNLOAD_UPDATE" = "Download update";
+"CONTROLPANEL_INSTALL_UPDATE" = "Install update";

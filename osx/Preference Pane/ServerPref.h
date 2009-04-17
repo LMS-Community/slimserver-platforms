@@ -14,6 +14,7 @@
 #define LocalizedPrefString(key, comment) [[NSBundle bundleForClass:[self class]] localizedStringForKey:(key) value:@"" table:nil]
 
 #define statusUrl @"http://localhost:9000/EN/settings/server/status.html?simple=1"
+#define updateCheckUrl @"http://update.squeezenetwork.com/update/?version=%@&geturl=1&os=osx"
 
 #define kNoAutomaticStartup 0
 #define kStartupAtLogin 1
@@ -24,7 +25,9 @@
 	bool serverState;
 	bool webState;
 	bool isScanning;
+	
 	bool hasUpdateInstaller;
+	NSString *updateURL;
 	
 	NSMutableDictionary *scStrings;
 	
