@@ -44,9 +44,6 @@
 	}
 
 	[startupType selectItemAtIndex:[startupType indexOfItemWithTag:[[defaultValues objectForKey:@"StartupMenuTag"] intValue]]];
-	
-	[NSTimer scheduledTimerWithTimeInterval: 1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
-	[self updateUI];
 
 	// monitor scan progress
 	[NSTimer scheduledTimerWithTimeInterval: 1.9 target:self selector:@selector(scanPoll) userInfo:nil repeats:YES];
@@ -56,6 +53,13 @@
 	[scanProgressDesc setStringValue:@""];
 	[scanProgressDetail setStringValue:@""];
 	[scanProgressError setStringValue:@""];
+
+	// check whether an update installer is available
+	[NSTimer scheduledTimerWithTimeInterval: 60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
+	[self checkUpdateInstaller];
+	
+	[NSTimer scheduledTimerWithTimeInterval: 1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
+	[self updateUI];
 }
 
 -(int)serverPID
@@ -228,9 +232,18 @@
 		[scanSpinny stopAnimation:self];
 		[scanProgressDesc setStringValue:@""];
 		[scanProgressDetail setStringValue:@""];
-		[scanProgressError setStringValue:@""];
 		[scanProgressTime setStringValue:@"00:00:00"];
 	}
+	
+	if (hasUpdateInstaller) {
+		[updateButton setTitle:LocalizedPrefString(@"CONTROLPANEL_INSTALL_UPDATE", @"")];
+		[updateDescription setStringValue:LocalizedPrefString(@"CONTROLPANEL_UPDATE_AVAILABLE", @"")];
+	}			
+	else {
+		[updateButton setTitle:LocalizedPrefString(@"CONTROLPANEL_CHECK_UPDATE", @"")];
+		[updateDescription setStringValue:LocalizedPrefString(@"CONTROLPANEL_NO_UPDATE_AVAILABLE", @"")];
+	}			
+	
 }
 	
 -(void)openWebInterface:(id)sender
@@ -423,6 +436,25 @@
 	[[[self mainView] window] makeFirstResponder:[[self mainView] window]];
 }
 
+-(IBAction)updateBtnHandler:(id)sender
+{
+	NSString *installer = [self getPref:@"updateInstaller"];
+
+	if (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]) {
+		[[NSWorkspace sharedWorkspace] openFile:installer];
+	}
+	else {
+		NSLog(@"adsasfasfasdasfas");
+	}
+}
+
+-(void)checkUpdateInstaller
+{
+	NSString *installer = [self getPref:@"updateInstaller"];
+	hasUpdateInstaller = (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]);
+}
+
+
 -(bool)serverState
 {
 	return serverState;
@@ -442,6 +474,7 @@
 {
 	webState = newState;
 }
+
 
 /* button handler to show log files */
 -(IBAction)showServerLog:(id)sender
@@ -560,6 +593,7 @@
 		
 		else if (failure != nil)
 		{
+			[scanProgressDetail setStringValue:@""];
 			[scanProgressError setStringValue:failure];
 		}
 	}
@@ -675,6 +709,62 @@
 	
 	return s;
 }
+
+/* very simplistic method to read an atomic pref from the server.prefs file */
+-(NSString *)getPref:(NSString *)pref
+{
+	NSString *pathToPrefs = [self findPrefs:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)];
+	
+	if ([pathToPrefs length] == 0)
+		pathToPrefs = [self findPrefs:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES)];
+	
+//	NSLog(@"Full path for server.prefs: %@", pathToPrefs);
+
+	if ([pathToPrefs length] > 0) {
+		NSString *fileString = [NSString stringWithContentsOfFile:pathToPrefs];
+		NSArray *lines = [fileString componentsSeparatedByString:@"\n"];
+		
+		if ([lines count] > 0)
+		{
+			int i;
+			for (i = 0; i < [lines count]; i++)
+			{
+				NSArray *parts = [[lines objectAtIndex:i] componentsSeparatedByString:[NSString stringWithFormat:@"%@: ", pref]];
+
+				NSMutableString *prefix = [NSMutableString stringWithFormat:@"%@", [parts objectAtIndex:0]];
+				[prefix replaceOccurrencesOfString:@" " withString:@"" options:0 range:NSMakeRange(0, [prefix length])];
+				
+				if ([parts count] > 1 && [prefix isEqualToString:@""] ) {
+//					NSLog(@"%@", [lines objectAtIndex:i]);
+					return [parts objectAtIndex:1];
+				}
+			}
+		}
+	}
+	
+	return nil;
+}
+
+-(NSString *)findPrefs:(NSArray *)paths
+{
+	NSFileManager *mgr = [NSFileManager defaultManager];
+	
+	if ([paths count] > 0)
+	{
+		int i;
+		for (i = 0; i < [paths count]; i++)
+		{
+			NSString *p;
+			p = [[paths objectAtIndex:i] stringByAppendingPathComponent:@"Application Support/SqueezeCenter/server.prefs"];
+			
+			if ([mgr fileExistsAtPath:p])
+				return p;
+		}
+	}
+	
+	return nil;
+}
+
 
 @end
 

@@ -23,6 +23,7 @@
                 showScannerLog = id; 
                 showServerLog = id; 
                 toggleServer = id; 
+                updateBtnHandler = id; 
             }; 
             CLASS = "Slim_ServerPref"; 
             LANGUAGE = ObjC; 
@@ -49,6 +50,8 @@
                 startupType = NSPopUpButton; 
                 statusView = WebView; 
                 toggleServerButton = NSButton; 
+                updateButton = NSButton; 
+                updateDescription = NSTextField; 
                 webLaunchButton = NSButton; 
             }; 
             SUPERCLASS = NSPreferencePane; 

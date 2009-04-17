@@ -24,6 +24,7 @@
 	bool serverState;
 	bool webState;
 	bool isScanning;
+	bool hasUpdateInstaller;
 	
 	NSMutableDictionary *scStrings;
 	
@@ -34,6 +35,8 @@
 	IBOutlet NSButton *webLaunchButton;
 	IBOutlet NSButton *advLaunchButton;
 	IBOutlet NSPopUpButton *startupType;
+	IBOutlet NSTextField *updateDescription;
+	IBOutlet NSButton *updateButton;
 	
 	IBOutlet NSPopUpButton *scanModeOptions;
 	IBOutlet NSButton *rescanButton;
@@ -67,7 +70,7 @@
 -(bool)changeAutoStartupFrom:(int)oldState to:(int)newState;
 
 -(IBAction)rescan:(id)sender;
-- (void)scanPoll;
+-(void)scanPoll;
 
 -(int)serverPID;
 -(int)serverPort;
@@ -76,6 +79,8 @@
 -(IBAction)openWebInterface:(id)sender;
 -(IBAction)openSettingsWebInterface:(id)sender;
 -(IBAction)toggleServer:(id)sender;
+-(IBAction)updateBtnHandler:(id)sender;
+-(void)checkUpdateInstaller;
 
 -(IBAction)changeStartupPreference:(id)sender;
 
@@ -88,9 +93,9 @@
 -(IBAction)setCleanupAction:(id)sender;
 -(IBAction)doRunCleanup:(id)sender;
 
-
 -(NSDictionary *)jsonRequest:(NSString *)query;
 -(NSString *)getSCString:(NSString *)stringToken;
-
+-(NSString *)getPref:(NSString *)pref;
+-(NSString *)findPrefs:(NSArray *)paths;
 
 @end

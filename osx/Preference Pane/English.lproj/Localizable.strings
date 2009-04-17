@@ -1,10 +1,13 @@
 "Start Server" = "Start Server";
 "Stop Server" = "Stop Server";
-"Start Server Description" = "Click this button to start the SqueezeCenter. Once started,
-players will be able to access your music library.";
-"Stop Server Description" = "Click this button to stop the SqueezeCenter. Once stopped,
-players will not be able to access your music library.";
+"Start Server Description" = "Click this button to start the SqueezeCenter. Once started, players will be able to access your music library.";
+"Stop Server Description" = "Click this button to stop the SqueezeCenter. Once stopped, players will not be able to access your music library.";
 "Authorization Launch Error" = "Unable to update firmware: missing file Update Firmware.sh.";
 "Expired Authorization Error" = "Unable to update firmware: authorization expired.";
 "Firmware version" = "Firmware version %@.";
 "Firmware version invalid" = "Firmware version invalid.";
+"CONTROLPANEL_UPDATE_AVAILABLE" = "An updated SqueezeCenter version is available and ready to be installed.";
+"CONTROLPANEL_NO_UPDATE_AVAILABLE" = "There's no updated SqueezeCenter version available.";
+"CONTROLPANEL_CHECK_UPDATE" = "Check for update";
+"CONTROLPANEL_DOWNLOAD_UPDATE" = "Download update";
+"CONTROLPANEL_INSTALL_UPDATE" = "Install update";
