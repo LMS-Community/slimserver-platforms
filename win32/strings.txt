@@ -197,4 +197,4 @@ UPDATE_AVAILABLE
 	EN	An updated SqueezeCenter version is available. Open the menu to install the latest release.
 
 INSTALL_UPDATE
-	EN	Install update
+	EN	Install update...
