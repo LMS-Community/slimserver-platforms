@@ -46,9 +46,7 @@ sub PopupMenu {
 	}];
 
 	if ( my $installer = _getUpdateInstaller() ) {
-		push @menu, [string('INSTALL_UPDATE'), sub {
-			system("\"$installer\" /silent");
-		}];	
+		push @menu, [string('INSTALL_UPDATE'), \&updateSqueezeCenter];	
 	}
 	push @menu, ["--------"];
 	
@@ -310,6 +308,22 @@ sub stopSqueezeCenter {
 
 sub stopScanner {
 	sendCLICommand('abortscan');
+}
+
+sub updateSqueezeCenter {
+	stopSqueezeCenter(1);
+	
+	my $installer = _getUpdateInstaller();
+	
+	my $processObj;
+	Win32::Process::Create(
+		$processObj,
+		$installer,
+		"\"$installer\" /silent",
+		0,
+		Win32::Process::DETACHED_PROCESS() | Win32::Process::CREATE_NO_WINDOW() | Win32::Process::NORMAL_PRIORITY_CLASS(),
+		'.'
+	);
 }
 
 sub runWatchDog {
