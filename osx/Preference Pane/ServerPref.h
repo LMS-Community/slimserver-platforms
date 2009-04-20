@@ -93,7 +93,6 @@
 -(NSString *)findLog:(NSString *)whichLog paths:(NSArray *)paths;
 
 /* cleanup tab */
--(IBAction)setCleanupAction:(id)sender;
 -(IBAction)doRunCleanup:(id)sender;
 
 -(NSDictionary *)jsonRequest:(NSString *)query;

@@ -19,7 +19,6 @@
                 openSettingsWebInterface = id; 
                 openWebInterface = id; 
                 rescan = id; 
-                setCleanupAction = id; 
                 showScannerLog = id; 
                 showServerLog = id; 
                 toggleServer = id; 

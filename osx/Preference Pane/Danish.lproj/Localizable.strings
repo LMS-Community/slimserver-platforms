@@ -11,3 +11,6 @@
 "CONTROLPANEL_CHECK_UPDATE" = "Check for update";
 "CONTROLPANEL_DOWNLOAD_UPDATE" = "Download update";
 "CONTROLPANEL_INSTALL_UPDATE" = "Install update";
+"CONTROLPANEL_WANT_TO_STOP_SC" = "SqueezeCenter has to be stopped before running the cleanup. Do you want to stop it now?";
+"CONTROLPANEL_CLEANUP_DO" = "Run Cleanup";
+"CANCEL" = "Cancel";

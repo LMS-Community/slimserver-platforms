@@ -214,7 +214,7 @@
 	
 	[webLaunchButton setEnabled:currentWebState];
 	[advLaunchButton setEnabled:currentWebState];
-	[doCleanup setEnabled:!currentWebState];
+//	[doCleanup setEnabled:!currentWebState];
 	[cleanupHelpShutdown setHidden:!currentWebState];
 
 	[rescanButton setEnabled:(serverState && !isScanning)];
@@ -615,11 +615,6 @@
 }
 
 /* cleanup panel */
--(IBAction)setCleanupAction:(id)sender
-{
-//	NSLog([NSString stringWithFormat: @"%@: %i", [sender title], [sender state]]);
-}
-
 -(IBAction)doRunCleanup:(id)sender
 {
 	NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"cleanup.sh"];
@@ -646,9 +641,27 @@
 			params = [params stringByAppendingString:@" --cache"];
 		
 	}
-	
-//	NSLog(@"go, go, go! '%@ %@'", pathToScript, params);
 
+	if ([params isEqualToString:@""])
+		return;
+
+	if ([self serverState]) {
+		int doRun = NSRunAlertPanel(
+			LocalizedPrefString(@"CONTROLPANEL_CLEANUP_DO", @""), 
+			LocalizedPrefString(@"CONTROLPANEL_WANT_TO_STOP_SC", @""),
+			LocalizedPrefString(@"CONTROLPANEL_CLEANUP_DO", @""),
+			LocalizedPrefString(@"CANCEL", @""), 
+			nil
+		);
+
+		if (doRun == NSAlertDefaultReturn) {
+			[self jsonRequest:@"\"stopserver\""];
+		}
+		else {
+			return;
+		}
+	}
+	
 	NSTask *cleanupTask = [NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:params,nil]];
 	
 	[cleanupTask waitUntilExit];
