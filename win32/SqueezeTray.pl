@@ -237,7 +237,7 @@ sub checkSCActive {
 # see whether SC has downloaded an update version
 sub checkForUpdate {
 	if ( $svcMgr->getServiceState() != SC_STATE_STARTING && _getUpdateInstaller() ) {
-		Balloon(string('UPDATE_AVAILABLE'), "SqueezeCenter", "", 1);
+		Balloon(string('UPDATE_AVAILABLE'), "SqueezeCenter", "info", 1);
 		
 		# once the balloon is shown, only poll every hour 
 		SetTimer('1:00:00', \&checkForUpdate);
