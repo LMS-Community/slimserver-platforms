@@ -58,6 +58,21 @@
 	[NSTimer scheduledTimerWithTimeInterval: 60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
 	[self checkUpdateInstaller];
 	
+	if (hasUpdateInstaller) {
+		NSBeginAlertSheet (
+						   LocalizedPrefString(@"CONTROLPANEL_UPDATE_AVAILABLE", @""),
+						   LocalizedPrefString(@"CONTROLPANEL_INSTALL_UPDATE", @""),
+						   LocalizedPrefString(@"NOT_NOW", @""),
+						   nil, 
+						   [[NSApplication sharedApplication] mainWindow], 
+						   self, 
+						   @selector(installUpdateConfirmed:returnCode:contextInfo:),
+						   NULL, 
+						   @"",
+						   @""
+						   );	
+	}
+	
 	[NSTimer scheduledTimerWithTimeInterval: 1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
 	[self updateUI];
 }
@@ -214,7 +229,6 @@
 	
 	[webLaunchButton setEnabled:currentWebState];
 	[advLaunchButton setEnabled:currentWebState];
-//	[doCleanup setEnabled:!currentWebState];
 	[cleanupHelpShutdown setHidden:!currentWebState];
 
 	[rescanButton setEnabled:(serverState && !isScanning)];
@@ -430,13 +444,15 @@
 	[[[self mainView] window] makeFirstResponder:[[self mainView] window]];
 }
 
+
+/* SC update related methods */
+
 -(IBAction)updateBtnHandler:(id)sender
 {
 	NSString *installer = [self getPref:@"updateInstaller"];
 	
 	if (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]) {
-		updateURL = nil;
-		[[NSWorkspace sharedWorkspace] openFile:installer];
+		[self installUpdate];
 	}
 	
 	else if (updateURL != nil) {
@@ -458,7 +474,6 @@
 		}
 		else {
 			updateURL = data;
-			NSLog(@"%@", updateURL);
 		}
 	}
 }
@@ -467,6 +482,23 @@
 {
 	NSString *installer = [self getPref:@"updateInstaller"];
 	hasUpdateInstaller = (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]);
+}
+
+-(void)installUpdateConfirmed:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+	if (returnCode == NSAlertDefaultReturn) {
+		[self installUpdate];
+	}
+}
+
+-(void)installUpdate
+{
+	NSString *installer = [self getPref:@"updateInstaller"];
+	
+	if (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]) {
+		updateURL = nil;
+		[[NSWorkspace sharedWorkspace] openFile:installer];
+	}
 }
 
 
@@ -510,8 +542,6 @@
 	
 	if ([pathToLog length] == 0)
 		pathToLog = [self findLog:whichLog paths:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES)];
-		
-//	NSLog(@"Full path for %@: %@", whichLog, pathToLog);
 	
 	[[NSWorkspace sharedWorkspace] openFile:pathToLog];
 }
@@ -615,22 +645,62 @@
 }
 
 /* cleanup panel */
--(IBAction)doRunCleanup:(id)sender
+-(IBAction)cleanupBtnHandler:(id)sender
+{
+	if ([[self getCleanupParams] isEqualToString:@""])
+		return;
+
+	if ([self serverState]) {
+		NSBeginAlertSheet (
+						   LocalizedPrefString(@"CONTROLPANEL_WANT_TO_STOP_SC", @""),
+						   LocalizedPrefString(@"CONTROLPANEL_CLEANUP_DO", @""),
+						   LocalizedPrefString(@"CANCEL", @""),
+						   nil, 
+						   [[NSApplication sharedApplication] mainWindow], 
+						   self, 
+						   @selector(cleanupStopSC:returnCode:contextInfo:),
+						   NULL, 
+						   @"",
+						   @""
+		);
+
+	}
+	else {
+		[self doRunCleanup];
+	}
+}
+
+-(void)cleanupStopSC:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+	if (returnCode == NSAlertDefaultReturn)
+		[self doRunCleanup];
+}
+
+-(void)doRunCleanup
 {
 	NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"cleanup.sh"];
-	NSString *params = @"";
+		
+	[self jsonRequest:@"\"stopserver\""];
 
+	NSTask *cleanupTask = [NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:[self getCleanupParams],nil]];
+	[cleanupTask waitUntilExit];
+}
+
+-(NSString *)getCleanupParams
+{
+	NSString *params = @"";
+	
 	if ([cleanupAll state] > 0) {
 		params = @" --all";
 	}
 	else {
-
+		
 		if ([cleanupMysql state] > 0)
 			params = [params stringByAppendingString:@" --mysql"];
-
+		
 		if ([cleanupFilecache state] > 0)
 			params = [params stringByAppendingString:@" --filecache"];
-
+		
 		if ([cleanupPrefs state] > 0)
 			params = [params stringByAppendingString:@" --prefs"];
 		
@@ -641,32 +711,9 @@
 			params = [params stringByAppendingString:@" --cache"];
 		
 	}
-
-	if ([params isEqualToString:@""])
-		return;
-
-	if ([self serverState]) {
-		int doRun = NSRunAlertPanel(
-			LocalizedPrefString(@"CONTROLPANEL_CLEANUP_DO", @""), 
-			LocalizedPrefString(@"CONTROLPANEL_WANT_TO_STOP_SC", @""),
-			LocalizedPrefString(@"CONTROLPANEL_CLEANUP_DO", @""),
-			LocalizedPrefString(@"CANCEL", @""), 
-			nil
-		);
-
-		if (doRun == NSAlertDefaultReturn) {
-			[self jsonRequest:@"\"stopserver\""];
-		}
-		else {
-			return;
-		}
-	}
 	
-	NSTask *cleanupTask = [NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:params,nil]];
-	
-	[cleanupTask waitUntilExit];
-	
-}
+	return params;
+}	
 
 
 /* display SC server status in webkit frame */
@@ -699,14 +746,10 @@
 	NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
 	NSString *json_string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
 	
-	//	NSLog(@"JSON: %@", json_string);
-	
 	NSDictionary *json = [parser objectWithString:json_string error:nil];
 	
 	if (json != nil) 
 		json = [json objectForKey:@"result"];
-	
-	//	NSLog(@"JSON (parsed): %@", json);
 	
 	return json;
 }
@@ -745,8 +788,6 @@
 	
 	if ([pathToPrefs length] == 0)
 		pathToPrefs = [self findPrefs:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES)];
-	
-//	NSLog(@"Full path for server.prefs: %@", pathToPrefs);
 
 	if ([pathToPrefs length] > 0) {
 		NSString *fileString = [NSString stringWithContentsOfFile:pathToPrefs];
@@ -763,7 +804,6 @@
 				[prefix replaceOccurrencesOfString:@" " withString:@"" options:0 range:NSMakeRange(0, [prefix length])];
 				
 				if ([parts count] > 1 && [prefix isEqualToString:@""] ) {
-//					NSLog(@"%@", [lines objectAtIndex:i]);
 					return [parts objectAtIndex:1];
 				}
 			}

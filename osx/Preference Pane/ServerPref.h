@@ -84,6 +84,7 @@
 -(IBAction)toggleServer:(id)sender;
 -(IBAction)updateBtnHandler:(id)sender;
 -(void)checkUpdateInstaller;
+-(void)installUpdate;
 
 -(IBAction)changeStartupPreference:(id)sender;
 
@@ -93,7 +94,9 @@
 -(NSString *)findLog:(NSString *)whichLog paths:(NSArray *)paths;
 
 /* cleanup tab */
--(IBAction)doRunCleanup:(id)sender;
+-(IBAction)cleanupBtnHandler:(id)sender;
+-(void)doRunCleanup;
+-(NSString *)getCleanupParams;
 
 -(NSDictionary *)jsonRequest:(NSString *)query;
 -(NSString *)getSCString:(NSString *)stringToken;

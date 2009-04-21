@@ -15,7 +15,7 @@
         {
             ACTIONS = {
                 changeStartupPreference = id; 
-                doRunCleanup = id; 
+                cleanupBtnHandler = id; 
                 openSettingsWebInterface = id; 
                 openWebInterface = id; 
                 rescan = id; 

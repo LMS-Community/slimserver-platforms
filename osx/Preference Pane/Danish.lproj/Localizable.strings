@@ -14,3 +14,4 @@
 "CONTROLPANEL_WANT_TO_STOP_SC" = "SqueezeCenter has to be stopped before running the cleanup. Do you want to stop it now?";
 "CONTROLPANEL_CLEANUP_DO" = "Run Cleanup";
 "CANCEL" = "Cancel";
+"NOT_NOW" = "Not now";
