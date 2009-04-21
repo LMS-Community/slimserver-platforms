@@ -66,6 +66,7 @@
 		EC59811C0F8100F40098B526 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC59811B0F8100F40098B526 /* WebKit.framework */; };
 		EC6916BA0F9883040035673E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC6916B90F9883040035673E /* Localizable.strings */; };
 		ECB12FF30F8423B600E69D81 /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC568D900F83FA850025274A /* JSON.framework */; };
+		ECD767980F9E1A6E009204CD /* run-installer.sh in Resources */ = {isa = PBXBuildFile; fileRef = ECD767970F9E1A6E009204CD /* run-installer.sh */; };
 		ECFABFD90F824E0C00997A5B /* cleanup.sh in Resources */ = {isa = PBXBuildFile; fileRef = ECFABFD80F824E0C00997A5B /* cleanup.sh */; };
 /* End PBXBuildFile section */
 
@@ -205,6 +206,7 @@
 		EC6916DA0F9883DE0035673E /* Hebrew */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Hebrew; path = Hebrew.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ECD758A00BEE27E1008A40DA /* Hebrew */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Hebrew; path = Installer/Hebrew.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ECD758A10BEE27E4008A40DA /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Installer/Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ECD767970F9E1A6E009204CD /* run-installer.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "run-installer.sh"; sourceTree = "<group>"; };
 		ECFABFD80F824E0C00997A5B /* cleanup.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = cleanup.sh; sourceTree = "<group>"; };
 		F506C035013D953901CA16C8 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
 		F506C03C013D9D7901CA16C8 /* ServerPref.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ServerPref.h; sourceTree = "<group>"; };
@@ -471,6 +473,7 @@
 				052452BC0CE2687B00513B2A /* check-web.pl */,
 				E7EDF7BB03C5D22300A80172 /* create-startup.sh */,
 				E7EDF7C303C5D25800A80172 /* remove-startup.sh */,
+				ECD767970F9E1A6E009204CD /* run-installer.sh */,
 				E7EDF7BC03C5D22300A80172 /* get-server.sh */,
 				E7EDF7BE03C5D22300A80172 /* stop-server.sh */,
 			);
@@ -688,6 +691,7 @@
 				058257D20BF90D7B0000DD33 /* Pref.nib in Resources */,
 				052452BD0CE2687C00513B2A /* check-web.pl in Resources */,
 				ECFABFD90F824E0C00997A5B /* cleanup.sh in Resources */,
+				ECD767980F9E1A6E009204CD /* run-installer.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

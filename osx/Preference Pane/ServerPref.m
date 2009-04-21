@@ -496,8 +496,12 @@
 	NSString *installer = [self getPref:@"updateInstaller"];
 	
 	if (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]) {
+		
 		updateURL = nil;
-		[[NSWorkspace sharedWorkspace] openFile:installer];
+
+		NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"run-installer.sh"];
+		NSTask *cleanupTask = [NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:installer,nil]];
+		[cleanupTask waitUntilExit];
 	}
 }
 
@@ -678,10 +682,9 @@
 
 -(void)doRunCleanup
 {
-	NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"cleanup.sh"];
-		
 	[self jsonRequest:@"\"stopserver\""];
 
+	NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"cleanup.sh"];
 	NSTask *cleanupTask = [NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:[self getCleanupParams],nil]];
 	[cleanupTask waitUntilExit];
 }
