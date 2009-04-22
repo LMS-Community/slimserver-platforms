@@ -500,8 +500,8 @@
 		updateURL = nil;
 
 		NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"run-installer.sh"];
-		NSTask *cleanupTask = [NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:installer,nil]];
-		[cleanupTask waitUntilExit];
+		NSTask *updateTask = [NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:installer,nil]];
+		[updateTask waitUntilExit];
 	}
 }
 
