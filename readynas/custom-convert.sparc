@@ -2,6 +2,10 @@ mov wav * *
 	# F
 	[mp42aac] $FILE$ -stdout | [aac2wav] -wav -stdin -stdout
 
+mp4 wav * *
+	# F
+	[mp42aac] $FILE$ -stdout | [aac2wav] -wav -stdin -stdout
+
 # don't transcode to flac on ReadyNAS/Sparc - it's not powerful enough
 
 aif flc * *
@@ -20,6 +24,12 @@ mpc flc * *
 	[disable-flac]
 
 ape flc * *
+	[disable-flac]
+
+mp4 flc * *
+	[disable-flac]
+
+aac flc * *
 	[disable-flac]
 
 mov flc * *
