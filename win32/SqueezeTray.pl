@@ -32,8 +32,10 @@ my $cliUninstall   = 0;
 
 my $language       = getPref('language') || 'EN';
 my $svcMgr         = Slim::Utils::ServiceManager->new();
+my $os             = Slim::Utils::OSDetect::getOS();
 
-my $restartFlag    = catdir(Slim::Utils::OSDetect::dirsFor('cache'), 'restart.txt');
+my $restartFlag    = catdir($os->dirsFor('cache'), 'restart.txt');
+my $controlPanel   = catdir($os->dirsFor('base'), 'server', 'cleanup.exe');
 
 ${^WIN32_SLOPPY_STAT} = 1;
 
@@ -41,9 +43,7 @@ ${^WIN32_SLOPPY_STAT} = 1;
 sub PopupMenu {
 	my @menu = ();
 
-	push @menu, ['*' . string('OPEN_CONTROLPANEL'), sub {
-		Execute(catdir($svcMgr->installDir(), 'server', 'cleanup.exe'));
-	}];
+	push @menu, ['*' . string('OPEN_CONTROLPANEL'), \&DoubleClick];
 
 	if ( my $installer = _getUpdateInstaller() ) {
 		push @menu, [string('INSTALL_UPDATE'), \&updateSqueezeCenter];	
@@ -123,7 +123,7 @@ sub Singleton {
 }
 
 sub DoubleClick {
-	Execute(catdir($svcMgr->installDir(), 'server', 'cleanup.exe'));
+	Execute($controlPanel);
 }
 
 # Display tooltip based on SS state
