@@ -319,7 +319,7 @@ sub updateSqueezeCenter {
 	Win32::Process::Create(
 		$processObj,
 		$installer,
-		"\"$installer\" /silent",
+		"\"$installer\"",
 		0,
 		Win32::Process::DETACHED_PROCESS() | Win32::Process::CREATE_NO_WINDOW() | Win32::Process::NORMAL_PRIORITY_CLASS(),
 		'.'
