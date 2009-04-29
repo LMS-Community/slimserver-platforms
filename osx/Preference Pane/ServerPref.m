@@ -449,7 +449,7 @@
 
 -(IBAction)updateBtnHandler:(id)sender
 {
-	NSString *installer = [self getPref:@"updateInstaller"];
+	NSString *installer = [self checkUpdateInstaller];
 	
 	if (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]) {
 		[self installUpdate];
@@ -478,11 +478,48 @@
 	}
 }
 
--(void)checkUpdateInstaller
+-(NSString *)checkUpdateInstaller
 {
-	NSString *installer = [self getPref:@"updateInstaller"];
-	hasUpdateInstaller = (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]);
+	NSString *pathToUpdate = [self findUpdate:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)];
+
+	if ([pathToUpdate length] == 0)
+		pathToUpdate = [self findUpdate:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES)];
+
+	if ([pathToUpdate length] > 0) {
+		NSString *fileString = [NSString stringWithContentsOfFile:pathToUpdate];
+		NSArray *lines = [fileString componentsSeparatedByString:@"\n"];
+	
+		if ([lines count] > 0)
+		{
+			NSString *installer = [lines objectAtIndex:0];
+			
+			hasUpdateInstaller = (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]);
+			return installer;
+		}
+	}
+
+	return nil;
 }
+
+-(NSString *)findUpdate:(NSArray *)paths
+{
+	NSFileManager *mgr = [NSFileManager defaultManager];
+	
+	if ([paths count] > 0)
+	{
+		int i;
+		for (i = 0; i < [paths count]; i++)
+		{
+			NSString *p;
+			p = [[paths objectAtIndex:i] stringByAppendingPathComponent:@"Caches/SqueezeCenter/updates/squeezecenter.version"];
+			
+			if ([mgr fileExistsAtPath:p])
+				return p;
+		}
+	}
+	
+	return nil;
+}	
 
 -(void)installUpdateConfirmed:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
@@ -493,7 +530,7 @@
 
 -(void)installUpdate
 {
-	NSString *installer = [self getPref:@"updateInstaller"];
+	NSString *installer = [self checkUpdateInstaller];
 	
 	if (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]) {
 		

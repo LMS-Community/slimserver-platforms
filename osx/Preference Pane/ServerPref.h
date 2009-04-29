@@ -83,7 +83,8 @@
 -(IBAction)openSettingsWebInterface:(id)sender;
 -(IBAction)toggleServer:(id)sender;
 -(IBAction)updateBtnHandler:(id)sender;
--(void)checkUpdateInstaller;
+-(NSString *)checkUpdateInstaller;
+-(NSString *)findUpdate:(NSArray *)paths;
 -(void)installUpdate;
 
 -(IBAction)changeStartupPreference:(id)sender;
