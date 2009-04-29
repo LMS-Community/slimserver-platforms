@@ -35,6 +35,7 @@ my $svcMgr         = Slim::Utils::ServiceManager->new();
 my $os             = Slim::Utils::OSDetect::getOS();
 
 my $restartFlag    = catdir($os->dirsFor('cache'), 'restart.txt');
+my $versionFile    = catdir( scalar ($os->dirsFor('updates')), 'squeezecenter.version');
 my $controlPanel   = catdir($os->dirsFor('base'), 'server', 'cleanup.exe');
 
 ${^WIN32_SLOPPY_STAT} = 1;
@@ -245,7 +246,22 @@ sub checkForUpdate {
 }
 
 sub _getUpdateInstaller {
-	my $installer = getPref('updateInstaller');
+	
+	open(UPDATEFLAG, $versionFile) || return '';
+	
+	my $installer = '';
+	
+	while ( <UPDATEFLAG> ) {
+		chomp;
+		
+		if (/SqueezeCenter.*/) {
+			$installer = $_;
+			last;
+		}
+	}
+		
+	close UPDATEFLAG;
+	
 	return $installer if ($installer && -r $installer);	
 }
 
