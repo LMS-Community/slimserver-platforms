@@ -543,6 +543,9 @@ begin
 	if CurStep = ssPostInstall then 
 		begin
 
+			// remove squeezecenter.version file to prevent repeated update prompts
+			DeleteFile(AddBackslash(GetWritablePath('')) + AddBackslash('Cache') + AddBackslash('updates') + 'squeezecenter.version');
+
 			for i:= 0 to ParamCount() do begin
 				if (pos('/silent', lowercase(ParamStr(i))) > 0) then
 					Silent:= true
