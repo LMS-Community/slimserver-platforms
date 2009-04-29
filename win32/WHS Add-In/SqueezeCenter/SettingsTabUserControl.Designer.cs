@@ -50,15 +50,17 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkMusicFolder = new System.Windows.Forms.LinkLabel();
             this.linkSCSettings = new System.Windows.Forms.LinkLabel();
             this.music = new System.Windows.Forms.TabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.information = new System.Windows.Forms.TabPage();
             this.maintenance = new System.Windows.Forms.TabPage();
             this.labelPleaseStopSC = new System.Windows.Forms.Label();
             this.btnCleanup = new Microsoft.HomeServer.Controls.QButton();
-            this.misc = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.informationBrowser = new System.Windows.Forms.WebBrowser();
             this.customTabControl1.SuspendLayout();
             this.settings.SuspendLayout();
             this.panel1.SuspendLayout();
             this.music.SuspendLayout();
+            this.information.SuspendLayout();
             this.maintenance.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,8 +74,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.customTabControl1.Controls.Add(this.settings);
             this.customTabControl1.Controls.Add(this.music);
+            this.customTabControl1.Controls.Add(this.information);
             this.customTabControl1.Controls.Add(this.maintenance);
-            this.customTabControl1.Controls.Add(this.misc);
             this.customTabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.customTabControl1.HeaderColor = System.Drawing.Color.White;
             this.customTabControl1.HeaderFont = new System.Drawing.Font("Tahoma", 8F);
@@ -84,6 +86,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.customTabControl1.Size = new System.Drawing.Size(384, 404);
             this.customTabControl1.TabHeaderColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.customTabControl1.TabIndex = 20;
+            this.customTabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.customTabControl1_Selected);
             // 
             // settings
             // 
@@ -326,6 +329,26 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.music.TabIndex = 1;
             this.music.Text = "Music Library";
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Location = new System.Drawing.Point(6, 6);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(364, 366);
+            this.panel2.TabIndex = 0;
+            // 
+            // information
+            // 
+            this.information.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.information.Controls.Add(this.informationBrowser);
+            this.information.Location = new System.Drawing.Point(4, 22);
+            this.information.Name = "information";
+            this.information.Padding = new System.Windows.Forms.Padding(3);
+            this.information.Size = new System.Drawing.Size(376, 378);
+            this.information.TabIndex = 3;
+            this.information.Text = "Information";
+            // 
             // maintenance
             // 
             this.maintenance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
@@ -371,24 +394,17 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.btnCleanup.UseVisualStyleBackColor = true;
             this.btnCleanup.Click += new System.EventHandler(this.btnCleanup_Click);
             // 
-            // misc
+            // informationBrowser
             // 
-            this.misc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.misc.Location = new System.Drawing.Point(4, 22);
-            this.misc.Name = "misc";
-            this.misc.Padding = new System.Windows.Forms.Padding(3);
-            this.misc.Size = new System.Drawing.Size(376, 378);
-            this.misc.TabIndex = 3;
-            this.misc.Text = "Misc";
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Location = new System.Drawing.Point(6, 6);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(364, 366);
-            this.panel2.TabIndex = 0;
+            this.informationBrowser.AllowNavigation = false;
+            this.informationBrowser.AllowWebBrowserDrop = false;
+            this.informationBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.informationBrowser.Location = new System.Drawing.Point(3, 3);
+            this.informationBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.informationBrowser.Name = "informationBrowser";
+            this.informationBrowser.ScriptErrorsSuppressed = true;
+            this.informationBrowser.Size = new System.Drawing.Size(370, 372);
+            this.informationBrowser.TabIndex = 0;
             // 
             // SettingsTabUserControl
             // 
@@ -403,6 +419,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.music.ResumeLayout(false);
+            this.information.ResumeLayout(false);
             this.maintenance.ResumeLayout(false);
             this.maintenance.PerformLayout();
             this.ResumeLayout(false);
@@ -421,7 +438,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private System.Windows.Forms.LinkLabel linkSCSettings;
         private System.Windows.Forms.Label labelPleaseStopSC;
         private Microsoft.HomeServer.Controls.QButton btnCleanup;
-        private System.Windows.Forms.TabPage misc;
+        private System.Windows.Forms.TabPage information;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel linkScannerLog;
         private System.Windows.Forms.LinkLabel linkServerLog;
@@ -437,6 +454,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private Microsoft.HomeServer.Controls.PropertyPageSectionLabel propertyPageSectionLabel4;
         private Microsoft.HomeServer.Controls.Line line4;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.WebBrowser informationBrowser;
 
     }
 }

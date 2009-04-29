@@ -315,5 +315,22 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             p.Start();
         }
 
+        private void customTabControl1_Selected(object sender, TabControlEventArgs e)
+        {
+            if (e.TabPage == information)
+            {
+                if (this.scStatus == 1)
+                {
+//                    informationBrowser.Url = new Uri(getSCUrl() + @"/EN/settings/server/status.html?simple=1");
+                    informationBrowser.Navigate(getSCUrl() + @"/EN/settings/server/status.html?simple=1");
+                    informationBrowser.Refresh();
+                }
+                else
+                {
+                    informationBrowser.DocumentText = @"No status information available. Please note that SqueezeCenter has to be up and running in order to display its status information.";
+                }
+            }
+        }
+
     }
 }
