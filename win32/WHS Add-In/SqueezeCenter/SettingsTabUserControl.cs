@@ -140,10 +140,21 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             System.Diagnostics.Process.Start(getLogPath() + @"\server.log");
         }
 
+/*        private void linkServerLog_Paint(object sender, PaintEventArgs e)
+        {
+            linkServerLog.Text = getLogPath() + @"\server.log";
+        }
+*/
         private void linkScannerLog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(getLogPath() + @"\scanner.log");
         }
+
+/*        private void linkScannerLog_Paint(object sender, PaintEventArgs e)
+        {
+            linkScannerLog.Text = getLogPath() + @"\scanner.log";
+        }
+*/
 
         private void linkSCSettings_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -303,5 +314,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             p.StartInfo.WorkingDirectory = path;
             p.Start();
         }
+
     }
 }
