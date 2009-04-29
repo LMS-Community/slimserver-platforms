@@ -41,4 +41,6 @@ alc flc * *
 flc flc transcode *
 	[disable-flac]
 
+aac wav * *
+	[disable-faad]
 
