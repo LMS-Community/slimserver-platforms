@@ -480,10 +480,10 @@
 
 -(NSString *)checkUpdateInstaller
 {
-	NSString *pathToUpdate = [self findUpdate:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)];
+	NSString *pathToUpdate = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:versionFile];
 
 	if ([pathToUpdate length] == 0)
-		pathToUpdate = [self findUpdate:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES)];
+		pathToUpdate = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES) fileName:versionFile];
 
 	if ([pathToUpdate length] > 0) {
 		NSString *fileString = [NSString stringWithContentsOfFile:pathToUpdate];
@@ -500,26 +500,6 @@
 
 	return nil;
 }
-
--(NSString *)findUpdate:(NSArray *)paths
-{
-	NSFileManager *mgr = [NSFileManager defaultManager];
-	
-	if ([paths count] > 0)
-	{
-		int i;
-		for (i = 0; i < [paths count]; i++)
-		{
-			NSString *p;
-			p = [[paths objectAtIndex:i] stringByAppendingPathComponent:@"Caches/SqueezeCenter/updates/squeezecenter.version"];
-			
-			if ([mgr fileExistsAtPath:p])
-				return p;
-		}
-	}
-	
-	return nil;
-}	
 
 -(void)installUpdateConfirmed:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
@@ -578,35 +558,15 @@
 -(void)showLog:(NSString *)whichLog
 {	
 	NSString *pathToLog;
+	
+	whichLog = [logDir stringByAppendingPathComponent:whichLog];	
 
-	pathToLog = [self findLog:whichLog paths:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)];
+	pathToLog = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:whichLog];
 	
 	if ([pathToLog length] == 0)
-		pathToLog = [self findLog:whichLog paths:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES)];
+		pathToLog = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES) fileName:whichLog];
 	
 	[[NSWorkspace sharedWorkspace] openFile:pathToLog];
-}
-
--(NSString *)findLog:(NSString *)whichLog paths:(NSArray *)paths
-{
-	NSFileManager *mgr = [NSFileManager defaultManager];
-
-	whichLog = [@"Logs/SqueezeCenter" stringByAppendingPathComponent:whichLog];
-	
-	if ([paths count] > 0)
-	{
-		int i;
-		for (i = 0; i < [paths count]; i++)
-		{
-			NSString *p;
-			p = [[paths objectAtIndex:i] stringByAppendingPathComponent:whichLog];
-
-			if ([mgr fileExistsAtPath:p])
-				return p;
-		}
-	}
-
-	return nil;
 }
 
 /* rescan buttons and progress */
@@ -822,12 +782,13 @@
 }
 
 /* very simplistic method to read an atomic pref from the server.prefs file */
+/* no longer used - but we might need it again later
 -(NSString *)getPref:(NSString *)pref
 {
-	NSString *pathToPrefs = [self findPrefs:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)];
+	NSString *pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:prefsFile];
 	
 	if ([pathToPrefs length] == 0)
-		pathToPrefs = [self findPrefs:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES)];
+		pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES) fileName:prefsFile];
 
 	if ([pathToPrefs length] > 0) {
 		NSString *fileString = [NSString stringWithContentsOfFile:pathToPrefs];
@@ -852,8 +813,9 @@
 	
 	return nil;
 }
+*/
 
--(NSString *)findPrefs:(NSArray *)paths
+-(NSString *)findFile:(NSArray *)paths fileName:(NSString*)fileName
 {
 	NSFileManager *mgr = [NSFileManager defaultManager];
 	
@@ -863,7 +825,7 @@
 		for (i = 0; i < [paths count]; i++)
 		{
 			NSString *p;
-			p = [[paths objectAtIndex:i] stringByAppendingPathComponent:@"Application Support/SqueezeCenter/server.prefs"];
+			p = [[paths objectAtIndex:i] stringByAppendingPathComponent:fileName];
 			
 			if ([mgr fileExistsAtPath:p])
 				return p;

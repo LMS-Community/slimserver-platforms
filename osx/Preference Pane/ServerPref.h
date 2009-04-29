@@ -16,6 +16,10 @@
 #define statusUrl @"http://localhost:9000/EN/settings/server/status.html?simple=1"
 #define updateCheckUrl @"http://update.squeezenetwork.com/update/?version=%@&geturl=1&os=osx"
 
+#define versionFile @"Caches/SqueezeCenter/updates/squeezecenter.version"
+#define prefsFile @"Application Support/SqueezeCenter/server.prefs"
+#define logDir @"Logs/SqueezeCenter"
+
 #define kNoAutomaticStartup 0
 #define kStartupAtLogin 1
 #define kStartupAtBoot 2
@@ -84,7 +88,6 @@
 -(IBAction)toggleServer:(id)sender;
 -(IBAction)updateBtnHandler:(id)sender;
 -(NSString *)checkUpdateInstaller;
--(NSString *)findUpdate:(NSArray *)paths;
 -(void)installUpdate;
 
 -(IBAction)changeStartupPreference:(id)sender;
@@ -92,7 +95,6 @@
 -(IBAction)showServerLog:(id)sender;
 -(IBAction)showScannerLog:(id)sender;
 -(void)showLog:(NSString *)whichLog;
--(NSString *)findLog:(NSString *)whichLog paths:(NSArray *)paths;
 
 /* cleanup tab */
 -(IBAction)cleanupBtnHandler:(id)sender;
@@ -101,7 +103,8 @@
 
 -(NSDictionary *)jsonRequest:(NSString *)query;
 -(NSString *)getSCString:(NSString *)stringToken;
--(NSString *)getPref:(NSString *)pref;
--(NSString *)findPrefs:(NSArray *)paths;
+//-(NSString *)getPref:(NSString *)pref;
+
+-(NSString *)findFile:(NSArray *)paths fileName:(NSString *)fileName;
 
 @end
