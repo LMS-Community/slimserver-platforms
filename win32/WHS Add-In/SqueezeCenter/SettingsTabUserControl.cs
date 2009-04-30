@@ -42,6 +42,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
             progressLabel.Text = "";
             progressInformation.Text = "";
+            rescanOptionsList.SelectedIndex = 0;
         }
 
         private void btnStartStopService_Click(object sender, EventArgs e)
@@ -151,21 +152,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             System.Diagnostics.Process.Start(getLogPath() + @"\server.log");
         }
 
-/*        private void linkServerLog_Paint(object sender, PaintEventArgs e)
-        {
-            linkServerLog.Text = getLogPath() + @"\server.log";
-        }
-*/
         private void linkScannerLog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(getLogPath() + @"\scanner.log");
         }
-
-/*        private void linkScannerLog_Paint(object sender, PaintEventArgs e)
-        {
-            linkScannerLog.Text = getLogPath() + @"\scanner.log";
-        }
-*/
 
         private void linkSCSettings_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -343,8 +333,21 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
 
         /* Music library management */
+        private void rescanBtn_Click(object sender, EventArgs e)
+        {
+            if (rescanOptionsList.SelectedIndex == 0)
+                jsonRequest(new string[] { "rescan" });
+            else if (rescanOptionsList.SelectedIndex == 1)
+                jsonRequest(new string[] { "wipecache" });
+            else if (rescanOptionsList.SelectedIndex == 2)
+                jsonRequest(new string[] { "rescan", "playlists" });
+        }
+
         private void ScanPollTimer_Tick(object sender, EventArgs e)
         {
+            rescanOptionsList.Enabled = !this.isScanning;
+            rescanBtn.Enabled = !this.isScanning;
+
             JsonObject scanProgress = jsonRequest(new string[] { "rescanprogress" } );
             progressInformation.Text = "";
 
@@ -363,9 +366,12 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                 }
 
                 if (scanProgress["info"] != null)
-                {
                     progressInformation.Text = scanProgress["info"].ToString();
-                }
+
+                if (scanProgress["totaltime"] != null)
+                    progressTime.Text = scanProgress["totaltime"].ToString();
+                else
+                    progressTime.Text = "00:00:00";
 
                 return;
             }

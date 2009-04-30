@@ -51,6 +51,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkSCSettings = new System.Windows.Forms.LinkLabel();
             this.music = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.progressTime = new System.Windows.Forms.Label();
             this.scanProgressBar = new System.Windows.Forms.ProgressBar();
             this.progressInformation = new System.Windows.Forms.Label();
             this.progressLabel = new System.Windows.Forms.Label();
@@ -344,6 +345,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.progressTime);
             this.panel2.Controls.Add(this.scanProgressBar);
             this.panel2.Controls.Add(this.progressInformation);
             this.panel2.Controls.Add(this.progressLabel);
@@ -358,12 +360,22 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.panel2.Size = new System.Drawing.Size(364, 366);
             this.panel2.TabIndex = 0;
             // 
+            // progressTime
+            // 
+            this.progressTime.AutoSize = true;
+            this.progressTime.BackColor = System.Drawing.Color.Transparent;
+            this.progressTime.Location = new System.Drawing.Point(300, 253);
+            this.progressTime.Name = "progressTime";
+            this.progressTime.Size = new System.Drawing.Size(49, 13);
+            this.progressTime.TabIndex = 35;
+            this.progressTime.Text = "00:00:00";
+            // 
             // scanProgressBar
             // 
             this.scanProgressBar.BackColor = System.Drawing.Color.WhiteSmoke;
             this.scanProgressBar.Location = new System.Drawing.Point(28, 250);
             this.scanProgressBar.Name = "scanProgressBar";
-            this.scanProgressBar.Size = new System.Drawing.Size(319, 23);
+            this.scanProgressBar.Size = new System.Drawing.Size(266, 23);
             this.scanProgressBar.TabIndex = 34;
             // 
             // progressInformation
@@ -419,6 +431,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.rescanBtn.TabIndex = 30;
             this.rescanBtn.Text = "Rescan";
             this.rescanBtn.UseVisualStyleBackColor = true;
+            this.rescanBtn.Click += new System.EventHandler(this.rescanBtn_Click);
             // 
             // propertyPageSectionLabel6
             // 
@@ -599,6 +612,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private System.Windows.Forms.Label progressLabel;
         private System.Windows.Forms.Label progressInformation;
         private System.Windows.Forms.ProgressBar scanProgressBar;
+        private System.Windows.Forms.Label progressTime;
 
     }
 }
