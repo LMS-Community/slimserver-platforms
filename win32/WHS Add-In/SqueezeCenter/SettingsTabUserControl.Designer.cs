@@ -52,10 +52,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.music = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.information = new System.Windows.Forms.TabPage();
+            this.informationBrowser = new System.Windows.Forms.WebBrowser();
             this.maintenance = new System.Windows.Forms.TabPage();
             this.labelPleaseStopSC = new System.Windows.Forms.Label();
             this.btnCleanup = new Microsoft.HomeServer.Controls.QButton();
-            this.informationBrowser = new System.Windows.Forms.WebBrowser();
             this.customTabControl1.SuspendLayout();
             this.settings.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -349,6 +349,18 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.information.TabIndex = 3;
             this.information.Text = "Information";
             // 
+            // informationBrowser
+            // 
+            this.informationBrowser.AllowNavigation = false;
+            this.informationBrowser.AllowWebBrowserDrop = false;
+            this.informationBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.informationBrowser.Location = new System.Drawing.Point(3, 3);
+            this.informationBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.informationBrowser.Name = "informationBrowser";
+            this.informationBrowser.ScriptErrorsSuppressed = true;
+            this.informationBrowser.Size = new System.Drawing.Size(370, 372);
+            this.informationBrowser.TabIndex = 0;
+            // 
             // maintenance
             // 
             this.maintenance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
@@ -393,17 +405,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.btnCleanup.Text = "Run Cleanup Assistant...";
             this.btnCleanup.UseVisualStyleBackColor = true;
             this.btnCleanup.Click += new System.EventHandler(this.btnCleanup_Click);
-            // 
-            // informationBrowser
-            // 
-            this.informationBrowser.AllowWebBrowserDrop = false;
-            this.informationBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.informationBrowser.Location = new System.Drawing.Point(3, 3);
-            this.informationBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.informationBrowser.Name = "informationBrowser";
-            this.informationBrowser.ScriptErrorsSuppressed = true;
-            this.informationBrowser.Size = new System.Drawing.Size(370, 372);
-            this.informationBrowser.TabIndex = 0;
             // 
             // SettingsTabUserControl
             // 
