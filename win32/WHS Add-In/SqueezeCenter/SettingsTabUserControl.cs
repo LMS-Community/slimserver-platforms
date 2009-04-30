@@ -21,6 +21,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
     public partial class SettingsTabUserControl : UserControl
     {
         IConsoleServices consoleServices;
+        Dictionary<string, string> scStrings = new Dictionary<string, string>();
         int scStatus;
         bool isScanning;
         
@@ -316,7 +317,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                 if (steps.Length > 0 && scanProgress[steps[steps.Length - 1].ToString()] != null)
                 {
                     string step = steps[steps.Length - 1].ToString();
-                    progressLabel.Text = step;
+                    progressLabel.Text = getSCString(step.ToUpper() + "_PROGRESS");
 
                     int val = Convert.ToInt16(scanProgress[step]);
                     scanProgressBar.Value = val > 0 ? val : 0;
@@ -340,7 +341,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
             if (this.isScanning)
             {
-                progressLabel.Text = "complete";
+                progressLabel.Text = getSCString("PROGRESS_IMPORTER_COMPLETE_DESC");
                 scanProgressBar.Value = 100;
             }
 
@@ -366,6 +367,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             return getDataPath() + @"\prefs";
         }
 
+        /* reading prefs from the file directly */
         private String getPref(String pref)
         {
             String value = "";
@@ -401,6 +403,36 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
             JsonObject result = (JsonObject)client.Invoke(new object[] { "", query });
             return result;
+        }
+
+        /* get localized strings from SC and cache them in a dictionary */
+        private string getSCString(string stringToken)
+        {
+            stringToken = stringToken.ToUpper();
+            string translation = "";
+
+
+            if (scStrings.ContainsKey(stringToken))
+            {
+                translation = scStrings[stringToken];
+            }
+            else
+            {
+                // initialize entry with empty value to prevent querying string twice
+                scStrings.Add(stringToken, "");
+
+                JsonObject translationTuple = jsonRequest(new string[] { "getstring", stringToken });
+
+                if (translationTuple != null && translationTuple[stringToken] != null)
+                    translation = translationTuple[stringToken].ToString();
+
+                if (translation == "")
+                    scStrings.Remove(stringToken);
+                else
+                    scStrings[stringToken] = translation;
+            }
+                        
+            return translation;
         }
     }
 
