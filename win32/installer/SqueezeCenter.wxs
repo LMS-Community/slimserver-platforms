@@ -47,6 +47,19 @@
 							KeyPath="yes"
 							DiskId="1"/>
 					</Component>
+					
+					<Component
+						Id="Jayrock.Json"
+						Guid="c430a0d0-3584-11de-b418-0800200c9a66">
+					
+						<File
+							Id="Jayrock.Json.dll"
+							Name="Jayrock.Json.dll"
+							Source="Jayrock.Json.dll"
+							Vital="yes"
+							KeyPath="yes"
+							DiskId="1"/>
+					</Component>
 				</Directory>
 			</Directory>
 		</Directory>
@@ -79,6 +92,7 @@
 		
 		<Feature Id="ProductFeature" Title="SqueezePanel" Level="1" AllowAdvertise="no">
 			<ComponentRef Id="HomeServerConsoleTab.SqueezePanel" />
+			<ComponentRef Id="Jayrock.Json" />
 		</Feature>
 		
 		<CustomAction Id="InstallSC" BinaryKey="SCInstallerFile" ExeCommand="/silent" Impersonate="no" Return="ignore" Execute="deferred" />
