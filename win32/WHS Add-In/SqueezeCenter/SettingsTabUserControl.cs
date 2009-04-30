@@ -128,6 +128,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
             if (oldStatus != this.scStatus)
             {
+                if (this.scStatus == 1)
+                    informationBrowser.Url = new Uri(getSCUrl() + @"/EN/settings/server/status.html?simple=1");
+
                 btnStartStopService_Paint(null, null);
                 cbStartAtBoot.Enabled = (this.scStatus != -1);
                 btnCleanup.Enabled = (this.scStatus != 1);
@@ -321,8 +324,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             {
                 if (this.scStatus == 1)
                 {
-//                    informationBrowser.Url = new Uri(getSCUrl() + @"/EN/settings/server/status.html?simple=1");
-                    informationBrowser.Navigate(getSCUrl() + @"/EN/settings/server/status.html?simple=1");
+//                    informationBrowser.Navigate(getSCUrl() + @"/EN/settings/server/status.html?simple=1");
                     informationBrowser.Refresh();
                 }
                 else

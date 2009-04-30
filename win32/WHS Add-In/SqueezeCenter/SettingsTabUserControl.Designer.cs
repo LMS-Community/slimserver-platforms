@@ -396,7 +396,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             // informationBrowser
             // 
-            this.informationBrowser.AllowNavigation = false;
             this.informationBrowser.AllowWebBrowserDrop = false;
             this.informationBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.informationBrowser.Location = new System.Drawing.Point(3, 3);
