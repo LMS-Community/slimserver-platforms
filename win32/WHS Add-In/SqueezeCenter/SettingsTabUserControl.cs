@@ -174,12 +174,12 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
         private void linkMusicFolder_Paint(object sender, PaintEventArgs e)
         {
-            linkMusicFolder.Text = readPref("audiodir");
+            linkMusicFolder.Text = getPref("audiodir");
         }
 
         private void linkMusicFolder_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            String audiodir = readPref("audiodir");
+            String audiodir = getPref("audiodir");
 
             // if audiodir is on a share, try to open it on the client
             if (audiodir.Substring(0, 2) == @"\\")
@@ -208,7 +208,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             }
             catch { }
             */
-            return @"http://" + url + ":" + readPref("httpport");
+            return @"http://" + url + ":" + getPref("httpport");
         }
 
         private void SettingsTabUserControl_Load(object sender, EventArgs e)
@@ -219,51 +219,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private void cbStartAtBoot_Click(object sender, EventArgs e)
         {
             this.consoleServices.EnableSettingsApply();
-        }
-
-        private String getDataPath()
-        {
-            RegistryKey OurKey = Registry.LocalMachine;
-            OurKey = OurKey.OpenSubKey(@"SOFTWARE\Logitech\SqueezeCenter", true);
-            return OurKey.GetValue("DataPath").ToString();
-        }
-
-        private string getLogPath()
-        {
-            return getDataPath() + @"\Logs";
-        }
-
-        private string getPrefsPath()
-        {
-            return getDataPath() + @"\prefs";
-        }
-
-        private String readPref(String pref)
-        {
-            String value = "";
-            Regex prefsRegex = new Regex("^(" + pref + @"):\s*(.*)\s*$");
-
-            try
-            {
-                TextReader prefsFile = new StreamReader(getPrefsPath() + @"\server.prefs");
-                value = prefsFile.ReadLine();
-                while (value != null)
-                {
-                    Match pair = prefsRegex.Match(value);
-                    if (pair.Groups.Count >= 2)
-                    {
-                        value = pair.Groups[2].Value;
-                        break;
-                    }
-
-                    value = prefsFile.ReadLine();
-                }
-
-                prefsFile.Close();
-            }
-            catch { }
-
-            return (value == null ? "" : value);
         }
 
         private bool AutostartSCService()
@@ -321,13 +276,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             if (e.TabPage == information)
             {
                 if (this.scStatus == 1)
-                {
                     informationBrowser.Refresh();
-                }
                 else
-                {
                     informationBrowser.DocumentText = @"No status information available. Please note that SqueezeCenter has to be up and running in order to display its status information.";
-                }
             }
         }
 
@@ -341,6 +292,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                 jsonRequest(new string[] { "wipecache" });
             else if (rescanOptionsList.SelectedIndex == 2)
                 jsonRequest(new string[] { "rescan", "playlists" });
+
+            ScanPollTimer_Tick(this, new EventArgs());
         }
 
         private void ScanPollTimer_Tick(object sender, EventArgs e)
@@ -354,6 +307,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             if (scanProgress != null && scanProgress["steps"] != null && scanProgress["rescan"] != null)
             {
                 this.isScanning = true;
+
+                rescanOptionsList.Enabled = false;
+                rescanBtn.Enabled = false;
+
                 string[] steps = scanProgress["steps"].ToString().Split(',');
 
                 if (steps.Length > 0 && scanProgress[steps[steps.Length - 1].ToString()] != null)
@@ -392,6 +349,51 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
 
         /* helper methods */
+        private String getDataPath()
+        {
+            RegistryKey OurKey = Registry.LocalMachine;
+            OurKey = OurKey.OpenSubKey(@"SOFTWARE\Logitech\SqueezeCenter", true);
+            return OurKey.GetValue("DataPath").ToString();
+        }
+
+        private string getLogPath()
+        {
+            return getDataPath() + @"\Logs";
+        }
+
+        private string getPrefsPath()
+        {
+            return getDataPath() + @"\prefs";
+        }
+
+        private String getPref(String pref)
+        {
+            String value = "";
+            Regex prefsRegex = new Regex("^(" + pref + @"):\s*(.*)\s*$");
+
+            try
+            {
+                TextReader prefsFile = new StreamReader(getPrefsPath() + @"\server.prefs");
+                value = prefsFile.ReadLine();
+                while (value != null)
+                {
+                    Match pair = prefsRegex.Match(value);
+                    if (pair.Groups.Count >= 2)
+                    {
+                        value = pair.Groups[2].Value;
+                        break;
+                    }
+
+                    value = prefsFile.ReadLine();
+                }
+
+                prefsFile.Close();
+            }
+            catch { }
+
+            return (value == null ? "" : value);
+        }
+
         private JsonObject jsonRequest(string[] query)
         {
             JsonRpcClient client = new JsonRpcClient();
