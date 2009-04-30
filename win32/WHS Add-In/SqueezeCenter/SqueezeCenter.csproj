@@ -135,8 +135,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="installer.bat" />
-    <None Include="installer.wxs" />
     <None Include="Resources\squeezebox.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

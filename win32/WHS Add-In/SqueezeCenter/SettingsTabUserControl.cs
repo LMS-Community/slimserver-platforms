@@ -22,6 +22,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
     {
         IConsoleServices consoleServices;
         int scStatus;
+        bool isScanning;
         
         const string svcName = "squeezesvc";
 
@@ -37,6 +38,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.Height = height;
             this.consoleServices = consoleServices;
             this.scStatus = 0;
+            this.isScanning = false;
+
+            progressLabel.Text = "";
+            progressInformation.Text = "";
         }
 
         private void btnStartStopService_Click(object sender, EventArgs e)
@@ -336,13 +341,57 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             }
         }
 
+
+        /* Music library management */
+        private void ScanPollTimer_Tick(object sender, EventArgs e)
+        {
+            JsonObject scanProgress = jsonRequest(new string[] { "rescanprogress" } );
+            progressInformation.Text = "";
+
+            if (scanProgress != null && scanProgress["steps"] != null && scanProgress["rescan"] != null)
+            {
+                this.isScanning = true;
+                string[] steps = scanProgress["steps"].ToString().Split(',');
+
+                if (steps.Length > 0 && scanProgress[steps[steps.Length - 1].ToString()] != null)
+                {
+                    string step = steps[steps.Length - 1].ToString();
+                    progressLabel.Text = step;
+
+                    int val = Convert.ToInt16(scanProgress[step]);
+                    scanProgressBar.Value = val > 0 ? val : 0;
+                }
+
+                if (scanProgress["info"] != null)
+                {
+                    progressInformation.Text = scanProgress["info"].ToString();
+                }
+
+                return;
+            }
+
+            else if (scanProgress != null && scanProgress["lastscanfailed"] != null)
+            {
+                progressLabel.Text = scanProgress["lastscanfailed"].ToString();
+            }
+
+            if (this.isScanning)
+            {
+                progressLabel.Text = "complete";
+                scanProgressBar.Value = 100;
+            }
+
+            this.isScanning = false;
+        }
+
+
+        /* helper methods */
         private JsonObject jsonRequest(string[] query)
         {
             JsonRpcClient client = new JsonRpcClient();
             client.Url = getSCUrl() + "/jsonrpc.js";
 
             JsonObject result = (JsonObject)client.Invoke(new object[] { "", query });
-//            JsonObject result = (JsonObject)client.Invoke(new object[] { "", new string[] { "serverstatus", "0", "999" } });
             return result;
         }
     }

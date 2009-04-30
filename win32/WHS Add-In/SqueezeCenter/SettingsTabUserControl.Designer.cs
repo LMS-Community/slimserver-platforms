@@ -51,15 +51,26 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkSCSettings = new System.Windows.Forms.LinkLabel();
             this.music = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.scanProgressBar = new System.Windows.Forms.ProgressBar();
+            this.progressInformation = new System.Windows.Forms.Label();
+            this.progressLabel = new System.Windows.Forms.Label();
+            this.rescanOptionsList = new System.Windows.Forms.ComboBox();
+            this.rescanBtn = new Microsoft.HomeServer.Controls.QButton();
+            this.propertyPageSectionLabel6 = new Microsoft.HomeServer.Controls.PropertyPageSectionLabel();
+            this.line6 = new Microsoft.HomeServer.Controls.Line();
+            this.propertyPageSectionLabel5 = new Microsoft.HomeServer.Controls.PropertyPageSectionLabel();
+            this.line5 = new Microsoft.HomeServer.Controls.Line();
             this.information = new System.Windows.Forms.TabPage();
             this.informationBrowser = new System.Windows.Forms.WebBrowser();
             this.maintenance = new System.Windows.Forms.TabPage();
             this.labelPleaseStopSC = new System.Windows.Forms.Label();
             this.btnCleanup = new Microsoft.HomeServer.Controls.QButton();
+            this.ScanPollTimer = new System.Windows.Forms.Timer(this.components);
             this.customTabControl1.SuspendLayout();
             this.settings.SuspendLayout();
             this.panel1.SuspendLayout();
             this.music.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.information.SuspendLayout();
             this.maintenance.SuspendLayout();
             this.SuspendLayout();
@@ -130,7 +141,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.propertyPageSectionLabel4.BackColor = System.Drawing.Color.Transparent;
             this.propertyPageSectionLabel4.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.propertyPageSectionLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.propertyPageSectionLabel4.Location = new System.Drawing.Point(4, 203);
+            this.propertyPageSectionLabel4.Location = new System.Drawing.Point(4, 195);
             this.propertyPageSectionLabel4.Name = "propertyPageSectionLabel4";
             this.propertyPageSectionLabel4.Size = new System.Drawing.Size(108, 13);
             this.propertyPageSectionLabel4.TabIndex = 30;
@@ -141,7 +152,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.line4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
             this.line4.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.line4.Location = new System.Drawing.Point(103, 212);
+            this.line4.Location = new System.Drawing.Point(103, 204);
             this.line4.Name = "line4";
             this.line4.Size = new System.Drawing.Size(255, 1);
             this.line4.TabIndex = 29;
@@ -171,7 +182,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // linkScannerLog
             // 
             this.linkScannerLog.AutoSize = true;
-            this.linkScannerLog.Location = new System.Drawing.Point(25, 168);
+            this.linkScannerLog.Location = new System.Drawing.Point(25, 158);
             this.linkScannerLog.Name = "linkScannerLog";
             this.linkScannerLog.Size = new System.Drawing.Size(62, 13);
             this.linkScannerLog.TabIndex = 10;
@@ -185,7 +196,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.propertyPageSectionLabel2.BackColor = System.Drawing.Color.Transparent;
             this.propertyPageSectionLabel2.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.propertyPageSectionLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.propertyPageSectionLabel2.Location = new System.Drawing.Point(3, 125);
+            this.propertyPageSectionLabel2.Location = new System.Drawing.Point(3, 115);
             this.propertyPageSectionLabel2.Name = "propertyPageSectionLabel2";
             this.propertyPageSectionLabel2.Size = new System.Drawing.Size(51, 13);
             this.propertyPageSectionLabel2.TabIndex = 26;
@@ -195,7 +206,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // linkServerLog
             // 
             this.linkServerLog.AutoSize = true;
-            this.linkServerLog.Location = new System.Drawing.Point(25, 147);
+            this.linkServerLog.Location = new System.Drawing.Point(25, 137);
             this.linkServerLog.Name = "linkServerLog";
             this.linkServerLog.Size = new System.Drawing.Size(53, 13);
             this.linkServerLog.TabIndex = 9;
@@ -207,7 +218,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.line2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
             this.line2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.line2.Location = new System.Drawing.Point(60, 134);
+            this.line2.Location = new System.Drawing.Point(60, 124);
             this.line2.Name = "line2";
             this.line2.Size = new System.Drawing.Size(297, 1);
             this.line2.TabIndex = 25;
@@ -333,10 +344,125 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.scanProgressBar);
+            this.panel2.Controls.Add(this.progressInformation);
+            this.panel2.Controls.Add(this.progressLabel);
+            this.panel2.Controls.Add(this.rescanOptionsList);
+            this.panel2.Controls.Add(this.rescanBtn);
+            this.panel2.Controls.Add(this.propertyPageSectionLabel6);
+            this.panel2.Controls.Add(this.line6);
+            this.panel2.Controls.Add(this.propertyPageSectionLabel5);
+            this.panel2.Controls.Add(this.line5);
             this.panel2.Location = new System.Drawing.Point(6, 6);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(364, 366);
             this.panel2.TabIndex = 0;
+            // 
+            // scanProgressBar
+            // 
+            this.scanProgressBar.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.scanProgressBar.Location = new System.Drawing.Point(28, 250);
+            this.scanProgressBar.Name = "scanProgressBar";
+            this.scanProgressBar.Size = new System.Drawing.Size(319, 23);
+            this.scanProgressBar.TabIndex = 34;
+            // 
+            // progressInformation
+            // 
+            this.progressInformation.AutoSize = true;
+            this.progressInformation.Location = new System.Drawing.Point(25, 276);
+            this.progressInformation.Name = "progressInformation";
+            this.progressInformation.Size = new System.Drawing.Size(99, 13);
+            this.progressInformation.TabIndex = 33;
+            this.progressInformation.Text = "progressInformation";
+            // 
+            // progressLabel
+            // 
+            this.progressLabel.AutoSize = true;
+            this.progressLabel.Location = new System.Drawing.Point(25, 234);
+            this.progressLabel.Name = "progressLabel";
+            this.progressLabel.Size = new System.Drawing.Size(73, 13);
+            this.progressLabel.TabIndex = 32;
+            this.progressLabel.Text = "progressLabel";
+            // 
+            // rescanOptionsList
+            // 
+            this.rescanOptionsList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rescanOptionsList.FormattingEnabled = true;
+            this.rescanOptionsList.Items.AddRange(new object[] {
+            "Look for new and changed music",
+            "Clear library and rescan everything",
+            "Only rescan playlists"});
+            this.rescanOptionsList.Location = new System.Drawing.Point(28, 200);
+            this.rescanOptionsList.Name = "rescanOptionsList";
+            this.rescanOptionsList.Size = new System.Drawing.Size(230, 21);
+            this.rescanOptionsList.TabIndex = 31;
+            // 
+            // rescanBtn
+            // 
+            this.rescanBtn.AutoSize = true;
+            this.rescanBtn.BackColor = System.Drawing.Color.Transparent;
+            this.rescanBtn.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.rescanBtn.FlatAppearance.BorderSize = 0;
+            this.rescanBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.rescanBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.rescanBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rescanBtn.Font = new System.Drawing.Font("Tahoma", 8F);
+            this.rescanBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.rescanBtn.IsHovered = false;
+            this.rescanBtn.IsPressed = false;
+            this.rescanBtn.Location = new System.Drawing.Point(264, 199);
+            this.rescanBtn.Margins = 0;
+            this.rescanBtn.MaximumSize = new System.Drawing.Size(360, 21);
+            this.rescanBtn.MinimumSize = new System.Drawing.Size(72, 21);
+            this.rescanBtn.Name = "rescanBtn";
+            this.rescanBtn.Size = new System.Drawing.Size(83, 21);
+            this.rescanBtn.TabIndex = 30;
+            this.rescanBtn.Text = "Rescan";
+            this.rescanBtn.UseVisualStyleBackColor = true;
+            // 
+            // propertyPageSectionLabel6
+            // 
+            this.propertyPageSectionLabel6.AutoSize = true;
+            this.propertyPageSectionLabel6.BackColor = System.Drawing.Color.Transparent;
+            this.propertyPageSectionLabel6.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            this.propertyPageSectionLabel6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.propertyPageSectionLabel6.Location = new System.Drawing.Point(3, 176);
+            this.propertyPageSectionLabel6.Name = "propertyPageSectionLabel6";
+            this.propertyPageSectionLabel6.Size = new System.Drawing.Size(111, 13);
+            this.propertyPageSectionLabel6.TabIndex = 28;
+            this.propertyPageSectionLabel6.Text = "Music Scan Details";
+            this.propertyPageSectionLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // line6
+            // 
+            this.line6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line6.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line6.Location = new System.Drawing.Point(102, 185);
+            this.line6.Name = "line6";
+            this.line6.Size = new System.Drawing.Size(255, 1);
+            this.line6.TabIndex = 27;
+            // 
+            // propertyPageSectionLabel5
+            // 
+            this.propertyPageSectionLabel5.AutoSize = true;
+            this.propertyPageSectionLabel5.BackColor = System.Drawing.Color.Transparent;
+            this.propertyPageSectionLabel5.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            this.propertyPageSectionLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.propertyPageSectionLabel5.Location = new System.Drawing.Point(3, 6);
+            this.propertyPageSectionLabel5.Name = "propertyPageSectionLabel5";
+            this.propertyPageSectionLabel5.Size = new System.Drawing.Size(81, 13);
+            this.propertyPageSectionLabel5.TabIndex = 26;
+            this.propertyPageSectionLabel5.Text = "Music Source";
+            this.propertyPageSectionLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // line5
+            // 
+            this.line5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line5.Location = new System.Drawing.Point(102, 15);
+            this.line5.Name = "line5";
+            this.line5.Size = new System.Drawing.Size(255, 1);
+            this.line5.TabIndex = 25;
             // 
             // information
             // 
@@ -406,6 +532,12 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.btnCleanup.UseVisualStyleBackColor = true;
             this.btnCleanup.Click += new System.EventHandler(this.btnCleanup_Click);
             // 
+            // ScanPollTimer
+            // 
+            this.ScanPollTimer.Enabled = true;
+            this.ScanPollTimer.Interval = 2300;
+            this.ScanPollTimer.Tick += new System.EventHandler(this.ScanPollTimer_Tick);
+            // 
             // SettingsTabUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -419,6 +551,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.music.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.information.ResumeLayout(false);
             this.maintenance.ResumeLayout(false);
             this.maintenance.PerformLayout();
@@ -455,6 +589,16 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private Microsoft.HomeServer.Controls.Line line4;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.WebBrowser informationBrowser;
+        private System.Windows.Forms.Timer ScanPollTimer;
+        private Microsoft.HomeServer.Controls.PropertyPageSectionLabel propertyPageSectionLabel5;
+        private Microsoft.HomeServer.Controls.Line line5;
+        private Microsoft.HomeServer.Controls.PropertyPageSectionLabel propertyPageSectionLabel6;
+        private Microsoft.HomeServer.Controls.Line line6;
+        private Microsoft.HomeServer.Controls.QButton rescanBtn;
+        private System.Windows.Forms.ComboBox rescanOptionsList;
+        private System.Windows.Forms.Label progressLabel;
+        private System.Windows.Forms.Label progressInformation;
+        private System.Windows.Forms.ProgressBar scanProgressBar;
 
     }
 }
