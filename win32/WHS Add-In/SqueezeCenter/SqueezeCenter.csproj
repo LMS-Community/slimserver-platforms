@@ -55,7 +55,7 @@
     <Reference Include="HomeServerExt" />
     <Reference Include="Jayrock.Json, Version=0.9.8316.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Private\mherger\My Documents\Downloads\jayrock\sandbox\Jelly\bin\Release\Jayrock.Json.dll</HintPath>
+      <HintPath>..\..\Jayrock\Jayrock.Json.dll</HintPath>
     </Reference>
     <Reference Include="qsmif, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
