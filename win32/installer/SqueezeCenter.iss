@@ -88,9 +88,9 @@ Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwi
 Name: {commonappdata}\{#AppName}; Permissions: users-modify
 Name: {app}\server\Plugins; Permissions: users-modify
 
-[INI]
-Filename: {app}\{cm:SlimDevicesWebSite}.url; Section: InternetShortcut; Key: URL; String: {#ProductURL}; Flags: uninsdeletesection
-Filename: {app}\{cm:SqueezeCenterWebInterface}.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000; Flags: uninsdeletesection
+;[INI]
+;Filename: {app}\{cm:SlimDevicesWebSite}.url; Section: InternetShortcut; Key: URL; String: {#ProductURL}; Flags: uninsdeletesection
+;Filename: {app}\{cm:SqueezeCenterWebInterface}.url; Section: InternetShortcut; Key: URL; String: http://localhost:9000; Flags: uninsdeletesection
 
 [Icons]
 Name: {group}\{#AppName}; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
@@ -129,7 +129,7 @@ Root: HKLM; Subkey: SOFTWARE\Logitech\SqueezeCenter; ValueType: string; ValueNam
 Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers; ValueType: string; ValueName: {app}\server\squeezesvc.exe; ValueData: RUNASADMIN; Flags: uninsdeletevalue; MinVersion: 0,6.0;
 
 [InstallDelete]
-Name: {group}; Type: filesandordirs
+Type: filesandordirs; Name: {group}
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
@@ -213,7 +213,6 @@ begin
 
 	Result := DataPath;
 end;	
-
 
 function GetPrefsFolder() : String;
 begin
@@ -503,7 +502,7 @@ procedure CurStepChanged(CurStep: TSetupStep);
 var
 	Wait, ErrorCode, i: Integer;
 	NewServerDir, PrefsFile, PrefsPath, PrefString, PortConflict, s: String;
-	Started, Failed, Silent: Boolean;
+	Started, Failed, Silent, NoTrayIcon: Boolean;
 
 begin
 	if CurStep = ssInstall then
@@ -550,7 +549,9 @@ begin
 				if (pos('/silent', lowercase(ParamStr(i))) > 0) then
 					Silent:= true
 				else if (pos('/verysilent', lowercase(ParamStr(i))) > 0) then
-					Silent:= true;
+					Silent:= true
+				else if (pos('/notrayicon', lowercase(ParamStr(i))) > 0) then
+					NoTrayIcon := true
 			end;
 			
 			Silent := Silent or WizardSilent;
@@ -632,6 +633,9 @@ begin
 
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeTray');
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
+
+				if NoTrayIcon then
+					DeleteFile(AddBackslash(ExpandConstant('{commonstartup}')) + CustomMessage('SqueezeCenterTrayTool') + '.lnk');
 
 				// in silent mode do not wait for SC to be started before quitting the installer
 				if not Silent then

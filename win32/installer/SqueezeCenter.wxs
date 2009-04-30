@@ -95,7 +95,7 @@
 			<ComponentRef Id="Jayrock.Json" />
 		</Feature>
 		
-		<CustomAction Id="InstallSC" BinaryKey="SCInstallerFile" ExeCommand="/silent" Impersonate="no" Return="ignore" Execute="deferred" />
+		<CustomAction Id="InstallSC" BinaryKey="SCInstallerFile" ExeCommand="/silent /noTrayIcon" Impersonate="no" Return="ignore" Execute="deferred" />
 		<CustomAction Id="InstallSCService" Directory="APPPATH" ExeCommand='"[APPPATH]server\squeezecenter.exe" --install auto' Impersonate="no" Return="ignore" Execute="deferred" />
 
 		<CustomAction Id="UnInstallSC" Directory="APPPATH" ExeCommand="[UNINSTALLCOMMAND] /SUPPRESSMSGBOXES" Impersonate="no" Return="ignore" Execute="deferred" />
