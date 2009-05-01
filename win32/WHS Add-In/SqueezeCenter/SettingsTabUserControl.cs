@@ -20,6 +20,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 {
     public partial class SettingsTabUserControl : UserControl
     {
+        string version = "7.4";
+
         IConsoleServices consoleServices;
         Dictionary<string, string> scStrings = new Dictionary<string, string>();
         int scStatus;
@@ -286,6 +288,85 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             }
         }
 
+        /* update checker */
+        private void checkUpdateBtn_Click(object sender, EventArgs e)
+        {
+            if (checkUpdateBtn.Tag != null)
+            {
+                this.consoleServices.OpenUrl(checkUpdateBtn.Tag.ToString());
+            }
+            else
+            {
+                try
+                {
+                    WebRequest request = WebRequest.Create("http://update.squeezenetwork.com/update/?version=" + this.version + "&os=whs&lang=" + getPref("language"));
+                    request.Proxy = WebRequest.DefaultWebProxy;
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        Stream responseStream = response.GetResponseStream();
+                        Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
+
+                        StreamReader readStream = new StreamReader(responseStream, encode);
+
+                        Char[] buffer = new Char[2048];
+                        int c = readStream.Read(buffer, 0, buffer.Length);
+
+                        String s = new String(buffer, 0, c);
+                        String[] info = Regex.Split(s, "\\. ");
+
+                        if (info.Length == 2)
+                        {
+                            Match m = Regex.Match(info[1], "href=\"(.*?)\"", RegexOptions.IgnoreCase);
+                            if (m.Groups.Count > 1)
+                            {
+                                checkUpdateBtn.Tag = m.Groups[1].ToString();
+                                labelUpdate.Text = info[0];
+                            }
+                        }
+
+                        responseStream.Close();
+                    }
+                }
+                catch { }
+            }
+        }
+
+        private void checkUpdateBtn_Paint(object sender, PaintEventArgs e)
+        {
+            if (checkForUpdate())
+            {
+                labelUpdate.Text = "A new Squeezebox Software version is ready to be installed. In order to update please open the Add-ins tab on the left.";
+                checkUpdateBtn.Enabled = false;
+            }
+            else if (checkUpdateBtn.Tag != null)
+            {
+                checkUpdateBtn.Enabled = true;
+                checkUpdateBtn.Text = "Download update";
+            }
+            else
+            {
+                labelUpdate.Text = "There's no updated Squeezebox Software available.";
+                checkUpdateBtn.Enabled = true;
+            }
+        }
+
+        private bool checkForUpdate()
+        {
+            String filePath = "";
+
+            try
+            {
+                TextReader versionFile = new StreamReader(getCachePath() + @"\updates\squeezecenter.version");
+                filePath = versionFile.ReadLine();
+
+                versionFile.Close();
+            }
+            catch { }
+
+            return (filePath != null && File.Exists(filePath));
+        }
 
         /* Music library management */
         private void browseMusicFolderBtn_Click(object sender, EventArgs e)
@@ -416,6 +497,11 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private string getPrefsPath()
         {
             return getDataPath() + @"\prefs";
+        }
+
+        private string getCachePath()
+        {
+            return getDataPath() + @"\Cache";
         }
 
         /* reading prefs from the file directly */

@@ -33,6 +33,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.customTabControl1 = new Microsoft.HomeServer.Controls.CustomTabControl();
             this.settings = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelUpdate = new System.Windows.Forms.Label();
+            this.checkUpdateBtn = new Microsoft.HomeServer.Controls.QButton();
             this.propertyPageSectionLabel4 = new Microsoft.HomeServer.Controls.PropertyPageSectionLabel();
             this.line4 = new Microsoft.HomeServer.Controls.Line();
             this.propertyPageSectionLabel3 = new Microsoft.HomeServer.Controls.PropertyPageSectionLabel();
@@ -124,6 +126,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.labelUpdate);
+            this.panel1.Controls.Add(this.checkUpdateBtn);
             this.panel1.Controls.Add(this.propertyPageSectionLabel4);
             this.panel1.Controls.Add(this.line4);
             this.panel1.Controls.Add(this.propertyPageSectionLabel3);
@@ -144,13 +148,46 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.panel1.Size = new System.Drawing.Size(364, 366);
             this.panel1.TabIndex = 22;
             // 
+            // labelUpdate
+            // 
+            this.labelUpdate.Location = new System.Drawing.Point(25, 206);
+            this.labelUpdate.Name = "labelUpdate";
+            this.labelUpdate.Size = new System.Drawing.Size(332, 37);
+            this.labelUpdate.TabIndex = 32;
+            this.labelUpdate.Text = "labelUpdate";
+            // 
+            // checkUpdateBtn
+            // 
+            this.checkUpdateBtn.AutoSize = true;
+            this.checkUpdateBtn.BackColor = System.Drawing.Color.Transparent;
+            this.checkUpdateBtn.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.checkUpdateBtn.FlatAppearance.BorderSize = 0;
+            this.checkUpdateBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.checkUpdateBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.checkUpdateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkUpdateBtn.Font = new System.Drawing.Font("Tahoma", 8F);
+            this.checkUpdateBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.checkUpdateBtn.IsHovered = false;
+            this.checkUpdateBtn.IsPressed = false;
+            this.checkUpdateBtn.Location = new System.Drawing.Point(26, 246);
+            this.checkUpdateBtn.Margins = 0;
+            this.checkUpdateBtn.MaximumSize = new System.Drawing.Size(360, 21);
+            this.checkUpdateBtn.MinimumSize = new System.Drawing.Size(72, 21);
+            this.checkUpdateBtn.Name = "checkUpdateBtn";
+            this.checkUpdateBtn.Size = new System.Drawing.Size(100, 21);
+            this.checkUpdateBtn.TabIndex = 31;
+            this.checkUpdateBtn.Text = "Check for update";
+            this.checkUpdateBtn.UseVisualStyleBackColor = true;
+            this.checkUpdateBtn.Paint += new System.Windows.Forms.PaintEventHandler(this.checkUpdateBtn_Paint);
+            this.checkUpdateBtn.Click += new System.EventHandler(this.checkUpdateBtn_Click);
+            // 
             // propertyPageSectionLabel4
             // 
             this.propertyPageSectionLabel4.AutoSize = true;
             this.propertyPageSectionLabel4.BackColor = System.Drawing.Color.Transparent;
             this.propertyPageSectionLabel4.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.propertyPageSectionLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.propertyPageSectionLabel4.Location = new System.Drawing.Point(4, 195);
+            this.propertyPageSectionLabel4.Location = new System.Drawing.Point(4, 183);
             this.propertyPageSectionLabel4.Name = "propertyPageSectionLabel4";
             this.propertyPageSectionLabel4.Size = new System.Drawing.Size(108, 13);
             this.propertyPageSectionLabel4.TabIndex = 30;
@@ -161,7 +198,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.line4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
             this.line4.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.line4.Location = new System.Drawing.Point(103, 204);
+            this.line4.Location = new System.Drawing.Point(103, 192);
             this.line4.Name = "line4";
             this.line4.Size = new System.Drawing.Size(255, 1);
             this.line4.TabIndex = 29;
@@ -172,7 +209,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.propertyPageSectionLabel3.BackColor = System.Drawing.Color.Transparent;
             this.propertyPageSectionLabel3.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.propertyPageSectionLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.propertyPageSectionLabel3.Location = new System.Drawing.Point(4, 271);
+            this.propertyPageSectionLabel3.Location = new System.Drawing.Point(4, 283);
             this.propertyPageSectionLabel3.Name = "propertyPageSectionLabel3";
             this.propertyPageSectionLabel3.Size = new System.Drawing.Size(63, 13);
             this.propertyPageSectionLabel3.TabIndex = 28;
@@ -183,7 +220,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.line3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
             this.line3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.line3.Location = new System.Drawing.Point(61, 280);
+            this.line3.Location = new System.Drawing.Point(61, 292);
             this.line3.Name = "line3";
             this.line3.Size = new System.Drawing.Size(297, 1);
             this.line3.TabIndex = 27;
@@ -191,7 +228,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // linkScannerLog
             // 
             this.linkScannerLog.AutoSize = true;
-            this.linkScannerLog.Location = new System.Drawing.Point(25, 158);
+            this.linkScannerLog.Location = new System.Drawing.Point(25, 150);
             this.linkScannerLog.Name = "linkScannerLog";
             this.linkScannerLog.Size = new System.Drawing.Size(91, 13);
             this.linkScannerLog.TabIndex = 10;
@@ -205,7 +242,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.propertyPageSectionLabel2.BackColor = System.Drawing.Color.Transparent;
             this.propertyPageSectionLabel2.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.propertyPageSectionLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.propertyPageSectionLabel2.Location = new System.Drawing.Point(3, 115);
+            this.propertyPageSectionLabel2.Location = new System.Drawing.Point(3, 107);
             this.propertyPageSectionLabel2.Name = "propertyPageSectionLabel2";
             this.propertyPageSectionLabel2.Size = new System.Drawing.Size(51, 13);
             this.propertyPageSectionLabel2.TabIndex = 26;
@@ -215,7 +252,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // linkServerLog
             // 
             this.linkServerLog.AutoSize = true;
-            this.linkServerLog.Location = new System.Drawing.Point(25, 137);
+            this.linkServerLog.Location = new System.Drawing.Point(25, 129);
             this.linkServerLog.Name = "linkServerLog";
             this.linkServerLog.Size = new System.Drawing.Size(82, 13);
             this.linkServerLog.TabIndex = 9;
@@ -227,9 +264,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.line2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
             this.line2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.line2.Location = new System.Drawing.Point(60, 124);
+            this.line2.Location = new System.Drawing.Point(50, 116);
             this.line2.Name = "line2";
-            this.line2.Size = new System.Drawing.Size(297, 1);
+            this.line2.Size = new System.Drawing.Size(307, 1);
             this.line2.TabIndex = 25;
             // 
             // propertyPageSectionLabel1
@@ -286,9 +323,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.line1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
             this.line1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.line1.Location = new System.Drawing.Point(102, 15);
+            this.line1.Location = new System.Drawing.Point(97, 15);
             this.line1.Name = "line1";
-            this.line1.Size = new System.Drawing.Size(255, 1);
+            this.line1.Size = new System.Drawing.Size(260, 1);
             this.line1.TabIndex = 23;
             // 
             // labelSCStatus
@@ -305,7 +342,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.linkSCWebUI.AutoSize = true;
             this.linkSCWebUI.BackColor = System.Drawing.Color.White;
-            this.linkSCWebUI.Location = new System.Drawing.Point(25, 295);
+            this.linkSCWebUI.Location = new System.Drawing.Point(25, 307);
             this.linkSCWebUI.Name = "linkSCWebUI";
             this.linkSCWebUI.Size = new System.Drawing.Size(18, 13);
             this.linkSCWebUI.TabIndex = 20;
@@ -318,7 +355,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.linkSCSettings.AutoSize = true;
             this.linkSCSettings.BackColor = System.Drawing.Color.White;
-            this.linkSCSettings.Location = new System.Drawing.Point(25, 318);
+            this.linkSCSettings.Location = new System.Drawing.Point(25, 330);
             this.linkSCSettings.Name = "linkSCSettings";
             this.linkSCSettings.Size = new System.Drawing.Size(123, 13);
             this.linkSCSettings.TabIndex = 19;
@@ -589,9 +626,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.line5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
             this.line5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.line5.Location = new System.Drawing.Point(102, 15);
+            this.line5.Location = new System.Drawing.Point(82, 15);
             this.line5.Name = "line5";
-            this.line5.Size = new System.Drawing.Size(255, 1);
+            this.line5.Size = new System.Drawing.Size(275, 1);
             this.line5.TabIndex = 25;
             // 
             // information
@@ -749,6 +786,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private System.Windows.Forms.LinkLabel linkMusicFolder;
         private System.Windows.Forms.LinkLabel linkPlaylistFolder;
         private JsonRpcClient jsonClient;
+        private Microsoft.HomeServer.Controls.QButton checkUpdateBtn;
+        private System.Windows.Forms.Label labelUpdate;
 
     }
 }
