@@ -478,7 +478,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.progressTime.AutoSize = true;
             this.progressTime.BackColor = System.Drawing.Color.Transparent;
-            this.progressTime.Location = new System.Drawing.Point(300, 253);
+            this.progressTime.Location = new System.Drawing.Point(300, 251);
             this.progressTime.Name = "progressTime";
             this.progressTime.Size = new System.Drawing.Size(49, 13);
             this.progressTime.TabIndex = 35;
@@ -489,13 +489,14 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.scanProgressBar.BackColor = System.Drawing.Color.WhiteSmoke;
             this.scanProgressBar.Location = new System.Drawing.Point(28, 250);
             this.scanProgressBar.Name = "scanProgressBar";
-            this.scanProgressBar.Size = new System.Drawing.Size(266, 23);
+            this.scanProgressBar.Size = new System.Drawing.Size(266, 16);
+            this.scanProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.scanProgressBar.TabIndex = 34;
             // 
             // progressInformation
             // 
             this.progressInformation.AutoEllipsis = true;
-            this.progressInformation.Location = new System.Drawing.Point(25, 276);
+            this.progressInformation.Location = new System.Drawing.Point(25, 270);
             this.progressInformation.Name = "progressInformation";
             this.progressInformation.Size = new System.Drawing.Size(322, 75);
             this.progressInformation.TabIndex = 33;

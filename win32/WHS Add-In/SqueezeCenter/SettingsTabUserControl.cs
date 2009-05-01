@@ -364,7 +364,13 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                     progressLabel.Text = getSCString(step.ToUpper() + "_PROGRESS");
 
                     int val = Convert.ToInt16(scanProgress[step]);
-                    scanProgressBar.Value = val > 0 ? val : 0;
+                    if (val > 0)
+                    {
+                        scanProgressBar.Style = ProgressBarStyle.Continuous;
+                        scanProgressBar.Value = val;
+                    }
+                    else
+                        scanProgressBar.Style = ProgressBarStyle.Marquee;
                 }
 
                 if (scanProgress["info"] != null)
@@ -386,6 +392,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             if (this.isScanning)
             {
                 progressLabel.Text = getSCString("PROGRESS_IMPORTER_COMPLETE_DESC");
+                scanProgressBar.Style = ProgressBarStyle.Continuous;
                 scanProgressBar.Value = 100;
             }
 
