@@ -193,10 +193,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkScannerLog.AutoSize = true;
             this.linkScannerLog.Location = new System.Drawing.Point(25, 158);
             this.linkScannerLog.Name = "linkScannerLog";
-            this.linkScannerLog.Size = new System.Drawing.Size(62, 13);
+            this.linkScannerLog.Size = new System.Drawing.Size(91, 13);
             this.linkScannerLog.TabIndex = 10;
             this.linkScannerLog.TabStop = true;
-            this.linkScannerLog.Text = "scanner.log";
+            this.linkScannerLog.Text = "Open scanner.log";
             this.linkScannerLog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkScannerLog_LinkClicked);
             // 
             // propertyPageSectionLabel2
@@ -217,10 +217,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkServerLog.AutoSize = true;
             this.linkServerLog.Location = new System.Drawing.Point(25, 137);
             this.linkServerLog.Name = "linkServerLog";
-            this.linkServerLog.Size = new System.Drawing.Size(53, 13);
+            this.linkServerLog.Size = new System.Drawing.Size(82, 13);
             this.linkServerLog.TabIndex = 9;
             this.linkServerLog.TabStop = true;
-            this.linkServerLog.Text = "server.log";
+            this.linkServerLog.Text = "Open server.log";
             this.linkServerLog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkServerLog_LinkClicked);
             // 
             // line2
@@ -320,10 +320,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkSCSettings.BackColor = System.Drawing.Color.White;
             this.linkSCSettings.Location = new System.Drawing.Point(25, 318);
             this.linkSCSettings.Name = "linkSCSettings";
-            this.linkSCSettings.Size = new System.Drawing.Size(150, 13);
+            this.linkSCSettings.Size = new System.Drawing.Size(123, 13);
             this.linkSCSettings.TabIndex = 19;
             this.linkSCSettings.TabStop = true;
-            this.linkSCSettings.Text = "Open SqueezeCenter Settings";
+            this.linkSCSettings.Text = "Open advanced settings";
             this.linkSCSettings.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSCSettings_LinkClicked);
             // 
             // music
@@ -494,19 +494,19 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             // progressInformation
             // 
-            this.progressInformation.AutoSize = true;
+            this.progressInformation.AutoEllipsis = true;
             this.progressInformation.Location = new System.Drawing.Point(25, 276);
             this.progressInformation.Name = "progressInformation";
-            this.progressInformation.Size = new System.Drawing.Size(99, 13);
+            this.progressInformation.Size = new System.Drawing.Size(322, 75);
             this.progressInformation.TabIndex = 33;
             this.progressInformation.Text = "progressInformation";
             // 
             // progressLabel
             // 
-            this.progressLabel.AutoSize = true;
+            this.progressLabel.AutoEllipsis = true;
             this.progressLabel.Location = new System.Drawing.Point(25, 234);
             this.progressLabel.Name = "progressLabel";
-            this.progressLabel.Size = new System.Drawing.Size(73, 13);
+            this.progressLabel.Size = new System.Drawing.Size(322, 13);
             this.progressLabel.TabIndex = 32;
             this.progressLabel.Text = "progressLabel";
             // 

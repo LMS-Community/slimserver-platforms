@@ -186,7 +186,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
         private void linkSCWebUI_Paint(object sender, PaintEventArgs e)
         {
-            linkSCWebUI.Text = getSCUrl();
+            linkSCWebUI.Text = "Open Web Control  (" + getSCUrl() + ")";
         }
 
         private String getSCUrl()
