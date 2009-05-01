@@ -41,11 +41,14 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.scStatus = 0;
             this.isScanning = false;
 
+            musicFolderInput.Text = getPref("audiodir");
+            playlistFolderInput.Text = getPref("playlistdir");
             progressLabel.Text = "";
             progressInformation.Text = "";
             rescanOptionsList.SelectedIndex = 0;
         }
 
+        /* basic settings, startup mode etc. */
         private void btnStartStopService_Click(object sender, EventArgs e)
         {
             try
@@ -139,13 +142,26 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             if (oldStatus != this.scStatus)
             {
                 if (this.scStatus == 1)
-                    informationBrowser.Url = new Uri(getSCUrl() + @"/EN/settings/server/status.html?simple=1");
+                {
+                    string url = getSCUrl();
+                    informationBrowser.Url = new Uri(url + @"/EN/settings/server/status.html?simple=1");
+                    jsonClient.Url = url + "/jsonrpc.js";
+                }
 
                 btnStartStopService_Paint(null, null);
-                cbStartAtBoot.Enabled = (this.scStatus != -1);
-                btnCleanup.Enabled = (this.scStatus != 1);
-                labelPleaseStopSC.Visible = (this.scStatus == 1);
             }
+
+            cbStartAtBoot.Enabled = (this.scStatus != -1);
+
+            musicFolderInput.Enabled = (this.scStatus == 1 && !this.isScanning);
+            browseMusicFolderBtn.Enabled = (this.scStatus == 1 && !this.isScanning);
+            playlistFolderInput.Enabled = (this.scStatus == 1 && !this.isScanning);
+            browsePlaylistFolderBtn.Enabled = (this.scStatus == 1 && !this.isScanning);
+            rescanBtn.Enabled = (this.scStatus == 1 && !this.isScanning);
+            rescanOptionsList.Enabled = (this.scStatus == 1 && !this.isScanning);
+
+            btnCleanup.Enabled = (this.scStatus != 1);
+            labelPleaseStopSC.Visible = (this.scStatus == 1);
         }
 
         private void linkServerLog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -171,26 +187,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private void linkSCWebUI_Paint(object sender, PaintEventArgs e)
         {
             linkSCWebUI.Text = getSCUrl();
-        }
-
-        private void linkMusicFolder_Paint(object sender, PaintEventArgs e)
-        {
-            linkMusicFolder.Text = getPref("audiodir");
-        }
-
-        private void linkMusicFolder_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            String audiodir = getPref("audiodir");
-
-            // if audiodir is on a share, try to open it on the client
-            if (audiodir.Substring(0, 2) == @"\\")
-            {
-                this.consoleServices.OpenUrl(audiodir);
-            }
-            else
-            {
-                System.Diagnostics.Process.Start(audiodir);
-            }
         }
 
         private String getSCUrl()
@@ -256,6 +252,13 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                     MessageBox.Show("Changing startup mode failed.");
                 }
             }
+
+            if (musicFolderInput.Text != getPref("audiodir"))
+                jsonRequest(new string[] { "pref", "audiodir", musicFolderInput.Text });
+
+            if (playlistFolderInput.Text != getPref("playlistdir"))
+                jsonRequest(new string[] { "pref", "playlistdir", playlistFolderInput.Text });
+            
             return false;
         }
 
@@ -285,6 +288,47 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
 
         /* Music library management */
+        private void browseMusicFolderBtn_Click(object sender, EventArgs e)
+        {
+            _browseFolder(musicFolderInput, "SETUP_AUDIODIR_DESC");
+        }
+
+        private void browsePlaylistFolderBtn_Click(object sender, EventArgs e)
+        {
+            _browseFolder(playlistFolderInput, "SETUP_PLAYLISTDIR_DESC");
+        }
+
+        private void _browseFolder(TextBox whichFolder, string description)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            folderBrowser.SelectedPath = whichFolder.Text;
+            folderBrowser.Description = getSCString(description);
+            DialogResult objResult = folderBrowser.ShowDialog();
+            if (objResult == DialogResult.OK)
+                whichFolder.Text = folderBrowser.SelectedPath;
+        }
+
+        private void linkMusicFolder_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            _folderLinkClicked("audiodir");
+        }
+
+        private void linkPlaylistFolder_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            _folderLinkClicked("playlistdir");
+        }
+
+        private void _folderLinkClicked(string whichFolder)
+        {
+            String audiodir = getPref(whichFolder);
+
+            // if audiodir is on a share, try to open it on the client
+            if (audiodir.Substring(0, 2) == @"\\")
+                this.consoleServices.OpenUrl(audiodir);
+            else
+                System.Diagnostics.Process.Start(audiodir);
+        }
+
         private void rescanBtn_Click(object sender, EventArgs e)
         {
             if (rescanOptionsList.SelectedIndex == 0)
@@ -398,10 +442,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
         private JsonObject jsonRequest(string[] query)
         {
-            JsonRpcClient client = new JsonRpcClient();
-            client.Url = getSCUrl() + "/jsonrpc.js";
+            if (this.scStatus != 1)
+                return new JsonObject();
 
-            JsonObject result = (JsonObject)client.Invoke(new object[] { "", query });
+            JsonObject result = (JsonObject)jsonClient.Invoke(new object[] { "", query });
             return result;
         }
 
@@ -433,6 +477,11 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             }
                         
             return translation;
+        }
+
+        private void EnableApply(object sender, EventArgs e)
+        {
+            this.consoleServices.EnableSettingsApply();
         }
     }
 

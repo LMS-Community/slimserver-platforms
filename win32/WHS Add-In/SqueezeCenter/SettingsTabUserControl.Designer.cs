@@ -47,10 +47,17 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.line1 = new Microsoft.HomeServer.Controls.Line();
             this.labelSCStatus = new System.Windows.Forms.Label();
             this.linkSCWebUI = new System.Windows.Forms.LinkLabel();
-            this.linkMusicFolder = new System.Windows.Forms.LinkLabel();
             this.linkSCSettings = new System.Windows.Forms.LinkLabel();
             this.music = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.linkPlaylistFolder = new System.Windows.Forms.LinkLabel();
+            this.linkMusicFolder = new System.Windows.Forms.LinkLabel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.playlistFolderInput = new System.Windows.Forms.TextBox();
+            this.browsePlaylistFolderBtn = new Microsoft.HomeServer.Controls.QButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.musicFolderInput = new System.Windows.Forms.TextBox();
+            this.browseMusicFolderBtn = new Microsoft.HomeServer.Controls.QButton();
             this.progressTime = new System.Windows.Forms.Label();
             this.scanProgressBar = new System.Windows.Forms.ProgressBar();
             this.progressInformation = new System.Windows.Forms.Label();
@@ -67,6 +74,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.labelPleaseStopSC = new System.Windows.Forms.Label();
             this.btnCleanup = new Microsoft.HomeServer.Controls.QButton();
             this.ScanPollTimer = new System.Windows.Forms.Timer(this.components);
+            this.musicFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            this.jsonClient = new Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter.JsonRpcClient();
             this.customTabControl1.SuspendLayout();
             this.settings.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -129,7 +138,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.panel1.Controls.Add(this.line1);
             this.panel1.Controls.Add(this.labelSCStatus);
             this.panel1.Controls.Add(this.linkSCWebUI);
-            this.panel1.Controls.Add(this.linkMusicFolder);
             this.panel1.Controls.Add(this.linkSCSettings);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
@@ -247,6 +255,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.cbStartAtBoot.TabIndex = 18;
             this.cbStartAtBoot.Text = "Start SqueezeCenter when system boots";
             this.cbStartAtBoot.UseVisualStyleBackColor = false;
+            this.cbStartAtBoot.CheckedChanged += new System.EventHandler(this.EnableApply);
             // 
             // btnStartStopService
             // 
@@ -305,19 +314,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkSCWebUI.Paint += new System.Windows.Forms.PaintEventHandler(this.linkSCWebUI_Paint);
             this.linkSCWebUI.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSCWebUI_LinkClicked);
             // 
-            // linkMusicFolder
-            // 
-            this.linkMusicFolder.AutoSize = true;
-            this.linkMusicFolder.BackColor = System.Drawing.Color.White;
-            this.linkMusicFolder.Location = new System.Drawing.Point(25, 341);
-            this.linkMusicFolder.Name = "linkMusicFolder";
-            this.linkMusicFolder.Size = new System.Drawing.Size(67, 13);
-            this.linkMusicFolder.TabIndex = 21;
-            this.linkMusicFolder.TabStop = true;
-            this.linkMusicFolder.Text = "Music Folder";
-            this.linkMusicFolder.Paint += new System.Windows.Forms.PaintEventHandler(this.linkMusicFolder_Paint);
-            this.linkMusicFolder.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkMusicFolder_LinkClicked);
-            // 
             // linkSCSettings
             // 
             this.linkSCSettings.AutoSize = true;
@@ -345,6 +341,14 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.linkPlaylistFolder);
+            this.panel2.Controls.Add(this.linkMusicFolder);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.playlistFolderInput);
+            this.panel2.Controls.Add(this.browsePlaylistFolderBtn);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.musicFolderInput);
+            this.panel2.Controls.Add(this.browseMusicFolderBtn);
             this.panel2.Controls.Add(this.progressTime);
             this.panel2.Controls.Add(this.scanProgressBar);
             this.panel2.Controls.Add(this.progressInformation);
@@ -359,6 +363,116 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(364, 366);
             this.panel2.TabIndex = 0;
+            // 
+            // linkPlaylistFolder
+            // 
+            this.linkPlaylistFolder.AutoSize = true;
+            this.linkPlaylistFolder.BackColor = System.Drawing.Color.White;
+            this.linkPlaylistFolder.Location = new System.Drawing.Point(25, 132);
+            this.linkPlaylistFolder.Name = "linkPlaylistFolder";
+            this.linkPlaylistFolder.Size = new System.Drawing.Size(148, 13);
+            this.linkPlaylistFolder.TabIndex = 43;
+            this.linkPlaylistFolder.TabStop = true;
+            this.linkPlaylistFolder.Text = "Open playlist folder in Explorer";
+            this.linkPlaylistFolder.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkPlaylistFolder_LinkClicked);
+            // 
+            // linkMusicFolder
+            // 
+            this.linkMusicFolder.AutoSize = true;
+            this.linkMusicFolder.BackColor = System.Drawing.Color.White;
+            this.linkMusicFolder.Location = new System.Drawing.Point(25, 66);
+            this.linkMusicFolder.Name = "linkMusicFolder";
+            this.linkMusicFolder.Size = new System.Drawing.Size(144, 13);
+            this.linkMusicFolder.TabIndex = 42;
+            this.linkMusicFolder.TabStop = true;
+            this.linkMusicFolder.Text = "Open music folder in Explorer";
+            this.linkMusicFolder.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkMusicFolder_LinkClicked);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(25, 92);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.TabIndex = 41;
+            this.label2.Text = "Playlist Folder";
+            // 
+            // playlistFolderInput
+            // 
+            this.playlistFolderInput.Enabled = false;
+            this.playlistFolderInput.Location = new System.Drawing.Point(28, 109);
+            this.playlistFolderInput.Name = "playlistFolderInput";
+            this.playlistFolderInput.Size = new System.Drawing.Size(230, 20);
+            this.playlistFolderInput.TabIndex = 40;
+            this.playlistFolderInput.TextChanged += new System.EventHandler(this.EnableApply);
+            // 
+            // browsePlaylistFolderBtn
+            // 
+            this.browsePlaylistFolderBtn.AutoSize = true;
+            this.browsePlaylistFolderBtn.BackColor = System.Drawing.Color.Transparent;
+            this.browsePlaylistFolderBtn.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.browsePlaylistFolderBtn.Enabled = false;
+            this.browsePlaylistFolderBtn.FlatAppearance.BorderSize = 0;
+            this.browsePlaylistFolderBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.browsePlaylistFolderBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.browsePlaylistFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.browsePlaylistFolderBtn.Font = new System.Drawing.Font("Tahoma", 8F);
+            this.browsePlaylistFolderBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.browsePlaylistFolderBtn.IsHovered = false;
+            this.browsePlaylistFolderBtn.IsPressed = false;
+            this.browsePlaylistFolderBtn.Location = new System.Drawing.Point(264, 108);
+            this.browsePlaylistFolderBtn.Margins = 0;
+            this.browsePlaylistFolderBtn.MaximumSize = new System.Drawing.Size(360, 21);
+            this.browsePlaylistFolderBtn.MinimumSize = new System.Drawing.Size(72, 21);
+            this.browsePlaylistFolderBtn.Name = "browsePlaylistFolderBtn";
+            this.browsePlaylistFolderBtn.Size = new System.Drawing.Size(83, 21);
+            this.browsePlaylistFolderBtn.TabIndex = 39;
+            this.browsePlaylistFolderBtn.Text = "Browse";
+            this.browsePlaylistFolderBtn.UseVisualStyleBackColor = true;
+            this.browsePlaylistFolderBtn.Click += new System.EventHandler(this.browsePlaylistFolderBtn_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(25, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 38;
+            this.label1.Text = "Music Folder";
+            // 
+            // musicFolderInput
+            // 
+            this.musicFolderInput.Enabled = false;
+            this.musicFolderInput.Location = new System.Drawing.Point(28, 43);
+            this.musicFolderInput.Name = "musicFolderInput";
+            this.musicFolderInput.Size = new System.Drawing.Size(230, 20);
+            this.musicFolderInput.TabIndex = 37;
+            this.musicFolderInput.TextChanged += new System.EventHandler(this.EnableApply);
+            // 
+            // browseMusicFolderBtn
+            // 
+            this.browseMusicFolderBtn.AutoSize = true;
+            this.browseMusicFolderBtn.BackColor = System.Drawing.Color.Transparent;
+            this.browseMusicFolderBtn.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.browseMusicFolderBtn.Enabled = false;
+            this.browseMusicFolderBtn.FlatAppearance.BorderSize = 0;
+            this.browseMusicFolderBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.browseMusicFolderBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.browseMusicFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.browseMusicFolderBtn.Font = new System.Drawing.Font("Tahoma", 8F);
+            this.browseMusicFolderBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.browseMusicFolderBtn.IsHovered = false;
+            this.browseMusicFolderBtn.IsPressed = false;
+            this.browseMusicFolderBtn.Location = new System.Drawing.Point(264, 42);
+            this.browseMusicFolderBtn.Margins = 0;
+            this.browseMusicFolderBtn.MaximumSize = new System.Drawing.Size(360, 21);
+            this.browseMusicFolderBtn.MinimumSize = new System.Drawing.Size(72, 21);
+            this.browseMusicFolderBtn.Name = "browseMusicFolderBtn";
+            this.browseMusicFolderBtn.Size = new System.Drawing.Size(83, 21);
+            this.browseMusicFolderBtn.TabIndex = 36;
+            this.browseMusicFolderBtn.Text = "Browse";
+            this.browseMusicFolderBtn.UseVisualStyleBackColor = true;
+            this.browseMusicFolderBtn.Click += new System.EventHandler(this.browseMusicFolderBtn_Click);
             // 
             // progressTime
             // 
@@ -399,6 +513,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // rescanOptionsList
             // 
             this.rescanOptionsList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rescanOptionsList.Enabled = false;
             this.rescanOptionsList.FormattingEnabled = true;
             this.rescanOptionsList.Items.AddRange(new object[] {
             "Look for new and changed music",
@@ -414,6 +529,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.rescanBtn.AutoSize = true;
             this.rescanBtn.BackColor = System.Drawing.Color.Transparent;
             this.rescanBtn.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.rescanBtn.Enabled = false;
             this.rescanBtn.FlatAppearance.BorderSize = 0;
             this.rescanBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.rescanBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
@@ -520,6 +636,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.labelPleaseStopSC.Size = new System.Drawing.Size(244, 26);
             this.labelPleaseStopSC.TabIndex = 21;
             this.labelPleaseStopSC.Text = "You\'ll have to stop SqueezeCenter before you can\r\nrun the Cleanup Assistant";
+            this.labelPleaseStopSC.Visible = false;
             // 
             // btnCleanup
             // 
@@ -551,6 +668,15 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.ScanPollTimer.Interval = 2300;
             this.ScanPollTimer.Tick += new System.EventHandler(this.ScanPollTimer_Tick);
             // 
+            // musicFolderBrowser
+            // 
+            this.musicFolderBrowser.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            // 
+            // jsonClient
+            // 
+            this.jsonClient.Credentials = null;
+            this.jsonClient.UseDefaultCredentials = false;
+            // 
             // SettingsTabUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -580,7 +706,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private System.Windows.Forms.TabPage settings;
         private System.Windows.Forms.TabPage music;
         private System.Windows.Forms.TabPage maintenance;
-        private System.Windows.Forms.LinkLabel linkMusicFolder;
         private System.Windows.Forms.LinkLabel linkSCWebUI;
         private System.Windows.Forms.LinkLabel linkSCSettings;
         private System.Windows.Forms.Label labelPleaseStopSC;
@@ -613,6 +738,16 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private System.Windows.Forms.Label progressInformation;
         private System.Windows.Forms.ProgressBar scanProgressBar;
         private System.Windows.Forms.Label progressTime;
+        private System.Windows.Forms.TextBox musicFolderInput;
+        private Microsoft.HomeServer.Controls.QButton browseMusicFolderBtn;
+        private System.Windows.Forms.FolderBrowserDialog musicFolderBrowser;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox playlistFolderInput;
+        private Microsoft.HomeServer.Controls.QButton browsePlaylistFolderBtn;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel linkMusicFolder;
+        private System.Windows.Forms.LinkLabel linkPlaylistFolder;
+        private JsonRpcClient jsonClient;
 
     }
 }
