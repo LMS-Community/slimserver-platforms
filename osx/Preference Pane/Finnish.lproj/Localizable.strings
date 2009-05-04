@@ -15,3 +15,5 @@
 "CONTROLPANEL_CLEANUP_DO" = "Run Cleanup";
 "CANCEL" = "Cancel";
 "NOT_NOW" = "Not now";
+"ABORT" = "Abort";
+"RESCAN" = "Rescan";

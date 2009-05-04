@@ -231,7 +231,6 @@
 	[advLaunchButton setEnabled:currentWebState];
 	[cleanupHelpShutdown setHidden:!currentWebState];
 
-	[rescanButton setEnabled:(serverState && !isScanning)];
 	[scanModeOptions setEnabled:(serverState && !isScanning)];
 	[scanProgress setHidden:!isScanning];
 	[scanProgressDesc setHidden:!isScanning];
@@ -239,10 +238,12 @@
 	[scanProgressTime setHidden:!isScanning];
 
 	if (isScanning) {
+		[rescanButton setTitle:LocalizedPrefString(@"ABORT", @"")];
 		[scanSpinny startAnimation:self];
 		[scanProgressError setStringValue:@""];
 	}
 	else {
+		[rescanButton setTitle:LocalizedPrefString(@"RESCAN", @"")];
 		[scanSpinny stopAnimation:self];
 		[scanProgressDesc setStringValue:@""];
 		[scanProgressDetail setStringValue:@""];
@@ -572,23 +573,31 @@
 /* rescan buttons and progress */
 -(IBAction)rescan:(id)sender
 {
-	isScanning = YES;
-	[self updateUI];
-
-	switch ([scanModeOptions indexOfSelectedItem])
+	if (isScanning)
 	{
-		case 0:
-			[self jsonRequest:@"\"rescan\""];
-			break;
-		case 1:
-			[self jsonRequest:@"\"wipecache\""];
-			break;
-		case 2:
-			[self jsonRequest:@"\"rescan\", \"playlists\""];
-			break;
+		isScanning = NO;
+		[self jsonRequest:@"\"abortscan\""];
+	}
+	else {
+		isScanning = YES;
+		[self updateUI];
+
+		switch ([scanModeOptions indexOfSelectedItem])
+		{
+			case 0:
+				[self jsonRequest:@"\"rescan\""];
+				break;
+			case 1:
+				[self jsonRequest:@"\"wipecache\""];
+				break;
+			case 2:
+				[self jsonRequest:@"\"rescan\", \"playlists\""];
+				break;
+		}
+	
+		isScanning = YES;
 	}
 	
-	isScanning = YES;
 	[self updateUI];
 }
 
