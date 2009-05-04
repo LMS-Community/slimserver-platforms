@@ -162,6 +162,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             rescanBtn.Enabled = (this.scStatus == 1 && !this.isScanning);
             rescanOptionsList.Enabled = (this.scStatus == 1 && !this.isScanning);
 
+            cbCleanupAll.Enabled = (this.scStatus != 1);
+            cbCleanupCache.Enabled = (this.scStatus != 1);
+            cbCleanupPrefs.Enabled = (this.scStatus != 1);
             btnCleanup.Enabled = (this.scStatus != 1);
             labelPleaseStopSC.Visible = (this.scStatus == 1);
         }
@@ -266,15 +269,34 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
         private void btnCleanup_Click(object sender, EventArgs e)
         {
-            RegistryKey OurKey = Registry.LocalMachine;
-            OurKey = OurKey.OpenSubKey(@"SOFTWARE\Logitech\SqueezeCenter", true);
-            String path = OurKey.GetValue("Path").ToString() + @"\server\";
+            String cleanupParams = @"";
 
-            Process p = new Process();
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.FileName = path + "cleanup.exe";
-            p.StartInfo.WorkingDirectory = path;
-            p.Start();
+            if (cbCleanupAll.Checked)
+            {
+                cleanupParams += @" --all";
+            }
+            else 
+            {
+                if (cbCleanupCache.Checked)
+                    cleanupParams += @" --cache";
+
+                if (cbCleanupPrefs.Checked)
+                    cleanupParams += @" --prefs";
+        	}
+
+            if (cleanupParams != @"")
+            {
+                RegistryKey OurKey = Registry.LocalMachine;
+                OurKey = OurKey.OpenSubKey(@"SOFTWARE\Logitech\SqueezeCenter", true);
+                String path = OurKey.GetValue("Path").ToString() + @"\server\";
+
+                Process p = new Process();
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.FileName = path + "cleanup.exe";
+                p.StartInfo.Arguments = cleanupParams;
+                p.StartInfo.WorkingDirectory = path;
+                p.Start();
+            }
         }
 
         private void customTabControl1_Selected(object sender, TabControlEventArgs e)

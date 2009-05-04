@@ -73,8 +73,14 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.information = new System.Windows.Forms.TabPage();
             this.informationBrowser = new System.Windows.Forms.WebBrowser();
             this.maintenance = new System.Windows.Forms.TabPage();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.labelPleaseStopSC = new System.Windows.Forms.Label();
+            this.cbCleanupAll = new System.Windows.Forms.CheckBox();
             this.btnCleanup = new Microsoft.HomeServer.Controls.QButton();
+            this.cbCleanupCache = new System.Windows.Forms.CheckBox();
+            this.cbCleanupPrefs = new System.Windows.Forms.CheckBox();
+            this.propertyPageSectionLabel7 = new Microsoft.HomeServer.Controls.PropertyPageSectionLabel();
+            this.line7 = new Microsoft.HomeServer.Controls.Line();
             this.ScanPollTimer = new System.Windows.Forms.Timer(this.components);
             this.musicFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.jsonClient = new Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter.JsonRpcClient();
@@ -85,6 +91,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.panel2.SuspendLayout();
             this.information.SuspendLayout();
             this.maintenance.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // PollSCTimer
@@ -189,9 +196,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.propertyPageSectionLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.propertyPageSectionLabel4.Location = new System.Drawing.Point(4, 183);
             this.propertyPageSectionLabel4.Name = "propertyPageSectionLabel4";
-            this.propertyPageSectionLabel4.Size = new System.Drawing.Size(108, 13);
+            this.propertyPageSectionLabel4.Size = new System.Drawing.Size(111, 13);
             this.propertyPageSectionLabel4.TabIndex = 30;
-            this.propertyPageSectionLabel4.Text = "Software Updates";
+            this.propertyPageSectionLabel4.Text = "Software Updates ";
             this.propertyPageSectionLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // line4
@@ -211,9 +218,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.propertyPageSectionLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.propertyPageSectionLabel3.Location = new System.Drawing.Point(4, 283);
             this.propertyPageSectionLabel3.Name = "propertyPageSectionLabel3";
-            this.propertyPageSectionLabel3.Size = new System.Drawing.Size(63, 13);
+            this.propertyPageSectionLabel3.Size = new System.Drawing.Size(66, 13);
             this.propertyPageSectionLabel3.TabIndex = 28;
-            this.propertyPageSectionLabel3.Text = "Advanced";
+            this.propertyPageSectionLabel3.Text = "Advanced ";
             this.propertyPageSectionLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // line3
@@ -244,9 +251,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.propertyPageSectionLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.propertyPageSectionLabel2.Location = new System.Drawing.Point(3, 107);
             this.propertyPageSectionLabel2.Name = "propertyPageSectionLabel2";
-            this.propertyPageSectionLabel2.Size = new System.Drawing.Size(51, 13);
+            this.propertyPageSectionLabel2.Size = new System.Drawing.Size(54, 13);
             this.propertyPageSectionLabel2.TabIndex = 26;
-            this.propertyPageSectionLabel2.Text = "Logging";
+            this.propertyPageSectionLabel2.Text = "Logging ";
             this.propertyPageSectionLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // linkServerLog
@@ -277,9 +284,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.propertyPageSectionLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.propertyPageSectionLabel1.Location = new System.Drawing.Point(3, 6);
             this.propertyPageSectionLabel1.Name = "propertyPageSectionLabel1";
-            this.propertyPageSectionLabel1.Size = new System.Drawing.Size(95, 13);
+            this.propertyPageSectionLabel1.Size = new System.Drawing.Size(98, 13);
             this.propertyPageSectionLabel1.TabIndex = 24;
-            this.propertyPageSectionLabel1.Text = "Startup options";
+            this.propertyPageSectionLabel1.Text = "Startup options ";
             this.propertyPageSectionLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cbStartAtBoot
@@ -595,9 +602,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.propertyPageSectionLabel6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.propertyPageSectionLabel6.Location = new System.Drawing.Point(3, 176);
             this.propertyPageSectionLabel6.Name = "propertyPageSectionLabel6";
-            this.propertyPageSectionLabel6.Size = new System.Drawing.Size(111, 13);
+            this.propertyPageSectionLabel6.Size = new System.Drawing.Size(114, 13);
             this.propertyPageSectionLabel6.TabIndex = 28;
-            this.propertyPageSectionLabel6.Text = "Music Scan Details";
+            this.propertyPageSectionLabel6.Text = "Music Scan Details ";
             this.propertyPageSectionLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // line6
@@ -617,9 +624,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.propertyPageSectionLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.propertyPageSectionLabel5.Location = new System.Drawing.Point(3, 6);
             this.propertyPageSectionLabel5.Name = "propertyPageSectionLabel5";
-            this.propertyPageSectionLabel5.Size = new System.Drawing.Size(81, 13);
+            this.propertyPageSectionLabel5.Size = new System.Drawing.Size(84, 13);
             this.propertyPageSectionLabel5.TabIndex = 26;
-            this.propertyPageSectionLabel5.Text = "Music Source";
+            this.propertyPageSectionLabel5.Text = "Music Source ";
             this.propertyPageSectionLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // line5
@@ -657,8 +664,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // maintenance
             // 
             this.maintenance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.maintenance.Controls.Add(this.labelPleaseStopSC);
-            this.maintenance.Controls.Add(this.btnCleanup);
+            this.maintenance.Controls.Add(this.panel3);
             this.maintenance.Location = new System.Drawing.Point(4, 22);
             this.maintenance.Name = "maintenance";
             this.maintenance.Padding = new System.Windows.Forms.Padding(3);
@@ -666,15 +672,41 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.maintenance.TabIndex = 2;
             this.maintenance.Text = "Maintenance";
             // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.labelPleaseStopSC);
+            this.panel3.Controls.Add(this.cbCleanupAll);
+            this.panel3.Controls.Add(this.btnCleanup);
+            this.panel3.Controls.Add(this.cbCleanupCache);
+            this.panel3.Controls.Add(this.cbCleanupPrefs);
+            this.panel3.Controls.Add(this.propertyPageSectionLabel7);
+            this.panel3.Controls.Add(this.line7);
+            this.panel3.Location = new System.Drawing.Point(6, 6);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(364, 366);
+            this.panel3.TabIndex = 23;
+            // 
             // labelPleaseStopSC
             // 
-            this.labelPleaseStopSC.AutoSize = true;
-            this.labelPleaseStopSC.Location = new System.Drawing.Point(12, 153);
+            this.labelPleaseStopSC.BackColor = System.Drawing.Color.White;
+            this.labelPleaseStopSC.Location = new System.Drawing.Point(22, 141);
             this.labelPleaseStopSC.Name = "labelPleaseStopSC";
-            this.labelPleaseStopSC.Size = new System.Drawing.Size(244, 26);
+            this.labelPleaseStopSC.Size = new System.Drawing.Size(335, 63);
             this.labelPleaseStopSC.TabIndex = 21;
-            this.labelPleaseStopSC.Text = "You\'ll have to stop SqueezeCenter before you can\r\nrun the Cleanup Assistant";
+            this.labelPleaseStopSC.Text = "You\'ll have to stop SqueezeCenter before you can run the Cleanup Assistant";
             this.labelPleaseStopSC.Visible = false;
+            // 
+            // cbCleanupAll
+            // 
+            this.cbCleanupAll.AutoSize = true;
+            this.cbCleanupAll.Location = new System.Drawing.Point(25, 87);
+            this.cbCleanupAll.Name = "cbCleanupAll";
+            this.cbCleanupAll.Size = new System.Drawing.Size(317, 17);
+            this.cbCleanupAll.TabIndex = 31;
+            this.cbCleanupAll.Text = "Wipe\'em all - don\'t do this unless you know what you\'re doing!";
+            this.cbCleanupAll.UseVisualStyleBackColor = true;
             // 
             // btnCleanup
             // 
@@ -689,7 +721,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.btnCleanup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnCleanup.IsHovered = false;
             this.btnCleanup.IsPressed = false;
-            this.btnCleanup.Location = new System.Drawing.Point(15, 122);
+            this.btnCleanup.Location = new System.Drawing.Point(25, 110);
             this.btnCleanup.Margins = 0;
             this.btnCleanup.MaximumSize = new System.Drawing.Size(360, 21);
             this.btnCleanup.MinimumSize = new System.Drawing.Size(72, 21);
@@ -699,6 +731,48 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.btnCleanup.Text = "Run Cleanup Assistant...";
             this.btnCleanup.UseVisualStyleBackColor = true;
             this.btnCleanup.Click += new System.EventHandler(this.btnCleanup_Click);
+            // 
+            // cbCleanupCache
+            // 
+            this.cbCleanupCache.AutoSize = true;
+            this.cbCleanupCache.Location = new System.Drawing.Point(25, 64);
+            this.cbCleanupCache.Name = "cbCleanupCache";
+            this.cbCleanupCache.Size = new System.Drawing.Size(335, 17);
+            this.cbCleanupCache.TabIndex = 30;
+            this.cbCleanupCache.Text = "Clean cache folder, including music database, artwork cache etc.";
+            this.cbCleanupCache.UseVisualStyleBackColor = true;
+            // 
+            // cbCleanupPrefs
+            // 
+            this.cbCleanupPrefs.AutoSize = true;
+            this.cbCleanupPrefs.Location = new System.Drawing.Point(25, 26);
+            this.cbCleanupPrefs.Name = "cbCleanupPrefs";
+            this.cbCleanupPrefs.Size = new System.Drawing.Size(132, 17);
+            this.cbCleanupPrefs.TabIndex = 29;
+            this.cbCleanupPrefs.Text = "Delete preference files";
+            this.cbCleanupPrefs.UseVisualStyleBackColor = true;
+            // 
+            // propertyPageSectionLabel7
+            // 
+            this.propertyPageSectionLabel7.AutoSize = true;
+            this.propertyPageSectionLabel7.BackColor = System.Drawing.Color.Transparent;
+            this.propertyPageSectionLabel7.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            this.propertyPageSectionLabel7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.propertyPageSectionLabel7.Location = new System.Drawing.Point(3, 6);
+            this.propertyPageSectionLabel7.Name = "propertyPageSectionLabel7";
+            this.propertyPageSectionLabel7.Size = new System.Drawing.Size(303, 13);
+            this.propertyPageSectionLabel7.TabIndex = 28;
+            this.propertyPageSectionLabel7.Text = "Please select the files and folders you\'d like to reset ";
+            this.propertyPageSectionLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // line7
+            // 
+            this.line7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line7.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line7.Location = new System.Drawing.Point(82, 15);
+            this.line7.Name = "line7";
+            this.line7.Size = new System.Drawing.Size(275, 1);
+            this.line7.TabIndex = 27;
             // 
             // ScanPollTimer
             // 
@@ -732,7 +806,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.panel2.PerformLayout();
             this.information.ResumeLayout(false);
             this.maintenance.ResumeLayout(false);
-            this.maintenance.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -788,6 +863,12 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private JsonRpcClient jsonClient;
         private Microsoft.HomeServer.Controls.QButton checkUpdateBtn;
         private System.Windows.Forms.Label labelUpdate;
+        private System.Windows.Forms.Panel panel3;
+        private Microsoft.HomeServer.Controls.PropertyPageSectionLabel propertyPageSectionLabel7;
+        private Microsoft.HomeServer.Controls.Line line7;
+        private System.Windows.Forms.CheckBox cbCleanupCache;
+        private System.Windows.Forms.CheckBox cbCleanupPrefs;
+        private System.Windows.Forms.CheckBox cbCleanupAll;
 
     }
 }
