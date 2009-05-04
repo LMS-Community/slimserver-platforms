@@ -82,22 +82,17 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             else
             {
                 if (this.scStatus == -1)
-                {
                     labelSCStatus.Text = "The SqueezeCenter service is not available";
-                }
-                else if (this.scStatus == -2)
-                {
-                    labelSCStatus.Text = "SqueezeCenter is stopping...";
-                }
-                else if (this.scStatus == -3)
-                {
-                    labelSCStatus.Text = "SqueezeCenter is starting...";
-                }
-                else
-                {
-                    labelSCStatus.Text = "The SqueezeCenter service is stopped";
-                }
 
+                else if (this.scStatus == -2)
+                    labelSCStatus.Text = "SqueezeCenter is stopping...";
+                
+                else if (this.scStatus == -3)
+                    labelSCStatus.Text = "SqueezeCenter is starting...";
+                
+                else
+                    labelSCStatus.Text = "The SqueezeCenter service is stopped";
+                
                 btnStartStopService.Text = "Start SqueezeCenter";
             }
 
@@ -116,26 +111,21 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
                 if (scService != null)
                 {
-                    if (scService.Status == ServiceControllerStatus.StartPending) {
+                    if (scService.Status == ServiceControllerStatus.StartPending)
                         this.scStatus = -3;
-                    }
+    
                     else if (scService.Status == ServiceControllerStatus.StopPending)
-                    {
                         this.scStatus = -2;
-                    }
+
                     else if (scService.Status == ServiceControllerStatus.Stopped)
-                    {
                         this.scStatus = 0;
-                    }
+                    
                     else
-                    {
                         this.scStatus = 1;
-                    }
                 }
                 else
-                {
                     this.scStatus = -1;
-                }
+
             }
             catch {
                 this.scStatus = -1;
@@ -159,8 +149,13 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             browseMusicFolderBtn.Enabled = (this.scStatus == 1 && !this.isScanning);
             playlistFolderInput.Enabled = (this.scStatus == 1 && !this.isScanning);
             browsePlaylistFolderBtn.Enabled = (this.scStatus == 1 && !this.isScanning);
-            rescanBtn.Enabled = (this.scStatus == 1 && !this.isScanning);
             rescanOptionsList.Enabled = (this.scStatus == 1 && !this.isScanning);
+            rescanBtn.Enabled = (this.scStatus == 1);
+
+            if (this.isScanning)
+                rescanBtn.Text = "Abort";
+            else
+                rescanBtn.Text = "Rescan";
 
             cbCleanupAll.Enabled = (this.scStatus != 1);
             cbCleanupCache.Enabled = (this.scStatus != 1);
@@ -434,12 +429,19 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
         private void rescanBtn_Click(object sender, EventArgs e)
         {
-            if (rescanOptionsList.SelectedIndex == 0)
-                jsonRequest(new string[] { "rescan" });
-            else if (rescanOptionsList.SelectedIndex == 1)
-                jsonRequest(new string[] { "wipecache" });
-            else if (rescanOptionsList.SelectedIndex == 2)
-                jsonRequest(new string[] { "rescan", "playlists" });
+            if (this.isScanning)
+            {
+                jsonRequest(new string[] { "abortscan" });
+            }
+            else
+            {
+                if (rescanOptionsList.SelectedIndex == 0)
+                    jsonRequest(new string[] { "rescan" });
+                else if (rescanOptionsList.SelectedIndex == 1)
+                    jsonRequest(new string[] { "wipecache" });
+                else if (rescanOptionsList.SelectedIndex == 2)
+                    jsonRequest(new string[] { "rescan", "playlists" });
+            }
 
             ScanPollTimer_Tick(this, new EventArgs());
         }
@@ -447,7 +449,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private void ScanPollTimer_Tick(object sender, EventArgs e)
         {
             rescanOptionsList.Enabled = !this.isScanning;
-            rescanBtn.Enabled = !this.isScanning;
 
             JsonObject scanProgress = jsonRequest(new string[] { "rescanprogress" } );
             progressInformation.Text = "";
@@ -455,9 +456,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             if (scanProgress != null && scanProgress["steps"] != null && scanProgress["rescan"] != null)
             {
                 this.isScanning = true;
-
                 rescanOptionsList.Enabled = false;
-                rescanBtn.Enabled = false;
 
                 string[] steps = scanProgress["steps"].ToString().Split(',');
 
