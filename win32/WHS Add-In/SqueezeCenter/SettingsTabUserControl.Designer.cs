@@ -522,7 +522,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.progressTime.AutoSize = true;
             this.progressTime.BackColor = System.Drawing.Color.Transparent;
-            this.progressTime.Location = new System.Drawing.Point(300, 251);
+            this.progressTime.Location = new System.Drawing.Point(300, 264);
             this.progressTime.Name = "progressTime";
             this.progressTime.Size = new System.Drawing.Size(49, 13);
             this.progressTime.TabIndex = 35;
@@ -531,7 +531,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // scanProgressBar
             // 
             this.scanProgressBar.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.scanProgressBar.Location = new System.Drawing.Point(28, 250);
+            this.scanProgressBar.Location = new System.Drawing.Point(28, 263);
             this.scanProgressBar.Name = "scanProgressBar";
             this.scanProgressBar.Size = new System.Drawing.Size(266, 16);
             this.scanProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -540,20 +540,21 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // progressInformation
             // 
             this.progressInformation.AutoEllipsis = true;
-            this.progressInformation.Location = new System.Drawing.Point(25, 270);
+            this.progressInformation.Location = new System.Drawing.Point(25, 283);
             this.progressInformation.Name = "progressInformation";
-            this.progressInformation.Size = new System.Drawing.Size(322, 75);
+            this.progressInformation.Size = new System.Drawing.Size(322, 65);
             this.progressInformation.TabIndex = 33;
             this.progressInformation.Text = "progressInformation";
             // 
             // progressLabel
             // 
             this.progressLabel.AutoEllipsis = true;
-            this.progressLabel.Location = new System.Drawing.Point(25, 234);
+            this.progressLabel.Location = new System.Drawing.Point(25, 224);
             this.progressLabel.Name = "progressLabel";
-            this.progressLabel.Size = new System.Drawing.Size(322, 13);
+            this.progressLabel.Size = new System.Drawing.Size(322, 36);
             this.progressLabel.TabIndex = 32;
             this.progressLabel.Text = "progressLabel";
+            this.progressLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // rescanOptionsList
             // 
