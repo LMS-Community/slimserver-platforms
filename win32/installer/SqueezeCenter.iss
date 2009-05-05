@@ -496,7 +496,7 @@ procedure CurStepChanged(CurStep: TSetupStep);
 var
 	Wait, ErrorCode, i: Integer;
 	NewServerDir, PrefsFile, PrefsPath, PrefString, PortConflict, s: String;
-	Started, Failed, Silent: Boolean;
+	Started, Failed, Silent, NoTrayIcon, InstallService: Boolean;
 
 begin
 	if CurStep = ssInstall then
@@ -540,7 +540,11 @@ begin
 				if (pos('/silent', lowercase(ParamStr(i))) > 0) then
 					Silent:= true
 				else if (pos('/verysilent', lowercase(ParamStr(i))) > 0) then
-					Silent:= true;
+					Silent:= true
+				else if (pos('/notrayicon', lowercase(ParamStr(i))) > 0) then
+					NoTrayIcon := true
+				else if (pos('/installservice', lowercase(ParamStr(i))) > 0) then
+					InstallService := true
 			end;
 			
 			Silent := Silent or WizardSilent;
@@ -617,11 +621,20 @@ begin
 				RegisterPort('9092');
 				RegisterPort('3483');
 
+				if InstallService then
+				begin
+					Exec(AddBackslash(NewServerDir) + 'squeezecenter.exe', '-install auto', NewServerDir, SW_HIDE, ewWaitUntilIdle, ErrorCode);
+					StartupMode := 'auto';
+				end;
+
 				if StartupMode = 'auto' then
 					StartService('squeezesvc');
 
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeTray');
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
+
+				if NoTrayIcon then
+					DeleteFile(AddBackslash(ExpandConstant('{commonstartup}')) + CustomMessage('SqueezeCenterTrayTool') + '.lnk');
 
 				// in silent mode do not wait for SC to be started before quitting the installer
 				if not Silent then
