@@ -4,6 +4,7 @@ MOUNTPOINT=/Volumes/SCInstaller
 INSTALLER="/Volumes/SCInstaller/SqueezeCenter Installer.app"
 
 if [ -e $1 ] ; then
+	xattr -d com.apple.quarantine $1
 	hdiutil unmount $MOUNTPOINT
 	hdiutil mount $1 -mountpoint $MOUNTPOINT
 fi
