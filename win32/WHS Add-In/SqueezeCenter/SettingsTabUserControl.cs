@@ -551,7 +551,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             }
             catch { }
 
-            return (value == null ? "" : value);
+            return ( (value == null || value == "''") ? "" : value );
         }
 
         private JsonObject jsonRequest(string[] query)
