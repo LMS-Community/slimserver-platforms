@@ -60,9 +60,9 @@
 	
 	if (hasUpdateInstaller) {
 		NSBeginAlertSheet (
-						   LocalizedPrefString(@"CONTROLPANEL_UPDATE_AVAILABLE", @""),
-						   LocalizedPrefString(@"CONTROLPANEL_INSTALL_UPDATE", @""),
-						   LocalizedPrefString(@"NOT_NOW", @""),
+						   LocalizedPrefString(@"An updated SqueezeCenter version is available and ready to be installed.", @""),
+						   LocalizedPrefString(@"Install update", @""),
+						   LocalizedPrefString(@"Not now", @""),
 						   nil, 
 						   [[NSApplication sharedApplication] mainWindow], 
 						   self, 
@@ -238,12 +238,12 @@
 	[scanProgressTime setHidden:!isScanning];
 
 	if (isScanning) {
-		[rescanButton setTitle:LocalizedPrefString(@"ABORT", @"")];
+		[rescanButton setTitle:LocalizedPrefString(@"Abort", @"")];
 		[scanSpinny startAnimation:self];
 		[scanProgressError setStringValue:@""];
 	}
 	else {
-		[rescanButton setTitle:LocalizedPrefString(@"RESCAN", @"")];
+		[rescanButton setTitle:LocalizedPrefString(@"Rescan", @"")];
 		[scanSpinny stopAnimation:self];
 		[scanProgressDesc setStringValue:@""];
 		[scanProgressDetail setStringValue:@""];
@@ -251,16 +251,16 @@
 	}
 	
 	if (hasUpdateInstaller) {
-		[updateButton setTitle:LocalizedPrefString(@"CONTROLPANEL_INSTALL_UPDATE", @"")];
-		[updateDescription setStringValue:LocalizedPrefString(@"CONTROLPANEL_UPDATE_AVAILABLE", @"")];
+		[updateButton setTitle:LocalizedPrefString(@"Install update", @"")];
+		[updateDescription setStringValue:LocalizedPrefString(@"An updated SqueezeCenter version is available and ready to be installed.", @"")];
 	}			
 	else if (updateURL != nil) {
-		[updateButton setTitle:LocalizedPrefString(@"CONTROLPANEL_DOWNLOAD_UPDATE", @"")];
-		[updateDescription setStringValue:[NSString stringWithFormat:@"%@ (%@)", LocalizedPrefString(@"CONTROLPANEL_UPDATE_AVAILABLE", @""), updateURL] ];
+		[updateButton setTitle:LocalizedPrefString(@"Download update", @"")];
+		[updateDescription setStringValue:[NSString stringWithFormat:@"%@ (%@)", LocalizedPrefString(@"An updated SqueezeCenter version is available and ready to be installed.", @""), updateURL] ];
 	}
 	else {
-		[updateButton setTitle:LocalizedPrefString(@"CONTROLPANEL_CHECK_UPDATE", @"")];
-		[updateDescription setStringValue:LocalizedPrefString(@"CONTROLPANEL_NO_UPDATE_AVAILABLE", @"")];
+		[updateButton setTitle:LocalizedPrefString(@"Check for update", @"")];
+		[updateDescription setStringValue:LocalizedPrefString(@"There's no updated SqueezeCenter version available.", @"")];
 	}			
 	
 }
@@ -471,7 +471,7 @@
 		NSString *data = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
 
 		if ([data isEqual:@"0\n"] || ![data hasPrefix:@"http"]) {
-			NSRunAlertPanel(LocalizedPrefString(@"CONTROLPANEL_CHECK_UPDATE", @""), LocalizedPrefString(@"CONTROLPANEL_NO_UPDATE_AVAILABLE", @""), @"OK", nil, nil);
+			NSRunAlertPanel(LocalizedPrefString(@"Check for update", @""), LocalizedPrefString(@"There's no updated SqueezeCenter version available.", @""), @"OK", nil, nil);
 		}
 		else {
 			updateURL = data;
@@ -662,9 +662,9 @@
 
 	if ([self serverState]) {
 		NSBeginAlertSheet (
-						   LocalizedPrefString(@"CONTROLPANEL_WANT_TO_STOP_SC", @""),
-						   LocalizedPrefString(@"CONTROLPANEL_CLEANUP_DO", @""),
-						   LocalizedPrefString(@"CANCEL", @""),
+						   LocalizedPrefString(@"SqueezeCenter has to be stopped before running the cleanup. Do you want to stop it now?", @""),
+						   LocalizedPrefString(@"Run Cleanup", @""),
+						   LocalizedPrefString(@"Cancel", @""),
 						   nil, 
 						   [[NSApplication sharedApplication] mainWindow], 
 						   self, 
