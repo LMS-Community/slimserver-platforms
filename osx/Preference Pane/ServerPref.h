@@ -45,6 +45,12 @@
 	IBOutlet NSTextField *updateDescription;
 	IBOutlet NSButton *updateButton;
 	
+	IBOutlet NSTextField *snUsername;
+	IBOutlet NSSecureTextField *snPassword;
+	IBOutlet NSButton *snCheckPassword;
+	IBOutlet NSPopUpButton *snSyncOptions;
+	IBOutlet NSPopUpButton *snStatsOptions;
+	
 	IBOutlet NSPopUpButton *scanModeOptions;
 	IBOutlet NSButton *rescanButton;
 	IBOutlet NSProgressIndicator *scanSpinny;
@@ -76,6 +82,14 @@
 -(void)setWebState:(bool)newState;
 -(bool)changeAutoStartupFrom:(int)oldState to:(int)newState;
 
+-(IBAction)checkSNPassword:(id)sender;
+-(IBAction)snCredentialsChanged:(id)sender;
+-(NSDictionary *)saveSNCredentials;
+-(IBAction)snSyncOptionChanged:(id)sender;
+-(IBAction)snStatsOptionChanged:(id)sender;
+-(IBAction)openSNSubscription:(id)sender;
+-(IBAction)openSNPasswordReminder:(id)sender;
+
 -(IBAction)rescan:(id)sender;
 -(void)scanPoll;
 
@@ -103,7 +117,7 @@
 
 -(NSDictionary *)jsonRequest:(NSString *)query;
 -(NSString *)getSCString:(NSString *)stringToken;
-//-(NSString *)getPref:(NSString *)pref;
+-(NSString *)getPref:(NSString *)pref;
 
 -(NSString *)findFile:(NSArray *)paths fileName:(NSString *)fileName;
 

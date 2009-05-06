@@ -15,12 +15,18 @@
         {
             ACTIONS = {
                 changeStartupPreference = id; 
+                checkSNPassword = id; 
                 cleanupBtnHandler = id; 
+                openSNPasswordReminder = id; 
+                openSNSubscription = id; 
                 openSettingsWebInterface = id; 
                 openWebInterface = id; 
                 rescan = id; 
                 showScannerLog = id; 
                 showServerLog = id; 
+                snCredentialsChanged = id; 
+                snStatsOptionChanged = id; 
+                snSyncOptionChanged = id; 
                 toggleServer = id; 
                 updateBtnHandler = id; 
             }; 
@@ -46,6 +52,11 @@
                 scanProgressTime = NSTextField; 
                 scanSpinny = NSProgressIndicator; 
                 serverStateDescription = NSTextField; 
+                snCheckPassword = NSButton; 
+                snPassword = NSSecureTextField; 
+                snStatsOptions = NSPopUpButton; 
+                snSyncOptions = NSPopUpButton; 
+                snUsername = NSTextField; 
                 startupType = NSPopUpButton; 
                 statusView = WebView; 
                 toggleServerButton = NSButton; 

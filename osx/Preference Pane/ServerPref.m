@@ -45,6 +45,15 @@
 
 	[startupType selectItemAtIndex:[startupType indexOfItemWithTag:[[defaultValues objectForKey:@"StartupMenuTag"] intValue]]];
 
+	// SqueezeNetwork settings
+	[snUsername setStringValue:[self getPref:@"sn_email"]];
+	
+	int option = [[self getPref:@"sn_sync"] intValue];
+	[snSyncOptions selectItemAtIndex:(option == 1 ? 0 : 1)];
+	
+	option = [[self getPref:@"sn_disable_stats"] intValue];
+	[snStatsOptions selectItemAtIndex:(option == 1 ? 1 : 0)];
+
 	// monitor scan progress
 	[NSTimer scheduledTimerWithTimeInterval: 1.9 target:self selector:@selector(scanPoll) userInfo:nil repeats:YES];
 	
@@ -230,6 +239,12 @@
 	[webLaunchButton setEnabled:currentWebState];
 	[advLaunchButton setEnabled:currentWebState];
 	[cleanupHelpShutdown setHidden:!currentWebState];
+	
+	[snUsername setEnabled:serverState];
+	[snPassword setEnabled:serverState];
+	[snCheckPassword setEnabled:serverState];
+	[snSyncOptions setEnabled:serverState];
+	[snStatsOptions setEnabled:serverState];
 
 	[scanModeOptions setEnabled:(serverState && !isScanning)];
 	[scanProgress setHidden:!isScanning];
@@ -570,6 +585,65 @@
 	[[NSWorkspace sharedWorkspace] openFile:pathToLog];
 }
 
+/* SqueezeNetwork */
+-(IBAction)checkSNPassword:(id)sender
+{
+	NSString *username = [snUsername stringValue];
+	NSString *password = [snPassword stringValue];
+
+	if (username != nil && password != nil && username != @"" && password != @"") {
+		NSDictionary *snResult = [self saveSNCredentials];
+	
+		if (snResult == nil || [[snResult valueForKey:@"validated"] intValue] == 0)
+		{
+			NSString *msg = LocalizedPrefString(@"Invalid SqueezeNetwork username or password.", @"");
+		
+			if ([snResult valueForKey:@"warning"] != nil)
+				msg = LocalizedPrefString([snResult valueForKey:@"warning"], @"");
+
+			NSLog(@"%@", msg);
+		}
+	}
+}
+
+-(IBAction)snCredentialsChanged:(id)sender
+{
+	[self saveSNCredentials];
+}
+
+-(NSDictionary *)saveSNCredentials
+{
+	NSString *username = [snUsername stringValue];
+	NSString *password = [snPassword stringValue];
+	
+	NSDictionary *snResult;
+	
+	if (username != nil && password != nil && username != @"" && password != @"") {
+		snResult = [self jsonRequest:[NSString stringWithFormat:@"\"setsncredentials\", \"%@\", \"%@\"", [snUsername stringValue], [snPassword stringValue]]];
+	}
+
+	return snResult;
+}
+
+-(IBAction)snSyncOptionChanged:(id)sender
+{
+}
+
+-(IBAction)snStatsOptionChanged:(id)sender
+{
+}
+
+-(void)openSNSubscription:(id)sender
+{
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: @"http://www.squeezenetwork.com/" ]];
+}
+
+-(void)openSNPasswordReminder:(id)sender
+{
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: @"http://www.squeezenetwork.com/user/forgotPassword" ]];
+}
+
+
 /* rescan buttons and progress */
 -(IBAction)rescan:(id)sender
 {
@@ -791,7 +865,6 @@
 }
 
 /* very simplistic method to read an atomic pref from the server.prefs file */
-/* no longer used - but we might need it again later
 -(NSString *)getPref:(NSString *)pref
 {
 	NSString *pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:prefsFile];
@@ -820,9 +893,8 @@
 		}
 	}
 	
-	return nil;
+	return @"";
 }
-*/
 
 -(NSString *)findFile:(NSArray *)paths fileName:(NSString*)fileName
 {
