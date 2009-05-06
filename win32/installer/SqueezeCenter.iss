@@ -636,12 +636,6 @@ begin
 					StartupMode := 'auto';
 				end;
 
-				if InstallService then
-				begin
-					Exec(AddBackslash(NewServerDir) + 'squeezecenter.exe', '-install auto', NewServerDir, SW_HIDE, ewWaitUntilIdle, ErrorCode);
-					StartupMode := 'auto';
-				end;
-
 				if StartupMode = 'auto' then
 					StartService('squeezesvc');
 
