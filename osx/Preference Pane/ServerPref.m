@@ -616,7 +616,7 @@
 	NSString *username = [snUsername stringValue];
 	NSString *password = [snPassword stringValue];
 	
-	NSDictionary *snResult;
+	NSDictionary *snResult = nil;
 	
 	if (username != nil && password != nil && username != @"" && password != @"") {
 		snResult = [self jsonRequest:[NSString stringWithFormat:@"\"setsncredentials\", \"%@\", \"%@\"", [snUsername stringValue], [snPassword stringValue]]];
