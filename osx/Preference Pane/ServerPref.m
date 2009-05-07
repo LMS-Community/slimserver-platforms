@@ -82,6 +82,8 @@
 						   @""
 						   );	
 	}
+
+	[self jsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
 	
 	[NSTimer scheduledTimerWithTimeInterval: 1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
 	[self updateUI];
