@@ -17,6 +17,7 @@
                 changeStartupPreference = id; 
                 checkSNPassword = id; 
                 cleanupBtnHandler = id; 
+                libraryNameChanged = id; 
                 openSNPasswordReminder = id; 
                 openSNSubscription = id; 
                 openSettingsWebInterface = id; 
@@ -42,6 +43,7 @@
                 cleanupMysql = NSButton; 
                 cleanupPrefs = NSButton; 
                 doCleanup = NSButton; 
+                musicLibraryName = NSTextField; 
                 prefsTab = NSTabView; 
                 rescanButton = NSButton; 
                 scanModeOptions = NSPopUpButton; 

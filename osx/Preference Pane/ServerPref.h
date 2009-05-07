@@ -59,6 +59,7 @@
 	IBOutlet NSTextField *scanProgressDetail;
 	IBOutlet NSTextField *scanProgressError;
 	IBOutlet NSTextField *scanProgressTime;
+	IBOutlet NSTextField *musicLibraryName;
 	
 	IBOutlet NSButton *cleanupPrefs;
 	IBOutlet NSButton *cleanupFilecache;
@@ -81,6 +82,7 @@
 -(bool)webState;
 -(void)setWebState:(bool)newState;
 -(bool)changeAutoStartupFrom:(int)oldState to:(int)newState;
+-(IBAction)libraryNameChanged:(id)sender;
 
 -(IBAction)checkSNPassword:(id)sender;
 -(IBAction)snCredentialsChanged:(id)sender;

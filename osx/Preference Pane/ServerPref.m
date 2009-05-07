@@ -44,7 +44,8 @@
 	}
 
 	[startupType selectItemAtIndex:[startupType indexOfItemWithTag:[[defaultValues objectForKey:@"StartupMenuTag"] intValue]]];
-
+	[musicLibraryName setStringValue:[self getPref:@"libraryname"]];
+	
 	// SqueezeNetwork settings
 	[snUsername setStringValue:[self getPref:@"sn_email"]];
 	
@@ -246,6 +247,7 @@
 	[snSyncOptions setEnabled:serverState];
 	[snStatsOptions setEnabled:serverState];
 
+	[musicLibraryName setEnabled:serverState];
 	[scanModeOptions setEnabled:(serverState && !isScanning)];
 	[scanProgress setHidden:!isScanning];
 	[scanProgressDesc setHidden:!isScanning];
@@ -650,6 +652,11 @@
 
 
 /* rescan buttons and progress */
+-(IBAction)libraryNameChanged:(id)sender
+{
+	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"libraryname\", \"%@\"", [musicLibraryName stringValue]]];
+}
+
 -(IBAction)rescan:(id)sender
 {
 	if (isScanning)
