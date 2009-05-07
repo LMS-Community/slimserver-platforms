@@ -285,7 +285,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
             jsonRequest(new string[] { "pref", "sn_sync", snSyncOptions.SelectedIndex == 0 ? "1" : "0"});
             jsonRequest(new string[] { "pref", "sn_disable_stats", snSyncOptions.SelectedIndex.ToString()});
-            
+
+            jsonRequest(new string[] { "pref", "wizardDone", "1" });
+
             return false;
         }
 
