@@ -70,6 +70,23 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.line6 = new Microsoft.HomeServer.Controls.Line();
             this.propertyPageSectionLabel5 = new Microsoft.HomeServer.Controls.PropertyPageSectionLabel();
             this.line5 = new Microsoft.HomeServer.Controls.Line();
+            this.SqueezeNetwork = new System.Windows.Forms.TabPage();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.snPassword = new System.Windows.Forms.TextBox();
+            this.snStatsOptions = new System.Windows.Forms.ComboBox();
+            this.snSyncOptions = new System.Windows.Forms.ComboBox();
+            this.linkPrivacyPolicy = new System.Windows.Forms.LinkLabel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.linkForgotPassword = new System.Windows.Forms.LinkLabel();
+            this.linkNeedSNAccount = new System.Windows.Forms.LinkLabel();
+            this.snUsername = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.propertyPageSectionLabel9 = new Microsoft.HomeServer.Controls.PropertyPageSectionLabel();
+            this.line9 = new Microsoft.HomeServer.Controls.Line();
+            this.propertyPageSectionLabel8 = new Microsoft.HomeServer.Controls.PropertyPageSectionLabel();
+            this.line8 = new Microsoft.HomeServer.Controls.Line();
             this.information = new System.Windows.Forms.TabPage();
             this.informationBrowser = new System.Windows.Forms.WebBrowser();
             this.maintenance = new System.Windows.Forms.TabPage();
@@ -89,6 +106,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.panel1.SuspendLayout();
             this.music.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.SqueezeNetwork.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.information.SuspendLayout();
             this.maintenance.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -104,6 +123,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.customTabControl1.Controls.Add(this.settings);
             this.customTabControl1.Controls.Add(this.music);
+            this.customTabControl1.Controls.Add(this.SqueezeNetwork);
             this.customTabControl1.Controls.Add(this.information);
             this.customTabControl1.Controls.Add(this.maintenance);
             this.customTabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
@@ -182,7 +202,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.checkUpdateBtn.MinimumSize = new System.Drawing.Size(72, 21);
             this.checkUpdateBtn.Name = "checkUpdateBtn";
             this.checkUpdateBtn.Size = new System.Drawing.Size(100, 21);
-            this.checkUpdateBtn.TabIndex = 31;
+            this.checkUpdateBtn.TabIndex = 13;
             this.checkUpdateBtn.Text = "Check for update";
             this.checkUpdateBtn.UseVisualStyleBackColor = true;
             this.checkUpdateBtn.Paint += new System.Windows.Forms.PaintEventHandler(this.checkUpdateBtn_Paint);
@@ -238,7 +258,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkScannerLog.Location = new System.Drawing.Point(25, 150);
             this.linkScannerLog.Name = "linkScannerLog";
             this.linkScannerLog.Size = new System.Drawing.Size(91, 13);
-            this.linkScannerLog.TabIndex = 10;
+            this.linkScannerLog.TabIndex = 15;
             this.linkScannerLog.TabStop = true;
             this.linkScannerLog.Text = "Open scanner.log";
             this.linkScannerLog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkScannerLog_LinkClicked);
@@ -262,7 +282,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkServerLog.Location = new System.Drawing.Point(25, 129);
             this.linkServerLog.Name = "linkServerLog";
             this.linkServerLog.Size = new System.Drawing.Size(82, 13);
-            this.linkServerLog.TabIndex = 9;
+            this.linkServerLog.TabIndex = 14;
             this.linkServerLog.TabStop = true;
             this.linkServerLog.Text = "Open server.log";
             this.linkServerLog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkServerLog_LinkClicked);
@@ -296,7 +316,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.cbStartAtBoot.Location = new System.Drawing.Point(28, 31);
             this.cbStartAtBoot.Name = "cbStartAtBoot";
             this.cbStartAtBoot.Size = new System.Drawing.Size(217, 17);
-            this.cbStartAtBoot.TabIndex = 18;
+            this.cbStartAtBoot.TabIndex = 11;
             this.cbStartAtBoot.Text = "Start SqueezeCenter when system boots";
             this.cbStartAtBoot.UseVisualStyleBackColor = false;
             this.cbStartAtBoot.CheckedChanged += new System.EventHandler(this.EnableApply);
@@ -320,7 +340,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.btnStartStopService.MinimumSize = new System.Drawing.Size(72, 21);
             this.btnStartStopService.Name = "btnStartStopService";
             this.btnStartStopService.Size = new System.Drawing.Size(118, 21);
-            this.btnStartStopService.TabIndex = 16;
+            this.btnStartStopService.TabIndex = 12;
             this.btnStartStopService.Text = "Start SqueezeCenter";
             this.btnStartStopService.UseVisualStyleBackColor = true;
             this.btnStartStopService.Paint += new System.Windows.Forms.PaintEventHandler(this.btnStartStopService_Paint);
@@ -352,7 +372,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkSCWebUI.Location = new System.Drawing.Point(25, 307);
             this.linkSCWebUI.Name = "linkSCWebUI";
             this.linkSCWebUI.Size = new System.Drawing.Size(18, 13);
-            this.linkSCWebUI.TabIndex = 20;
+            this.linkSCWebUI.TabIndex = 16;
             this.linkSCWebUI.TabStop = true;
             this.linkSCWebUI.Text = "url";
             this.linkSCWebUI.Paint += new System.Windows.Forms.PaintEventHandler(this.linkSCWebUI_Paint);
@@ -365,7 +385,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkSCSettings.Location = new System.Drawing.Point(25, 330);
             this.linkSCSettings.Name = "linkSCSettings";
             this.linkSCSettings.Size = new System.Drawing.Size(123, 13);
-            this.linkSCSettings.TabIndex = 19;
+            this.linkSCSettings.TabIndex = 17;
             this.linkSCSettings.TabStop = true;
             this.linkSCSettings.Text = "Open advanced settings";
             this.linkSCSettings.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSCSettings_LinkClicked);
@@ -447,7 +467,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.playlistFolderInput.Location = new System.Drawing.Point(28, 109);
             this.playlistFolderInput.Name = "playlistFolderInput";
             this.playlistFolderInput.Size = new System.Drawing.Size(230, 20);
-            this.playlistFolderInput.TabIndex = 40;
+            this.playlistFolderInput.TabIndex = 23;
             this.playlistFolderInput.TextChanged += new System.EventHandler(this.EnableApply);
             // 
             // browsePlaylistFolderBtn
@@ -470,7 +490,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.browsePlaylistFolderBtn.MinimumSize = new System.Drawing.Size(72, 21);
             this.browsePlaylistFolderBtn.Name = "browsePlaylistFolderBtn";
             this.browsePlaylistFolderBtn.Size = new System.Drawing.Size(83, 21);
-            this.browsePlaylistFolderBtn.TabIndex = 39;
+            this.browsePlaylistFolderBtn.TabIndex = 24;
             this.browsePlaylistFolderBtn.Text = "Browse";
             this.browsePlaylistFolderBtn.UseVisualStyleBackColor = true;
             this.browsePlaylistFolderBtn.Click += new System.EventHandler(this.browsePlaylistFolderBtn_Click);
@@ -490,7 +510,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.musicFolderInput.Location = new System.Drawing.Point(28, 43);
             this.musicFolderInput.Name = "musicFolderInput";
             this.musicFolderInput.Size = new System.Drawing.Size(230, 20);
-            this.musicFolderInput.TabIndex = 37;
+            this.musicFolderInput.TabIndex = 21;
             this.musicFolderInput.TextChanged += new System.EventHandler(this.EnableApply);
             // 
             // browseMusicFolderBtn
@@ -513,7 +533,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.browseMusicFolderBtn.MinimumSize = new System.Drawing.Size(72, 21);
             this.browseMusicFolderBtn.Name = "browseMusicFolderBtn";
             this.browseMusicFolderBtn.Size = new System.Drawing.Size(83, 21);
-            this.browseMusicFolderBtn.TabIndex = 36;
+            this.browseMusicFolderBtn.TabIndex = 22;
             this.browseMusicFolderBtn.Text = "Browse";
             this.browseMusicFolderBtn.UseVisualStyleBackColor = true;
             this.browseMusicFolderBtn.Click += new System.EventHandler(this.browseMusicFolderBtn_Click);
@@ -568,7 +588,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.rescanOptionsList.Location = new System.Drawing.Point(28, 200);
             this.rescanOptionsList.Name = "rescanOptionsList";
             this.rescanOptionsList.Size = new System.Drawing.Size(230, 21);
-            this.rescanOptionsList.TabIndex = 31;
+            this.rescanOptionsList.TabIndex = 25;
             // 
             // rescanBtn
             // 
@@ -590,7 +610,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.rescanBtn.MinimumSize = new System.Drawing.Size(72, 21);
             this.rescanBtn.Name = "rescanBtn";
             this.rescanBtn.Size = new System.Drawing.Size(83, 21);
-            this.rescanBtn.TabIndex = 30;
+            this.rescanBtn.TabIndex = 26;
             this.rescanBtn.Text = "Rescan";
             this.rescanBtn.UseVisualStyleBackColor = true;
             this.rescanBtn.Click += new System.EventHandler(this.rescanBtn_Click);
@@ -638,6 +658,201 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.line5.Name = "line5";
             this.line5.Size = new System.Drawing.Size(275, 1);
             this.line5.TabIndex = 25;
+            // 
+            // SqueezeNetwork
+            // 
+            this.SqueezeNetwork.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.SqueezeNetwork.Controls.Add(this.panel4);
+            this.SqueezeNetwork.Location = new System.Drawing.Point(4, 22);
+            this.SqueezeNetwork.Name = "SqueezeNetwork";
+            this.SqueezeNetwork.Padding = new System.Windows.Forms.Padding(3);
+            this.SqueezeNetwork.Size = new System.Drawing.Size(376, 378);
+            this.SqueezeNetwork.TabIndex = 4;
+            this.SqueezeNetwork.Text = "SqueezeNetwork";
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.White;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.snPassword);
+            this.panel4.Controls.Add(this.snStatsOptions);
+            this.panel4.Controls.Add(this.snSyncOptions);
+            this.panel4.Controls.Add(this.linkPrivacyPolicy);
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Controls.Add(this.label5);
+            this.panel4.Controls.Add(this.linkForgotPassword);
+            this.panel4.Controls.Add(this.linkNeedSNAccount);
+            this.panel4.Controls.Add(this.snUsername);
+            this.panel4.Controls.Add(this.label4);
+            this.panel4.Controls.Add(this.label3);
+            this.panel4.Controls.Add(this.propertyPageSectionLabel9);
+            this.panel4.Controls.Add(this.line9);
+            this.panel4.Controls.Add(this.propertyPageSectionLabel8);
+            this.panel4.Controls.Add(this.line8);
+            this.panel4.Location = new System.Drawing.Point(6, 6);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(364, 366);
+            this.panel4.TabIndex = 0;
+            // 
+            // snPassword
+            // 
+            this.snPassword.Location = new System.Drawing.Point(106, 53);
+            this.snPassword.Name = "snPassword";
+            this.snPassword.PasswordChar = '*';
+            this.snPassword.Size = new System.Drawing.Size(181, 20);
+            this.snPassword.TabIndex = 35;
+            this.snPassword.TextChanged += new System.EventHandler(this.EnableApply);
+            // 
+            // snStatsOptions
+            // 
+            this.snStatsOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.snStatsOptions.Enabled = false;
+            this.snStatsOptions.FormattingEnabled = true;
+            this.snStatsOptions.Items.AddRange(new object[] {
+            "Enabled, keep player settings in sync.",
+            "Disabled, do not keep player settings in sync."});
+            this.snStatsOptions.Location = new System.Drawing.Point(28, 312);
+            this.snStatsOptions.Name = "snStatsOptions";
+            this.snStatsOptions.Size = new System.Drawing.Size(230, 21);
+            this.snStatsOptions.TabIndex = 37;
+            this.snStatsOptions.SelectedIndexChanged += new System.EventHandler(this.EnableApply);
+            // 
+            // snSyncOptions
+            // 
+            this.snSyncOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.snSyncOptions.Enabled = false;
+            this.snSyncOptions.FormattingEnabled = true;
+            this.snSyncOptions.Items.AddRange(new object[] {
+            "Enabled, keep player settings in sync.",
+            "Disabled, do not keep player settings in sync."});
+            this.snSyncOptions.Location = new System.Drawing.Point(28, 210);
+            this.snSyncOptions.Name = "snSyncOptions";
+            this.snSyncOptions.Size = new System.Drawing.Size(230, 21);
+            this.snSyncOptions.TabIndex = 36;
+            this.snSyncOptions.SelectedIndexChanged += new System.EventHandler(this.EnableApply);
+            // 
+            // linkPrivacyPolicy
+            // 
+            this.linkPrivacyPolicy.Location = new System.Drawing.Point(26, 279);
+            this.linkPrivacyPolicy.Name = "linkPrivacyPolicy";
+            this.linkPrivacyPolicy.Size = new System.Drawing.Size(331, 30);
+            this.linkPrivacyPolicy.TabIndex = 47;
+            this.linkPrivacyPolicy.TabStop = true;
+            this.linkPrivacyPolicy.Text = "This information is collected in aggregate and is protected under our privacy pol" +
+                "icy.";
+            this.linkPrivacyPolicy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkPrivacyPolicy_LinkClicked);
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(25, 251);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(332, 30);
+            this.label6.TabIndex = 46;
+            this.label6.Text = "Help improve SqueezeNetwork by reporting statistics on internet radio and music s" +
+                "ervice listening.";
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(25, 164);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(323, 43);
+            this.label5.TabIndex = 45;
+            this.label5.Text = "By default, many player settings are synchronized between SqueezeCenter and Squee" +
+                "zeNetwork. To disable this feature, select the Disabled option below.";
+            // 
+            // linkForgotPassword
+            // 
+            this.linkForgotPassword.AutoSize = true;
+            this.linkForgotPassword.BackColor = System.Drawing.Color.White;
+            this.linkForgotPassword.Location = new System.Drawing.Point(25, 108);
+            this.linkForgotPassword.Name = "linkForgotPassword";
+            this.linkForgotPassword.Size = new System.Drawing.Size(104, 13);
+            this.linkForgotPassword.TabIndex = 44;
+            this.linkForgotPassword.TabStop = true;
+            this.linkForgotPassword.Text = "I forgot my password";
+            this.linkForgotPassword.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkForgotPassword_LinkClicked);
+            // 
+            // linkNeedSNAccount
+            // 
+            this.linkNeedSNAccount.AutoSize = true;
+            this.linkNeedSNAccount.BackColor = System.Drawing.Color.White;
+            this.linkNeedSNAccount.Location = new System.Drawing.Point(25, 86);
+            this.linkNeedSNAccount.Name = "linkNeedSNAccount";
+            this.linkNeedSNAccount.Size = new System.Drawing.Size(218, 13);
+            this.linkNeedSNAccount.TabIndex = 43;
+            this.linkNeedSNAccount.TabStop = true;
+            this.linkNeedSNAccount.Text = "I need to create a SqueezeNetwork account";
+            this.linkNeedSNAccount.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkNeedSNAccount_LinkClicked);
+            // 
+            // snUsername
+            // 
+            this.snUsername.Location = new System.Drawing.Point(106, 27);
+            this.snUsername.Name = "snUsername";
+            this.snUsername.Size = new System.Drawing.Size(181, 20);
+            this.snUsername.TabIndex = 34;
+            this.snUsername.TextChanged += new System.EventHandler(this.EnableApply);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(25, 56);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 13);
+            this.label4.TabIndex = 32;
+            this.label4.Text = "Password:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(25, 30);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(76, 13);
+            this.label3.TabIndex = 31;
+            this.label3.Text = "Email Address:";
+            // 
+            // propertyPageSectionLabel9
+            // 
+            this.propertyPageSectionLabel9.AutoSize = true;
+            this.propertyPageSectionLabel9.BackColor = System.Drawing.Color.Transparent;
+            this.propertyPageSectionLabel9.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            this.propertyPageSectionLabel9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.propertyPageSectionLabel9.Location = new System.Drawing.Point(3, 6);
+            this.propertyPageSectionLabel9.Name = "propertyPageSectionLabel9";
+            this.propertyPageSectionLabel9.Size = new System.Drawing.Size(157, 13);
+            this.propertyPageSectionLabel9.TabIndex = 30;
+            this.propertyPageSectionLabel9.Text = "SqueezeNetwork Acccount";
+            this.propertyPageSectionLabel9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // line9
+            // 
+            this.line9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line9.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line9.Location = new System.Drawing.Point(82, 15);
+            this.line9.Name = "line9";
+            this.line9.Size = new System.Drawing.Size(275, 1);
+            this.line9.TabIndex = 29;
+            // 
+            // propertyPageSectionLabel8
+            // 
+            this.propertyPageSectionLabel8.AutoSize = true;
+            this.propertyPageSectionLabel8.BackColor = System.Drawing.Color.Transparent;
+            this.propertyPageSectionLabel8.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            this.propertyPageSectionLabel8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.propertyPageSectionLabel8.Location = new System.Drawing.Point(3, 142);
+            this.propertyPageSectionLabel8.Name = "propertyPageSectionLabel8";
+            this.propertyPageSectionLabel8.Size = new System.Drawing.Size(170, 13);
+            this.propertyPageSectionLabel8.TabIndex = 28;
+            this.propertyPageSectionLabel8.Text = "SqueezeNetwork Integration";
+            this.propertyPageSectionLabel8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // line8
+            // 
+            this.line8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line8.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line8.Location = new System.Drawing.Point(82, 151);
+            this.line8.Name = "line8";
+            this.line8.Size = new System.Drawing.Size(275, 1);
+            this.line8.TabIndex = 27;
             // 
             // information
             // 
@@ -728,7 +943,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.btnCleanup.MinimumSize = new System.Drawing.Size(72, 21);
             this.btnCleanup.Name = "btnCleanup";
             this.btnCleanup.Size = new System.Drawing.Size(137, 21);
-            this.btnCleanup.TabIndex = 20;
+            this.btnCleanup.TabIndex = 40;
             this.btnCleanup.Text = "Run Cleanup Assistant...";
             this.btnCleanup.UseVisualStyleBackColor = true;
             this.btnCleanup.Click += new System.EventHandler(this.btnCleanup_Click);
@@ -805,6 +1020,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.music.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.SqueezeNetwork.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.information.ResumeLayout(false);
             this.maintenance.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
@@ -870,6 +1088,23 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private System.Windows.Forms.CheckBox cbCleanupCache;
         private System.Windows.Forms.CheckBox cbCleanupPrefs;
         private System.Windows.Forms.CheckBox cbCleanupAll;
+        private System.Windows.Forms.TabPage SqueezeNetwork;
+        private System.Windows.Forms.Panel panel4;
+        private Microsoft.HomeServer.Controls.PropertyPageSectionLabel propertyPageSectionLabel9;
+        private Microsoft.HomeServer.Controls.Line line9;
+        private Microsoft.HomeServer.Controls.PropertyPageSectionLabel propertyPageSectionLabel8;
+        private Microsoft.HomeServer.Controls.Line line8;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox snUsername;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.LinkLabel linkNeedSNAccount;
+        private System.Windows.Forms.LinkLabel linkForgotPassword;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.LinkLabel linkPrivacyPolicy;
+        private System.Windows.Forms.ComboBox snSyncOptions;
+        private System.Windows.Forms.ComboBox snStatsOptions;
+        private System.Windows.Forms.TextBox snPassword;
 
     }
 }

@@ -48,6 +48,12 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             progressLabel.Text = "";
             progressInformation.Text = "";
             rescanOptionsList.SelectedIndex = 0;
+
+            snUsername.Text = getPref("sn_email");
+            snSyncOptions.SelectedIndex = 1;
+            snStatsOptions.SelectedIndex = 1;
+            snSyncOptions.SelectedIndex = Convert.ToInt16(getPref("sn_sync")) == 0 ? 1 : 0;
+            snStatsOptions.SelectedIndex = Convert.ToInt16(getPref("sn_disable_stats"));
         }
 
         /* basic settings, startup mode etc. */
@@ -152,6 +158,11 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             rescanOptionsList.Enabled = (this.scStatus == 1 && !this.isScanning);
             rescanBtn.Enabled = (this.scStatus == 1);
 
+            snUsername.Enabled = (this.scStatus == 1);
+            snPassword.Enabled = (this.scStatus == 1);
+            snSyncOptions.Enabled = (this.scStatus == 1);
+            snStatsOptions.Enabled = (this.scStatus == 1);
+            
             if (this.isScanning)
                 rescanBtn.Text = "Abort";
             else
@@ -249,7 +260,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                     svcMgr.InvokeMethod("ChangeStartMode", p);
                 }
                 catch {
-                    MessageBox.Show("Changing startup mode failed.");
+                    MessageBox.Show("Changing startup mode failed.", "SqueezeCenter", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -258,6 +269,19 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
             if (playlistFolderInput.Text != getPref("playlistdir"))
                 jsonRequest(new string[] { "pref", "playlistdir", playlistFolderInput.Text });
+
+            if (snUsername.Text != getPref("sn_email") || (snPassword.Text != "" && snPassword.Text != getPref("sn_password")))
+            {
+                JsonObject result = jsonRequest(new string[] { "setsncredentials", snUsername.Text, snPassword.Text });
+                if (result != null && result["validated"].ToString() != "" && result["warning"].ToString() != "")
+                {
+                    if (result["validated"].ToString() == "0")
+                        MessageBox.Show(result["warning"].ToString(), "SqueezeNetwork", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+
+            jsonRequest(new string[] { "pref", "sn_sync", snSyncOptions.SelectedIndex == 0 ? "1" : "0"});
+            jsonRequest(new string[] { "pref", "sn_disable_stats", snSyncOptions.SelectedIndex.ToString()});
             
             return false;
         }
@@ -596,6 +620,21 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private void EnableApply(object sender, EventArgs e)
         {
             this.consoleServices.EnableSettingsApply();
+        }
+
+        private void linkPrivacyPolicy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.consoleServices.OpenUrl(@"http://www.logitech.com/index.cfm/footer/privacy/&cl=us,en");
+        }
+
+        private void linkNeedSNAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.consoleServices.OpenUrl(@"http://www.squeezenetwork.com/");
+        }
+
+        private void linkForgotPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.consoleServices.OpenUrl(@"http://www.squeezenetwork.com/user/forgotPassword");
         }
     }
 
