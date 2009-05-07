@@ -43,6 +43,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.scStatus = 0;
             this.isScanning = false;
 
+            musicLibraryName.Text = getPref("libraryname");
             musicFolderInput.Text = getPref("audiodir");
             playlistFolderInput.Text = getPref("playlistdir");
             progressLabel.Text = "";
@@ -263,6 +264,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                     MessageBox.Show("Changing startup mode failed.", "SqueezeCenter", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
+            jsonRequest(new string[] { "pref", "libraryname", musicLibraryName.Text });
 
             if (musicFolderInput.Text != getPref("audiodir"))
                 jsonRequest(new string[] { "pref", "audiodir", musicFolderInput.Text });
@@ -574,6 +577,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                 prefsFile.Close();
             }
             catch { }
+
+            value = value.Trim(new char[] {'"', '\''});
 
             return ( (value == null || value == "''") ? "" : value );
         }
