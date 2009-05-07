@@ -593,16 +593,19 @@
 
 	if (username != nil && password != nil && username != @"" && password != @"") {
 		NSDictionary *snResult = [self saveSNCredentials];
+		
+		NSString *msg = @"";
 	
 		if (snResult == nil || [[snResult valueForKey:@"validated"] intValue] == 0)
-		{
-			NSString *msg = LocalizedPrefString(@"Invalid SqueezeNetwork username or password.", @"");
-		
-			if ([snResult valueForKey:@"warning"] != nil)
-				msg = LocalizedPrefString([snResult valueForKey:@"warning"], @"");
+			msg = @"Invalid SqueezeNetwork username or password.";
+		else if (snResult != nil && [[snResult valueForKey:@"validated"] intValue] != 0) 
+			msg = @"Connected successfully to SqueezeNetwork.";
 
-			NSLog(@"%@", msg);
-		}
+		if (snResult != nil && [snResult valueForKey:@"warning"] != nil)
+			msg = LocalizedPrefString([snResult valueForKey:@"warning"], @"");
+
+		if (msg != @"")
+			NSBeginAlertSheet (LocalizedPrefString(msg, @""), LocalizedPrefString(@"Ok", @""), nil, nil,[[NSApplication sharedApplication] mainWindow], self, nil, NULL, @"", @"");
 	}
 }
 
@@ -618,19 +621,21 @@
 	
 	NSDictionary *snResult = nil;
 	
-	if (username != nil && password != nil && username != @"" && password != @"") {
-		snResult = [self jsonRequest:[NSString stringWithFormat:@"\"setsncredentials\", \"%@\", \"%@\"", [snUsername stringValue], [snPassword stringValue]]];
-	}
+	if (username != nil && password != nil && username != @"" && password != @"")
+		snResult = [self jsonRequest:[NSString stringWithFormat:@"\"setsncredentials\", \"%@\", \"%@\"", username, password]];
 
 	return snResult;
 }
 
 -(IBAction)snSyncOptionChanged:(id)sender
 {
+	NSString *value = [[NSString stringWithFormat:@"%@", [snSyncOptions objectValue]] isEqual:@"1"] ? @"0" : @"1";
+	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"sn_sync\", \"%@\"", value]];
 }
 
 -(IBAction)snStatsOptionChanged:(id)sender
 {
+	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"sn_disable_stats\", \"%@\"", [snStatsOptions objectValue]]];
 }
 
 -(void)openSNSubscription:(id)sender
@@ -811,10 +816,10 @@
 -(NSDictionary *)jsonRequest:(NSString *)query
 {
 	SBJSON *parser = [SBJSON new];
-	
+
 	NSString *post = [NSString stringWithFormat:@"{\"id\":1,\"method\":\"slim.request\",\"params\":[\"\",[%@]]}", query];
 	
-	NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding];
+	NSData *postData = [post dataUsingEncoding:NSUTF8StringEncoding];
 	NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];	
 	
 	// set up our JSON/RPC request

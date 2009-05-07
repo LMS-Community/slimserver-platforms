@@ -17,3 +17,5 @@
 "Not now" = "Not now";
 "Abort" = "Abort";
 "Rescan" = "Rescan";
+
+"Invalid SqueezeNetwork username or password." = "Invalid SqueezeNetwork username or password.";
