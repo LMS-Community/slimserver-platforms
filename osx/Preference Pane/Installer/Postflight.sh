@@ -22,7 +22,5 @@ do
 done
 
 if [ $PORT -ne 0 ]; then
-	osascript <<ENDSCRIPT
-		open location "http://localhost:$PORT/"
-ENDSCRIPT
+	osascript ../server/Bin/darwin/openprefs.scpt &
 fi
