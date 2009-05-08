@@ -44,7 +44,7 @@ ${^WIN32_SLOPPY_STAT} = 1;
 sub PopupMenu {
 	my @menu = ();
 
-	push @menu, ['*' . string('OPEN_CONTROLPANEL'), \&DoubleClick];
+	push @menu, ['*' . string('OPEN_CONTROLPANEL'), \&openControlPanel];
 
 	if ( my $installer = _getUpdateInstaller() ) {
 		push @menu, [string('INSTALL_UPDATE'), \&updateSqueezeCenter];	
@@ -106,11 +106,7 @@ sub Singleton {
 				startSqueezeCenter();
 			}
 
-			if ($svcMgr->getServiceState() == SC_STATE_RUNNING) {
-
-				openSqueezeCenter();
-
-			}
+			openControlPanel();
 
 		} elsif ($_[1] eq '--exit') {
 
@@ -124,7 +120,7 @@ sub Singleton {
 }
 
 sub DoubleClick {
-	Execute($controlPanel);
+	openControlPanel();
 }
 
 # Display tooltip based on SS state
@@ -162,9 +158,11 @@ sub Timer {
 
 		SetAnimation(TIMERSECS * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
 
-	} elsif ($state == SC_STATE_RUNNING && ($cliStart || $cliInstall)) {
+	}
+	
+	if ($cliStart || $cliInstall) {
 
-		openSqueezeCenter();
+		openControlPanel();
 	}
 
 	checkSCActive();
@@ -211,11 +209,7 @@ sub checkAndStart {
 			startSqueezeCenter();
 		}
 
-		if ($state == SC_STATE_RUNNING) {
-
-			openSqueezeCenter();
-
-		}
+		openControlPanel();
 
 	}
 }
@@ -282,6 +276,12 @@ sub openSqueezeCenter {
 	# Check HTTP first in case SqueezeCenter has changed the HTTP port while running
 	my $serverUrl = $svcMgr->checkForHTTP();	
 	Execute($serverUrl) if $serverUrl;
+
+	$cliStart = $cliInstall = 0;
+}
+
+sub openControlPanel {
+	Execute($controlPanel);
 
 	$cliStart = $cliInstall = 0;
 }
