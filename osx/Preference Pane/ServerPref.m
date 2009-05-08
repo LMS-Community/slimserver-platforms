@@ -80,13 +80,16 @@
 						   NULL, 
 						   @"",
 						   @""
-						   );	
+						   );
 	}
 
-	[self jsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
-	
 	[NSTimer scheduledTimerWithTimeInterval: 1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
 	[self updateUI];
+	
+	if (serverState && ![[self getPref:@"wizardDone"] isEqual:@"1"])
+		[prefsTab selectTabViewItemAtIndex:1];
+
+	[self jsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
 }
 
 -(int)serverPID
