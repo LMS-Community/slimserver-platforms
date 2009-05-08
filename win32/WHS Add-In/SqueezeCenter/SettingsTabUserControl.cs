@@ -55,6 +55,12 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             snStatsOptions.SelectedIndex = 1;
             snSyncOptions.SelectedIndex = Convert.ToInt16(getPref("sn_sync")) == 0 ? 1 : 0;
             snStatsOptions.SelectedIndex = Convert.ToInt16(getPref("sn_disable_stats"));
+
+            PollSCTimer_Tick(new Object(), new EventArgs());
+            if (getPref("wizardDone") != "1")
+                prefsTabControl.SelectTab("SqueezeNetwork");
+
+            jsonRequest(new string[] { "pref", "wizardDone", "1" });
         }
 
         /* basic settings, startup mode etc. */
@@ -286,8 +292,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             jsonRequest(new string[] { "pref", "sn_sync", snSyncOptions.SelectedIndex == 0 ? "1" : "0"});
             jsonRequest(new string[] { "pref", "sn_disable_stats", snSyncOptions.SelectedIndex.ToString()});
 
-            jsonRequest(new string[] { "pref", "wizardDone", "1" });
-
             return false;
         }
 
@@ -323,7 +327,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             }
         }
 
-        private void customTabControl1_Selected(object sender, TabControlEventArgs e)
+        private void prefsTabControl_Selected(object sender, TabControlEventArgs e)
         {
             if (e.TabPage == information)
             {

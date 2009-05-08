@@ -30,7 +30,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         {
             this.components = new System.ComponentModel.Container();
             this.PollSCTimer = new System.Windows.Forms.Timer(this.components);
-            this.customTabControl1 = new Microsoft.HomeServer.Controls.CustomTabControl();
+            this.prefsTabControl = new Microsoft.HomeServer.Controls.CustomTabControl();
             this.settings = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelUpdate = new System.Windows.Forms.Label();
@@ -52,6 +52,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkSCSettings = new System.Windows.Forms.LinkLabel();
             this.music = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.musicLibraryName = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.linkPlaylistFolder = new System.Windows.Forms.LinkLabel();
             this.linkMusicFolder = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
@@ -101,9 +103,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.ScanPollTimer = new System.Windows.Forms.Timer(this.components);
             this.musicFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.jsonClient = new Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter.JsonRpcClient();
-            this.label7 = new System.Windows.Forms.Label();
-            this.musicLibraryName = new System.Windows.Forms.TextBox();
-            this.customTabControl1.SuspendLayout();
+            this.prefsTabControl.SuspendLayout();
             this.settings.SuspendLayout();
             this.panel1.SuspendLayout();
             this.music.SuspendLayout();
@@ -121,24 +121,24 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.PollSCTimer.Interval = 1000;
             this.PollSCTimer.Tick += new System.EventHandler(this.PollSCTimer_Tick);
             // 
-            // customTabControl1
+            // prefsTabControl
             // 
-            this.customTabControl1.Controls.Add(this.settings);
-            this.customTabControl1.Controls.Add(this.music);
-            this.customTabControl1.Controls.Add(this.SqueezeNetwork);
-            this.customTabControl1.Controls.Add(this.information);
-            this.customTabControl1.Controls.Add(this.maintenance);
-            this.customTabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.customTabControl1.HeaderColor = System.Drawing.Color.White;
-            this.customTabControl1.HeaderFont = new System.Drawing.Font("Tahoma", 8F);
-            this.customTabControl1.HeaderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.customTabControl1.Location = new System.Drawing.Point(3, 3);
-            this.customTabControl1.Name = "customTabControl1";
-            this.customTabControl1.SelectedIndex = 0;
-            this.customTabControl1.Size = new System.Drawing.Size(384, 404);
-            this.customTabControl1.TabHeaderColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.customTabControl1.TabIndex = 20;
-            this.customTabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.customTabControl1_Selected);
+            this.prefsTabControl.Controls.Add(this.settings);
+            this.prefsTabControl.Controls.Add(this.music);
+            this.prefsTabControl.Controls.Add(this.SqueezeNetwork);
+            this.prefsTabControl.Controls.Add(this.information);
+            this.prefsTabControl.Controls.Add(this.maintenance);
+            this.prefsTabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.prefsTabControl.HeaderColor = System.Drawing.Color.White;
+            this.prefsTabControl.HeaderFont = new System.Drawing.Font("Tahoma", 8F);
+            this.prefsTabControl.HeaderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.prefsTabControl.Location = new System.Drawing.Point(3, 3);
+            this.prefsTabControl.Name = "prefsTabControl";
+            this.prefsTabControl.SelectedIndex = 0;
+            this.prefsTabControl.Size = new System.Drawing.Size(384, 404);
+            this.prefsTabControl.TabHeaderColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.prefsTabControl.TabIndex = 20;
+            this.prefsTabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.prefsTabControl_Selected);
             // 
             // settings
             // 
@@ -432,6 +432,22 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.panel2.Size = new System.Drawing.Size(364, 366);
             this.panel2.TabIndex = 0;
             // 
+            // musicLibraryName
+            // 
+            this.musicLibraryName.Location = new System.Drawing.Point(28, 45);
+            this.musicLibraryName.Name = "musicLibraryName";
+            this.musicLibraryName.Size = new System.Drawing.Size(230, 20);
+            this.musicLibraryName.TabIndex = 45;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(25, 29);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(100, 13);
+            this.label7.TabIndex = 44;
+            this.label7.Text = "Music Library Name";
+            // 
             // linkPlaylistFolder
             // 
             this.linkPlaylistFolder.AutoSize = true;
@@ -713,8 +729,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.snStatsOptions.Enabled = false;
             this.snStatsOptions.FormattingEnabled = true;
             this.snStatsOptions.Items.AddRange(new object[] {
-            "Enabled, keep player settings in sync.",
-            "Disabled, do not keep player settings in sync."});
+            "Yes, help improve SqueezeNetwork by reporting statistics.",
+            "No, do not report statistics."});
             this.snStatsOptions.Location = new System.Drawing.Point(28, 312);
             this.snStatsOptions.Name = "snStatsOptions";
             this.snStatsOptions.Size = new System.Drawing.Size(230, 21);
@@ -1009,31 +1025,15 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.jsonClient.Credentials = null;
             this.jsonClient.UseDefaultCredentials = false;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(25, 29);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(100, 13);
-            this.label7.TabIndex = 44;
-            this.label7.Text = "Music Library Name";
-            // 
-            // musicLibraryName
-            // 
-            this.musicLibraryName.Location = new System.Drawing.Point(28, 45);
-            this.musicLibraryName.Name = "musicLibraryName";
-            this.musicLibraryName.Size = new System.Drawing.Size(230, 20);
-            this.musicLibraryName.TabIndex = 45;
-            // 
             // SettingsTabUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.customTabControl1);
+            this.Controls.Add(this.prefsTabControl);
             this.Name = "SettingsTabUserControl";
             this.Size = new System.Drawing.Size(390, 410);
             this.Load += new System.EventHandler(this.SettingsTabUserControl_Load);
-            this.customTabControl1.ResumeLayout(false);
+            this.prefsTabControl.ResumeLayout(false);
             this.settings.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -1054,7 +1054,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         #endregion
 
         private System.Windows.Forms.Timer PollSCTimer;
-        private Microsoft.HomeServer.Controls.CustomTabControl customTabControl1;
+        private Microsoft.HomeServer.Controls.CustomTabControl prefsTabControl;
         private System.Windows.Forms.TabPage settings;
         private System.Windows.Forms.TabPage music;
         private System.Windows.Forms.TabPage maintenance;
