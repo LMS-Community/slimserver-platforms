@@ -27,7 +27,6 @@
                 showServerLog = id; 
                 snCredentialsChanged = id; 
                 snStatsOptionChanged = id; 
-                snSyncOptionChanged = id; 
                 toggleServer = id; 
                 updateBtnHandler = id; 
             }; 
@@ -37,10 +36,7 @@
                 advLaunchButton = NSButton; 
                 cleanupAll = NSButton; 
                 cleanupCache = NSButton; 
-                cleanupFilecache = NSButton; 
                 cleanupHelpShutdown = NSTextField; 
-                cleanupLogs = NSButton; 
-                cleanupMysql = NSButton; 
                 cleanupPrefs = NSButton; 
                 doCleanup = NSButton; 
                 musicLibraryName = NSTextField; 
@@ -53,11 +49,9 @@
                 scanProgressError = NSTextField; 
                 scanProgressTime = NSTextField; 
                 scanSpinny = NSProgressIndicator; 
-                serverStateDescription = NSTextField; 
                 snCheckPassword = NSButton; 
                 snPassword = NSSecureTextField; 
                 snStatsOptions = NSPopUpButton; 
-                snSyncOptions = NSPopUpButton; 
                 snUsername = NSTextField; 
                 startupType = NSPopUpButton; 
                 statusView = WebView; 

@@ -49,10 +49,7 @@
 	// SqueezeNetwork settings
 	[snUsername setStringValue:[self getPref:@"sn_email"]];
 	
-	int option = [[self getPref:@"sn_sync"] intValue];
-	[snSyncOptions selectItemAtIndex:(option == 1 ? 0 : 1)];
-	
-	option = [[self getPref:@"sn_disable_stats"] intValue];
+	int option = [[self getPref:@"sn_disable_stats"] intValue];
 	[snStatsOptions selectItemAtIndex:(option == 1 ? 1 : 0)];
 
 	// monitor scan progress
@@ -86,9 +83,6 @@
 	[NSTimer scheduledTimerWithTimeInterval: 1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
 	[self updateUI];
 	
-	if (serverState && ![[self getPref:@"wizardDone"] isEqual:@"1"])
-		[prefsTab selectTabViewItemAtIndex:1];
-
 	[self jsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
 }
 
@@ -231,12 +225,10 @@
 		if (currentServerState)
 		{
 			[toggleServerButton setTitle:LocalizedPrefString(@"Stop Server", "Stop Server")];
-			[serverStateDescription setStringValue:LocalizedPrefString(@"Stop Server Description", "Descriptive text")];
 		}
 		else
 		{
 			[toggleServerButton setTitle:LocalizedPrefString(@"Start Server", "Start Server")];
-			[serverStateDescription setStringValue:LocalizedPrefString(@"Start Server Description", "Descriptive text")];
 			isScanning = NO;
 		}
 		[toggleServerButton setEnabled:YES];
@@ -249,7 +241,6 @@
 	[snUsername setEnabled:serverState];
 	[snPassword setEnabled:serverState];
 	[snCheckPassword setEnabled:serverState];
-	[snSyncOptions setEnabled:serverState];
 	[snStatsOptions setEnabled:serverState];
 
 	[musicLibraryName setEnabled:serverState];
@@ -634,12 +625,6 @@
 	return snResult;
 }
 
--(IBAction)snSyncOptionChanged:(id)sender
-{
-	NSString *value = [[NSString stringWithFormat:@"%@", [snSyncOptions objectValue]] isEqual:@"1"] ? @"0" : @"1";
-	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"sn_sync\", \"%@\"", value]];
-}
-
 -(IBAction)snStatsOptionChanged:(id)sender
 {
 	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"sn_disable_stats\", \"%@\"", [snStatsOptions objectValue]]];
@@ -795,17 +780,8 @@
 	}
 	else {
 		
-		if ([cleanupMysql state] > 0)
-			params = [params stringByAppendingString:@" --mysql"];
-		
-		if ([cleanupFilecache state] > 0)
-			params = [params stringByAppendingString:@" --filecache"];
-		
 		if ([cleanupPrefs state] > 0)
 			params = [params stringByAppendingString:@" --prefs"];
-		
-		if ([cleanupLogs state] > 0)
-			params = [params stringByAppendingString:@" --logs"];
 		
 		if ([cleanupCache state] > 0)
 			params = [params stringByAppendingString:@" --cache"];

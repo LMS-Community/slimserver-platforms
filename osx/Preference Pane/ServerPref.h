@@ -38,7 +38,6 @@
 	IBOutlet NSTabView *prefsTab;
 
 	IBOutlet NSButton *toggleServerButton;
-	IBOutlet NSTextField *serverStateDescription;
 	IBOutlet NSButton *webLaunchButton;
 	IBOutlet NSButton *advLaunchButton;
 	IBOutlet NSPopUpButton *startupType;
@@ -48,7 +47,6 @@
 	IBOutlet NSTextField *snUsername;
 	IBOutlet NSSecureTextField *snPassword;
 	IBOutlet NSButton *snCheckPassword;
-	IBOutlet NSPopUpButton *snSyncOptions;
 	IBOutlet NSPopUpButton *snStatsOptions;
 	
 	IBOutlet NSPopUpButton *scanModeOptions;
@@ -62,9 +60,6 @@
 	IBOutlet NSTextField *musicLibraryName;
 	
 	IBOutlet NSButton *cleanupPrefs;
-	IBOutlet NSButton *cleanupFilecache;
-	IBOutlet NSButton *cleanupMysql;
-	IBOutlet NSButton *cleanupLogs;
 	IBOutlet NSButton *cleanupCache;
 	IBOutlet NSButton *cleanupAll;
 	IBOutlet NSButton *doCleanup;
@@ -87,7 +82,6 @@
 -(IBAction)checkSNPassword:(id)sender;
 -(IBAction)snCredentialsChanged:(id)sender;
 -(NSDictionary *)saveSNCredentials;
--(IBAction)snSyncOptionChanged:(id)sender;
 -(IBAction)snStatsOptionChanged:(id)sender;
 -(IBAction)openSNSubscription:(id)sender;
 -(IBAction)openSNPasswordReminder:(id)sender;

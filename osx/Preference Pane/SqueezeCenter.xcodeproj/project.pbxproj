@@ -17,13 +17,11 @@
 		14A9400B09875F57001992EB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		14A9400F09875F57001992EB /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = F52F883E035DDAB901A80172 /* icon.icns */; };
 		14A9401009875F57001992EB /* off.icns in Resources */ = {isa = PBXBuildFile; fileRef = F52F884D035DF02B01A80172 /* off.icns */; };
-		14A9401109875F57001992EB /* logo-color-on-white copy.tif in Resources */ = {isa = PBXBuildFile; fileRef = F5E9C0C403A51768010001CC /* logo-color-on-white copy.tif */; };
 		14A9401209875F57001992EB /* create-startup.sh in Resources */ = {isa = PBXBuildFile; fileRef = E7EDF7BB03C5D22300A80172 /* create-startup.sh */; };
 		14A9401309875F57001992EB /* get-server.sh in Resources */ = {isa = PBXBuildFile; fileRef = E7EDF7BC03C5D22300A80172 /* get-server.sh */; };
 		14A9401409875F57001992EB /* stop-server.sh in Resources */ = {isa = PBXBuildFile; fileRef = E7EDF7BE03C5D22300A80172 /* stop-server.sh */; };
 		14A9401509875F57001992EB /* remove-startup.sh in Resources */ = {isa = PBXBuildFile; fileRef = E7EDF7C303C5D25800A80172 /* remove-startup.sh */; };
 		14A9401609875F57001992EB /* start-server.sh in Resources */ = {isa = PBXBuildFile; fileRef = E7EDF7C503C5D26A00A80172 /* start-server.sh */; };
-		14A9401709875F57001992EB /* logotype.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 059A4DFE03C624BB000001CC /* logotype.tiff */; };
 		14A9401909875F57001992EB /* logotype.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0533446307007AE900B0416B /* logotype.tiff */; };
 		14A9401B09875F57001992EB /* ServerPref.m in Sources */ = {isa = PBXBuildFile; fileRef = F506C03D013D9D7901CA16C8 /* ServerPref.m */; };
 		14A9401D09875F57001992EB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
@@ -67,6 +65,7 @@
 		EC6916BA0F9883040035673E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC6916B90F9883040035673E /* Localizable.strings */; };
 		ECB12FF30F8423B600E69D81 /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC568D900F83FA850025274A /* JSON.framework */; };
 		ECD767980F9E1A6E009204CD /* run-installer.sh in Resources */ = {isa = PBXBuildFile; fileRef = ECD767970F9E1A6E009204CD /* run-installer.sh */; };
+		ECE0ACAF0FB81BEB00BDDB7D /* logitech-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE0ACAE0FB81BEB00BDDB7D /* logitech-logo.png */; };
 		ECFABFD90F824E0C00997A5B /* cleanup.sh in Resources */ = {isa = PBXBuildFile; fileRef = ECFABFD80F824E0C00997A5B /* cleanup.sh */; };
 /* End PBXBuildFile section */
 
@@ -131,7 +130,6 @@
 		0591BEEE05FCCF4300F5DCAE /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Dutch; path = Installer/Dutch.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		0591BEFE05FCCF8900F5DCAE /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Dutch; path = Dutch.lproj/Pref.nib; sourceTree = "<group>"; };
 		0591BF0105FCCF9200F5DCAE /* Dutch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = Dutch; path = Dutch.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		059A4DFE03C624BB000001CC /* logotype.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = logotype.tiff; sourceTree = "<group>"; };
 		05ACBF470E5CD6A3006B30BB /* Danish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Danish; path = Installer/Danish.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		05ACBF480E5CD6A8006B30BB /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Swedish; path = Installer/Swedish.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		05ACBF4A0E5CD6B4006B30BB /* Norwegian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Norwegian; path = Installer/Norwegian.lproj/MainMenu.nib; sourceTree = "<group>"; };
@@ -207,6 +205,7 @@
 		ECD758A00BEE27E1008A40DA /* Hebrew */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Hebrew; path = Installer/Hebrew.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ECD758A10BEE27E4008A40DA /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Installer/Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ECD767970F9E1A6E009204CD /* run-installer.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "run-installer.sh"; sourceTree = "<group>"; };
+		ECE0ACAE0FB81BEB00BDDB7D /* logitech-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logitech-logo.png"; sourceTree = "<group>"; };
 		ECFABFD80F824E0C00997A5B /* cleanup.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = cleanup.sh; sourceTree = "<group>"; };
 		F506C035013D953901CA16C8 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
 		F506C03C013D9D7901CA16C8 /* ServerPref.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ServerPref.h; sourceTree = "<group>"; };
@@ -220,7 +219,6 @@
 		F52F885D035DF7A401A80172 /* Test.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
 		F52F885E035DF7A401A80172 /* Test.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
 		F56E7161035DB29001A80172 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
-		F5E9C0C403A51768010001CC /* logo-color-on-white copy.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "logo-color-on-white copy.tif"; sourceTree = "<group>"; };
 		F5EC8D80035F597B01A80172 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -308,8 +306,7 @@
 				F506C042013D9D8C01CA16C8 /* Pref.nib */,
 				EC6916B90F9883040035673E /* Localizable.strings */,
 				F52F884D035DF02B01A80172 /* off.icns */,
-				F5E9C0C403A51768010001CC /* logo-color-on-white copy.tif */,
-				059A4DFE03C624BB000001CC /* logotype.tiff */,
+				ECE0ACAE0FB81BEB00BDDB7D /* logitech-logo.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -676,13 +673,11 @@
 				EC6916BA0F9883040035673E /* Localizable.strings in Resources */,
 				14A9400F09875F57001992EB /* icon.icns in Resources */,
 				14A9401009875F57001992EB /* off.icns in Resources */,
-				14A9401109875F57001992EB /* logo-color-on-white copy.tif in Resources */,
 				14A9401209875F57001992EB /* create-startup.sh in Resources */,
 				14A9401309875F57001992EB /* get-server.sh in Resources */,
 				14A9401409875F57001992EB /* stop-server.sh in Resources */,
 				14A9401509875F57001992EB /* remove-startup.sh in Resources */,
 				14A9401609875F57001992EB /* start-server.sh in Resources */,
-				14A9401709875F57001992EB /* logotype.tiff in Resources */,
 				14A9401909875F57001992EB /* logotype.tiff in Resources */,
 				1477C981098864CD0087109C /* Launcher.plist in Resources */,
 				1477C985098865030087109C /* Pref_Tester.plist in Resources */,
@@ -692,6 +687,7 @@
 				052452BD0CE2687C00513B2A /* check-web.pl in Resources */,
 				ECFABFD90F824E0C00997A5B /* cleanup.sh in Resources */,
 				ECD767980F9E1A6E009204CD /* run-installer.sh in Resources */,
+				ECE0ACAF0FB81BEB00BDDB7D /* logitech-logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
