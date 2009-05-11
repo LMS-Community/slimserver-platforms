@@ -190,6 +190,24 @@
 		E7EDF7BE03C5D22300A80172 /* stop-server.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "stop-server.sh"; sourceTree = "<group>"; };
 		E7EDF7C303C5D25800A80172 /* remove-startup.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "remove-startup.sh"; sourceTree = "<group>"; };
 		E7EDF7C503C5D26A00A80172 /* start-server.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "start-server.sh"; sourceTree = "<group>"; };
+		EC2DC1E40FB8717300DAACFC /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC2DC1E50FB8717800DAACFC /* Polish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Polish; path = Polish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC2DC1E60FB8717A00DAACFC /* Czech */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Czech; path = Czech.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC2DC1E90FB871A700DAACFC /* Czech */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Czech; path = Installer/Czech.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC2DC1EA0FB871AA00DAACFC /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Installer/Russian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC2DC1EB0FB871AD00DAACFC /* Polish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Polish; path = Installer/Polish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC3D72630FB86D6B0020486C /* Russian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Russian; path = Russian.lproj/Pref.nib; sourceTree = "<group>"; };
+		EC3D72640FB86DE20020486C /* Czech */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Czech; path = Czech.lproj/Pref.nib; sourceTree = "<group>"; };
+		EC3D72650FB86DF00020486C /* Polish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Polish; path = Polish.lproj/Pref.nib; sourceTree = "<group>"; };
+		EC3D72660FB86E240020486C /* Czech */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Czech; path = Czech.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EC3D72670FB86E280020486C /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EC3D72680FB86E2D0020486C /* Polish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Polish; path = Polish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EC3D726D0FB86E970020486C /* Russian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Russian; path = Installer/Russian.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		EC3D726E0FB86E9A0020486C /* Polish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Polish; path = Installer/Polish.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		EC3D726F0FB86E9D0020486C /* Czech */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Czech; path = Installer/Czech.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		EC3D72700FB86EA60020486C /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Installer/Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EC3D72710FB86EA90020486C /* Polish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Polish; path = Installer/Polish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EC3D72720FB86EAD0020486C /* Czech */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Czech; path = Installer/Czech.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EC568D900F83FA850025274A /* JSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSON.framework; sourceTree = "<group>"; };
 		EC59811B0F8100F40098B526 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		EC6916D10F9883930035673E /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -649,6 +667,9 @@
 				Swedish,
 				Norwegian,
 				Finnish,
+				Russian,
+				Czech,
+				Polish,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* SqueezeCenter */;
 			productRefGroup = F58B0871035DF7DA01A80172 /* Products */;
@@ -856,6 +877,9 @@
 				05ACBF540E5CD737006B30BB /* Swedish */,
 				05ACBF550E5CD73A006B30BB /* Finnish */,
 				05ACBF560E5CD73E006B30BB /* Norwegian */,
+				EC2DC1E40FB8717300DAACFC /* Russian */,
+				EC2DC1E50FB8717800DAACFC /* Polish */,
+				EC2DC1E60FB8717A00DAACFC /* Czech */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -874,6 +898,9 @@
 				05ACBF580E5CD755006B30BB /* Swedish */,
 				05ACBF590E5CD758006B30BB /* Finnish */,
 				05ACBF5A0E5CD75B006B30BB /* Norwegian */,
+				EC2DC1E90FB871A700DAACFC /* Czech */,
+				EC2DC1EA0FB871AA00DAACFC /* Russian */,
+				EC2DC1EB0FB871AD00DAACFC /* Polish */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -892,6 +919,9 @@
 				05ACBF480E5CD6A8006B30BB /* Swedish */,
 				05ACBF4A0E5CD6B4006B30BB /* Norwegian */,
 				05ACBF5B0E5CD76B006B30BB /* Finnish */,
+				EC3D726D0FB86E970020486C /* Russian */,
+				EC3D726E0FB86E9A0020486C /* Polish */,
+				EC3D726F0FB86E9D0020486C /* Czech */,
 			);
 			name = MainMenu.nib;
 			sourceTree = "<group>";
@@ -910,6 +940,9 @@
 				05ACBF5D0E5CD77C006B30BB /* Swedish */,
 				05ACBF5E0E5CD780006B30BB /* Finnish */,
 				05ACBF5F0E5CD783006B30BB /* Norwegian */,
+				EC3D72700FB86EA60020486C /* Russian */,
+				EC3D72710FB86EA90020486C /* Polish */,
+				EC3D72720FB86EAD0020486C /* Czech */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -928,6 +961,9 @@
 				EC6916D80F9883CE0035673E /* Spanish */,
 				EC6916D90F9883D30035673E /* Danish */,
 				EC6916DA0F9883DE0035673E /* Hebrew */,
+				EC3D72660FB86E240020486C /* Czech */,
+				EC3D72670FB86E280020486C /* Russian */,
+				EC3D72680FB86E2D0020486C /* Polish */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -946,6 +982,9 @@
 				05ACBF4C0E5CD6F3006B30BB /* Swedish */,
 				05ACBF4D0E5CD6FD006B30BB /* Finnish */,
 				05ACBF4E0E5CD706006B30BB /* Norwegian */,
+				EC3D72630FB86D6B0020486C /* Russian */,
+				EC3D72640FB86DE20020486C /* Czech */,
+				EC3D72650FB86DF00020486C /* Polish */,
 			);
 			name = Pref.nib;
 			sourceTree = "<group>";
