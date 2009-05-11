@@ -34,8 +34,8 @@ my $language       = getPref('language') || 'EN';
 my $svcMgr         = Slim::Utils::ServiceManager->new();
 my $os             = Slim::Utils::OSDetect::getOS();
 
-my $restartFlag    = catdir($os->dirsFor('cache'), 'restart.txt');
-my $versionFile    = catdir( scalar ($os->dirsFor('updates')), 'squeezecenter.version');
+my $restartFlag    = catdir(getPref('cachedir') || $os->dirsFor('cache'), 'restart.txt');
+my $versionFile    = catdir(scalar($os->dirsFor('updates')), 'squeezecenter.version');
 my $controlPanel   = catdir($os->dirsFor('base'), 'server', 'cleanup.exe');
 
 ${^WIN32_SLOPPY_STAT} = 1;
