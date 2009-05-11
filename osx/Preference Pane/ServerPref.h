@@ -93,6 +93,7 @@
 
 -(IBAction)doBrowseMusicFolder:(id)sender;
 -(IBAction)doBrowsePlaylistFolder:(id)sender;
+-(void)browseFolder:(NSTextField *)path;
 -(IBAction)musicFolderChanged:(id)sender;
 -(IBAction)playlistFolderChanged:(id)sender;
 

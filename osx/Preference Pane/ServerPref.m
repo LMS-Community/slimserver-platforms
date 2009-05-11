@@ -60,6 +60,9 @@
 	[scanProgressDesc setStringValue:@""];
 	[scanProgressDetail setStringValue:@""];
 	[scanProgressError setStringValue:@""];
+	
+	[musicFolder setStringValue:[self getPref:@"audiodir"]];
+	[playlistFolder setStringValue:[self getPref:@"playlistdir"]];
 
 	// check whether an update installer is available
 	[NSTimer scheduledTimerWithTimeInterval: 60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
@@ -649,10 +652,30 @@
 /* Music Library settings */
 -(IBAction)doBrowseMusicFolder:(id)sender
 {
+	[self browseFolder:musicFolder];
 }
 
 -(IBAction)doBrowsePlaylistFolder:(id)sender
 {
+	[self browseFolder:playlistFolder];
+}
+
+-(void)browseFolder:(NSTextField *)path
+{
+	NSOpenPanel* openDlg = [NSOpenPanel openPanel];
+	
+	[openDlg setCanChooseFiles:NO];
+	[openDlg setCanChooseDirectories:YES];
+	[openDlg setAllowsMultipleSelection:NO];
+	
+	if ([openDlg runModalForDirectory:[path stringValue] file:nil] == NSOKButton)
+	{
+		if (![[openDlg filename] isEqual:[path stringValue]])
+		{
+			[path setStringValue:[openDlg filename]];
+			[self musicFolderChanged:self];
+		}
+	}
 }
 
 -(IBAction)musicFolderChanged:(id)sender
