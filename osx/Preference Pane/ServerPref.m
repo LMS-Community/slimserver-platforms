@@ -244,6 +244,11 @@
 	[snStatsOptions setEnabled:serverState];
 
 	[musicLibraryName setEnabled:serverState];
+	[musicFolder setEnabled:serverState];
+	[browseMusicFolder setEnabled:serverState];
+	[playlistFolder setEnabled:serverState];
+	[browsePlaylistFolder setEnabled:serverState];
+
 	[scanModeOptions setEnabled:(serverState && !isScanning)];
 	[scanProgress setHidden:!isScanning];
 	[scanProgressDesc setHidden:!isScanning];
@@ -641,12 +646,31 @@
 }
 
 
-/* rescan buttons and progress */
+/* Music Library settings */
+-(IBAction)doBrowseMusicFolder:(id)sender
+{
+}
+
+-(IBAction)doBrowsePlaylistFolder:(id)sender
+{
+}
+
+-(IBAction)musicFolderChanged:(id)sender
+{
+	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"audiodir\", \"%@\"", [musicFolder stringValue]]];
+}
+
+-(IBAction)playlistFolderChanged:(id)sender
+{
+	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"playlistdir\", \"%@\"", [playlistFolder stringValue]]];
+}
+
 -(IBAction)libraryNameChanged:(id)sender
 {
 	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"libraryname\", \"%@\"", [musicLibraryName stringValue]]];
 }
 
+/* rescan buttons and progress */
 -(IBAction)rescan:(id)sender
 {
 	if (isScanning)

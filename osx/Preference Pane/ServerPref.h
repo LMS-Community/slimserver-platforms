@@ -49,6 +49,11 @@
 	IBOutlet NSButton *snCheckPassword;
 	IBOutlet NSPopUpButton *snStatsOptions;
 	
+	IBOutlet NSButton *browseMusicFolder;
+	IBOutlet NSButton *browsePlaylistFolder;
+	IBOutlet NSTextField *musicFolder;
+	IBOutlet NSTextField *playlistFolder;
+	
 	IBOutlet NSPopUpButton *scanModeOptions;
 	IBOutlet NSButton *rescanButton;
 	IBOutlet NSProgressIndicator *scanSpinny;
@@ -85,6 +90,11 @@
 -(IBAction)snStatsOptionChanged:(id)sender;
 -(IBAction)openSNSubscription:(id)sender;
 -(IBAction)openSNPasswordReminder:(id)sender;
+
+-(IBAction)doBrowseMusicFolder:(id)sender;
+-(IBAction)doBrowsePlaylistFolder:(id)sender;
+-(IBAction)musicFolderChanged:(id)sender;
+-(IBAction)playlistFolderChanged:(id)sender;
 
 -(IBAction)rescan:(id)sender;
 -(void)scanPoll;
