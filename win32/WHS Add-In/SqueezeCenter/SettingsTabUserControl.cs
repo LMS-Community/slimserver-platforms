@@ -52,12 +52,12 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             rescanOptionsList.SelectedIndex = 0;
 
             snUsername.Text = getPref("sn_email");
-            snPassword.Text = getPref("sn_password") != "" ? snPasswordPlaceholder : "";
+            snPassword.Text = getPref("sn_password_sha") != "" ? snPasswordPlaceholder : "";
             snSyncOptions.SelectedIndex = 1;
             snStatsOptions.SelectedIndex = 1;
             snSyncOptions.SelectedIndex = Convert.ToInt16(getPref("sn_sync")) == 0 ? 1 : 0;
             snStatsOptions.SelectedIndex = Convert.ToInt16(getPref("sn_disable_stats"));
-
+            
             PollSCTimer_Tick(new Object(), new EventArgs());
             if (getPref("wizardDone") != "1")
                 prefsTabControl.SelectTab("SqueezeNetwork");
@@ -281,7 +281,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             if (playlistFolderInput.Text != getPref("playlistdir"))
                 jsonRequest(new string[] { "pref", "playlistdir", playlistFolderInput.Text });
 
-            if (snUsername.Text != getPref("sn_email") || (snPassword.Text != "" && snPassword.Text != snPasswordPlaceholder && snPassword.Text != getPref("sn_password")))
+            if (snUsername.Text != getPref("sn_email") || (snPassword.Text != "" && snPassword.Text != snPasswordPlaceholder && snPassword.Text != getPref("sn_password_sha")))
             {
                 JsonObject result = jsonRequest(new string[] { "setsncredentials", snUsername.Text, snPassword.Text });
                 if (result != null && result["validated"].ToString() != "" && result["warning"].ToString() != "")
@@ -584,7 +584,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
                 prefsFile.Close();
             }
-            catch { }
+            catch {
+                value = "";
+            }
 
             value = value.Trim(new char[] {'"', '\''});
 
