@@ -48,7 +48,7 @@
 	
 	// SqueezeNetwork settings
 	[snUsername setStringValue:[self getPref:@"sn_email"]];
-	[snUsername setStringValue:snPasswordPlaceholder];
+	[snUsername setStringValue:([self getPref:@"sn_password"] != @"" ? snPasswordPlaceholder : @"")];
 	
 	int option = [[self getPref:@"sn_disable_stats"] intValue];
 	[snStatsOptions selectItemAtIndex:(option == 1 ? 1 : 0)];

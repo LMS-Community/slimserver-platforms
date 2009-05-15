@@ -52,7 +52,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             rescanOptionsList.SelectedIndex = 0;
 
             snUsername.Text = getPref("sn_email");
-            snPassword.Text = snPasswordPlaceholder;
+            snPassword.Text = getPref("sn_password") != "" ? snPasswordPlaceholder : "";
             snSyncOptions.SelectedIndex = 1;
             snStatsOptions.SelectedIndex = 1;
             snSyncOptions.SelectedIndex = Convert.ToInt16(getPref("sn_sync")) == 0 ? 1 : 0;
