@@ -584,13 +584,14 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
                 prefsFile.Close();
             }
-            catch {
+            catch {}
+
+            if (value == null)
                 value = "";
-            }
 
             value = value.Trim(new char[] {'"', '\''});
 
-            return ( (value == null || value == "''") ? "" : value );
+            return ( value == "''" ? "" : value );
         }
 
         private JsonObject jsonRequest(string[] query)
