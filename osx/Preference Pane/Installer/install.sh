@@ -47,6 +47,17 @@ if [ -e ~/Library/PreferencePanes/SlimServer.prefPane ] ; then
 	rm -r ~/Library/PreferencePanes/SlimServer.prefPane 2>&1
 fi
 
+
+# remove the version file triggering the update prompt
+if [ -e ~/Library/Caches/SqueezeCenter/updates/squeezecenter.version ] ; then
+	rm -f ~/Library/Caches/SqueezeCenter/updates/squeezecenter.version
+fi
+
+if [ -e /Library/Caches/SqueezeCenter/updates/squeezecenter.version ] ; then
+	rm -f /Library/Caches/SqueezeCenter/updates/squeezecenter.version
+fi
+
+
 # Check for OSX 10.5 or later, and strip quarantine information if so
 if [ `sw_vers -productVersion | grep -o "^10\.[5678]"` ] ; then
 	ditto --noqtn "$PREFPANE_FROM" "$PREFPANE_TO"
