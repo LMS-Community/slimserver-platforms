@@ -13,6 +13,7 @@
 
 #define LocalizedPrefString(key, comment) [[NSBundle bundleForClass:[self class]] localizedStringForKey:(key) value:@"" table:nil]
 
+#define snPasswordPlaceholder @"SN_PASSWORD_PLACEHOLDER"
 #define statusUrl @"http://localhost:9000/EN/settings/server/status.html?simple=1"
 #define updateCheckUrl @"http://update.squeezenetwork.com/update/?version=%@&geturl=1&os=osx"
 

@@ -21,6 +21,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
     public partial class SettingsTabUserControl : UserControl
     {
         string version = "7.4";
+        string snPasswordPlaceholder = "SN_PASSWORD_PLACEHOLDER";
 
         IConsoleServices consoleServices;
         Dictionary<string, string> scStrings = new Dictionary<string, string>();
@@ -51,6 +52,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             rescanOptionsList.SelectedIndex = 0;
 
             snUsername.Text = getPref("sn_email");
+            snPassword.Text = snPasswordPlaceholder;
             snSyncOptions.SelectedIndex = 1;
             snStatsOptions.SelectedIndex = 1;
             snSyncOptions.SelectedIndex = Convert.ToInt16(getPref("sn_sync")) == 0 ? 1 : 0;
@@ -279,7 +281,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             if (playlistFolderInput.Text != getPref("playlistdir"))
                 jsonRequest(new string[] { "pref", "playlistdir", playlistFolderInput.Text });
 
-            if (snUsername.Text != getPref("sn_email") || (snPassword.Text != "" && snPassword.Text != getPref("sn_password")))
+            if (snUsername.Text != getPref("sn_email") || (snPassword.Text != "" && snPassword.Text != snPasswordPlaceholder && snPassword.Text != getPref("sn_password")))
             {
                 JsonObject result = jsonRequest(new string[] { "setsncredentials", snUsername.Text, snPassword.Text });
                 if (result != null && result["validated"].ToString() != "" && result["warning"].ToString() != "")

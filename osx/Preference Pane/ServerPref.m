@@ -48,6 +48,7 @@
 	
 	// SqueezeNetwork settings
 	[snUsername setStringValue:[self getPref:@"sn_email"]];
+	[snUsername setStringValue:snPasswordPlaceholder];
 	
 	int option = [[self getPref:@"sn_disable_stats"] intValue];
 	[snStatsOptions selectItemAtIndex:(option == 1 ? 1 : 0)];
@@ -597,7 +598,7 @@
 	NSString *username = [snUsername stringValue];
 	NSString *password = [snPassword stringValue];
 
-	if (username != nil && password != nil && username != @"" && password != @"") {
+	if (username != nil && password != nil && username != @"" && password != @"" && password != snPasswordPlaceholder) {
 		NSDictionary *snResult = [self saveSNCredentials];
 		
 		NSString *msg = @"";
@@ -627,7 +628,7 @@
 	
 	NSDictionary *snResult = nil;
 	
-	if (username != nil && password != nil && username != @"" && password != @"")
+	if (username != nil && password != nil && username != @"" && password != @"" && password != snPasswordPlaceholder)
 		snResult = [self jsonRequest:[NSString stringWithFormat:@"\"setsncredentials\", \"%@\", \"%@\"", username, password]];
 
 	return snResult;
