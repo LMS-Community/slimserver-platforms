@@ -94,7 +94,7 @@ Name: {app}\server\Plugins; Permissions: users-modify
 
 [Icons]
 Name: {group}\{#AppName}; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
-Name: {group}\{cm:ControlPanel}; Filename: {app}\server\cleanup.exe; WorkingDir: "{app}\server";
+Name: {group}\{cm:ControlPanel}; Filename: {app}\server\squeezeboxcp.exe; WorkingDir: "{app}\server";
 ;Name: {group}\{cm:SlimDevicesWebSite}; Filename: {app}\{cm:SlimDevicesWebSite}.url
 Name: {group}\{cm:License}; Filename: {app}\{cm:License}.txt
 ;Name: {group}\{cm:GettingStarted}; Filename: {app}\{cm:GettingStarted}.html

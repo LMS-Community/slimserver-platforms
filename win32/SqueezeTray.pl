@@ -36,7 +36,7 @@ my $os             = Slim::Utils::OSDetect::getOS();
 
 my $restartFlag    = catdir(getPref('cachedir') || $os->dirsFor('cache'), 'restart.txt');
 my $versionFile    = catdir(scalar($os->dirsFor('updates')), 'squeezecenter.version');
-my $controlPanel   = catdir($os->dirsFor('base'), 'server', 'cleanup.exe');
+my $controlPanel   = catdir($os->dirsFor('base'), 'server', 'squeezeboxcp.exe');
 
 ${^WIN32_SLOPPY_STAT} = 1;
 

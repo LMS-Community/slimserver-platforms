@@ -320,7 +320,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
                 Process p = new Process();
                 p.StartInfo.UseShellExecute = false;
-                p.StartInfo.FileName = path + "cleanup.exe";
+                p.StartInfo.FileName = path + "squeezeboxcp.exe";
                 p.StartInfo.Arguments = cleanupParams;
                 p.StartInfo.WorkingDirectory = path;
                 p.Start();
