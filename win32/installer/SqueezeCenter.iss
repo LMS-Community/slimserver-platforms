@@ -16,16 +16,19 @@
 #endif
 
 [Languages]
-Name: en; MessagesFile: "Default.isl"
-Name: de; MessagesFile: "German.isl"
+Name: cz; MessagesFile: "Czech.isl"
 Name: da; MessagesFile: "Danish.isl"
+Name: de; MessagesFile: "German.isl"
+Name: en; MessagesFile: "Default.isl"
 Name: es; MessagesFile: "Spanish.isl"
-Name: fr; MessagesFile: "French.isl"
 Name: fi; MessagesFile: "Finnish.isl"
+Name: fr; MessagesFile: "French.isl"
 Name: he; MessagesFile: "Hebrew.isl"
 Name: it; MessagesFile: "Italian.isl"
 Name: nl; MessagesFile: "Dutch.isl"
 Name: no; MessagesFile: "Norwegian.isl"
+Name: pl; MessagesFile: "Polish.isl"
+Name: ru; MessagesFile: "Russian.isl"
 Name: sv; MessagesFile: "Swedish.isl"
 
 [CustomMessages]
@@ -63,22 +66,8 @@ Source: Release Notes.html; DestDir: {app}; Flags: ignoreversion
 ; http://www.vincenzo.net/isxkb/index.php?title=PSVince
 Source: psvince.dll; Flags: dontcopy
 
-Source: Getting Started.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: en sv fi no da; Flags: ignoreversion
-Source: Getting Started.de.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: de; Flags: ignoreversion
-Source: Getting Started.nl.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: nl; Flags: ignoreversion
-Source: Getting Started.fr.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: fr; Flags: ignoreversion
-Source: Getting Started.it.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: it; Flags: ignoreversion
-Source: Getting Started.es.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: es; Flags: ignoreversion
-;Source: Getting Started.he.html; DestName: "{cm:GettingStarted}.html"; DestDir: {app}; Languages: he; Flags: ignoreversion
-
 ; add the english version for all languages as long as we don't have any translation
-Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de en es fr he it nl; Flags: ignoreversion
-;Source: License.de.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: de
-;Source: License.nl.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: nl
-;Source: License.fr.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: fr
-;Source: License.it.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: it
-;Source: License.es.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: es
-;Source: License.he.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Languages: he
+Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Flags: ignoreversion
 
 ; Next line takes everything from the source '\server' directory and copies it into the setup
 ; it's output into the same location from the users choice.
@@ -95,9 +84,7 @@ Name: {app}\server\Plugins; Permissions: users-modify
 [Icons]
 Name: {group}\{#AppName}; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
 Name: {group}\{cm:ControlPanel}; Filename: {app}\server\squeezeboxcp.exe; WorkingDir: "{app}\server";
-;Name: {group}\{cm:SlimDevicesWebSite}; Filename: {app}\{cm:SlimDevicesWebSite}.url
 Name: {group}\{cm:License}; Filename: {app}\{cm:License}.txt
-;Name: {group}\{cm:GettingStarted}; Filename: {app}\{cm:GettingStarted}.html
 Name: {group}\{cm:UninstallSqueezeCenter}; Filename: {uninstallexe}
 Name: {commonstartup}\{cm:SqueezeCenterTrayTool}; Filename: {app}\SqueezeTray.exe; WorkingDir: "{app}"
 Name: {userdesktop}\{#AppName}; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
@@ -130,6 +117,7 @@ Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\
 
 [InstallDelete]
 Type: filesandordirs; Name: {group}
+Type: files; Name: {app}\server\cleanup.exe
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
