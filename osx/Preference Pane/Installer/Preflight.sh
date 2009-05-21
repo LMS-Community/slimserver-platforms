@@ -28,4 +28,14 @@ SERVER_RUNNING=`ps -axww | grep "System Preferences" | grep -v grep | cat`
 if [ z"$SERVER_RUNNING" != z ] ; then
     osascript -e "tell application \"System Preferences\" to quit"
 fi
+
+for (( i = 0 ; i < 10 ; i++ ))
+do
+	SERVER_RUNNING=`ps -axww | grep "System Preferences" | grep -v grep | cat`
+    if [ z"$SERVER_RUNNING" == z ] ; then
+	break
+    fi
+    sleep 1
+done
+
 exit 0
