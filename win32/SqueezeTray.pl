@@ -14,6 +14,8 @@ use Socket;
 use Encode;
 
 use Win32::Locale;
+use Win32::Process;
+use Win32::Process::List;
 
 use constant SLIM_SERVICE => 0;
 use constant SCANNER => 0;
@@ -326,6 +328,18 @@ sub stopScanner {
 	sendCLICommand('abortscan');
 }
 
+sub stopCP {
+	my $p = Win32::Process::List->new;
+
+	if ($p->IsError != 1) {
+
+		if (my $pid = ($p->GetProcessPid(qr/^squeezeboxcp.exe$/i))[1]) {
+			my $error;
+			Win32::Process::KillProcess($pid, $error);		
+		}
+	}
+}
+
 sub updateSqueezeCenter {
 	stopSqueezeCenter(1);
 	
@@ -391,6 +405,9 @@ sub sendCLICommand {
 sub uninstall {
 	# Kill the timer, we don't want SC to be restarted
 	SetTimer(0);
+
+	# stop the control panel
+	stopCP();
 
 	# stop the scanner _before_ SC, as it's talking to SC using the CLI
 	stopScanner();
