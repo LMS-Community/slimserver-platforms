@@ -333,9 +333,13 @@ sub stopCP {
 
 	if ($p->IsError != 1) {
 
-		if (my $pid = ($p->GetProcessPid(qr/^squeezeboxcp.exe$/i))[1]) {
+		my %processes = $p->GetProcesses();
+		foreach my $pid (%processes) {
+
+			next unless $processes{$pid} =~ /^squeezeboxcp.exe$/i;
+
 			my $error;
-			Win32::Process::KillProcess($pid, $error);		
+			Win32::Process::KillProcess($pid, $error);
 		}
 	}
 }
