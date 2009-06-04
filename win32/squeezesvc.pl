@@ -18,7 +18,7 @@ if ($ARGV[0] =~ /\binstall\b/i) {
 		}
 	}
 
-	`$cmd --install $args`;
+	`$cmd --install auto $args`;
 }
 elsif ($ARGV[0] =~ /\bremove\b/i) {
 	`$cmd --remove`;
