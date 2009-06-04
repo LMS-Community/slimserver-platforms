@@ -699,6 +699,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkSCWebUI.TabIndex = 47;
             this.linkSCWebUI.TabStop = true;
             this.linkSCWebUI.Text = "url";
+            this.linkSCWebUI.Paint += new System.Windows.Forms.PaintEventHandler(this.linkSCWebUI_Paint);
+            this.linkSCWebUI.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSCWebUI_LinkClicked);
             // 
             // linkSCSettings
             // 
@@ -710,6 +712,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkSCSettings.TabIndex = 48;
             this.linkSCSettings.TabStop = true;
             this.linkSCSettings.Text = "Open advanced settings";
+            this.linkSCSettings.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSCSettings_LinkClicked);
             // 
             // labelUpdate
             // 

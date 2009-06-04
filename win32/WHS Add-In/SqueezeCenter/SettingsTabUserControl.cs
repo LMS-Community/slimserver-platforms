@@ -387,21 +387,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
         private void checkUpdateBtn_Paint(object sender, PaintEventArgs e)
         {
-            if (checkForUpdate())
-            {
-                labelUpdate.Text = "A new Squeezebox Software version is ready to be installed. In order to update please open the Add-ins tab on the left.";
-                checkUpdateBtn.Enabled = false;
-            }
-            else if (checkUpdateBtn.Tag != null)
-            {
-                checkUpdateBtn.Enabled = true;
-                checkUpdateBtn.Text = "Download update";
-            }
-            else
-            {
-                labelUpdate.Text = "There's no updated Squeezebox Software available.";
-                checkUpdateBtn.Enabled = true;
-            }
+
         }
 
         private bool checkForUpdate()
