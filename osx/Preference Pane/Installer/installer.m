@@ -1,6 +1,6 @@
 //
 //  installer.m
-//  SqueezeCenter
+//  Squeezebox Server
 //
 //  Created by Dave Nanian on Fri Jan 03 2003.
 //  Copyright 2003-2009 Logitech
@@ -22,7 +22,7 @@
 	if (vers < 0x00001030)
 	{
 		
-		NSRunAlertPanel(@"Mac OS X 10.3 Required", @"You must have OS X 10.3 or later to run SqueezeCenter.", @"Quit", nil, nil);
+		NSRunAlertPanel(@"Mac OS X 10.3 Required", @"You must have OS X 10.3 or later to run Squeezebox Server.", @"Quit", nil, nil);
 		
 		[[NSApplication sharedApplication] terminate:nil];
 		return;

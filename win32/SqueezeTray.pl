@@ -1,9 +1,9 @@
-# SqueezeCenter Copyright 2001-2009 Logitech.
+# Squeezebox Server Copyright 2001-2009 Logitech.
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License, 
 # version 2.
 
-# SqueezeTray.exe controls the starting & stopping of the SqueezeCenter application
+# SqueezeTray.exe controls the starting & stopping of the Squeezebox Server application
 
 use strict;
 use PerlTray;
@@ -37,19 +37,19 @@ my $svcMgr         = Slim::Utils::ServiceManager->new();
 my $os             = Slim::Utils::OSDetect::getOS();
 
 my $restartFlag    = catdir(getPref('cachedir') || $os->dirsFor('cache'), 'restart.txt');
-my $versionFile    = catdir(scalar($os->dirsFor('updates')), 'squeezecenter.version');
+my $versionFile    = catdir(scalar($os->dirsFor('updates')), 'server.version');
 my $controlPanel   = catdir($os->dirsFor('base'), 'server', 'squeezeboxcp.exe');
 
 ${^WIN32_SLOPPY_STAT} = 1;
 
-# Dynamically create the popup menu based on SqueezeCenter state
+# Dynamically create the popup menu based on Squeezebox Server state
 sub PopupMenu {
 	my @menu = ();
 
 	push @menu, ['*' . string('OPEN_CONTROLPANEL'), \&openControlPanel];
 
 	if ( my $installer = _getUpdateInstaller() ) {
-		push @menu, [string('INSTALL_UPDATE'), \&updateSqueezeCenter];	
+		push @menu, [string('INSTALL_UPDATE'), \&updateServerSoftware];	
 	}
 	push @menu, ["--------"];
 	
@@ -57,18 +57,18 @@ sub PopupMenu {
 	my $state = $svcMgr->getServiceState();
 
 	if ($type == SC_STARTUP_TYPE_SERVICE) {
-		push @menu, [string('OPEN_SQUEEZECENTER'), $state == SC_STATE_RUNNING ? \&openSqueezeCenter : undef];
-		push @menu, [string('STOP_SQUEEZECENTER'), $state == SC_STATE_RUNNING ? \&stopSqueezeCenter : undef];
+		push @menu, [string('OPEN_SQUEEZEBOX_SERVER'), $state == SC_STATE_RUNNING ? \&openServer : undef];
+		push @menu, [string('STOP_SQUEEZEBOX_SERVER'), $state == SC_STATE_RUNNING ? \&stopServer : undef];
 	}
 	elsif ($state == SC_STATE_RUNNING) {
-		push @menu, [string('OPEN_SQUEEZECENTER'), \&openSqueezeCenter];
-		push @menu, [string('STOP_SQUEEZECENTER'), \&stopSqueezeCenter];
+		push @menu, [string('OPEN_SQUEEZEBOX_SERVER'), \&openServer];
+		push @menu, [string('STOP_SQUEEZEBOX_SERVER'), \&stopServer];
 	}
 	elsif ($svcMgr->getServiceState() == SC_STATE_STARTING) {
-		push @menu, [string('STARTING_SQUEEZECENTER'), ""];
+		push @menu, [string('STARTING_SQUEEZEBOX_SERVER'), ""];
 	}
 	else {
-		push @menu, [string('START_SQUEEZECENTER'), \&startSqueezeCenter];
+		push @menu, [string('START_SQUEEZEBOX_SERVER'), \&startServer];
 	}
 
 	my $appString = string('RUN_AT_LOGIN');
@@ -105,7 +105,7 @@ sub Singleton {
 
 			if ($svcMgr->getServiceState() == SC_STATE_STOPPED) {
 
-				startSqueezeCenter();
+				startServer();
 			}
 
 			openControlPanel();
@@ -133,15 +133,15 @@ sub ToolTip {
 	my $lang = ($language eq 'HE' && Win32::Locale::get_language() ne 'he' ? 'EN' : $language);
 
  	if ($state == SC_STATE_STARTING) {
-		$state = string('SQUEEZECENTER_STARTING', $lang);
+		$state = string('SQUEEZEBOX_SERVER_STARTING', $lang);
  	}
  
  	elsif ($state == SC_STATE_RUNNING) {
-		$state = string('SQUEEZECENTER_RUNNING', $lang);
+		$state = string('SQUEEZEBOX_SERVER_RUNNING', $lang);
  	}
     
  	else {
-		$state = string('SQUEEZECENTER_STOPPED', $lang);
+		$state = string('SQUEEZEBOX_SERVER_STOPPED', $lang);
  	}
  
 	# try to prevent intermittent "Unknown encoding 'cp1250' at SqueezeTray.pl line 170" crasher
@@ -150,7 +150,7 @@ sub ToolTip {
 	return $state;
 }
 
-# The regular (heartbeat) timer that checks the state of SqueezeCenter
+# The regular (heartbeat) timer that checks the state of Squeezebox Server
 # and modifies state variables.
 sub Timer {
 
@@ -158,7 +158,7 @@ sub Timer {
 
 	if ($state == SC_STATE_STARTING) {
 
-		SetAnimation(TIMERSECS * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
+		SetAnimation(TIMERSECS * 1000, 1000, "Squeezebox Server", "SqueezeCenterOff");
 
 	}
 	
@@ -195,7 +195,7 @@ sub checkAndStart {
 	# already running.
 	if (processID() == -1 && $svcMgr->getStartupType() == SC_STARTUP_TYPE_LOGIN) {
 
-		startSqueezeCenter();
+		startServer();
 	}
 
 	# Now see if the app happens to be up already.
@@ -208,7 +208,7 @@ sub checkAndStart {
 
 		if ($state == SC_STATE_STOPPED) {
 
-			startSqueezeCenter();
+			startServer();
 		}
 
 		openControlPanel();
@@ -234,7 +234,7 @@ sub checkSCActive {
 # see whether SC has downloaded an update version
 sub checkForUpdate {
 	if ( $svcMgr->getServiceState() != SC_STATE_STARTING && _getUpdateInstaller() ) {
-		Balloon(string('UPDATE_AVAILABLE'), "SqueezeCenter", "info", 1);
+		Balloon(string('UPDATE_AVAILABLE'), "Squeezebox Server", "info", 1);
 		
 		# once the balloon is shown, only poll every hour 
 		SetTimer('1:00:00', \&checkForUpdate);
@@ -261,21 +261,21 @@ sub _getUpdateInstaller {
 	return $installer if ($installer && -r $installer);	
 }
 
-sub startSqueezeCenter {
+sub startServer {
 	$svcMgr->start();
 
 	if ($svcMgr->getServiceState() != SC_STATE_STARTING) {
 
-		Balloon(string('STARTING_SQUEEZECENTER'), "SqueezeCenter", "", 1);
+		Balloon(string('STARTING_SQUEEZEBOX_SERVER'), "Squeezebox Server", "", 1);
 		SetAnimation(TIMERSECS * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
 
 	}
 }
 
 # Called from menu when SS is active
-sub openSqueezeCenter {
+sub openServer {
 
-	# Check HTTP first in case SqueezeCenter has changed the HTTP port while running
+	# Check HTTP first in case Squeezebox Server has changed the HTTP port while running
 	my $serverUrl = $svcMgr->checkForHTTP();	
 	Execute($serverUrl) if $serverUrl;
 
@@ -291,7 +291,7 @@ sub openControlPanel {
 sub showErrorMessage {
 	my $message = shift;
 
-	MessageBox($message, "SqueezeCenter", MB_OK | MB_ICONERROR);
+	MessageBox($message, "Squeezebox Server", MB_OK | MB_ICONERROR);
 }
 
 sub processID {
@@ -307,7 +307,7 @@ sub processID {
 	return -1;
 }
 
-sub stopSqueezeCenter {
+sub stopServer {
 	my $suppressMsg = shift;
 
 	unless (sendCLICommand('stopserver') || $suppressMsg) {
@@ -319,7 +319,7 @@ sub stopSqueezeCenter {
 
 	if ($svcMgr->getServiceState() == SC_STATE_RUNNING) {
 
-		Balloon(string('STOPPING_SQUEEZECENTER'), "SqueezeCenter", "", 1);
+		Balloon(string('STOPPING_SQUEEZEBOX_SERVER'), "Squeezebox Server", "", 1);
 
 	}
 }
@@ -344,8 +344,8 @@ sub stopCP {
 	}
 }
 
-sub updateSqueezeCenter {
-	stopSqueezeCenter(1);
+sub updateServerSoftware {
+	stopServer(1);
 	
 	my $installer = _getUpdateInstaller();
 	
@@ -375,7 +375,7 @@ sub runWatchDog {
 
 	elsif ($svcMgr->getServiceState() == SC_STATE_STOPPED) {
 		unlink $restartFlag;
-		startSqueezeCenter();
+		startServer();
 	}
 }
 
@@ -405,7 +405,7 @@ sub sendCLICommand {
 	return 0;
 }
 
-# attempt to stop SqueezeCenter and exit
+# attempt to stop Squeezebox Server and exit
 sub uninstall {
 	# Kill the timer, we don't want SC to be restarted
 	SetTimer(0);
@@ -419,7 +419,7 @@ sub uninstall {
 	# let's give the scanner a few seconds to be closed before shutting down SC
 	sleep 5;
 
-	stopSqueezeCenter(1);
+	stopServer(1);
 
 	exit;
 }

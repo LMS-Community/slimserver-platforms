@@ -1,9 +1,9 @@
 //
 //  RendezvousPublisher.h
-//  SqueezeCenter
+//  Squeezebox Server
 //
 //  Created by Dave Nanian on Sat Jan 18 2003.
-//  Copyright 2003-2007 Logitech
+//  Copyright 2003-2009 Logitech
 //
 
 #import <Foundation/Foundation.h>

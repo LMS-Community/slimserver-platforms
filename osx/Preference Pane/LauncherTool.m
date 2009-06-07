@@ -57,7 +57,7 @@ int main (int argc, const char * argv[])
 	[rendezvousPublisher release];
     }
     NS_HANDLER
-	NSLog (@"Failed to launch SqueezeCenter: script missing.\n");
+	NSLog (@"Failed to launch Squeezebox Server: script missing.\n");
     NS_ENDHANDLER
 
     [launcherTask release];

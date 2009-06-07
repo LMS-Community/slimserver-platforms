@@ -46,7 +46,7 @@ RUN_AT_LOGIN
 	NO	Kjør automatisk ved pålogging
 	SV	Kör automatiskt vid inloggning
 
-OPEN_SQUEEZECENTER
+OPEN_SQUEEZEBOX_SERVER
 	DA	Åbn SqueezeCenter
 	DE	SqueezeCenter öffnen
 	EN	Open SqueezeCenter
@@ -58,7 +58,7 @@ OPEN_SQUEEZECENTER
 	NO	Åpne SqueezeCenter
 	SV	Öppna SqueezeCenter
 
-START_SQUEEZECENTER
+START_SQUEEZEBOX_SERVER
 	DA	Start SqueezeCenter
 	DE	SqueezeCenter starten
 	EN	Start SqueezeCenter
@@ -70,7 +70,7 @@ START_SQUEEZECENTER
 	NO	Start SqueezeCenter
 	SV	Starta SqueezeCenter
 
-STARTING_SQUEEZECENTER
+STARTING_SQUEEZEBOX_SERVER
 	DA	Starter SqueezeCenter...
 	DE	SqueezeCenter wird gestartet...
 	EN	Starting SqueezeCenter...
@@ -82,7 +82,7 @@ STARTING_SQUEEZECENTER
 	NO	Starter SqueezeCenter...
 	SV	Startar SqueezeCenter ...
 
-STOPPING_SQUEEZECENTER
+STOPPING_SQUEEZEBOX_SERVER
 	DA	Stopper SqueezeCenter...
 	DE	SqueezeCenter wird angehalten...
 	EN	Stopping SqueezeCenter...
@@ -94,7 +94,7 @@ STOPPING_SQUEEZECENTER
 	NO	Stopper SqueezeCenter...
 	SV	Stoppar SqueezeCenter ...
 
-STOP_SQUEEZECENTER
+STOP_SQUEEZEBOX_SERVER
 	DA	Stop SqueezeCenter
 	DE	SqueezeCenter anhalten
 	EN	Stop SqueezeCenter
@@ -106,7 +106,7 @@ STOP_SQUEEZECENTER
 	NO	Stopp SqueezeCenter
 	SV	Avsluta SqueezeCenter
 
-SQUEEZECENTER_STARTING
+SQUEEZEBOX_SERVER_STARTING
 	DA	SqueezeCenter starter
 	DE	SqueezeCenter wird gestartet
 	EN	SqueezeCenter Starting
@@ -118,7 +118,7 @@ SQUEEZECENTER_STARTING
 	NO	SqueezeCenter starter
 	SV	SqueezeCenter startas
 
-SQUEEZECENTER_RUNNING
+SQUEEZEBOX_SERVER_RUNNING
 	DA	SqueezeCenter kører
 	DE	SqueezeCenter wird ausgeführt
 	EN	SqueezeCenter Running
@@ -130,7 +130,7 @@ SQUEEZECENTER_RUNNING
 	NO	SqueezeCenter kjører
 	SV	SqueezeCenter körs
 
-SQUEEZECENTER_STOPPED
+SQUEEZEBOX_SERVER_STOPPED
 	DA	SqueezeCenter er stoppet
 	DE	SqueezeCenter angehalten
 	EN	SqueezeCenter Stopped

@@ -149,7 +149,7 @@ var
 	
 	// custom exit codes
 	// 1001 - SC configuration was found using port 9000, but port 9000 seems to be busy with an other application (PrefsExistButPortConflict)
-	// 1002 - SC wasn't able to establish a connection to SqueezeNetwork on port 3483 (SNConnectFailed_Description)
+	// 1002 - SC wasn't able to establish a connection to mysqueezebox.com on port 3483 (SNConnectFailed_Description)
 	// 1101 - SliMP3 uninstall failed
 	// 1102 - SlimServer uninstall failed
 	CustomExitCode: Integer;
@@ -530,8 +530,8 @@ begin
 	if CurStep = ssPostInstall then 
 		begin
 
-			// remove squeezecenter.version file to prevent repeated update prompts
-			DeleteFile(AddBackslash(GetWritablePath('')) + AddBackslash('Cache') + AddBackslash('updates') + 'squeezecenter.version');
+			// remove server.version file to prevent repeated update prompts
+			DeleteFile(AddBackslash(GetWritablePath('')) + AddBackslash('Cache') + AddBackslash('updates') + 'server.version');
 
 			for i:= 0 to ParamCount() do begin
 				if (pos('/silent', lowercase(ParamStr(i))) > 0) then

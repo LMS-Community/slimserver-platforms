@@ -2,7 +2,7 @@
 "Update" = "Actualizar";
 "Install Results" = "Resultados de instalación";
 "OK" = "OK";
-"SqueezeCenter installed successfully.\n" = "SqueezeCenter se ha instalado correctamente.";
-"SqueezeCenter install failed.\n" = "Fallo de instalación de SqueezeCenter.";
-"You must have OS X 10.3 or later to run SqueezeCenter.\n" = "Para ejecutar SqueezeCenter, debe tener OS X 10.3 o posterior.";
+"Squeezebox Server installed successfully.\n" = "Squeezebox Server se ha instalado correctamente.";
+"Squeezebox Server install failed.\n" = "Fallo de instalación de Squeezebox Server.";
+"You must have OS X 10.3 or later to run Squeezebox Server.\n" = "Para ejecutar Squeezebox Server, debe tener OS X 10.3 o posterior.";
 "Mac OS X 10.3 Required" = "Se requiere Mac OS X 10.3";

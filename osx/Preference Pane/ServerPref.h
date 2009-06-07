@@ -1,9 +1,9 @@
 //
 //  ServerPref.h
-//  SqueezeCenter
+//  Squeezebox Server
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
-//  Copyright 2002-2008 Logitech
+//  Copyright 2002-2009 Logitech
 //
 
 #import <PreferencePanes/PreferencePanes.h>
@@ -17,7 +17,7 @@
 #define statusUrl @"http://localhost:9000/EN/settings/server/status.html?simple=1"
 #define updateCheckUrl @"http://update.squeezenetwork.com/update/?version=%@&geturl=1&os=osx"
 
-#define versionFile @"Caches/SqueezeCenter/updates/squeezecenter.version"
+#define versionFile @"Caches/SqueezeCenter/updates/server.version"
 #define prefsFile @"Application Support/SqueezeCenter/server.prefs"
 #define logDir @"Logs/SqueezeCenter"
 
