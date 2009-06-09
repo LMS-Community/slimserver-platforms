@@ -328,7 +328,7 @@ sub stopScanner {
 	sendCLICommand('abortscan');
 }
 
-sub stopCP {
+sub stopComponents {
 	my $p = Win32::Process::List->new;
 
 	if ($p->IsError != 1) {
@@ -336,8 +336,9 @@ sub stopCP {
 		my %processes = $p->GetProcesses();
 		foreach my $pid (%processes) {
 
-			next unless $processes{$pid} =~ /^squeezeboxcp.exe$/i;
+			next unless $processes{$pid} =~ /^(?:squeezeboxcp|scanner|squeezesvc).exe$/i;
 
+print "$1, $pid\n";
 			my $error;
 			Win32::Process::KillProcess($pid, $error);
 		}
@@ -410,9 +411,6 @@ sub uninstall {
 	# Kill the timer, we don't want SC to be restarted
 	SetTimer(0);
 
-	# stop the control panel
-	stopCP();
-
 	# stop the scanner _before_ SC, as it's talking to SC using the CLI
 	stopScanner();
 
@@ -420,6 +418,10 @@ sub uninstall {
 	sleep 5;
 
 	stopServer(1);
+
+	# stop the control panel and other related processes
+	sleep 5;
+	stopComponents();
 
 	exit;
 }
