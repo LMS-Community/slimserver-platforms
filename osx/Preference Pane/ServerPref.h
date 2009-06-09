@@ -69,9 +69,7 @@
 	
 	IBOutlet NSButton *cleanupPrefs;
 	IBOutlet NSButton *cleanupCache;
-	IBOutlet NSButton *cleanupAll;
 	IBOutlet NSButton *doCleanup;
-	IBOutlet NSTextField *cleanupHelpShutdown;
 	
 	IBOutlet WebView *statusView;
 

@@ -242,7 +242,6 @@
 	
 	[webLaunchButton setEnabled:currentWebState];
 	[advLaunchButton setEnabled:currentWebState];
-	[cleanupHelpShutdown setHidden:!currentWebState];
 	
 	[snUsername setEnabled:serverState];
 	[snPassword setEnabled:serverState];
@@ -824,19 +823,12 @@
 {
 	NSString *params = @"";
 	
-	if ([cleanupAll state] > 0) {
-		params = @" --all";
-	}
-	else {
+	if ([cleanupPrefs state] > 0)
+		params = [params stringByAppendingString:@" --prefs"];
 		
-		if ([cleanupPrefs state] > 0)
-			params = [params stringByAppendingString:@" --prefs"];
+	if ([cleanupCache state] > 0)
+		params = [params stringByAppendingString:@" --cache"];
 		
-		if ([cleanupCache state] > 0)
-			params = [params stringByAppendingString:@" --cache"];
-		
-	}
-	
 	return params;
 }	
 

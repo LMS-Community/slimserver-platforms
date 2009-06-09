@@ -40,9 +40,7 @@
                 advLaunchButton = NSButton; 
                 browseMusicFolder = NSButton; 
                 browsePlaylistFolder = NSButton; 
-                cleanupAll = NSButton; 
                 cleanupCache = NSButton; 
-                cleanupHelpShutdown = NSTextField; 
                 cleanupPrefs = NSButton; 
                 doCleanup = NSButton; 
                 musicFolder = NSTextField; 
