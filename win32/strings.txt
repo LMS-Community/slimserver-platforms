@@ -1,26 +1,26 @@
 START_FAILED
-	DA	SqueezeCenter kunne ikke åbnes. SqueezeCenter er muligvis ved at starte eller stoppe. Vent et minut, og prøv igen.
-	DE	SqueezeCenter konnte nicht geöffnet werden. Es wird evtl. gerade gestartet oder angehalten. Versuchen Sie es in einer Minute noch einmal.
-	EN	SqueezeCenter would not open. SqueezeCenter may be starting or stopping. Please wait a minute and try again.
-	ES	Fallo al abrir SqueezeCenter. Puede que SqueezeCenter esté iniciándose o deteniéndose. Espere un minuto y vuelva a intentarlo.
-	FI	SqueezeCenter ei auennut. SqueezeCenter saattaa olla käynnistymässä, tai se on saattanut pysähtyä. Odota hetki ja yritä uudelleen.
-	FR	Echec du démarrage du SqueezeCenter. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
-	IT	Avvio di SqueezeCenter non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
-	NL	SqueezeCenter kan niet worden geopend. De toepassing wordt misschien gestart of gestopt. Wacht even en probeer het overnieuw.
-	NO	SqueezeCenter kunne ikke åpnes. SqueezeCenter holder kanskje på å starte eller stoppe. Vent et øyeblikk, og prøv igjen.
-	SV	Det gick inte att öppna SqueezeCenter. SqueezeCenter kanske håller på att startas eller avslutas. Vänta någon minut och försök igen.
+	DA	Squeezebox Server kunne ikke åbnes. Squeezebox Server er muligvis ved at starte eller stoppe. Vent et minut, og prøv igen.
+	DE	Squeezebox Server konnte nicht geöffnet werden. Es wird evtl. gerade gestartet oder angehalten. Versuchen Sie es in einer Minute noch einmal.
+	EN	Squeezebox Server would not open. Squeezebox Server may be starting or stopping. Please wait a minute and try again.
+	ES	Fallo al abrir Squeezebox Server. Puede que Squeezebox Server esté iniciándose o deteniéndose. Espere un minuto y vuelva a intentarlo.
+	FI	Squeezebox Server ei auennut. Squeezebox Server saattaa olla käynnistymässä, tai se on saattanut pysähtyä. Odota hetki ja yritä uudelleen.
+	FR	Echec du démarrage du Squeezebox Server. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
+	IT	Avvio di Squeezebox Server non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
+	NL	Squeezebox Server kan niet worden geopend. De toepassing wordt misschien gestart of gestopt. Wacht even en probeer het overnieuw.
+	NO	Squeezebox Server kunne ikke åpnes. Squeezebox Server holder kanskje på å starte eller stoppe. Vent et øyeblikk, og prøv igjen.
+	SV	Det gick inte att öppna Squeezebox Server. Squeezebox Server kanske håller på att startas eller avslutas. Vänta någon minut och försök igen.
 
 STOP_FAILED
-	DA	Det lykkedes ikke at stoppe SqueezeCenter. Tjek Logbog, og kontakt supportafdelingen
-	DE	SqueezeCenter konnte nicht angehalten werden. Weitere Informationen erhalten Sie in der Ereignisanzeige und vom Support
-	EN	Stopping SqueezeCenter Failed. Please see the Event Viewer & Contact Support
-	ES	Fallo al detener SqueezeCenter. Consulte el Visor de sucesos y póngase en contacto con el servicio de asistencia
-	FI	SqueezeCenterin pysäyttäminen epäonnistui. Katso Tapahtumien tarkastelu ja Tekninen tuki
-	FR	Echec de l'arrêt du SqueezeCenter. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
-	IT	Arresto di SqueezeCenter non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
-	NL	SqueezeCenter kan niet worden gestopt. Zie de logboeken en neem contact op met ondersteuning
-	NO	Mislyktes med å stoppe SqueezeCenter. Se i hendelsesoversikten, og ring kundestøtte
-	SV	Det gick inte att avsluta SqueezeCenter. Se loggboken och kontakta supportavdelningen.
+	DA	Det lykkedes ikke at stoppe Squeezebox Server. Tjek Logbog, og kontakt supportafdelingen
+	DE	Squeezebox Server konnte nicht angehalten werden. Weitere Informationen erhalten Sie in der Ereignisanzeige und vom Support
+	EN	Stopping Squeezebox Server Failed. Please see the Event Viewer & Contact Support
+	ES	Fallo al detener Squeezebox Server. Consulte el Visor de sucesos y póngase en contacto con el servicio de asistencia
+	FI	Squeezebox Serverin pysäyttäminen epäonnistui. Katso Tapahtumien tarkastelu ja Tekninen tuki
+	FR	Echec de l'arrêt du Squeezebox Server. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
+	IT	Arresto di Squeezebox Server non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
+	NL	Squeezebox Server kan niet worden gestopt. Zie de logboeken en neem contact op met ondersteuning
+	NO	Mislyktes med å stoppe Squeezebox Server. Se i hendelsesoversikten, og ring kundestøtte
+	SV	Det gick inte att avsluta Squeezebox Server. Se loggboken och kontakta supportavdelningen.
 
 RUN_AT_BOOT
 	DA	Kør automatisk ved systemstart
@@ -47,100 +47,100 @@ RUN_AT_LOGIN
 	SV	Kör automatiskt vid inloggning
 
 OPEN_SQUEEZEBOX_SERVER
-	DA	Åbn SqueezeCenter
-	DE	SqueezeCenter öffnen
-	EN	Open SqueezeCenter
-	ES	Abrir SqueezeCenter
-	FI	Avaa SqueezeCenter
-	FR	Ouvrir le SqueezeCenter
-	IT	Apri SqueezeCenter
-	NL	SqueezeCenter openen
-	NO	Åpne SqueezeCenter
-	SV	Öppna SqueezeCenter
+	DA	Åbn Squeezebox Server
+	DE	Squeezebox Server öffnen
+	EN	Open Squeezebox Server
+	ES	Abrir Squeezebox Server
+	FI	Avaa Squeezebox Server
+	FR	Ouvrir le Squeezebox Server
+	IT	Apri Squeezebox Server
+	NL	Squeezebox Server openen
+	NO	Åpne Squeezebox Server
+	SV	Öppna Squeezebox Server
 
 START_SQUEEZEBOX_SERVER
-	DA	Start SqueezeCenter
-	DE	SqueezeCenter starten
-	EN	Start SqueezeCenter
-	ES	Iniciar SqueezeCenter
-	FI	Käynnistä SqueezeCenter
-	FR	Démarrer le SqueezeCenter
-	IT	Avvia SqueezeCenter
-	NL	SqueezeCenter starten
-	NO	Start SqueezeCenter
-	SV	Starta SqueezeCenter
+	DA	Start Squeezebox Server
+	DE	Squeezebox Server starten
+	EN	Start Squeezebox Server
+	ES	Iniciar Squeezebox Server
+	FI	Käynnistä Squeezebox Server
+	FR	Démarrer le Squeezebox Server
+	IT	Avvia Squeezebox Server
+	NL	Squeezebox Server starten
+	NO	Start Squeezebox Server
+	SV	Starta Squeezebox Server
 
 STARTING_SQUEEZEBOX_SERVER
-	DA	Starter SqueezeCenter...
-	DE	SqueezeCenter wird gestartet...
-	EN	Starting SqueezeCenter...
-	ES	Iniciando SqueezeCenter...
-	FI	SqueezeCenter käynnistetään...
-	FR	Démarrage du SqueezeCenter
-	IT	Avvio di SqueezeCenter in corso...
-	NL	SqueezeCenter wordt gestart...
-	NO	Starter SqueezeCenter...
-	SV	Startar SqueezeCenter ...
+	DA	Starter Squeezebox Server...
+	DE	Squeezebox Server wird gestartet...
+	EN	Starting Squeezebox Server...
+	ES	Iniciando Squeezebox Server...
+	FI	Squeezebox Server käynnistetään...
+	FR	Démarrage du Squeezebox Server
+	IT	Avvio di Squeezebox Server in corso...
+	NL	Squeezebox Server wordt gestart...
+	NO	Starter Squeezebox Server...
+	SV	Startar Squeezebox Server ...
 
 STOPPING_SQUEEZEBOX_SERVER
-	DA	Stopper SqueezeCenter...
-	DE	SqueezeCenter wird angehalten...
-	EN	Stopping SqueezeCenter...
-	ES	Deteniendo SqueezeCenter...
-	FI	SqueezeCenter pysäytetään...
-	FR	Arrêt du SqueezeCenter...
-	IT	Arresto di SqueezeCenter in corso...
-	NL	SqueezeCenter wordt gestopt...
-	NO	Stopper SqueezeCenter...
-	SV	Stoppar SqueezeCenter ...
+	DA	Stopper Squeezebox Server...
+	DE	Squeezebox Server wird angehalten...
+	EN	Stopping Squeezebox Server...
+	ES	Deteniendo Squeezebox Server...
+	FI	Squeezebox Server pysäytetään...
+	FR	Arrêt du Squeezebox Server...
+	IT	Arresto di Squeezebox Server in corso...
+	NL	Squeezebox Server wordt gestopt...
+	NO	Stopper Squeezebox Server...
+	SV	Stoppar Squeezebox Server ...
 
 STOP_SQUEEZEBOX_SERVER
-	DA	Stop SqueezeCenter
-	DE	SqueezeCenter anhalten
-	EN	Stop SqueezeCenter
-	ES	Detener SqueezeCenter
-	FI	Pysäytä SqueezeCenter
-	FR	Arrêter le SqueezeCenter
-	IT	Arresta SqueezeCenter
-	NL	SqueezeCenter stoppen
-	NO	Stopp SqueezeCenter
-	SV	Avsluta SqueezeCenter
+	DA	Stop Squeezebox Server
+	DE	Squeezebox Server anhalten
+	EN	Stop Squeezebox Server
+	ES	Detener Squeezebox Server
+	FI	Pysäytä Squeezebox Server
+	FR	Arrêter le Squeezebox Server
+	IT	Arresta Squeezebox Server
+	NL	Squeezebox Server stoppen
+	NO	Stopp Squeezebox Server
+	SV	Avsluta Squeezebox Server
 
 SQUEEZEBOX_SERVER_STARTING
-	DA	SqueezeCenter starter
-	DE	SqueezeCenter wird gestartet
-	EN	SqueezeCenter Starting
-	ES	SqueezeCenter en inicio
-	FI	SqueezeCenter käynnistyy
-	FR	Démarrage du SqueezeCenter
-	IT	Avvio di SqueezeCenter in corso
-	NL	SqueezeCenter wordt gestart
-	NO	SqueezeCenter starter
-	SV	SqueezeCenter startas
+	DA	Squeezebox Server starter
+	DE	Squeezebox Server wird gestartet
+	EN	Squeezebox Server Starting
+	ES	Squeezebox Server en inicio
+	FI	Squeezebox Server käynnistyy
+	FR	Démarrage du Squeezebox Server
+	IT	Avvio di Squeezebox Server in corso
+	NL	Squeezebox Server wordt gestart
+	NO	Squeezebox Server starter
+	SV	Squeezebox Server startas
 
 SQUEEZEBOX_SERVER_RUNNING
-	DA	SqueezeCenter kører
-	DE	SqueezeCenter wird ausgeführt
-	EN	SqueezeCenter Running
-	ES	SqueezeCenter en ejecución
-	FI	SqueezeCenter on käynnissä
-	FR	SqueezeCenter en cours d'exécution
-	IT	SqueezeCenter è in esecuzione
-	NL	SqueezeCenter is actief
-	NO	SqueezeCenter kjører
-	SV	SqueezeCenter körs
+	DA	Squeezebox Server kører
+	DE	Squeezebox Server wird ausgeführt
+	EN	Squeezebox Server Running
+	ES	Squeezebox Server en ejecución
+	FI	Squeezebox Server on käynnissä
+	FR	Squeezebox Server en cours d'exécution
+	IT	Squeezebox Server è in esecuzione
+	NL	Squeezebox Server is actief
+	NO	Squeezebox Server kjører
+	SV	Squeezebox Server körs
 
 SQUEEZEBOX_SERVER_STOPPED
-	DA	SqueezeCenter er stoppet
-	DE	SqueezeCenter angehalten
-	EN	SqueezeCenter Stopped
-	ES	SqueezeCenter detenido
-	FI	SqueezeCenter pysäytettiin
-	FR	SqueezeCenter arrêté
-	IT	SqueezeCenter è stato arrestato
-	NL	SqueezeCenter is gestopt
-	NO	SqueezeCenter ble stoppet
-	SV	SqueezeCenter har stoppats
+	DA	Squeezebox Server er stoppet
+	DE	Squeezebox Server angehalten
+	EN	Squeezebox Server Stopped
+	ES	Squeezebox Server detenido
+	FI	Squeezebox Server pysäytettiin
+	FR	Squeezebox Server arrêté
+	IT	Squeezebox Server è stato arrestato
+	NL	Squeezebox Server is gestopt
+	NO	Squeezebox Server ble stoppet
+	SV	Squeezebox Server har stoppats
 
 GO_TO_WEBSITE
 	DA	Gå til Logitechs websted
@@ -194,7 +194,7 @@ OPEN_CONTROLPANEL
 	EN	Open Control Panel...
 
 UPDATE_AVAILABLE
-	EN	An updated SqueezeCenter version is available. Open the menu to install the latest release.
+	EN	An updated Squeezebox Server version is available. Open the menu to install the latest release.
 
 INSTALL_UPDATE
 	EN	Install update...
