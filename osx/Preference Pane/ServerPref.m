@@ -311,9 +311,9 @@
 
 	int previousStartupValue = [[prefs objectForKey:@"StartupMenuTag"] intValue];
 
-	if ([self changeAutoStartupFrom:previousStartupValue to:[sender tag]])
+	if ([self changeAutoStartupFrom:previousStartupValue to:[startupType indexOfSelectedItem]])
 	{
-		[prefs setObject:[NSNumber numberWithInt:[sender tag]] forKey:@"StartupMenuTag"];
+		[prefs setObject:[NSNumber numberWithInt:[startupType indexOfSelectedItem]] forKey:@"StartupMenuTag"];
 	
 		[[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
 		[[NSUserDefaults standardUserDefaults] setPersistentDomain:prefs forName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
@@ -328,7 +328,6 @@
 	/*
 	 **  If we're set up to start at boot, get authentication credentials before continuing.
 	 */
-
 	if (newStartupType == kStartupAtBoot || previousStartupType == kStartupAtBoot)
 	{
 		if (![self authorizeUser])
