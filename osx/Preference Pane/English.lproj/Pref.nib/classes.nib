@@ -57,7 +57,6 @@
                 scanProgressError = NSTextField; 
                 scanProgressTime = NSTextField; 
                 scanSpinny = NSProgressIndicator; 
-                serverStateLabel = NSTextField; 
                 snCheckPassword = NSButton; 
                 snPassword = NSSecureTextField; 
                 snStatsOptions = NSPopUpButton; 

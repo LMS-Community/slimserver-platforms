@@ -1,9 +1,9 @@
 //
 //  Test.h
-//  Squeezebox Server Preference Tester
+//  SqueezeCenter Preference Tester
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
-//  Copyright 2002-2009 Logitech
+//  Copyright 2002-2007 Logitech
 //
 
 #import <PreferencePanes/PreferencePanes.h>

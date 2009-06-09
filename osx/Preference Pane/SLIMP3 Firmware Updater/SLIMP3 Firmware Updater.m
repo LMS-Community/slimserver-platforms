@@ -1,9 +1,9 @@
 //
 //  SLIMP3 Firmware Updater.m
-//  Squeezebox Server 
+//  SqueezeCenter 
 //
 //  Created by Dave "The Snake" Nanian on Sun Oct 26 2003.
-//  Copyright 2003-2009 Logitech
+//  Copyright 2003-2007 Logitech
 //
 
 #include <Security/Authorization.h>

@@ -1,9 +1,9 @@
 //
 //  Launcher.m
-//  Squeezebox Server
+//  SqueezeCenter
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
-//  Copyright 2002-2009 Logitech
+//  Copyright 2002-2007 Logitech
 //
 
 #import "Launcher.h"
@@ -76,7 +76,7 @@ int main(int argc, const char *argv[])
 #endif
     }
     NS_HANDLER
-	NSLog (@"Failed to launch Squeezebox Server: start-server.sh missing.\n");
+	NSLog (@"Failed to launch SqueezeCenter: start-server.sh missing.\n");
     NS_ENDHANDLER
 
     [launcherTask release];

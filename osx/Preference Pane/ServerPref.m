@@ -1,9 +1,9 @@
 //
 //  ServerPref.m
-//  Squeezebox Server
+//  SqueezeCenter
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
-//  Copyright 2002-2009 Logitech
+//  Copyright 2002-2007 Logitech
 //
 
 #include <Security/Authorization.h>
@@ -46,7 +46,7 @@
 	[startupType selectItemAtIndex:[startupType indexOfItemWithTag:[[defaultValues objectForKey:@"StartupMenuTag"] intValue]]];
 	[musicLibraryName setStringValue:[self getPref:@"libraryname"]];
 	
-	// mysqueezebox.com settings
+	// SqueezeNetwork settings
 	[snUsername setStringValue:[self getPref:@"sn_email"]];
 	[snPassword setStringValue:([self getPref:@"sn_password_sha"] != @"" ? snPasswordPlaceholder : @"")];
 	
@@ -71,7 +71,7 @@
 	
 	if (hasUpdateInstaller) {
 		NSBeginAlertSheet (
-						   LocalizedPrefString(@"An updated Squeezebox Server version is available and ready to be installed.", @""),
+						   LocalizedPrefString(@"An updated SqueezeCenter version is available and ready to be installed.", @""),
 						   LocalizedPrefString(@"Install update", @""),
 						   LocalizedPrefString(@"Not now", @""),
 						   nil, 
@@ -228,10 +228,12 @@
 					
 		if (currentServerState)
 		{
+			[serverStateLabel setStringValue:LocalizedPrefString(@"Status: The server is running", "Status: The server is running")];
 			[toggleServerButton setTitle:LocalizedPrefString(@"Stop Server", "Stop Server")];
 		}
 		else
 		{
+			[serverStateLabel setStringValue:LocalizedPrefString(@"Status: The server is stopped", "Status: The server is stopped")];
 			[toggleServerButton setTitle:LocalizedPrefString(@"Start Server", "Start Server")];
 			isScanning = NO;
 		}
@@ -274,15 +276,15 @@
 	
 	if (hasUpdateInstaller) {
 		[updateButton setTitle:LocalizedPrefString(@"Install update", @"")];
-		[updateDescription setStringValue:LocalizedPrefString(@"An updated Squeezebox Server version is available and ready to be installed.", @"")];
+		[updateDescription setStringValue:LocalizedPrefString(@"An updated SqueezeCenter version is available and ready to be installed.", @"")];
 	}			
 	else if (updateURL != nil) {
 		[updateButton setTitle:LocalizedPrefString(@"Download update", @"")];
-		[updateDescription setStringValue:[NSString stringWithFormat:@"%@ (%@)", LocalizedPrefString(@"An updated Squeezebox Server version is available and ready to be installed.", @""), updateURL] ];
+		[updateDescription setStringValue:[NSString stringWithFormat:@"%@ (%@)", LocalizedPrefString(@"An updated SqueezeCenter version is available and ready to be installed.", @""), updateURL] ];
 	}
 	else {
 		[updateButton setTitle:LocalizedPrefString(@"Check for update", @"")];
-		[updateDescription setStringValue:LocalizedPrefString(@"There's no updated Squeezebox Server version available.", @"")];
+		[updateDescription setStringValue:LocalizedPrefString(@"There's no updated SqueezeCenter version available.", @"")];
 	}			
 	
 }
@@ -493,7 +495,7 @@
 		NSString *data = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
 
 		if ([data isEqual:@"0\n"] || ![data hasPrefix:@"http"]) {
-			NSRunAlertPanel(LocalizedPrefString(@"Check for update", @""), LocalizedPrefString(@"There's no updated Squeezebox Server version available.", @""), @"OK", nil, nil);
+			NSRunAlertPanel(LocalizedPrefString(@"Check for update", @""), LocalizedPrefString(@"There's no updated SqueezeCenter version available.", @""), @"OK", nil, nil);
 		}
 		else {
 			updateURL = data;
@@ -592,7 +594,7 @@
 	[[NSWorkspace sharedWorkspace] openFile:pathToLog];
 }
 
-/* mysqueezebox.com */
+/* SqueezeNetwork */
 -(IBAction)checkSNPassword:(id)sender
 {
 	NSString *username = [snUsername stringValue];
@@ -604,9 +606,9 @@
 		NSString *msg = @"";
 	
 		if (snResult == nil || [[snResult valueForKey:@"validated"] intValue] == 0)
-			msg = @"Invalid mysqueezebox.com username or password.";
+			msg = @"Invalid SqueezeNetwork username or password.";
 		else if (snResult != nil && [[snResult valueForKey:@"validated"] intValue] != 0) 
-			msg = @"Connected successfully to mysqueezebox.com.";
+			msg = @"Connected successfully to SqueezeNetwork.";
 
 		if (snResult != nil && [snResult valueForKey:@"warning"] != nil)
 			msg = LocalizedPrefString([snResult valueForKey:@"warning"], @"");
@@ -786,7 +788,7 @@
 
 	if ([self serverState]) {
 		NSBeginAlertSheet (
-						   LocalizedPrefString(@"Squeezebox Server has to be stopped before running the cleanup. Do you want to stop it now?", @""),
+						   LocalizedPrefString(@"SqueezeCenter has to be stopped before running the cleanup. Do you want to stop it now?", @""),
 						   LocalizedPrefString(@"Run Cleanup", @""),
 						   LocalizedPrefString(@"Cancel", @""),
 						   nil, 
@@ -878,7 +880,7 @@
 	return json;
 }
 
-/* get localized string from Squeezebox Server; cache in a dictionary for future uses */
+/* get localized string from SqueezeCenter; cache in a dictionary for future uses */
 -(NSString *)getSCString:(NSString *)stringToken
 {
 	stringToken = [stringToken uppercaseString];

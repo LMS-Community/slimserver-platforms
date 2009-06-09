@@ -5,7 +5,7 @@ PREFPANE_FROM="$1/SqueezeCenter.prefPane"
 PREFPANE_TO="/Library/PreferencePanes/SqueezeCenter.prefPane"
 
 if [ z"$SERVER_RUNNING" != z ] ; then
-	echo "Please stop the Squeezebox Server before running the installer."
+	echo "Please stop the SqueezeCenter before running the installer."
 	exit 1
 fi
 
@@ -49,12 +49,12 @@ fi
 
 
 # remove the version file triggering the update prompt
-if [ -e ~/Library/Caches/SqueezeCenter/updates/server.version ] ; then
-	rm -f ~/Library/Caches/SqueezeCenter/updates/server.version
+if [ -e ~/Library/Caches/SqueezeCenter/updates/squeezecenter.version ] ; then
+	rm -f ~/Library/Caches/SqueezeCenter/updates/squeezecenter.version
 fi
 
-if [ -e /Library/Caches/SqueezeCenter/updates/server.version ] ; then
-	rm -f /Library/Caches/SqueezeCenter/updates/server.version
+if [ -e /Library/Caches/SqueezeCenter/updates/squeezecenter.version ] ; then
+	rm -f /Library/Caches/SqueezeCenter/updates/squeezecenter.version
 fi
 
 
@@ -75,9 +75,9 @@ if [ -e "$PREFPANE_TO" ] ; then
 
 	sudo -b -H -u $USER "../Resources/start-server.sh"
 
-	echo "Squeezebox Server installed successfully."
+	echo "SqueezeCenter installed successfully."
 	exit 0
 else
-	echo "Squeezebox Server install failed."
+	echo "SqueezeCenter install failed."
 	exit 1
 fi

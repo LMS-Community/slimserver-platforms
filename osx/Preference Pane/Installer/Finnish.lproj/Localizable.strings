@@ -2,7 +2,7 @@
 "Update" = "Päivitä";
 "Install Results" = "Asennustulokset";
 "OK" = "OK";
-"Squeezebox Server installed successfully.\n" = "Squeezebox Serverin asennus onnistui.";
-"Squeezebox Server install failed.\n" = "Squeezebox Serverin asennus epäonnistui.";
-"You must have OS X 10.3 or later to run Squeezebox Server.\n" = "Squeezebox Serverin käyttämiseen tarvitaan OS X -käyttöjärjestelmän versio 10.3 tai uudempi.";
+"SqueezeCenter installed successfully.\n" = "SqueezeCenterin asennus onnistui.";
+"SqueezeCenter install failed.\n" = "SqueezeCenterin asennus epäonnistui.";
+"You must have OS X 10.3 or later to run SqueezeCenter.\n" = "SqueezeCenterin käyttämiseen tarvitaan OS X -käyttöjärjestelmän versio 10.3 tai uudempi.";
 "Mac OS X 10.3 Required" = "Vaaditaan Mac OS X 10.3";

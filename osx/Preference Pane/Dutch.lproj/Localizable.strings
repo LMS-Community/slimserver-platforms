@@ -17,3 +17,6 @@
 "Not now" = "Not now";
 "Abort" = "Abort";
 "Rescan" = "Rescan";
+"Invalid mysqueezebox.com username or password." = "Invalid mysqueezebox.com username or password.";
+"Status: The server is stopped" = "Status: The server is stopped";
+"Status: The server is running" = "Status: The server is running";

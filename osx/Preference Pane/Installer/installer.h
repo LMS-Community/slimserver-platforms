@@ -1,9 +1,9 @@
 //
 //  Installer.h
-//  Squeezebox Server
+//  SqueezeCenter
 //
 //  Created by Dave Nanian on Fri Jan 03 2003.
-//  Copyright 2003-2009 Logitech
+//  Copyright 2003-2007 Logitech
 //
 
 #define LocalizedPrefString(key, comment) [[NSBundle bundleForClass:[self class]] localizedStringForKey:(key) value:@"" table:nil]
