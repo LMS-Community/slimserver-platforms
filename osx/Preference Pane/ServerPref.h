@@ -39,6 +39,8 @@
 	IBOutlet NSTabView *prefsTab;
 
 	IBOutlet NSButton *toggleServerButton;
+	IBOutlet NSTextField *serverStateLabel;
+	
 	IBOutlet NSButton *webLaunchButton;
 	IBOutlet NSButton *advLaunchButton;
 	IBOutlet NSPopUpButton *startupType;
