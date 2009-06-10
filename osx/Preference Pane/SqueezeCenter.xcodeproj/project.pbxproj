@@ -167,7 +167,7 @@
 		1477C983098865030087109C /* Installer.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Installer.plist; sourceTree = "<group>"; };
 		1477C984098865030087109C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
 		14A9402709875F57001992EB /* SqueezeCenter.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SqueezeCenter.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
-		14A9403C09875F57001992EB /* Launcher.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Launcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		14A9403C09875F57001992EB /* Launcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Launcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9405009875F57001992EB /* Preference Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Preference Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9407D09875F57001992EB /* Launcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Launcher; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6A9CF550601257A00C3E0BF /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = French; path = Installer/French.lproj/Localizable.strings; sourceTree = "<group>"; };
