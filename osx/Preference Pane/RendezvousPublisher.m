@@ -1,6 +1,6 @@
 //
 //  RendezvousPublisher.m
-//  SqueezeCenter
+//  
 //
 //  Created by Dave Nanian on Sat Jan 18 2003.
 //  Copyright 2003-2007 Logitech
@@ -25,14 +25,14 @@
 	    [httpNetService setDelegate:self];
 
 	    /*
-	     **  Now, publish the SqueezeCenter specific HTTP service for easy client discovery.
+	     **  Now, publish the  specific HTTP service for easy client discovery.
 	     */
 
 	    SpecificHTTPNetService = [[Rendezvous alloc] initWithDomain:@"" type:@"_slimdevices_slimserver_http._tcp." name:@"slimserver" port:9000];
 	    [SpecificHTTPNetService setDelegate:self];
 	    
 	    /*
-	     **  Now, publish the SqueezeCenter specific CLI service for easy client discovery.
+	     **  Now, publish the  specific CLI service for easy client discovery.
 	     */
 
 	    SpecificCLINetService = [[Rendezvous alloc] initWithDomain:@"" type:@"_slimdevices_slimserver_cli._tcp." name:@"slimserver" port:9001];

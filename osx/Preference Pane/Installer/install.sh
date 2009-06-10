@@ -5,7 +5,7 @@ PREFPANE_FROM="$1/SqueezeCenter.prefPane"
 PREFPANE_TO="/Library/PreferencePanes/SqueezeCenter.prefPane"
 
 if [ z"$SERVER_RUNNING" != z ] ; then
-	echo "Please stop the SqueezeCenter before running the installer."
+	echo "Please stop the  before running the installer."
 	exit 1
 fi
 
@@ -75,9 +75,9 @@ if [ -e "$PREFPANE_TO" ] ; then
 
 	sudo -b -H -u $USER "../Resources/start-server.sh"
 
-	echo "SqueezeCenter installed successfully."
+	echo " installed successfully."
 	exit 0
 else
-	echo "SqueezeCenter install failed."
+	echo " install failed."
 	exit 1
 fi

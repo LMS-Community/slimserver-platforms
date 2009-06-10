@@ -1,6 +1,6 @@
 //
 //  Installer.h
-//  SqueezeCenter
+//  
 //
 //  Created by Dave Nanian on Fri Jan 03 2003.
 //  Copyright 2003-2007 Logitech
