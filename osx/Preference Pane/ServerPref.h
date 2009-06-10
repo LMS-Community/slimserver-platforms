@@ -1,6 +1,6 @@
 //
 //  ServerPref.h
-//  SqueezeCenter
+//  Squeezebox Server
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
 //  Copyright 2002-2008 Logitech
