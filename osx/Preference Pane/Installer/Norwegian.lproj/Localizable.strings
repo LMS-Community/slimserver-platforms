@@ -2,7 +2,7 @@
 "Update" = "Oppdater";
 "Install Results" = "Installeringsresultat";
 "OK" = "OK";
-"SqueezeCenter installed successfully.\n" = "SqueezeCenter ble installert.";
-"SqueezeCenter install failed.\n" = "SqueezeCenter ble ikke installert.";
-"You must have OS X 10.3 or later to run SqueezeCenter.\n" = "Du må ha OS X 10.3 eller nyere for å kjøre SqueezeCenter.";
+" installed successfully.\n" = " ble installert.";
+" install failed.\n" = " ble ikke installert.";
+"You must have OS X 10.3 or later to run .\n" = "Du må ha OS X 10.3 eller nyere for å kjøre .";
 "Mac OS X 10.3 Required" = "Mac OS X 10.3 påkrevd";

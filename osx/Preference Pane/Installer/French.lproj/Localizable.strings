@@ -2,7 +2,7 @@
 "Update" = "Mettre à jour";
 "Install Results" = "Résultats de l'installation";
 "OK" = "OK";
-"SqueezeCenter installed successfully.\n" = "L'installation du SqueezeCenter est terminée.";
-"SqueezeCenter install failed.\n" = "L'installation de SqueezeCenter a échoué.";
-"You must have OS X 10.3 or later to run SqueezeCenter.\n" = "Vous devez disposer du système OS X 10.3 ou version ultérieure pour exécuter le SqueezeCenter.";
+" installed successfully.\n" = "L'installation du  est terminée.";
+" install failed.\n" = "L'installation de  a échoué.";
+"You must have OS X 10.3 or later to run .\n" = "Vous devez disposer du système OS X 10.3 ou version ultérieure pour exécuter le .";
 "Mac OS X 10.3 Required" = "Mac OS X 10.3 requis";
