@@ -34,6 +34,18 @@ sv.ProblemUninstallingSlimServer=Problem med att avinstallera SlimServer-program
 no.ProblemUninstallingSlimServer=Problem med avinstallering av SlimServer-programvare:
 da.ProblemUninstallingSlimServer=Problem ved afinstallation af SlimServer-softwaren:
 
+en.ProblemUninstallingSqueezeCenter=Problem uninstalling SqueezeCenter software:
+de.ProblemUninstallingSqueezeCenter=Problem bei Deinstallation der SqueezeCenter-Software:
+es.ProblemUninstallingSqueezeCenter=Problema al desinstalar el software SqueezeCenter:
+fr.ProblemUninstallingSqueezeCenter=Un problème est survenu en désinstallant le logiciel SqueezeCenter:
+he.ProblemUninstallingSqueezeCenter=áòéä áäñøú ääú÷ðä ùì úåëðú SqueezeCenter:
+it.ProblemUninstallingSqueezeCenter=Problema durante la disinstallazione del software SqueezeCenter:
+nl.ProblemUninstallingSqueezeCenter=Probleem tijdens verwijderen van SqueezeCenter-software:
+fi.ProblemUninstallingSqueezeCenter=Ongelma SqueezeCenter-ohjelmiston poistamisessa:
+sv.ProblemUninstallingSqueezeCenter=Problem med att avinstallera SqueezeCenter-programvaran:
+no.ProblemUninstallingSqueezeCenter=Problem med avinstallering av SqueezeCenter-programvare:
+da.ProblemUninstallingSqueezeCenter=Problem ved afinstallation af SqueezeCenter-softwaren:
+
 ; don't use localized file names as long as we don't have them
 en.License=License
 ;de.License=Lizenz
