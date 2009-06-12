@@ -250,7 +250,7 @@ sub _getUpdateInstaller {
 	while ( <UPDATEFLAG> ) {
 		chomp;
 		
-		if (/SqueezeCenter.*/) {
+		if (/(?:Squeezebox|SqueezeCenter).*/) {
 			$installer = $_;
 			last;
 		}

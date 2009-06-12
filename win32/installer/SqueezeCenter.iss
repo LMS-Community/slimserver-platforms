@@ -1,11 +1,11 @@
 ;
-; InnoSetup Script for SqueezeCenter
+; InnoSetup Script for Squeezebox Server
 ;
 ; Slim Devices/Logitech : http://www.slimdevices.com
 ;
 ; Script by Chris Eastwood, January 2003 - http://www.vbcodelibrary.co.uk
 
-#define AppName "SqueezeCenter"
+#define AppName "Squeezebox Server"
 #define AppVersion "7.4"
 #define ProductURL "http://www.slimdevices.com"
 #define SSRegKey = "Software\SlimDevices\SlimServer"
@@ -91,7 +91,7 @@ Name: {userdesktop}\{#AppName}; Filename: {app}\SqueezeTray.exe; Parameters: "--
 
 [Registry]
 ;
-; The following keys open required SqueezeCenter ports in the XP Firewall
+; The following keys open required Squeezebox Server ports in the XP Firewall
 ;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "{code:GetHttpPort}:TCP"; ValueData: "{code:GetHttpPort}:TCP:*:Enabled:{#AppName} {code:GetHttpPort} tcp (UI)"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9001:TCP"; ValueData: "9001:TCP:*:Enabled:{#AppName} 9001 tcp (UI)"; MinVersion: 0,5.01;
