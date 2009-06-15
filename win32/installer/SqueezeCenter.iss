@@ -393,6 +393,7 @@ var
 	Uninstaller: String;
 	UninstallPath: String;
 	FindRec: TFindRec;
+	StartAtBoot: String;
 
 begin
 	// if we don't have a Squeezebox Server prefs file yet, migrate preference file before uninstalling SlimServer
@@ -462,6 +463,10 @@ begin
 		end;
 		
 	end;
+
+	if (StartupMode = '') and (RegQueryStringValue(HKCU, '{#SCRegKey}', 'StartAtBoot', StartAtBoot)) then
+		if (StartAtBoot = '1') then
+			StartupMode := 'logon';
 
 	RegDeleteKeyIncludingSubkeys(HKLM, '{#SCRegKey}');
 end;
@@ -570,7 +575,7 @@ begin
 
 	else
 		begin
-			if RegQueryStringValue(HKCU, '{#SCRegKey}', 'StartAtBoot', StartAtBoot) then
+			if RegQueryStringValue(HKCU, '{#SBRegKey}', 'StartAtBoot', StartAtBoot) then
 				if (StartAtBoot = '1') then
 					StartupMode := 'logon';
 		end;
@@ -593,7 +598,9 @@ begin
 		begin
 			CustomExitCode := 0;
 
-			if (RegQueryStringValue(HKLM, '{#SCRegKey}', 'Path', PrefsPath) or RegQueryStringValue(HKLM, '{#SSRegKey}', 'Path', PrefsPath)) then
+			if ( RegQueryStringValue(HKLM, '{#SBRegKey}', 'Path', PrefsPath)
+					or RegQueryStringValue(HKLM, '{#SCRegKey}', 'Path', PrefsPath)
+					or RegQueryStringValue(HKLM, '{#SSRegKey}', 'Path', PrefsPath) ) then
 				begin
 					// add custom progress bar to be displayed while unregistering services
 					ProgressPage := CreateOutputProgressPage(CustomMessage('UnregisterServices'), CustomMessage('UnregisterServicesDesc'));
