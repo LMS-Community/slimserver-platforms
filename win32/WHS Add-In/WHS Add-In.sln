@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C# Express 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqueezeCenter", "SqueezeCenter\SqueezeCenter.csproj", "{8BD3A474-2A5A-4ECF-92E6-898AF99DE95D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Squeezebox", "SqueezeCenter\Squeezebox.csproj", "{8BD3A474-2A5A-4ECF-92E6-898AF99DE95D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -150,6 +150,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.settings.Size = new System.Drawing.Size(376, 378);
             this.settings.TabIndex = 0;
             this.settings.Text = "Basic Settings";
+            this.settings.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -379,10 +380,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.linkNeedSNAccount.BackColor = System.Drawing.Color.White;
             this.linkNeedSNAccount.Location = new System.Drawing.Point(25, 87);
             this.linkNeedSNAccount.Name = "linkNeedSNAccount";
-            this.linkNeedSNAccount.Size = new System.Drawing.Size(218, 13);
+            this.linkNeedSNAccount.Size = new System.Drawing.Size(195, 13);
             this.linkNeedSNAccount.TabIndex = 51;
             this.linkNeedSNAccount.TabStop = true;
-            this.linkNeedSNAccount.Text = "I need to create a SqueezeNetwork account";
+            this.linkNeedSNAccount.Text = "I need to create a Squeezebox account";
             this.linkNeedSNAccount.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkNeedSNAccount_LinkClicked);
             // 
             // snUsername
@@ -442,6 +443,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.music.Size = new System.Drawing.Size(376, 378);
             this.music.TabIndex = 1;
             this.music.Text = "Music Library";
+            this.music.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -484,9 +486,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.cbStartAtBoot.BackColor = System.Drawing.Color.White;
             this.cbStartAtBoot.Location = new System.Drawing.Point(28, 32);
             this.cbStartAtBoot.Name = "cbStartAtBoot";
-            this.cbStartAtBoot.Size = new System.Drawing.Size(217, 17);
+            this.cbStartAtBoot.Size = new System.Drawing.Size(237, 17);
             this.cbStartAtBoot.TabIndex = 44;
-            this.cbStartAtBoot.Text = "Start SqueezeCenter when system boots";
+            this.cbStartAtBoot.Text = "Start Squeezebox Server when system boots";
             this.cbStartAtBoot.UseVisualStyleBackColor = false;
             // 
             // btnStartStopService
@@ -507,9 +509,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.btnStartStopService.MaximumSize = new System.Drawing.Size(360, 21);
             this.btnStartStopService.MinimumSize = new System.Drawing.Size(72, 21);
             this.btnStartStopService.Name = "btnStartStopService";
-            this.btnStartStopService.Size = new System.Drawing.Size(118, 21);
+            this.btnStartStopService.Size = new System.Drawing.Size(138, 21);
             this.btnStartStopService.TabIndex = 45;
-            this.btnStartStopService.Text = "Start SqueezeCenter";
+            this.btnStartStopService.Text = "Start Squeezebox Server";
             this.btnStartStopService.UseVisualStyleBackColor = true;
             // 
             // line1
@@ -640,6 +642,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.advanced.Size = new System.Drawing.Size(376, 378);
             this.advanced.TabIndex = 2;
             this.advanced.Text = "Advanced";
+            this.advanced.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
@@ -885,7 +888,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.SqueezeNetwork.Padding = new System.Windows.Forms.Padding(3);
             this.SqueezeNetwork.Size = new System.Drawing.Size(376, 378);
             this.SqueezeNetwork.TabIndex = 4;
-            this.SqueezeNetwork.Text = "SqueezeNetwork";
+            this.SqueezeNetwork.Text = "Account";
+            this.SqueezeNetwork.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
@@ -909,7 +913,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.snStatsOptions.Enabled = false;
             this.snStatsOptions.FormattingEnabled = true;
             this.snStatsOptions.Items.AddRange(new object[] {
-            "Yes, help improve SqueezeNetwork by reporting statistics.",
+            "Yes, help improve mysqueezebox.com by reporting statistics.",
             "No, do not report statistics."});
             this.snStatsOptions.Location = new System.Drawing.Point(28, 177);
             this.snStatsOptions.Name = "snStatsOptions";
@@ -948,8 +952,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(332, 30);
             this.label6.TabIndex = 46;
-            this.label6.Text = "Help improve SqueezeNetwork by reporting statistics on internet radio and music s" +
-                "ervice listening.";
+            this.label6.Text = "Help improve mysqueezebox.com by reporting statistics on internet radio and music" +
+                " service listening.";
             // 
             // label5
             // 
@@ -957,8 +961,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(323, 43);
             this.label5.TabIndex = 45;
-            this.label5.Text = "By default, many player settings are synchronized between SqueezeCenter and Squee" +
-                "zeNetwork. To disable this feature, select the Disabled option below.";
+            this.label5.Text = "By default, many player settings are synchronized between Squeezebox Server and m" +
+                "ysqueezebox.com. To disable this feature, select the Disabled option below.";
             // 
             // propertyPageSectionLabel8
             // 
@@ -968,9 +972,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.propertyPageSectionLabel8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.propertyPageSectionLabel8.Location = new System.Drawing.Point(3, 7);
             this.propertyPageSectionLabel8.Name = "propertyPageSectionLabel8";
-            this.propertyPageSectionLabel8.Size = new System.Drawing.Size(170, 13);
+            this.propertyPageSectionLabel8.Size = new System.Drawing.Size(188, 13);
             this.propertyPageSectionLabel8.TabIndex = 28;
-            this.propertyPageSectionLabel8.Text = "SqueezeNetwork Integration";
+            this.propertyPageSectionLabel8.Text = "mysqueezebox.com Integration";
             this.propertyPageSectionLabel8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // line8
@@ -992,6 +996,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.information.Size = new System.Drawing.Size(376, 378);
             this.information.TabIndex = 3;
             this.information.Text = "Information";
+            this.information.UseVisualStyleBackColor = true;
             // 
             // informationBrowser
             // 
