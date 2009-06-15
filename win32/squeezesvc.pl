@@ -2,7 +2,7 @@ use FindBin qw($Bin);
 use Win32;
 use Win32::Service;
 
-my $cmd = Win32::GetShortPathName( "$Bin/squeezecenter.exe" );
+my $cmd = Win32::GetShortPathName( "$Bin/SqueezeSvr.exe" );
 
 # only allow install and remove parameters
 if ($ARGV[0] =~ /\binstall\b/i) {

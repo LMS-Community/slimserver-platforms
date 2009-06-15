@@ -1,12 +1,12 @@
 [Setup]
-AppName=SqueezeCenter Troubleshooting Wizard
-AppVerName=SqueezeCenter
+AppName=Squeezebox Server Troubleshooting Wizard
+AppVerName=Squeezebox Server
 OutputBaseFilename=Troubleshooter
 WizardImageFile=squeezebox.bmp
 WizardImageBackColor=$ffffff
 WizardSmallImageFile=logitech.bmp
 Compression=lzma
-DefaultDirName={pf}\SqueezeCenter
+DefaultDirName={pf}\Squeezebox
 SolidCompression=yes
 DisableDirPage=yes
 DisableFinishedPage=yes
@@ -33,7 +33,7 @@ Name: sv; MessagesFile: "Swedish.isl"
 
 [Messages]
 WelcomeLabel1=Welcome to the [name]
-WelcomeLabel2=This will help analyzing common SqueezeCenter problems on your computer.%n%nIt is recommended that you close all other applications before continuing.
+WelcomeLabel2=This will help analyzing common Squeezebox Server problems on your computer.%n%nIt is recommended that you close all other applications before continuing.
 
 [CustomMessages]
 #include "strings.iss"
@@ -201,7 +201,7 @@ begin
   ProgressPage.setText('Let''s see whether there are some well known processes which might be firewall products or other applications known to be in our way', '');
 
   Summary.Lines.add('');
-  Summary.Lines.add('List of processes known to potentially cause issues with SqueezeCenters');
+  Summary.Lines.add('List of processes known to potentially cause issues with Squeezebox Servers');
 
   // Load the firewall data
   XMLDoc := CreateOleObject('MSXML2.DOMDocument');
@@ -272,7 +272,7 @@ begin
       ProgressPage.setProgress(0, 7);
 			ProgressPage.Show;
 
-    	ProgressPage.setText('Checking availability of port 9000 (SqueezeCenter web interface)', '');
+    	ProgressPage.setText('Checking availability of port 9000 (Squeezebox Server web interface)', '');
     	PortConflict := CheckPort9000();
     	if PortConflict > 100 then
     	begin

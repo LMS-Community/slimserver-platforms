@@ -2,7 +2,7 @@
 <?define UpgradeCode = "1DB91230-EBBC-11DD-BA2F-0800200C9A66" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product
-		Name="SqueezeCenter 7.4-!!revision!! for Windows Home Server"
+		Name="Squeezebox Server 7.4-!!revision!! for Windows Home Server"
 		Id="*"
 		UpgradeCode="$(var.UpgradeCode)"
 		Manufacturer="Logitech"
@@ -15,16 +15,16 @@
 			Languages="1033"
 			Compressed="yes" />
 
-		<Media Id="1" Cabinet="SqueezeCenter.cab" EmbedCab="yes" />
+		<Media Id="1" Cabinet="SqueezeboxServer.cab" EmbedCab="yes" />
 
 		<Property Id="WHSLogo">1</Property>
 
 		<Condition Message="[ProductName] requires Windows Home Server. For more information, please refer to the User Guide.">VersionNT = 502</Condition>
-		<Condition Message="Another version of SqueezeCenter is already installed. Please uninstall before updating.">NOT OTHERVERSIONDETECTED</Condition>
+		<Condition Message="Another version of Squeezebox Server is already installed. Please uninstall before updating.">NOT OTHERVERSIONDETECTED</Condition>
 
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="APPPATH" Name=".">
-				<Component Id="SqueezeCenter" Guid="{1DB91230-EBBC-11DD-BA2F-0800200C9A66}">
+				<Component Id="SqueezeboxServer" Guid="{1DB91230-EBBC-11DD-BA2F-0800200C9A66}">
 					<ServiceControl Id="SqueezeSvc" Name="squeezesvc" Start="install" />
 
 					<RemoveRegistryKey Action="removeOnUninstall"
@@ -68,7 +68,7 @@
 			<RegistrySearch
 				Id="Path" 
 				Root="HKLM"
-				Key="SOFTWARE\Logitech\SqueezeCenter"
+				Key="SOFTWARE\Logitech\Squeezebox"
 				Name="Path"
 				Type="raw"
 			/>
@@ -78,7 +78,7 @@
 			<RegistrySearch
 				Id="QuietUninstallString" 
 				Root="HKLM"
-				Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\SqueezeCenter_is1"
+				Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Squeezebox_is1"
 				Name="QuietUninstallString"
 				Type="raw"
 			/>
@@ -86,8 +86,8 @@
 
 		<Binary Id="SCInstallerFile" SourceFile="SqueezeSetup.exe" />
 		
-		<Feature Id="SCInstaller" Title="SqueezeCenter Installer" Level="1" AllowAdvertise="no" Display="hidden">
-			<ComponentRef Id="SqueezeCenter" />
+		<Feature Id="SCInstaller" Title="Squeezebox Server Installer" Level="1" AllowAdvertise="no" Display="hidden">
+			<ComponentRef Id="SqueezeboxServer" />
 		</Feature>
 		
 		<Feature Id="ProductFeature" Title="SqueezePanel" Level="1" AllowAdvertise="no">

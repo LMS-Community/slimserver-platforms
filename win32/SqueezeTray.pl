@@ -336,7 +336,7 @@ sub stopComponents {
 		my %processes = $p->GetProcesses();
 		foreach my $pid (%processes) {
 
-			next unless $processes{$pid} =~ /^(?:squeezeboxcp|scanner|squeezesvc|squeezecenter|squeez~\d).exe$/i;
+			next unless $processes{$pid} =~ /^(?:squeezesvr|squeezeboxcp|scanner|squeezesvc|squeezecenter|squeez~\d).exe$/i;
 
 			my $error;
 			Win32::Process::KillProcess($pid, $error);

@@ -1,12 +1,12 @@
 [Setup]
-AppName=SqueezeCenter Service Enabler
-AppVerName=SqueezeCenter
+AppName=Squeezebox Server Service Enabler
+AppVerName=Squeezebox Server
 OutputBaseFilename=ServiceEnabler
 WizardImageFile=squeezebox.bmp
 WizardImageBackColor=$ffffff
 WizardSmallImageFile=logitech.bmp
 Compression=lzma
-DefaultDirName={pf}\SqueezeCenter
+DefaultDirName={pf}\Squeezebox
 SolidCompression=yes
 DisableDirPage=yes
 DisableFinishedPage=yes
@@ -59,8 +59,8 @@ function GetInstallFolder(Param: String) : String;
 var
 	InstallFolder: String;
 begin
-	if (not RegQueryStringValue(HKLM, 'Software\Logitech\SqueezeCenter', 'Path', InstallFolder)) then
-		InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'SqueezeCenter';
+	if (not RegQueryStringValue(HKLM, 'Software\Logitech\Squeezebox', 'Path', InstallFolder)) then
+		InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'Squeezebox';
 
 	Result := InstallFolder;
 end;
@@ -125,7 +125,7 @@ begin
 						ServerDir := AddBackslash(AddBackslash(GetInstallFolder('')) + 'server');
 						Credentials := ' --username="' + EditUsername.text + '" --password="' + EditPassword1.text + '"';
 
-						Exec(ServerDir + 'squeezecenter.exe', '-install auto' + Credentials, ServerDir, SW_HIDE, ewWaitUntilIdle, ErrorCode);
+						Exec(ServerDir + 'SqueezeSvr.exe', '-install auto' + Credentials, ServerDir, SW_HIDE, ewWaitUntilIdle, ErrorCode);
 						StartService('squeezesvc');
 						ProgressPage.setProgress(ProgressPage.ProgressBar.Max, ProgressPage.ProgressBar.Max);
 					end	 
