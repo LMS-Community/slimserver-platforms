@@ -348,7 +348,7 @@ begin
 			if (not DirExists(PrefsPath)) then
 				ForceDirectories(PrefsPath);
 
-			PrefsFile := AddBackslash(PrefsPath) + '..\server.prefs';
+			PrefsFile := AddBackslash(PrefsPath) + '..\slimserver.pref';
 
 			if ((RegQueryStringValue(HKLM, '{#SSRegKey}', 'Path', OldPrefsPath) and DirExists(AddBackslash(OldPrefsPath) + 'server'))) then
 				OldPrefsPath := AddBackslash(OldPrefsPath) + 'server'
@@ -451,15 +451,15 @@ begin
 	if (RegQueryStringValue(HKLM, '{#SCRegKey}', 'DataPath', OldPrefsPath)) then begin
 		OldPrefsPath := AddBackslash(OldPrefsPath);
 		
-		if (DirExists(AddBackslash(OldPrefsPath) + 'Cache')) {
-			Deltree(ExpandConstant(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'Artwork', True, True, True);
-			Deltree(ExpandConstant(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'DownloadedPlugins', True, True, True);
-			Deltree(ExpandConstant(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'FileCache', True, True, True);
-			Deltree(ExpandConstant(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'icons', True, True, True);
-			Deltree(ExpandConstant(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'InstalledPlugins', True, True, True);
-			Deltree(ExpandConstant(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'MySQL', True, True, True);
-			Deltree(ExpandConstant(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'templates', True, True, True);
-		}
+		if (DirExists(AddBackslash(OldPrefsPath) + 'Cache')) then begin
+			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'Artwork', True, True, True);
+			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'DownloadedPlugins', True, True, True);
+			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'FileCache', True, True, True);
+			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'icons', True, True, True);
+			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'InstalledPlugins', True, True, True);
+			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'MySQL', True, True, True);
+			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'templates', True, True, True);
+		end;
 		
 	end;
 
