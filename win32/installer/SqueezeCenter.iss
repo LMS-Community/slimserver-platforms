@@ -434,7 +434,7 @@ begin
 				if (FindFirst(OldPrefsPath + '*.*', FindRec)) then begin
 					try
 						repeat
-							FileCopy(OldPrefsPath + FindRec.Name, PluginsPath + FindRec.Name, false);
+							FileCopy(OldPrefsPath + FindRec.Name, PrefsPath + FindRec.Name, false);
 						until not FindNext(FindRec);
 					finally
 						FindClose(FindRec);
