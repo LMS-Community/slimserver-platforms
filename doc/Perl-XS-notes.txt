@@ -6,7 +6,7 @@ GD
 Mac (these instructions are only for building on Intel Macs)
 ------------------------------------------------------------
 Set environment for building universal binaries:
-$ export CFLAGS="-arch i386 -arch ppc"
+$ export CFLAGS="-arch i386 -arch ppc -isysroot /Developer/SDKs/MacOSX10.4u.sdk -mmacosx-version-min=10.3"
 $ export LDFLAGS="-arch i386 -arch ppc"
 
 Manually build Universal Binary versions of:
