@@ -81,11 +81,11 @@ fi
 
 !!
 
-chmod +x /Library/StartupItems/Squeezebox\ Server/Squeezebox\ Server
+chmod +x /Library/StartupItems/Squeezebox/Squeezebox
 
-mkdir -p -m go-w /Library/StartupItems/Squeezebox\ Server/Resources/French.lproj
+mkdir -p -m go-w /Library/StartupItems/Squeezebox/Resources/French.lproj
 
-cat >/Library/StartupItems/Squeezebox\ Server/Resources/French.lproj/Localizable.strings << '!!'
+cat >/Library/StartupItems/Squeezebox/Resources/French.lproj/Localizable.strings << '!!'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -99,9 +99,9 @@ cat >/Library/StartupItems/Squeezebox\ Server/Resources/French.lproj/Localizable
 !!
 
 
-mkdir -p -m go-w /Library/StartupItems/Squeezebox\ Server/Resources/German.lproj
+mkdir -p -m go-w /Library/StartupItems/Squeezebox/Resources/German.lproj
 
-cat >/Library/StartupItems/Squeezebox\ Server/Resources/English.lproj/Localizable.strings << '!!'
+cat >/Library/StartupItems/Squeezebox/Resources/English.lproj/Localizable.strings << '!!'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -114,9 +114,9 @@ cat >/Library/StartupItems/Squeezebox\ Server/Resources/English.lproj/Localizabl
 </plist>
 !!
 
-mkdir -p -m go-w /Library/StartupItems/Squeezebox\ Server/Resources/English.lproj
+mkdir -p -m go-w /Library/StartupItems/Squeezebox/Resources/English.lproj
 
-cat >/Library/StartupItems/Squeezebox\ Server/Resources/English.lproj/Localizable.strings << '!!'
+cat >/Library/StartupItems/Squeezebox/Resources/English.lproj/Localizable.strings << '!!'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
