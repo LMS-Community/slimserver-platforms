@@ -51,7 +51,7 @@ fi
 # delete some of the bulkier cache files/folders
 for MAIN in "$HOME/" "/"; do
 	
-	for NAME in Artwork FileCache icons MySQL DownloadedPlugins InstalledPlugins; do
+	for NAME in Artwork FileCache icons MySQL DownloadedPlugins InstalledPlugins iTunesArtwork templates; do
 		if [ -e $MAIN/Library/Caches/SqueezeCenter/$NAME ] ; then
 			rm -r $MAIN/Library/Caches/SqueezeCenter/$NAME
 		fi
@@ -59,6 +59,7 @@ for MAIN in "$HOME/" "/"; do
 
 	if [ -e $MAIN/Library/Caches/SqueezeCenter/updates/ ] ; then
 		rm $MAIN/Library/Caches/SqueezeCenter/updates/*.bin
+		rm $MAIN/Library/Caches/SqueezeCenter/updates/*.version
 	fi
 
 done
