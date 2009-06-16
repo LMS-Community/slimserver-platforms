@@ -39,7 +39,7 @@
 
 	while (currDirectory = [pathEnum nextObject])
 	{
-		if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath:[currDirectory stringByAppendingPathComponent:@"PreferencePanes/SqueezeCenter.prefPane"]])
+		if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath:[currDirectory stringByAppendingPathComponent:@"PreferencePanes/Squeezebox Server.prefPane"]])
 		{
 			if ([currDirectory isEqual:@"/Library"])
 				foundGlobal = true;
@@ -145,7 +145,7 @@
 
 	NSString *folderToInstall = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"../Install Files"];
 	NSString *installerScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"install.sh"];
-	NSString *fileInstalled = [[NSString stringWithString:@"/Library/PreferencePanes/SqueezeCenter.prefPane"] retain];
+	NSString *fileInstalled = [[NSString stringWithString:@"/Library/PreferencePanes/Squeezebox Server.prefPane"] retain];
 	NSMutableString *scriptOutput = [[NSMutableString alloc] init];
 
 	/*

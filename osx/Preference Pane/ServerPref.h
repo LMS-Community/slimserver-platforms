@@ -17,9 +17,9 @@
 #define statusUrl @"http://localhost:9000/EN/settings/server/status.html?simple=1&os=osx"
 #define updateCheckUrl @"http://update.squeezenetwork.com/update/?version=%@&geturl=1&os=osx"
 
-#define versionFile @"Caches/SqueezeCenter/updates/server.version"
-#define prefsFile @"Application Support/SqueezeCenter/server.prefs"
-#define logDir @"Logs/SqueezeCenter"
+#define versionFile @"Caches/Squeezebox Server/updates/server.version"
+#define prefsFile @"Application Support/Squeezebox Server/server.prefs"
+#define logDir @"Logs/Squeezebox"
 
 #define kNoAutomaticStartup 0
 #define kStartupAtLogin 1

@@ -12,8 +12,8 @@ my $timeout  = shift || 60;
 my $httpport;
 
 my @dirs = (
-	$ENV{HOME} . '/Library/Application Support/SqueezeCenter',
-	'/Library/Application Support/SqueezeCenter',
+	$ENV{HOME} . '/Library/Application Support/Squeezebox\ Server',
+	'/Library/Application Support/Squeezebox\ Server',
 );
 
 DIRS:

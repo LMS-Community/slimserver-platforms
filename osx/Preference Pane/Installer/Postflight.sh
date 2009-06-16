@@ -4,10 +4,10 @@
 # don't try more than 15 seconds
 # open SC web UI in Safari, if SC is available
 
-if [ -e "$HOME/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/Resources" ] ; then
-	cd "$HOME/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/Resources"
+if [ -e "$HOME/Library/PreferencePanes/Squeezebox\ Server.prefPane/Contents/Resources" ] ; then
+	cd "$HOME/Library/PreferencePanes/Squeezebox\ Server.prefPane/Contents/Resources"
 else
-	cd "/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/Resources"
+	cd "/Library/PreferencePanes/Squeezebox\ Server.prefPane/Contents/Resources"
 fi
 
 PORT=`./check-web.pl`

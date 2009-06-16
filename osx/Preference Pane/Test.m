@@ -22,7 +22,7 @@ int main(int argc, const char *argv[])
     Class prefPaneClass;
     NSPreferencePane *prefPaneObject;
     NSView *prefView;
-    pathToPrefPaneBundle = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"SqueezeCenter.prefpane"];
+    pathToPrefPaneBundle = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Squeezebox Server.prefpane"];
     prefBundle = [NSBundle bundleWithPath: pathToPrefPaneBundle];
     prefPaneClass = [prefBundle principalClass];
     prefPaneObject = [[prefPaneClass alloc] initWithBundle: prefBundle];
@@ -42,7 +42,7 @@ int main(int argc, const char *argv[])
     else
     {
 	/* Nothing much to do here */
-	NSLog(@"Error loading SqueezeCenter.prefpane.");
+	NSLog(@"Error loading Squeezebox Server.prefpane.");
     }
 }
 @end

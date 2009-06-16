@@ -9,9 +9,12 @@
 #  This script is designed to be run authenticated.
 #
 
-mkdir -p -m go-w /Library/StartupItems/SqueezeCenter
+# remove legacy startup item
+rm -r /Library/StartupItems/SqueezeCenter
 
-cat >/Library/StartupItems/SqueezeCenter/StartupParameters.plist << '!!'
+mkdir -p -m go-w /Library/StartupItems/Squeezebox
+
+cat >/Library/StartupItems/Squeezebox/StartupParameters.plist << '!!'
 {
     Description		= "";
     Provides		= ("");
@@ -26,7 +29,7 @@ cat >/Library/StartupItems/SqueezeCenter/StartupParameters.plist << '!!'
 }
 !!
 
-cat >/Library/StartupItems/SqueezeCenter/SqueezeCenter << !!
+cat >/Library/StartupItems/Squeezebox/Squeezebox << !!
 #!/bin/sh
 . /etc/rc.common
 
@@ -40,10 +43,10 @@ export home
 StartService() {
 ConsoleMessage "Starting "
 if [ z"\$SERVER_RUNNING" = z ] ; then
-	if [ -e "$HOME/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server" ] ; then
-		pushd "$HOME/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server"
+	if [ -e "$HOME/Library/PreferencePanes/Squeezebox\ Server.prefPane/Contents/server" ] ; then
+		pushd "$HOME/Library/PreferencePanes/Squeezebox\ Server.prefPane/Contents/server"
 	else
-		pushd "/Library/PreferencePanes/SqueezeCenter.prefPane/Contents/server"
+		pushd "/Library/PreferencePanes/Squeezebox\ Server.prefPane/Contents/server"
 	fi
 	sudo -H -u \$SLIMUSER "SqueezeCenter.app/Contents/Resources/start-server.sh"
 	popd
@@ -78,11 +81,11 @@ fi
 
 !!
 
-chmod +x /Library/StartupItems/SqueezeCenter/SqueezeCenter
+chmod +x /Library/StartupItems/Squeezebox\ Server/Squeezebox\ Server
 
-mkdir -p -m go-w /Library/StartupItems/SqueezeCenter/Resources/French.lproj
+mkdir -p -m go-w /Library/StartupItems/Squeezebox\ Server/Resources/French.lproj
 
-cat >/Library/StartupItems/SqueezeCenter/Resources/French.lproj/Localizable.strings << '!!'
+cat >/Library/StartupItems/Squeezebox\ Server/Resources/French.lproj/Localizable.strings << '!!'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -96,9 +99,9 @@ cat >/Library/StartupItems/SqueezeCenter/Resources/French.lproj/Localizable.stri
 !!
 
 
-mkdir -p -m go-w /Library/StartupItems/SqueezeCenter/Resources/German.lproj
+mkdir -p -m go-w /Library/StartupItems/Squeezebox\ Server/Resources/German.lproj
 
-cat >/Library/StartupItems/SqueezeCenter/Resources/English.lproj/Localizable.strings << '!!'
+cat >/Library/StartupItems/Squeezebox\ Server/Resources/English.lproj/Localizable.strings << '!!'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -111,9 +114,9 @@ cat >/Library/StartupItems/SqueezeCenter/Resources/English.lproj/Localizable.str
 </plist>
 !!
 
-mkdir -p -m go-w /Library/StartupItems/SqueezeCenter/Resources/English.lproj
+mkdir -p -m go-w /Library/StartupItems/Squeezebox\ Server/Resources/English.lproj
 
-cat >/Library/StartupItems/SqueezeCenter/Resources/English.lproj/Localizable.strings << '!!'
+cat >/Library/StartupItems/Squeezebox\ Server/Resources/English.lproj/Localizable.strings << '!!'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
