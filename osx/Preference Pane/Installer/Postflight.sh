@@ -1,11 +1,9 @@
 #!/bin/sh
 
-/usr/bin/osascript <<EOF
-	tell application "System Preferences"
+if [ -e "$HOME/Library/PreferencePanes/Squeezebox Server.prefPane/Contents/server/Bin/darwin" ] ; then
+	cd "$HOME/Library/PreferencePanes/Squeezebox Server.prefPane/Contents/server/Bin/darwin"
+else
+	cd "/Library/PreferencePanes/Squeezebox Server.prefPane/Contents/server/Bin/darwin"
+fi
 
-		set current pane to pane id "com.slimdevices.slim"
-
-		activate
-
-	end tell
-EOF
+osascript openprefs.scpt &
