@@ -102,6 +102,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.informationBrowser = new System.Windows.Forms.WebBrowser();
             this.ScanPollTimer = new System.Windows.Forms.Timer(this.components);
             this.musicFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.jsonClient = new Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter.JsonRpcClient();
             this.prefsTabControl.SuspendLayout();
             this.settings.SuspendLayout();
@@ -990,6 +991,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.information.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.information.Controls.Add(this.informationBrowser);
+            this.information.Controls.Add(this.panel5);
             this.information.Location = new System.Drawing.Point(4, 22);
             this.information.Name = "information";
             this.information.Padding = new System.Windows.Forms.Padding(3);
@@ -1002,12 +1004,11 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.informationBrowser.AllowNavigation = false;
             this.informationBrowser.AllowWebBrowserDrop = false;
-            this.informationBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.informationBrowser.Location = new System.Drawing.Point(3, 3);
+            this.informationBrowser.Location = new System.Drawing.Point(7, 7);
             this.informationBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.informationBrowser.Name = "informationBrowser";
             this.informationBrowser.ScriptErrorsSuppressed = true;
-            this.informationBrowser.Size = new System.Drawing.Size(370, 372);
+            this.informationBrowser.Size = new System.Drawing.Size(362, 363);
             this.informationBrowser.TabIndex = 0;
             // 
             // ScanPollTimer
@@ -1019,6 +1020,14 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // musicFolderBrowser
             // 
             this.musicFolderBrowser.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            // 
+            // panel5
+            // 
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Location = new System.Drawing.Point(6, 6);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(364, 366);
+            this.panel5.TabIndex = 1;
             // 
             // jsonClient
             // 
@@ -1127,6 +1136,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private Microsoft.HomeServer.Controls.QButton btnStartStopService;
         private Microsoft.HomeServer.Controls.Line line1;
         private System.Windows.Forms.Label labelSCStatus;
+        private System.Windows.Forms.Panel panel5;
 
     }
 }

@@ -53,7 +53,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         {
             get
             {
-                return "SqueezeCenter";
+                return "Squeezebox Server";
             }
         }
 

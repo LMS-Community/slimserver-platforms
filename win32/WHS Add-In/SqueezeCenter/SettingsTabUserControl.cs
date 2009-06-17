@@ -63,8 +63,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             snStatsOptions.SelectedIndex = Convert.ToInt16(pref == "" ? "0" : pref);
             
             PollSCTimer_Tick(new Object(), new EventArgs());
-            if (getPref("wizardDone") != "1")
-                prefsTabControl.SelectTab("SqueezeNetwork");
 
             jsonRequest(new string[] { "pref", "wizardDone", "1" });
         }
@@ -95,24 +93,24 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         {
             if (this.scStatus == 1)
             {
-                btnStartStopService.Text = "Stop SqueezeCenter";
-                labelSCStatus.Text = "The SqueezeCenter service is running";
+                btnStartStopService.Text = "Stop Squeezebox Server";
+                labelSCStatus.Text = "Squeezebox Server is running";
             }
             else
             {
                 if (this.scStatus == -1)
-                    labelSCStatus.Text = "The SqueezeCenter service is not available";
+                    labelSCStatus.Text = "Squeezebox Server is not available";
 
                 else if (this.scStatus == -2)
-                    labelSCStatus.Text = "SqueezeCenter is stopping...";
+                    labelSCStatus.Text = "Squeezebox Server is stopping...";
                 
                 else if (this.scStatus == -3)
-                    labelSCStatus.Text = "SqueezeCenter is starting...";
+                    labelSCStatus.Text = "Squeezebox Server is starting...";
                 
                 else
-                    labelSCStatus.Text = "The SqueezeCenter service is stopped";
+                    labelSCStatus.Text = "Squeezebox Server is stopped";
                 
-                btnStartStopService.Text = "Start SqueezeCenter";
+                btnStartStopService.Text = "Start Squeezebox Server";
             }
 
             btnStartStopService.Enabled = this.scStatus >= 0;
@@ -155,7 +153,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                 if (this.scStatus == 1)
                 {
                     string url = getSCUrl();
-                    informationBrowser.Url = new Uri(url + @"/EN/settings/server/status.html?simple=1");
+                    informationBrowser.Url = new Uri(url + @"/EN/settings/server/status.html?simple=1&os=whs");
                     jsonClient.Url = url + "/jsonrpc.js";
                 }
 
@@ -263,7 +261,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                     svcMgr.InvokeMethod("ChangeStartMode", p);
                 }
                 catch {
-                    MessageBox.Show("Changing startup mode failed.", "SqueezeCenter", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Changing startup mode failed.", "Squeezebox Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -281,7 +279,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                 if (result != null && result["validated"].ToString() != "" && result["warning"].ToString() != "")
                 {
                     if (result["validated"].ToString() == "0")
-                        MessageBox.Show(result["warning"].ToString(), "SqueezeNetwork", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show(result["warning"].ToString(), "mysqueezebox.com", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
 
@@ -334,7 +332,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                 if (this.scStatus == 1)
                     informationBrowser.Refresh();
                 else
-                    informationBrowser.DocumentText = @"No status information available. Please note that SqueezeCenter has to be up and running in order to display its status information.";
+                    informationBrowser.DocumentText = @"No status information available. Please note that Squeezebox Server has to be up and running in order to display its status information.";
             }
         }
 
@@ -349,7 +347,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             {
                 try
                 {
-                    WebRequest request = WebRequest.Create("http://update.squeezenetwork.com/update/?version=" + this.version + "&os=whs&lang=" + getPref("language"));
+                    WebRequest request = WebRequest.Create("http://update.mysqueezebox.com/update/?version=" + this.version + "&os=whs&lang=" + getPref("language"));
                     request.Proxy = WebRequest.DefaultWebProxy;
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -389,7 +387,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
             try
             {
-                TextReader versionFile = new StreamReader(getCachePath() + @"\updates\squeezecenter.version");
+                TextReader versionFile = new StreamReader(getCachePath() + @"\updates\server.version");
                 filePath = versionFile.ReadLine();
 
                 versionFile.Close();
@@ -635,12 +633,12 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
         private void linkNeedSNAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.consoleServices.OpenUrl(@"http://www.squeezenetwork.com/");
+            this.consoleServices.OpenUrl(@"http://www.mysqueezebox.com/");
         }
 
         private void linkForgotPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.consoleServices.OpenUrl(@"http://www.squeezenetwork.com/user/forgotPassword");
+            this.consoleServices.OpenUrl(@"http://www.mysqueezebox.com/user/forgotPassword");
         }
     }
 
