@@ -55,8 +55,12 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             snPassword.Text = getPref("sn_password_sha") != "" ? snPasswordPlaceholder : "";
             snSyncOptions.SelectedIndex = 1;
             snStatsOptions.SelectedIndex = 1;
-            snSyncOptions.SelectedIndex = Convert.ToInt16(getPref("sn_sync")) == 0 ? 1 : 0;
-            snStatsOptions.SelectedIndex = Convert.ToInt16(getPref("sn_disable_stats"));
+
+            String pref = getPref("sn_sync");
+            snSyncOptions.SelectedIndex = Convert.ToInt16(pref == "" ? "0" : pref) == 0 ? 1 : 0;
+
+            pref = getPref("sn_disable_stats");
+            snStatsOptions.SelectedIndex = Convert.ToInt16(pref == "" ? "0" : pref);
             
             PollSCTimer_Tick(new Object(), new EventArgs());
             if (getPref("wizardDone") != "1")
@@ -215,16 +219,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
             url = Dns.GetHostName();
 
- /*           try
-            {
-                IPAddress[] ip = Dns.GetHostAddresses("");
-                if (ip.Length > 0)
-                {
-                    url = ip[0].ToString();
-                }
-            }
-            catch { }
-            */
             return @"http://" + url + ":" + getPref("httpport");
         }
 
@@ -387,11 +381,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                 }
                 catch { }
             }
-        }
-
-        private void checkUpdateBtn_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private bool checkForUpdate()
@@ -593,11 +582,15 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
         private JsonObject jsonRequest(string[] query)
         {
-            if (this.scStatus != 1)
+            try
+            {
+                JsonObject result = (JsonObject)jsonClient.Invoke(new object[] { "", query });
+                return result;
+            }
+            catch
+            {
                 return new JsonObject();
-
-            JsonObject result = (JsonObject)jsonClient.Invoke(new object[] { "", query });
-            return result;
+            }
         }
 
         /* get localized strings from SC and cache them in a dictionary */
