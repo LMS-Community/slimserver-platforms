@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SqueezeCenter")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Logitech Europe S.A.")]
+[assembly: AssemblyCompany("Logitech")]
 [assembly: AssemblyProduct("SqueezeCenter")]
-[assembly: AssemblyCopyright("Copyright © Logitech Europe S.A. 2009")]
+[assembly: AssemblyCopyright("Copyright © Logitech 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

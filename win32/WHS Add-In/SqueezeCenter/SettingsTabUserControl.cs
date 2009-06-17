@@ -316,16 +316,20 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
             if (cleanupParams != @"")
             {
-                RegistryKey OurKey = Registry.LocalMachine;
-                OurKey = OurKey.OpenSubKey(@"SOFTWARE\Logitech\SqueezeCenter", true);
-                String path = OurKey.GetValue("Path").ToString() + @"\server\";
+                try
+                {
+                    RegistryKey OurKey = Registry.LocalMachine;
+                    OurKey = OurKey.OpenSubKey(@"SOFTWARE\Logitech\Squeezebox", true);
+                    String path = OurKey.GetValue("Path").ToString() + @"\server\";
 
-                Process p = new Process();
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.FileName = path + "squeezeboxcp.exe";
-                p.StartInfo.Arguments = cleanupParams;
-                p.StartInfo.WorkingDirectory = path;
-                p.Start();
+                    Process p = new Process();
+                    p.StartInfo.UseShellExecute = false;
+                    p.StartInfo.FileName = path + "squeezeboxcp.exe";
+                    p.StartInfo.Arguments = cleanupParams;
+                    p.StartInfo.WorkingDirectory = path;
+                    p.Start();
+                }
+                catch { }
             }
         }
 
@@ -526,9 +530,16 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         /* helper methods */
         private String getDataPath()
         {
-            RegistryKey OurKey = Registry.LocalMachine;
-            OurKey = OurKey.OpenSubKey(@"SOFTWARE\Logitech\SqueezeCenter", true);
-            return OurKey.GetValue("DataPath").ToString();
+            try
+            {
+                RegistryKey OurKey = Registry.LocalMachine;
+                OurKey = OurKey.OpenSubKey(@"SOFTWARE\Logitech\Squeezebox", true);
+                return OurKey.GetValue("DataPath").ToString();
+            }
+            catch
+            {
+                return "";
+            }
         }
 
         private string getLogPath()
