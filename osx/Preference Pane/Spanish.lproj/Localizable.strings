@@ -18,5 +18,5 @@
 "Abort" = "Abort";
 "Rescan" = "Rescan";
 "Invalid mysqueezebox.com username or password." = "Invalid mysqueezebox.com username or password.";
-"Status: The server is stopped" = "Status: The server is stopped";
-"Status: The server is running" = "Status: The server is running";
+"The server is stopped" = "The server is stopped";
+"The server is running" = "The server is running";

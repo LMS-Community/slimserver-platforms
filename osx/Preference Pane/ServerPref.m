@@ -64,6 +64,8 @@
 	
 	[musicFolder setStringValue:[self getPref:@"audiodir"]];
 	[playlistFolder setStringValue:[self getPref:@"playlistdir"]];
+	option = [[self getPref:@"itunes" fileName:@"itunes.prefs"] intValue];
+	[useiTunes setState:(option == 1 ? 1 : 0)];
 
 	// check whether an update installer is available
 	[NSTimer scheduledTimerWithTimeInterval: 60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
@@ -228,12 +230,12 @@
 					
 		if (currentServerState)
 		{
-			[serverStateLabel setStringValue:LocalizedPrefString(@"Status: The server is running", "Status: The server is running")];
+			[serverStateLabel setStringValue:LocalizedPrefString(@"The server is running", "The server is running")];
 			[toggleServerButton setTitle:LocalizedPrefString(@"Stop Server", "Stop Server")];
 		}
 		else
 		{
-			[serverStateLabel setStringValue:LocalizedPrefString(@"Status: The server is stopped", "Status: The server is stopped")];
+			[serverStateLabel setStringValue:LocalizedPrefString(@"The server is stopped", "The server is stopped")];
 			[toggleServerButton setTitle:LocalizedPrefString(@"Start Server", "Start Server")];
 			isScanning = NO;
 		}
@@ -253,6 +255,7 @@
 	[browseMusicFolder setEnabled:serverState];
 	[playlistFolder setEnabled:serverState];
 	[browsePlaylistFolder setEnabled:serverState];
+	[useiTunes setEnabled:serverState];
 
 	[scanModeOptions setEnabled:(serverState && !isScanning)];
 	[scanProgress setHidden:!isScanning];
@@ -272,20 +275,6 @@
 		[scanProgressDetail setStringValue:@""];
 		[scanProgressTime setStringValue:@"00:00:00"];
 	}
-	
-	if (hasUpdateInstaller) {
-		[updateButton setTitle:LocalizedPrefString(@"Install update", @"")];
-		[updateDescription setStringValue:LocalizedPrefString(@"An updated Squeezebox Server version is available and ready to be installed.", @"")];
-	}			
-	else if (updateURL != nil) {
-		[updateButton setTitle:LocalizedPrefString(@"Download update", @"")];
-		[updateDescription setStringValue:[NSString stringWithFormat:@"%@ (%@)", LocalizedPrefString(@"An updated Squeezebox Server version is available and ready to be installed.", @""), updateURL] ];
-	}
-	else {
-		[updateButton setTitle:LocalizedPrefString(@"Check for update", @"")];
-		[updateDescription setStringValue:LocalizedPrefString(@"There's no updated Squeezebox Server version available.", @"")];
-	}			
-	
 }
 	
 -(void)openWebInterface:(id)sender
@@ -469,38 +458,6 @@
 
 
 /* SC update related methods */
-
--(IBAction)updateBtnHandler:(id)sender
-{
-	NSString *installer = [self checkUpdateInstaller];
-	
-	if (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]) {
-		[self installUpdate];
-	}
-	
-	else if (updateURL != nil) {
-		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:updateURL]];
-	}
-	
-	else {
-		
-		NSString *version = [[[NSBundle bundleForClass:[self class]] localizedInfoDictionary] objectForKey:@"CFBundleShortVersionString"];
-		
-		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:updateCheckUrl, version]];
-		NSURLRequest *request=[NSURLRequest requestWithURL:url];
-	
-		NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-		NSString *data = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-
-		if ([data isEqual:@"0\n"] || ![data hasPrefix:@"http"]) {
-			NSRunAlertPanel(LocalizedPrefString(@"Check for update", @""), LocalizedPrefString(@"There's no updated Squeezebox Server version available.", @""), @"OK", nil, nil);
-		}
-		else {
-			updateURL = data;
-		}
-	}
-}
-
 -(NSString *)checkUpdateInstaller
 {
 	NSString *pathToUpdate = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:versionFile];
@@ -527,21 +484,16 @@
 -(void)installUpdateConfirmed:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
 	if (returnCode == NSAlertDefaultReturn) {
-		[self installUpdate];
-	}
-}
-
--(void)installUpdate
-{
-	NSString *installer = [self checkUpdateInstaller];
-	
-	if (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]) {
+		NSString *installer = [self checkUpdateInstaller];
 		
-		updateURL = nil;
-
-		NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"run-installer.sh"];
-		NSTask *updateTask = [NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:installer,nil]];
-		[updateTask waitUntilExit];
+		if (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]) {
+			
+			updateURL = nil;
+			
+			NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"run-installer.sh"];
+			NSTask *updateTask = [NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:installer,nil]];
+			[updateTask waitUntilExit];
+		}
 	}
 }
 
@@ -687,6 +639,11 @@
 -(IBAction)playlistFolderChanged:(id)sender
 {
 	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"playlistdir\", \"%@\"", [playlistFolder stringValue]]];
+}
+
+-(IBAction)useiTunesChanged:(id)sender
+{
+	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"plugin.itunes:itunes\", \"%@\"", ([useiTunes state] == NSOnState ? @"1" : @"0")]];
 }
 
 -(IBAction)libraryNameChanged:(id)sender
@@ -899,9 +856,16 @@
 }
 
 /* very simplistic method to read an atomic pref from the server.prefs file */
--(NSString *)getPref:(NSString *)pref
+-(NSString *)getPref:(NSString *)pref fileName:(NSString*)prefsFileName
 {
-	NSString *pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:prefsFile];
+	if ([prefsFileName isEqualToString:@""]) {
+		prefsFileName = prefsFile;
+	}
+	else {
+		prefsFileName = [pluginPrefs stringByAppendingString:prefsFileName];
+	}
+	
+	NSString *pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:prefsFileName];
 	
 	if ([pathToPrefs length] == 0)
 		pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES) fileName:prefsFile];
@@ -929,6 +893,11 @@
 	
 	return @"";
 }
+
+-(NSString *)getPref:(NSString *)pref
+{
+	return [self getPref:pref fileName:@""];
+}	
 
 -(NSString *)findFile:(NSArray *)paths fileName:(NSString*)fileName
 {

@@ -15,10 +15,10 @@
 
 #define snPasswordPlaceholder @"SN_PASSWORD_PLACEHOLDER"
 #define statusUrl @"http://localhost:9000/EN/settings/server/status.html?simple=1&os=osx"
-#define updateCheckUrl @"http://update.squeezenetwork.com/update/?version=%@&geturl=1&os=osx"
 
 #define versionFile @"Caches/Squeezebox Server/updates/server.version"
 #define prefsFile @"Application Support/Squeezebox Server/server.prefs"
+#define pluginPrefs @"Application Support/Squeezebox Server/plugin/"
 #define logDir @"Logs/Squeezebox"
 
 #define kNoAutomaticStartup 0
@@ -44,8 +44,6 @@
 	IBOutlet NSButton *webLaunchButton;
 	IBOutlet NSButton *advLaunchButton;
 	IBOutlet NSPopUpButton *startupType;
-	IBOutlet NSTextField *updateDescription;
-	IBOutlet NSButton *updateButton;
 	
 	IBOutlet NSTextField *snUsername;
 	IBOutlet NSSecureTextField *snPassword;
@@ -56,6 +54,7 @@
 	IBOutlet NSButton *browsePlaylistFolder;
 	IBOutlet NSTextField *musicFolder;
 	IBOutlet NSTextField *playlistFolder;
+	IBOutlet NSButton *useiTunes;
 	
 	IBOutlet NSPopUpButton *scanModeOptions;
 	IBOutlet NSButton *rescanButton;
@@ -94,6 +93,8 @@
 
 -(IBAction)doBrowseMusicFolder:(id)sender;
 -(IBAction)doBrowsePlaylistFolder:(id)sender;
+-(IBAction)useiTunesChanged:(id)sender;
+
 -(void)browseFolder:(NSTextField *)path;
 -(IBAction)musicFolderChanged:(id)sender;
 -(IBAction)playlistFolderChanged:(id)sender;
@@ -108,9 +109,7 @@
 -(IBAction)openWebInterface:(id)sender;
 -(IBAction)openSettingsWebInterface:(id)sender;
 -(IBAction)toggleServer:(id)sender;
--(IBAction)updateBtnHandler:(id)sender;
 -(NSString *)checkUpdateInstaller;
--(void)installUpdate;
 
 -(IBAction)changeStartupPreference:(id)sender;
 
@@ -125,6 +124,7 @@
 
 -(NSDictionary *)jsonRequest:(NSString *)query;
 -(NSString *)getSCString:(NSString *)stringToken;
+-(NSString *)getPref:(NSString *)pref fileName:(NSString *)prefsFileName;
 -(NSString *)getPref:(NSString *)pref;
 
 -(NSString *)findFile:(NSArray *)paths fileName:(NSString *)fileName;

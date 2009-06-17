@@ -32,7 +32,7 @@
                 snCredentialsChanged = id; 
                 snStatsOptionChanged = id; 
                 toggleServer = id; 
-                updateBtnHandler = id; 
+                useiTunesChanged = id; 
             }; 
             CLASS = "Slim_ServerPref"; 
             LANGUAGE = ObjC; 
@@ -63,8 +63,7 @@
                 startupType = NSPopUpButton; 
                 statusView = WebView; 
                 toggleServerButton = NSButton; 
-                updateButton = NSButton; 
-                updateDescription = NSTextField; 
+                useiTunes = NSButton; 
                 webLaunchButton = NSButton; 
             }; 
             SUPERCLASS = NSPreferencePane; 
