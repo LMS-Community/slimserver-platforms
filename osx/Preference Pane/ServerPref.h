@@ -41,6 +41,7 @@
 	IBOutlet NSButton *toggleServerButton;
 	IBOutlet NSTextField *serverStateLabel;
 	IBOutlet NSTextField *musicLibraryStats;
+	IBOutlet NSTextField *scVersion;
 
 	IBOutlet NSButton *webLaunchButton;
 	IBOutlet NSButton *advLaunchButton;
@@ -77,6 +78,7 @@
 }
 
 -(void)mainViewDidLoad;
+-(void)showRevision;
 
 -(bool)serverState;
 -(void)setServerState:(bool)newState;

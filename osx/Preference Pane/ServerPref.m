@@ -90,6 +90,8 @@
 	[self updateUI];
 	[self updateMusicLibraryStats];
 	
+	[self showRevision];
+	
 	[self jsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
 }
 
@@ -218,6 +220,21 @@
 		return NO;
 	}
 	return YES;
+}
+
+-(void)showRevision
+{
+	NSString *revisionTxt = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/revision.txt"];
+
+	if (revisionTxt != nil && [[NSFileManager defaultManager] fileExistsAtPath:revisionTxt]) {
+		
+		NSArray *lines = [[NSString stringWithContentsOfFile:revisionTxt] componentsSeparatedByString:@"\n"];
+
+		if ([lines count] > 0) {
+			NSLog(@"%@", [NSString stringWithFormat:@"%@ / r%@", [scVersion stringValue], [lines objectAtIndex:0]]);
+			[scVersion setStringValue:[NSString stringWithFormat:@"%@ / r%@", [scVersion stringValue], [lines objectAtIndex:0]]];
+}
+	}
 }
 
 -(void)updateUI

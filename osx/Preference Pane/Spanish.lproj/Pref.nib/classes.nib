@@ -49,6 +49,7 @@
                 playlistFolder = NSTextField; 
                 prefsTab = NSTabView; 
                 rescanButton = NSButton; 
+                scVersion = NSTextField; 
                 scanModeOptions = NSPopUpButton; 
                 scanProgress = NSProgressIndicator; 
                 scanProgressDesc = NSTextField; 
