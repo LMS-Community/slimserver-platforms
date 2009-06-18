@@ -45,6 +45,7 @@
                 doCleanup = NSButton; 
                 musicFolder = NSTextField; 
                 musicLibraryName = NSTextField; 
+                musicLibraryStats = NSTextField; 
                 playlistFolder = NSTextField; 
                 prefsTab = NSTabView; 
                 rescanButton = NSButton; 

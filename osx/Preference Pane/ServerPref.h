@@ -40,6 +40,7 @@
 
 	IBOutlet NSButton *toggleServerButton;
 	IBOutlet NSTextField *serverStateLabel;
+	IBOutlet NSTextField *musicLibraryStats;
 
 	IBOutlet NSButton *webLaunchButton;
 	IBOutlet NSButton *advLaunchButton;
@@ -83,6 +84,7 @@
 -(void)setWebState:(bool)newState;
 -(bool)changeAutoStartupFrom:(int)oldState to:(int)newState;
 -(IBAction)libraryNameChanged:(id)sender;
+-(void)updateMusicLibraryStats;
 
 -(IBAction)checkSNPassword:(id)sender;
 -(IBAction)snCredentialsChanged:(id)sender;

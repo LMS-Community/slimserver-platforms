@@ -88,6 +88,7 @@
 
 	[NSTimer scheduledTimerWithTimeInterval: 1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
 	[self updateUI];
+	[self updateMusicLibraryStats];
 	
 	[self jsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
 }
@@ -274,6 +275,57 @@
 		[scanProgressDesc setStringValue:@""];
 		[scanProgressDetail setStringValue:@""];
 		[scanProgressTime setStringValue:@"00:00:00"];
+	}
+}
+
+-(void)updateMusicLibraryStats
+{
+	[musicLibraryStats setStringValue:@""];
+
+	NSDictionary *libraryStats = [self jsonRequest:@"\"systeminfo\", \"items\", \"0\", \"999\""];
+
+	NSArray *steps;
+	if (libraryStats != nil)
+		steps = [libraryStats valueForKey:@"loop_loop"];
+		
+	if (steps != nil) {
+			
+		NSString *statsLabel = [self getSCString:@"INFORMATION_MENU_LIBRARY"];
+			
+		int x;
+		NSDictionary *statsItem;
+		for (x = 0; x < [steps count]; x++) {
+
+			statsItem = [steps objectAtIndex:x];
+				
+			if ([[statsItem valueForKey:@"name"] isEqualToString:statsLabel])
+				break;
+		}
+			
+		if (x < [steps count]) {
+				
+			libraryStats = [self jsonRequest:[NSString stringWithFormat:@"\"systeminfo\", \"items\", \"0\", \"999\", \"item_id:%i\"", x]];
+				
+			if (libraryStats != nil)
+				steps = [libraryStats valueForKey:@"loop_loop"];
+
+			if (steps != nil) {
+					
+				statsLabel = @"";
+					
+				for (x = 0; x < [steps count]; x++) {
+						
+					statsItem = [steps objectAtIndex:x];
+						
+					if ([statsItem valueForKey:@"name"] != nil)
+						statsLabel = [statsLabel stringByAppendingString:[NSString stringWithFormat:@"%@\n", [statsItem valueForKey:@"name"]]];
+			
+				}
+					
+				[musicLibraryStats setStringValue:statsLabel];
+			}
+		}
+			
 	}
 }
 	
@@ -795,6 +847,9 @@
 {
 	if ([[item identifier] isEqualToString:@"status"]) {
 		[[statusView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:statusUrl]]];
+	}
+	else if ([[item identifier] isEqualToString:@"1"]) {
+		[self updateMusicLibraryStats];
 	}
 }
 
