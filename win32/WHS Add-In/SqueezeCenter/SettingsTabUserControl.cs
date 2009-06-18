@@ -61,6 +61,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             snStatsOptions.SelectedIndex = Convert.ToInt16(pref == "" ? "0" : pref);
             
             PollSCTimer_Tick(new Object(), new EventArgs());
+            updateCheckTimer_Tick(new Object(), new EventArgs());
+
+            updateLibraryStats();
 
             jsonRequest(new string[] { "pref", "wizardDone", "1" });
         }
@@ -322,7 +325,55 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                 else
                     informationBrowser.DocumentText = @"No status information available. Please note that Squeezebox Server has to be up and running in order to display its status information.";
             }
+            else if (e.TabPage == status)
+                libraryStatsTimer.Interval = 150;
         }
+
+        private void updateLibraryStats()
+        {
+            JsonObject libraryStats = jsonRequest(new string[] { "systeminfo", "items", "0", "999" });
+
+            if (libraryStats != null && libraryStats["loop_loop"] != null)
+            {
+                String libraryName = getSCString("INFORMATION_MENU_LIBRARY");
+
+                JsonArray steps = (JsonArray)libraryStats["loop_loop"];
+
+                int x;
+                for (x = 0; x < steps.Length; x++)
+                {
+                    JsonObject step = (JsonObject)steps[x];
+
+                    if (step != null && step["name"].ToString() == libraryName)
+                        break;
+                }
+
+                if (x < steps.Length)
+                {
+                    libraryStats = jsonRequest(new string[] { "systeminfo", "items", "0", "999", "item_id:" + Convert.ToString(x) });
+
+                    if (libraryStats != null)
+                        steps = (JsonArray)libraryStats["loop_loop"];
+
+                    if (steps != null)
+                    {
+                        libraryName = "";
+
+                        for (x = 0; x < steps.Length; x++)
+                        {
+                            JsonObject step = (JsonObject)steps[x];
+
+                            if (step != null && step["name"] != null)
+                                libraryName += step["name"].ToString() + "\n";
+                        }
+
+                        musicLibraryStats.Text = libraryName;
+                    }
+                    
+                }
+            }
+        }
+
 
         /* update checker */
         private bool checkForUpdate()
@@ -588,6 +639,12 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private void updateCheckTimer_Tick(object sender, EventArgs e)
         {
             updateNotification.Visible = checkForUpdate();
+        }
+
+        private void libraryStatsTimer_Tick(object sender, EventArgs e)
+        {
+            updateLibraryStats();
+            libraryStatsTimer.Interval = 9876;
         }
     }
 

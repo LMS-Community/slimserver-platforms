@@ -33,6 +33,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.prefsTabControl = new Microsoft.HomeServer.Controls.CustomTabControl();
             this.status = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.musicLibraryStats = new System.Windows.Forms.Label();
             this.updateNotification = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -106,6 +107,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.musicFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.updateCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.jsonClient = new Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter.JsonRpcClient();
+            this.libraryStatsTimer = new System.Windows.Forms.Timer(this.components);
             this.prefsTabControl.SuspendLayout();
             this.status.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -160,6 +162,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.musicLibraryStats);
             this.panel2.Controls.Add(this.updateNotification);
             this.panel2.Controls.Add(this.propertyPageSectionLabel10);
             this.panel2.Controls.Add(this.line4);
@@ -172,6 +175,14 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(364, 366);
             this.panel2.TabIndex = 0;
+            // 
+            // musicLibraryStats
+            // 
+            this.musicLibraryStats.Location = new System.Drawing.Point(25, 160);
+            this.musicLibraryStats.Name = "musicLibraryStats";
+            this.musicLibraryStats.Size = new System.Drawing.Size(324, 111);
+            this.musicLibraryStats.TabIndex = 52;
+            this.musicLibraryStats.Text = "musicLibraryStats";
             // 
             // updateNotification
             // 
@@ -1044,6 +1055,12 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.jsonClient.Credentials = null;
             this.jsonClient.UseDefaultCredentials = false;
             // 
+            // libraryStatsTimer
+            // 
+            this.libraryStatsTimer.Enabled = true;
+            this.libraryStatsTimer.Interval = 1234;
+            this.libraryStatsTimer.Tick += new System.EventHandler(this.libraryStatsTimer_Tick);
+            // 
             // SettingsTabUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1151,6 +1168,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Timer updateCheckTimer;
+        private System.Windows.Forms.Label musicLibraryStats;
+        private System.Windows.Forms.Timer libraryStatsTimer;
 
     }
 }
