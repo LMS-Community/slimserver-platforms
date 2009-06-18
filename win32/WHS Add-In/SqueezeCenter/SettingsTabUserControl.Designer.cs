@@ -31,8 +31,11 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.components = new System.ComponentModel.Container();
             this.PollSCTimer = new System.Windows.Forms.Timer(this.components);
             this.prefsTabControl = new Microsoft.HomeServer.Controls.CustomTabControl();
-            this.music = new System.Windows.Forms.TabPage();
+            this.status = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.updateNotification = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.propertyPageSectionLabel10 = new Microsoft.HomeServer.Controls.PropertyPageSectionLabel();
             this.line4 = new Microsoft.HomeServer.Controls.Line();
             this.propertyPageSectionLabel1 = new Microsoft.HomeServer.Controls.PropertyPageSectionLabel();
@@ -40,7 +43,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.btnStartStopService = new Microsoft.HomeServer.Controls.QButton();
             this.line1 = new Microsoft.HomeServer.Controls.Line();
             this.labelSCStatus = new System.Windows.Forms.Label();
-            this.settings = new System.Windows.Forms.TabPage();
+            this.library = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.progressTime = new System.Windows.Forms.Label();
             this.scanProgressBar = new System.Windows.Forms.ProgressBar();
@@ -82,6 +85,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.line8 = new Microsoft.HomeServer.Controls.Line();
             this.advanced = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.propertyPageSectionLabel11 = new Microsoft.HomeServer.Controls.PropertyPageSectionLabel();
+            this.line10 = new Microsoft.HomeServer.Controls.Line();
             this.propertyPageSectionLabel3 = new Microsoft.HomeServer.Controls.PropertyPageSectionLabel();
             this.line3 = new Microsoft.HomeServer.Controls.Line();
             this.linkSCWebUI = new System.Windows.Forms.LinkLabel();
@@ -99,13 +104,13 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.panel5 = new System.Windows.Forms.Panel();
             this.ScanPollTimer = new System.Windows.Forms.Timer(this.components);
             this.musicFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            this.updateCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.jsonClient = new Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter.JsonRpcClient();
-            this.propertyPageSectionLabel11 = new Microsoft.HomeServer.Controls.PropertyPageSectionLabel();
-            this.line10 = new Microsoft.HomeServer.Controls.Line();
             this.prefsTabControl.SuspendLayout();
-            this.music.SuspendLayout();
+            this.status.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.settings.SuspendLayout();
+            this.updateNotification.SuspendLayout();
+            this.library.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SqueezeNetwork.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -122,8 +127,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             // prefsTabControl
             // 
-            this.prefsTabControl.Controls.Add(this.music);
-            this.prefsTabControl.Controls.Add(this.settings);
+            this.prefsTabControl.Controls.Add(this.status);
+            this.prefsTabControl.Controls.Add(this.library);
             this.prefsTabControl.Controls.Add(this.SqueezeNetwork);
             this.prefsTabControl.Controls.Add(this.advanced);
             this.prefsTabControl.Controls.Add(this.information);
@@ -139,22 +144,23 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.prefsTabControl.TabIndex = 20;
             this.prefsTabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.prefsTabControl_Selected);
             // 
-            // music
+            // status
             // 
-            this.music.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.music.Controls.Add(this.panel2);
-            this.music.Location = new System.Drawing.Point(4, 22);
-            this.music.Name = "music";
-            this.music.Padding = new System.Windows.Forms.Padding(3);
-            this.music.Size = new System.Drawing.Size(376, 378);
-            this.music.TabIndex = 1;
-            this.music.Text = "Status";
-            this.music.UseVisualStyleBackColor = true;
+            this.status.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.status.Controls.Add(this.panel2);
+            this.status.Location = new System.Drawing.Point(4, 22);
+            this.status.Name = "status";
+            this.status.Padding = new System.Windows.Forms.Padding(3);
+            this.status.Size = new System.Drawing.Size(376, 378);
+            this.status.TabIndex = 1;
+            this.status.Text = "Status";
+            this.status.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.updateNotification);
             this.panel2.Controls.Add(this.propertyPageSectionLabel10);
             this.panel2.Controls.Add(this.line4);
             this.panel2.Controls.Add(this.propertyPageSectionLabel1);
@@ -166,6 +172,37 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(364, 366);
             this.panel2.TabIndex = 0;
+            // 
+            // updateNotification
+            // 
+            this.updateNotification.BackColor = System.Drawing.Color.LemonChiffon;
+            this.updateNotification.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.updateNotification.Controls.Add(this.label8);
+            this.updateNotification.Controls.Add(this.label5);
+            this.updateNotification.Location = new System.Drawing.Point(-1, 289);
+            this.updateNotification.Name = "updateNotification";
+            this.updateNotification.Size = new System.Drawing.Size(364, 76);
+            this.updateNotification.TabIndex = 51;
+            this.updateNotification.Visible = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(26, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(103, 13);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Update Available";
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(26, 26);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(323, 47);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "An updated Squeezebox Server version is available and ready to be installed. Plea" +
+                "se go to the Add-ins menu to install the latest release.";
             // 
             // propertyPageSectionLabel10
             // 
@@ -235,6 +272,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.btnStartStopService.TabIndex = 45;
             this.btnStartStopService.Text = "Start Squeezebox Server";
             this.btnStartStopService.UseVisualStyleBackColor = true;
+            this.btnStartStopService.Click += new System.EventHandler(this.btnStartStopService_Click);
             // 
             // line1
             // 
@@ -255,17 +293,17 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.labelSCStatus.TabIndex = 46;
             this.labelSCStatus.Text = "status";
             // 
-            // settings
+            // library
             // 
-            this.settings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.settings.Controls.Add(this.panel1);
-            this.settings.Location = new System.Drawing.Point(4, 22);
-            this.settings.Name = "settings";
-            this.settings.Padding = new System.Windows.Forms.Padding(3);
-            this.settings.Size = new System.Drawing.Size(376, 378);
-            this.settings.TabIndex = 0;
-            this.settings.Text = "Library";
-            this.settings.UseVisualStyleBackColor = true;
+            this.library.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.library.Controls.Add(this.panel1);
+            this.library.Location = new System.Drawing.Point(4, 22);
+            this.library.Name = "library";
+            this.library.Padding = new System.Windows.Forms.Padding(3);
+            this.library.Size = new System.Drawing.Size(376, 378);
+            this.library.TabIndex = 0;
+            this.library.Text = "Library";
+            this.library.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -402,7 +440,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.linkPlaylistFolder.AutoSize = true;
             this.linkPlaylistFolder.BackColor = System.Drawing.Color.White;
-            this.linkPlaylistFolder.Location = new System.Drawing.Point(102, 170);
+            this.linkPlaylistFolder.Location = new System.Drawing.Point(102, 165);
             this.linkPlaylistFolder.Name = "linkPlaylistFolder";
             this.linkPlaylistFolder.Size = new System.Drawing.Size(100, 13);
             this.linkPlaylistFolder.TabIndex = 66;
@@ -414,7 +452,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.linkMusicFolder.AutoSize = true;
             this.linkMusicFolder.BackColor = System.Drawing.Color.White;
-            this.linkMusicFolder.Location = new System.Drawing.Point(98, 124);
+            this.linkMusicFolder.Location = new System.Drawing.Point(98, 119);
             this.linkMusicFolder.Name = "linkMusicFolder";
             this.linkMusicFolder.Size = new System.Drawing.Size(100, 13);
             this.linkMusicFolder.TabIndex = 65;
@@ -425,7 +463,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(25, 170);
+            this.label2.Location = new System.Drawing.Point(25, 165);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 13);
             this.label2.TabIndex = 64;
@@ -434,7 +472,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // playlistFolderInput
             // 
             this.playlistFolderInput.Enabled = false;
-            this.playlistFolderInput.Location = new System.Drawing.Point(28, 186);
+            this.playlistFolderInput.Location = new System.Drawing.Point(28, 181);
             this.playlistFolderInput.Name = "playlistFolderInput";
             this.playlistFolderInput.Size = new System.Drawing.Size(230, 20);
             this.playlistFolderInput.TabIndex = 59;
@@ -454,7 +492,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.browsePlaylistFolderBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.browsePlaylistFolderBtn.IsHovered = false;
             this.browsePlaylistFolderBtn.IsPressed = false;
-            this.browsePlaylistFolderBtn.Location = new System.Drawing.Point(264, 185);
+            this.browsePlaylistFolderBtn.Location = new System.Drawing.Point(264, 180);
             this.browsePlaylistFolderBtn.Margins = 0;
             this.browsePlaylistFolderBtn.MaximumSize = new System.Drawing.Size(360, 21);
             this.browsePlaylistFolderBtn.MinimumSize = new System.Drawing.Size(72, 21);
@@ -468,7 +506,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 124);
+            this.label1.Location = new System.Drawing.Point(25, 119);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 63;
@@ -477,7 +515,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // musicFolderInput
             // 
             this.musicFolderInput.Enabled = false;
-            this.musicFolderInput.Location = new System.Drawing.Point(28, 140);
+            this.musicFolderInput.Location = new System.Drawing.Point(28, 135);
             this.musicFolderInput.Name = "musicFolderInput";
             this.musicFolderInput.Size = new System.Drawing.Size(230, 20);
             this.musicFolderInput.TabIndex = 57;
@@ -497,7 +535,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.browseMusicFolderBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.browseMusicFolderBtn.IsHovered = false;
             this.browseMusicFolderBtn.IsPressed = false;
-            this.browseMusicFolderBtn.Location = new System.Drawing.Point(264, 139);
+            this.browseMusicFolderBtn.Location = new System.Drawing.Point(264, 134);
             this.browseMusicFolderBtn.Margins = 0;
             this.browseMusicFolderBtn.MaximumSize = new System.Drawing.Size(360, 21);
             this.browseMusicFolderBtn.MinimumSize = new System.Drawing.Size(72, 21);
@@ -514,7 +552,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.propertyPageSectionLabel4.BackColor = System.Drawing.Color.Transparent;
             this.propertyPageSectionLabel4.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.propertyPageSectionLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.propertyPageSectionLabel4.Location = new System.Drawing.Point(3, 105);
+            this.propertyPageSectionLabel4.Location = new System.Drawing.Point(3, 100);
             this.propertyPageSectionLabel4.Name = "propertyPageSectionLabel4";
             this.propertyPageSectionLabel4.Size = new System.Drawing.Size(84, 13);
             this.propertyPageSectionLabel4.TabIndex = 62;
@@ -527,7 +565,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.propertyPageSectionLabel5.BackColor = System.Drawing.Color.Transparent;
             this.propertyPageSectionLabel5.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.propertyPageSectionLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.propertyPageSectionLabel5.Location = new System.Drawing.Point(8, 105);
+            this.propertyPageSectionLabel5.Location = new System.Drawing.Point(8, 100);
             this.propertyPageSectionLabel5.Name = "propertyPageSectionLabel5";
             this.propertyPageSectionLabel5.Size = new System.Drawing.Size(84, 13);
             this.propertyPageSectionLabel5.TabIndex = 62;
@@ -538,7 +576,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.line5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
             this.line5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.line5.Location = new System.Drawing.Point(82, 111);
+            this.line5.Location = new System.Drawing.Point(82, 106);
             this.line5.Name = "line5";
             this.line5.Size = new System.Drawing.Size(275, 1);
             this.line5.TabIndex = 61;
@@ -786,6 +824,28 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.panel3.Size = new System.Drawing.Size(364, 366);
             this.panel3.TabIndex = 23;
             // 
+            // propertyPageSectionLabel11
+            // 
+            this.propertyPageSectionLabel11.AutoSize = true;
+            this.propertyPageSectionLabel11.BackColor = System.Drawing.Color.Transparent;
+            this.propertyPageSectionLabel11.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            this.propertyPageSectionLabel11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.propertyPageSectionLabel11.Location = new System.Drawing.Point(3, 79);
+            this.propertyPageSectionLabel11.Name = "propertyPageSectionLabel11";
+            this.propertyPageSectionLabel11.Size = new System.Drawing.Size(55, 13);
+            this.propertyPageSectionLabel11.TabIndex = 52;
+            this.propertyPageSectionLabel11.Text = "Log Files";
+            this.propertyPageSectionLabel11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // line10
+            // 
+            this.line10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line10.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
+            this.line10.Location = new System.Drawing.Point(57, 88);
+            this.line10.Name = "line10";
+            this.line10.Size = new System.Drawing.Size(300, 1);
+            this.line10.TabIndex = 51;
+            // 
             // propertyPageSectionLabel3
             // 
             this.propertyPageSectionLabel3.AutoSize = true;
@@ -973,32 +1033,16 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // 
             this.musicFolderBrowser.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
+            // updateCheckTimer
+            // 
+            this.updateCheckTimer.Enabled = true;
+            this.updateCheckTimer.Interval = 60000;
+            this.updateCheckTimer.Tick += new System.EventHandler(this.updateCheckTimer_Tick);
+            // 
             // jsonClient
             // 
             this.jsonClient.Credentials = null;
             this.jsonClient.UseDefaultCredentials = false;
-            // 
-            // propertyPageSectionLabel11
-            // 
-            this.propertyPageSectionLabel11.AutoSize = true;
-            this.propertyPageSectionLabel11.BackColor = System.Drawing.Color.Transparent;
-            this.propertyPageSectionLabel11.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
-            this.propertyPageSectionLabel11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.propertyPageSectionLabel11.Location = new System.Drawing.Point(3, 79);
-            this.propertyPageSectionLabel11.Name = "propertyPageSectionLabel11";
-            this.propertyPageSectionLabel11.Size = new System.Drawing.Size(55, 13);
-            this.propertyPageSectionLabel11.TabIndex = 52;
-            this.propertyPageSectionLabel11.Text = "Log Files";
-            this.propertyPageSectionLabel11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // line10
-            // 
-            this.line10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.line10.Color = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(213)))), ((int)(((byte)(232)))));
-            this.line10.Location = new System.Drawing.Point(57, 88);
-            this.line10.Name = "line10";
-            this.line10.Size = new System.Drawing.Size(300, 1);
-            this.line10.TabIndex = 51;
             // 
             // SettingsTabUserControl
             // 
@@ -1009,10 +1053,12 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.Size = new System.Drawing.Size(390, 410);
             this.Load += new System.EventHandler(this.SettingsTabUserControl_Load);
             this.prefsTabControl.ResumeLayout(false);
-            this.music.ResumeLayout(false);
+            this.status.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.settings.ResumeLayout(false);
+            this.updateNotification.ResumeLayout(false);
+            this.updateNotification.PerformLayout();
+            this.library.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.SqueezeNetwork.ResumeLayout(false);
@@ -1030,8 +1076,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
         private System.Windows.Forms.Timer PollSCTimer;
         private Microsoft.HomeServer.Controls.CustomTabControl prefsTabControl;
-        private System.Windows.Forms.TabPage settings;
-        private System.Windows.Forms.TabPage music;
+        private System.Windows.Forms.TabPage library;
+        private System.Windows.Forms.TabPage status;
         private System.Windows.Forms.TabPage advanced;
         private System.Windows.Forms.Label labelPleaseStopSC;
         private Microsoft.HomeServer.Controls.QButton btnCleanup;
@@ -1101,6 +1147,10 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private Microsoft.HomeServer.Controls.Line line4;
         private Microsoft.HomeServer.Controls.PropertyPageSectionLabel propertyPageSectionLabel11;
         private Microsoft.HomeServer.Controls.Line line10;
+        private System.Windows.Forms.Panel updateNotification;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Timer updateCheckTimer;
 
     }
 }

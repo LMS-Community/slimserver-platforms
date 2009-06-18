@@ -84,7 +84,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                     }
                 }
             }
-            catch { }
+            catch {}
         }
 
         private void btnStartStopService_Paint(object sender, PaintEventArgs e)
@@ -583,6 +583,11 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         private void linkForgotPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             this.consoleServices.OpenUrl(@"http://www.mysqueezebox.com/user/forgotPassword");
+        }
+
+        private void updateCheckTimer_Tick(object sender, EventArgs e)
+        {
+            updateNotification.Visible = checkForUpdate();
         }
     }
 
