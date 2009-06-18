@@ -78,7 +78,7 @@
 			<RegistrySearch
 				Id="QuietUninstallString" 
 				Root="HKLM"
-				Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Squeezebox_is1"
+				Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Squeezebox Server_is1"
 				Name="QuietUninstallString"
 				Type="raw"
 			/>
