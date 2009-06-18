@@ -53,11 +53,9 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
             snUsername.Text = getPref("sn_email");
             snPassword.Text = getPref("sn_password_sha") != "" ? snPasswordPlaceholder : "";
-            snSyncOptions.SelectedIndex = 1;
             snStatsOptions.SelectedIndex = 1;
 
             String pref = getPref("sn_sync");
-            snSyncOptions.SelectedIndex = Convert.ToInt16(pref == "" ? "0" : pref) == 0 ? 1 : 0;
 
             pref = getPref("sn_disable_stats");
             snStatsOptions.SelectedIndex = Convert.ToInt16(pref == "" ? "0" : pref);
@@ -171,7 +169,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
             snUsername.Enabled = (this.scStatus == 1);
             snPassword.Enabled = (this.scStatus == 1);
-            snSyncOptions.Enabled = (this.scStatus == 1);
             snStatsOptions.Enabled = (this.scStatus == 1);
             
             if (this.isScanning)
@@ -179,7 +176,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             else
                 rescanBtn.Text = "Rescan";
 
-            cbCleanupAll.Enabled = (this.scStatus != 1);
             cbCleanupCache.Enabled = (this.scStatus != 1);
             cbCleanupPrefs.Enabled = (this.scStatus != 1);
             btnCleanup.Enabled = (this.scStatus != 1);
@@ -208,7 +204,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
         private void linkSCWebUI_Paint(object sender, PaintEventArgs e)
         {
-            linkSCWebUI.Text = "Open Web Control  (" + getSCUrl() + ")";
+            linkSCWebUI.Text = "Web Control  (" + getSCUrl() + ")";
         }
 
         private String getSCUrl()
@@ -283,8 +279,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                 }
             }
 
-            jsonRequest(new string[] { "pref", "sn_sync", snSyncOptions.SelectedIndex == 0 ? "1" : "0"});
-            jsonRequest(new string[] { "pref", "sn_disable_stats", snSyncOptions.SelectedIndex.ToString()});
+            jsonRequest(new string[] { "pref", "sn_disable_stats", snStatsOptions.SelectedIndex.ToString()});
 
             return false;
         }
@@ -293,18 +288,11 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         {
             String cleanupParams = @"";
 
-            if (cbCleanupAll.Checked)
-            {
-                cleanupParams += @" --all";
-            }
-            else 
-            {
-                if (cbCleanupCache.Checked)
-                    cleanupParams += @" --cache";
+            if (cbCleanupCache.Checked)
+                cleanupParams += @" --cache";
 
-                if (cbCleanupPrefs.Checked)
-                    cleanupParams += @" --prefs";
-        	}
+            if (cbCleanupPrefs.Checked)
+                cleanupParams += @" --prefs";
 
             if (cleanupParams != @"")
             {
@@ -337,50 +325,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         }
 
         /* update checker */
-        private void checkUpdateBtn_Click(object sender, EventArgs e)
-        {
-            if (checkUpdateBtn.Tag != null)
-            {
-                this.consoleServices.OpenUrl(checkUpdateBtn.Tag.ToString());
-            }
-            else
-            {
-                try
-                {
-                    WebRequest request = WebRequest.Create("http://update.mysqueezebox.com/update/?version=" + this.version + "&os=whs&lang=" + getPref("language"));
-                    request.Proxy = WebRequest.DefaultWebProxy;
-                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        Stream responseStream = response.GetResponseStream();
-                        Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
-
-                        StreamReader readStream = new StreamReader(responseStream, encode);
-
-                        Char[] buffer = new Char[2048];
-                        int c = readStream.Read(buffer, 0, buffer.Length);
-
-                        String s = new String(buffer, 0, c);
-                        String[] info = Regex.Split(s, "\\. ");
-
-                        if (info.Length == 2)
-                        {
-                            Match m = Regex.Match(info[1], "href=\"(.*?)\"", RegexOptions.IgnoreCase);
-                            if (m.Groups.Count > 1)
-                            {
-                                checkUpdateBtn.Tag = m.Groups[1].ToString();
-                                labelUpdate.Text = info[0];
-                            }
-                        }
-
-                        responseStream.Close();
-                    }
-                }
-                catch { }
-            }
-        }
-
         private bool checkForUpdate()
         {
             String filePath = "";
