@@ -610,7 +610,7 @@ procedure CurStepChanged(CurStep: TSetupStep);
 var
 	Wait, ErrorCode, i: Integer;
 	NewServerDir, PrefsFile, PrefsPath, PrefString, PortConflict, s: String;
-	Started, Failed, Silent, NoTrayIcon, InstallService: Boolean;
+	Started, Silent, NoTrayIcon, InstallService: Boolean;
 
 begin
 	if CurStep = ssInstall then
@@ -787,12 +787,9 @@ begin
 											Started := true
 											
 										else if Started then
-											begin
-												Failed := true;
-												break;
-											end;
+											break;
 
-											Wait := Wait - 1;
+										Wait := Wait - 1;
 									end;	
 							end;
 					end;
