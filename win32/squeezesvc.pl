@@ -1,42 +1,73 @@
 use FindBin qw($Bin);
+use File::Which;
+use Getopt::Long;
 use Win32;
 use Win32::Service;
 
+my $SVC = 'squeezesvc';
+
 my $cmd = Win32::GetShortPathName( "$Bin/SqueezeSvr.exe" );
+my $sc  = which('sc.exe');
+
+my ($username, $password, $install, $start, $restart, $remove);
+
+GetOptions(
+	'username=s' => \$username,
+	'password=s' => \$password,
+	'remove'     => \$remove,
+	'install'    => \$install,
+	'start'      => \$start,
+	'restart'    => \$restart,
+);
 
 # only allow install and remove parameters
-if ($ARGV[0] =~ /\binstall\b/i) {
-	`$cmd --remove`;
-
-	my $args = '';
-	foreach (@ARGV) {
-		if (/username=(.*)/i) {
-			$args .= " --username=$1";
-		}
-		elsif (/password=(.*)/i) {
-			$args .= " --password=$1";
-		}
+if ($install) {
+	
+	# try to use Windows' SC tool first - much faster than using the server binary
+	if ($sc) {
+		my $args = '';
+		$args .= " obj= $username" if $username;
+		$args .= " password= $password" if $password;
+	
+		`$sc delete $SVC`;
+		`$sc create $SVC binPath= "$Bin/SqueezeSvr.exe" start= auto DisplayName= "Squeezebox Server" $args`;
+		`$sc description $SVC "Squeezebox Server - streaming music server"`;
 	}
 
-	`$cmd --install auto $args`;
+	my %status = ();
+	Win32::Service::GetStatus('', $SVC, \%status);
+	
+	if (!$sc || !scalar(keys %status)) {
+		my $args = '';
+		$args .= " --username=$username" if $username;
+		$args .= " --password=$password" if $password;
+
+		`$cmd --remove`;
+		`$cmd --install auto $args`;
+	}
 }
-elsif ($ARGV[0] =~ /\bremove\b/i) {
+
+elsif ($remove && $sc) {
+	`$sc delete $SVC`;
+}
+elsif ($remove) {
 	`$cmd --remove`;
 }
-elsif ($ARGV[0] =~ /\b(?:re|)start\b/i) {
-	Win32::Service::StopService('', 'squeezesvc') if $ARGV[0] =~ /\brestart\b/i;
+
+elsif ($restart || $start) {
+	Win32::Service::StopService('', $SVC) if $restart;
 	
 	my %status = ();
 	
 	my $max = 10;
 	
 	# wait a few seconds or until squeezesvc has stopped
-	Win32::Service::GetStatus('', 'squeezesvc', \%status);
+	Win32::Service::GetStatus('', $SVC, \%status);
 
 	while ($status{CurrentState} != 0x01 && $max-- > 0) {
 		sleep 2;
-		Win32::Service::GetStatus('', 'squeezesvc', \%status);
+		Win32::Service::GetStatus('', $SVC, \%status);
 	}
 	
-	Win32::Service::StartService('', 'squeezesvc');
+	Win32::Service::StartService('', $SVC);
 }
