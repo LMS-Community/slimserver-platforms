@@ -301,7 +301,7 @@
 
 	NSDictionary *libraryStats = [self jsonRequest:@"\"systeminfo\", \"items\", \"0\", \"999\""];
 
-	NSArray *steps;
+	NSArray *steps = nil;
 	if (libraryStats != nil)
 		steps = [libraryStats valueForKey:@"loop_loop"];
 		
