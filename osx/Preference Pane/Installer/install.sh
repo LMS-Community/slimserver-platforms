@@ -67,11 +67,11 @@ done
 
 # remove the version file triggering the update prompt
 if [ -e ~/Library/Caches/Squeezebox\ Server/updates/server.version ] ; then
-	rm -f ~/Library/Caches/Squeeze\ Server/updates/server.version
+	rm -f ~/Library/Caches/Squeezebox\ Server/updates/server.version
 fi
 
-if [ -e /Library/Caches/Squeeze\ Server/updates/server.version ] ; then
-	rm -f /Library/Caches/Squeeze\ Server/updates/server.version
+if [ -e /Library/Caches/Squeezebox\ Server/updates/server.version ] ; then
+	rm -f /Library/Caches/Squeezebox\ Server/updates/server.version
 fi
 
 
