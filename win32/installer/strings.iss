@@ -650,3 +650,6 @@ fr.SCPerl=%nSi vous exécutez SC à l'aide de la version perl, cet événement est a
 
 en.ControlPanel=SqueezeBox Control Panel
 
+en.StartupControlPanel=Start Squeezebox Control Panel
+de.StartupControlPanel=Squeezebox Kontrollfeld starten
+

@@ -142,6 +142,9 @@ Type: dirifempty; Name: {app}\server\HTML
 Type: dirifempty; Name: {app}\server\SQL
 Type: files; Name: {commonstartup}\{cm:SqueezeCenterTrayTool}.url
 
+[Run]
+Filename: {app}\server\squeezeboxcp.exe; Description: {cm:StartupControlPanel}; Flags: postinstall nowait skipifsilent
+
 [UninstallRun]
 Filename: "sc"; Parameters: "stop squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381
 Filename: "sc"; Parameters: "delete squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381

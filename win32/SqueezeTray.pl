@@ -108,7 +108,7 @@ sub Singleton {
 				startServer();
 			}
 
-			openControlPanel();
+#			openControlPanel();
 
 		} elsif ($_[1] eq '--exit') {
 
@@ -162,10 +162,10 @@ sub Timer {
 
 	}
 	
-	if ($cliStart || $cliInstall) {
-
-		openControlPanel();
-	}
+#	if ($cliStart || $cliInstall) {
+#
+#		openControlPanel();
+#	}
 
 	checkSCActive();
 }
