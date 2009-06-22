@@ -613,7 +613,7 @@ procedure CurStepChanged(CurStep: TSetupStep);
 var
 	Wait, ErrorCode, i: Integer;
 	NewServerDir, PrefsFile, PrefsPath, PrefString, PortConflict, s: String;
-	Started, Silent, NoTrayIcon, InstallService: Boolean;
+	Started, Silent, TrayIcon, NoTrayIcon, InstallService: Boolean;
 
 begin
 	if CurStep = ssInstall then
@@ -670,6 +670,8 @@ begin
 					Silent:= true
 				else if (pos('/notrayicon', lowercase(ParamStr(i))) > 0) then
 					NoTrayIcon := true
+				else if (pos('/trayicon', lowercase(ParamStr(i))) > 0) then
+					TrayIcon := true
 				else if (pos('/installservice', lowercase(ParamStr(i))) > 0) then
 					InstallService := true
 			end;
@@ -754,7 +756,7 @@ begin
 					DeleteFile(AddBackslash(ExpandConstant('{commonstartup}')) + CustomMessage('SqueezeCenterTrayTool') + '.lnk');
 
 				// in silent mode do not wait for SC to be started before quitting the installer
-				if not Silent then
+				if not Silent or (TrayIcon and not NoTrayIcon) then
 					begin
 						Exec(ExpandConstant('{app}') + '\SqueezeTray.exe', '--install', ExpandConstant('{app}'), SW_SHOW, ewWaitUntilIdle, ErrorCode);
 
