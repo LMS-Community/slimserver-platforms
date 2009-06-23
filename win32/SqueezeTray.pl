@@ -18,8 +18,9 @@ use Win32::Process;
 use Win32::Process::List;
 
 use constant SLIM_SERVICE => 0;
-use constant SCANNER => 0;
-use constant TIMERSECS => 10;
+use constant SCANNER      => 0;
+use constant ISWINDOWS    => 1;
+use constant TIMERSECS    => 10;
 
 use Slim::Utils::ServiceManager;
 use Slim::Utils::Light;
@@ -176,6 +177,8 @@ sub checkAndStart {
 
 	# Kill the timer, we only want to run once.
 	SetTimer(0, \&checkAndStart);
+
+	$os->cleanupTempDirs();
 
 	if ($cliUninstall) {
 		uninstall();
@@ -423,9 +426,12 @@ sub uninstall {
 	# stop the control panel and other related processes
 	sleep 5;
 	stopComponents();
+	
+	$os->cleanupTempDirs();
 
 	exit;
 }
+
 
 *PerlTray::ToolTip = \&ToolTip;
 
