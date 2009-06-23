@@ -48,7 +48,7 @@ RUN_AT_LOGIN
 
 OPEN_SQUEEZEBOX_SERVER
 	DA	Åbn Squeezebox Server
-	DE	Squeezebox Server öffnen
+	DE	Open Web Control...
 	EN	Open Squeezebox Server
 	ES	Abrir Squeezebox Server
 	FI	Avaa Squeezebox Server
