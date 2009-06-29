@@ -19,7 +19,7 @@
 #define versionFile @"Caches/Squeezebox Server/updates/server.version"
 #define prefsFile @"Application Support/Squeezebox Server/server.prefs"
 #define pluginPrefs @"Application Support/Squeezebox Server/plugin/"
-#define logDir @"Logs/Squeezebox"
+#define logDir @"Logs/Squeezebox Server"
 
 #define kNoAutomaticStartup 0
 #define kStartupAtLogin 1

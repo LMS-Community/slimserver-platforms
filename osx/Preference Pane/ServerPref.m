@@ -231,9 +231,8 @@
 		NSArray *lines = [[NSString stringWithContentsOfFile:revisionTxt] componentsSeparatedByString:@"\n"];
 
 		if ([lines count] > 0) {
-			NSLog(@"%@", [NSString stringWithFormat:@"%@ / r%@", [scVersion stringValue], [lines objectAtIndex:0]]);
 			[scVersion setStringValue:[NSString stringWithFormat:@"%@ / r%@", [scVersion stringValue], [lines objectAtIndex:0]]];
-}
+		}
 	}
 }
 
@@ -604,9 +603,11 @@
 	NSString *pathToLog;
 	
 	whichLog = [logDir stringByAppendingPathComponent:whichLog];	
+	NSLog(@"%@", whichLog);
 
 	pathToLog = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:whichLog];
 	
+	NSLog(@"%@", pathToLog);
 	if ([pathToLog length] == 0)
 		pathToLog = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES) fileName:whichLog];
 	
