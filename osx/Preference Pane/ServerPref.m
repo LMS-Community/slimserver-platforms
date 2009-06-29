@@ -603,11 +603,9 @@
 	NSString *pathToLog;
 	
 	whichLog = [logDir stringByAppendingPathComponent:whichLog];	
-	NSLog(@"%@", whichLog);
 
 	pathToLog = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:whichLog];
 	
-	NSLog(@"%@", pathToLog);
 	if ([pathToLog length] == 0)
 		pathToLog = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES) fileName:whichLog];
 	
