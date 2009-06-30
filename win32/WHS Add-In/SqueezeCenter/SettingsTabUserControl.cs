@@ -46,6 +46,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
             musicLibraryName.Text = getPref("libraryname");
             musicFolderInput.Text = getPref("audiodir");
+            musicLibraryStats.Text = "";
             playlistFolderInput.Text = getPref("playlistdir");
             progressLabel.Text = "";
             progressInformation.Text = "";
@@ -336,19 +337,21 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             if (libraryStats != null && libraryStats["loop_loop"] != null)
             {
                 String libraryName = getSCString("INFORMATION_MENU_LIBRARY");
+                String scanning = getSCString("RESCANNING_SHORT");
 
                 JsonArray steps = (JsonArray)libraryStats["loop_loop"];
 
                 int x;
+                JsonObject step = null;
                 for (x = 0; x < steps.Length; x++)
                 {
-                    JsonObject step = (JsonObject)steps[x];
+                    step = (JsonObject)steps[x];
 
-                    if (step != null && step["name"].ToString() == libraryName)
+                    if (step != null && (step["name"].ToString() == libraryName) || (step["name"].ToString() == scanning))
                         break;
                 }
 
-                if (x < steps.Length)
+                if (x < steps.Length && step["name"].ToString() == libraryName)
                 {
                     libraryStats = jsonRequest(new string[] { "systeminfo", "items", "0", "999", "item_id:" + Convert.ToString(x) });
 
@@ -361,7 +364,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
                         for (x = 0; x < steps.Length; x++)
                         {
-                            JsonObject step = (JsonObject)steps[x];
+                            step = (JsonObject)steps[x];
 
                             if (step != null && step["name"] != null)
                                 libraryName += step["name"].ToString() + "\n";
@@ -369,8 +372,11 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
                         musicLibraryStats.Text = libraryName;
                     }
-                    
+
                 }
+
+                else if (x < steps.Length && step["name"].ToString() == scanning)
+                    musicLibraryStats.Text = scanning;
             }
         }
 
@@ -643,8 +649,8 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
         private void libraryStatsTimer_Tick(object sender, EventArgs e)
         {
-            updateLibraryStats();
             libraryStatsTimer.Interval = 9876;
+            updateLibraryStats();
         }
     }
 

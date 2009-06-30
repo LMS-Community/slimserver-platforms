@@ -483,7 +483,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // playlistFolderInput
             // 
             this.playlistFolderInput.Enabled = false;
-            this.playlistFolderInput.Location = new System.Drawing.Point(28, 181);
+            this.playlistFolderInput.Location = new System.Drawing.Point(28, 182);
             this.playlistFolderInput.Name = "playlistFolderInput";
             this.playlistFolderInput.Size = new System.Drawing.Size(230, 20);
             this.playlistFolderInput.TabIndex = 59;
@@ -503,7 +503,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.browsePlaylistFolderBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.browsePlaylistFolderBtn.IsHovered = false;
             this.browsePlaylistFolderBtn.IsPressed = false;
-            this.browsePlaylistFolderBtn.Location = new System.Drawing.Point(264, 180);
+            this.browsePlaylistFolderBtn.Location = new System.Drawing.Point(264, 181);
             this.browsePlaylistFolderBtn.Margins = 0;
             this.browsePlaylistFolderBtn.MaximumSize = new System.Drawing.Size(360, 21);
             this.browsePlaylistFolderBtn.MinimumSize = new System.Drawing.Size(72, 21);
@@ -526,7 +526,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             // musicFolderInput
             // 
             this.musicFolderInput.Enabled = false;
-            this.musicFolderInput.Location = new System.Drawing.Point(28, 135);
+            this.musicFolderInput.Location = new System.Drawing.Point(28, 136);
             this.musicFolderInput.Name = "musicFolderInput";
             this.musicFolderInput.Size = new System.Drawing.Size(230, 20);
             this.musicFolderInput.TabIndex = 57;
@@ -546,7 +546,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.browseMusicFolderBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.browseMusicFolderBtn.IsHovered = false;
             this.browseMusicFolderBtn.IsPressed = false;
-            this.browseMusicFolderBtn.Location = new System.Drawing.Point(264, 134);
+            this.browseMusicFolderBtn.Location = new System.Drawing.Point(264, 135);
             this.browseMusicFolderBtn.Margins = 0;
             this.browseMusicFolderBtn.MaximumSize = new System.Drawing.Size(360, 21);
             this.browseMusicFolderBtn.MinimumSize = new System.Drawing.Size(72, 21);
