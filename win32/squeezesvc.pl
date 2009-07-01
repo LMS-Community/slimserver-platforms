@@ -12,19 +12,19 @@ my $sc  = which('sc.exe');
 my ($username, $password, $install, $start, $restart, $remove);
 
 GetOptions(
-	'username=s' => \$username,
-	'password=s' => \$password,
 	'remove'     => \$remove,
 	'install'    => \$install,
 	'start'      => \$start,
 	'restart'    => \$restart,
+	'username=s' => \$username,
+	'password=s' => \$password,
 );
 
 # only allow install and remove parameters
 if ($install) {
 
 	# we must define the hostname - use localhost (.) if none is defined
-	$username = ".\\$username" unless $username =~ /\\/;
+	$username = ".\\$username" if $username && $username !~ /\\/;
 	
 	# try to use Windows' SC tool first - much faster than using the server binary
 	if ($sc) {
