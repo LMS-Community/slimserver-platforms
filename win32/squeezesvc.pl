@@ -22,13 +22,17 @@ GetOptions(
 
 # only allow install and remove parameters
 if ($install) {
+
+	# we must define the hostname - use localhost (.) if none is defined
+	$username = ".\\$username" unless $username =~ /\\/;
 	
 	# try to use Windows' SC tool first - much faster than using the server binary
 	if ($sc) {
 		my $args = '';
+		
 		$args .= " obj= $username" if $username;
 		$args .= " password= $password" if $password;
-	
+
 		`$sc delete $SVC`;
 		`$sc create $SVC binPath= "$Bin/SqueezeSvr.exe" start= auto DisplayName= "Squeezebox Server" $args`;
 		`$sc description $SVC "Squeezebox Server - streaming music server"`;
