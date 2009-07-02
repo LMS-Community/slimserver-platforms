@@ -18,5 +18,8 @@
 "Abort" = "Abort";
 "Rescan" = "Rescan";
 "Invalid mysqueezebox.com username or password." = "Invalid mysqueezebox.com username or password.";
-"The server is stopped" = "The server is stopped";
-"The server is running" = "The server is running";
+"The server is stopped" = "The server is stopped.";
+"The server is running" = "The server is running.";
+"Music Library Statistics" = "Music Library Statistics";
+"Music Library Name" = "Music Library Name";
+"Music Library Scan" = "Music Library Scan";
