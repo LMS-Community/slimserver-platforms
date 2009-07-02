@@ -9,6 +9,7 @@ use strict;
 use PerlTray;
 
 use Cwd qw(cwd);
+use File::Path;
 use File::Spec;
 use Getopt::Long;
 use Socket;
@@ -196,6 +197,8 @@ sub checkAndStart {
 
 	# Kill the timer, we only want to run once.
 	SetTimer(0, \&checkAndStart);
+
+	cleanupTempDirs();
 
 	if ($cliUninstall) {
 		uninstall();
@@ -456,7 +459,7 @@ sub writableDir {
 			}
 		}
 			
-		$writablePath = catdir($writablePath, 'SqueezeCenter');
+		$writablePath = File::Spec->catdir($writablePath, 'SqueezeCenter');
 	}
 
 	return $writablePath;
@@ -609,8 +612,53 @@ sub uninstall {
 
 	stopSqueezeCenter(1);
 
+	cleanupTempDirs();
+
 	exit;
 }
+
+=head2 cleanupTempDirs( )
+
+PDK compiled executables can leave temporary pdk-{username}-{pid} folders behind
+if process is crashing. Use this method to clean them up.
+
+=cut
+
+sub cleanupTempDirs {
+
+	my $dir = $ENV{TEMP};
+	
+	return unless $dir && -d $dir;
+	
+	opendir(DIR, $dir) || return;
+
+	my @folders = readdir(DIR);
+	close(DIR);
+
+	my %pdkFolders;
+	for my $entry (@folders) {
+		if ($entry =~ /^pdk-.*?-(\d+)$/i) {
+			$pdkFolders{$1} = $entry
+		}
+	}
+	
+	return unless scalar(keys %pdkFolders);
+
+	my $p = Win32::Process::List->new();
+	my %processes = $p->GetProcesses(); 
+
+	foreach my $pid (keys %pdkFolders) {
+		
+		# don't remove files if process is still running...
+		next if $processes{$pid};
+
+		my $path = File::Spec->catdir($dir, $pdkFolders{$pid});
+		next unless -d $path;
+
+		eval { File::Path::rmtree($path) };
+	}
+}
+
 
 # return localised version of string token
 sub string {
