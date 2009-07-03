@@ -648,6 +648,8 @@ it.SCPerl=%nSe è in esecuzione la versione Perl di SC, il problema non sussiste.
 es.SCPerl=%nSi ejecuta SC con la versión perl, es correcto y está previsto.
 fr.SCPerl=%nSi vous exécutez SC à l'aide de la version perl, cet événement est attendu.
 
+en.ESETPortFiltering=ESET Antivirus or Smart Security can cause problems starting Squeezebox Server. If you experience failure starting Squeezebox Server, then make sure you have unchecked port filtering for SqueezeboxSvr.exe in ESET Advanced Settings/Antivirus and antispyware/Web access protection/HTTP, HTTPS/Web browsers.
+
 en.ControlPanel=SqueezeBox Control Panel
 
 en.StartupControlPanel=Start Squeezebox Control Panel

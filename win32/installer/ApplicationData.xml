@@ -22,6 +22,7 @@
     <d:process type="Firewall" ServiceName="VPNGUI" ProgramName="Cisco Systems VPN Client" Help="CiscoVPNStatefulInspection" />
     <d:process type="Firewall" ServiceName="WINSS" ProgramName="WindowsLive One Care" />
     <d:process type="Firewall" ServiceName="ZLCLIENT" ProgramName="Zone Alarm" />
+    <d:process type="Firewall" ServiceName="EKRN" ProgramName="ESET Service"/>
 
     <d:process type="Antivirus" ServiceName="ASHSERV" ProgramName="avast! antivirus" />
     <d:process type="Antivirus" ServiceName="AVGUARD" ProgramName="AntiVir PersonalEdition" />
@@ -47,6 +48,7 @@
     <d:process type="Other" ServiceName="CCSETMGR" ProgramName="Norton"/>
     <d:process type="Other" ServiceName="MCSHELL" ProgramName="McAfee" />
     <d:process type="Other" ServiceName="MSSCLLI" ProgramName="McAfee" />
+    <d:process type="Other" ServiceName="EKRN" ProgramName="ESET Service" Help="ESETPortFiltering"/>
   </d:Culture>
 
 </d:BlockerData>
