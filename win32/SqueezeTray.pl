@@ -447,7 +447,7 @@ GetOptions(
 SetTimer(":1", \&checkAndStart);
 
 # This is our update checker timer
-SetTimer(":2", \&checkForUpdate);
+SetTimer("5:00", \&checkForUpdate);
 
 # Poor man's watchdog: if cache/restart.txt exists, restart SC
 SetTimer(":5", \&runWatchDog);
