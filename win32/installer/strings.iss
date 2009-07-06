@@ -9,6 +9,8 @@ fi.GettingStarted=Aloittaminen
 da.GettingStarted=Kom godt i gang
 sv.GettingStarted=Komma igеng
 no.GettingStarted=Komme i gang
+ru.GettingStarted=Приступая к работе
+pl.GettingStarted=Wprowadzenie
 
 en.ProblemUninstallingSLIMP3=Problem uninstalling SLIMP3 software:
 de.ProblemUninstallingSLIMP3=Problem bei Deinstallation von SLIMP3-Software:
@@ -21,6 +23,8 @@ fi.ProblemUninstallingSLIMP3=Ongelma SLIMP3-ohjelmiston poistamisessa:
 sv.ProblemUninstallingSLIMP3=Problem med att avinstallera SLIMP3-programvaran:
 no.ProblemUninstallingSLIMP3=Problem med avinstallering av SLIMP3-programvare:
 da.ProblemUninstallingSLIMP3=Problem ved afinstallation af SLIMP3-softwaren:
+ru.ProblemUninstallingSLIMP3=Проблема с удалением программы SLIMP3:
+pl.ProblemUninstallingSLIMP3=Problem z dezinstalacj№ oprogramowania SLIMP3:
 
 en.ProblemUninstallingSlimServer=Problem uninstalling SlimServer software:
 de.ProblemUninstallingSlimServer=Problem bei Deinstallation der SlimServer-Software:
@@ -33,6 +37,8 @@ fi.ProblemUninstallingSlimServer=Ongelma SlimServer-ohjelmiston poistamisessa:
 sv.ProblemUninstallingSlimServer=Problem med att avinstallera SlimServer-programvaran:
 no.ProblemUninstallingSlimServer=Problem med avinstallering av SlimServer-programvare:
 da.ProblemUninstallingSlimServer=Problem ved afinstallation af SlimServer-softwaren:
+ru.ProblemUninstallingSlimServer=Проблема с удалением программы SlimServer:
+pl.ProblemUninstallingSlimServer=Problem z dezinstalacj№ oprogramowania SlimServer:
 
 en.ProblemUninstallingSqueezeCenter=Problem uninstalling SqueezeCenter software:
 de.ProblemUninstallingSqueezeCenter=Problem bei Deinstallation der SqueezeCenter-Software:
@@ -70,6 +76,8 @@ fi.SlimDevicesWebSite=Slim Devices -sivusto/Logitechin sivusto
 no.SlimDevicesWebSite=Slim Devices/Logitechs nettside
 sv.SlimDevicesWebSite=Slim Devices/Logitechs webbplats
 da.SlimDevicesWebSite=Slim Devices/Logitechs websted
+ru.SlimDevicesWebSite=Веб-сайт Slim Devices/Logitech
+pl.SlimDevicesWebSite=Witryna sieci Web Slim Devices/Logitech
 
 en.SqueezeCenterWebInterface=Squeezebox Web Interface
 de.SqueezeCenterWebInterface=Squeezebox-Web-Benutzeroberflдche
@@ -82,6 +90,8 @@ no.SqueezeCenterWebInterface=Squeezebox nettgrensesnitt
 fi.SqueezeCenterWebInterface=Squeezebox-internet-liittymд
 sv.SqueezeCenterWebInterface=Squeezebox-webbgrдnssnitt
 da.SqueezeCenterWebInterface=Webbaseret brugerflade til Squeezebox
+ru.SqueezeCenterWebInterface=Веб-интерфейс Squeezebox
+pl.SqueezeCenterWebInterface=Interfejs internetowy programu Squeezebox
 
 en.UninstallSqueezeCenter=Uninstall Squeezebox Server
 de.UninstallSqueezeCenter=Squeezebox Server deinstallieren
@@ -94,6 +104,8 @@ da.UninstallSqueezeCenter=Afinstaller Squeezebox Server
 no.UninstallSqueezeCenter=Avinstaller Squeezebox Server
 sv.UninstallSqueezeCenter=Avinstallera Squeezebox Server
 fi.UninstallSqueezeCenter=Poista Squeezebox Server
+ru.UninstallSqueezeCenter=Удалить Squeezebox Server
+pl.UninstallSqueezeCenter=Odinstaluj program Squeezebox Server
 
 en.UninstallPrefs=Do you want to delete all preferences and log files as well?
 it.UninstallPrefs=Eliminare tutte le preferenze e tutti i file di registro?
@@ -105,6 +117,8 @@ fr.UninstallPrefs=Voulez-vous йgalement supprimer les fichiers journaux et des p
 nl.UninstallPrefs=Wil je ook alle voorkeuren en logboekbestanden verwijderen?
 de.UninstallPrefs=Wollen Sie die Einstellungs- und Logdateien ebenfalls entfernen?
 es.UninstallPrefs=їDesea eliminar tambiйn todos los archivos de preferencias y de registro?
+ru.UninstallPrefs=Удалить все настройки и файлы журналов?
+pl.UninstallPrefs=Czy chcesz usun№ж takїe wszystkie preferencje i pliki dziennika?
 
 en.SqueezeCenterTrayTool=Squeezebox Server Tray Tool
 da.SqueezeCenterTrayTool=Squeezebox Server-ikon i systembakken
@@ -117,6 +131,8 @@ it.SqueezeCenterTrayTool=Strumento notifica Squeezebox Server
 nl.SqueezeCenterTrayTool=Squeezebox Server-systeempictogram
 no.SqueezeCenterTrayTool=Squeezebox Server verktшykasse
 sv.SqueezeCenterTrayTool=Squeezebox Server-systemfдltsverktyg
+ru.SqueezeCenterTrayTool=Утилита панели задач Squeezebox Server
+pl.SqueezeCenterTrayTool=Narzкdzie paska zadaс programu Squeezebox Server
 
 en.ManageService=Squeezebox Server Startup options
 de.ManageService=Squeezebox Server-Startoptionen
@@ -128,6 +144,8 @@ no.ManageService=Squeezebox Server oppstartsalternativer
 fi.ManageService=Squeezebox Serverin kдynnistysvaihtoehdot
 sv.ManageService=Startalternativ fцr Squeezebox Server
 da.ManageService=Startindstillinger for Squeezebox Server
+ru.ManageService=Параметры запуска Squeezebox Server
+pl.ManageService=Opcje uruchamiania programu Squeezebox Server
 
 en.RegisterServices=Registering Services
 de.RegisterServices=Dienste werden registriert...
@@ -139,6 +157,8 @@ fi.RegisterServices=Palveluja rekisterцidддn
 sv.RegisterServices=Registrerar tjдnster
 da.RegisterServices=Registrerer tjenester
 no.RegisterServices=Registreringstjenester
+ru.RegisterServices=Выполняется регистрация служб
+pl.RegisterServices=Rejestrowanie usіug
 
 en.RegisterServicesDesc=Please wait while new Squeezebox Server services are configured.
 de.RegisterServicesDesc=Die neuen Squeezebox Server-Dienste werden konfiguriert. Bitte warten.
@@ -150,6 +170,8 @@ fi.RegisterServicesDesc=Odota. Uusia Squeezebox Server-palveluja mддritetддn.
 sv.RegisterServicesDesc=Vдnta pе att de nya Squeezebox Server-tjдnsterna har konfigurerats.
 no.RegisterServicesDesc=Vennligst vent mens nye Squeezebox Server-tjenester konfigureres.
 da.RegisterServicesDesc=Vent lidt mens de nye Squeezebox Server-tjenester bliver konfigureret.
+ru.RegisterServicesDesc=Подождите, настраиваются новые службы Squeezebox Server.
+pl.RegisterServicesDesc=Poczekaj, trwa konfigurowanie nowych usіug programu Squeezebox Server.
 
 en.RegisteringServices=Waiting for services to be configured and started...
 de.RegisteringServices=Dienste werden konfiguriert...
@@ -161,6 +183,8 @@ fi.RegisteringServices=Odotetaan palvelujen mддrittдmistд...
 sv.RegisteringServices=Vдntar pе att tjдnsterna konfigureras ...
 da.RegisteringServices=Venter pе at tjenesten bliver konfigureret...
 no.RegisteringServices=Venter pе at tjenestene skal konfigureres...
+ru.RegisteringServices=Ожидание настройки и запуска служб...
+pl.RegisteringServices=Trwa oczekiwanie na skonfigurowanie i uruchomienie usіug...
 
 en.UnregisterServices=Unregistering Services
 de.UnregisterServices=Registrierung der Dienste wird aufgehoben
@@ -172,6 +196,8 @@ sv.UnregisterServices=Avregistrerar tjдnster
 no.UnregisterServices=Avregistreringstjenester
 da.UnregisterServices=Fjerner registreringen af tjenester
 fi.UnregisterServices=Poistetaan palvelujen rekisterцintiд
+ru.UnregisterServices=Выполняется отмена регистрации служб
+pl.UnregisterServices=Wyrejestrowywanie usіug
 
 en.UnregisterServicesDesc=Please wait while previous Squeezebox Server services are uninstalled.
 de.UnregisterServicesDesc=Vorherige Squeezebox Server-Dienste werden deinstalliert. Bitte warten.
@@ -183,6 +209,8 @@ fi.UnregisterServicesDesc=Odota. Edellisiд Squeezebox Server-palveluja poistetaa
 sv.UnregisterServicesDesc=Vдnta pе att tidigare Squeezebox Server-tjдnster avinstalleras.
 no.UnregisterServicesDesc=Vennligst vent mens tidligere Squeezebox Server-tjenester avinstalleres.
 da.UnregisterServicesDesc=Vent lidt mens de gamle Squeezebox Server-tjenester bliver afinstalleret.
+ru.UnregisterServicesDesc=Подождите, выполняется удаление предыдущих служб Squeezebox Server.
+pl.UnregisterServicesDesc=Poczekaj, trwa dezinstalacja wczeњniejszych usіug programu Squeezebox Server.
 
 en.WaitingForServices=Waiting for Squeezebox Server to stop...
 de.WaitingForServices=Squeezebox Server wird angehalten. Bitte warten...
@@ -194,6 +222,8 @@ fi.WaitingForServices=Odotetaan, ettд Squeezebox Server pysдytetддn...
 sv.WaitingForServices=Vдntar pе att Squeezebox Server stoppas ...
 no.WaitingForServices=Venter pе at Squeezebox Server skal avsluttes...
 da.WaitingForServices=Venter pе at Squeezebox Server stopper...
+ru.WaitingForServices=Squeezebox Server останавливается...
+pl.WaitingForServices=Trwa oczekiwanie na zatrzymanie programu Squeezebox Server...
 
 ; Strings for the startup option page
 en.Startup_Caption=Squeezebox Service Enabler
@@ -217,6 +247,8 @@ da.Startup_Description=Konfigurer Squeezebox Windows-tjeneste
 no.Startup_Description=Konfigurer Squeezebox Windows-tjenesten
 sv.Startup_Description=Konfigurera Squeezebox Windows-tjдnsten
 fi.Startup_Description=Mддritд Squeezebox Windows -palvelun asetukset
+ru.Startup_Description=Настроить службу Squeezebox Windows
+pl.Startup_Description=Skonfiguruj usіugк Windows programu Squeezebox
 
 en.Startup_LabelUsername_Caption0=Username:
 de.Startup_LabelUsername_Caption0=Benutzername:
@@ -228,6 +260,8 @@ sv.Startup_LabelUsername_Caption0=Anvдndarnamn:
 da.Startup_LabelUsername_Caption0=Brugernavn:
 no.Startup_LabelUsername_Caption0=Brukernavn:
 fi.Startup_LabelUsername_Caption0=Kдyttдjдnimi:
+ru.Startup_LabelUsername_Caption0=Имя пользователя:
+pl.Startup_LabelUsername_Caption0=Nazwa uїytkownika:
 
 en.Startup_LabelPassword1_Caption0=Password:
 de.Startup_LabelPassword1_Caption0=Kennwort:
@@ -239,6 +273,8 @@ da.Startup_LabelPassword1_Caption0=Adgangskode:
 sv.Startup_LabelPassword1_Caption0=Lцsenord:
 no.Startup_LabelPassword1_Caption0=Passord:
 fi.Startup_LabelPassword1_Caption0=Salasana:
+ru.Startup_LabelPassword1_Caption0=Пароль:
+pl.Startup_LabelPassword1_Caption0=Hasіo:
 
 en.Startup_LabelPassword2_Caption0=Confirm password:
 de.Startup_LabelPassword2_Caption0=Kennwort bestдtigen:
@@ -250,6 +286,8 @@ da.Startup_LabelPassword2_Caption0=Bekrжft adgangskode:
 sv.Startup_LabelPassword2_Caption0=Bekrдfta lцsenord:
 no.Startup_LabelPassword2_Caption0=Bekreft passord:
 fi.Startup_LabelPassword2_Caption0=Varmista salasana:
+ru.Startup_LabelPassword2_Caption0=Подтвердить пароль:
+pl.Startup_LabelPassword2_Caption0=Potwierdџ hasіo:
 
 en.Startup_RadioAtLogin_Caption0=Start Squeezebox Server when I &log in.
 de.Startup_RadioAtLogin_Caption0=Squeezebox Server beim &Anmelden starten.
@@ -261,6 +299,8 @@ fi.Startup_RadioAtLogin_Caption0=Kдynnistд Squeezebox Server, kun &kirjaudun sis
 no.Startup_RadioAtLogin_Caption0=Start Squeezebox Server nеr jeg &logger pе.
 da.Startup_RadioAtLogin_Caption0=Start Squeezebox Server nеr jeg &logger pе.
 sv.Startup_RadioAtLogin_Caption0=Starta Squeezebox Server vid &inloggning.
+ru.Startup_RadioAtLogin_Caption0=Запускать Squeezebox Server при &входе в систему.
+pl.Startup_RadioAtLogin_Caption0=Uruchom program Squeezebox Server po za&logowaniu.
 
 en.Startup_RadioAtBoot_Caption0=Start Squeezebox Server &automatically when the computer starts.
 de.Startup_RadioAtBoot_Caption0=Squeezebox Server automatisch beim &Systemstart starten.
@@ -272,6 +312,8 @@ fi.Startup_RadioAtBoot_Caption0=Kдynnistд Squeezebox Server &automaattisesti tie
 da.Startup_RadioAtBoot_Caption0=Start Squeezebox Server &automatisk nеr computeren startes.
 no.Startup_RadioAtBoot_Caption0=Start Squeezebox Server &automatisk nеr datamaskinen startes.
 sv.Startup_RadioAtBoot_Caption0=Starta Squeezebox Server &automatiskt nдr datorn startas.
+ru.Startup_RadioAtBoot_Caption0=Запускать Squeezebox Server &автоматически при запуске компьютера.
+pl.Startup_RadioAtBoot_Caption0=Uruchom program Squeezebox Server &automatycznie po uruchomieniu komputera.
 
 en.Startup_LabelAtBootDesc_Caption0=You need to enter your Windows user name and password so Squeezebox Server can access your music library.
 de.Startup_LabelAtBootDesc_Caption0=Sie mьssen Ihren Windows-Benutzernamen und das -Kennwort eingeben, damit Squeezebox Server auf Ihre Musiksammlung zugreifen kann.
@@ -283,6 +325,8 @@ sv.Startup_LabelAtBootDesc_Caption0=Ange Windows-anvдndarnamn och -lцsenord sе a
 no.Startup_LabelAtBootDesc_Caption0=Du mе oppgi Windows-brukernavn og -passord for at Squeezebox Server skal kunne fе tilgang til musikkbiblioteket ditt.
 da.Startup_LabelAtBootDesc_Caption0=Du skal angive dit brugernavn og din adgangskode til Windows sеdan at Squeezebox Server kan fе adgang til musikbiblioteket.
 fi.Startup_LabelAtBootDesc_Caption0=Sinun tдytyy antaa Windowsin kдyttдjдtunnus ja salasana, jotta Squeezebox Server voi kдyttдд musiikkikirjastoa.
+ru.Startup_LabelAtBootDesc_Caption0=Введите имя пользователя и пароль Windows, чтобы медиатека стала доступна для Squeezebox Server.
+pl.Startup_LabelAtBootDesc_Caption0=Naleїy wprowadziж nazwк uїytkownika systemu Windows  i hasіo, aby program Squeezebox Server mуgі uzyskaж dostкp do biblioteki muzyki.
 
 en.Startup_PasswordsDontMatch=Your passwords don't match, please try again.
 de.Startup_PasswordsDontMatch=Die eingegebenen Kennwцrter stimmen nicht ьberein. Wiederholen Sie die Eingabe.
@@ -305,6 +349,8 @@ da.Startup_CredentialsRequired=Hvis du ikke angiver dit brugernavn og din adgang
 no.Startup_CredentialsRequired=Hvis du ikke oppgir brukernavn og passord, kjшres Squeezebox Server som en "anonym" systembruker, og det kan hende at du ikke fеr tilgang til musikkbiblioteket ditt. Vil du fortsatt kjшre som en anonym bruker?
 fi.Startup_CredentialsRequired=Jos et anna kдyttдjдtunnusta ja salasanaa, Squeezebox Server suoritetaan "anonyyminд" jдrjestelmдn kдyttдjдnд. Tдllцin et ehkд voi kдyttдд musiikkikirjastoasi. Haluatko jatkaa ohjelman suorittamista anonyyminд kдyttдjдnд?
 sv.Startup_CredentialsRequired=Om du inte anger anvдndarnamn och lцsenord kommer Squeezebox Server att kцras som en anonym systemanvдndare, och du fеr kanske inte tillgеng till musikbiblioteket. Vill du fortsдtta vara kцra som anonym anvдndare?
+ru.Startup_CredentialsRequired=Если не ввести имя пользователя и пароль, Squeezebox Server будет выполняться для анонимного пользователя и медиатека может быть недоступна. Продолжить в качестве анонимного пользователя?
+pl.Startup_CredentialsRequired=Jeњli nie wprowadzisz nazwy uїytkownika i hasіa, program Squeezebox Server bкdzie dziaіaж jako „anonimowy” uїytkownik systemu i moїesz nie mieж dostкpu do swojej biblioteki muzyki. Czy chcesz kontynuowaж uruchamianie jako anonimowy uїytkownik?
 
 es.ProgressForm_Caption=Asistente para resoluciуn de problemas de Squeezebox
 fr.ProgressForm_Caption=Assistant de dйpannage du Squeezebox
@@ -316,6 +362,8 @@ en.ProgressForm_Caption=Squeezebox Troubleshooting Wizard
 da.ProgressForm_Caption=Squeezebox-guiden Problemlшsning
 nl.ProgressForm_Caption=Squeezebox-wizard voor probleemoplossing
 fi.ProgressForm_Caption=Squeezebox Serverin ohjattu vianetsintд
+ru.ProgressForm_Caption=Мастер устранения неполадок Squeezebox
+pl.ProgressForm_Caption=Kreator rozwi№zywania problemуw z urz№dzeniem Squeezebox
 
 fr.ProgressForm_Description=Analyse de votre systиme
 de.ProgressForm_Description=Das System wird geprьft.
@@ -327,6 +375,8 @@ fi.ProgressForm_Description=Tutkitaanpa jдrjestelmдsi
 no.ProgressForm_Description=Undersшk systemet
 es.ProgressForm_Description=Vamos a sondear su sistema
 it.ProgressForm_Description=Verifichiamo il sistema
+ru.ProgressForm_Description=Проверим вашу систему
+pl.ProgressForm_Description=Zbadajmy Twуj system
 
 es.PortConflict=Conflicto de puertos
 fr.PortConflict=Conflit de port
@@ -338,6 +388,8 @@ da.PortConflict=Portkonflikt
 no.PortConflict=Portkonflikt
 sv.PortConflict=Portkonflikt
 fi.PortConflict=Porttiristiriita
+ru.PortConflict=Конфликт портов
+pl.PortConflict=Konflikt portуw
 
 da.ProbingPorts=Det undersшges om portene blokeres af firewallen
 nl.ProbingPorts=Poorten worden onderzocht om te zien of ze door firewallsoftware worden geblokkeerd
@@ -349,6 +401,8 @@ fi.ProbingPorts=Tutkitaan portteja, jotta havaitaan, estддkц palomuuriohjelma ne
 no.ProbingPorts=Undersшker porter for е se om de blokkeres av brannmurprogramvare
 it.ProbingPorts=Verifica in corso della presenza di eventuali blocchi delle porte mediante software firewall
 fr.ProbingPorts=Vйrification des ports pour dйterminer s'ils sont bloquйs par un pare-feu
+ru.ProbingPorts=Проверка портов на предмет блокировки брандмауэром
+pl.ProbingPorts=Trwa badanie portуw w celu sprawdzenia, czy s№ blokowane przez oprogramowanie zapory
 
 de.Details=Beschreibung
 en.Details=Details
@@ -360,6 +414,8 @@ es.Details=Detalles
 it.Details=Dettagli
 fr.Details=Dйtails
 fi.Details=Tiedot
+ru.Details=Сведения
+pl.Details=Szczegуіy
 
 fi.Problem=Ongelma
 nl.Problem=Probleem
@@ -371,6 +427,8 @@ sv.Problem=Problem
 es.Problem=Problema
 it.Problem=Problema
 fr.Problem=Problиme
+ru.Problem=Проблема
+pl.Problem=Problem
 
 sv.Solution=Lцsning
 de.Solution=Lцsung
@@ -382,6 +440,8 @@ es.Solution=Soluciуn
 en.Solution=Solution
 fr.Solution=Solution
 it.Solution=Soluzione
+ru.Solution=Решение
+pl.Solution=Rozwi№zanie
 
 es.Caption=Asistente para resoluciуn de problemas de Squeezebox
 fr.Caption=Assistant de dйpannage du Squeezebox
@@ -393,6 +453,8 @@ en.Caption=Squeezebox Troubleshooting Wizard
 da.Caption=Squeezebox-guiden Problemlшsning
 nl.Caption=Squeezebox-wizard voor probleemoplossing
 fi.Caption=Squeezebox Serverin ohjattu vianetsintд
+ru.Caption=Мастер устранения неполадок Squeezebox
+pl.Caption=Kreator rozwi№zywania problemуw z urz№dzeniem Squeezebox
 
 da.SummaryForm_Description=Oversigt
 es.SummaryForm_Description=Resumen
@@ -404,6 +466,8 @@ en.SummaryForm_Description=Summary
 fi.SummaryForm_Description=Yhteenveto
 de.SummaryForm_Description=Zusammenfassung
 sv.SummaryForm_Description=Цversikt
+ru.SummaryForm_Description=Сводка
+pl.SummaryForm_Description=Podsumowanie
 
 fr.NoProblemForm_Description=Aucun problиme dйtectй.
 da.NoProblemForm_Description=Der blev ingen problemer fundet.
@@ -415,6 +479,8 @@ it.NoProblemForm_Description=Nessun problema rilevato.
 en.NoProblemForm_Description=No problems found.
 es.NoProblemForm_Description=No se han encontrado problemas.
 fi.NoProblemForm_Description=Ongelmia ei lцytynyt.
+ru.NoProblemForm_Description=Проблемы не найдены.
+pl.NoProblemForm_Description=Nie znaleziono їadnych problemуw.
 
 es.NoProblem=Hemos realizado pruebas de acceso a red, productos de servidor de seguridad y antivirus, %npero no se encontraron problemas.
 fr.NoProblem=Les tests d'accиs rйseau, de pare-feu et d'antivirus ont йtй effectuйs et %naucun problиme n'a йtй dйtectй.
@@ -426,6 +492,8 @@ fi.NoProblem=Suoritimme verkon kдytцn sekд palomuuri- ja virustorjuntatuotteiden
 no.NoProblem=Vi testet nettverkstilgang, brannmur og antivirusprodukter, %nmen fant ingen problemer.
 nl.NoProblem=We hebben de netwerktoegang, firewall en antivirusproducten getest, %nmaar er zijn geen problemen gevonden.
 en.NoProblem=We ran network access, firewall and antivirus product tests, %nbut no problems were found.
+ru.NoProblem=Были выполнены тесты доступа к сети, брандмауэра и антивирусной программы, %nпроблем не обнаружено.
+pl.NoProblem=Wykonano testy dostкpu do sieci, zapory i programu antywirusowego, %nale nie znaleziono їadnych problemуw.
 
 da.UnknownFirewall=Der er opdaget et problem.%n%nEn eller flere af de netvжrksporte som benyttes af Squeezebox, er blokeret. Squeezebox benytter port nummer 9000 (TCP) og 3483 (TCP og UDP). Det skyldes normalt sikkerhedssoftware, isжr firewallen.%n%nDer er flere oplysninger pе http://faq.slimdevices.com hvor du kan sшge efter artikler om dine sikkerhedsprogrammer og om firewalls i almindelighed.
 no.UnknownFirewall=Det har blitt oppdaget et problem.%n%nEn eller flere av nettverksportene som brukes av Squeezebox, er blokkerte. Squeezebox bruker portene 9000 (TCP) og 3483 (TCP og UDP). Den vanligste еrsaken til dette problemet er sikkerhetsprogramvaren pе systemet, nжrmere bestemt brannmuren.%n%nGе til http://faq.slimdevices.com og sшk etter artikler vedrшrerende din sikkerhetsprogramvare eller brannmurer generelt, hvis du vil vite mer.
@@ -437,6 +505,8 @@ fr.UnknownFirewall=Un problиme a йtй dйtectй.%n%nUn ou plusieurs ports rйseau ut
 nl.UnknownFirewall=We hebben een probleem gedetecteerd.%n%nEen of meer van de netwerkpoorten die door Squeezebox worden gebruikt, worden geblokkeerd. Squeezebox gebruikt poortnummers 9000 (TCP) en 3483 (TCP en UDP). De meest waarschijnlijke oorzaak hiervan is beveiligingssoftware op je systeem, met name een firewall.%n%nVoor meer informatie ga je naar http://faq.slimdevices.com en zoek je naar artikelen over je specifieke beveiligingssoftware of over firewalls in het algemeen.
 en.UnknownFirewall=We've detected a problem.%n%nOne or more of the network ports used by Squeezebox is blocked. Squeezebox uses port numbers 9000 (TCP) and 3483 (TCP and UDP). The most common cause for this is security software on your system, specifically a firewall.%n%nFor more information, visit http://faq.slimdevices.com and search for articles on your specific security software or on firewalls in general.
 it.UnknownFirewall=И stato rilevato un problema.%n%nUna o piщ porte di rete utilizzate da Squeezebox sono bloccate. Squeezebox utilizza le porte 9000 (TCP) e 3483 (TCP e UDP). La causa piщ comune del problema и la presenza di software di protezione nel sistema in uso, in particolare un firewall.%n%nPer ulteriori informazioni, visitare il sito Web http://faq.slimdevices.com e cercare gli articoli relativi al software di protezione specifico in uso o sui firewall in generale.
+ru.UnknownFirewall=Обнаружена проблема.%n%nОдин или несколько используемых Squeezebox сетевых портов заблокированы. Squeezebox использует порты 9000 (TCP) и 3483 (TCP и UDP). Наиболее вероятная причина — программы обеспечения безопасности, в частности, брандмауэр.%n%nПодробнее см. на сайте http://faq.slimdevices.com: выполните поиск статей по конкретной программе или брандмауэрам в целом.
+pl.UnknownFirewall=Wykryto problem.%n%nCo najmniej jeden port sieciowy uїywany przez program Squeezebox jest zablokowany. Program Squeezebox uїywa portуw o numerach 9000 (TCP) i 3483 (TCP i UDP). Najczкstsz№ przyczyn№ jest obecnoњж na komputerze programu zabezpieczaj№cego, a w szczegуlnoњci zapory.%n%nAby uzyskaж wiкcej informacji, odwiedџ witrynк http://faq.slimdevices.com i wyszukaj artykuіy poњwiкcone danemu programowi zabezpieczaj№cemu lub ogуlne artykuіy o zaporach.
 
 da.PrefsExistButPortConflict=Der er opdaget et problem.%n%nSqueezebox Server bruger port 9000 til at kommunikere over dit netvжrk, men der er muligvis en konflikt med et andet program som bruger samme port.%n%nHvis du har problemer med at starte Squeezebox Server, kan du redigere filen med indstillinger for Squeezebox Server og der жndre portnummeret til et andet.%n%nDet gшr du ved at finde filen "server.prefs" pе computeren og redigere den i Notesblok. Find linjen med "httpport" og skift vжrdi fra 9000 til 9010 eller 9100. Gem filen og luk den. Det burde lшse konflikten hvorefter Squeezebox Server igen kan kшre.%n%nDer er flere oplysninger pе http://faq.slimdevices.com
 no.PrefsExistButPortConflict=Det har blitt oppdaget et problem.%n%nSqueezebox Server bruker port 9000 til е kommunisere via nettverket, og det ser ut til е vжre en konflikt med et annet program som bruker samme port.%n%nHvis du har problemer med е starte Squeezebox Server, kan du prшve е redigere innstillingsfilen til Squeezebox Server og endre porten til en annen verdi.%n%nDette gjшr du ved е sшke etter "server.prefs" pе datamaskinen og redigere filen i notisblokken. Dette lшser konflikten og lar Squeezebox Server kjшre som det skal.%n%nGе til http://faq.slimdevices.com hvis du vil vite mer.
@@ -448,6 +518,8 @@ fr.PrefsExistButPortConflict=Un problиme a йtй dйtectй.%n%nLe Squeezebox Server 
 nl.PrefsExistButPortConflict=We hebben een probleem gedetecteerd.%n%nSqueezebox Server gebruikt poort 9000 om via je netwerk te communiceren, en er is misschien een conflict met een andere toepassing die dezelfde poort gebruikt.%n%nAls je problemen ondervindt met het starten van Squeezebox Server, bewerk je het Squeezebox Server-voorkeurenbestand en verander je de waarde van de poort.%n%nZoek hiervoor naar 'server.prefs' op je computer en bewerk dat bestand in Kladblok. Zoek de ingang voor 'httpport' en verander deze van 9000 naar 9010, of soms 9100. Sla het bestand op en sluit het. Hiermee wordt het conflict opgelost en kan Squeezebox Server worden uitgevoerd.%n%nGa naar http://faq.slimdevices.com voor meer informatie.
 en.PrefsExistButPortConflict=We've detected a problem.%n%nSqueezebox Server uses port 9000 to communicate over your network, and there may be a conflict with another application using the same port.%n%nIf you encounter problems starting Squeezebox Server, try editing the Squeezebox Server preference file and changing the port to some other value.%n%nTo do this, search for "server.prefs" on your computer and edit that file in notepad.  Find the entry for "httpport" and change it from 9000 to 9010, some 9100. Save and close the file.  This will solve the conflict and allow Squeezebox Server to run successfully.%n%nFor more information, visit http://faq.slimdevices.com
 it.PrefsExistButPortConflict=И stato rilevato un problema.%n%nSqueezebox Server utilizza la porta 9000 per le comunicazioni di rete e potrebbe esserci un conflitto con un'altra applicazione che utilizza tale porta.%n%nIn caso di problemi con l'avvio di Squeezebox Server, provare a modificare il file delle preferenze di Squeezebox Server e cambiare porta.%n%nA tale scopo, cercare "server.prefs" nel computer in uso e modificare il file con il Blocco note. Individuare la voce "httpport" e cambiarne l'impostazione da 9000 a 9010, in alcuni casi 9100. Salvare e chiudere il file. In tal modo il conflitto verrа risolto e Squeezebox Server verrа eseguito correttamente.%n%nPer ulteriori informazioni, visitare il sito Web http://faq.slimdevices.com
+ru.PrefsExistButPortConflict=Обнаружена проблема.%n%nSqueezebox Server взаимодействует по сети через порт 9000, и при использовании этого порта другим приложением возможен конфликт.%n%nПри возникновении проблем с запуском Squeezebox Server попробуйте изменить файл настроек Squeezebox Server, выбрав другой номер порта.%n%nДля этого найдите на компьютере файл "server.prefs" и измените его в Блокноте.  Найдите вхождение "httpport" и измените значение 9000 на 9010, или 9100. Сохраните и закройте файл.  Конфликт будет устранен, и Squeezebox Server сможет успешно выполняться.%n%nПодробнее см. на сайте http://faq.slimdevices.com
+pl.PrefsExistButPortConflict=Wykryto problem.%n%nProgram Squeezebox Server uїywa portu 9000 do komunikacji przez sieж, ale moїe wystкpowaж konflikt z inn№ aplikacj№ uїywaj№c№ tego samego portu.%n%nJeњli wyst№pi№ problemy z uruchamianiem programu Squeezebox Server, sprуbuj dokonaж edycji pliku preferencji programu Squeezebox Server i zmieniж port na inn№ wartoњж.%n%nAby to zrobiж, wyszukaj plik „server.prefs” na komputerze i dokonaj jego edycji w Notatniku. Znajdџ wpis „httpport” i zmieс wartoњж z 9000 na 9010 lub 9100. Zapisz i zamknij plik. Spowoduje to rozwi№zanie konfliktu i umoїliwi uruchomienie programu Squeezebox Server.%n%nAby uzyskaж wiкcej informacji, odwiedџ witrynк http://faq.slimdevices.com
 
 da.PortConflict_Description=Der er et problem.%n%nDer kan vжre en netvжrkskonflikt da fшlgende program allerede bruger port 9000:
 no.PortConflict_Description=Det ble oppdaget et problem.%n%nDet kan ha oppstеtt en nettverkskonflikt. Fшlgende program bruker allerede port 9000:
@@ -459,6 +531,8 @@ fr.PortConflict_Description=Un problиme a йtй dйtectй.%n%nUn conflit rйseau est 
 nl.PortConflict_Description=We hebben een probleem gedetecteerd.%n%nEr is misschien een netwerkconflict. Poort 9000 wordt al door het volgende programma gebruikt:
 en.PortConflict_Description=We've detected a problem.%n%nThere may be a network conflict.  The following program is already using port 9000:
 it.PortConflict_Description=И stato rilevato un problema.%n%nPotrebbe essersi verificato un conflitto di rete. La porta 9000 и giа utilizzata dal programma seguente:
+ru.PortConflict_Description=Обнаружена проблема.%n%nВозможно, возник сетевой конфликт.  Порт 9000 уже используется следующей программой:
+pl.PortConflict_Description=Wykryto problem.%n%nByж moїe wystкpuje konflikt sieci. Nastкpuj№cy program juї uїywa portu 9000:
 
 sv.PortConflict_Solution=Du kan konfigurera sе att Squeezebox Server kцrs pе en port som inte anvдnds, t.ex. 9001.
 da.PortConflict_Solution=Du kan konfigurere Squeezebox Server til at kommunikere over en ubenyttet port, fx 9001.
@@ -470,6 +544,8 @@ fi.PortConflict_Solution=Voit mддrittдд Squeezebox Serverin kдyttдmддn vapaata p
 fr.PortConflict_Solution=Vous pouvez configurer le Squeezebox Server pour utiliser un port diffйrent, par exemple 9001.
 en.PortConflict_Solution=You can configure Squeezebox Server to run on an unused port, such as 9001.
 it.PortConflict_Solution=И possibile configurare Squeezebox Server per l'esecuzione su una porta inutilizzata, ad esempio la porta 9001.
+ru.PortConflict_Solution=Можно настроить выполнение Squeezebox Server на неиспользуемом порту, например 9001.
+pl.PortConflict_Solution=Program Squeezebox Server moїna skonfigurowaж do pracy na nieuїywanym porcie, takim jak 9001.
 
 da.PingProblem=Der er et problem med at sende pingkommando til www.squeezenetwork.com
 sv.PingProblem=Det gick inte att skicka ping till www.squeezenetwork.com
@@ -481,6 +557,8 @@ en.PingProblem=Problem pinging www.squeezenetwork.com
 es.PingProblem=Problema al hacer ping a www.squeezenetwork.com
 it.PingProblem=Problema durante il ping di www.squeezenetwork.com
 fr.PingProblem=Problиme lors du ping de www.squeezenetwork.com
+ru.PingProblem=Проблема с проверкой связи с www.squeezenetwork.com
+pl.PingProblem=Problem z pingowaniem witryny www.squeezenetwork.com
 
 fr.PingProblem_Description=Communication avec SqueezeNetwork.com impossible.
 sv.PingProblem_Description=Det gick inte att kommunicera med SqueezeNetwork.com
@@ -492,6 +570,8 @@ es.PingProblem_Description=No ha sido posible comunicarse correctamente con Sque
 no.PingProblem_Description=Vi kunne ikke kommunisere med SqueezeNetwork.com
 nl.PingProblem_Description=We kunnen niet met SqueezeNetwork.com communiceren
 en.PingProblem_Description=We were not able to successfully communicate with SqueezeNetwork.com
+ru.PingProblem_Description=Не удалось подключиться к SqueezeNetwork.com
+pl.PingProblem_Description=Prуba nawi№zania komunikacji z witryn№ SqueezeNetwork.com nie powiodіa siк
 
 sv.PingProblem_Solution=Det kan rцra sig om ett tillfдlligt internetproblem eller om begrдnsningar som internetleverantцren har infцrt.%n%nOm problemet kvarstеr bцr du kontrollera om brandvдggen blockerar utgеende trafik.
 da.PingProblem_Solution=Det kan skyldes et midlertidigt problem pе internettet eller en begrжnsning fra din internetudbyders side.%n%nHvis problemet fortsжtter, skal du kontrollere at din firewall ikke blokerer udgеende trafik.
@@ -503,6 +583,8 @@ it.PingProblem_Solution=Potrebbe trattarsi di un problema Internet temporaneo o 
 es.PingProblem_Solution=Puede tratarse de un problema de Internet temporal o de una limitaciуn impuesta por su ISP.%n%nSi el problema continъa, asegъrese de que el servidor de seguridad no estй bloqueando el trбfico de salida.
 en.PingProblem_Solution=This might be a temporary internet issue, or a limitation imposed by your ISP.%n%nIf the problem persists, please make sure your firewall is not blocking outgoing traffic.
 fi.PingProblem_Solution=Tдmд saattaa olla tilapдinen internet-ongelma tai internet-palveluntarjoajasi mддrittдmд rajoitus.%n%nJos ongelma jatkuu, tarkista, ettei palomuurisi estд lдhtevдд liikennettд.
+ru.PingProblem_Solution=Возможно, это временная проблема с Интернетом или ограничение поставщика услуг Интернета.%n%nЕсли проблема не исчезнет, убедитесь, что брандмауэр не блокирует исходящий трафик.
+pl.PingProblem_Solution=Moїe to byж tymczasowy problem z Internetem lub ograniczenie narzucone przez usіugodawcк internetowego.%n%nJeїeli problem nie zniknie, upewnij siк, їe zapora nie blokuje ruchu wychodz№cego.
 
 sv.SNConnecting=Ansluter till www.squeezenetwork.com ...
 es.SNConnecting=Conectando a www.squeezenetwork.com...
@@ -514,6 +596,8 @@ da.SNConnecting=Etablerer forbindelse til www.squeezenetwork.com...
 no.SNConnecting=Kopler til www.squeezenetwork.com...
 fi.SNConnecting=Muodostetaan yhteyttд osoitteeseen www.squeezenetwork.com...
 de.SNConnecting=Verbindung zu www.squeezenetwork.com wird hergestellt...
+ru.SNConnecting=Выполняется подключение к www.squeezenetwork.com...
+pl.SNConnecting=Trwa і№czenie z witryn№ www.squeezenetwork.com...
 
 en.SNConnectFailed=Connecting to www.squeezenetwork.com failed
 it.SNConnectFailed=Connessione a www.squeezenetwork.com non riuscita
@@ -525,6 +609,8 @@ es.SNConnectFailed=Fallo al conectar a www.squeezenetwork.com
 no.SNConnectFailed=Oppkopling til www.squeezenetwork.com mislyktes
 nl.SNConnectFailed=Verbinding met www.squeezenetwork.com mislukt
 fi.SNConnectFailed=Yhteyden muodostaminen osoitteeseen www.squeezenetwork.com epдonnistui
+ru.SNConnectFailed=Сбой подключения к mysqueezebox.com
+pl.SNConnectFailed=Prуba nawi№zania poі№czenia z usіug№ mysqueezebox.com nie powiodіa siк
 
 da.SNConnectFailed_Description=Der kunne ikke etableres forbindelse til SqueezeNetwork.com pе port 3483 som bruges af %nSqueezebox.
 sv.SNConnectFailed_Description=Det gick inte att ansluta till SqueezeNetwork.com via port 3483, som anvдnds av %nSqueezebox.
@@ -536,6 +622,8 @@ no.SNConnectFailed_Description=Vi kunne ikke kople til SqueezeNetwork.com gjenno
 nl.SNConnectFailed_Description=We kunnen geen verbinding maken met SqueezeNetwork.com op poort 3483, die door %nSqueezebox wordt gebruikt.
 en.SNConnectFailed_Description=We were not able to connect to SqueezeNetwork.com on port 3483, which is used by %nSqueezebox.
 fi.SNConnectFailed_Description=Yhteyttд ei voitu muodostaa osoitteeseen SqueezeNetwork.com portissa 3483. Portti on %nSqueezeboxin kдytцssд.
+ru.SNConnectFailed_Description=Не удалось подключиться к mysqueezebox.com через порт 3483, используемый %nSqueezebox.
+pl.SNConnectFailed_Description=Nie moїna nawi№zaж poі№czenia z usіug№ mysqueezebox.com na porcie 3483, ktуry jest uїywany przez urz№dzenie %nSqueezebox.
 
 nl.SNConnectFailed_Solution=Als je internetverbinding verder goed werkt, controleer je de firewallinstellingen. %nZorg dat uitgaande verbindingen naar poort 3483 niet worden geblokkeerd. %n%nVele bedrijfsfirewalls blokkeren deze poort.
 de.SNConnectFailed_Solution=Falls Ihre Internetverbindung sonst richtig funktioniert, prьfen Sie die Firewall-Einstellungen. %nStellen Sie sicher, dass ausgehende Verbindungen zu Port 3483 nicht blockiert werden. %n%nViele Firmen-Firewalls blockieren diesen Port.
@@ -547,6 +635,8 @@ it.SNConnectFailed_Solution=Se la connessione a Internet funziona correttamente 
 es.SNConnectFailed_Solution=Si la conexiуn a Internet funciona correctamente para lo demбs, compruebe la configuraciуn del servidor de seguridad. %nAsegъrese de que las conexiones de salida al puerto 3483 no estбn bloqueadas. %n%nMuchos servidores de seguridad de empresa bloquean este puerto.
 fr.SNConnectFailed_Solution=Si votre connexion Internet fonctionne correctement, vйrifiez les paramиtres du pare-feu. %nVйrifiez que les connexions sortantes sur le port 3483 ne sont pas bloquйes. %n%nCe port est souvent bloquй par les pare-feu.
 no.SNConnectFailed_Solution=Sjekk brannmurinnstillingene hvis Internett-tilkoplingen ellers fungerer som den skal. %nSшrg for at utgеende tilkoplinger til port 3483 ikke blokkeres. %n%nMange bedriftsbrannmurer blokkerer denne porten.
+ru.SNConnectFailed_Solution=Если в остальном подключение к Интернету работает нормально, проверьте параметры брандмауэра. %nУбедитесь, что исходящие подключения к порту 3483 не блокируются. %n%nМногие корпоративные брандмауэры блокируют этот порт.
+pl.SNConnectFailed_Solution=Jeњli poі№czenie internetowe dziaіa prawidіowo, sprawdџ ustawienia zapory. %nUpewnij siк, їe poі№czenia wychodz№ce na porcie 3483 nie s№ blokowane. %n%nWiele zapуr firmowych blokuje ten port.
 
 fr.AppConflict=Conflit logiciel possible dйtectй
 da.AppConflict=Der er fundet en mulig softwarekonflikt
@@ -558,6 +648,8 @@ no.AppConflict=Mulig programvarekonflikt oppdaget
 de.AppConflict=Mцglicher Software-Konflikt gefunden
 it.AppConflict=Possibile conflitto software rilevato
 en.AppConflict=Possible software conflict found
+ru.AppConflict=Обнаружен возможный конфликт ПО
+pl.AppConflict=Znaleziono potencjalny konflikt oprogramowania
 
 en.AppConflict_Description=A program has been found running on your machine which may conflict%nwith Squeezebox Server under certain conditions.%n%nIf you have problems using Squeezebox Server, please contact technical support.%n%nFor more information, visit http://faq.slimdevices.com
 de.AppConflict_Description=Auf dem Computer wird ein Programm ausgefьhrt, das mцglicherweise zu Konflikten%nmit Squeezebox Server fьhren kцnnte.%n%nWenn bei der Nutzung von Squeezebox Server Probleme auftreten, wenden Sie sich an den Kundendienst.%n%nWeitere Informationen unter http://faq.slimdevices.com
@@ -569,6 +661,8 @@ it.AppConflict_Description=Nel computer in uso и stato rilevato un programma in 
 es.AppConflict_Description=Se ha detectado un programa en ejecuciуn en el equipo que podrнa entrar en conflicto%ncon Squeezebox Server en ciertas circunstancias.%n%nSi tiene problemas al usar Squeezebox Server, pуngase en contacto con el servicio de asistencia tйcnica.%n%nPara mбs informaciуn, visite http://faq.slimdevices.com
 fi.AppConflict_Description=Tietokoneelta lцytyi kдynnissд oleva ohjelma, joka saattaa aiheuttaa ristiriidan%nSqueezebox Serverin kanssa tietyissд olosuhteissa.%n%nJos sinulla on ongelmia Squeezebox Serverin kдytцssд, ota yhteyttд tekniseen tukeen.%n%nLisдtietoja on osoitteessa http://faq.slimdevices.com
 fr.AppConflict_Description=Un programme en cours d'exйcution sur l'ordinateur peut entrer en conflit%navec le Squeezebox Server sous certaines conditions.%n%nSi vous rencontrez des problиmes en utilisant le Squeezebox Server, veuillez contacter le service d'assistance technique.%n%nPour de plus amples informations, rendez-vous sur http://faq.slimdevices.com.
+ru.AppConflict_Description=На компьютере выполняется программа, которая при определенных условиях может конфликтовать%nс Squeezebox Server.%n%nПри наличии проблем с использованием Squeezebox Server обратитесь в службу технической поддержки.%n%nПодробнее см. на сайте http://faq.slimdevices.com
+pl.AppConflict_Description=Na komputerze znaleziono dziaіaj№cy program, ktуry w niektуrych warunkach%nmoїe powodowaж konflikt z programem Squeezebox Server.%n%nW przypadku problemуw z korzystaniem z programu Squeezebox Server skontaktuj siк z dziaіem pomocy technicznej.%n%nAby uzyskaж wiкcej informacji, odwiedџ witrynк http://faq.slimdevices.com
 
 fr.Port9000ok=Le Squeezebox Server est en cours d'exйcution et accessible.
 es.Port9000ok=Squeezebox Server estб en ejecuciуn y es accesible
@@ -580,6 +674,8 @@ fi.Port9000ok=Squeezebox Server on kдynnissд ja kдytettдvissд
 de.Port9000ok=Squeezebox Server wird ausgefьhrt und ist erreichbar
 nl.Port9000ok=Squeezebox Server wordt uitgevoerd en is toegankelijk
 it.Port9000ok=Squeezebox Server и in esecuzione ed и accessibile
+ru.Port9000ok=Squeezebox Server выполняется и доступен
+pl.Port9000ok=Program Squeezebox Server dziaіa i jest dostкpny
 
 fr.Port9000blocked=Le Squeezebox Server est en cours d'exйcution mais ne peut кtre contactй sur le port 9000.
 es.Port9000blocked=Squeezebox Server estб en ejecuciуn pero no se puede contactar con йl en el puerto 9000
@@ -591,6 +687,8 @@ fi.Port9000blocked=Squeezebox Server on kдynnissд, mutta siihen ei saada yhteytt
 de.Port9000blocked=Squeezebox Server wird ausgefьhrt, kann aber an Port 9000 nicht erreicht werden.
 nl.Port9000blocked=Squeezebox Server wordt uitgevoerd maar is niet toegankelijk via poort 9000
 it.Port9000blocked=Squeezebox Server и in esecuzione ma non puт essere contattato sulla porta 9000
+ru.Port9000blocked=Squeezebox Server выполняется, но подключение через порт 9000 невозможно
+pl.Port9000blocked=Program Squeezebox Server dziaіa, ale nie moїna skontaktowaж siк z nim na porcie 9000
 
 es.Port9000busyOther=El puerto 9000 estб ocupado y puede que lo use otra aplicaciуn y no parece que Squeezebox Server se estй ejecutando
 it.Port9000busyOther=La porta 9000 и occupata e potrebbe essere utilizzata da un'altra applicazione. Squeezebox Server non sembra essere in esecuzione.
@@ -613,6 +711,8 @@ da.Port9000unused=Port 9000 er tilsyneladende ikke i brug
 no.Port9000unused=Port 9000 ser ut til е vжre ledig
 de.Port9000unused=Port 9000 wird scheinbar nicht genutzt
 fi.Port9000unused=Portti 9000 nдyttдд olevan kдyttдmдtцn
+ru.Port9000unused=По-видимому, порт 9000 не используется
+pl.Port9000unused=Port 9000 jest prawdopodobnie nieuїywany
 
 ; help messages concerning some applications
 nl.CiscoVPNStatefulInspection=Als je verbindingsproblemen met Squeezebox ondervindt,%n zorg je ervoor dat 'Stateful Firewall (Altijd aan)' is uitgeschakeld
@@ -636,6 +736,8 @@ da.McAfeeMySQL=McAfee antivirusscanner skan konfigureres til at ignorere MySQL-f
 sv.McAfeeMySQL=McAfees viruskontroll mеste vara instдlld sе att .my-filer (MySQL) ignoreras. %nAnnars kan det hдnda att Squeezebox Server inte kan sцka igenom musiken.
 no.McAfeeMySQL=McAfees virussшk mе konfigureres til е ignorere *.my*-filer fra MySQL.%nHvis ikke, kan Squeezebox Servers musikksшk mislykkes.
 it.McAfeeMySQL=И necessario configurare la scansione antivirus di McAfee in modo che i file *.my* di MySQL vengano ignorati. %nIn caso contrario, l'analisi musicale di Squeezebox Server potrebbe non essere eseguita correttamente.
+ru.McAfeeMySQL=В антивирусном сканере McAfee нужно задать исключение для MySQL-файлов *.my*. %nИначе возможен сбой сканирования музыки Squeezebox Server.
+pl.McAfeeMySQL=Skaner antywirusowy McAfee musi zostaж skonfigurowany w celu ignorowania plikуw *.my* bazy danych MySQL. %nW przeciwnym razie funkcja skanowania muzyki w programie Squeezebox Server nie powiedzie siк.
 
 nl.SCPerl=%nAls je SC met de perl-versie uitvoert, is dit normaal gedrag.
 de.SCPerl=%nDas Ausfьhren von SC mithilfe der Perl-Version wird akzeptiert und erwartet.
@@ -647,10 +749,14 @@ sv.SCPerl=%nOm du kцr du perlversionen av SC дr detta inget fel, utan OK och fцr
 it.SCPerl=%nSe и in esecuzione la versione Perl di SC, il problema non sussiste.
 es.SCPerl=%nSi ejecuta SC con la versiуn perl, es correcto y estб previsto.
 fr.SCPerl=%nSi vous exйcutez SC а l'aide de la version perl, cet йvйnement est attendu.
+ru.SCPerl=%nПри выполнении SC с версией perl данное поведение ожидаемо и нормально.
+pl.SCPerl=%nJeњli uїywasz programu SC w wersji perl, jest to poprawne i oczekiwane zachowanie.
 
 en.ESETPortFiltering=ESET Antivirus or Smart Security can cause problems starting Squeezebox Server. If you experience failure starting Squeezebox Server, then make sure you have unchecked port filtering for SqueezeboxSvr.exe in ESET Advanced Settings/Antivirus and antispyware/Web access protection/HTTP, HTTPS/Web browsers.
 
 en.ControlPanel=SqueezeBox Control Panel
+ru.ControlPanel=Панель управления Squeezebox
+pl.ControlPanel=Panel sterowania programu Squeezebox
 
 en.StartupControlPanel=Start Squeezebox Control Panel
 de.StartupControlPanel=Squeezebox Kontrollfeld starten
