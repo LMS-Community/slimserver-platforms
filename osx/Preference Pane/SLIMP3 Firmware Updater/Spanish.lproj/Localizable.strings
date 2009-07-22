@@ -1,4 +1,0 @@
-"Authorization Launch Error" = "Imposible actualizar firmware: falta el archivo Update Firmware.sh.";
-"Expired Authorization Error" = "Imposible actualizar firmware: la autorización ha caducado.";
-"Firmware version" = "Versión de firmware %@.";
-"Firmware version invalid" = "Versión de firmware no válida.";

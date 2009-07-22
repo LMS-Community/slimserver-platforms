@@ -1,4 +1,0 @@
-"Authorization Launch Error" = "Firmwaren kunne ikke opdateres: filen Update Firmware.sh mangler.";
-"Expired Authorization Error" = "Firmwaren kunne ikke opdateres: godkendelsen er udløbet.";
-"Firmware version" = "Firmwareversion %@.";
-"Firmware version invalid" = "Firmwareversionen er ugyldig.";

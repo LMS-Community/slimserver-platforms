@@ -1,6 +1,0 @@
-/* Localized versions of Info.plist keys */
-
-CFBundleName = "Programme de mise � jour du micrologiciel SLIMP3";
-CFBundleShortVersionString = "7.4";
-CFBundleGetInfoString = "Programme de mise � jour du micrologiciel SLIMP3 version 7.4, Copyright 2008 Logitech";
-NSHumanReadableCopyright = "Copyright 2008 Logitech";

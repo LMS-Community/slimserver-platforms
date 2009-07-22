@@ -1,4 +1,0 @@
-"Authorization Launch Error" = "Laiteohjelmistoa ei voida p‰ivitt‰‰: tiedosto Update Firmware.sh puuttuu.";
-"Expired Authorization Error" = "Laiteohjelmistoa ei voida p‰ivitt‰‰: valtuutus vanhentunut.";
-"Firmware version" = "Laiteohjelmistoversio %@.";
-"Firmware version invalid" = "V‰‰r‰ laiteohjelmistoversio.";

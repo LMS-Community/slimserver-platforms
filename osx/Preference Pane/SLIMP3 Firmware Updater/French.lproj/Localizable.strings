@@ -1,4 +1,0 @@
-"Authorization Launch Error" = "Impossible de mettre à jour le micrologiciel: le fichier Update Firmware.sh est manquant.";
-"Expired Authorization Error" = "Impossible de mettre à jour le micrologiciel: l'autorisation a expiré.";
-"Firmware version" = "Micrologiciel version %@.";
-"Firmware version invalid" = "Version du micrologiciel non valide.";

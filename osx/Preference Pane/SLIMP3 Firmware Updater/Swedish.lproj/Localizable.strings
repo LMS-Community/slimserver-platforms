@@ -1,4 +1,0 @@
-"Authorization Launch Error" = "Det går inte att uppdatera den inbyggda programvaran eftersom filen Update Firmware.sh saknas.";
-"Expired Authorization Error" = "Det går inte att uppdatera den inbyggda programvaran eftersom auktoriseringen inte gäller längre.";
-"Firmware version" = "Inbyggd programvara version %@.";
-"Firmware version invalid" = "Ogiltig version av inbyggd programvara.";
