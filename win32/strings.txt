@@ -62,7 +62,7 @@ OPEN_SQUEEZEBOX_SERVER
 	CS	Otevřít Squeezebox Server
 	DA	Åbn Squeezebox Server
 	DE	Squeezebox Server öffnen
-	DE	Open Web Control...
+	EN	Open Web Control...
 	ES	Abrir Squeezebox Server
 	FI	Avaa Squeezebox Server
 	FR	Ouvrir le Squeezebox Server
