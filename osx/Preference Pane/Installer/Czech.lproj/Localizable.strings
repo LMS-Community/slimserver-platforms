@@ -1,8 +1,8 @@
-"Install" = "Install";
-"Update" = "Update";
-"Install Results" = "Install Results";
+"Install" = "Instalovat";
+"Update" = "Aktualizovat";
+"Install Results" = "Instalovat Výsledky";
 "OK" = "OK";
-" installed successfully.\n" = " installed successfully.";
-" install failed.\n" = " install failed.";
-"You must have OS X 10.3 or later to run .\n" = "You must have OS X 10.3 or later to run .";
-"Mac OS X 10.3 Required" = "Mac OS X 10.3 Required";
+"Squeezebox Server installed successfully.\n" = "Squeezebox Server byl úspìšnì nainstalován.";
+"Squeezebox Server install failed.\n" = "Instalace Squeezebox Server selhala.";
+"You must have OS X 10.3 or later to run Squeezebox Server.\n" = "Ke spuštìní Squeezebox Server potøebujete OS X 10.3 nebo novìjší verzi.";
+"Mac OS X 10.3 Required" = "Vyžadován Mac OS X 10.3";

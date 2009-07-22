@@ -107,8 +107,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0503792F0BF901140075151F /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		050379300BF9011E0075151F /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0503792F0BF901140075151F /* Italian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		050379300BF9011E0075151F /* Spanish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		052088B506377B540020810E /* German */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = German; path = Installer/German.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		052452BC0CE2687B00513B2A /* check-web.pl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.perl; path = "check-web.pl"; sourceTree = "<group>"; };
 		05286B0705D4480F00E88B81 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -119,14 +119,13 @@
 		0533446307007AE900B0416B /* logotype.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = logotype.tiff; sourceTree = "<group>"; };
 		054032D203F42BC800000167 /* installer.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = installer.icns; path = Installer/installer.icns; sourceTree = "<group>"; };
 		0545F86006377BD800BA96E1 /* German */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = German; path = German.lproj/Pref.nib; sourceTree = "<group>"; };
-		0545F86706377BEA00BA96E1 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0545F89406377C2A00BA96E1 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = Installer/German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0545F89C06377C3A00BA96E1 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = Installer/German.lproj/Localizable.strings; sourceTree = "<group>"; };
-		058257910BF902D70000DD33 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Installer/Italian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		058257920BF902DD0000DD33 /* Hebrew */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Hebrew; path = Installer/Hebrew.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		058257930BF902E00000DD33 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Installer/Spanish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0545F86706377BEA00BA96E1 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0545F89406377C2A00BA96E1 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = Installer/German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0545F89C06377C3A00BA96E1 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = Installer/German.lproj/Localizable.strings; sourceTree = "<group>"; };
+		058257910BF902D70000DD33 /* Italian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Italian; path = Installer/Italian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		058257930BF902E00000DD33 /* Spanish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Spanish; path = Installer/Spanish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0591BECD05FCCEBA00F5DCAE /* Dutch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = Dutch; path = Installer/Dutch.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0591BED005FCCED400F5DCAE /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Dutch; path = Installer/Dutch.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0591BED005FCCED400F5DCAE /* Dutch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Dutch; path = Installer/Dutch.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0591BEEE05FCCF4300F5DCAE /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Dutch; path = Installer/Dutch.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		0591BEFE05FCCF8900F5DCAE /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Dutch; path = Dutch.lproj/Pref.nib; sourceTree = "<group>"; };
 		0591BF0105FCCF9200F5DCAE /* Dutch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = Dutch; path = Dutch.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -137,27 +136,24 @@
 		05ACBF4C0E5CD6F3006B30BB /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Swedish; path = Swedish.lproj/Pref.nib; sourceTree = "<group>"; };
 		05ACBF4D0E5CD6FD006B30BB /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Finnish; path = Finnish.lproj/Pref.nib; sourceTree = "<group>"; };
 		05ACBF4E0E5CD706006B30BB /* Norwegian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Norwegian; path = Norwegian.lproj/Pref.nib; sourceTree = "<group>"; };
-		05ACBF530E5CD734006B30BB /* Danish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Danish; path = Danish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05ACBF540E5CD737006B30BB /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Swedish; path = Swedish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05ACBF550E5CD73A006B30BB /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Finnish; path = Finnish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05ACBF560E5CD73E006B30BB /* Norwegian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Norwegian; path = Norwegian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05ACBF570E5CD752006B30BB /* Danish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Danish; path = Installer/Danish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05ACBF580E5CD755006B30BB /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Swedish; path = Installer/Swedish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05ACBF590E5CD758006B30BB /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Finnish; path = Installer/Finnish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05ACBF5A0E5CD75B006B30BB /* Norwegian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Norwegian; path = Installer/Norwegian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		05ACBF530E5CD734006B30BB /* Danish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Danish; path = Danish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		05ACBF540E5CD737006B30BB /* Swedish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Swedish; path = Swedish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		05ACBF550E5CD73A006B30BB /* Finnish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Finnish; path = Finnish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		05ACBF560E5CD73E006B30BB /* Norwegian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Norwegian; path = Norwegian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		05ACBF570E5CD752006B30BB /* Danish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Danish; path = Installer/Danish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		05ACBF580E5CD755006B30BB /* Swedish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Swedish; path = Installer/Swedish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		05ACBF590E5CD758006B30BB /* Finnish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Finnish; path = Installer/Finnish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		05ACBF5A0E5CD75B006B30BB /* Norwegian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Norwegian; path = Installer/Norwegian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		05ACBF5B0E5CD76B006B30BB /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Finnish; path = Installer/Finnish.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		05ACBF5C0E5CD77A006B30BB /* Danish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Danish; path = Installer/Danish.lproj/Localizable.strings; sourceTree = "<group>"; };
-		05ACBF5D0E5CD77C006B30BB /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Swedish; path = Installer/Swedish.lproj/Localizable.strings; sourceTree = "<group>"; };
-		05ACBF5E0E5CD780006B30BB /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Finnish; path = Installer/Finnish.lproj/Localizable.strings; sourceTree = "<group>"; };
-		05ACBF5F0E5CD783006B30BB /* Norwegian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Norwegian; path = Installer/Norwegian.lproj/Localizable.strings; sourceTree = "<group>"; };
-		05B446DF0BEF9BE50069C1E6 /* Hebrew */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Hebrew; path = Installer/Hebrew.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		05ACBF5C0E5CD77A006B30BB /* Danish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Danish; path = Installer/Danish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		05ACBF5D0E5CD77C006B30BB /* Swedish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Swedish; path = Installer/Swedish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		05ACBF5E0E5CD780006B30BB /* Finnish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Finnish; path = Installer/Finnish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		05ACBF5F0E5CD783006B30BB /* Norwegian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Norwegian; path = Installer/Norwegian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		05B446E00BEF9BE90069C1E6 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Spanish; path = Installer/Spanish.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		05B446E50BEF9BFE0069C1E6 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Italian; path = Italian.lproj/Pref.nib; sourceTree = "<group>"; };
 		05B446E60BEF9C020069C1E6 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Spanish; path = Spanish.lproj/Pref.nib; sourceTree = "<group>"; };
 		05B446EA0BEF9C180069C1E6 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Italian; path = Installer/Italian.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		05B446ED0BEF9C2A0069C1E6 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Installer/Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
-		05F89D7B0BF925D800C7428C /* Hebrew */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Hebrew; path = Hebrew.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05F89D7F0BF925E200C7428C /* Hebrew */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Hebrew; path = Hebrew.lproj/Pref.nib; sourceTree = "<group>"; };
+		05B446ED0BEF9C2A0069C1E6 /* Italian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Italian; path = Installer/Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -190,24 +186,24 @@
 		E7EDF7BE03C5D22300A80172 /* stop-server.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "stop-server.sh"; sourceTree = "<group>"; };
 		E7EDF7C303C5D25800A80172 /* remove-startup.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "remove-startup.sh"; sourceTree = "<group>"; };
 		E7EDF7C503C5D26A00A80172 /* start-server.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "start-server.sh"; sourceTree = "<group>"; };
-		EC2DC1E40FB8717300DAACFC /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EC2DC1E50FB8717800DAACFC /* Polish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Polish; path = Polish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EC2DC1E60FB8717A00DAACFC /* Czech */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Czech; path = Czech.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EC2DC1E90FB871A700DAACFC /* Czech */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Czech; path = Installer/Czech.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EC2DC1EA0FB871AA00DAACFC /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Installer/Russian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EC2DC1EB0FB871AD00DAACFC /* Polish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Polish; path = Installer/Polish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC2DC1E40FB8717300DAACFC /* Russian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC2DC1E50FB8717800DAACFC /* Polish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Polish; path = Polish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC2DC1E60FB8717A00DAACFC /* Czech */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Czech; path = Czech.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC2DC1E90FB871A700DAACFC /* Czech */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Czech; path = Installer/Czech.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC2DC1EA0FB871AA00DAACFC /* Russian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Russian; path = Installer/Russian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC2DC1EB0FB871AD00DAACFC /* Polish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Polish; path = Installer/Polish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC3D72630FB86D6B0020486C /* Russian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Russian; path = Russian.lproj/Pref.nib; sourceTree = "<group>"; };
 		EC3D72640FB86DE20020486C /* Czech */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Czech; path = Czech.lproj/Pref.nib; sourceTree = "<group>"; };
 		EC3D72650FB86DF00020486C /* Polish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Polish; path = Polish.lproj/Pref.nib; sourceTree = "<group>"; };
-		EC3D72660FB86E240020486C /* Czech */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Czech; path = Czech.lproj/Localizable.strings; sourceTree = "<group>"; };
-		EC3D72670FB86E280020486C /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
-		EC3D72680FB86E2D0020486C /* Polish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Polish; path = Polish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EC3D72660FB86E240020486C /* Czech */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Czech; path = Czech.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EC3D72670FB86E280020486C /* Russian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EC3D72680FB86E2D0020486C /* Polish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Polish; path = Polish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EC3D726D0FB86E970020486C /* Russian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Russian; path = Installer/Russian.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		EC3D726E0FB86E9A0020486C /* Polish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Polish; path = Installer/Polish.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		EC3D726F0FB86E9D0020486C /* Czech */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Czech; path = Installer/Czech.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		EC3D72700FB86EA60020486C /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Installer/Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
-		EC3D72710FB86EA90020486C /* Polish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Polish; path = Installer/Polish.lproj/Localizable.strings; sourceTree = "<group>"; };
-		EC3D72720FB86EAD0020486C /* Czech */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Czech; path = Installer/Czech.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EC3D72700FB86EA60020486C /* Russian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Russian; path = Installer/Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EC3D72710FB86EA90020486C /* Polish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Polish; path = Installer/Polish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EC3D72720FB86EAD0020486C /* Czech */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Czech; path = Installer/Czech.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EC568D900F83FA850025274A /* JSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSON.framework; sourceTree = "<group>"; };
 		EC59811B0F8100F40098B526 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		EC6916D10F9883930035673E /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -219,9 +215,7 @@
 		EC6916D70F9883CA0035673E /* Norwegian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Norwegian; path = Norwegian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EC6916D80F9883CE0035673E /* Spanish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EC6916D90F9883D30035673E /* Danish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Danish; path = Danish.lproj/Localizable.strings; sourceTree = "<group>"; };
-		EC6916DA0F9883DE0035673E /* Hebrew */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Hebrew; path = Hebrew.lproj/Localizable.strings; sourceTree = "<group>"; };
-		ECD758A00BEE27E1008A40DA /* Hebrew */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Hebrew; path = Installer/Hebrew.lproj/Localizable.strings; sourceTree = "<group>"; };
-		ECD758A10BEE27E4008A40DA /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Installer/Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ECD758A10BEE27E4008A40DA /* Spanish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Spanish; path = Installer/Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ECD767970F9E1A6E009204CD /* run-installer.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "run-installer.sh"; sourceTree = "<group>"; };
 		ECE0ACAE0FB81BEB00BDDB7D /* logitech-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logitech-logo.png"; sourceTree = "<group>"; };
 		ECFABFD80F824E0C00997A5B /* cleanup.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = cleanup.sh; sourceTree = "<group>"; };
@@ -873,7 +867,6 @@
 				0545F86706377BEA00BA96E1 /* German */,
 				0503792F0BF901140075151F /* Italian */,
 				050379300BF9011E0075151F /* Spanish */,
-				05F89D7B0BF925D800C7428C /* Hebrew */,
 				05ACBF530E5CD734006B30BB /* Danish */,
 				05ACBF540E5CD737006B30BB /* Swedish */,
 				05ACBF550E5CD73A006B30BB /* Finnish */,
@@ -893,7 +886,6 @@
 				0591BECD05FCCEBA00F5DCAE /* Dutch */,
 				0545F89406377C2A00BA96E1 /* German */,
 				058257910BF902D70000DD33 /* Italian */,
-				058257920BF902DD0000DD33 /* Hebrew */,
 				058257930BF902E00000DD33 /* Spanish */,
 				05ACBF570E5CD752006B30BB /* Danish */,
 				05ACBF580E5CD755006B30BB /* Swedish */,
@@ -909,7 +901,6 @@
 		E7C5E14303C6163000A80172 /* MainMenu.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				05B446DF0BEF9BE50069C1E6 /* Hebrew */,
 				E7C5E14403C6163000A80172 /* English */,
 				05286B2405D4486A00E88B81 /* French */,
 				0591BEEE05FCCF4300F5DCAE /* Dutch */,
@@ -934,7 +925,6 @@
 				C6A9CF550601257A00C3E0BF /* French */,
 				0591BED005FCCED400F5DCAE /* Dutch */,
 				0545F89C06377C3A00BA96E1 /* German */,
-				ECD758A00BEE27E1008A40DA /* Hebrew */,
 				ECD758A10BEE27E4008A40DA /* Spanish */,
 				05B446ED0BEF9C2A0069C1E6 /* Italian */,
 				05ACBF5C0E5CD77A006B30BB /* Danish */,
@@ -961,7 +951,6 @@
 				EC6916D70F9883CA0035673E /* Norwegian */,
 				EC6916D80F9883CE0035673E /* Spanish */,
 				EC6916D90F9883D30035673E /* Danish */,
-				EC6916DA0F9883DE0035673E /* Hebrew */,
 				EC3D72660FB86E240020486C /* Czech */,
 				EC3D72670FB86E280020486C /* Russian */,
 				EC3D72680FB86E2D0020486C /* Polish */,
@@ -978,7 +967,6 @@
 				0545F86006377BD800BA96E1 /* German */,
 				05B446E50BEF9BFE0069C1E6 /* Italian */,
 				05B446E60BEF9C020069C1E6 /* Spanish */,
-				05F89D7F0BF925E200C7428C /* Hebrew */,
 				05ACBF4B0E5CD6EF006B30BB /* Danish */,
 				05ACBF4C0E5CD6F3006B30BB /* Swedish */,
 				05ACBF4D0E5CD6FD006B30BB /* Finnish */,

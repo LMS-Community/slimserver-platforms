@@ -1,8 +1,8 @@
-﻿"Install" = "Installeer";
+"Install" = "Installeer";
 "Update" = "Update";
 "Install Results" = "Installatieresultaten";
 "OK" = "OK";
-" installed successfully.\n" = " is geïnstalleerd.";
-" install failed.\n" = "-installatie mislukt.";
-"You must have OS X 10.3 or later to run .\n" = "Je moet OS X 10.3 of hoger hebben om  uit te voeren.";
+"Squeezebox Server installed successfully.\n" = "Squeezebox Server is geïnstalleerd.";
+"Squeezebox Server install failed.\n" = "Installatie van Squeezebox Server is mislukt.";
+"You must have OS X 10.3 or later to run Squeezebox Server.\n" = "U moet OS X 10.3 of hoger hebben om Squeezebox Server uit te voeren.";
 "Mac OS X 10.3 Required" = "Mac OS X 10.3 vereist";

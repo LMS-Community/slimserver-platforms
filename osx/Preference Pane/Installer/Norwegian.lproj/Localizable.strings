@@ -1,8 +1,8 @@
-"Install" = "Installasjonsprogram";
+"Install" = "Installer";
 "Update" = "Oppdater";
 "Install Results" = "Installeringsresultat";
 "OK" = "OK";
-" installed successfully.\n" = " ble installert.";
-" install failed.\n" = " ble ikke installert.";
-"You must have OS X 10.3 or later to run .\n" = "Du må ha OS X 10.3 eller nyere for å kjøre .";
+"Squeezebox Server installed successfully.\n" = "Squeezebox Server er installert.";
+"Squeezebox Server install failed.\n" = "Squeezebox Server ble ikke installert.";
+"You must have OS X 10.3 or later to run Squeezebox Server.\n" = "Du må ha OS X 10.3 eller nyere for å kunne kjøre Squeezebox Server.";
 "Mac OS X 10.3 Required" = "Mac OS X 10.3 påkrevd";
