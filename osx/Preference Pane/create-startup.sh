@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-#  Create the StartupItem for the . This script, when expanded, includes the current user's ID
+# Create the StartupItem for the server. This script, when expanded, includes the current user's ID
 # and home directory, as set, to ensure proper functioning of the server (which needs the right
 # user and home directory for its own process). We don't blithely assume /Users/$user because the
 # user's home directory could be on a network, and set differently in NetInfo.
@@ -16,15 +16,15 @@ mkdir -p -m go-w /Library/StartupItems/Squeezebox
 
 cat >/Library/StartupItems/Squeezebox/StartupParameters.plist << '!!'
 {
-    Description		= "";
-    Provides		= ("");
+    Description		= "Squeezebox Server";
+    Provides		= ("Squeezebox Server");
     Requires		= ("Disks");
     Uses		= ("mDNSResponder", "Resolver", "DirectoryServices", "NFS", "Network Time");
     OrderPreference	= "Late";
     Messages =
     {
-	start = "Starting ";
-	stop = "Stopping ";
+	start = "Starting Squeezebox Server";
+	stop = "Stopping Squeezebox Server";
     };
 }
 !!
@@ -41,7 +41,7 @@ export HOME
 export home
 
 StartService() {
-ConsoleMessage "Starting "
+ConsoleMessage "Starting Squeezebox Server"
 if [ z"\$SERVER_RUNNING" = z ] ; then
 	if [ -e "$HOME/Library/PreferencePanes/Squeezebox Server.prefPane/Contents/server" ] ; then
 		pushd "$HOME/Library/PreferencePanes/Squeezebox Server.prefPane/Contents/server"
@@ -58,7 +58,7 @@ fi
 
 StopService() {
 if [ z"\$SERVER_RUNNING" != z ] ; then
-    ConsoleMessage "Stopping "
+    ConsoleMessage "Stopping Squeezebox Server"
     kill \`echo \$SERVER_RUNNING | sed -n 's/^[ ]*\([0-9]*\)[ ]*.*$/\1/p'\`
 fi
 }
@@ -90,10 +90,10 @@ cat >/Library/StartupItems/Squeezebox/Resources/French.lproj/Localizable.strings
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Starting </key>
-	<string>Démarrage du </string>
-	<key>Stopping </key>
-	<string>Arrêt du </string>
+	<key>Starting Squeezebox Server</key>
+	<string>Démarrage de Squeezebox Server</string>
+	<key>Stopping Squeezebox Server</key>
+	<string>Arrêt de Squeezebox Server</string>
 </dict>
 </plist>
 !!
@@ -106,10 +106,10 @@ cat >/Library/StartupItems/Squeezebox/Resources/English.lproj/Localizable.string
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Starting </key>
-	<string>Starting </string>
-	<key>Stopping </key>
-	<string>Stopping </string>
+	<key>Starting Squeezebox Server</key>
+	<string>Starting Squeezebox Server</string>
+	<key>Stopping Squeezebox Server</key>
+	<string>Stopping Squeezebox Server</string>
 </dict>
 </plist>
 !!
@@ -121,10 +121,10 @@ cat >/Library/StartupItems/Squeezebox/Resources/English.lproj/Localizable.string
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Starting </key>
-	<string>Starting </string>
-	<key>Stopping </key>
-	<string>Stopping </string>
+	<key>Starting Squeezebox Server</key>
+	<string>Starting Squeezebox Server</string>
+	<key>Stopping Squeezebox Server</key>
+	<string>Stopping Squeezebox Server</string>
 </dict>
 </plist>
 !!
