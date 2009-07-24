@@ -43,12 +43,12 @@ export home
 StartService() {
 ConsoleMessage "Starting Squeezebox Server"
 if [ z"\$SERVER_RUNNING" = z ] ; then
-	if [ -e "$HOME/Library/PreferencePanes/Squeezebox Server.prefPane/Contents/server" ] ; then
-		pushd "$HOME/Library/PreferencePanes/Squeezebox Server.prefPane/Contents/server"
+	if [ -e "$HOME/Library/PreferencePanes/Squeezebox.prefPane/Contents/server" ] ; then
+		pushd "$HOME/Library/PreferencePanes/Squeezebox.prefPane/Contents/server"
 	else
-		pushd "/Library/PreferencePanes/Squeezebox Server.prefPane/Contents/server"
+		pushd "/Library/PreferencePanes/Squeezebox.prefPane/Contents/server"
 	fi
-	sudo -H -u \$SLIMUSER "SqueezeCenter.app/Contents/Resources/start-server.sh"
+	sudo -H -u \$SLIMUSER "Launcher.app/Contents/Resources/start-server.sh"
 	popd
 fi
 if [ z"\$#" != z"0" ] ; then

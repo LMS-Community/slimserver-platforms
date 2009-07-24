@@ -1,8 +1,8 @@
 #!/bin/sh
 
 SERVER_RUNNING=`ps -ax | grep "slimserver\.pl\|slimserver\|squeezecenter\.pl" | grep -v grep | cat`
-PREFPANE_FROM="$1/Squeezebox Server.prefPane"
-PREFPANE_TO="/Library/PreferencePanes/Squeezebox Server.prefPane"
+PREFPANE_FROM="$1/Squeezebox.prefPane"
+PREFPANE_TO="/Library/PreferencePanes/Squeezebox.prefPane"
 
 # Check for OSX 10.5 or later, and strip quarantine information if so
 DITTOARGS=""
@@ -22,7 +22,7 @@ if [ z"$SERVER_RUNNING" != z ] ; then
 	exit 1
 fi
 
-for NAME in "SLIMP3 Server" "Slim Server" SqueezeCenter SlimServer "Squeezebox Server"; do
+for NAME in "SLIMP3 Server" "Slim Server" SqueezeCenter SlimServer "Squeezebox Server" Squeezebox; do
 
 	if [ -e "$HOME/Library/PreferencePanes/$NAME.prefPane" ]; then
 		rm -r "$HOME/Library/PreferencePanes/$NAME.prefPane" 2>&1
@@ -69,11 +69,11 @@ for MAIN in "$HOME/" "/"; do
 
 	done
 
-	for NAME in "Squeezebox Server" SqueezeCenter
+	for NAME in "Squeezebox Server" SqueezeCenter Squeezebox; do
 
-		if [ -e $MAIN/Library/Caches/$NAME/updates/ ] ; then
-			rm $MAIN/Library/Caches/Squeezebox\ Server/updates/*.bin
-			rm $MAIN/Library/Caches/Squeezebox\ Server/updates/*.version
+		if [ -e "$MAIN/Library/Caches/$NAME/updates/" ] ; then
+			rm "$MAIN/Library/Caches/$NAME/updates/*.bin"
+			rm "$MAIN/Library/Caches/$NAME/updates/*.version"
 		fi
 		
 	done

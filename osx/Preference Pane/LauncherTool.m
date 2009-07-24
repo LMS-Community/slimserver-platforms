@@ -22,7 +22,7 @@ int main (int argc, const char * argv[])
     NSTask *launcherTask = [[NSTask alloc] init];
 
     [launcherTask setCurrentDirectoryPath:pathToServer];
-    [launcherTask setLaunchPath:[pathToServer stringByAppendingPathComponent:@"SqueezeCenter.app/Contents/Resources/start-server.sh"]];
+    [launcherTask setLaunchPath:[pathToServer stringByAppendingPathComponent:@"Launcher.app/Contents/Resources/start-server.sh"]];
     [launcherTask setArguments:[NSArray arrayWithObjects:@"--nodaemon", nil]];
 
     /*

@@ -431,7 +431,7 @@
 	 **  We always remove our login item, just in case the entry is there. (Otherwise, we end up with two.)
 	 */
 
-	NSString *pathToServer = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/SqueezeCenter.app"];
+	NSString *pathToServer = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/Launcher.app"];
 
 	NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
 	NSMutableArray *allLoginItems, *objectsToRemove = [[NSMutableArray alloc] init];
@@ -493,7 +493,7 @@
 
 -(void)toggleServer:(id)sender
 {
-	NSString *pathToServer = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/SqueezeCenter.app"];
+	NSString *pathToServer = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/Launcher.app"];
 
 	/*
 	 **  Disable the button...it'll get re-enabled when the server state changes in updateUI.

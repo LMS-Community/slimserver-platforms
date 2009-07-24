@@ -115,7 +115,7 @@
 		05286B0C05D4482600E88B81 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/Pref.nib; sourceTree = "<group>"; };
 		05286B2005D4485900E88B81 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = French; path = Installer/French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		05286B2405D4486A00E88B81 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = Installer/French.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		052A43EB0CAD998300E85D4D /* SqueezeCenter Installer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SqueezeCenter Installer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		052A43EB0CAD998300E85D4D /* Installer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Installer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0533446307007AE900B0416B /* logotype.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = logotype.tiff; sourceTree = "<group>"; };
 		054032D203F42BC800000167 /* installer.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = installer.icns; path = Installer/installer.icns; sourceTree = "<group>"; };
 		0545F86006377BD800BA96E1 /* German */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = German; path = German.lproj/Pref.nib; sourceTree = "<group>"; };
@@ -162,7 +162,7 @@
 		1477C982098865030087109C /* Pref_Tester.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Pref_Tester.plist; sourceTree = "<group>"; };
 		1477C983098865030087109C /* Installer.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Installer.plist; sourceTree = "<group>"; };
 		1477C984098865030087109C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		14A9402709875F57001992EB /* SqueezeCenter.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SqueezeCenter.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
+		14A9402709875F57001992EB /* Squeezebox.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Squeezebox.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9403C09875F57001992EB /* Launcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Launcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9405009875F57001992EB /* Preference Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Preference Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9407D09875F57001992EB /* Launcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Launcher; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -466,11 +466,11 @@
 		F58B0871035DF7DA01A80172 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				14A9402709875F57001992EB /* SqueezeCenter.prefPane */,
+				14A9402709875F57001992EB /* Squeezebox.prefPane */,
 				14A9403C09875F57001992EB /* Launcher.app */,
 				14A9405009875F57001992EB /* Preference Tester.app */,
 				14A9407D09875F57001992EB /* Launcher */,
-				052A43EB0CAD998300E85D4D /* SqueezeCenter Installer.app */,
+				052A43EB0CAD998300E85D4D /* Installer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -537,9 +537,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		14A9400309875F57001992EB /* SqueezeCenter */ = {
+		14A9400309875F57001992EB /* Squeezebox */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 14A9402209875F57001992EB /* Build configuration list for PBXNativeTarget "SqueezeCenter" */;
+			buildConfigurationList = 14A9402209875F57001992EB /* Build configuration list for PBXNativeTarget "Squeezebox" */;
 			buildPhases = (
 				14A9400809875F57001992EB /* Headers */,
 				14A9400A09875F57001992EB /* Resources */,
@@ -555,10 +555,10 @@
 				14A9408009875F57001992EB /* PBXTargetDependency */,
 				14A9408209875F57001992EB /* PBXTargetDependency */,
 			);
-			name = SqueezeCenter;
+			name = Squeezebox;
 			productInstallPath = "$(HOME)/Library/PreferencePanes";
 			productName = SqueezeCenter;
-			productReference = 14A9402709875F57001992EB /* SqueezeCenter.prefPane */;
+			productReference = 14A9402709875F57001992EB /* Squeezebox.prefPane */;
 			productType = "com.apple.product-type.bundle";
 		};
 		14A9402809875F57001992EB /* Launcher */ = {
@@ -602,9 +602,9 @@
 			productReference = 14A9405009875F57001992EB /* Preference Tester.app */;
 			productType = "com.apple.product-type.application";
 		};
-		14A9405209875F57001992EB /* Squeezebox Server Installer */ = {
+		14A9405209875F57001992EB /* Installer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 14A9406809875F57001992EB /* Build configuration list for PBXNativeTarget "Squeezebox Server Installer" */;
+			buildConfigurationList = 14A9406809875F57001992EB /* Build configuration list for PBXNativeTarget "Installer" */;
 			buildPhases = (
 				14A9405309875F57001992EB /* Headers */,
 				14A9405609875F57001992EB /* Resources */,
@@ -616,10 +616,10 @@
 			);
 			dependencies = (
 			);
-			name = "Squeezebox Server Installer";
+			name = Installer;
 			productInstallPath = "$(USER_APPS_DIR)";
 			productName = Installer;
-			productReference = 052A43EB0CAD998300E85D4D /* SqueezeCenter Installer.app */;
+			productReference = 052A43EB0CAD998300E85D4D /* Installer.app */;
 			productType = "com.apple.product-type.application";
 		};
 		14A9406F09875F57001992EB /* Launcher */ = {
@@ -671,10 +671,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				14A9400309875F57001992EB /* SqueezeCenter */,
+				14A9400309875F57001992EB /* Squeezebox */,
 				14A9402809875F57001992EB /* Launcher */,
 				14A9403E09875F57001992EB /* Pref Tester */,
-				14A9405209875F57001992EB /* Squeezebox Server Installer */,
+				14A9405209875F57001992EB /* Installer */,
 				14A9406F09875F57001992EB /* Launcher */,
 			);
 		};
@@ -842,7 +842,7 @@
 /* Begin PBXTargetDependency section */
 		14A9408009875F57001992EB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 14A9405209875F57001992EB /* Squeezebox Server Installer */;
+			target = 14A9405209875F57001992EB /* Installer */;
 			targetProxy = 14A9407F09875F57001992EB /* PBXContainerItemProxy */;
 		};
 		14A9408209875F57001992EB /* PBXTargetDependency */ = {
@@ -852,7 +852,7 @@
 		};
 		14A9408409875F57001992EB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 14A9400309875F57001992EB /* SqueezeCenter */;
+			target = 14A9400309875F57001992EB /* Squeezebox */;
 			targetProxy = 14A9408309875F57001992EB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1092,7 +1092,7 @@
 					"-mmacosx-version-min=10.3",
 				);
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = SqueezeCenter;
+				PRODUCT_NAME = Squeezebox;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = (
 					"-Wmost",
@@ -1303,7 +1303,7 @@
 				OTHER_CFLAGS = "-mmacosx-version-min=10.3";
 				OTHER_LDFLAGS = "-mmacosx-version-min=10.3";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "SqueezeCenter Installer";
+				PRODUCT_NAME = Installer;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = (
 					"-Wmost",
@@ -1416,7 +1416,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;
 		};
-		14A9402209875F57001992EB /* Build configuration list for PBXNativeTarget "SqueezeCenter" */ = {
+		14A9402209875F57001992EB /* Build configuration list for PBXNativeTarget "Squeezebox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				14A9402309875F57001992EB /* Development */,
@@ -1446,7 +1446,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;
 		};
-		14A9406809875F57001992EB /* Build configuration list for PBXNativeTarget "Squeezebox Server Installer" */ = {
+		14A9406809875F57001992EB /* Build configuration list for PBXNativeTarget "Installer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				14A9406909875F57001992EB /* Development */,
