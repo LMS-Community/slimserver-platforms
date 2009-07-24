@@ -96,8 +96,8 @@ ditto $DITTOARGS "$PREFPANE_FROM" "$PREFPANE_TO"
 if [ -e "$PREFPANE_TO" ] ; then
 	cd "$PREFPANE_TO/Contents/server"
 
-	# install SC to start at boot time if it hasn't been configured yet
-	if [ ! -e ~/Library/Preferences/com.slimdevices.slim.plist ] ; then
+	# install SC to start at boot time if it hasn't been configured yet; update startupitem if we're updating
+	if [ ! -e ~/Library/Preferences/com.slimdevices.slim.plist ] || [ -e /Library/StartupItems/SqueezeCenter ] || [ -e /Library/StartupItems/Squeezebox\ Server ] ; then
 		../Resources/create-startup.sh
 	fi
 

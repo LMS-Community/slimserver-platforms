@@ -10,7 +10,8 @@
 #
 
 # remove legacy startup item
-rm -r /Library/StartupItems/SqueezeCenter
+rm -rf /Library/StartupItems/SqueezeCenter
+rm -rf /Library/StartupItems/Squeezebox\ Server
 
 mkdir -p -m go-w /Library/StartupItems/Squeezebox
 

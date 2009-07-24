@@ -34,6 +34,10 @@
 		[defaultValues setObject:[NSNumber numberWithInt:kStartupAtBoot] forKey:@"StartupMenuTag"];
 		rewrite = YES;
 	}
+	else if ([[defaultValues objectForKey:@"StartupMenuTag"] intValue] == kStartupAtLogin)
+	{
+		[self changeAutoStartupFrom:0 to:kStartupAtLogin];
+	}
 	
 	// rewrite prefs with defaults (yuk)
 
