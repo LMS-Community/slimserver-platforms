@@ -36,42 +36,58 @@ done
 
 
 # try to migrate existing settings
-if [ ! -e ~/Library/Application\ Support/Squeezebox\ Server ]; then
+if [ ! -e ~/Library/Application\ Support/Squeezebox ]; then
 
 	if [ -e ~/Library/Application\ Support/SqueezeCenter ] ; then
-		ditto $DITTOARGS ~/Library/Application\ Support/SqueezeCenter ~/Library/Application\ Support/Squeezebox\ Server
-		grep -v "/SqueezeCenter" ~/Library/Application\ Support/SqueezeCenter/server.prefs > ~/Library/Application\ Support/Squeezebox\ Server/server.prefs
+		ditto $DITTOARGS ~/Library/Application\ Support/SqueezeCenter ~/Library/Application\ Support/Squeezebox
+		grep -v "/SqueezeCenter" ~/Library/Application\ Support/SqueezeCenter/server.prefs > ~/Library/Application\ Support/Squeezebox/server.prefs
 	elif [ -e /Library/Application\ Support/SqueezeCenter ] ; then
-		ditto $DITTOARGS /Library/Application\ Support/SqueezeCenter ~/Library/Application\ Support/Squeezebox\ Server
-		grep -v "/SqueezeCenter" /Library/Application\ Support/SqueezeCenter/server.prefs > /Library/Application\ Support/Squeezebox\ Server/server.prefs
+		ditto $DITTOARGS /Library/Application\ Support/SqueezeCenter ~/Library/Application\ Support/Squeezebox
+		grep -v "/SqueezeCenter" /Library/Application\ Support/SqueezeCenter/server.prefs > /Library/Application\ Support/Squeezebox/server.prefs
+	elif [ -e ~/Library/Application\ Support/Squeezebox\ Server ] ; then
+		ditto $DITTOARGS /Library/Application\ Support/Squeezebox\ Server ~/Library/Application\ Support/Squeezebox
+		grep -v "/Squeezebox\ Server" /Library/Application\ Support/Squeezebox\ Server/server.prefs > /Library/Application\ Support/Squeezebox/server.prefs
+	elif [ -e /Library/Application\ Support/Squeezebox\ Server ] ; then
+		ditto $DITTOARGS /Library/Application\ Support/Squeezebox\ Server ~/Library/Application\ Support/Squeezebox
+		grep -v "/Squeezebox\ Server" /Library/Application\ Support/Squeezebox\ Server/server.prefs > /Library/Application\ Support/Squeezebox/server.prefs
 	fi
 
 fi
 
-# delete some of the bulkier cache files/folders
+# delete some of the bulkier legacy cache files/folders
 for MAIN in "$HOME/" "/"; do
 	
 	for NAME in Artwork FileCache icons MySQL DownloadedPlugins InstalledPlugins iTunesArtwork templates; do
+
 		if [ -e $MAIN/Library/Caches/SqueezeCenter/$NAME ] ; then
 			rm -r $MAIN/Library/Caches/SqueezeCenter/$NAME
 		fi
+
+		if [ -e $MAIN/Library/Caches/Squeezebox\ Server/$NAME ] ; then
+			rm -r $MAIN/Library/Caches/Squeezebox\ Server/$NAME
+		fi
+
 	done
 
-	if [ -e $MAIN/Library/Caches/SqueezeCenter/updates/ ] ; then
-		rm $MAIN/Library/Caches/SqueezeCenter/updates/*.bin
-		rm $MAIN/Library/Caches/SqueezeCenter/updates/*.version
-	fi
+	for NAME in "Squeezebox Server" SqueezeCenter
+
+		if [ -e $MAIN/Library/Caches/$NAME/updates/ ] ; then
+			rm $MAIN/Library/Caches/Squeezebox\ Server/updates/*.bin
+			rm $MAIN/Library/Caches/Squeezebox\ Server/updates/*.version
+		fi
+		
+	done
 
 done
 
 
 # remove the version file triggering the update prompt
-if [ -e ~/Library/Caches/Squeezebox\ Server/updates/server.version ] ; then
-	rm -f ~/Library/Caches/Squeezebox\ Server/updates/server.version
+if [ -e ~/Library/Caches/Squeezebox/updates/server.version ] ; then
+	rm -f ~/Library/Caches/Squeezebox/updates/server.version
 fi
 
-if [ -e /Library/Caches/Squeezebox\ Server/updates/server.version ] ; then
-	rm -f /Library/Caches/Squeezebox\ Server/updates/server.version
+if [ -e /Library/Caches/Squeezebox/updates/server.version ] ; then
+	rm -f /Library/Caches/Squeezebox/updates/server.version
 fi
 
 

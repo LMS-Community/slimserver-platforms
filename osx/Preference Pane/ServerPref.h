@@ -16,10 +16,10 @@
 #define snPasswordPlaceholder @"SN_PASSWORD_PLACEHOLDER"
 #define statusUrl @"http://localhost:9000/EN/settings/server/status.html?simple=1&os=osx"
 
-#define versionFile @"Caches/Squeezebox Server/updates/server.version"
-#define prefsFile @"Application Support/Squeezebox Server/server.prefs"
-#define pluginPrefs @"Application Support/Squeezebox Server/plugin/"
-#define logDir @"Logs/Squeezebox Server"
+#define versionFile @"Caches/Squeezebox/updates/server.version"
+#define prefsFile @"Application Support/Squeezebox/server.prefs"
+#define pluginPrefs @"Application Support/Squeezebox/plugin/"
+#define logDir @"Logs/Squeezebox"
 
 #define kNoAutomaticStartup 0
 #define kStartupAtLogin 1
