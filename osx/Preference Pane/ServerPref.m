@@ -244,11 +244,21 @@
 {
 	bool currentServerState = ([self serverPID] != 0);
 	bool currentWebState = currentServerState && [self serverPort];
+
+	if (currentWebState != [self webState]) 
+	{
+		if (currentWebState && [[[prefsTab selectedTabViewItem] identifier] isEqualToString:@"status"]) 
+		{
+			[[statusView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:statusUrl]]];
+			[[statusView mainFrame] reload];
+		}
+		[self setWebState:currentWebState];
+	}
 	
 	if (currentServerState != [self serverState])
 	{
 		[self setServerState:currentServerState];
-					
+		
 		if (currentServerState)
 		{
 			[serverStateLabel setStringValue:LocalizedPrefString(@"The server is running", "The server is running")];
