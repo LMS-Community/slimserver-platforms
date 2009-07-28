@@ -257,7 +257,7 @@ UPDATE_AVAILABLE
 	CS	K dispozici je aktualizovaná verze Squeezebox Server. K instalaci nejnovějšího vydání otevřete menu.
 	DA	Der findes en opdateret version af Squeezebox Server. Åbn menuen, og installer den nyeste udgave.
 	DE	Es ist eine aktualisierte Version von Squeezebox Server verfügbar. Öffnen Sie das Menü, um sie zu installieren.
-	EN	An updated Squeezebox Server version is available. Open the menu to install the latest release.
+	EN	An updated version of Squeezebox Server is available and ready to install. Click the Squeezebox tray icon to start the upgrade.
 	ES	Hay disponible una versión actualizada de Squeezebox Server. Abra el menú para instalar la versión más reciente.
 	FI	Squeezebox Serveristä on olemassa päivitetty versio. Avaa valikko ja lataa uusin versio.
 	FR	Une nouvelle version du Squeezebox Server est disponible. Ouvrez le menu pour l'installer.
