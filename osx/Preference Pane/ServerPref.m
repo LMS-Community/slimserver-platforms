@@ -602,6 +602,33 @@
 
 
 /* button handler to show log files */
+-(IBAction)selectLogSet:(id)sender
+{
+	NSPopUpButton *logSet = sender;
+	NSString *setId;
+	
+	switch ([logSet indexOfSelectedItem])
+	{
+		case 2:
+			setId = @"SERVER";
+			break;
+		case 3:
+			setId = @"RADIO";
+			break;
+		case 4:
+			setId = @"SCANNER";
+			break;
+		case 5:
+			setId = @"TRANSCODING";
+			break;
+		default:
+			setId = @"default";
+			break;
+	}
+
+	[self jsonRequest:[NSString stringWithFormat:@"\"logging\", \"group:%@\"", setId]];
+}
+
 -(IBAction)showServerLog:(id)sender
 {
 	[self showLog:@"server.log"];
@@ -890,6 +917,7 @@
 
 	NSString *post = [NSString stringWithFormat:@"{\"id\":1,\"method\":\"slim.request\",\"params\":[\"\",[%@]]}", query];
 	
+	//NSLog(@"%@", post);
 	NSData *postData = [post dataUsingEncoding:NSUTF8StringEncoding];
 	NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];	
 	
@@ -904,6 +932,7 @@
 	// Perform request and get JSON back as a NSData object
 	NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
 	NSString *json_string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+	//NSLog(@"%@", json_string);
 	
 	NSDictionary *json = [parser objectWithString:json_string error:nil];
 	

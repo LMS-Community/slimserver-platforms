@@ -119,6 +119,7 @@
 
 -(IBAction)showServerLog:(id)sender;
 -(IBAction)showScannerLog:(id)sender;
+-(IBAction)selectLogSet:(id)sender;
 -(void)showLog:(NSString *)whichLog;
 
 /* cleanup tab */

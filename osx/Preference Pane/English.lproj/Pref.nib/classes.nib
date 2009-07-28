@@ -60,6 +60,8 @@
 				<string>id</string>
 				<key>rescan</key>
 				<string>id</string>
+				<key>selectLogSet</key>
+				<string>id</string>
 				<key>showScannerLog</key>
 				<string>id</string>
 				<key>showServerLog</key>
