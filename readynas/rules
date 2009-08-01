@@ -34,22 +34,25 @@ install:
 
 	## This only occurs if the files exist ... if they do not exist here, they were probably
 	## removed by the buildme.pl script on purpose.
-	cp -r $(CURDIR)/readynas/CPAN ${source}/
+	# This contains attributes.pm which Netgear doesn't ship, and an old version of DBD::mysql
+	# since I can't get the latest to run without crashing
+	cp -rf $(CURDIR)/readynas/CPAN ${source}/
 
 	# Copy our server files to the appropriate Debian locations.
 	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezecenter-server
 	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/squeezecenter-scanner
 
 	# We need to copy the Slim directory over...
-	cp -r ${source}/Slim ${base}/usr/share/perl5
+	cp -rf ${source}/Slim ${base}/usr/share/perl5
 
 	# Copy our CPAN directory and locally modified perl modules
-	cp -r ${source}/CPAN ${base}/${share}
-	cp -r ${source}/lib ${base}/${share}
+	cp -rf ${source}/CPAN ${base}/${share}
+	cp -rf ${source}/lib ${base}/${share}
 	
 	# Remove non-Linux binary modules
 	rm -rf ${base}/${share}/CPAN/arch/5.8/darwin-thread-multi-2level
-	rm -rf ${base}/${share}/CPAN/arch/5.8/MSWin32-x86-multi-thread
+	rm -rf ${base}/${share}/CPAN/arch/5.10/darwin-thread-multi-2level
+	rm -rf ${base}/${share}/CPAN/arch/5.10/MSWin32-x86-multi-thread
 	rm -rf ${source}/Bin/darwin
 	rm -rf ${source}/Bin/MSWin32-x86-multi-thread
 	rm -rf ${source}/Bin/powerpc-hardhat-linux
@@ -61,20 +64,20 @@ install:
 	rm -rf ${source}/Bin/i386-linux/mysqld
 
 	# And aux files needed to run SqueezeCenter
-	cp -r ${source}/Firmware ${base}/${share}
-	cp -r ${source}/Graphics ${base}/${share}
-	cp -r ${source}/HTML ${base}/${share}
-	cp -r ${source}/IR ${base}/${share}
-	cp -r ${source}/SQL ${base}/${share}
-	cp -r ${source}/strings.txt ${base}/${share}
-	cp -r ${source}/MySQL ${base}/${share}
+	cp -rf ${source}/Firmware ${base}/${share}
+	cp -rf ${source}/Graphics ${base}/${share}
+	cp -rf ${source}/HTML ${base}/${share}
+	cp -rf ${source}/IR ${base}/${share}
+	cp -rf ${source}/SQL ${base}/${share}
+	cp -rf ${source}/strings.txt ${base}/${share}
+	cp -rf ${source}/MySQL ${base}/${share}
 
 	# Make sure we copy in the Bin directory
-	cp -r ${source}/Bin ${base}/${share}
+	cp -rf ${source}/Bin ${base}/${share}
 
 	# We put the Plugins into /var/lib/ because they are modifiable, 
 	# and shouldn't be put into /usr. 
-	cp -r ${source}/Plugins ${base}/${varlib}
+	cp -rf ${source}/Plugins ${base}/${varlib}
 	ln -s /${varlib}/Plugins ${base}/${share}/Plugins
 
 	# Remove errmsg.sys files from the MySQL dir, since they may not match
@@ -82,25 +85,25 @@ install:
 	rm ${base}/${share}/MySQL/errmsg.*
 
 	# Set up the pref's file locations...
-	cp -r ${source}/*.conf ${base}/etc/squeezecenter
+	cp -rf ${source}/*.conf ${base}/etc/squeezecenter
 
 	## Overwrite some default settings with ReadyNas specific settings
-	cp -r ${CURDIR}/readynas/custom-convert.conf ${base}/etc/squeezecenter
+	cp -rf ${CURDIR}/readynas/custom-convert.conf ${base}/etc/squeezecenter
 
 	# Copy over the squeezecenter init script...
-	cp -r $(CURDIR)/readynas/squeezecenter.default ${base}/etc/default/squeezecenter
-	cp -r $(CURDIR)/readynas/squeezecenter.init ${base}/etc/init.d/squeezecenter
+	cp -rf $(CURDIR)/readynas/squeezecenter.default ${base}/etc/default/squeezecenter
+	cp -rf $(CURDIR)/readynas/squeezecenter.init ${base}/etc/init.d/squeezecenter
 
 	# Wrapper to keep SqueezeCenter alive.
-	cp -r $(CURDIR)/readynas/squeezecenter_safe ${base}/usr/sbin/squeezecenter_safe
+	cp -rf $(CURDIR)/readynas/squeezecenter_safe ${base}/usr/sbin/squeezecenter_safe
 
 	# Documentation
-	cp ${source}/Change* ${base}/usr/share/doc/squeezecenter/
-	cp ${source}/Installation.txt ${base}/usr/share/doc/squeezecenter/
-	cp ${source}/License.txt $(CURDIR)/readynas/copyright
+	cp -rf ${source}/Change* ${base}/usr/share/doc/squeezecenter/
+	cp -rf ${source}/Installation.txt ${base}/usr/share/doc/squeezecenter/
+	cp -rf ${source}/License.txt $(CURDIR)/readynas/copyright
 
 	# Copy the revision file
-	cp ${source}/revision.txt ${base}/${share}
+	cp -rf ${source}/revision.txt ${base}/${share}
 
 
 binary-indep: install
