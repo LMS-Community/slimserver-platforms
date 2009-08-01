@@ -51,7 +51,9 @@ install:
 
 	# Remove non-Linux binary modules and binaries
 	rm -rf ${base}/${share}/CPAN/arch/5.8/darwin-thread-multi-2level
-	rm -rf ${base}/${share}/CPAN/arch/5.8/MSWin32-x86-multi-thread
+	rm -rf ${base}/${share}/CPAN/arch/5.8/sparc-linux
+	rm -rf ${base}/${share}/CPAN/arch/5.10/darwin-thread-multi-2level
+	rm -rf ${base}/${share}/CPAN/arch/5.10/MSWin32-x86-multi-thread
 	rm -rf ${base}/${share}/Bin/darwin
 	rm -rf ${base}/${share}/Bin/MSWin32-x86-multi-thread
 	rm -rf ${base}/${share}/Bin/powerpc-hardhat-linux
