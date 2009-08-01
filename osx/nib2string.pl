@@ -20,7 +20,8 @@ opendir (PROJ, $folder) || die "can't open directory '$folder': $!\n";
 foreach my $item (readdir(PROJ)) {
 
 	# we only want localized resources
-	if ($item =~ /\.lproj$/ && $item !~ /^English/i) {
+#	if ($item =~ /\.lproj$/ && $item !~ /^English/i) {
+	if ($item =~ /\.lproj$/) {
 		my $stringsFile = catdir($folder, $item, $strings);
 		my $nibFolder   = catdir($folder, $item, $nib);
 		
@@ -30,8 +31,9 @@ foreach my $item (readdir(PROJ)) {
 		}
 
 		$nibFolder =~ s/ /\\ /g;
+		$stringsFile =~ s/ /\\ /g;
 
-		`nibtool -L $nibFolder  > '$stringsFile'`;
+		`ibtool --generate-strings-file $stringsFile $nibFolder`;
 	}
 }
 
