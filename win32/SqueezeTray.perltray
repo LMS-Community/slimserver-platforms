@@ -11,8 +11,8 @@ Icon: res\SqueezeCenter.ico
 Icon: res\SqueezeCenterOff.ico
 Lib: lib:..\..\server
 Lib: lib:..\..\server\CPAN
-Lib: lib:..\..\server\CPAN\arch\5.8\MSWin32-x86-multi-thread\auto
-Lib: lib:..\..\server\CPAN\arch\5.8\MSWin32-x86-multi-thread
+Lib: lib:..\..\server\CPAN\arch\5.10\MSWin32-x86-multi-thread\auto
+Lib: lib:..\..\server\CPAN\arch\5.10\MSWin32-x86-multi-thread
 Singleton: 1
 Trim: Slim::Utils::OS::*
 Trim: Slim::Utils::ServiceManager::*
