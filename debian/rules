@@ -84,6 +84,7 @@ install:
 
 	# Copy over the squeezebox init script...
 	cp -r $(CURDIR)/debian/squeezebox.default ${base}/etc/default/squeezebox
+	cp -r $(CURDIR)/debian/squeezebox.init ${base}/etc/init.d/squeezebox
 
 	# Wrapper to keep SqueezeCenter alive.
 	cp -r $(CURDIR)/debian/squeezebox_safe ${base}/usr/sbin/squeezebox_safe
