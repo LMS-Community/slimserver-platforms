@@ -26,6 +26,7 @@ install:
 	# Create directories needed.
 	install -d -m0755 ${base}/etc/default/
 	install -d -m0755 ${base}/etc/squeezebox/
+	install -d -m0755 ${base}/etc/init.d/
 	install -d -m0755 ${base}/usr/share/perl5/
 	install -d -m0755 ${base}/${share}
 	install -d -m0755 ${base}/usr/share/doc/squeezebox/
