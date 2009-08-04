@@ -1,11 +1,5 @@
-squeezecenter (_VERSION_) unstable; urgency=low
+squeezeboxserver (_VERSION_) testing; urgency=low
 
-  * Updated package to new name
+  * SqueezeBox Server Package
 
- -- Matt Wise <debian@slimdevices.com>  Mon, 28 Aug 2006 10:14:33 -0000
-
-slimserver (6.5b1) unstable; urgency=low
-
-  * Initial Debian Packaging.
-
- -- Dan Sully <debian@slimdevices.com>  Sat, 28 Jan 2006 17:19:45 -0800
+ -- Matt Wise <debian@slimdevices.com>  Mon, 03 Aug 2009 15:14:33 -0000

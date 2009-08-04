@@ -5,12 +5,12 @@
 # Uncomment this to turn on verbose mode.
 export DH_VERBOSE=1
 
-package=squeezecenter
+package=squeezeboxserver
 base=$(CURDIR)/debian/$(package)
-share=usr/share/squeezecenter/
+share=usr/share/squeezebox/
 source=$(CURDIR)/../server
 
-varlib=var/lib/squeezecenter
+varlib=var/lib/squeezebox
 
 
 clean:
@@ -25,17 +25,17 @@ install:
 
 	# Create directories needed.
 	install -d -m0755 ${base}/etc/default/
-	install -d -m0755 ${base}/etc/squeezecenter/
+	install -d -m0755 ${base}/etc/squeezebox/
 	install -d -m0755 ${base}/usr/share/perl5/
 	install -d -m0755 ${base}/${share}
-	install -d -m0755 ${base}/usr/share/doc/squeezecenter/
+	install -d -m0755 ${base}/usr/share/doc/squeezebox/
 	install -d -m0755 ${base}/${varlib}/prefs
 	install -d -m0755 ${base}/${varlib}/cache
 
 	# Copy our server files to the appropriate Debian locations.
-	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezecenter-server
-	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/squeezecenter-scanner
-	install -m0755 ${source}/cleanup.pl ${base}/usr/sbin/squeezecenter-cleanup
+	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezebox-server
+	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/squeezebox-scanner
+	install -m0755 ${source}/cleanup.pl ${base}/usr/sbin/squeezebox-cleanup
 
 	cp -r ${source}/Slim ${base}/usr/share/perl5/
 	
@@ -80,17 +80,17 @@ install:
 	rm ${base}/${share}/MySQL/errmsg.*
 
 	# Set up the pref's file locations...
-	cp -r ${source}/*.conf ${base}/etc/squeezecenter
+	cp -r ${source}/*.conf ${base}/etc/squeezebox
 
-	# Copy over the squeezecenter init script...
-	cp -r $(CURDIR)/debian/squeezecenter.default ${base}/etc/default/squeezecenter
+	# Copy over the squeezebox init script...
+	cp -r $(CURDIR)/debian/squeezebox.default ${base}/etc/default/squeezebox
 
 	# Wrapper to keep SqueezeCenter alive.
-	cp -r $(CURDIR)/debian/squeezecenter_safe ${base}/usr/sbin/squeezecenter_safe
+	cp -r $(CURDIR)/debian/squeezebox_safe ${base}/usr/sbin/squeezebox_safe
 
 	# Documentation
-	cp ${source}/Change* ${base}/usr/share/doc/squeezecenter/
-	cp ${source}/Installation.txt ${base}/usr/share/doc/squeezecenter/
+	cp ${source}/Change* ${base}/usr/share/doc/squeezebox/
+	cp ${source}/Installation.txt ${base}/usr/share/doc/squeezebox/
 	cp ${source}/License.txt $(CURDIR)/debian/copyright
 
 	# Copy the revision file

@@ -5,12 +5,12 @@
 # Uncomment this to turn on verbose mode.
 export DH_VERBOSE=1
 
-package=squeezecenter-readynas
+package=squeezeboxserver-readynas
 base=$(CURDIR)/readynas/$(package)
-share=usr/share/squeezecenter/
+share=usr/share/squeezebox/
 source=$(CURDIR)/../server
 
-varlib=var/lib/squeezecenter
+varlib=var/lib/squeezebox
 
 clean:
 	dh_testdir
@@ -25,10 +25,10 @@ install:
 	# Create directories needed.
 	install -d -m0755 ${base}/etc/default/
 	install -d -m0755 ${base}/etc/init.d/
-	install -d -m0755 ${base}/etc/squeezecenter/
+	install -d -m0755 ${base}/etc/squeezebox/
 	install -d -m0755 ${base}/usr/share/perl5/
 	install -d -m0755 ${base}/${share}
-	install -d -m0755 ${base}/usr/share/doc/squeezecenter/
+	install -d -m0755 ${base}/usr/share/doc/squeezebox/
 	install -d -m0755 ${base}/${varlib}/prefs
 	install -d -m0755 ${base}/${varlib}/cache
 
@@ -39,8 +39,8 @@ install:
 	cp -rf $(CURDIR)/readynas/CPAN ${source}/
 
 	# Copy our server files to the appropriate Debian locations.
-	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezecenter-server
-	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/squeezecenter-scanner
+	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezebox-server
+	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/squeezebox-scanner
 
 	# We need to copy the Slim directory over...
 	cp -rf ${source}/Slim ${base}/usr/share/perl5
@@ -63,7 +63,7 @@ install:
 	# let's use the system's mysql server
 	rm -rf ${source}/Bin/i386-linux/mysqld
 
-	# And aux files needed to run SqueezeCenter
+	# And aux files needed to run SqueezeBox Server
 	cp -rf ${source}/Firmware ${base}/${share}
 	cp -rf ${source}/Graphics ${base}/${share}
 	cp -rf ${source}/HTML ${base}/${share}
@@ -85,21 +85,21 @@ install:
 	rm ${base}/${share}/MySQL/errmsg.*
 
 	# Set up the pref's file locations...
-	cp -rf ${source}/*.conf ${base}/etc/squeezecenter
+	cp -rf ${source}/*.conf ${base}/etc/squeezebox
 
 	## Overwrite some default settings with ReadyNas specific settings
-	cp -rf ${CURDIR}/readynas/custom-convert.conf ${base}/etc/squeezecenter
+	cp -rf ${CURDIR}/readynas/custom-convert.conf ${base}/etc/squeezebox
 
 	# Copy over the squeezecenter init script...
-	cp -rf $(CURDIR)/readynas/squeezecenter.default ${base}/etc/default/squeezecenter
-	cp -rf $(CURDIR)/readynas/squeezecenter.init ${base}/etc/init.d/squeezecenter
+	cp -rf $(CURDIR)/readynas/squeezebox.default ${base}/etc/default/squeezebox
+	cp -rf $(CURDIR)/readynas/squeezebox.init ${base}/etc/init.d/squeezebox
 
-	# Wrapper to keep SqueezeCenter alive.
-	cp -rf $(CURDIR)/readynas/squeezecenter_safe ${base}/usr/sbin/squeezecenter_safe
+	# Wrapper to keep SqueezeBox Server alive.
+	cp -rf $(CURDIR)/readynas/squeezebox_safe ${base}/usr/sbin/squeezebox_safe
 
 	# Documentation
-	cp -rf ${source}/Change* ${base}/usr/share/doc/squeezecenter/
-	cp -rf ${source}/Installation.txt ${base}/usr/share/doc/squeezecenter/
+	cp -rf ${source}/Change* ${base}/usr/share/doc/squeezebox/
+	cp -rf ${source}/Installation.txt ${base}/usr/share/doc/squeezebox/
 	cp -rf ${source}/License.txt $(CURDIR)/readynas/copyright
 
 	# Copy the revision file

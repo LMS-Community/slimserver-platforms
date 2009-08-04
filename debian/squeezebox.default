@@ -1,0 +1,4 @@
+# User to run SqueezeBox Server as
+SLIMUSER=squeezebox
+
+SLIMOPTIONS=""

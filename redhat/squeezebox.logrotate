@@ -1,0 +1,14 @@
+/var/log/squeezebox/server.log {
+    missingok
+    notifempty
+    sharedscripts
+    postrotate
+        /bin/kill -USR1 `pgrep slimserver.pl >/dev/null 2>&1` >/dev/null 2>&1 || true
+    endscript
+}
+
+/var/log/squeezebox/scanner.log {
+    missingok
+    notifempty
+    sharedscripts
+}

@@ -1,11 +1,11 @@
 $Id$
 
-This is SqueezeCenter for ReadyNAS units running Debian.
+This is SqueezeBox Server for ReadyNAS units running Debian.
 
 It includes all fonts, HTML & Firmware, unlike the "Official Debian Package".
 
 Please see http://www.slimdevices.com/ for more information.
 
-- Dan Sully <debian | at | slimdevices.com>
+- Matt Wise <debian | at | slimdevices.com>
 
-Mon Jan 30 14:16:01 PST 2006
+Mon Aug 03 16:16:01 PST 2009

@@ -1,0 +1,112 @@
+#!/bin/sh
+#
+# $Id$
+#
+# squeezebox	initscript for slimserver.pl
+#		This file should be placed in /etc/init.d.
+#
+# Original Author: Mattias Holmlund
+#
+# Updated By: Dan Sully
+
+set -e
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DESC="SqueezeBox Server"
+NAME=squeezebox
+DAEMON=/usr/sbin/$NAME-server
+DAEMON_SAFE=/usr/sbin/${NAME}_safe
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+SLIMUSER=root
+PREFSDIR=/var/lib/$NAME/prefs
+LOGDIR=/var/log/$NAME/
+CACHEDIR=/var/lib/$NAME/cache
+SLIMOPTIONS=
+
+# Read config file if it is present.
+if [ -r /etc/default/$NAME ]
+then
+	. /etc/default/$NAME
+fi
+
+#
+#	Function that starts the daemon/service.
+#
+d_start() {
+        # it dies. This must be done to handle mysql restarts.
+	start-stop-daemon --start --quiet \
+                --chuid $SLIMUSER \
+                --pidfile $PIDFILE \
+		--exec /bin/bash \
+                --background \
+                --make-pidfile \
+		--name squeezebox_safe \
+		--startas $DAEMON_SAFE \
+                -- \
+                $DAEMON \
+                --prefsdir $PREFSDIR \
+                --logdir $LOGDIR \
+                --cachedir $CACHEDIR \
+                $SLIMOPTIONS
+}
+
+d_start_direct() {
+	start-stop-daemon --start --quiet \
+                --chuid $SLIMUSER \
+                --pidfile $PIDFILE \
+		--exec $DAEMON \
+                -- \
+                --pidfile $PIDFILE \
+                --daemon \
+                --prefsdir $PREFSDIR \
+                --logdir $LOGDIR \
+                --cachedir $CACHEDIR \
+                $SLIMOPTIONS
+}
+
+#	Function that stops the daemon/service.
+#
+d_stop() {
+	start-stop-daemon -o --stop --pidfile $PIDFILE --name squeezebox_safe
+}
+
+#
+#	Function that sends a SIGHUP to the daemon/service.
+#
+d_reload() {
+	start-stop-daemon --stop --quiet --pidfile $PIDFILE \
+		--name $NAME --signal 1
+}
+
+case "$1" in
+  start)
+	echo -n "Starting $DESC"
+	d_start
+	echo "."
+	;;
+  stop)
+	echo -n "Stopping $DESC"
+	d_stop
+	echo "."
+	;;
+  restart|force-reload)
+	#
+	#	If the "reload" option is implemented, move the "force-reload"
+	#	option to the "reload" entry above. If not, "force-reload" is
+	#	just the same as "restart".
+	#
+	echo -n "Restarting $NAME"
+	d_stop
+	sleep 1
+	d_start
+	echo "."
+	;;
+  *)
+	# echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
+	echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload}" >&2
+	exit 1
+	;;
+esac
+
+exit 0

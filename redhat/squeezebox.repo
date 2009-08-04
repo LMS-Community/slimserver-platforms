@@ -1,0 +1,18 @@
+[squeezebox]
+name = SqueezeBox Server Release Repository
+baseurl = http://repos.slimdevices.com/yum/squeezebox/releases/RPMS/
+enabled=1
+gpgcheck=0
+
+[squeezebox-branch]
+name = SqueezeBox Branch Nightly Repository
+baseurl = http://repos.slimdevices.com/yum/squeezebox/nightly/branch/RPMS/
+enabled=0
+gpgcheck=0
+
+[squeezebox-trunk]
+name = SqueezeBox Trunk Nightly Repository
+baseurl = http://repos.slimdevices.com/yum/squeezebox/nightly/trunk/RPMS/
+enabled=0
+gpgcheck=0
+

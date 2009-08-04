@@ -1,11 +1,5 @@
-squeezecenter (_VERSION_) unstable; urgency=low
+squeezeboxserver-readynas (_VERSION_) testing; urgency=low
 
-  * Set up initial package for ReadyNas nightly builds... 
+  * SqueezeBox Server Package
 
- -- Matt Wise <mwise@slimdevices.com>  Wed, 26 Dec 2007 8:31:33 -0000
-
-squeezecenter (6.5b1) unstable; urgency=low
-
-  * Initial Debian Packaging.
-
- -- Dan Sully <debian@slimdevices.com>  Sat, 28 Jan 2006 17:19:45 -0800
+ -- Matt Wise <mwise@slimdevices.com>  Mon, 03 Aug 2009 04:14:33 -0000

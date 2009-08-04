@@ -1,4 +1,0 @@
-# User to run SqueezeCenter as
-SLIMUSER=root
-
-SLIMOPTIONS=""
