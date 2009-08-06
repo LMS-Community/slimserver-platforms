@@ -39,10 +39,10 @@ d_start() {
 	start-stop-daemon --start --quiet \
                 --chuid $SLIMUSER \
                 --pidfile $PIDFILE \
-		--exec /bin/bash \ 
+		--exec /bin/bash \
                 --background \
                 --make-pidfile \
-		--name squeezebox_safe \ 
+		--name squeezebox_safe \
 		--startas $DAEMON_SAFE \
                 -- \
                 $DAEMON \
