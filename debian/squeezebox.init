@@ -91,7 +91,7 @@ d_stop() {
 	## Unfortunately this cuts-off the name of the daemon because its longer now, and then it doesnt get 
 	## caught by the start-stop-daemon. The daemon actually reports it as squeezebox_s instead of 
 	## squeezebox_safe.
-	start-stop-daemon -o --stop --pidfile $PIDFILE --name squeezebox_serv
+	start-stop-daemon -o --stop --pidfile $PIDFILE --name squeezebox_safe
 }
 
 #
