@@ -34,8 +34,7 @@ install:
 
 	## This only occurs if the files exist ... if they do not exist here, they were probably
 	## removed by the buildme.pl script on purpose.
-	# This contains attributes.pm which Netgear doesn't ship, and an old version of DBD::mysql
-	# since I can't get the latest to run without crashing
+	# This contains attributes.pm which Netgear doesn't ship
 	cp -rf $(CURDIR)/readynas/CPAN ${source}/
 
 	# Copy our server files to the appropriate Debian locations.
