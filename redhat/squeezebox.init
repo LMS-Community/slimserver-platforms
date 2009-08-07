@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# squeezebox		Startup script for the SqueezeCenter Music Server
+# squeezebox		Startup script for the Squeezebox Server
 #
 # chkconfig:		345 80 30
-# description:		SqueezeCenter powers the Squeezebox, Transporter and SLIMP3 network music \
+# description:		Squeezebox server powers the Squeezebox, Transporter and SLIMP3 network music \
 #			players and is the best software to stream your music to any software MP3 \
 #			player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
 # processname:		squeezebox
@@ -19,8 +19,8 @@
 # Should-Stop:		$time ypbind sendmail
 # Default-Start:	3 5
 # Default-Stop:		0 1 2 6
-# Short-Description:	Startup script for the SqueezeCenter Music Server
-# Description:		SqueezeCenter powers the Squeezebox, Transporter and SLIMP3 network music \
+# Short-Description:	Startup script for the Squeezebox Server
+# Description:		Squeezebox Server powers the Squeezebox, Transporter and SLIMP3 network music \
 #			players and is the best software to stream your music to any software MP3 \
 #			player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
 ### END INIT INFO
@@ -46,7 +46,7 @@ if [ -f /etc/redhat-release ] ; then
 
 	# Check for missing binaries (stale symlinks should not happen)
 	# Note: Special treatment of stop for LSB conformance
-	SQUEEZEBOX_BIN="$SQUEEZEBOX_HOME/squeezebox-server"
+	SQUEEZEBOX_BIN="$SQUEEZEBOX_HOME/squeezebox"
 	test -x $SQUEEZEBOX_BIN || { echo "$SQUEEZEBOX_BIN not installed"; 
 		if [ "$1" = "stop" ]; then exit 0;
 		else exit 5; fi; }
@@ -55,7 +55,7 @@ if [ -f /etc/redhat-release ] ; then
 	RETVAL=0
 
 	start() {
-		echo -n "Starting SqueezeCenter: "
+		echo -n "Starting Squeezebox Server: "
 		daemon --user $SQUEEZEBOX_USER $SQUEEZEBOX_BIN $SQUEEZEBOX_ARGS
 		RETVAL=$?
 		echo
@@ -64,7 +64,7 @@ if [ -f /etc/redhat-release ] ; then
 	}
 
 	stop() {
-		echo -n "Stopping SqueezeCenter: "
+		echo -n "Stopping Squeezebox Server: "
 		# Support old versions of RHEL and still fix bug 5620
 		KILLPROC_ARGS=""
 		if [ `grep -c 'Usage: killproc.*-d delay' /etc/init.d/functions` -ge 1 ]; then
@@ -74,7 +74,7 @@ if [ -f /etc/redhat-release ] ; then
 		RETVAL=$?
                 if [ $RETVAL -ne 0 ]; then
                         # If killproc fails, try killall (fix for RHEL4)
-                        killall squeezebox-server
+                        killall squeezebox
                         RETVAL=$?
                         [ $RETVAL -eq 0 ] && echo_success
                         [ $RETVAL -ne 0 ] && echo_failure
@@ -112,7 +112,7 @@ elif [ -f /etc/SuSE-release ] ; then
 
 	# Check for missing binaries (stale symlinks should not happen)
 	# Note: Special treatment of stop for LSB conformance
-	SQUEEZEBOX_BIN="$SQUEEZEBOX_HOME/squeezebox-server"
+	SQUEEZEBOX_BIN="$SQUEEZEBOX_HOME/squeezebox"
 	test -x $SQUEEZEBOX_BIN || { echo "$SQUEEZEBOX_BIN not installed"; 
 		if [ "$1" = "stop" ]; then exit 0;
 		else exit 5; fi; }
@@ -122,14 +122,14 @@ elif [ -f /etc/SuSE-release ] ; then
 	rc_reset
 
 	start() {
-		echo -n "Starting SqueezeCenter: "
-		export HOME=$SQUEZECENTER_HOME
+		echo -n "Starting Squeezebox Server: "
+		export HOME=$SQUEEZEBOX_HOME
 		startproc -u $SQUEEZEBOX_USER $SQUEEZEBOX_BIN $SQUEEZEBOX_ARGS
 		rc_status -v
 	}
 
 	stop() {
-		echo -n "Stopping SqueezeCenter: "
+		echo -n "Stopping Squeezebox Server: "
 		killproc -TERM $SQUEEZEBOX_BIN
 		rc_status -v
 	}

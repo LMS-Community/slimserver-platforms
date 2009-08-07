@@ -110,7 +110,7 @@ cp -Rp Slim $RPM_BUILD_ROOT%{_usr}/lib/perl5/vendor_perl
 cp -Rp SQL $RPM_BUILD_ROOT%{_datadir}/squeezebox
 cp -p revision.txt $RPM_BUILD_ROOT%{_datadir}/squeezebox
 cp -p strings.txt $RPM_BUILD_ROOT%{_datadir}/squeezebox
-cp -p slimserver.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezebox-server
+cp -p slimserver.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezebox
 cp -p scanner.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezebox-scanner
 cp -p cleanup.pl $RPM_BUILD_ROOT%{_usr}/sbin/squeezebox-cleanup
 
@@ -243,7 +243,7 @@ fi
 %attr(0755,squeezebox,squeezebox) %dir %{_var}/lib/squeezebox/Plugins
 
 # Executables
-%{_usr}/libexec/squeezebox-server
+%{_usr}/libexec/squeezebox
 %{_usr}/libexec/squeezebox-scanner
 %{_usr}/sbin/squeezebox-cleanup
 
