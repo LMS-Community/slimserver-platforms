@@ -72,24 +72,9 @@
 	[useiTunes setState:(option == 1 ? 1 : 0)];
 
 	// check whether an update installer is available
-	[NSTimer scheduledTimerWithTimeInterval: 60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
+	updateTimer = [NSTimer scheduledTimerWithTimeInterval: 60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
 	[self checkUpdateInstaller];
 	
-	if (hasUpdateInstaller) {
-		NSBeginAlertSheet (
-						   LocalizedPrefString(@"An updated Squeezebox Server version is available and ready to be installed.", @""),
-						   LocalizedPrefString(@"Install update", @""),
-						   LocalizedPrefString(@"Not now", @""),
-						   nil, 
-						   [[NSApplication sharedApplication] mainWindow], 
-						   self, 
-						   @selector(installUpdateConfirmed:returnCode:contextInfo:),
-						   NULL, 
-						   @"",
-						   @""
-						   );
-	}
-
 	[NSTimer scheduledTimerWithTimeInterval: 1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
 	[self updateUI];
 	[self updateMusicLibraryStats];
@@ -540,7 +525,7 @@
 
 
 /* SC update related methods */
--(NSString *)checkUpdateInstaller
+-(NSString *)getUpdateInstaller
 {
 	NSString *pathToUpdate = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:versionFile];
 
@@ -552,29 +537,50 @@
 		NSArray *lines = [fileString componentsSeparatedByString:@"\n"];
 	
 		if ([lines count] > 0)
-		{
-			NSString *installer = [lines objectAtIndex:0];
-			
-			hasUpdateInstaller = (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]);
-			return installer;
-		}
+			return [lines objectAtIndex:0];
 	}
 
 	return nil;
 }
 
+-(void)checkUpdateInstaller
+{
+	NSString *installer = [self getUpdateInstaller];
+
+	if (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer])
+	{
+		// don't trigger another message as long as it's being displayed
+		[updateTimer invalidate];
+			
+		NSBeginAlertSheet (
+						   LocalizedPrefString(@"An updated Squeezebox Server version is available and ready to be installed.", @""),
+						   LocalizedPrefString(@"Install update", @""),
+						   LocalizedPrefString(@"Not now", @""),
+						   nil, 
+						   [[NSApplication sharedApplication] mainWindow], 
+						   self, 
+						   @selector(installUpdateConfirmed:returnCode:contextInfo:),
+						   NULL, 
+						   @"",
+						   @""
+						   );
+			
+		// don't check that often once the user has been notified
+		updateTimer = [NSTimer scheduledTimerWithTimeInterval: 60*60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
+	}
+}
+
 -(void)installUpdateConfirmed:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
 	if (returnCode == NSAlertDefaultReturn) {
-		NSString *installer = [self checkUpdateInstaller];
+
+		NSString *installer = [self getUpdateInstaller];
 		
 		if (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]) {
-			
-			updateURL = nil;
-			
+	
 			NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"run-installer.sh"];
-			NSTask *updateTask = [NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:installer,nil]];
-			[updateTask waitUntilExit];
+			[NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:installer,nil]];
+
 		}
 	}
 }

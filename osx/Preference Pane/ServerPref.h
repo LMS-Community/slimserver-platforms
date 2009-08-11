@@ -31,8 +31,7 @@
 	bool webState;
 	bool isScanning;
 	
-	bool hasUpdateInstaller;
-	NSString *updateURL;
+	NSTimer *updateTimer;
 	
 	NSMutableDictionary *scStrings;
 	
@@ -113,7 +112,8 @@
 -(IBAction)openWebInterface:(id)sender;
 -(IBAction)openSettingsWebInterface:(id)sender;
 -(IBAction)toggleServer:(id)sender;
--(NSString *)checkUpdateInstaller;
+-(NSString *)getUpdateInstaller;
+-(void)checkUpdateInstaller;
 
 -(IBAction)changeStartupPreference:(id)sender;
 
