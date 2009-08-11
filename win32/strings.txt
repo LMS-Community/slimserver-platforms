@@ -59,18 +59,18 @@ RUN_AT_LOGIN
 	SV	Kör automatiskt vid inloggning
 
 OPEN_SQUEEZEBOX_SERVER
-	CS	Otevřít Squeezebox Server
-	DA	Åbn Squeezebox Server
-	DE	Squeezebox Server öffnen
+	CS	Otevřít Webové ovládání...
+	DA	Åbn kontrolpanelet i browseren...
+	DE	Web-Benutzeroberfläche öffnen...
 	EN	Open Web Control...
-	ES	Abrir Squeezebox Server
+	ES	Abrir control Web...
 	FI	Avaa Squeezebox Server
-	FR	Ouvrir le Squeezebox Server
+	FR	Ouvrir la commande Web...
 	IT	Avvia Squeezebox Server
-	NL	Squeezebox Server openen
-	NO	Åpne Squeezebox Server
-	PL	Otwórz program Squeezebox Server
-	RU	Открыть Squeezebox Server
+	NL	Webbesturing openen...
+	NO	Åpne Web Control ...
+	PL	Otwórz narzędzie kontroli sieci Web...
+	RU	Открыть управление Интернетом...
 	SV	Öppna Squeezebox Server
 
 START_SQUEEZEBOX_SERVER
@@ -254,18 +254,18 @@ OPEN_CONTROLPANEL
 	SV	Öppna kontrollpanelen ...
 
 UPDATE_AVAILABLE
-	CS	K dispozici je aktualizovaná verze Squeezebox Server. K instalaci nejnovějšího vydání otevřete menu.
-	DA	Der findes en opdateret version af Squeezebox Server. Åbn menuen, og installer den nyeste udgave.
-	DE	Es ist eine aktualisierte Version von Squeezebox Server verfügbar. Öffnen Sie das Menü, um sie zu installieren.
+	CS	K dispozici je aktualizovaná verze Squeezebox Server a je připravena k instalaci. Pro aktualizaci stiskněte ikonu v systémové liště.
+	DA	En opdateret version af Squeezebox Server er klar til at blive installeret. Klik på Squeezebox-ikonet i systembakken for at starte opgraderingen.
+	DE	Eine aktualisierte Version von Squeezebox Server ist verfügbar und kann installiert werden. Klicken Sie auf das Squeezebox-Symbol in der Taskleiste, um das Update zu starten.
 	EN	An updated version of Squeezebox Server is available and ready to install. Click the Squeezebox tray icon to start the upgrade.
-	ES	Hay disponible una versión actualizada de Squeezebox Server. Abra el menú para instalar la versión más reciente.
+	ES	Hay disponible una versión actualizada de Squeezebox Server y está lista para instalar. Haga clic en el icono de Squeezebox en la bandeja del sistema para iniciar la actualización.
 	FI	Squeezebox Serveristä on olemassa päivitetty versio. Avaa valikko ja lataa uusin versio.
-	FR	Une nouvelle version du Squeezebox Server est disponible. Ouvrez le menu pour l'installer.
+	FR	Une nouvelle version du Squeezebox Server est disponible et prête à être installée. Cliquez sur l'icône Squeezebox dans la barre d'état système pour lancer la mise à niveau.
 	IT	È disponibile una versione aggiornata di Squeezebox Server. Aprire il menu per installare la versione più recente.
-	NL	Er is een bijgewerkte versie van Squeezebox Server beschikbaar. Open het menu om de nieuwste versie te installeren.
-	NO	Det finnes en oppdatert versjon av Squeezebox Server tilgjengelig. Åpne menyen for å installere den nyeste utgaven.
-	PL	Zaktualizowana wersja programu Squeezebox Server jest dostępna. Otwórz menu, aby zainstalować najnowszą wersję.
-	RU	Доступна обновленная версия Squeezebox Server. Откройте меню, чтобы установить последний выпуск.
+	NL	Er is een bijgewerkte versie van Squeezebox Server beschikbaar voor installatie. Klik op het Squeezebox-pictogram in het systeemvak om de upgrade te starten.
+	NO	En oppdatert versjon av Squeezebox Server er tilgjengelig og klar til installering. Du kan starte oppgraderingen ved å klikke på Squeezebox-ikonet i systemstatusfeltet.
+	PL	Zaktualizowana wersja programu Squeezebox Server jest dostępna i gotowa do zainstalowania. Kliknij ikonę usługi Squeezebox na pasku zadań, aby uruchomić uaktualnianie.
+	RU	Доступна и готова к установке обновленная версия Squeezebox Server. Чтобы начать установку обновления, щелкните значок Squeezebox на панели задач.
 	SV	En uppdaterad Squeezebox Server-version är tillgänglig. Öppna menyn för att installera den senaste versionen.
 
 INSTALL_UPDATE
