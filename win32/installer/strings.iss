@@ -700,6 +700,8 @@ en.Port9000busyOther=Port 9000 is busy and may be in use by another application 
 de.Port9000busyOther=Port 9000 ist belegt und wird von einer anderen Anwendung genutzt. Squeezebox Server wird scheinbar nicht ausgefьhrt.
 sv.Port9000busyOther=Port 9000 дr upptagen och anvдnds kanske av ett annat program. Squeezebox Server verkar inte vara i gеng.
 fi.Port9000busyOther=Portti 9000 on varattu. Se saattaa olla jonkin toisen sovelluksen kдytцssд. Squeezebox Server ei nдytд olevan kдynnissд.
+ru.Port9000busyOther=Порт 9000 занят: возможно, он используется другим приложением. По-видимому, Squeezebox Server не выполняется
+pl.Port9000busyOther=Port 9000 jest zajкty i moїe byж uїywany przez inn№ aplikacjк, a program Squeezebox Server prawdopodobnie nie dziaіa
 
 sv.Port9000unused=Det verkar som om port 9000 inte anvдnds.
 it.Port9000unused=La porta 9000 sembra non essere utilizzata
@@ -725,6 +727,8 @@ sv.CiscoVPNStatefulInspection=Om det uppstеr anslutningsproblem med Squeezebox b
 es.CiscoVPNStatefulInspection=Si surgen problemas de conectividad con Squeezebox,%n asegъrese de que la opciуn "Stateful Firewall (Always On)" estб desactivada
 fr.CiscoVPNStatefulInspection=Si vous rencontrez des problиmes de connectivitй avec le Squeezebox,%n vйrifiez que l'option "Pare-feu stateful (toujours activй)" est dйsactivйe.
 de.CiscoVPNStatefulInspection=Vergewissern Sie sich bei Verbindungsproblemen mit Squeezebox,%n dass "Stateful Firewall (Always On)" deaktiviert ist.
+ru.CiscoVPNStatefulInspection=При возникновении проблем с подключением к Squeezebox%n убедитесь, что параметр "Брандмауэр с отслеживанием состояния (Всегда включено)" отключен
+pl.CiscoVPNStatefulInspection=W przypadku wyst№pienia problemуw z і№cznoњci№ w programie Squeezebox,%n upewnij siк, їe opcja „Zapora stanowa (zawsze wі№czona)” jest wyі№czona
 
 es.McAfeeMySQL=Debe configurar el detector de virus de McAfee para que ignore archivos *.my* de MySQL. %nDe lo contrario el examen de mъsica de Squeezebox Server puede fallar.
 de.McAfeeMySQL=Der McAfee-Virusscanner muss so konfiguriert werden, dass *.my*-Dateien von MySQL ignoriert werden. %nAndernfalls kann der Musik-Scan von Squeezebox Server fehlschlagen.
@@ -754,7 +758,16 @@ pl.SCPerl=%nJeњli uїywasz programu SC w wersji perl, jest to poprawne i oczekiwa
 
 en.ESETPortFiltering=ESET Antivirus or Smart Security can cause problems starting Squeezebox Server. If you experience failure starting Squeezebox Server, then make sure you have unchecked port filtering for SqueezeboxSvr.exe in ESET Advanced Settings/Antivirus and antispyware/Web access protection/HTTP, HTTPS/Web browsers.
 
+
 en.ControlPanel=SqueezeBox Control Panel
+it.ControlPanel=Pannello di controllo di Squeezebox
+fr.ControlPanel=Panneau de configuration de la Squeezebox
+es.ControlPanel=Panel de control de Squeezebox
+de.ControlPanel=Squeezebox-Systemsteuerung
+da.ControlPanel=Squeezebox Kontrolpanel
+sv.ControlPanel=Kontrollpanelen fцr Squeezebox
+no.ControlPanel=Kontrollpanel for Squeezebox
+nl.ControlPanel=Squeezebox-configuratiescherm
 ru.ControlPanel=Панель управления Squeezebox
 pl.ControlPanel=Panel sterowania programu Squeezebox
 
