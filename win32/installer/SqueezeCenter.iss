@@ -346,6 +346,10 @@ begin
 	MaxProgress := ProgressPage.ProgressBar.Position + Wait;
 	while (Wait > 0) and (IsServiceRunning(Svc) or IsServiceRunning(MySQLSvc) or IsModuleLoaded(Executable) or IsModuleLoaded(TrayExe) or IsModuleLoaded(LongExecutable)) do
 	begin
+	
+		if (Wait mod 10 = 0) then
+			Log('Waiting for service to stop...');
+	
 		ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
 		Sleep(1000);
 		Wait := Wait - 1;
@@ -774,6 +778,9 @@ begin
 								
 								while (Wait > 0) do
 									begin
+									
+										Log('Waiting for Squeezebox Server to be running...');
+									
 										ProgressPage.setProgress(ProgressPage.ProgressBar.Position+2, ProgressPage.ProgressBar.Max);
 										Sleep(2000);
 										
@@ -794,7 +801,7 @@ begin
 										else if Started then
 											break;
 
-										Wait := Wait - 1;
+										Wait := Wait - 2;
 									end;	
 							end;
 					end;

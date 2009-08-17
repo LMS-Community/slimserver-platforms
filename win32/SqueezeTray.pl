@@ -39,7 +39,7 @@ my $os             = Slim::Utils::OSDetect::getOS();
 
 my $restartFlag    = catdir(getPref('cachedir') || $os->dirsFor('cache'), 'restart.txt');
 my $versionFile    = catdir(scalar($os->dirsFor('updates')), 'server.version');
-my $controlPanel   = catdir($os->dirsFor('base'), 'server', 'squeezeboxcp.exe');
+my $controlPanel   = catdir(scalar($os->dirsFor('base')), 'server', 'squeezeboxcp.exe');
 
 ${^WIN32_SLOPPY_STAT} = 1;
 
@@ -350,13 +350,15 @@ sub stopComponents {
 sub updateServerSoftware {
 	stopServer(1);
 	
+	my $logfile  = catdir(scalar($os->dirsFor('log')), 'update.log');
+	
 	my $installer = _getUpdateInstaller();
 	
 	my $processObj;
 	Win32::Process::Create(
 		$processObj,
 		$installer,
-		"\"$installer\" /silent /TrayIcon",
+		"\"$installer\" /silent /LOG=\"$logfile\" /TrayIcon",
 		0,
 		Win32::Process::DETACHED_PROCESS() | Win32::Process::CREATE_NO_WINDOW() | Win32::Process::NORMAL_PRIORITY_CLASS(),
 		'.'

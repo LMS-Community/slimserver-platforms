@@ -95,7 +95,7 @@
 			<ComponentRef Id="Jayrock.Json" />
 		</Feature>
 		
-		<CustomAction Id="InstallSC" BinaryKey="SCInstallerFile" ExeCommand="/silent /noTrayIcon /installService" Impersonate="no" Return="ignore" Execute="deferred" />
+		<CustomAction Id="InstallSC" BinaryKey="SCInstallerFile" ExeCommand="/Log /silent /noTrayIcon /installService" Impersonate="no" Return="ignore" Execute="deferred" />
 
 		<CustomAction Id="UnInstallSC" Directory="APPPATH" ExeCommand="[UNINSTALLCOMMAND] /SUPPRESSMSGBOXES" Impersonate="no" Return="ignore" Execute="deferred" />
 		
