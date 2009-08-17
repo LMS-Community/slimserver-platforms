@@ -2,8 +2,8 @@
 #
 # $Id$
 #
-# squeezebox	initscript for squeezebox.pl
-#		This file should be placed in /etc/init.d.
+# squeezeboxserver	initscript for squeezebox.pl
+#			This file should be placed in /etc/init.d.
 #
 # Original Author: Mattias Holmlund
 #
@@ -11,7 +11,7 @@
 
 #
 ### BEGIN INIT INFO
-# Provides:          	squeezebox
+# Provides:          	squeezeboxserver
 # Required-Start:    	$all
 # Required-Stop:     	$all
 # Should-Start:      	$all
@@ -28,9 +28,9 @@
 set -e
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DESC="SqueezeBox Server"
-NAME=squeezebox
-DAEMON=/usr/sbin/$NAME-server
+DESC="Squeezebox Server"
+NAME=squeezeboxserver
+DAEMON=/usr/sbin/$NAME
 DAEMON_SAFE=/usr/sbin/${NAME}_safe
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
@@ -51,7 +51,7 @@ fi
 #	Function that starts the daemon/service.
 #
 d_start() {
-        # Use squeezebox_safe to restart the daemon when
+        # Use squeezeboxserver_safe to restart the daemon when
         # it dies. This must be done to handle mysql restarts.
 	start-stop-daemon --start --quiet \
                 --chuid $SLIMUSER \
@@ -89,9 +89,9 @@ d_stop() {
 
 	## This is a bug in the start-stop-daemon that checks the PID name from the /proc/PID/stat filesystem...
 	## Unfortunately this cuts-off the name of the daemon because its longer now, and then it doesnt get 
-	## caught by the start-stop-daemon. The daemon actually reports it as squeezebox_s instead of 
+	## caught by the start-stop-daemon. The daemon actually reports it as squeezeboxserver_s instead of 
 	## squeezebox_safe.
-	start-stop-daemon -o --stop --pidfile $PIDFILE --name squeezebox_safe
+	start-stop-daemon -o --stop --pidfile $PIDFILE --name squeezeboxserve
 }
 
 #

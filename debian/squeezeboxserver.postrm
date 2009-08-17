@@ -2,20 +2,20 @@
 
 if [ "$1" = purge ]; then
 
-	rm -rf /var/lib/squeezebox/cache
-	rm -rf /var/log/squeezebox
+	rm -rf /var/lib/squeezeboxserver/cache
+	rm -rf /var/log/squeezeboxserver
 
 	if [ -x `which deluser` ]; then
-		deluser squeezebox 
+		deluser squeezeboxserver 
 	fi
 
 fi
 
 ## if we had moved the original apparmor config file out of the way,
 ## then lets put it back in place... 
-if [ -f /var/lib/squeezebox/usr.sbin.mysqld.orig ]; then
+if [ -f /var/lib/squeezeboxserver/usr.sbin.mysqld.orig ]; then
 	rm /etc/apparmor.d/usr.sbin.mysqld
-	mv /var/lib/squeezebox/usr.sbin.mysqld.orig /etc/apparmor.d/usr.sbin.mysqld
+	mv /var/lib/squeezeboxserver/usr.sbin.mysqld.orig /etc/apparmor.d/usr.sbin.mysqld
 fi
 
 # dh_installdeb will replace this with shell code automatically

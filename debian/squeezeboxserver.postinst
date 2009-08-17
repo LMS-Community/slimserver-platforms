@@ -17,46 +17,46 @@ case "$1" in
 	fi
 
 	# Remove the old Favorites module.
-	rm -rf /var/lib/squeezebox/Plugins/Favorites
+	rm -rf /var/lib/squeezeboxserver/Plugins/Favorites
 
 	# Create a "squeezebox" user. This has modeled after the code in the postfix.deb
-	# postinst. We first try to set the ownership of /var/lib/squeezebox. If that
+	# postinst. We first try to set the ownership of /var/lib/squeezeboxserver. If that
 	# fails, we create the user and re-try. If that still fails, we abort.
-	# Note that the Firmware directory has to be owned by squeezebox, since the
+	# Note that the Firmware directory has to be owned by squeezeboxserver, since the
 	# server may download files to there during operation.
-	if chown squeezebox:nogroup /var/log/squeezebox 2>/dev/null ; then
+	if chown squeezeboxserver:nogroup /var/log/squeezeboxserver 2>/dev/null ; then
 
-	    chown $VERBOSE squeezebox:nogroup /etc/squeezebox -R
-	    chown $VERBOSE squeezebox:nogroup /var/lib/squeezebox -R
-	    chown $VERBOSE squeezebox:nogroup /var/log/squeezebox -R
+	    chown $VERBOSE squeezeboxserver:nogroup /etc/squeezeboxserver -R
+	    chown $VERBOSE squeezeboxserver:nogroup /var/lib/squeezeboxserver -R
+	    chown $VERBOSE squeezeboxserver:nogroup /var/log/squeezeboxserver -R
 
-	elif adduser --system --home /usr/share/squeezebox --no-create-home --gecos "SqueezeBox" squeezebox ; then
+	elif adduser --system --home /usr/share/squeezeboxserver --no-create-home --gecos "SqueezeBox" squeezeboxserver ; then
 
 	    sleep 1 # wait for user creation
 
-	    chown $VERBOSE squeezebox:nogroup /etc/squeezebox -R
-	    chown $VERBOSE squeezebox:nogroup /var/lib/squeezebox -R
-	    chown $VERBOSE squeezebox:nogroup /var/log/squeezebox -R
+	    chown $VERBOSE squeezeboxserver:nogroup /etc/squeezeboxserver -R
+	    chown $VERBOSE squeezeboxserver:nogroup /var/lib/squeezeboxserver -R
+	    chown $VERBOSE squeezeboxserver:nogroup /var/log/squeezeboxserver -R
 
 	fi
 
 	# If there's an apparmor config, we need to update it to allow mysql to work properly
 	if [ -f /etc/apparmor.d/usr.sbin.mysqld ]; then
 		## Remove the end-bracket so we can input our data into the file...
-		sed -e 's/}//' /etc/apparmor.d/usr.sbin.mysqld > /etc/apparmor.d/usr.sbin.mysqld.squeezebox.new
+		sed -e 's/}//' /etc/apparmor.d/usr.sbin.mysqld > /etc/apparmor.d/usr.sbin.mysqld.squeezeboxserver.new
 		echo "  # SqueezeBox Apparmor Changes for MySqld
-  /var/lib/squeezebox/cache/ r,
-  /var/lib/squeezebox/cache/my.cnf r,
-  /var/lib/squeezebox/cache/mysql.startup rw,
-  /var/lib/squeezebox/cache/mysql-error-log.txt rw,
-  /var/lib/squeezebox/cache/squeezebox-mysql.pid w,
-  /var/lib/squeezebox/cache/squeezebox-mysql.sock w,
-  /var/lib/squeezebox/cache/MySQL/ r,
-  /var/lib/squeezebox/cache/MySQL/** rwk,
- } " >> /etc/apparmor.d/usr.sbin.mysqld.squeezebox.new
+  /var/lib/squeezeboxserver/cache/ r,
+  /var/lib/squeezeboxserver/cache/my.cnf r,
+  /var/lib/squeezeboxserver/cache/mysql.startup rw,
+  /var/lib/squeezeboxserver/cache/mysql-error-log.txt rw,
+  /var/lib/squeezeboxserver/cache/squeezebox-mysql.pid w,
+  /var/lib/squeezeboxserver/cache/squeezebox-mysql.sock w,
+  /var/lib/squeezeboxserver/cache/MySQL/ r,
+  /var/lib/squeezeboxserver/cache/MySQL/** rwk,
+ } " >> /etc/apparmor.d/usr.sbin.mysqld.squeezeboxserver.new
 
-		mv /etc/apparmor.d/usr.sbin.mysqld /var/lib/squeezebox/usr.sbin.mysqld.orig
-		mv /etc/apparmor.d/usr.sbin.mysqld.squeezebox.new /etc/apparmor.d/usr.sbin.mysqld
+		mv /etc/apparmor.d/usr.sbin.mysqld /var/lib/squeezeboxserver/usr.sbin.mysqld.orig
+		mv /etc/apparmor.d/usr.sbin.mysqld.squeezeboxserver.new /etc/apparmor.d/usr.sbin.mysqld
 		if [ -x /etc/init.d/apparmor ]; then
 			/etc/init.d/apparmor restart		 
 		fi
