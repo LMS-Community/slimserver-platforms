@@ -2,13 +2,13 @@
 
 SERVICE=SLIMSERVER
 
-CONF_FILES="/var/log/squeezebox \
-            /var/lib/squeezebox \
-            /etc/squeezebox \
-            /usr/share/squeezebox \
-            /usr/sbin/squeezebox* \
-	    ./etc/init.d/squeezebox \
-	    ./etc/default/squeezebox \
+CONF_FILES="/var/log/squeezeboxserver \
+            /var/lib/squeezeboxserver \
+            /etc/squeezeboxserver \
+            /usr/share/squeezeboxserver \
+            /usr/sbin/squeezeboxserver* \
+	    ./etc/init.d/squeezeboxserver \
+	    ./etc/default/squeezeboxserver \
 	    ./usr/share/perl5/Slim \
             /var/lib/mysql/slimserver"
 
@@ -18,7 +18,7 @@ eval `awk -F'!!' "/$SERVICE/ { print \\$5 }" /etc/frontview/addons/addons.conf`
 # Remove all files, unless we're upgrading
 if ! [ "$1" = "-upgrade" ]; then
   # Remove debian package
-  dpkg -P squeezeboxserver-readynas
+  dpkg -P squeezeboxserver
   for i in $CONF_FILES; do
     rm -rf $i &>/dev/null
   done

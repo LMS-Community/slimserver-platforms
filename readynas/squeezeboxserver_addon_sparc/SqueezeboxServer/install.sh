@@ -71,13 +71,12 @@ echo "${name}=1" >>/tmp/services$$ || bye "ERROR: Could not add addon to service
 cp /tmp/services$$ /etc/default/services || bye "ERROR: Could not add addon to service configuration!"
 rm -f /tmp/services$$ || bye "ERROR: Could not clean up temporary space!"
 
-dpkg -i --force-all squeezeboxserver-readynas*.deb &>/dev/null || bye "ERROR: $friendly_name installation failed"
+dpkg -i --force-all squeezeboxserver*.deb &>/dev/null || bye "ERROR: $friendly_name installation failed"
 >/etc/debian_version && chattr +i /etc/debian_version
-cp squeezebox /etc/init.d/squeezebox
 
 # Symlink the new log file to the old location, so the log .zip file picks it up
 rm -f /var/log/slimserver.log
-ln -sf /var/log/squeezebox/server.log /var/log/slimserver.log 
+ln -sf /var/log/squeezeboxserver/server.log /var/log/slimserver.log 
 
 # Start up the addon program
 eval $run || bye "ERROR: Could not start $friendly_name service"
