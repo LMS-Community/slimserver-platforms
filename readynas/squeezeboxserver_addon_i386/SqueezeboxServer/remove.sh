@@ -40,6 +40,7 @@ else
     if [ -e /var/lib/$package/prefs ]; then 
       mkdir -p /var/lib/squeezeboxserver/prefs
       mv -n /var/lib/$package/prefs/* /var/lib/squeezeboxserver/prefs &>/dev/null 
+      rm -rf /var/lib/$package/prefs
     fi
   done
  
