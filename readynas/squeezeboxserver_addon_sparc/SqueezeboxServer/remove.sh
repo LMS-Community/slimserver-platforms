@@ -35,19 +35,19 @@ if ! [ "$1" = "-upgrade" ]; then
     rm -rf $i &>/dev/null
   done
 else
-  # Doing an upgrade. Look for old config files
+  # Remove old packages first. Their conf dirs are left in place, will deal with that next
+  for package in $OLD_PACKAGE_NAMES; do
+    if dpkg -s $package > /dev/null 2>&1 ; then
+      dpkg -P $package &>/dev/null
+    fi
+  done
+
+  # Doing an upgrade. Look for old config files. If we find them, copy them, then remove them
   for package in $OLD_PACKAGE_NAMES; do
     if [ -e /var/lib/$package/prefs ]; then 
       mkdir -p /var/lib/squeezeboxserver/prefs
       mv -n /var/lib/$package/prefs/* /var/lib/squeezeboxserver/prefs &>/dev/null 
-      rm -rf /var/lib/$package/prefs
-    fi
-  done
- 
-  # Now remove all the old packages before install the new one
-  for package in $OLD_PACKAGE_NAMES; do
-    if dpkg -s $package > /dev/null 2>&1 ; then
-      dpkg -P $package &>/dev/null
+      rm -rf /var/lib/$package
     fi
   done
 fi  
