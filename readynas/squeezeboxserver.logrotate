@@ -1,4 +1,4 @@
-/var/log/squeezebox/server.log {
+/var/log/squeezeboxserver/server.log {
   weekly
   rotate 5
   size 200k
@@ -7,11 +7,11 @@
 
   postrotate
     # send USR1 to squeezebox PID to reset logging
-    /bin/kill -USR1 `pgrep squeezebox-serv 2>/dev/null` 2>/dev/null || :
+    /bin/kill -USR1 `pgrep squeezeboxserve 2>/dev/null` 2>/dev/null || :
   endscript
 }
 
-/var/log/squeezebox/scanner.log {
+/var/log/squeezeboxserver/scanner.log {
   weekly
   rotate 5
   size 200k

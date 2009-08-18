@@ -13,8 +13,8 @@ set -e
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="Squeezebox Server"
-NAME=squeezebox
-DAEMON=/usr/sbin/$NAME-server
+NAME=squeezeboxserver
+DAEMON=/usr/sbin/$NAME
 DAEMON_SAFE=/usr/sbin/${NAME}_safe
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
@@ -69,7 +69,7 @@ d_start_direct() {
 #	Function that stops the daemon/service.
 #
 d_stop() {
-	start-stop-daemon -o --stop --pidfile $PIDFILE --name squeezebox_safe
+	start-stop-daemon -o --stop --pidfile $PIDFILE --name squeezeboxserve
 }
 
 #

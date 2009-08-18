@@ -1,11 +1,11 @@
-Source: squeezeboxserver-readynas
+Source: squeezeboxserver
 Section: sound
 Priority: optional
 Maintainer: Logitech/Slim Devices <debian@slimdevices.com>
 Build-Depends: debhelper (>= 4.0.0)
 Standards-Version: 3.6.2
 
-Package: squeezeboxserver-readynas
+Package: squeezeboxserver
 Architecture: _ARCHTYPE_
 Conflicts: slimp3,slimserver,squeezecenter
 Replaces: slimp3,slimserver,squeezecenter
@@ -15,6 +15,6 @@ Depends: perl (>= 5.8.1),
  libgd2-noxpm, libmad0, libpng12-0, libvorbis0a, libvorbisenc2,
  libvorbisfile3, sox
 Description: Streaming Audio Server
- SqueezeBox Server is a cross-platform streaming server that supports a wide range
+ Squeezebox Server is a cross-platform streaming server that supports a wide range
  of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and WMA.
  .

@@ -4,28 +4,28 @@
 
 if [ $# = 0 ]
 then
-  echo "Script to restart SqueezeBox Server over and over again."
+  echo "Script to restart Squeezebox Server over and over again."
   echo "This has to be done since the mysql-server is sometimes"
   echo "restarted due to upgrades and log-rotation and this causes"
-  echo "SqueezeBox Server to exit."
+  echo "Squeezebox Server to exit."
   echo
-  echo "To stop SqueezeBox Server, kill this script instead of the"
-  echo "actual SqueezeBox Server process."
+  echo "To stop Squeezebox Server, kill this script instead of the"
+  echo "actual Squeezebox Server process."
   echo
   echo "Usage: $0 <squeezebox-binary> <squeezebox-arguments>"
   exit 1
 fi
 
 function clean_up {
-  # Kill the SqueezeBox Server daemon if it is running
+  # Kill the Squeezebox Server daemon if it is running
   kill $SLIMPID
-  echo `date "+%F %H:%M:%S"` "squeezebox_safe stopped." >> /var/log/squeezebox/server.log
+  echo `date "+%F %H:%M:%S"` "squeezeboxserver_safe stopped." >> /var/log/squeezeboxserver/server.log
   exit
 }
 
 trap clean_up SIGINT SIGHUP SIGTERM
 
-echo `date "+%F %H:%M:%S"` "squeezebox_safe started." >> /var/log/squeezebox/server.log
+echo `date "+%F %H:%M:%S"` "squeezeboxserver_safe started." >> /var/log/squeezeboxserver/server.log
 
 while true
 do
@@ -41,13 +41,13 @@ do
   "$@" > /dev/null 2>&1 &
   SLIMPID=$!
   
-  # wait for SqueezeBox Server to get started before wait()
+  # wait for Squeezebox Server to get started before wait()
   sleep 15
   
   wait $SLIMPID
-  echo `date "+%F %H:%M:%S"` "SqueezeBox Server died. Restarting." >> /var/log/squeezebox/server.log
+  echo `date "+%F %H:%M:%S"` "Squeezebox Server died. Restarting." >> /var/log/squeezeboxserver/server.log
 
-  # Normally, when SqueezeBox Server realizes that the mysql-connection is gone,
+  # Normally, when Squeezebox Server realizes that the mysql-connection is gone,
   # the mysql server has already been started again. So no need to sleep
   # here.
 

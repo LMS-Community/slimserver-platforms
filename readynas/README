@@ -1,6 +1,6 @@
 $Id$
 
-This is SqueezeBox Server for ReadyNAS units running Debian.
+This is Squeezebox Server for ReadyNAS units running Debian.
 
 It includes all fonts, HTML & Firmware, unlike the "Official Debian Package".
 

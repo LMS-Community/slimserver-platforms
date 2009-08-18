@@ -1,5 +1,5 @@
-squeezeboxserver-readynas (_VERSION_) testing; urgency=low
+squeezeboxserver (_VERSION_) testing; urgency=low
 
-  * SqueezeBox Server Package
+  * Squeezebox Server Package
 
  -- Matt Wise <mwise@slimdevices.com>  Mon, 03 Aug 2009 04:14:33 -0000
