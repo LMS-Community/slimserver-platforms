@@ -39,9 +39,9 @@ Group:		System Environment/Daemons
 License:	GPL and proprietary        
 URL:		http://www.slimdevices.com            
 Source0:	%{src_basename}.tgz
-Source1:	squeezebox.config
-Source2:	squeezebox.init
-Source3:	squeezebox.logrotate
+Source1:	squeezeboxserver.config
+Source2:	squeezeboxserver.init
+Source3:	squeezeboxserver.logrotate
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Vendor:		Logitech
 
@@ -86,65 +86,65 @@ rm -rf $RPM_BUILD_ROOT
 # FHS compatible directory structure
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/init.d
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/squeezebox
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/squeezeboxserver
 mkdir -p $RPM_BUILD_ROOT%{_usr}/lib/perl5/vendor_perl
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/squeezebox
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
 mkdir -p $RPM_BUILD_ROOT%{_usr}/libexec
 mkdir -p $RPM_BUILD_ROOT%{_usr}/sbin
-mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezebox/cache
-mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezebox/Plugins
-mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs
-mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs/plugin
-mkdir -p $RPM_BUILD_ROOT%{_var}/log/squeezebox
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/cache
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/Plugins
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin
+mkdir -p $RPM_BUILD_ROOT%{_var}/log/squeezeboxserver
 
 # Copy over the files
-cp -Rp Bin $RPM_BUILD_ROOT%{_datadir}/squeezebox
-cp -Rp CPAN $RPM_BUILD_ROOT%{_datadir}/squeezebox
-cp -Rp Firmware $RPM_BUILD_ROOT%{_datadir}/squeezebox
-cp -Rp Graphics $RPM_BUILD_ROOT%{_datadir}/squeezebox
-cp -Rp HTML $RPM_BUILD_ROOT%{_datadir}/squeezebox
-cp -Rp IR $RPM_BUILD_ROOT%{_datadir}/squeezebox
-cp -Rp lib $RPM_BUILD_ROOT%{_datadir}/squeezebox
-cp -Rp MySQL $RPM_BUILD_ROOT%{_datadir}/squeezebox
+cp -Rp Bin $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
+cp -Rp CPAN $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
+cp -Rp Firmware $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
+cp -Rp Graphics $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
+cp -Rp HTML $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
+cp -Rp IR $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
+cp -Rp lib $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
+cp -Rp MySQL $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
 cp -Rp Slim $RPM_BUILD_ROOT%{_usr}/lib/perl5/vendor_perl
-cp -Rp SQL $RPM_BUILD_ROOT%{_datadir}/squeezebox
-cp -p revision.txt $RPM_BUILD_ROOT%{_datadir}/squeezebox
-cp -p strings.txt $RPM_BUILD_ROOT%{_datadir}/squeezebox
-cp -p slimserver.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezebox
-cp -p scanner.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezebox-scanner
-cp -p cleanup.pl $RPM_BUILD_ROOT%{_usr}/sbin/squeezebox-cleanup
+cp -Rp SQL $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
+cp -p revision.txt $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
+cp -p strings.txt $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
+cp -p slimserver.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezeboxserver
+cp -p scanner.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezeboxserver-scanner
+cp -p cleanup.pl $RPM_BUILD_ROOT%{_usr}/sbin/squeezeboxserver-cleanup
 
 # Create symlink to 3rd Party Plugins
-ln -s %{_var}/lib/squeezebox/Plugins \
-	$RPM_BUILD_ROOT%{_datadir}/squeezebox/Plugins
+ln -s %{_var}/lib/squeezeboxserver/Plugins \
+	$RPM_BUILD_ROOT%{_datadir}/squeezeboxserver/Plugins
 
 # Install init, configuration and log files
-install -Dp -m755 %SOURCE1 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/squeezebox
-install -Dp -m755 %SOURCE2 $RPM_BUILD_ROOT%{_sysconfdir}/init.d/squeezebox
-install -Dp -m644 %SOURCE3 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/squeezebox
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs/server.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs/log.conf
-cp -p convert.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezebox
-cp -p modules.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezebox
-cp -p types.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezebox
-touch $RPM_BUILD_ROOT%{_var}/log/squeezebox/perfmon.log 
-touch $RPM_BUILD_ROOT%{_var}/log/squeezebox/server.log 
-touch $RPM_BUILD_ROOT%{_var}/log/squeezebox/scanner.log 
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs/plugin/cli.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs/plugin/datetime.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs/plugin/infobrowser.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs/plugin/itunes.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs/plugin/musicmagic.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs/plugin/podcast.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs/plugin/radiotime.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs/plugin/randomplay.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs/plugin/rescan.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs/plugin/rssnews.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezebox/prefs/plugin/state.prefs
+install -Dp -m755 %SOURCE1 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/squeezeboxserver
+install -Dp -m755 %SOURCE2 $RPM_BUILD_ROOT%{_sysconfdir}/init.d/squeezeboxserver
+install -Dp -m644 %SOURCE3 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/squeezeboxserver
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/server.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/log.conf
+cp -p convert.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezeboxserver
+cp -p modules.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezeboxserver
+cp -p types.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezeboxserver
+touch $RPM_BUILD_ROOT%{_var}/log/squeezeboxserver/perfmon.log 
+touch $RPM_BUILD_ROOT%{_var}/log/squeezeboxserver/server.log 
+touch $RPM_BUILD_ROOT%{_var}/log/squeezeboxserver/scanner.log 
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/cli.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/datetime.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/infobrowser.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/itunes.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/musicmagic.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/podcast.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/radiotime.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/randomplay.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/rescan.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/rssnews.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/state.prefs
 
 # Create symlink to server prefs file
-ln -s %{_var}/lib/squeezebox/prefs/server.prefs \
-	$RPM_BUILD_ROOT%{_sysconfdir}/squeezebox/server.conf
+ln -s %{_var}/lib/squeezeboxserver/prefs/server.prefs \
+	$RPM_BUILD_ROOT%{_sysconfdir}/squeezeboxserver/server.conf
 
 
 %clean
@@ -152,44 +152,44 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %pre
-getent group squeezebox >/dev/null || groupadd -r squeezebox
-getent passwd squeezebox >/dev/null || \
-useradd -r -g squeezebox -d %{_datadir}/squeezebox -s /sbin/nologin \
-    -c "SqueezeBox Server" squeezebox
+getent group squeezeboxserver >/dev/null || groupadd -r squeezeboxserver
+getent passwd squeezeboxserver >/dev/null || \
+useradd -r -g squeezeboxserver -d %{_datadir}/squeezeboxserver -s /sbin/nologin \
+    -c "SqueezeBox Server" squeezeboxserver
 exit 0
 
 
 %post
 # The following commands will extract mysql port and cachedir from the prefs file
 # I'm not sure if that's the right thing to do so have left them disabled for now
-#MYSQLPORT=`perl -ne  'if (/^dbsource:.*port=(\d+)[^\d]*/) {print "$1"}'  /etc/squeezebox/server.prefs`
+#MYSQLPORT=`perl -ne  'if (/^dbsource:.*port=(\d+)[^\d]*/) {print "$1"}'  /etc/squeezeboxserver/server.prefs`
 #[ -z "$MYSQLPORT" ] && MYSQLPORT=9092
-#CACHEDIR=`awk '/^cachedir/ {print $2}' /etc/squeezebox/server.prefs`
+#CACHEDIR=`awk '/^cachedir/ {print $2}' /etc/squeezeboxserver/server.prefs`
 #[ -z "$CACHEDIR" ] && CACHEDIR=9092
 MYSQLPORT=9092
-CACHEDIR=%{_var}/lib/squeezebox/cache
+CACHEDIR=%{_var}/lib/squeezeboxserver/cache
 if [ -f /etc/redhat-release ] ; then
 	# Add SELinux contexts
 	if [ -x /usr/sbin/selinuxenabled ] ; then
 		if /usr/sbin/selinuxenabled ; then
 			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage port -a -t mysqld_port_t -p tcp ${MYSQLPORT} > /dev/null 2>&1
 			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -a -t mysqld_db_t "${CACHEDIR}(/.*)?"
-			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -a -t mysqld_var_run_t "${CACHEDIR}/squeezebox-mysql.sock"
+			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -a -t mysqld_var_run_t "${CACHEDIR}/squeezeboxserver-mysql.sock"
 			/sbin/restorecon -R ${CACHEDIR}
 		fi
 	fi
-	/sbin/chkconfig --add squeezebox
+	/sbin/chkconfig --add squeezeboxserver
 	if [ -f /etc/e-smith-release -a -d /etc/rc7.d ] ; then
 		#SME Server uses runlevel 7
-		ln -s /etc/init.d/squeezebox /etc/rc7.d/S80squeezebox
-		db configuration set squeezebox service status enabled
+		ln -s /etc/init.d/squeezeboxserver /etc/rc7.d/S80squeezeboxserver
+		db configuration set squeezeboxserver service status enabled
 	fi
-	/sbin/service squeezebox restart >/dev/null 2>&1 || :
+	/sbin/service squeezeboxserver restart >/dev/null 2>&1 || :
 elif [ -f /etc/SuSE-release ] ; then
-	/usr/lib/lsb/install_initd /etc/init.d/squeezebox
-	/etc/init.d/squeezebox restart  > /dev/null 2>&1
+	/usr/lib/lsb/install_initd /etc/init.d/squeezeboxserver
+	/etc/init.d/squeezeboxserver restart  > /dev/null 2>&1
 fi
-PORT=`awk '/^httpport/ {print $2}' %{_var}/lib/squeezebox/prefs/server.prefs`
+PORT=`awk '/^httpport/ {print $2}' %{_var}/lib/squeezeboxserver/prefs/server.prefs`
 [ -z "$PORT" ] && PORT=9000
 HOSTNAME=`uname -n`
 echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure SqueezeBox Server."
@@ -197,29 +197,29 @@ echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure SqueezeBox 
 
 %preun
 MYSQLPORT=9092
-CACHEDIR=%{_var}/lib/squeezebox/cache
+CACHEDIR=%{_var}/lib/squeezeboxserver/cache
 if [ "$1" -eq "0" ] ; then
 	# If not upgrading
 	if [ -f /etc/redhat-release ] ; then
-		/sbin/service squeezebox stop >/dev/null 2>&1 || :
+		/sbin/service squeezeboxserver stop >/dev/null 2>&1 || :
 		if [ -f /etc/e-smith-release -a -d /etc/rc7.d ] ; then
 			#SME Server uses runlevel 7
-			db configuration set squeezebox service status disabled
-			rm /etc/rc7.d/S80squeezebox
+			db configuration set squeezeboxserver service status disabled
+			rm /etc/rc7.d/S80squeezeboxserver
 		fi
-        	/sbin/chkconfig --del squeezebox
+        	/sbin/chkconfig --del squeezeboxserver
 		# Remove SELinux contexts
 		if [ -x /usr/sbin/selinuxenabled ] ; then
 			if /usr/sbin/selinuxenabled; then
 				[ -x /usr/sbin/semanage ] && /usr/sbin/semanage port -d -t mysqld_port_t -p tcp ${MYSQLPORT}
 				[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -d -t mysqld_db_t "${CACHEDIR}(/.*)?"
-				[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -d -t mysqld_var_run_t "${CACHEDIR}/squeezebox-mysql.sock"
+				[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -d -t mysqld_var_run_t "${CACHEDIR}/squeezeboxserver-mysql.sock"
 				/sbin/restorecon -R ${CACHEDIR}
 			fi
 		fi
 	elif [ -f /etc/SuSE-release ] ; then
-		/etc/init.d/squeezebox stop  > /dev/null 2>&1
-		/usr/lib/lsb/remove_initd /etc/init.d/squeezebox
+		/etc/init.d/squeezeboxserver stop  > /dev/null 2>&1
+		/usr/lib/lsb/remove_initd /etc/init.d/squeezeboxserver
 	fi
 fi
 
@@ -235,48 +235,48 @@ fi
 
 # Main files
 %{_usr}/lib/perl5/vendor_perl/Slim
-%{_datadir}/squeezebox
+%{_datadir}/squeezeboxserver
 
 # Empty directories
-%attr(0755,squeezebox,squeezebox) %dir %{_var}/lib/squeezebox
-%attr(0755,squeezebox,squeezebox) %dir %{_var}/lib/squeezebox/cache
-%attr(0755,squeezebox,squeezebox) %dir %{_var}/lib/squeezebox/Plugins
+%attr(0755,squeezeboxserver,squeezeboxserver) %dir %{_var}/lib/squeezeboxserver
+%attr(0755,squeezeboxserver,squeezeboxserver) %dir %{_var}/lib/squeezeboxserver/cache
+%attr(0755,squeezeboxserver,squeezeboxserver) %dir %{_var}/lib/squeezeboxserver/Plugins
 
 # Executables
-%{_usr}/libexec/squeezebox
-%{_usr}/libexec/squeezebox-scanner
-%{_usr}/sbin/squeezebox-cleanup
+%{_usr}/libexec/squeezeboxserver
+%{_usr}/libexec/squeezeboxserver-scanner
+%{_usr}/sbin/squeezeboxserver-cleanup
 
 # Log files
-%attr(0755,squeezebox,squeezebox) %dir %{_var}/log/squeezebox
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/log/squeezebox/perfmon.log
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/log/squeezebox/server.log
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/log/squeezebox/scanner.log
+%attr(0755,squeezeboxserver,squeezeboxserver) %dir %{_var}/log/squeezeboxserver
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/log/squeezeboxserver/perfmon.log
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/log/squeezeboxserver/server.log
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/log/squeezeboxserver/scanner.log
 
 # Configuration files and init script
-%dir %{_sysconfdir}/squeezebox
-%attr(0755,squeezebox,squeezebox) %dir %{_var}/lib/squeezebox/prefs
-%attr(0644,squeezebox,squeezebox) %config(noreplace) %{_var}/lib/squeezebox/prefs/server.prefs
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/lib/squeezebox/prefs/log.conf
-%attr(0755,squeezebox,squeezebox) %dir %{_var}/lib/squeezebox/prefs/plugin
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/lib/squeezebox/prefs/plugin/cli.prefs
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/lib/squeezebox/prefs/plugin/datetime.prefs
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/lib/squeezebox/prefs/plugin/infobrowser.prefs
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/lib/squeezebox/prefs/plugin/itunes.prefs
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/lib/squeezebox/prefs/plugin/musicmagic.prefs
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/lib/squeezebox/prefs/plugin/podcast.prefs
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/lib/squeezebox/prefs/plugin/radiotime.prefs
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/lib/squeezebox/prefs/plugin/randomplay.prefs
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/lib/squeezebox/prefs/plugin/rescan.prefs
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/lib/squeezebox/prefs/plugin/rssnews.prefs
-%attr(0644,squeezebox,squeezebox) %ghost %{_var}/lib/squeezebox/prefs/plugin/state.prefs
-%attr(0644,squeezebox,squeezebox) %{_sysconfdir}/squeezebox/server.conf
-%attr(0644,squeezebox,squeezebox) %config(noreplace) %{_sysconfdir}/squeezebox/convert.conf
-%attr(0644,squeezebox,squeezebox) %config(noreplace) %{_sysconfdir}/squeezebox/modules.conf
-%attr(0644,squeezebox,squeezebox) %config(noreplace) %{_sysconfdir}/squeezebox/types.conf
-%{_sysconfdir}/init.d/squeezebox
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/squeezebox
-%config(noreplace) %{_sysconfdir}/logrotate.d/squeezebox
+%dir %{_sysconfdir}/squeezeboxserver
+%attr(0755,squeezeboxserver,squeezeboxserver) %dir %{_var}/lib/squeezeboxserver/prefs
+%attr(0644,squeezeboxserver,squeezeboxserver) %config(noreplace) %{_var}/lib/squeezeboxserver/prefs/server.prefs
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/log.conf
+%attr(0755,squeezeboxserver,squeezeboxserver) %dir %{_var}/lib/squeezeboxserver/prefs/plugin
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/cli.prefs
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/datetime.prefs
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/infobrowser.prefs
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/itunes.prefs
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/musicmagic.prefs
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/podcast.prefs
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/radiotime.prefs
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/randomplay.prefs
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/rescan.prefs
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/rssnews.prefs
+%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/state.prefs
+%attr(0644,squeezeboxserver,squeezeboxserver) %{_sysconfdir}/squeezeboxserver/server.conf
+%attr(0644,squeezeboxserver,squeezeboxserver) %config(noreplace) %{_sysconfdir}/squeezeboxserver/convert.conf
+%attr(0644,squeezeboxserver,squeezeboxserver) %config(noreplace) %{_sysconfdir}/squeezeboxserver/modules.conf
+%attr(0644,squeezeboxserver,squeezeboxserver) %config(noreplace) %{_sysconfdir}/squeezeboxserver/types.conf
+%{_sysconfdir}/init.d/squeezeboxserver
+%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/squeezeboxserver
+%config(noreplace) %{_sysconfdir}/logrotate.d/squeezeboxserver
 
 
 
@@ -289,7 +289,7 @@ fi
 
 * Mon Oct 22 2007 Mark Miksis <aka fletch>
 - Rewrite for conversion to SqueezeCenter 7.0
-	- Rename to squeezebox and obsolete slimserver
+	- Rename to squeezeboxserver and obsolete slimserver
 	- Compatible with FHS and Fedora Packaging Guidelines
 	- Use system copy of flac, mysqld and sox
 	- Add condrestart option and support for logrotate

@@ -1,4 +1,4 @@
-/var/log/squeezebox/server.log {
+/var/log/squeezeboxserver/server.log {
     missingok
     notifempty
     sharedscripts
@@ -7,7 +7,7 @@
     endscript
 }
 
-/var/log/squeezebox/scanner.log {
+/var/log/squeezeboxserver/scanner.log {
     missingok
     notifempty
     sharedscripts

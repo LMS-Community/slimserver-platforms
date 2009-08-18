@@ -1,18 +1,18 @@
 #!/bin/bash
 #
-# squeezebox		Startup script for the Squeezebox Server
+# squeezeboxserver	Startup script for the Squeezebox Server
 #
 # chkconfig:		345 80 30
 # description:		Squeezebox server powers the Squeezebox, Transporter and SLIMP3 network music \
 #			players and is the best software to stream your music to any software MP3 \
 #			player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
-# processname:		squeezebox
-# config: 		/etc/squeezebox/squeezebox.conf
-# config:		/etc/sysconfig/squeezebox
+# processname:		squeezeboxserver
+# config: 		/etc/squeezeboxserver/squeezeboxserver.conf
+# config:		/etc/sysconfig/squeezeboxserver
 
 #
 ### BEGIN INIT INFO
-# Provides:		squeezebox
+# Provides:		squeezeboxserver
 # Required-Start:	$syslog $remote_fs
 # Should-Start:		$time ypbind sendmail
 # Required-Stop:	$syslog $remote_fs
@@ -36,7 +36,7 @@ if [ -f /etc/redhat-release ] ; then
 	[ ${NETWORKING} = "no" ] && exit 0
 
 	# Check for existence of needed config file and read it
-	SQUEEZEBOX_CONFIG=/etc/sysconfig/squeezebox
+	SQUEEZEBOX_CONFIG=/etc/sysconfig/squeezeboxserver
 	test -r $SQUEEZEBOX_CONFIG || { echo "$SQUEEZEBOX_CONFIG not existing";
 		if [ "$1" = "stop" ]; then exit 0;
 		else exit 6; fi; }
@@ -46,12 +46,12 @@ if [ -f /etc/redhat-release ] ; then
 
 	# Check for missing binaries (stale symlinks should not happen)
 	# Note: Special treatment of stop for LSB conformance
-	SQUEEZEBOX_BIN="$SQUEEZEBOX_HOME/squeezebox"
+	SQUEEZEBOX_BIN="$SQUEEZEBOX_HOME/squeezeboxserver"
 	test -x $SQUEEZEBOX_BIN || { echo "$SQUEEZEBOX_BIN not installed"; 
 		if [ "$1" = "stop" ]; then exit 0;
 		else exit 5; fi; }
 
-	LOCKFILE="/var/lock/subsys/squeezebox"
+	LOCKFILE="/var/lock/subsys/squeezeboxserver"
 	RETVAL=0
 
 	start() {
@@ -74,7 +74,7 @@ if [ -f /etc/redhat-release ] ; then
 		RETVAL=$?
                 if [ $RETVAL -ne 0 ]; then
                         # If killproc fails, try killall (fix for RHEL4)
-                        killall squeezebox
+                        killall squeezeboxserver
                         RETVAL=$?
                         [ $RETVAL -eq 0 ] && echo_success
                         [ $RETVAL -ne 0 ] && echo_failure
@@ -102,7 +102,7 @@ if [ -f /etc/redhat-release ] ; then
 elif [ -f /etc/SuSE-release ] ; then
 
 	# Check for existence of needed config file and read it
-	SQUEEZEBOX_CONFIG=/etc/sysconfig/squeezebox
+	SQUEEZEBOX_CONFIG=/etc/sysconfig/squeezeboxserver
 	test -r $SQUEEZEBOX_CONFIG || { echo "$SQUEEZEBOX_CONFIG not existing";
 		if [ "$1" = "stop" ]; then exit 0;
 		else exit 6; fi; }
@@ -112,7 +112,7 @@ elif [ -f /etc/SuSE-release ] ; then
 
 	# Check for missing binaries (stale symlinks should not happen)
 	# Note: Special treatment of stop for LSB conformance
-	SQUEEZEBOX_BIN="$SQUEEZEBOX_HOME/squeezebox"
+	SQUEEZEBOX_BIN="$SQUEEZEBOX_HOME/squeezeboxserver"
 	test -x $SQUEEZEBOX_BIN || { echo "$SQUEEZEBOX_BIN not installed"; 
 		if [ "$1" = "stop" ]; then exit 0;
 		else exit 5; fi; }
