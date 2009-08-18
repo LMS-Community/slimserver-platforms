@@ -42,7 +42,7 @@ d_start() {
 		--exec /bin/bash \
                 --background \
                 --make-pidfile \
-		--name squeezebox_safe \
+		--name squeezeboxserve \
 		--startas $DAEMON_SAFE \
                 -- \
                 $DAEMON \
@@ -69,7 +69,7 @@ d_start_direct() {
 #	Function that stops the daemon/service.
 #
 d_stop() {
-	start-stop-daemon -o --stop --pidfile $PIDFILE --name squeezeboxserve
+	start-stop-daemon --oknodo --stop --pidfile $PIDFILE --name squeezeboxserve
 }
 
 #
@@ -77,17 +77,20 @@ d_stop() {
 #
 d_reload() {
 	start-stop-daemon --stop --quiet --pidfile $PIDFILE \
-		--name $NAME --signal 1
+		--name squeezeboxserve --signal 1
 }
 
 case "$1" in
   start)
-	echo -n "Starting $DESC"
+	echo -n "Making sure $DESC is stopped already: "
+	d_stop
+	sleep 5
+	echo -n "Starting $DESC: "
 	d_start
 	echo "."
 	;;
   stop)
-	echo -n "Stopping $DESC"
+	echo -n "Stopping $DESC: "
 	d_stop
 	echo "."
 	;;
@@ -97,7 +100,7 @@ case "$1" in
 	#	option to the "reload" entry above. If not, "force-reload" is
 	#	just the same as "restart".
 	#
-	echo -n "Restarting $NAME"
+	echo -n "Restarting $NAME: "
 	d_stop
 	sleep 15
 	d_start
