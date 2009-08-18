@@ -47,7 +47,7 @@ Vendor:		Logitech
 
 
 Requires:	/usr/bin/mysqld_safe, perl >= 5.8.3
-Obsoletes:	slimserver, SliMP3
+Obsoletes:	squeezecenter, slimserver, SliMP3
 AutoReqProv:	no
 
 BuildArch:	noarch       
