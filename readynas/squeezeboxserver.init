@@ -84,7 +84,7 @@ case "$1" in
   start)
 	echo -n "Making sure $DESC is stopped already: "
 	d_stop
-	sleep 5
+	sleep 10
 	echo -n "Starting $DESC: "
 	d_start
 	echo "."
@@ -92,6 +92,7 @@ case "$1" in
   stop)
 	echo -n "Stopping $DESC: "
 	d_stop
+	sleep 10
 	echo "."
 	;;
   restart|force-reload)
@@ -102,7 +103,7 @@ case "$1" in
 	#
 	echo -n "Restarting $NAME: "
 	d_stop
-	sleep 15
+	sleep 10
 	d_start
 	echo "."
 	;;
