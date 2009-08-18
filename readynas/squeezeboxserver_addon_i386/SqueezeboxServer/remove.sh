@@ -1,8 +1,11 @@
 #!/bin/bash
 
 SERVICE=SLIMSERVER
-
-CONF_FILES="/var/log/squeezeboxserver \
+PACKAGENAME=squeezeboxserver
+OLD_PACKAGE_NAMES="slimserver \
+	      squeezecenter \
+	      squeezeboxserver-readynas"
+DIRECTORIES="/var/log/squeezeboxserver \
             /var/lib/squeezeboxserver \
             /etc/squeezeboxserver \
             /usr/share/squeezeboxserver \
@@ -18,11 +21,35 @@ eval `awk -F'!!' "/$SERVICE/ { print \\$5 }" /etc/frontview/addons/addons.conf`
 # Remove all files, unless we're upgrading
 if ! [ "$1" = "-upgrade" ]; then
   # Remove debian package
-  dpkg -P squeezeboxserver
-  for i in $CONF_FILES; do
+  dpkg -P $PACKAGENAME &>/dev/null
+
+  # Remove old packages as well
+  for package in $OLD_PACKAGE_NAMES; do
+    if dpkg -s $package > /dev/null 2>&1 ; then
+      dpkg -P $package &>/dev/null
+    fi
+  done
+
+  # Forcefully remove any directories where we would have put files
+  for i in $DIRECTORIES; do
     rm -rf $i &>/dev/null
   done
-fi
+else
+  # Doing an upgrade. Look for old config files
+  for package in $OLD_PACKAGE_NAMES; do
+    if [ -e /var/lib/$package/prefs ]; then 
+      mkdir -p /var/lib/squeezeboxserver/prefs
+      mv -n /var/lib/$package/prefs/* /var/lib/squeezeboxserver/prefs &>/dev/null 
+    fi
+  done
+ 
+  # Now remove all the old packages before install the new one
+  for package in $OLD_PACKAGE_NAMES; do
+    if dpkg -s $package > /dev/null 2>&1 ; then
+      dpkg -P $package &>/dev/null
+    fi
+  done
+fi  
 
 # Remove entry from services file
 grep -v $SERVICE /etc/default/services >/tmp/services$$
