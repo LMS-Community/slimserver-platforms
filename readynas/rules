@@ -90,8 +90,8 @@ install:
 	cp -rf ${CURDIR}/readynas/custom-convert.conf ${base}/etc/squeezeboxserver
 
 	# Copy over the squeezecenter init script...
-	cp -rf $(CURDIR)/readynas/squeezeboxserver.default ${base}/etc/default/
-	cp -rf $(CURDIR)/readynas/squeezeboxserver.init ${base}/etc/init.d/
+	cp -rf $(CURDIR)/readynas/squeezeboxserver.default ${base}/etc/default/squeezeboxserver
+	cp -rf $(CURDIR)/readynas/squeezeboxserver.init ${base}/etc/init.d/squeezeboxserver
 
 	# Wrapper to keep SqueezeBox Server alive.
 	cp -rf $(CURDIR)/readynas/squeezeboxserver_safe ${base}/usr/sbin/
