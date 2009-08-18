@@ -91,7 +91,7 @@ d_stop() {
 	## Unfortunately this cuts-off the name of the daemon because its longer now, and then it doesnt get 
 	## caught by the start-stop-daemon. The daemon actually reports it as squeezeboxserver_s instead of 
 	## squeezebox_safe.
-	start-stop-daemon -o --stop --pidfile $PIDFILE --name squeezeboxserve
+	start-stop-daemon --oknodo --stop --pidfile $PIDFILE --name squeezeboxserve --retry=TERM/30/KILL/5
 }
 
 #
@@ -104,6 +104,8 @@ d_reload() {
 
 case "$1" in
   start)
+	echo -n "Making sure that $DESC is not running first: "
+	d_stop
 	echo -n "Starting $DESC"
 	d_start
 	echo "."
@@ -121,7 +123,6 @@ case "$1" in
 	#
 	echo -n "Restarting $NAME"
 	d_stop
-	sleep 1
 	d_start
 	echo "."
 	;;
