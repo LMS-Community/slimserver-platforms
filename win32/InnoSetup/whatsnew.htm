@@ -19,14 +19,109 @@
 </head>
 <body>
 
-<!-- $jrsoftware: issrc/whatsnew.htm,v 1.539 2008/03/10 23:55:31 jr Exp $ -->
+<!-- $jrsoftware: issrc/whatsnew.htm,v 1.589 2009/08/15 19:10:49 mlaan Exp $ -->
 
 <div class="bluehead"><span class="head1">Inno Setup 5</span><br /><span class="head2">Revision History</span></div>
 
-<p>Copyright &copy; 1997-2008 <a href="http://www.jrsoftware.org/">Jordan Russell</a>. All rights reserved.<br />
-Portions Copyright &copy; 2000-2008 Martijn Laan. All rights reserved.<br />
+<p>Copyright &copy; 1997-2009 <a href="http://www.jrsoftware.org/">Jordan Russell</a>. All rights reserved.<br />
+Portions Copyright &copy; 2000-2009 Martijn Laan. All rights reserved.<br />
 For conditions of distribution and use, see <a href="http://www.jrsoftware.org/files/is/license.txt">LICENSE.TXT</a>.
 </p>
+
+<p><a name="5.3.4"></a><span class="ver">5.3.4 </span><span class="date">(2009-08-15)</span></p>
+<ul>
+<li>On Windows 7 the Compiler IDE now displays a progress indicator on its taskbar button.</li>
+<li>Pascal Scripting: Documented function <tt>IDispatchInvoke</tt>, which can be used to access a COM Automation property or method whose name is a reserved word.</li>
+<li><i>Unicode Inno Setup fixes</i>:
+  <ul>
+  <li>[Registry] section entries with <tt>ValueType</tt> set to <tt>binary</tt> did not set the correct value.</li>
+  <li>Pascal scripting: setting a COM Automation property or method parameter to a Unicode string variable caused an 'Invalid Type' error.</li>
+  </ul>
+</li>
+</ul>
+
+<p><a name="5.3.3"></a><span class="ver">5.3.3 </span><span class="date">(2009-08-01)</span></p>
+<ul>
+<li>[Setup] section directives <tt>VersionInfoProductVersion</tt> now sets the binary product version value instead of the textual product version value.</li>
+<li>Added new [Setup] section directive: <tt>VersionInfoProductTextVersion</tt>, which sets the textual product version value. Its default value is <tt>VersionInfoProductVersion</tt> if set, else <tt>VersionInfoVersion</tt>.</li>
+<li>[Setup] section directives <tt>DisableDirPage</tt> and <tt>DisableProgramGroupPage</tt> can now be set to <tt>auto</tt>. If they are, at startup Setup will look in the registry to see if the same application is already installed, and if so, it will hide the pages automatically.</li>
+<li>Pascal Scripting changes:
+  <ul>
+  <li><tt>WizardForm.PrevAppDir</tt> is now available and returns the directory of the previous installation. Returns an empty string if there's no previous installation or if  <tt>UsePreviousAppDir</tt> is set to <tt>no</tt> or if <tt>Uninstallable</tt> was previously set to <tt>no</tt>.</li>
+  <li>While running any <tt>PrepareToInstall</tt> event function Setup now displays the <i>Preparing to Install</i> wizard page instead of the <i>Ready to Install</i> page and disables itself.</li>
+  </ul>
+</li>
+<li>Added the Windows 7 "compatibility" section to the various manifest resources used by Inno Setup.</li>
+<li>Documentation improvements.</li>
+</ul>
+
+<p><a name="5.3.2"></a><span class="ver">5.3.2-beta </span><span class="date">(2009-05-29)</span></p>
+<ul>
+<li>Replaced constant <tt>{regasmexe}</tt> with <tt>{dotnet11}</tt> and <tt>{dotnet20}</tt>.</li>
+<li>Pascal Scripting: Added new <tt>PrepareToInstall</tt> event function. Return a non empty string from this function to instruct Setup to stop at the <i>Preparing to Install</i> wizard page showing the returned string as the error message.</li>
+<li>Minor fixes and tweaks.</li>
+</ul>
+
+<p><a name="5.3.1"></a><span class="ver">5.3.1-beta </span><span class="date">(2009-05-15)</span></p>
+<ul>
+<li>[Setup] directive <tt>AppMutex</tt> and support function <tt>CheckForMutexes</tt> change: to specify a mutex name containing a comma you can now escape the comma with a backslash.</li>
+<li>Minor tweaks.</li>
+</ul>
+
+<p><a name="5.3.0"></a><span class="ver">5.3.0-beta </span><span class="date">(2009-04-22)</span></p>
+<ul>
+<li>Added .NET support (these cause an internal error if used on a system with no .NET Framework present):
+  <ul>
+  <li>Added new [Files] section flag: <tt>gacinstall</tt>.</li>
+  <li>Added new [Files] section parameter: <tt>StrongAssemblyName</tt>.</li>
+  <li>Added new constants: <tt>{regasmexe}</tt>, <tt>{regasmexe32}</tt>, <tt>{regasmexe64}</tt>.</li>
+  </ul>
+<li><tt>MinVersion</tt> parameter/directive change: if you leave one of the versions empty then it will use the default <tt>MinVersion</tt> for that platform.</li>
+<li>Pascal Scripting: Added new <tt>MinimizePathName</tt> support function.</li>
+<li>Added Unicode support: there's now a second version of Inno Setup available called Unicode Inno Setup. Key features of this version are its ability to display any language on any system regardless of the system code page, and its ability to work with Unicode filenames. Notes:
+  <ul>
+  <li>Unicode Inno Setup uses the existing ANSI .isl language files and you should not convert these to Unicode or anything similar since it does so automatically during compilation using the <tt>LanguageCodePage</tt> setting listed inside the language's .isl file. However, you do need to convert existing [Messages] and [CustomMessages] entries in your .iss files to Unicode if the language used a special "code page" (character set).</li>
+  <li>The [Setup] directive <tt>ShowUndisplayableLanguages</tt> is ignored by Unicode Inno Setup.</li>
+  <li>Unicode Inno Setup is compiled with Delphi 2009 instead of Delphi 2 and 3, leading to slightly larger files. The source code however is still compatible with Delphi 2 and 3, and a non Unicode version will remain available.</li>
+  <li>Unicode Inno Setup and installers created by it require Windows 2000/XP or newer. The non Unicode version still works on NT/9x.</li>
+  <li>Existing installations of your programs done by non Unicode installers can be freely updated by Unicode installers, and vice versa.</li>
+  <li>Unicode Pascal Scripting notes:
+    <ul>
+    <li>The Unicode compiler sees type 'String' as a Unicode string, and 'Char' as a Unicode character. Its 'AnsiString' type hasn't changed and still is an ANSI string. Its 'PChar' type has been renamed to 'PAnsiChar'.</li>
+    <li>The Unicode compiler is more strict about correct ';' usage: it no longer accepts certain missing ';' characters.</li>
+    <li>The new RemObjects PascalScript version used by the Unicode compiler supports Unicode, but not for its input source. This means it does use Unicode string types as said, but any literal Unicode characters in the script will be converted to ANSI. This doesn't mean you can't display Unicode strings: you can for example instead use encoded Unicode characters to build Unicode strings (like <tt>S := #$0100 + #$0101 + 'Aa';</tt>), or load the string from a file using <tt>LoadStringsFromFile</tt>.</li>
+    <li>Some support functions had their prototype changed: some parameters of <tt>CreateOutputMsgMemoPage</tt>, <tt>RegQueryBinaryValue</tt>, <tt>RegWriteBinaryValue</tt>, <tt>OemToCharBuff</tt>, <tt>CharToOemBuff</tt>, <tt>LoadStringFromfile</tt>, <tt>SaveStringToFile</tt>, and <tt>GetMD5OfString</tt> are of type AnsiString now instead of String.</li>
+    <li>Added new <tt>SaveStringsToUTF8File</tt>, and <tt>GetMD5OfUnicodeString</tt> support functions.</li>
+    <li>If you want to compile an existing script that imports ANSI Windows API calls with the Unicode compiler, either upgrade to the 'W' Unicode API call or change the parameters from 'String' or 'PChar' to 'AnsiString'. The 'AnsiString' approach will make your [Code] compatible with both the Unicode and the non Unicode version.</li>
+    </ul>
+  </li>
+  <li>Unicode Inno Setup supports UTF-8 encoded .iss files (but not UTF-16).</li>
+  <li>Unicode Inno Setup supports UTF-8 and UTF-16LE encoded .txt files for <tt>LicenseFile</tt>, <tt>InfoBeforeFile</tt>, and <tt>InfoAfterFile</tt>.</li>
+  <li>QuickStart Pack: added ISPP predefined variable <tt>UNICODE</tt>.</li>
+  </ul>
+</li>
+<li>Thanks to Carlo Kok and Evgeny Karpov of RemObjects Software for their help related to Unicode support.</li>
+<li>QuickStart Pack: added ISPP functions <tt>Trim</tt>, and <tt>GetMD5OfUnicodeString</tt>.</li>
+</ul>
+
+<hr />
+
+<p><a name="5.2.4"></a><span class="ver">5.2.4 </span><span class="date">(2009-03-16)</span></p>
+<ul>
+<li>Added new [Registry] section <tt>ValueType</tt>: <tt>qword</tt>.</li>
+<li>Added new [Setup] section directive: <tt>SignTool</tt>, which makes it possible to further automate digital signing of Setup and Uninstall. See the help file for more information.</li>
+<li>The value of the <tt>AppVersion</tt> directive is now also used to set the <tt>MajorVersion</tt> and <tt>MinorVersion</tt> values in the Uninstall registry key when possible.</li>
+<li>/LOG: Now logs exit codes on [UninstallRun] entries.</li>
+<li>IDE changes:
+  <ul>
+  <li>Added new <i>Tools | Configure Sign Tools...</i> command.</li>
+  </ul>
+<li>Command line compiler changes:
+  <ul>
+  <li>Added new "/S" parameter to specify a Sign Tool.</li>
+  </ul>
+<li>Added new [Files] section flag: <tt>sortfilesbyname</tt>.</li>
+</ul>
 
 <p><a name="5.2.3"></a><span class="ver">5.2.3 </span><span class="date">(2008-03-10)</span></p>
 <ul>
@@ -56,7 +151,7 @@ For conditions of distribution and use, see <a href="http://www.jrsoftware.org/f
   </ul>
 </li>
 <li>Added workaround for bug in Windows Vista (still present in SP1): With UAC turned off, launching an uninstaller from the <i>Programs and Features</i> Control Panel applet and answering No at the confirmation message box would cause a "This program might not have uninstalled correctly" dialog to be displayed, even though the uninstaller includes a proper "Vista-aware" manifest.</li>
-<li>IDE changes:
+<li>Compiler IDE changes:
   <ul>
   <li>The New Script Wizard now generates random unique <tt>AppId</tt> [Setup] section directives.</li>
   <li>Added new <i>Tools | Generate GUID</i> command.</li>

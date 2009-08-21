@@ -41,10 +41,10 @@ const
 	SERVICE_PAUSE_PENDING		= $6;
 	SERVICE_PAUSED			= $7;
 
-function OpenSCManager(lpMachineName, lpDatabaseName: string; dwDesiredAccess: cardinal): HANDLE;
+function OpenSCManager(lpMachineName, lpDatabaseName: AnsiString; dwDesiredAccess: cardinal): HANDLE;
 external 'OpenSCManagerA@advapi32.dll stdcall';
 
-function OpenService(hSCManager: HANDLE; lpServiceName: string; dwDesiredAccess: cardinal): HANDLE;
+function OpenService(hSCManager: HANDLE; lpServiceName: AnsiString; dwDesiredAccess: cardinal): HANDLE;
 external 'OpenServiceA@advapi32.dll stdcall';
 
 function CloseServiceHandle(hSCObject: HANDLE): boolean;
@@ -71,7 +71,7 @@ begin
 	end
 end;
 
-function IsServiceInstalled(ServiceName: string) : boolean;
+function IsServiceInstalled(ServiceName: AnsiString) : boolean;
 var
 	hSCM	: HANDLE;
 	hService: HANDLE;
@@ -88,7 +88,7 @@ begin
 	end
 end;
 
-function IsServiceRunning(ServiceName: string) : boolean;
+function IsServiceRunning(ServiceName: AnsiString) : boolean;
 var
 	hSCM	: HANDLE;
 	hService: HANDLE;
@@ -108,7 +108,7 @@ begin
 	end
 end;
 
-function RemoveService(ServiceName: string) : boolean;
+function RemoveService(ServiceName: AnsiString) : boolean;
 var
 	hSCM	: HANDLE;
 	hService: HANDLE;
@@ -125,7 +125,7 @@ begin
 	end
 end;
 
-function StartService(ServiceName: string) : boolean;
+function StartService(ServiceName: AnsiString) : boolean;
 var
 	hSCM	: HANDLE;
 	hService: HANDLE;
@@ -142,7 +142,7 @@ begin
 	end;
 end;
 
-function StopService(ServiceName: string) : boolean;
+function StopService(ServiceName: AnsiString) : boolean;
 var
 	hSCM	: HANDLE;
 	hService: HANDLE;
@@ -160,7 +160,7 @@ begin
 	end;
 end;
 
-function GetStartType(ServiceName: string) : String;
+function GetStartType(ServiceName: AnsiString) : AnsiString;
 var
 	StartType: cardinal;
 begin

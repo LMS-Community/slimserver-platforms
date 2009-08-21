@@ -12,16 +12,16 @@ Source: "sockettest.dll"; Flags: dontcopy ignoreversion
 [Code]
 #include "ServiceManager.iss"
 
-function IsPortOpen(IPAddress, Port: PChar): Boolean;
+function IsPortOpen(IPAddress, Port: PAnsiChar): Boolean;
 external 'IsPortOpen@files:sockettest.dll stdcall delayload';
 
-function ProbePort(Port: PChar): Boolean;
+function ProbePort(Port: PAnsiChar): Boolean;
 external 'ProbePort@files:sockettest.dll stdcall delayload';
 
-function GetLocalIP: PChar;
+function GetLocalIP: PAnsiChar;
 external 'GetLocalIP@files:sockettest.dll stdcall delayload';
 
-function Ping(Host: PChar): Integer;
+function Ping(Host: PAnsiChar): Integer;
 external 'Ping@files:sockettest.dll stdcall delayload';
 
 function IsModuleLoaded(modulename: String): Boolean;

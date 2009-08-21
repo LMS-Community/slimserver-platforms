@@ -3,7 +3,7 @@
 ; Finnish translation by Antti Karttunen
 ; E-mail: antti.karttunen@joensuu.fi
 ; Translation home page: http://cc.joensuu.fi/~ankarttu/innosetup/
-; Last modification date: 2007-02-27
+; Last modification date: 2008-04-23
 
 [LangOptions]
 LanguageName=Suomi
@@ -163,7 +163,7 @@ MustEnterGroupName=Kansiolle pitää antaa nimi.
 GroupNameTooLong=Kansion nimi tai polku on liian pitkä.
 InvalidGroupName=Virheellinen kansion nimi.
 BadGroupName=Kansion nimessä ei saa olla seuraavia merkkejä:%n%n%1
-NoProgramGroupCheck2=&Älä luo kansiota Käynnistä-valikkoon
+NoProgramGroupCheck2=Älä luo k&ansiota Käynnistä-valikkoon
 
 ; *** "Ready to Install" wizard page
 WizardReady=Valmiina asennukseen
@@ -287,10 +287,10 @@ StatusUninstalling=Poistetaan %1...
 
 NameAndVersion=%1 versio %2
 AdditionalIcons=Lisäkuvakkeet:
-CreateDesktopIcon=Luo kuvake &työpöydälle
+CreateDesktopIcon=Lu&o kuvake työpöydälle
 CreateQuickLaunchIcon=Luo kuvake &pikakäynnistyspalkkiin
 ProgramOnTheWeb=%1 Internetissä
 UninstallProgram=Poista %1
-LaunchProgram=Käynnistä %1
+LaunchProgram=&Käynnistä %1
 AssocFileExtension=&Yhdistä %1 tiedostopäätteeseen %2
 AssocingFileExtension=Yhdistetään %1 tiedostopäätteeseen %2 ...
