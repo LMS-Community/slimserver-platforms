@@ -56,7 +56,7 @@ WizardImageBackColor=$ffffff
 WizardSmallImageFile=logitech.bmp
 OutputBaseFilename=SqueezeSetup
 DirExistsWarning=no
-MinVersion=0,4
+MinVersion=0,5
 
 [Files]
 Source: SqueezeTray.exe; DestDir: {app}; Flags: ignoreversion
