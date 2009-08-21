@@ -96,7 +96,7 @@ var
 begin
   case ErrCode of
     1:
-      r := CustomMessage('Port9000ok')
+      r := CustomMessage('Port9000ok');
 
     101:
       begin

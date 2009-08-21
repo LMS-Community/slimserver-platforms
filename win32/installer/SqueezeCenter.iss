@@ -178,7 +178,7 @@ begin
 				HttpPort := '9001'
 			else
 				HttpPort := '9000';
-		end
+		end;
 		
 	Result := HttpPort
 end;
@@ -337,7 +337,7 @@ begin
 		InstallFolder := InstallDefault;
 
 	if (FileExists(AddBackslash(InstallFolder) + TrayExe)) then
-		Exec(AddBackslash(InstallFolder) + TrayExe, '--exit --uninstall', InstallFolder, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
+		Exec(AddBackslash(InstallFolder) + TrayExe, '--exit --uninstall', InstallFolder, SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
 	ProgressPage.setText(CustomMessage('WaitingForServices'), '');
 
@@ -659,7 +659,7 @@ begin
 			else
 				if (StartupMode = '') then
 					StartupMode := 'logon';
-		end
+		end;
 
 	if CurStep = ssPostInstall then 
 		begin
@@ -721,7 +721,7 @@ begin
 					begin
 						SuppressibleMsgBox(PortConflict + #13#10 + #13#10 + CustomMessage('PrefsExistButPortConflict'), mbInformation, MB_OK, IDOK);
 						CustomExitCode := 1001;
-					end
+					end;
 
 				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
 
