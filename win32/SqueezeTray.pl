@@ -33,9 +33,9 @@ my $cliExit        = 0;
 my $cliInstall     = 0;
 my $cliUninstall   = 0;
 
-my $language       = getPref('language') || 'EN';
 my $svcMgr         = Slim::Utils::ServiceManager->new();
 my $os             = Slim::Utils::OSDetect::getOS();
+my $language       = getPref('language') || $os->getSystemLanguage() || 'EN';
 
 my $restartFlag    = catdir(getPref('cachedir') || $os->dirsFor('cache'), 'restart.txt');
 my $versionFile    = catdir(scalar($os->dirsFor('updates')), 'server.version');
