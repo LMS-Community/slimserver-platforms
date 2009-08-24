@@ -564,9 +564,6 @@
 						   @"",
 						   @""
 						   );
-			
-		// don't check that often once the user has been notified
-		updateTimer = [NSTimer scheduledTimerWithTimeInterval: 60*60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
 	}
 }
 
@@ -583,6 +580,9 @@
 
 		}
 	}
+	
+	// don't check that often once the user has been notified
+	updateTimer = [NSTimer scheduledTimerWithTimeInterval: 60*60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
 }
 
 
