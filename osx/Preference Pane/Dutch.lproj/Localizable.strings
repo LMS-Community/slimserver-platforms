@@ -1,4 +1,4 @@
-"Start Server" = "Start server";
+﻿"Start Server" = "Start server";
 "Stop Server" = "Stop server";
 "Start Server Description" = "Klik op deze knop om de Squeezebox Server te starten. Nadat de server gestart is, hebben muzieksystemen toegang tot je muziekcollectie.";
 "Stop Server Description" = "Klik op deze knop om de Squeezebox Server te stoppen. Nadat de server gestopt is, hebben muzieksystemen geen toegang meer tot je muziekcollectie.";

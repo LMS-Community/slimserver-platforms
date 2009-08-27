@@ -1,4 +1,4 @@
-"Start Server" = "Iniciar servidor";
+﻿"Start Server" = "Iniciar servidor";
 "Stop Server" = "Detener servidor";
 "Start Server Description" = "Haga clic en este botón para iniciar Squeezebox Server. Una vez iniciado, los reproductores podrán acceder a la biblioteca de música.";
 "Stop Server Description" = "Haga clic en este botón para detener Squeezebox Server. Una vez detenido, los reproductores no podrán acceder a la biblioteca de música.";
@@ -18,5 +18,5 @@
 "Abort" = "Cancelar";
 "Rescan" = "Volver a examinar";
 "Invalid mysqueezebox.com username or password." = "Contraseña o nombre de usuario mysqueezebox.com no válidos.";
-"The server is stopped" = "El servidor está detenido";
-"The server is running" = "El servidor está en ejecución";
+"The server is stopped" = "Estado: el servidor está detenido";
+"The server is running" = "Estado: el servidor está en ejecución";
