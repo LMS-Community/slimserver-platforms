@@ -1,4 +1,4 @@
-/* Localized versions of Info.plist keys */
+﻿/* Localized versions of Info.plist keys */
 
 CFBundleName = "Установщик Squeezebox Server";
 CFBundleShortVersionString = "7.4";
