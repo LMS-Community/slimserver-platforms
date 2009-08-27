@@ -31,7 +31,6 @@ foreach my $item (readdir(PROJ)) {
 	if ($item =~ /\.lproj$/ && $item !~ /^English/i) {
 		my $stringsFile = catdir($folder, $item, $strings);
 		my $nibFolder   = catdir($folder, $item, $nib);
-		my $nibBackup   = catdir($folder, $item, $nib . '2');
 		
 		unless (-f $stringsFile && -r $stringsFile) {
 			print "Can't find strings file $stringsFile\n";
@@ -43,10 +42,11 @@ foreach my $item (readdir(PROJ)) {
 			next;
 		}
 
-		$nibBackup =~ s/ /\\ /g;
 		$nibFolder =~ s/ /\\ /g;
+		
+		print "Merging $nibFolder\n";
 
-		`nibtool -d '$stringsFile' '$EN' -W $nibBackup && mv $nibBackup/* $nibFolder && rmdir $nibBackup`;
+		`ibtool '$EN' --strings-file '$stringsFile' --write $nibFolder`;
 	}
 }
 
