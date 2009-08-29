@@ -5,10 +5,8 @@ if [ z"$SERVER_RUNNING" = z ] ; then
     
     if [ z"$#" == z"0" ] ; then
 	if [ ! -e ~/Library/Logs ] ; then mkdir ~/Library/Logs ; fi
-	# Temporary workaround for 64bit OSX 10.6 systems, sets perl to run in 32bit mode
-        VERSIONER_PERL_PREFER_32_BIT=yes ./slimserver.pl --daemon &> /dev/null &
+        ./slimserver.pl --daemon &> /dev/null &
     else
-	# Temporary workaround for 64bit OSX 10.6 systems, sets perl to run in 32bit mode
-        VERSIONER_PERL_PREFER_32_BIT=yes ./slimserver.pl & >> /tmp/squeezecentererror.log 2>&1
+        ./slimserver.pl & >> /tmp/squeezecentererror.log 2>&1
     fi
 fi
