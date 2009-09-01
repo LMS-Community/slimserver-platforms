@@ -38,7 +38,6 @@ my $os             = Slim::Utils::OSDetect::getOS();
 my $language       = getPref('language') || $os->getSystemLanguage() || 'EN';
 
 my $restartFlag    = catdir(getPref('cachedir') || $os->dirsFor('cache'), 'restart.txt');
-my $versionFile    = catdir(scalar($os->dirsFor('updates')), 'server.version');
 my $controlPanel   = catdir(scalar($os->dirsFor('base')), 'server', 'squeezeboxcp.exe');
 
 ${^WIN32_SLOPPY_STAT} = 1;
@@ -49,7 +48,7 @@ sub PopupMenu {
 
 	push @menu, ['*' . string('OPEN_CONTROLPANEL'), \&openControlPanel];
 
-	if ( my $installer = _getUpdateInstaller() ) {
+	if ( my $installer = Slim::Utils::Light->getUpdateInstaller() ) {
 		push @menu, [string('INSTALL_UPDATE'), \&updateServerSoftware];	
 	}
 	push @menu, ["--------"];
@@ -220,8 +219,6 @@ sub checkAndStart {
 }
 
 sub checkSCActive {
-	my $update = shift;
-	
 	$svcMgr->checkServiceState();
 	
 	my $state = $svcMgr->getServiceState();
@@ -236,32 +233,12 @@ sub checkSCActive {
 
 # see whether SC has downloaded an update version
 sub checkForUpdate {
-	if ( $svcMgr->getServiceState() != SC_STATE_STARTING && _getUpdateInstaller() ) {
+	if ( $svcMgr->getServiceState() != SC_STATE_STARTING && Slim::Utils::Light->getUpdateInstaller() ) {
 		Balloon(string('UPDATE_AVAILABLE'), "Squeezebox Server", "info", 1);
 		
 		# once the balloon is shown, only poll every hour 
 		SetTimer('1:00:00', \&checkForUpdate);
 	}
-}
-
-sub _getUpdateInstaller {
-	
-	open(UPDATEFLAG, $versionFile) || return '';
-	
-	my $installer = '';
-	
-	while ( <UPDATEFLAG> ) {
-		chomp;
-		
-		if (/(?:Squeezebox|SqueezeCenter).*/) {
-			$installer = $_;
-			last;
-		}
-	}
-		
-	close UPDATEFLAG;
-	
-	return $installer if ($installer && -r $installer);	
 }
 
 sub startServer {
@@ -352,7 +329,7 @@ sub updateServerSoftware {
 	
 	my $logfile  = catdir(scalar($os->dirsFor('log')), 'update.log');
 	
-	my $installer = _getUpdateInstaller();
+	my $installer = Slim::Utils::Light->getUpdateInstaller();
 	
 	my $processObj;
 	Win32::Process::Create(
@@ -363,6 +340,8 @@ sub updateServerSoftware {
 		Win32::Process::DETACHED_PROCESS() | Win32::Process::CREATE_NO_WINDOW() | Win32::Process::NORMAL_PRIORITY_CLASS(),
 		'.'
 	);
+	
+	Slim::Utils::Light->resetUpdateCheck();
 	
 	uninstall();
 }
