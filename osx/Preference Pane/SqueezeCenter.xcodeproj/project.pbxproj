@@ -115,7 +115,7 @@
 		05286B0C05D4482600E88B81 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/Pref.nib; sourceTree = "<group>"; };
 		05286B2005D4485900E88B81 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = French; path = Installer/French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		05286B2405D4486A00E88B81 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = Installer/French.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		052A43EB0CAD998300E85D4D /* SqueezeCenter Installer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SqueezeCenter Installer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		052A43EB0CAD998300E85D4D /* Installer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Installer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0533446307007AE900B0416B /* logotype.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = logotype.tiff; sourceTree = "<group>"; };
 		054032D203F42BC800000167 /* installer.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = installer.icns; path = Installer/installer.icns; sourceTree = "<group>"; };
 		0545F86006377BD800BA96E1 /* German */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = German; path = German.lproj/Pref.nib; sourceTree = "<group>"; };
@@ -162,7 +162,7 @@
 		1477C982098865030087109C /* Pref_Tester.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Pref_Tester.plist; sourceTree = "<group>"; };
 		1477C983098865030087109C /* Installer.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Installer.plist; sourceTree = "<group>"; };
 		1477C984098865030087109C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		14A9402709875F57001992EB /* SqueezeCenter.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SqueezeCenter.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
+		14A9402709875F57001992EB /* Squeezebox.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Squeezebox.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9403C09875F57001992EB /* Launcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Launcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9405009875F57001992EB /* Preference Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Preference Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9407D09875F57001992EB /* Launcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Launcher; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -466,11 +466,11 @@
 		F58B0871035DF7DA01A80172 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				14A9402709875F57001992EB /* SqueezeCenter.prefPane */,
+				14A9402709875F57001992EB /* Squeezebox.prefPane */,
 				14A9403C09875F57001992EB /* Launcher.app */,
 				14A9405009875F57001992EB /* Preference Tester.app */,
 				14A9407D09875F57001992EB /* Launcher */,
-				052A43EB0CAD998300E85D4D /* SqueezeCenter Installer.app */,
+				052A43EB0CAD998300E85D4D /* Installer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -558,7 +558,7 @@
 			name = Squeezebox;
 			productInstallPath = "$(HOME)/Library/PreferencePanes";
 			productName = SqueezeCenter;
-			productReference = 14A9402709875F57001992EB /* SqueezeCenter.prefPane */;
+			productReference = 14A9402709875F57001992EB /* Squeezebox.prefPane */;
 			productType = "com.apple.product-type.bundle";
 		};
 		14A9402809875F57001992EB /* Launcher */ = {
@@ -619,7 +619,7 @@
 			name = Installer;
 			productInstallPath = "$(USER_APPS_DIR)";
 			productName = Installer;
-			productReference = 052A43EB0CAD998300E85D4D /* SqueezeCenter Installer.app */;
+			productReference = 052A43EB0CAD998300E85D4D /* Installer.app */;
 			productType = "com.apple.product-type.application";
 		};
 		14A9406F09875F57001992EB /* Launcher */ = {

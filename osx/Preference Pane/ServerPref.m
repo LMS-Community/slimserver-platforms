@@ -230,7 +230,7 @@
 	bool currentServerState = ([self serverPID] != 0);
 	bool currentWebState = currentServerState && [self serverPort];
 
-	if (currentWebState != [self webState]) 
+	if (currentWebState != [self webState] || currentServerState != [self serverState]) 
 	{
 		if (currentWebState && [[[prefsTab selectedTabViewItem] identifier] isEqualToString:@"status"]) 
 		{
@@ -238,24 +238,28 @@
 			[[statusView mainFrame] reload];
 		}
 		[self setWebState:currentWebState];
-	}
-	
-	if (currentServerState != [self serverState])
-	{
+
 		[self setServerState:currentServerState];
 		
-		if (currentServerState)
+		if (currentServerState && !currentWebState)
+		{
+			[serverStateLabel setStringValue:LocalizedPrefString(@"The server is starting", "The server is starting")];
+			[toggleServerButton setTitle:LocalizedPrefString(@"Start Server", "Start Server")];
+			[toggleServerButton setEnabled:NO];
+		}
+		else if (currentServerState)
 		{
 			[serverStateLabel setStringValue:LocalizedPrefString(@"The server is running", "The server is running")];
 			[toggleServerButton setTitle:LocalizedPrefString(@"Stop Server", "Stop Server")];
+			[toggleServerButton setEnabled:YES];
 		}
 		else
 		{
 			[serverStateLabel setStringValue:LocalizedPrefString(@"The server is stopped", "The server is stopped")];
 			[toggleServerButton setTitle:LocalizedPrefString(@"Start Server", "Start Server")];
 			isScanning = NO;
+			[toggleServerButton setEnabled:YES];
 		}
-		[toggleServerButton setEnabled:YES];
 	}
 	
 	[webLaunchButton setEnabled:currentWebState];

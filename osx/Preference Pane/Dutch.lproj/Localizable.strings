@@ -20,3 +20,4 @@
 "Invalid mysqueezebox.com username or password." = "Gebruikersnaam of wachtwoord van mysqueezebox.com ongeldig.";
 "The server is stopped" = "De server is gestopt";
 "The server is running" = "De server is actief";
+"The server is starting" = "De server wordt gestart";

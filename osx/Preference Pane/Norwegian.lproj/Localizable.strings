@@ -20,3 +20,4 @@
 "Invalid mysqueezebox.com username or password." = "Ugyldig brukernavn eller passord for mysqueezebox.com.";
 "The server is stopped" = "Serveren er stoppet";
 "The server is running" = "Serveren kjører";
+"The server is starting" = "Serveren starter";

@@ -18,5 +18,6 @@
 "Abort" = "Прервать";
 "Rescan" = "Повтор сканирования";
 "Invalid mysqueezebox.com username or password." = "Недействительные имя пользователя или пароль mysqueezebox.com.";
-"The server is stopped" = "Состояние: сервер остановлен";
-"The server is running" = "Состояние: сервер выполняется";
+"The server is stopped" = "Cервер остановлен";
+"The server is running" = "Cервер выполняется";
+"The server is starting" = "Запуск сервер";

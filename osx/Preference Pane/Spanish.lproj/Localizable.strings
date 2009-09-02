@@ -18,5 +18,6 @@
 "Abort" = "Cancelar";
 "Rescan" = "Volver a examinar";
 "Invalid mysqueezebox.com username or password." = "Contraseña o nombre de usuario mysqueezebox.com no válidos.";
-"The server is stopped" = "Estado: el servidor está detenido";
-"The server is running" = "Estado: el servidor está en ejecución";
+"The server is stopped" = "El servidor está detenido";
+"The server is running" = "El servidor está en ejecución";
+"The server is starting" = "Iniciando el servidor";

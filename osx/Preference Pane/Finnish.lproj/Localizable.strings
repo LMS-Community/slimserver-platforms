@@ -1,7 +1,6 @@
 ﻿"Start Server" = "Käynnistä palvelin";
 "Stop Server" = "Pysäytä palvelin";
-"Start Server Description" = "Käynnistä Squeeze Server tällä painikkeella. Kun se on käynnissä,
-soittimet voivat käyttää musiikkikirjastoa.";
+"Start Server Description" = "Käynnistä Squeeze Server tällä painikkeella. Kun se on käynnissä, soittimet voivat käyttää musiikkikirjastoa.";
 "Stop Server Description" = "Sulje Squeezebox Server tällä painikkeella. Kun se on suljettu, soittimet eivät voi käyttää musiikkikirjastoa.";
 "Authorization Launch Error" = "Laiteohjelmistoa ei voida päivittää: tiedosto Update Firmware.sh puuttuu.";
 "Expired Authorization Error" = "Laiteohjelmistoa ei voida päivittää: valtuutus vanhentunut.";
@@ -19,5 +18,6 @@ soittimet voivat käyttää musiikkikirjastoa.";
 "Abort" = "Keskeytä";
 "Rescan" = "Tarkista uudelleen";
 "Invalid mysqueezebox.com username or password." = "Virheellinen mysqueezebox.comin käyttäjätunnus tai salasana.";
-"The server is stopped" = "Tila: palvelin on pysäytetty";
-"The server is running" = "Tila: palvelin on käynnissä";
+"The server is stopped" = "Palvelin on pysäytetty";
+"The server is running" = "Palvelin on käynnissä";
+"The server is starting" = "Palvelin käynnistetään";

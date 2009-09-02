@@ -20,3 +20,4 @@
 "Invalid mysqueezebox.com username or password." = "mysqueezebox.com-Benutzername oder -Kennwort ungültig.";
 "The server is stopped" = "Der Server wurde angehalten.";
 "The server is running" = "Der Server wird ausgeführt";
+"The server is starting" = "Der Server wird gestartet...";
