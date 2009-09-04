@@ -2,8 +2,8 @@
 "Stop Server" = "Stop server";
 "Start Server Description" = "Klik på denne knap for at starte Squeezebox Server. Når den kører, får afspillerne adgang til dit musikbibliotek.";
 "Stop Server Description" = "Klik på denne knap for at stoppe Squeezebox Server. Når den er stoppet, har afspillerne ikke længere adgang til dit musikbibliotek.";
-"Authorization Launch Error" = "Firmwaren kan ikke opdateres: filen Update Firmware.sh mangler.";
-"Expired Authorization Error" = "Firmwaren kan ikke opdateres: godkendelsen er forældet.";
+"Authorization Launch Error" = "Firmwaren kunne ikke opdateres: filen Update Firmware.sh mangler.";
+"Expired Authorization Error" = "Firmwaren kunne ikke opdateres: Godkendelsen er forældet.";
 "Firmware version" = "Firmwareversion %@.";
 "Firmware version invalid" = "Firmwareversionen er ugyldig.";
 "An updated Squeezebox Server version is available and ready to be installed." = "Der findes en opdateret version af Squeezebox Server som er klar til at blive installeret.";
