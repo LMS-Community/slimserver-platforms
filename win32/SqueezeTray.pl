@@ -48,7 +48,7 @@ sub PopupMenu {
 
 	push @menu, ['*' . string('OPEN_CONTROLPANEL'), \&openControlPanel];
 
-	if ( my $installer = Slim::Utils::Light->getUpdateInstaller() ) {
+	if ( my $installer = Slim::Utils::Light->checkForUpdate() ) {
 		push @menu, [string('INSTALL_UPDATE'), \&updateServerSoftware];	
 	}
 	push @menu, ["--------"];
@@ -233,7 +233,7 @@ sub checkSCActive {
 
 # see whether SC has downloaded an update version
 sub checkForUpdate {
-	if ( $svcMgr->getServiceState() != SC_STATE_STARTING && Slim::Utils::Light->getUpdateInstaller() ) {
+	if ( $svcMgr->getServiceState() != SC_STATE_STARTING && Slim::Utils::Light->checkForUpdate() ) {
 		Balloon(string('UPDATE_AVAILABLE'), "Squeezebox Server", "info", 1);
 		
 		# once the balloon is shown, only poll every hour 
@@ -329,7 +329,7 @@ sub updateServerSoftware {
 	
 	my $logfile  = catdir(scalar($os->dirsFor('log')), 'update.log');
 	
-	my $installer = Slim::Utils::Light->getUpdateInstaller();
+	my $installer = Slim::Utils::Light->checkForUpdate();
 	
 	my $processObj;
 	Win32::Process::Create(
