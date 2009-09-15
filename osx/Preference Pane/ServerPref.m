@@ -24,6 +24,8 @@
 	NSMutableDictionary *defaultValues;
 	BOOL rewrite = NO;
 
+	NSLog(@"Squeezebox: initializing preference pane...");
+
 	if (prefs != nil)
 		defaultValues = [[prefs mutableCopy] autorelease];
 	else
@@ -47,6 +49,8 @@
 		[[NSUserDefaults standardUserDefaults] setPersistentDomain:defaultValues forName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
 	}
 
+	NSLog(@"Squeezebox: initializing input values...");
+
 	[startupType selectItemAtIndex:[startupType indexOfItemWithTag:[[defaultValues objectForKey:@"StartupMenuTag"] intValue]]];
 	[musicLibraryName setStringValue:[self getPref:@"libraryname"]];
 	
@@ -57,11 +61,12 @@
 	int option = [[self getPref:@"sn_disable_stats"] intValue];
 	[snStatsOptions selectItemAtIndex:(option == 1 ? 1 : 0)];
 
-	// monitor scan progress
-	[NSTimer scheduledTimerWithTimeInterval: 1.9 target:self selector:@selector(scanPoll) userInfo:nil repeats:YES];
-	
 	scStrings = [NSMutableDictionary new];
+
+	// monitor scan progress
+	NSLog(@"Squeezebox: setting up status polling...");
 	
+	[NSTimer scheduledTimerWithTimeInterval: 1.9 target:self selector:@selector(scanPoll) userInfo:nil repeats:YES];
 	[scanProgressDesc setStringValue:@""];
 	[scanProgressDetail setStringValue:@""];
 	[scanProgressError setStringValue:@""];
@@ -72,6 +77,8 @@
 	[useiTunes setState:(option == 1 ? 1 : 0)];
 
 	// check whether an update installer is available
+	NSLog(@"Squeezebox: initializing update checker...");
+
 	updateTimer = [NSTimer scheduledTimerWithTimeInterval: 60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
 	[self checkUpdateInstaller];
 	
@@ -230,6 +237,8 @@
 	bool currentServerState = ([self serverPID] != 0);
 	bool currentWebState = currentServerState && [self serverPort];
 
+	NSLog(@"Squeezebox: updating UI...");
+
 	if (currentWebState != [self webState] || currentServerState != [self serverState]) 
 	{
 		if (currentWebState && [[[prefsTab selectedTabViewItem] identifier] isEqualToString:@"status"]) 
@@ -299,6 +308,8 @@
 
 -(void)updateMusicLibraryStats
 {
+	NSLog(@"Squeezebox: updating music library stats...");
+	
 	[musicLibraryStats setStringValue:@""];
 
 	NSDictionary *libraryStats = [self jsonRequest:@"\"systeminfo\", \"items\", \"0\", \"999\""];
@@ -346,6 +357,8 @@
 		}
 			
 	}
+
+	NSLog(@"Squeezebox: music library stats update done.");
 }
 	
 -(void)openWebInterface:(id)sender
@@ -923,6 +936,8 @@
 /* JSON/RPC (CLI) helper */
 -(NSDictionary *)jsonRequest:(NSString *)query
 {
+	NSLog(@"Squeezebox: running JSON request %@...", query);
+
 	SBJSON *parser = [SBJSON new];
 
 	NSString *post = [NSString stringWithFormat:@"{\"id\":1,\"method\":\"slim.request\",\"params\":[\"\",[%@]]}", query];
@@ -948,7 +963,10 @@
 	
 	if (json != nil) 
 		json = [json objectForKey:@"result"];
-	
+
+	if (json != nil)
+		NSLog(@"Squeezebox: JSON request returning '%@'.", json);
+
 	return json;
 }
 
@@ -976,6 +994,8 @@
 			[scStrings setObject:s forKey:stringToken];
 	}
 	
+	NSLog(@"Squeezebox: getting string '%@': '%@'", stringToken, s);
+	
 	return s;
 }
 
@@ -990,6 +1010,8 @@
 	}
 	
 	NSString *pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:prefsFileName];
+	
+	NSLog(@"Squeezebox: Reading preference '%@' from file '%@'", pref, pathToPrefs);
 	
 	if ([pathToPrefs length] == 0)
 		pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES) fileName:prefsFile];
@@ -1014,6 +1036,8 @@
 			}
 		}
 	}
+	
+	NSLog(@"Squeezebox: failed reading preference '%@' from file '%@'", pref, pathToPrefs);
 	
 	return @"";
 }
