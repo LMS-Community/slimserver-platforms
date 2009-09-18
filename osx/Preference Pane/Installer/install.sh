@@ -12,7 +12,7 @@ fi
 
 
 if [ z"$SERVER_RUNNING" != z ] ; then
-	echo "Please stop the  before running the installer."
+	echo "Please stop Squeezebox Server before running the installer."
 	exit 1
 fi
 
@@ -103,9 +103,9 @@ if [ -e "$PREFPANE_TO" ] ; then
 
 	sudo -b -H -u $USER "../Resources/start-server.sh"
 
-	echo "Installed successfully."
+	echo "Squeezebox Server installed successfully."
 	exit 0
 else
-	echo "Install failed."
+	echo "Squeezebox Server install failed."
 	exit 1
 fi
