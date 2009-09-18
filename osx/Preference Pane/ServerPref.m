@@ -237,7 +237,7 @@
 	bool currentServerState = ([self serverPID] != 0);
 	bool currentWebState = currentServerState && [self serverPort];
 
-	NSLog(@"Squeezebox: updating UI...");
+//	NSLog(@"Squeezebox: updating UI...");
 
 	if (currentWebState != [self webState] || currentServerState != [self serverState]) 
 	{
@@ -521,13 +521,7 @@
 	
 	if (pid != 0)
 	{
-#ifndef DIRECT_SERVER_KILL
-		NSTask *killServerTask = [NSTask launchedTaskWithLaunchPath:[[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"stop-server.sh"] arguments:[NSArray array]];
-
-		[killServerTask waitUntilExit];
-#else
-		kill (pid, SIGTERM);
-#endif
+		[self jsonRequest:[NSString stringWithFormat:@"\"stopserver\""]];
 	}
 	else
 	{
@@ -936,6 +930,9 @@
 /* JSON/RPC (CLI) helper */
 -(NSDictionary *)jsonRequest:(NSString *)query
 {
+	if ([self serverPID] == 0)
+		return nil;
+	
 	NSLog(@"Squeezebox: running JSON request %@...", query);
 
 	SBJSON *parser = [SBJSON new];
