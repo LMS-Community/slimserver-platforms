@@ -16,6 +16,9 @@
 	#include SpAppSourcePath + "SqueezePlay-common.iss"
 #endif
 
+#define VCRedistKey  = "SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\a4cab25097f64d640a42c11e4b7fc34d"
+#define VCRedistKey2 = "SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\b25099274a207264182f8181add555d0"
+
 [Languages]
 Name: cz; MessagesFile: "Czech.isl"
 Name: da; MessagesFile: "Danish.isl"
@@ -64,6 +67,7 @@ Source: Release Notes.html; DestDir: {app}; Flags: ignoreversion
 ; a dll to verify if a process is still running
 ; http://www.vincenzo.net/isxkb/index.php?title=PSVince
 Source: psvince.dll; Flags: dontcopy
+Source: vcredist.exe; Destdir: "{tmp}"; Flags: deleteafterinstall
 
 ; add the english version for all languages as long as we don't have any translation
 Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Flags: ignoreversion
@@ -507,7 +511,7 @@ begin
 
 	DelTree(ServerDir + AddBackslash('CPAN') + AddBackslash('arch'), true, true, true);
 
-	// as of SC 7.4.0 we include everything but the Plugin folder with the binary
+	// as of SC 7.4 we include everything but the Plugin folder with the binary
 	DelTree(ServerDir + AddBackslash('Slim'), true, true, true);
 
 	DelDir := ServerDir + AddBackslash('HTML');
@@ -662,6 +666,11 @@ begin
 
 	if CurStep = ssPostInstall then 
 		begin
+
+			// run VC runtime installer if not already installed
+			// http://blogs.msdn.com/astebner/archive/2006/08/23/715755.aspx
+			if ( not RegKeyExists(HKLM, '{#VCRedistKey}') and not not RegKeyExists(HKLM, '{#VCRedistKey2}') ) then
+				Exec(AddBackslash(ExpandConstant('{tmp}')) + 'vcredist.exe', '/q:a /c:"msiexec /i vcredist.msi /qb!"', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
 
 			// remove server.version file to prevent repeated update prompts
 			DeleteFile(AddBackslash(GetWritablePath('')) + AddBackslash('Cache') + AddBackslash('updates') + 'server.version');
