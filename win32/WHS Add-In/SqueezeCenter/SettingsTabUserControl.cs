@@ -20,7 +20,6 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 {
     public partial class SettingsTabUserControl : UserControl
     {
-        string version = "7.4";
         string snPasswordPlaceholder = "SN_PASSWORD_PLACEHOLDER";
 
         IConsoleServices consoleServices;
