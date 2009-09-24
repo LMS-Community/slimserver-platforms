@@ -288,8 +288,8 @@ begin
 			RegKey := '{#SBRegKey}';
 			InstallDefault := ExpandConstant('{app}');
 			Svc := 'squeezesvc';
-			Executable := 'SqueezeSvr.exe';
-			LongExecutable := Executable;
+			Executable := 'squeez~3.exe';
+			LongExecutable := 'SqueezeSvr.exe';
 			TrayExe := 'SqueezeTray.exe';
 			
 			// the following variable can be emptied once we switch to SQLite
@@ -854,6 +854,7 @@ begin
 				end;
 		end;	
 end;
+
 
 
 
