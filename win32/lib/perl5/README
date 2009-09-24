@@ -1,0 +1,9 @@
+This folder contains CPAN modules which can't reside in our CPAN folder, as PerlApp, Wx or
+Wx::Perl::Packager won't find them unless they're in the default Perl installation folder.
+
+These modules are required to bundle WxPerl with cleanup.exe. The build script will copy them 
+to C:\Perl\site. This target folder is hardcoded in buildme.pl.
+
+WxPerl binaries for ActivePerl can be found at http://www.wxperl.co.uk/ 
+
+-- Michael 

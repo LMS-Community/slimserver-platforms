@@ -16,6 +16,9 @@
 	#include SpAppSourcePath + "SqueezePlay-common.iss"
 #endif
 
+#define VCRedistKey  = "SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\a4cab25097f64d640a42c11e4b7fc34d"
+#define VCRedistKey2 = "SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\b25099274a207264182f8181add555d0"
+
 [Languages]
 Name: cz; MessagesFile: "Czech.isl"
 Name: da; MessagesFile: "Danish.isl"
@@ -64,6 +67,7 @@ Source: Release Notes.html; DestDir: {app}; Flags: ignoreversion
 ; a dll to verify if a process is still running
 ; http://www.vincenzo.net/isxkb/index.php?title=PSVince
 Source: psvince.dll; Flags: dontcopy
+Source: vcredist.exe; Destdir: "{tmp}"; Flags: deleteafterinstall
 
 ; add the english version for all languages as long as we don't have any translation
 Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Flags: ignoreversion
@@ -668,10 +672,10 @@ begin
 
 			for i:= 0 to ParamCount() do begin
 				if (pos('/silent', lowercase(ParamStr(i))) > 0) then
-					Silent:= true
+					Silent := true
 				else if (pos('/verysilent', lowercase(ParamStr(i))) > 0) then
 					Silent:= true
-				else if (pos('/notrayicon', lowercase(ParamStr(i))) > 0) then
+				else if (pos ('/notrayicon', lowercase(ParamStr(i))) > 0) then
 					NoTrayIcon := true
 				else if (pos('/trayicon', lowercase(ParamStr(i))) > 0) then
 					TrayIcon := true
@@ -680,6 +684,11 @@ begin
 			end;
 			
 			Silent := Silent or WizardSilent;
+
+			// run VC runtime installer if not already installed
+			// http://blogs.msdn.com/astebner/archive/2006/08/23/715755.aspx
+			if ( (not Silent) and (not (RegKeyExists(HKLM, '{#VCRedistKey}') or RegKeyExists(HKLM, '{#VCRedistKey2}'))) ) then
+				Exec(AddBackslash(ExpandConstant('{tmp}')) + 'vcredist.exe', '/q:a /c:"msiexec /i vcredist.msi /qb!"', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
 
 			ProgressPage := CreateOutputProgressPage(CustomMessage('RegisterServices'), CustomMessage('RegisterServicesDesc'));
 
