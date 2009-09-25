@@ -288,8 +288,8 @@ begin
 			RegKey := '{#SBRegKey}';
 			InstallDefault := ExpandConstant('{app}');
 			Svc := 'squeezesvc';
-			Executable := 'SqueezeSvr.exe';
-			LongExecutable := Executable;
+			Executable := 'squeez~3.exe';
+			LongExecutable := 'SqueezeSvr.exe';
 			TrayExe := 'SqueezeTray.exe';
 			
 			// the following variable can be emptied once we switch to SQLite
@@ -636,7 +636,7 @@ begin
 	
 					try
 						ProgressPage.setProgress(0, 170);
-						if (StartupMode = '') and (IsServiceRunning('squeezesvc') or IsServiceRunning('slimsvc') or IsModuleLoaded('SqueezeSvr.exe')
+						if (StartupMode = '') and (IsServiceRunning('squeezesvc') or IsServiceRunning('slimsvc') or IsModuleLoaded('SqueezeSvr.exe') or IsModuleLoaded('squeez~3.exe')
 							or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('squeezecenter.exe') or IsModuleLoaded('slimserver.exe')) then
 							StartupMode := 'running';
 	
@@ -803,7 +803,7 @@ begin
 												break;
 											end
 										
-										else if (IsServiceRunning('squeezesvc') or IsModuleLoaded('squeez~1') or IsModuleLoaded('SqueezeSvr.exe')) then
+										else if (IsServiceRunning('squeezesvc') or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('SqueezeSvr.exe') or IsModuleLoaded('squeez~3.exe')) then
 											Started := true
 											
 										else if Started then
@@ -854,6 +854,7 @@ begin
 				end;
 		end;	
 end;
+
 
 
 
