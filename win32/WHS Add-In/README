@@ -1,0 +1,10 @@
+Squeezebox Console for Windows Home Server
+------------------------------------------
+
+Tools required:
+-> MS Visual C# 2008
+-> Windows Installer - XML http://wix.sourceforge.net/releases/
+
+Get started following this tutorial: 
+http://tentaclesoftware.com/blog/archive/2008/12/05/quothello-worldquot-windows-home-server-add-in-part-1.aspx
+
