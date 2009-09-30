@@ -40,7 +40,7 @@ for i in `seq 1 10`; do
     sleep .5
   fi
 done
-if [ $((`mysql -s --skip-column-names -uslimserver slimserver -e "SELECT value FROM dbix_migration;"`)) -lt 5 ]; then
+if [ $((`mysql -s --skip-column-names -uslimserver slimserver -e "SELECT value FROM dbix_migration;"`)) -lt 10 ]; then
   mysql -s -uslimserver -e 'DROP DATABASE slimserver'
   mysql -s -uslimserver -e 'CREATE DATABASE slimserver'
 fi
