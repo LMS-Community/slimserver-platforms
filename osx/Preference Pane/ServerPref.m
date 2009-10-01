@@ -52,15 +52,7 @@
 	NSLog(@"Squeezebox: initializing input values...");
 
 	[startupType selectItemAtIndex:[startupType indexOfItemWithTag:[[defaultValues objectForKey:@"StartupMenuTag"] intValue]]];
-	[musicLibraryName setStringValue:[self getPref:@"libraryname"]];
 	
-	// SqueezeNetwork settings
-	[snUsername setStringValue:[self getPref:@"sn_email"]];
-	[snPassword setStringValue:([self getPref:@"sn_password_sha"] != @"" ? snPasswordPlaceholder : @"")];
-	
-	int option = [[self getPref:@"sn_disable_stats"] intValue];
-	[snStatsOptions selectItemAtIndex:(option == 1 ? 1 : 0)];
-
 	scStrings = [NSMutableDictionary new];
 
 	// monitor scan progress
@@ -71,11 +63,6 @@
 	[scanProgressDetail setStringValue:@""];
 	[scanProgressError setStringValue:@""];
 	
-	[musicFolder setStringValue:[self getPref:@"audiodir"]];
-	[playlistFolder setStringValue:[self getPref:@"playlistdir"]];
-	option = [[self getPref:@"itunes" fileName:@"itunes.prefs"] intValue];
-	[useiTunes setState:(option == 1 ? 1 : 0)];
-
 	// check whether an update installer is available
 	NSLog(@"Squeezebox: initializing update checker...");
 
@@ -922,8 +909,28 @@
 	if ([[item identifier] isEqualToString:@"status"]) {
 		[[statusView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:statusUrl]]];
 	}
+	
+	// Music Library Stats
 	else if ([[item identifier] isEqualToString:@"1"]) {
 		[self updateMusicLibraryStats];
+	}
+	
+	else if ([[item identifier] isEqualToString:@"library"]) {
+		[musicLibraryName setStringValue:[self getPref:@"libraryname"]];
+		[musicFolder setStringValue:[self getPref:@"audiodir"]];
+		[playlistFolder setStringValue:[self getPref:@"playlistdir"]];
+		
+		int option = [[self getPref:@"itunes" fileName:@"itunes"] intValue];
+		[useiTunes setState:(option == 1 ? 1 : 0)];
+	}
+	
+	// SqueezeNetwork settings
+	else {
+		[snUsername setStringValue:[self getPref:@"sn_email"]];
+		[snPassword setStringValue:([self getPref:@"sn_password_sha"] != @"" ? snPasswordPlaceholder : @"")];
+		
+		int option = [[self getPref:@"sn_disable_stats"] intValue];
+		[snStatsOptions selectItemAtIndex:(option == 1 ? 1 : 0)];
 	}
 }
 
@@ -999,11 +1006,33 @@
 /* very simplistic method to read an atomic pref from the server.prefs file */
 -(NSString *)getPref:(NSString *)pref fileName:(NSString*)prefsFileName
 {
+	
+	NSDictionary *prefValue;
+	
+	if ([prefsFileName isEqualToString:@""]) {
+		prefValue = [self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"%@\", \"?\"", pref]];
+	}
+	else {
+		prefValue = [self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"plugin.%@:%@\", \"?\"", prefsFileName, pref]];
+	}
+
+	if (prefValue != nil) {
+		NSString *value = [prefValue valueForKey:@"_p2"];
+		
+		if (value != nil) {
+			NSLog(@"Squeezebox: Got preference '%@' using CLI: '%@'", pref, value);
+
+			return value;
+		}
+	}
+
+	
 	if ([prefsFileName isEqualToString:@""]) {
 		prefsFileName = prefsFile;
 	}
 	else {
 		prefsFileName = [pluginPrefs stringByAppendingString:prefsFileName];
+		prefsFileName = [prefsFileName stringByAppendingString:@".prefs"];
 	}
 	
 	NSString *pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:prefsFileName];
