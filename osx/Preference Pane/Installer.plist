@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>Installer</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Squeezebox Server Installer 7.4, Copyright 2003-2009 Logitech</string>
+	<string>Squeezebox Server Installer 7.5.0, Copyright 2003-2009 Logitech</string>
 	<key>CFBundleIconFile</key>
 	<string>installer.icns</string>
 	<key>CFBundleIdentifier</key>
