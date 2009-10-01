@@ -16,6 +16,12 @@ then
   exit 1
 fi
 
+if ps ax | grep -v grep | grep $0 > /dev/null
+then
+  echo `date "+%F %H:%M:%S"` "$0 already running - don't start again" >> /var/log/squeezeboxserver/server.log
+  exit
+fi
+
 function clean_up {
   # Kill the Squeezebox Server daemon if it is running
   kill $SLIMPID
