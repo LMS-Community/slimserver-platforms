@@ -80,7 +80,7 @@ rm -f /var/log/slimserver.log
 ln -sf /var/log/squeezeboxserver/server.log /var/log/slimserver.log 
 
 # remove leftover from earlier installation - startup is handled by frontview
-rm -f /etc/rc3/S20squeezeboxserver
+rm -f /etc/rc3.d/S20squeezeboxserver
 
 # Start up the addon program
 eval $run || bye "ERROR: Could not start $friendly_name service"
