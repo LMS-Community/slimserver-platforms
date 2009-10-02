@@ -22,7 +22,7 @@ SLIMUSER=root
 PREFSDIR=/var/lib/$NAME/prefs
 LOGDIR=/var/log/$NAME/
 CACHEDIR=/var/lib/$NAME/cache
-SLIMOPTIONS=
+SLIMOPTIONS=-utf8
 
 # Read config file if it is present.
 if [ -r /etc/default/$NAME ]
