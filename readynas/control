@@ -7,8 +7,8 @@ Standards-Version: 3.6.2
 
 Package: squeezeboxserver
 Architecture: _ARCHTYPE_
-Conflicts: slimp3,slimserver,squeezecenter
-Replaces: slimp3,slimserver,squeezecenter
+Conflicts: slimp3,slimserver,squeezecenter,squeezecenter-readynas
+Replaces: slimp3,slimserver,squeezecenter,squeezecenter-readynas
 Depends: perl (>= 5.8.1),
  mysql-server-4.1 | mysql-server-5.0, libmysqlclient15off,
  mysql-client-4.1 | mysql-client-5.0, flac, sox, adduser, libfreetype6,
