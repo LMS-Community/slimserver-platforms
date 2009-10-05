@@ -16,6 +16,9 @@ case "$1" in
 		VERBOSE=""
 	fi
 
+	# Bug 14451: Remove mess possibly left by 7.4.0
+	update-rc.d -f squeezeboxserver remove
+
 	# Remove the old Favorites module.
 	rm -rf /var/lib/squeezeboxserver/Plugins/Favorites
 
