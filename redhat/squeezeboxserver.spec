@@ -77,6 +77,7 @@ rm -rf Bin/powerpc-hardhat-linux
 rm -rf Bin/MSWin32-x86-multi-thread
 rm -rf CPAN/arch/5.8/darwin-thread-multi-2level
 rm -rf CPAN/arch/5.8/sparc-linux
+rm -rf CPAN/arch/5.8/i386-freebsd-64int
 rm -rf CPAN/arch/5.10/darwin-thread-multi-2level
 rm -rf CPAN/arch/5.10/MSWin32-x86-multi-thread
 
