@@ -108,8 +108,6 @@ sub Singleton {
 				startServer();
 			}
 
-#			openControlPanel();
-
 		} elsif ($_[1] eq '--exit') {
 
 			if (scalar(@_) > 2 && $_[2] eq '--uninstall') {
@@ -162,11 +160,6 @@ sub Timer {
 
 	}
 	
-#	if ($cliStart || $cliInstall) {
-#
-#		openControlPanel();
-#	}
-
 	checkSCActive();
 }
 
@@ -212,8 +205,6 @@ sub checkAndStart {
 
 			startServer();
 		}
-
-		openControlPanel();
 
 	}
 }
