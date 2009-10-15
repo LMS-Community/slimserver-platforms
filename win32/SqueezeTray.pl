@@ -21,10 +21,12 @@ use constant SLIM_SERVICE => 0;
 use constant SCANNER      => 0;
 use constant ISWINDOWS    => 1;
 use constant TIMERSECS    => 10;
+use constant INFOLOG      => 0;
 
 use Slim::Utils::ServiceManager;
 use Slim::Utils::Light;
 use Slim::Utils::OSDetect;
+
 Slim::Utils::OSDetect::init();
 
 # Passed on the command line by Getopt::Long
