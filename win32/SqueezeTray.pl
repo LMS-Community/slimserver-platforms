@@ -208,6 +208,7 @@ sub checkAndStart {
 			startServer();
 		}
 
+		openControlPanel();
 	}
 }
 
