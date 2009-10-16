@@ -46,7 +46,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Vendor:		Logitech
 
 
-Requires:	/usr/bin/mysqld_safe, perl >= 5.8.3
+Requires:	/usr/bin/mysqld_safe, perl >= 5.8.8
 Obsoletes:	squeezecenter, slimserver, SliMP3
 AutoReqProv:	no
 
@@ -73,7 +73,7 @@ rm MySQL/README
 rm MySQL/errmsg.*
 rm Bin/i386-linux/mysqld
 rm -rf Bin/darwin
-rm -rf Bin/powerpc-hardhat-linux
+rm -rf Bin/i386-freebsd-64int
 rm -rf Bin/MSWin32-x86-multi-thread
 rm -rf CPAN/arch/5.8/darwin-thread-multi-2level
 rm -rf CPAN/arch/5.8/sparc-linux
