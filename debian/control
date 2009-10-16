@@ -9,7 +9,7 @@ Package: squeezeboxserver
 Architecture: all
 Conflicts: slimp3,slimserver,squeezecenter
 Replaces: slimp3,slimserver,squeezecenter
-Depends: perl (>= 5.8.1),
+Depends: perl (>= 5.8.8),
  mysql-server-4.1 | mysql-server-5.0, libmysqlclient14-dev | libmysqlclient15-dev,
  mysql-client-4.1 | mysql-client-5.0, adduser
 Description: Streaming Audio Server
