@@ -52,9 +52,9 @@
 /* NSMenuItem : <title:To This User> (oid:201) */
 "To This User" = "Для этого пользователя";
 
-/* NSTextField (Version 7.4.1 ) : <title:Version 7.4.1
+/* NSTextField (Version 7.4.2 ) : <title:Version 7.4.2
 > (oid:211) */
-"Version 7.4.1\n" = "Версия 7.4.1\n";
+"Version 7.4.2\n" = "Версия 7.4.2\n";
 
 /* NSTextField (Waiting for the System Preferences application to quit...) : <title:Waiting for the System Preferences application to quit...> (oid:214) */
 "Waiting for the System Preferences application to quit..." = "Приложение System Preferences завершает работу...";
