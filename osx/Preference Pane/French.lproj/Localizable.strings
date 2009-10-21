@@ -21,3 +21,4 @@
 "The server is stopped" = "Le serveur est arrêté.";
 "The server is running" = "Le serveur est en cours d'exécution.";
 "The server is starting" = "Démarrage du serveur...";
+"Version x.y.z" = "Version 7.5.0";

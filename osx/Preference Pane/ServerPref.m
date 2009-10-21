@@ -209,6 +209,8 @@
 {
 	NSString *revisionTxt = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/revision.txt"];
 
+	[scVersion setStringValue:LocalizedPrefString(@"Version x.y.z", "")];
+	
 	if (revisionTxt != nil && [[NSFileManager defaultManager] fileExistsAtPath:revisionTxt]) {
 		
 		NSArray *lines = [[NSString stringWithContentsOfFile:revisionTxt] componentsSeparatedByString:@"\n"];
