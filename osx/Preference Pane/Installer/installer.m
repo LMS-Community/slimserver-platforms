@@ -28,6 +28,8 @@
 		return;
 	}
 	
+	[scVersion setStringValue:LocalizedPrefString(@"Version x.y.z", "")];
+	
 	[progressIndicator setUsesThreadedAnimation:YES];
 
 	if ([progressIndicator respondsToSelector:@selector(setDisplayedWhenStopped:)])
@@ -47,6 +49,7 @@
 				foundLocal = true;
 		}
 	}
+
 	if (foundLocal || foundGlobal)
 		[installButton setTitle:LocalizedPrefString(@"Update", "Update")];
 }

@@ -6,3 +6,6 @@
 "Squeezebox Server install failed.\n" = "Instalace Squeezebox Server selhala.";
 "You must have OS X 10.3 or later to run Squeezebox Server.\n" = "Ke spuštění Squeezebox Server potřebujete OS X 10.3 nebo novější verzi.";
 "Mac OS X 10.3 Required" = "Vyžadován Mac OS X 10.3";
+"Please quit System Preferences before running the installer.\n" = "Please quit System Preferences before running the installer.\n";
+"Please stop Squeezebox Server before running the installer.\n" = "Please stop Squeezebox Server before running the installer.\n";
+"Version x.y.z" = "Verze 7.5.0";
