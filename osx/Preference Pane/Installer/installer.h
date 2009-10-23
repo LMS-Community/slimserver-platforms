@@ -20,6 +20,7 @@
     IBOutlet NSWindow *waitSheet;
     IBOutlet NSWindow *installWindow;
     IBOutlet NSProgressIndicator *progressIndicator;
+	IBOutlet NSTextField *scVersion;
 
     bool foundGlobal;
     bool foundLocal;

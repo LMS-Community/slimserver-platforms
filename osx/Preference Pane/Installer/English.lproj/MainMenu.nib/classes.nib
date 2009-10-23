@@ -6,6 +6,14 @@
 	<array>
 		<dict>
 			<key>CLASS</key>
+			<string>NSTextField</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSControl</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
 			<string>FirstResponder</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
@@ -38,6 +46,8 @@
 				<string>NSWindow</string>
 				<key>progressIndicator</key>
 				<string>NSProgressIndicator</string>
+				<key>scVersion</key>
+				<string>NSTextField</string>
 				<key>waitSheet</key>
 				<string>NSWindow</string>
 			</dict>
