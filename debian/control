@@ -10,8 +10,8 @@ Architecture: all
 Conflicts: slimp3,slimserver,squeezecenter
 Replaces: slimp3,slimserver,squeezecenter
 Depends: perl (>= 5.8.8),
- mysql-server-4.1 | mysql-server-5.0, libmysqlclient14-dev | libmysqlclient15-dev,
- mysql-client-4.1 | mysql-client-5.0, adduser
+ mysql-server-4.1 | mysql-server-5.0 | mysql-server-5.1, libmysqlclient14-dev | libmysqlclient15-dev | libmysqlclient16-dev,
+ mysql-client-4.1 | mysql-client-5.0 | mysql-client-5.1, adduser
 Description: Streaming Audio Server
  Squeezebox Server is a cross-platform streaming server that supports a wide range
  of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and WMA.
