@@ -30,7 +30,7 @@
 
 
 Name:		squeezeboxserver
-Packager:	Slim Devices/Logitech <support@slimdevices.com>
+Packager:	Logitech - please visit www.mysqueezebox.com/support
 Version:	%{_version}
 Release:	%{rpm_release}
 Summary:        SqueezeBox Server
