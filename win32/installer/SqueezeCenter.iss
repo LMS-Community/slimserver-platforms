@@ -1,13 +1,13 @@
 ;
 ; InnoSetup Script for Squeezebox Server
 ;
-; Slim Devices/Logitech : http://www.slimdevices.com
+; Logitech : http://www.logitech.com
 ;
 ; Script by Chris Eastwood, January 2003 - http://www.vbcodelibrary.co.uk
 
 #define AppName "Squeezebox Server"
 #define AppVersion "7.5.0"
-#define ProductURL "http://www.slimdevices.com"
+#define ProductURL "http://www.mysqueezebox.com/support"
 #define SSRegKey = "Software\SlimDevices\SlimServer"
 #define SCRegKey = "Software\Logitech\SqueezeCenter"
 #define SBRegKey = "Software\Logitech\Squeezebox"
