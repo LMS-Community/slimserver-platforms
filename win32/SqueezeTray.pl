@@ -17,6 +17,10 @@ use Win32::Locale;
 use Win32::Process;
 use Win32::Process::List;
 
+use Win32::TieRegistry ('Delimiter' => '/');
+
+use constant SB_USER_REGISTRY_KEY => 'CUser/Software/Logitech/Squeezebox';
+
 use constant SLIM_SERVICE => 0;
 use constant SCANNER      => 0;
 use constant ISWINDOWS    => 1;
@@ -47,23 +51,24 @@ ${^WIN32_SLOPPY_STAT} = 1;
 # Dynamically create the popup menu based on Squeezebox Server state
 sub PopupMenu {
 	my @menu = ();
+	
+	my $type = $svcMgr->getStartupType();
+	my $state = $svcMgr->getServiceState();
 
-	push @menu, ['*' . string('OPEN_CONTROLPANEL'), \&openControlPanel];
+	push @menu, [($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'} ? '' : '*') . string('OPEN_CONTROLPANEL'), \&openControlPanel];
+	push @menu, [($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'} ? '*' : '') . string('OPEN_SQUEEZEBOX_SERVER'), $state == SC_STATE_RUNNING ? \&openServer : undef];
 
 	if ( my $installer = Slim::Utils::Light->checkForUpdate() ) {
 		push @menu, [string('INSTALL_UPDATE'), \&updateServerSoftware];	
 	}
 	push @menu, ["--------"];
-	
-	my $type = $svcMgr->getStartupType();
-	my $state = $svcMgr->getServiceState();
 
 	if ($type == SC_STARTUP_TYPE_SERVICE) {
-		push @menu, [string('OPEN_SQUEEZEBOX_SERVER'), $state == SC_STATE_RUNNING ? \&openServer : undef];
+#		push @menu, [string('OPEN_SQUEEZEBOX_SERVER'), $state == SC_STATE_RUNNING ? \&openServer : undef];
 		push @menu, [string('STOP_SQUEEZEBOX_SERVER'), $state == SC_STATE_RUNNING ? \&stopServer : undef];
 	}
 	elsif ($state == SC_STATE_RUNNING) {
-		push @menu, [string('OPEN_SQUEEZEBOX_SERVER'), \&openServer];
+#		push @menu, [string('OPEN_SQUEEZEBOX_SERVER'), \&openServer];
 		push @menu, [string('STOP_SQUEEZEBOX_SERVER'), \&stopServer];
 	}
 	elsif ($svcMgr->getServiceState() == SC_STATE_STARTING) {
@@ -86,7 +91,6 @@ sub PopupMenu {
 	}
 
 	push @menu, ["--------"];
-#	push @menu, [string('GO_TO_WEBSITE'), "Execute 'http://www.slimdevices.com'"];
 	push @menu, [string('EXIT'), "exit"];
 
 	return \@menu;
@@ -122,7 +126,20 @@ sub Singleton {
 }
 
 sub DoubleClick {
-	openControlPanel();
+	if ($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'}) {
+
+		if ($svcMgr->isRunning()) {
+			openServer();
+		}
+		else {
+			DisplayMenu();
+		}
+
+	}
+
+	else {
+		openControlPanel();
+	}
 }
 
 # Display tooltip based on SS state
