@@ -114,6 +114,13 @@ sub Singleton {
 				startServer();
 			}
 
+			if ($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'}) {
+				openServer();
+			}
+			else {
+				openControlPanel();
+			}
+
 		} elsif ($_[1] eq '--exit') {
 
 			if (scalar(@_) > 2 && $_[2] eq '--uninstall') {
@@ -225,7 +232,12 @@ sub checkAndStart {
 			startServer();
 		}
 
-		openControlPanel();
+		if ($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'}) {
+			openServer();
+		}
+		else {
+			openControlPanel();
+		}
 	}
 }
 
@@ -267,7 +279,7 @@ sub startServer {
 sub openServer {
 
 	# Check HTTP first in case Squeezebox Server has changed the HTTP port while running
-	my $serverUrl = $svcMgr->checkForHTTP();	
+	my $serverUrl = $svcMgr->checkForHTTP();
 	Execute($serverUrl) if $serverUrl;
 
 	$cliStart = $cliInstall = 0;
