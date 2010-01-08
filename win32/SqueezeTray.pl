@@ -114,6 +114,13 @@ sub Singleton {
 				startServer();
 			}
 
+			if ($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'}) {
+				openServer();
+			}
+			else {
+				openControlPanel();
+			}
+
 		} elsif ($_[1] eq '--exit') {
 
 			if (scalar(@_) > 2 && $_[2] eq '--uninstall') {
