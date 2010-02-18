@@ -3,7 +3,7 @@
 //  
 //
 //  Created by Dave Nanian on Fri Jan 03 2003.
-//  Copyright 2003-2009 Logitech
+//  Copyright 2003-2010 Logitech
 //
 
 #include <Security/Authorization.h>

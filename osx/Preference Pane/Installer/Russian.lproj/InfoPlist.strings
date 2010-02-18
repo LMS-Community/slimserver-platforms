@@ -3,4 +3,9 @@
 CFBundleName = "Установщик Squeezebox Server";
 CFBundleShortVersionString = "7.5.0";
 CFBundleGetInfoString = "Установщик Squeezebox Server, версия 7.5.0. © Logitech, 2003-2010";
-NSHumanReadableCopyright = "© Logitech, 2003-2010";
+NSHumanReadableCopyright = "© Logitech, 2003-2010";==== ORIGINAL VERSION platforms/osx/Preference Pane/Installer/Russian.lproj/InfoPlist.strings 126651686535321
+CFBundleShortVersionString = "7.4.2";
+CFBundleGetInfoString = "Установщик Squeezebox Server, версия 7.4.2. © Logitech, 2003-2009";
+NSHumanReadableCopyright = "© Logitech, 2003-2009";==== THEIR VERSION platforms/osx/Preference Pane/Installer/Russian.lproj/InfoPlist.strings (/sd/slim/7.4/trunk) 126651686535321
+CFBundleShortVersionString = "7.4.2";
+CFBundleGetInfoString = "Установщик Squeezebox Server, версия 7.4.2. © Logitech, 2003-2010";
