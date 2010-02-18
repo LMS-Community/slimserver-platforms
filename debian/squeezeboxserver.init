@@ -90,8 +90,8 @@ d_stop() {
 	## This is a bug in the start-stop-daemon that checks the PID name from the /proc/PID/stat filesystem...
 	## Unfortunately this cuts-off the name of the daemon because its longer now, and then it doesnt get 
 	## caught by the start-stop-daemon. The daemon actually reports it as squeezeboxserver_s instead of 
-	## squeezebox_safe.
-	start-stop-daemon --oknodo --stop --pidfile $PIDFILE --name squeezeboxserve --retry=TERM/30/KILL/5
+	## squeezeboxserver_safe.
+	start-stop-daemon --oknodo --stop --pidfile $PIDFILE --name squeezeboxserver_s --retry=TERM/30/KILL/5
 }
 
 #
