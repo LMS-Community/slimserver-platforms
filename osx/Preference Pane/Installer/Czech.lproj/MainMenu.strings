@@ -56,8 +56,8 @@
 /* Class = "NSButtonCell"; title = "Quit"; ObjectID = "227"; */
 "227.title" = "Ukončit";
 
-/* Class = "NSTextFieldCell"; title = "Version 7.4.2\n"; ObjectID = "228"; */
-"228.title" = "Verze 7.4.2\n";
+/* Class = "NSTextFieldCell"; title = "Version 7.4.3\n"; ObjectID = "228"; */
+"228.title" = "Verze 7.4.3\n";
 
 /* Class = "NSTextFieldCell"; title = "Waiting for the System Preferences application to quit..."; ObjectID = "231"; */
 "231.title" = "Čekání na ukončení aplikace Systémové Preference...";
