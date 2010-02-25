@@ -7,7 +7,7 @@
 
   postrotate
     # send USR1 to squeezebox PID to reset logging
-    /bin/kill -USR1 `pgrep squeezebox-serv 2>/dev/null` 2>/dev/null || :
+    /bin/kill -USR1 `pgrep squeezeboxserve -n 2>/dev/null` 2>/dev/null || :
   endscript
 }
 
