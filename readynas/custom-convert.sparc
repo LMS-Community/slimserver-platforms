@@ -44,3 +44,7 @@ flc flc transcode *
 aac pcm * *
 	[disable-faad]
 
+# ALAC native codec used here because cannot transcode
+alc alc * *
+	- 
+
