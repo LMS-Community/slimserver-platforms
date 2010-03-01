@@ -73,7 +73,8 @@
 	
 	IBOutlet WebView *statusView;
 
-    AuthorizationRef myAuthorizationRef;
+	AuthorizationRef myAuthorizationRef;
+	NSMutableData *receivedData;
 }
 
 -(void)mainViewDidLoad;
@@ -104,6 +105,7 @@
 
 -(IBAction)rescan:(id)sender;
 -(void)scanPoll;
+-(void)_scanPollResponse:(NSDictionary *)pollResult;
 
 -(int)serverPID;
 -(int)serverPort;
@@ -127,7 +129,10 @@
 -(void)doRunCleanup;
 -(NSString *)getCleanupParams;
 
+-(void)asyncJsonRequest:(NSString *)query;
 -(NSDictionary *)jsonRequest:(NSString *)query;
+-(NSMutableURLRequest *)_baseRequest:(NSString *)query;
+-(NSDictionary *)_parseJsonResponse:(NSData *)data;
 -(NSString *)getSCString:(NSString *)stringToken;
 -(NSString *)getPref:(NSString *)pref fileName:(NSString *)prefsFileName;
 -(NSString *)getPref:(NSString *)pref;

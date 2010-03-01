@@ -24,7 +24,7 @@
 	NSMutableDictionary *defaultValues;
 	BOOL rewrite = NO;
 
-	NSLog(@"Squeezebox: initializing preference pane...");
+	//NSLog(@"Squeezebox: initializing preference pane...");
 
 	if (prefs != nil)
 		defaultValues = [[prefs mutableCopy] autorelease];
@@ -49,14 +49,14 @@
 		[[NSUserDefaults standardUserDefaults] setPersistentDomain:defaultValues forName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
 	}
 
-	NSLog(@"Squeezebox: initializing input values...");
+	//NSLog(@"Squeezebox: initializing input values...");
 
 	[startupType selectItemAtIndex:[startupType indexOfItemWithTag:[[defaultValues objectForKey:@"StartupMenuTag"] intValue]]];
 	
 	scStrings = [NSMutableDictionary new];
 
 	// monitor scan progress
-	NSLog(@"Squeezebox: setting up status polling...");
+	//NSLog(@"Squeezebox: setting up status polling...");
 	
 	[NSTimer scheduledTimerWithTimeInterval: 1.9 target:self selector:@selector(scanPoll) userInfo:nil repeats:YES];
 	[scanProgressDesc setStringValue:@""];
@@ -64,7 +64,7 @@
 	[scanProgressError setStringValue:@""];
 	
 	// check whether an update installer is available
-	NSLog(@"Squeezebox: initializing update checker...");
+	//NSLog(@"Squeezebox: initializing update checker...");
 
 	updateTimer = [NSTimer scheduledTimerWithTimeInterval: 60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
 	[self checkUpdateInstaller];
@@ -297,7 +297,7 @@
 
 -(void)updateMusicLibraryStats
 {
-	NSLog(@"Squeezebox: updating music library stats...");
+	//NSLog(@"Squeezebox: updating music library stats...");
 	
 	[musicLibraryStats setStringValue:@""];
 
@@ -347,7 +347,7 @@
 			
 	}
 
-	NSLog(@"Squeezebox: music library stats update done.");
+	//NSLog(@"Squeezebox: music library stats update done.");
 }
 	
 -(void)openWebInterface:(id)sender
@@ -799,12 +799,16 @@
 
 - (void)scanPoll
 {
-	NSDictionary *pollResult = [self jsonRequest:@"\"rescanprogress\""];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"rescanprogress\""]];
+}
 
+- (void)_scanPollResponse:(NSDictionary *)pollResult
+{
 	isScanning = NO;
 	
 	if (pollResult != nil)
 	{
+		NSLog(@"%@", pollResult);
 		NSString *scanning = [pollResult valueForKey:@"rescan"];
 		NSArray *steps     = [[pollResult valueForKey:@"steps"] componentsSeparatedByString:@","];
 		NSString *failure  = [pollResult valueForKey:@"lastscanfailed"];
@@ -942,10 +946,67 @@
 	if ([self serverPID] == 0)
 		return nil;
 	
-	NSLog(@"Squeezebox: running JSON request %@...", query);
+	//NSLog(@"Squeezebox: running JSON request %@...", query);
 
-	SBJSON *parser = [SBJSON new];
+	// set up our JSON/RPC request
+	NSMutableURLRequest *request = [self _baseRequest:query];
+	
+	// Perform request and get JSON back as a NSData object
+	NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+	
+	return [self _parseJsonResponse:response];
+}
 
+-(void)asyncJsonRequest:(NSString *)query
+{
+	if ([self serverPID] == 0)
+		return;
+	
+	NSLog(@"Squeezebox: running async JSON request %@...", query);
+	
+	// set up our JSON/RPC request
+	NSMutableURLRequest *request = [self _baseRequest:query];
+	
+	NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
+	if (theConnection) {
+		receivedData=[[NSMutableData data] retain];
+	} else {
+		// inform the user that the download could not be made
+	}
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+	[receivedData setLength:0];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+	[receivedData appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+	// inform the user
+	NSLog(@"Connection failed! Error - %@ %@", [error localizedDescription], [[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+	//NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
+	//NSLog(@"%@", receivedData);
+	
+	NSDictionary *pollResult = [self _parseJsonResponse:receivedData];
+	
+	if (pollResult != nil) {
+		if ([pollResult valueForKey:@"rescan"] != nil) {
+			[self _scanPollResponse:pollResult];
+		}
+	}
+}
+
+-(NSMutableURLRequest *)_baseRequest:(NSString *)query
+{
 	NSString *post = [NSString stringWithFormat:@"{\"id\":1,\"method\":\"slim.request\",\"params\":[\"\",[%@]]}", query];
 	
 	//NSLog(@"%@", post);
@@ -959,20 +1020,25 @@
 	[request setValue:postLength forHTTPHeaderField:@"Content-Length"];
 	[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 	[request setHTTPBody:postData];
+	[request setTimeoutInterval:5];
 	
-	// Perform request and get JSON back as a NSData object
-	NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-	NSString *json_string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+	return request;
+}
+
+-(NSDictionary *)_parseJsonResponse:(NSData *)data
+{
+	NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	//NSLog(@"%@", json_string);
 	
+	SBJSON *parser = [SBJSON new];
 	NSDictionary *json = [parser objectWithString:json_string error:nil];
 	
 	if (json != nil) 
 		json = [json objectForKey:@"result"];
-
-	if (json != nil)
-		NSLog(@"Squeezebox: JSON request returning '%@'.", json);
-
+	
+	//if (json != nil)
+	//	NSLog(@"Squeezebox: JSON request returning '%@'.", json);
+	
 	return json;
 }
 
@@ -1000,7 +1066,7 @@
 			[scStrings setObject:s forKey:stringToken];
 	}
 	
-	NSLog(@"Squeezebox: getting string '%@': '%@'", stringToken, s);
+	//NSLog(@"Squeezebox: getting string '%@': '%@'", stringToken, s);
 	
 	return s;
 }
@@ -1022,7 +1088,7 @@
 		NSString *value = [prefValue valueForKey:@"_p2"];
 		
 		if (value != nil) {
-			NSLog(@"Squeezebox: Got preference '%@' using CLI: '%@'", pref, value);
+			//NSLog(@"Squeezebox: Got preference '%@' using CLI: '%@'", pref, value);
 
 			return value;
 		}
@@ -1039,7 +1105,7 @@
 	
 	NSString *pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:prefsFileName];
 	
-	NSLog(@"Squeezebox: Reading preference '%@' from file '%@'", pref, pathToPrefs);
+	//NSLog(@"Squeezebox: Reading preference '%@' from file '%@'", pref, pathToPrefs);
 	
 	if ([pathToPrefs length] == 0)
 		pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES) fileName:prefsFile];
