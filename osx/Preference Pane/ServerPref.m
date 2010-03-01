@@ -75,7 +75,7 @@
 	
 	[self showRevision];
 	
-	[self jsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
+	[self asyncJsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
 }
 
 -(int)serverPID
@@ -510,7 +510,7 @@
 	
 	if (pid != 0)
 	{
-		[self jsonRequest:[NSString stringWithFormat:@"\"stopserver\""]];
+		[self asyncJsonRequest:[NSString stringWithFormat:@"\"stopserver\""]];
 	}
 	else
 	{
@@ -632,7 +632,7 @@
 			break;
 	}
 
-	[self jsonRequest:[NSString stringWithFormat:@"\"logging\", \"group:%@\"", setId]];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"logging\", \"group:%@\"", setId]];
 }
 
 -(IBAction)showServerLog:(id)sender
@@ -703,7 +703,7 @@
 
 -(IBAction)snStatsOptionChanged:(id)sender
 {
-	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"sn_disable_stats\", \"%@\"", [snStatsOptions objectValue]]];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"sn_disable_stats\", \"%@\"", [snStatsOptions objectValue]]];
 }
 
 -(void)openSNSubscription:(id)sender
@@ -748,22 +748,22 @@
 
 -(IBAction)musicFolderChanged:(id)sender
 {
-	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"audiodir\", \"%@\"", [musicFolder stringValue]]];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"audiodir\", \"%@\"", [musicFolder stringValue]]];
 }
 
 -(IBAction)playlistFolderChanged:(id)sender
 {
-	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"playlistdir\", \"%@\"", [playlistFolder stringValue]]];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"playlistdir\", \"%@\"", [playlistFolder stringValue]]];
 }
 
 -(IBAction)useiTunesChanged:(id)sender
 {
-	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"plugin.itunes:itunes\", \"%@\"", ([useiTunes state] == NSOnState ? @"1" : @"0")]];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"plugin.itunes:itunes\", \"%@\"", ([useiTunes state] == NSOnState ? @"1" : @"0")]];
 }
 
 -(IBAction)libraryNameChanged:(id)sender
 {
-	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"libraryname\", \"%@\"", [musicLibraryName stringValue]]];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"libraryname\", \"%@\"", [musicLibraryName stringValue]]];
 }
 
 /* rescan buttons and progress */
@@ -772,7 +772,7 @@
 	if (isScanning)
 	{
 		isScanning = NO;
-		[self jsonRequest:@"\"abortscan\""];
+		[self asyncJsonRequest:@"\"abortscan\""];
 	}
 	else {
 		isScanning = YES;
@@ -781,13 +781,13 @@
 		switch ([scanModeOptions indexOfSelectedItem])
 		{
 			case 0:
-				[self jsonRequest:@"\"rescan\""];
+				[self asyncJsonRequest:@"\"rescan\""];
 				break;
 			case 1:
-				[self jsonRequest:@"\"wipecache\""];
+				[self asyncJsonRequest:@"\"wipecache\""];
 				break;
 			case 2:
-				[self jsonRequest:@"\"rescan\", \"playlists\""];
+				[self asyncJsonRequest:@"\"rescan\", \"playlists\""];
 				break;
 		}
 	
@@ -888,7 +888,7 @@
 
 -(void)doRunCleanup
 {
-	[self jsonRequest:@"\"stopserver\""];
+	[self asyncJsonRequest:@"\"stopserver\""];
 
 	NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"cleanup.sh"];
 	NSTask *cleanupTask = [NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:[self getCleanupParams],nil]];
