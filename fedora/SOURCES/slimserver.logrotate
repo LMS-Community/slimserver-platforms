@@ -3,7 +3,7 @@
     notifempty
     sharedscripts
     postrotate
-        /bin/kill -USR1 `pgrep slimserver.pl >/dev/null 2>&1` >/dev/null 2>&1 || true
+        /bin/kill -USR1 `pgrep squeezeboxserve >/dev/null 2>&1` >/dev/null 2>&1 || true
     endscript
 }
 
