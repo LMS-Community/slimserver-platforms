@@ -130,6 +130,7 @@
 -(NSString *)getCleanupParams;
 
 -(void)asyncJsonRequest:(NSString *)query;
+-(void)asyncJsonRequest:(NSString *)query timeout:(int)timeout;
 -(NSDictionary *)jsonRequest:(NSString *)query;
 -(NSMutableURLRequest *)_baseRequest:(NSString *)query;
 -(NSDictionary *)_parseJsonResponse:(NSData *)data;

@@ -275,6 +275,7 @@
 	[browsePlaylistFolder setEnabled:serverState];
 	[useiTunes setEnabled:serverState];
 
+	[rescanButton setEnabled:serverState];
 	[scanModeOptions setEnabled:(serverState && !isScanning)];
 	[scanProgress setHidden:!isScanning];
 	[scanProgressDesc setHidden:!isScanning];
@@ -799,7 +800,7 @@
 
 - (void)scanPoll
 {
-	[self asyncJsonRequest:[NSString stringWithFormat:@"\"rescanprogress\""]];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"rescanprogress\""] timeout:2];
 }
 
 - (void)_scanPollResponse:(NSDictionary *)pollResult
@@ -959,6 +960,11 @@
 
 -(void)asyncJsonRequest:(NSString *)query
 {
+	[self asyncJsonRequest:query timeout:5];
+}
+
+-(void)asyncJsonRequest:(NSString *)query timeout:(int)timeout
+{
 	if ([self serverPID] == 0)
 		return;
 	
@@ -966,12 +972,11 @@
 	
 	// set up our JSON/RPC request
 	NSMutableURLRequest *request = [self _baseRequest:query];
-	
+	[request setTimeoutInterval:timeout];
+
 	NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
 	if (theConnection) {
-		receivedData=[[NSMutableData data] retain];
-	} else {
-		// inform the user that the download could not be made
+		receivedData = [[NSMutableData data] retain];
 	}
 }
 
@@ -1020,7 +1025,6 @@
 	[request setValue:postLength forHTTPHeaderField:@"Content-Length"];
 	[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 	[request setHTTPBody:postData];
-	[request setTimeoutInterval:5];
 	
 	return request;
 }
