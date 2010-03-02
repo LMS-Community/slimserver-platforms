@@ -134,6 +134,7 @@
 -(void)asyncJsonRequest:(NSString *)query timeout:(int)timeout;
 -(NSDictionary *)jsonRequest:(NSString *)query;
 -(NSMutableURLRequest *)_baseRequest:(NSString *)query;
+-(NSMutableURLRequest *)_baseRequest:(NSString *)query port:(int)port;
 -(NSDictionary *)_parseJsonResponse:(NSData *)data;
 -(NSString *)getSCString:(NSString *)stringToken;
 -(NSString *)getPref:(NSString *)pref fileName:(NSString *)prefsFileName;

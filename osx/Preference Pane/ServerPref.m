@@ -811,7 +811,7 @@
 	
 	if (pollResult != nil)
 	{
-		NSLog(@"%@", pollResult);
+		//NSLog(@"%@", pollResult);
 		NSString *scanning = [pollResult valueForKey:@"rescan"];
 		NSArray *steps     = [[pollResult valueForKey:@"steps"] componentsSeparatedByString:@","];
 		NSString *failure  = [pollResult valueForKey:@"lastscanfailed"];
@@ -946,13 +946,17 @@
 /* JSON/RPC (CLI) helper */
 -(NSDictionary *)jsonRequest:(NSString *)query
 {
-	if ([self serverPID] == 0)
+	if (![self webState])
+		return nil;
+	
+	int port = [self serverPort];
+	if (port == 0)
 		return nil;
 	
 	//NSLog(@"Squeezebox: running JSON request %@...", query);
 
 	// set up our JSON/RPC request
-	NSMutableURLRequest *request = [self _baseRequest:query];
+	NSMutableURLRequest *request = [self _baseRequest:query port:port];
 	
 	// Perform request and get JSON back as a NSData object
 	NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
@@ -967,10 +971,7 @@
 
 -(void)asyncJsonRequest:(NSString *)query timeout:(int)timeout
 {
-	if ([self serverPID] == 0)
-		return;
-	
-	NSLog(@"Squeezebox: running async JSON request %@...", query);
+	//NSLog(@"Squeezebox: running async JSON request %@...", query);
 	
 	// set up our JSON/RPC request
 	NSMutableURLRequest *request = [self _baseRequest:query];
@@ -995,34 +996,44 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
 	// inform the user
-	NSLog(@"Connection failed! Error - %@ %@", [error localizedDescription], [[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
+	//NSLog(@"Connection failed! Error - %@ %@", [error localizedDescription], [[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
+	[self setWebState:false];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+	[self setWebState:true];
+
 	//NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
 	//NSLog(@"%@", receivedData);
 	
 	NSDictionary *pollResult = [self _parseJsonResponse:receivedData];
 	
 	if (pollResult != nil) {
+		
 		if ([pollResult valueForKey:@"rescan"] != nil) {
 			[self _scanPollResponse:pollResult];
 		}
+		
 		// the following is an optimistic guess, but most commands sent by asyncJsonRequest
 		// don't return much data. _updateMusicLibraryStats won't hurt if this isn't valid data
 		else if ([pollResult valueForKey:@"count"] && [[pollResult valueForKey:@"count"] intValue] > 3
 				 && [pollResult valueForKey:@"loop_loop"] && [pollResult valueForKey:@"title"]) {
 			[self _updateMusicLibraryStats:pollResult];
 		}
+		
 		else {
 			//NSLog(@"%@", pollResult);
 		}
 
 	}
 }
-
 -(NSMutableURLRequest *)_baseRequest:(NSString *)query
+{
+	return [self _baseRequest:query port:[self serverPort]];
+}
+
+-(NSMutableURLRequest *)_baseRequest:(NSString *)query port:(int)port
 {
 	NSString *post = [NSString stringWithFormat:@"{\"id\":1,\"method\":\"slim.request\",\"params\":[\"\",[%@]]}", query];
 	
@@ -1031,7 +1042,7 @@
 	NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];	
 	
 	// set up our JSON/RPC request
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:9000/jsonrpc.js"]];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:%i/jsonrpc.js", port]]];
 	
 	[request setHTTPMethod:@"POST"];
 	[request setValue:postLength forHTTPHeaderField:@"Content-Length"];
