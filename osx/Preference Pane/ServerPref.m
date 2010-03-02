@@ -24,7 +24,7 @@
 	NSMutableDictionary *defaultValues;
 	BOOL rewrite = NO;
 
-	NSLog(@"Squeezebox: initializing preference pane...");
+	//NSLog(@"Squeezebox: initializing preference pane...");
 
 	if (prefs != nil)
 		defaultValues = [[prefs mutableCopy] autorelease];
@@ -49,14 +49,14 @@
 		[[NSUserDefaults standardUserDefaults] setPersistentDomain:defaultValues forName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
 	}
 
-	NSLog(@"Squeezebox: initializing input values...");
+	//NSLog(@"Squeezebox: initializing input values...");
 
 	[startupType selectItemAtIndex:[startupType indexOfItemWithTag:[[defaultValues objectForKey:@"StartupMenuTag"] intValue]]];
 	
 	scStrings = [NSMutableDictionary new];
 
 	// monitor scan progress
-	NSLog(@"Squeezebox: setting up status polling...");
+	//NSLog(@"Squeezebox: setting up status polling...");
 	
 	[NSTimer scheduledTimerWithTimeInterval: 1.9 target:self selector:@selector(scanPoll) userInfo:nil repeats:YES];
 	[scanProgressDesc setStringValue:@""];
@@ -64,7 +64,7 @@
 	[scanProgressError setStringValue:@""];
 	
 	// check whether an update installer is available
-	NSLog(@"Squeezebox: initializing update checker...");
+	//NSLog(@"Squeezebox: initializing update checker...");
 
 	updateTimer = [NSTimer scheduledTimerWithTimeInterval: 60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
 	[self checkUpdateInstaller];
@@ -75,7 +75,7 @@
 	
 	[self showRevision];
 	
-	[self jsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
+	[self asyncJsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
 }
 
 -(int)serverPID
@@ -275,6 +275,7 @@
 	[browsePlaylistFolder setEnabled:serverState];
 	[useiTunes setEnabled:serverState];
 
+	[rescanButton setEnabled:serverState];
 	[scanModeOptions setEnabled:(serverState && !isScanning)];
 	[scanProgress setHidden:!isScanning];
 	[scanProgressDesc setHidden:!isScanning];
@@ -297,12 +298,14 @@
 
 -(void)updateMusicLibraryStats
 {
-	NSLog(@"Squeezebox: updating music library stats...");
-	
+	//NSLog(@"Squeezebox: updating music library stats...");
 	[musicLibraryStats setStringValue:@""];
 
-	NSDictionary *libraryStats = [self jsonRequest:@"\"systeminfo\", \"items\", \"0\", \"999\""];
+	[self asyncJsonRequest:@"\"systeminfo\", \"items\", \"0\", \"999\""];
+}
 
+-(void)_updateMusicLibraryStats:(NSDictionary *)libraryStats
+{
 	NSArray *steps = nil;
 	if (libraryStats != nil)
 		steps = [libraryStats valueForKey:@"loop_loop"];
@@ -347,7 +350,7 @@
 			
 	}
 
-	NSLog(@"Squeezebox: music library stats update done.");
+	//NSLog(@"Squeezebox: music library stats update done.");
 }
 	
 -(void)openWebInterface:(id)sender
@@ -510,7 +513,7 @@
 	
 	if (pid != 0)
 	{
-		[self jsonRequest:[NSString stringWithFormat:@"\"stopserver\""]];
+		[self asyncJsonRequest:[NSString stringWithFormat:@"\"stopserver\""]];
 	}
 	else
 	{
@@ -632,7 +635,7 @@
 			break;
 	}
 
-	[self jsonRequest:[NSString stringWithFormat:@"\"logging\", \"group:%@\"", setId]];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"logging\", \"group:%@\"", setId]];
 }
 
 -(IBAction)showServerLog:(id)sender
@@ -703,7 +706,7 @@
 
 -(IBAction)snStatsOptionChanged:(id)sender
 {
-	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"sn_disable_stats\", \"%@\"", [snStatsOptions objectValue]]];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"sn_disable_stats\", \"%@\"", [snStatsOptions objectValue]]];
 }
 
 -(void)openSNSubscription:(id)sender
@@ -748,22 +751,22 @@
 
 -(IBAction)musicFolderChanged:(id)sender
 {
-	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"audiodir\", \"%@\"", [musicFolder stringValue]]];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"audiodir\", \"%@\"", [musicFolder stringValue]]];
 }
 
 -(IBAction)playlistFolderChanged:(id)sender
 {
-	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"playlistdir\", \"%@\"", [playlistFolder stringValue]]];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"playlistdir\", \"%@\"", [playlistFolder stringValue]]];
 }
 
 -(IBAction)useiTunesChanged:(id)sender
 {
-	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"plugin.itunes:itunes\", \"%@\"", ([useiTunes state] == NSOnState ? @"1" : @"0")]];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"plugin.itunes:itunes\", \"%@\"", ([useiTunes state] == NSOnState ? @"1" : @"0")]];
 }
 
 -(IBAction)libraryNameChanged:(id)sender
 {
-	[self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"libraryname\", \"%@\"", [musicLibraryName stringValue]]];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"libraryname\", \"%@\"", [musicLibraryName stringValue]]];
 }
 
 /* rescan buttons and progress */
@@ -772,7 +775,7 @@
 	if (isScanning)
 	{
 		isScanning = NO;
-		[self jsonRequest:@"\"abortscan\""];
+		[self asyncJsonRequest:@"\"abortscan\""];
 	}
 	else {
 		isScanning = YES;
@@ -781,13 +784,13 @@
 		switch ([scanModeOptions indexOfSelectedItem])
 		{
 			case 0:
-				[self jsonRequest:@"\"rescan\""];
+				[self asyncJsonRequest:@"\"rescan\""];
 				break;
 			case 1:
-				[self jsonRequest:@"\"wipecache\""];
+				[self asyncJsonRequest:@"\"wipecache\""];
 				break;
 			case 2:
-				[self jsonRequest:@"\"rescan\", \"playlists\""];
+				[self asyncJsonRequest:@"\"rescan\", \"playlists\""];
 				break;
 		}
 	
@@ -799,12 +802,16 @@
 
 - (void)scanPoll
 {
-	NSDictionary *pollResult = [self jsonRequest:@"\"rescanprogress\""];
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"rescanprogress\""] timeout:2];
+}
 
+- (void)_scanPollResponse:(NSDictionary *)pollResult
+{
 	isScanning = NO;
 	
 	if (pollResult != nil)
 	{
+		//NSLog(@"%@", pollResult);
 		NSString *scanning = [pollResult valueForKey:@"rescan"];
 		NSArray *steps     = [[pollResult valueForKey:@"steps"] componentsSeparatedByString:@","];
 		NSString *failure  = [pollResult valueForKey:@"lastscanfailed"];
@@ -884,7 +891,7 @@
 
 -(void)doRunCleanup
 {
-	[self jsonRequest:@"\"stopserver\""];
+	[self asyncJsonRequest:@"\"stopserver\""];
 
 	NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"cleanup.sh"];
 	NSTask *cleanupTask = [NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:[self getCleanupParams],nil]];
@@ -939,13 +946,95 @@
 /* JSON/RPC (CLI) helper */
 -(NSDictionary *)jsonRequest:(NSString *)query
 {
-	if ([self serverPID] == 0)
+	if (![self webState])
 		return nil;
 	
-	NSLog(@"Squeezebox: running JSON request %@...", query);
+	int port = [self serverPort];
+	if (port == 0)
+		return nil;
+	
+	//NSLog(@"Squeezebox: running JSON request %@...", query);
 
-	SBJSON *parser = [SBJSON new];
+	// set up our JSON/RPC request
+	NSMutableURLRequest *request = [self _baseRequest:query port:port];
+	
+	// Perform request and get JSON back as a NSData object
+	NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+	
+	return [self _parseJsonResponse:response];
+}
 
+-(void)asyncJsonRequest:(NSString *)query
+{
+	[self asyncJsonRequest:query timeout:5];
+}
+
+-(void)asyncJsonRequest:(NSString *)query timeout:(int)timeout
+{
+	//NSLog(@"Squeezebox: running async JSON request %@...", query);
+	
+	// set up our JSON/RPC request
+	NSMutableURLRequest *request = [self _baseRequest:query];
+	[request setTimeoutInterval:timeout];
+
+	NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
+	if (theConnection) {
+		receivedData = [[NSMutableData data] retain];
+	}
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+	[receivedData setLength:0];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+	[receivedData appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+	// inform the user
+	//NSLog(@"Connection failed! Error - %@ %@", [error localizedDescription], [[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
+	[self setWebState:false];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+	[self setWebState:true];
+
+	//NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
+	//NSLog(@"%@", receivedData);
+	
+	NSDictionary *pollResult = [self _parseJsonResponse:receivedData];
+	
+	if (pollResult != nil) {
+		
+		if ([pollResult valueForKey:@"rescan"] != nil) {
+			[self _scanPollResponse:pollResult];
+		}
+		
+		// the following is an optimistic guess, but most commands sent by asyncJsonRequest
+		// don't return much data. _updateMusicLibraryStats won't hurt if this isn't valid data
+		else if ([pollResult valueForKey:@"count"] && [[pollResult valueForKey:@"count"] intValue] > 3
+				 && [pollResult valueForKey:@"loop_loop"] && [pollResult valueForKey:@"title"]) {
+			[self _updateMusicLibraryStats:pollResult];
+		}
+		
+		else {
+			//NSLog(@"%@", pollResult);
+		}
+
+	}
+}
+-(NSMutableURLRequest *)_baseRequest:(NSString *)query
+{
+	return [self _baseRequest:query port:[self serverPort]];
+}
+
+-(NSMutableURLRequest *)_baseRequest:(NSString *)query port:(int)port
+{
 	NSString *post = [NSString stringWithFormat:@"{\"id\":1,\"method\":\"slim.request\",\"params\":[\"\",[%@]]}", query];
 	
 	//NSLog(@"%@", post);
@@ -953,26 +1042,30 @@
 	NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];	
 	
 	// set up our JSON/RPC request
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:9000/jsonrpc.js"]];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:%i/jsonrpc.js", port]]];
 	
 	[request setHTTPMethod:@"POST"];
 	[request setValue:postLength forHTTPHeaderField:@"Content-Length"];
 	[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 	[request setHTTPBody:postData];
 	
-	// Perform request and get JSON back as a NSData object
-	NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-	NSString *json_string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+	return request;
+}
+
+-(NSDictionary *)_parseJsonResponse:(NSData *)data
+{
+	NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	//NSLog(@"%@", json_string);
 	
+	SBJSON *parser = [SBJSON new];
 	NSDictionary *json = [parser objectWithString:json_string error:nil];
 	
 	if (json != nil) 
 		json = [json objectForKey:@"result"];
-
-	if (json != nil)
-		NSLog(@"Squeezebox: JSON request returning '%@'.", json);
-
+	
+	//if (json != nil)
+	//	NSLog(@"Squeezebox: JSON request returning '%@'.", json);
+	
 	return json;
 }
 
@@ -1000,7 +1093,7 @@
 			[scStrings setObject:s forKey:stringToken];
 	}
 	
-	NSLog(@"Squeezebox: getting string '%@': '%@'", stringToken, s);
+	//NSLog(@"Squeezebox: getting string '%@': '%@'", stringToken, s);
 	
 	return s;
 }
@@ -1022,7 +1115,7 @@
 		NSString *value = [prefValue valueForKey:@"_p2"];
 		
 		if (value != nil) {
-			NSLog(@"Squeezebox: Got preference '%@' using CLI: '%@'", pref, value);
+			//NSLog(@"Squeezebox: Got preference '%@' using CLI: '%@'", pref, value);
 
 			return value;
 		}
@@ -1039,7 +1132,7 @@
 	
 	NSString *pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:prefsFileName];
 	
-	NSLog(@"Squeezebox: Reading preference '%@' from file '%@'", pref, pathToPrefs);
+	//NSLog(@"Squeezebox: Reading preference '%@' from file '%@'", pref, pathToPrefs);
 	
 	if ([pathToPrefs length] == 0)
 		pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES) fileName:prefsFile];
