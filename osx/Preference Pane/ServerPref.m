@@ -299,11 +299,13 @@
 -(void)updateMusicLibraryStats
 {
 	//NSLog(@"Squeezebox: updating music library stats...");
-	
 	[musicLibraryStats setStringValue:@""];
 
-	NSDictionary *libraryStats = [self jsonRequest:@"\"systeminfo\", \"items\", \"0\", \"999\""];
+	[self asyncJsonRequest:@"\"systeminfo\", \"items\", \"0\", \"999\""];
+}
 
+-(void)_updateMusicLibraryStats:(NSDictionary *)libraryStats
+{
 	NSArray *steps = nil;
 	if (libraryStats != nil)
 		steps = [libraryStats valueForKey:@"loop_loop"];
@@ -1007,6 +1009,16 @@
 		if ([pollResult valueForKey:@"rescan"] != nil) {
 			[self _scanPollResponse:pollResult];
 		}
+		// the following is an optimistic guess, but most commands sent by asyncJsonRequest
+		// don't return much data. _updateMusicLibraryStats won't hurt if this isn't valid data
+		else if ([pollResult valueForKey:@"count"] && [[pollResult valueForKey:@"count"] intValue] > 3
+				 && [pollResult valueForKey:@"loop_loop"] && [pollResult valueForKey:@"title"]) {
+			[self _updateMusicLibraryStats:pollResult];
+		}
+		else {
+			//NSLog(@"%@", pollResult);
+		}
+
 	}
 }
 

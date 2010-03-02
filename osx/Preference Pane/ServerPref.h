@@ -87,6 +87,7 @@
 -(bool)changeAutoStartupFrom:(int)oldState to:(int)newState;
 -(IBAction)libraryNameChanged:(id)sender;
 -(void)updateMusicLibraryStats;
+-(void)_updateMusicLibraryStats:(NSDictionary *)libraryStats;
 
 -(IBAction)checkSNPassword:(id)sender;
 -(IBAction)snCredentialsChanged:(id)sender;
