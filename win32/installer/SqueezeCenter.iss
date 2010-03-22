@@ -135,6 +135,8 @@ Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\
 
 [InstallDelete]
 Type: filesandordirs; Name: {group}
+; bug 9698: remove old (<=7.5) artwork cache, as it can take a loooong time to check permissions and we don't use it any more
+Type: filesandordirs; Name: {commonappdata}\Squeezebox\Cache\Artwork;
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
@@ -854,6 +856,7 @@ begin
 				end;
 		end;	
 end;
+
 
 
 
