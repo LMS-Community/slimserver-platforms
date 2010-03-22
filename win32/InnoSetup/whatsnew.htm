@@ -19,25 +19,98 @@
 </head>
 <body>
 
-<!-- $jrsoftware: issrc/whatsnew.htm,v 1.589 2009/08/15 19:10:49 mlaan Exp $ -->
+<!-- $jrsoftware: issrc/whatsnew.htm,v 1.640 2010/02/18 13:33:56 mlaan Exp $ -->
 
 <div class="bluehead"><span class="head1">Inno Setup 5</span><br /><span class="head2">Revision History</span></div>
 
-<p>Copyright &copy; 1997-2009 <a href="http://www.jrsoftware.org/">Jordan Russell</a>. All rights reserved.<br />
-Portions Copyright &copy; 2000-2009 Martijn Laan. All rights reserved.<br />
+<p>Copyright &copy; 1997-2010 <a href="http://www.jrsoftware.org/">Jordan Russell</a>. All rights reserved.<br />
+Portions Copyright &copy; 2000-2010 Martijn Laan. All rights reserved.<br />
 For conditions of distribution and use, see <a href="http://www.jrsoftware.org/files/is/license.txt">LICENSE.TXT</a>.
 </p>
 
-<p><a name="5.3.4"></a><span class="ver">5.3.4 </span><span class="date">(2009-08-15)</span></p>
+<p><a name="5.3.8"></a><span class="ver">5.3.8 </span><span class="date">(2010-02-18)</span></p>
 <ul>
-<li>On Windows 7 the Compiler IDE now displays a progress indicator on its taskbar button.</li>
-<li>Pascal Scripting: Documented function <tt>IDispatchInvoke</tt>, which can be used to access a COM Automation property or method whose name is a reserved word.</li>
-<li><i>Unicode Inno Setup fixes</i>:
+<li>Added new [Setup] section directive: <tt>UsePreviousLanguage</tt>. When this directive is <tt>yes</tt>, the default, at startup Setup will look in the registry to see if the same application is already installed, and if so, it will use the language of the previous installation as the default language selected in the list of available languages on the <i>Select Language</i> dialog. Note that this directive does not change the language used by the <i>Select Language</i> dialog itself because it cannot assume that the current user understands the same languages as the previous user. <tt>UsePreviousLanguage</tt> must be set to <tt>no</tt> when <tt>AppId</tt> includes constants.</li>
+<li>On Windows Vista and newer, Uninstall no longer blocks system shutdown until the uninstallation has actually started. This should make the Windows 7 Logo Kit (which wrongly tests any .exe in the application directory including the uninstaller) happy when it tries to shutdown an Uninstall sitting on its confirmation prompt.</li>
+<li>On Windows NT and newer, <tt>PrivilegesRequired=lowest</tt> now has an additional effect: the uninstall info root key will always be HKEY_CURRENT_USER, and the "common" forms of the Shell Folder constants are always mapped to the "user" forms, even if administrative privileges are available.</li>
+<li>[Setup] section directive <tt>CreateUninstallRegKey</tt> may now be set to a boolean expression, which may contain calls to check functions. For example: <tt>CreateUninstallRegKey=not IsTaskSelected('portablemode')</tt>. See the <tt>CreateUninstallRegKey</tt> documentation for details.</li>
+<li>The <i>Preparing to Install</i> wizard page now offers the user an option to directly reboot instead of just saying a reboot is needed. To trigger this option from a <tt>PrepareToInstall</tt> event function set its new <tt>NeedsRestart</tt> parameter to True.</li>
+<li>In the <tt>MinVersion</tt> and <tt>OnlyBelowVersion</tt> directives and parameters, <tt>.x</tt> is now treated the same as <tt>.0x</tt> when a major version of 5 or higher is specified. Thus, you now have the option of using either <tt>5.01</tt> or <tt>5.1</tt> to specify Windows XP. However, to maintain compatibility with existing scripts, <tt>4.x</tt> will still be interpreted as <tt>4.x0</tt>.</li>
+<li>Pascal Scripting: Added new <tt>PageIndexFromID</tt> support function.</li>
+<li>The online documentation available at <a href="http://www.jrsoftware.org/ishelp/">http://www.jrsoftware.org/ishelp/</a> now has an index and is searchable.</li>
+<li>QuickStart Pack changes:</li>
   <ul>
-  <li>[Registry] section entries with <tt>ValueType</tt> set to <tt>binary</tt> did not set the correct value.</li>
-  <li>Pascal scripting: setting a COM Automation property or method parameter to a Unicode string variable caused an 'Invalid Type' error.</li>
+  <li>Added ISPP function <tt>StringChange</tt>.</li>
+  <li>The ISPP documentation is now available online at <a href="http://www.jrsoftware.org/ispphelp/">http://www.jrsoftware.org/ispphelp/</a>.</li>
   </ul>
 </li>
+<li>The uninstall program's version is now 51.(10)51.0.0.</li>
+<li>Minor tweaks.</li>
+</ul>
+
+<p><a name="5.3.7"></a><span class="ver">5.3.7 </span><span class="date">(2010-01-06)</span></p>
+<ul>
+<li>The <tt>PrivilegesRequired</tt> [Setup] section directive can now be set to <tt>lowest</tt>. On Windows Vista and later this instructs Setup to not request elevated rights (via a User Account Control dialog) even if it was started by a member of the Administrators group. Do not use this setting unless you are sure your installation will run successfully on unprivileged accounts. If you were using <tt>PrivilegesRequired=none</tt> before, it is recommended to switch to <tt>PrivilegesRequired=lowest</tt>.</li>
+<li>Added new Compiler IDE option: <i>Autosave before compiling</i>.</li>
+<li>[Tasks] section flags <tt>checkedonce</tt> and <tt>unchecked</tt> may now be combined. This combination specifies the task to be unchecked by default on the first install, and always unchecked by default on subsequent installs as well.</li>
+<li>A problem with "Not Implemented" errors when Setup or Uninstall was run on Windows 7 under special conditions such as from a non-interactive service was fixed.</li>
+<li>Changed the <i>CodePrepareToInstall.iss</i> example script to use the RunOnce registry key instead of a shortcut placed in <tt>{commonstartup}</tt>.</li>
+<li>Pascal Scripting: the Non Unicode compiler now has a <tt>PAnsiChar</tt> type just like the Unicode compiler.</li>
+<li>Added official Japanese translation.</li>
+<li>Unicode [Code] based on RemObjects Pascal Script SVN code revision 197.</li>
+<li>Minor tweaks.</li>
+</ul>
+
+<p><a name="5.3.6"></a><span class="ver">5.3.6 </span><span class="date">(2009-11-14)</span></p>
+<ul>
+<li>Windows 7 change:
+  <ul>
+  <li>Added new [Setup] section directive: <tt>UninstallDisplaySize</tt>. On Windows 7 and newer, Setup uses this directive to set the <tt>EstimatedSize</tt> value in the Uninstall registry key when possible since the Windows 7 <i>Add/Remove Programs</i> Control Panel (called <i>Program and Features</i>) no longer automatically calculates it. If an <tt>UninstallDisplaySize</tt> is not set, Setup estimates the size itself by taking the size of all files installed and adding any <tt>ExtraDiskSpaceRequired</tt> values set. Note: Windows 7 only supports the display of values smaller than 4 GB.</li>
+  </ul>
+</li>
+<li>Pascal Scripting now supports <tt>IUnknown</tt> based COM. Previously it only supported <tt>IDispatch</tt> based COM but a growing number of Windows API functions are COM based without implementing the <tt>IDispatch</tt> interface, and you can now use these as well. See the new <i>CodeAutomation2.iss</i> example script for an example. Note: this is only supported by Unicode Inno Setup at the moment, because of Delphi 2's limitations (Delphi 2 is used to compile Non Unicode Inno Setup):
+  <ul>
+  <li>Added <tt>StringToGUID</tt>, <tt>CreateComObject</tt>, and <tt>OleCheck</tt> support functions.</li>
+  <li>Added <tt>HResult</tt>, <tt>TGUID</tt>, <tt>TCLSID</tt>, and <tt>TIID</tt> support types.</li>
+  </ul>
+</li>
+<li>The compiler no longer allows a single <tt>LanguageCodePage</tt> directive to be applied to multiple languages at once. If you were using this to force Non Unicode Setup to allow the user to select any language regardless of the system code page, set [Setup] section directive <tt>ShowUndisplayableLanguages</tt> to <tt>yes</tt> instead.</li>
+<li>Added new <i>CodePrepareToInstall.iss</i> example script.</li>
+<li><i>Fix:</i> Unicode Pascal scripting: passing a very long string to <tt>Format</tt> caused an error.</li>
+<li>Minor tweaks.</li>
+</ul>
+
+<p><a name="5.3.5"></a><span class="ver">5.3.5 </span><span class="date">(2009-09-23)</span></p>
+<ul>
+<li>Windows 7 changes:
+  <ul>
+  <li>Setup, Uninstall and custom <tt>TOutputProgressWizardPage</tt> pages now make use of the new Windows 7 taskbar functionality to display progress, pause and error indicators on their taskbar buttons.</li>
+  <li>Added new [Icons] section parameter: <tt>AppUserModelID</tt>. Specifies the Windows 7 Application User Model ID for the shortcut. Ignored on earlier Windows versions and on server versions. This parameter can include constants.</li>
+  </ul>
+</li>
+<li>Windows 7 and Vista changes:
+  <ul>
+  <li>Setup, Uninstall and custom <tt>TOutputProgressWizardPage</tt> pages now display pause and error indicators on their progress bars.</li>
+  <li>Setup and Uninstall now call the Windows API function <tt>ShutdownBlockReasonCreate</tt> to set the shutdown block reason string to be displayed to the user if system shutdown is initiated. Note: this change is purely cosmetic, the fact that Setup and Uninstall block system shutdown is not new.</li>
+  </ul>
+</li>
+<li>Pascal Scripting changes:
+  <ul>
+  <li>TWinControl: Added new <tt>ParentBackground</tt> property. By setting this to False, you can ensure the background of a TPanel will always display the color assigned to its <tt>Color</tt> property, instead of it becoming transparent under certain conditions. See the <i>CodeClasses.iss</i> example script for an example.</li>
+  </ul>
+</li>
+<li>The Unicode compiler now behaves identical to the Non Unicode compiler if a language uses more than one .isl file (it no longer requires the <tt>LanguageCodePage</tt> to be set in each file), or if a languages <tt>LanguageCodePage</tt> is overwritten from the .iss file (it no longer ignores this), or if any language specific plain text ANSI <tt>LicenseFile</tt>, <tt>InfoBeforeFile</tt>, or <tt>InfoAfterFile</tt> is used (it now converts these to Unicode using the languages <tt>LanguageCodePage</tt> at compile-time, instead of using the system codepage at run-time).</li>
+<li><i>Fix:</i> Pascal scripting: passing a Unicode string to some built-in functions like <tt>Copy</tt> caused the string to be converted to ANSI.</li>
+<li>The uninstall program's version is now 51.(10)50.0.0.</li>
+<li>Minor tweaks.</li>
+</ul>
+
+<p><a name="5.3.4"></a><span class="ver">5.3.4 </span><span class="date">(2009-08-15)</span></p>
+<ul>
+<li>On Windows 7 the Compiler IDE now makes use of the new Windows 7 taskbar functionality to display progress, pause and error indicators on its taskbar button.</li>
+<li>Pascal Scripting: Documented function <tt>IDispatchInvoke</tt>, which can be used to access a COM Automation property or method whose name is a reserved word.</li>
+<li><i>Fix:</i> Unicode [Registry] section entries with <tt>ValueType</tt> set to <tt>binary</tt> did not set the correct value.</li>
+<li><i>Fix:</i> Pascal scripting: setting a COM Automation property or method parameter to a Unicode string variable caused an 'Invalid Type' error.</li>
 </ul>
 
 <p><a name="5.3.3"></a><span class="ver">5.3.3 </span><span class="date">(2009-08-01)</span></p>
@@ -76,11 +149,12 @@ For conditions of distribution and use, see <a href="http://www.jrsoftware.org/f
   <li>Added new [Files] section parameter: <tt>StrongAssemblyName</tt>.</li>
   <li>Added new constants: <tt>{regasmexe}</tt>, <tt>{regasmexe32}</tt>, <tt>{regasmexe64}</tt>.</li>
   </ul>
+</li>
 <li><tt>MinVersion</tt> parameter/directive change: if you leave one of the versions empty then it will use the default <tt>MinVersion</tt> for that platform.</li>
 <li>Pascal Scripting: Added new <tt>MinimizePathName</tt> support function.</li>
 <li>Added Unicode support: there's now a second version of Inno Setup available called Unicode Inno Setup. Key features of this version are its ability to display any language on any system regardless of the system code page, and its ability to work with Unicode filenames. Notes:
   <ul>
-  <li>Unicode Inno Setup uses the existing ANSI .isl language files and you should not convert these to Unicode or anything similar since it does so automatically during compilation using the <tt>LanguageCodePage</tt> setting listed inside the language's .isl file. However, you do need to convert existing [Messages] and [CustomMessages] entries in your .iss files to Unicode if the language used a special "code page" (character set).</li>
+  <li>Unicode Inno Setup uses the existing ANSI .isl language files and you should not and may not convert these to Unicode or anything similar since it does so automatically during compilation using the <tt>LanguageCodePage</tt> setting listed inside the language's .isl file. However, you do need to convert existing [Messages] and [CustomMessages] entries in your .iss files to Unicode if the language used a special <tt>LanguageCodePage</tt>.</li>
   <li>The [Setup] directive <tt>ShowUndisplayableLanguages</tt> is ignored by Unicode Inno Setup.</li>
   <li>Unicode Inno Setup is compiled with Delphi 2009 instead of Delphi 2 and 3, leading to slightly larger files. The source code however is still compatible with Delphi 2 and 3, and a non Unicode version will remain available.</li>
   <li>Unicode Inno Setup and installers created by it require Windows 2000/XP or newer. The non Unicode version still works on NT/9x.</li>
@@ -116,10 +190,12 @@ For conditions of distribution and use, see <a href="http://www.jrsoftware.org/f
   <ul>
   <li>Added new <i>Tools | Configure Sign Tools...</i> command.</li>
   </ul>
+</li>
 <li>Command line compiler changes:
   <ul>
   <li>Added new "/S" parameter to specify a Sign Tool.</li>
   </ul>
+</li>
 <li>Added new [Files] section flag: <tt>sortfilesbyname</tt>.</li>
 </ul>
 

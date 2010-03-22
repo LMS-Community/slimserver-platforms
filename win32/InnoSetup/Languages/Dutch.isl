@@ -2,9 +2,9 @@
 ;
 ; This file is based on user-contributed translations by various authors
 ;
-; Maintained by Martijn Laan (mlaan@wintax.nl)
+; Maintained by Martijn Laan (mlaan@jrsoftware.org)
 ;
-; $jrsoftware: issrc/Files/Languages/Dutch.isl,v 1.21 2007/03/06 12:56:38 mlaan Exp $
+; $jrsoftware: issrc/Files/Languages/Dutch.isl,v 1.25 2010/01/06 10:03:55 mlaan Exp $
                                      
 [LangOptions]                
 LanguageName=Nederlands      
@@ -56,7 +56,7 @@ AboutSetupMenuItem=&Over Setup...
 AboutSetupTitle=Over Setup
 AboutSetupMessage=%1 versie %2%n%3%n%n%1-homepage:%n%4
 AboutSetupNote=
-TranslatorNote=Dutch translation maintained by Martijn Laan (mlaan@wintax.nl)
+TranslatorNote=Dutch translation maintained by Martijn Laan (mlaan@jrsoftware.org)
 
 ; *** Buttons
 ButtonBack=< Vo&rige
@@ -123,7 +123,7 @@ WizardSelectDir=Kies de doelmap
 SelectDirDesc=Waar moet [name] geïnstalleerd worden?
 SelectDirLabel3=Setup zal [name] in de volgende map installeren.
 SelectDirBrowseLabel=Klik op Volgende om door te gaan. Klik op Bladeren om een andere map te kiezen.
-DiskSpaceMBLabel=Er is tenminste [mb] MB vrije schijfruimte vereist.
+DiskSpaceMBLabel=Er is ten minste [mb] MB vrije schijfruimte vereist.
 ToUNCPathname=Setup kan niet installeren naar een UNC-padnaam. Als u wilt installeren naar een netwerk, moet u een netwerkverbinding maken.
 InvalidPath=U moet een volledig pad met stationsletter invoeren; bijvoorbeeld:%nC:\APP%n%nof een UNC pad zoals:%n%n\\server\share
 InvalidDrive=Het geselecteerde station bestaat niet. Kies een ander station.
@@ -181,7 +181,7 @@ ReadyMemoTasks=Extra taken:
 ; *** "Preparing to Install" wizard page
 WizardPreparing=Bezig met het voorbereiden van de installatie
 PreparingDesc=Bezig met het voorbereiden van [name] installatie.
-PreviousInstallNotCompleted=De installatie/verwijdering van een vorig programma is niet voltooid. U moet uw computer opnieuw opstarten om die installatie te voltooien.%n%nStart [name] Setup nogmaals als uw computer opnieuw is opgetart .
+PreviousInstallNotCompleted=De installatie/verwijdering van een vorig programma is niet voltooid. U moet uw computer opnieuw opstarten om die installatie te voltooien.%n%nStart [name] Setup nogmaals als uw computer opnieuw is opgestart.
 CannotContinue=Setup kan niet doorgaan. Klik op annuleren om af te sluiten.
 
 ; *** "Installing" wizard page
