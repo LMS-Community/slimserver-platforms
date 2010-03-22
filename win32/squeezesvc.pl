@@ -28,6 +28,16 @@ if ($install) {
 	
 	# try to use Windows' SC tool first - much faster than using the server binary
 	if ($sc) {
+	
+		# configure user to run the server - he needs the right to logon as a service
+		if ($username) {
+			my $user = $username;
+			$user =~ s/^.*\\//;
+			
+			my $grant = PerlApp::extract_bound_file('grant.exe');
+			`$grant add SeServiceLogonRight $user` if $username && $grant;
+		}
+
 		my $args = '';
 		
 		$args .= " obj= $username" if $username;
