@@ -6,7 +6,7 @@
 ; Script by Chris Eastwood, January 2003 - http://www.vbcodelibrary.co.uk
 
 #define AppName "Squeezebox Server"
-#define AppVersion "7.5.0"
+#define AppVersion "7.6.0"
 #define ProductURL "http://www.mysqueezebox.com/support"
 #define SSRegKey = "Software\SlimDevices\SlimServer"
 #define SCRegKey = "Software\Logitech\SqueezeCenter"
@@ -514,7 +514,7 @@ begin
 
 	DelTree(ServerDir + AddBackslash('CPAN') + AddBackslash('arch'), true, true, true);
 
-	// as of SC 7.5.0 we include everything but the Plugin folder with the binary
+	// as of SC 7.4.0 we include everything but the Plugin folder with the binary
 	DelTree(ServerDir + AddBackslash('Slim'), true, true, true);
 
 	DelDir := ServerDir + AddBackslash('HTML');
