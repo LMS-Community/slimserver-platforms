@@ -935,8 +935,16 @@
 	
 	// SqueezeNetwork settings
 	else {
-		[snUsername setStringValue:[self getPref:@"sn_email"]];
-		[snPassword setStringValue:([self getPref:@"sn_password_sha"] != @"" ? snPasswordPlaceholder : @"")];
+		NSString *username = [self getPref:@"sn_email"];
+		
+		if (username == nil || [username isEqual:[NSNull null]]) {
+			[snUsername setStringValue:@""];
+			[snPassword setStringValue:@""];
+		}
+		else {
+			[snUsername setStringValue:(username)];
+			[snPassword setStringValue:([self getPref:@"sn_password_sha"] != @"" ? snPasswordPlaceholder : @"")];
+		}
 		
 		int option = [[self getPref:@"sn_disable_stats"] intValue];
 		[snStatsOptions selectItemAtIndex:(option == 1 ? 1 : 0)];
