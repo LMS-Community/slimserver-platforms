@@ -514,7 +514,8 @@ begin
 
 	DelTree(ServerDir + AddBackslash('CPAN') + AddBackslash('arch'), true, true, true);
 
-	// as of SC 7.4.0 we include everything but the Plugin folder with the binary
+	// as of SC 7.4.1 we include everything but the Plugin folder with the binary
+
 	DelTree(ServerDir + AddBackslash('Slim'), true, true, true);
 
 	DelDir := ServerDir + AddBackslash('HTML');
