@@ -61,7 +61,6 @@ DirExistsWarning=no
 MinVersion=0,5
 
 [Files]
-Source: SqueezeTray.exe; DestDir: {app}; Flags: ignoreversion
 Source: Release Notes.html; DestDir: {app}; Flags: ignoreversion
 
 ; a dll to verify if a process is still running
@@ -75,6 +74,7 @@ Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Flags: ignore
 ; Next line takes everything from the source '\server' directory and copies it into the setup
 ; it's output into the same location from the users choice.
 Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*"; Flags: recursesubdirs ignoreversion
+Source: SqueezeTray.exe; DestDir: {app}; Flags: ignoreversion
 
 [Dirs]
 Name: {commonappdata}\Squeezebox; Permissions: users-modify
