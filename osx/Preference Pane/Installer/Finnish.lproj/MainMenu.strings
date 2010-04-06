@@ -56,8 +56,8 @@
 /* Class = "NSButtonCell"; title = "Quit"; ObjectID = "227"; */
 "227.title" = "Lopeta";
 
-/* Class = "NSTextFieldCell"; title = "Version 7.5.0\n"; ObjectID = "228"; */
-"228.title" = "Versio 7.5.0\n";
+/* Class = "NSTextFieldCell"; title = "Version 7.5.1\n"; ObjectID = "228"; */
+"228.title" = "Versio 7.5.1\n";
 
 /* Class = "NSTextFieldCell"; title = "Waiting for the System Preferences application to quit..."; ObjectID = "231"; */
 "231.title" = "Odotetaan, että Järjestelmäasetukset-sovellus suljetaan...";
