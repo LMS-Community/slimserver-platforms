@@ -44,7 +44,7 @@ flc flc transcode *
 aac pcm * *
 	[disable-faad]
 
-# ALAC native codec used here because cannot transcode
-alc alc * *
-	- 
-
+# Netgear-provided alac used here
+alc pcm * *
+	# F
+	[alac] -r $FILE$
