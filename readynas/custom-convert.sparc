@@ -44,7 +44,6 @@ flc flc transcode *
 aac pcm * *
 	[disable-faad]
 
-# Netgear-provided alac used here
 alc pcm * *
-	# F
-	[alac] -r $FILE$
+	# FT:{START=-j %s}
+	[faad] -q -w -f 2 $START$ $FILE$
