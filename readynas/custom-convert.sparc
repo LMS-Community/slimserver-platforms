@@ -1,10 +1,14 @@
-mov pcm * *
-	# F
-	[mp42aac] $FILE$ -stdout | [aac2wav] -stdin -stdout
-
 mp4 pcm * *
-	# F
-	[mp42aac] $FILE$ -stdout | [aac2wav] -stdin -stdout
+	# FT:{START=-j %s}
+	[faad] -q -w -f 2 -b 1 -s 44100 $START$ $FILE$
+
+aac pcm * *
+	# IF
+	[faad] -q -w -f 2 -b 1 -s 44100 $FILE$
+
+alc pcm * *
+	# FT:{START=-j %s}
+	[faad] -q -w -f 2 $START$ $FILE$
 
 # don't transcode to flac on ReadyNAS/Sparc - it's not powerful enough
 
@@ -41,9 +45,3 @@ alc flc * *
 flc flc transcode *
 	[disable-flac]
 
-aac pcm * *
-	[disable-faad]
-
-alc pcm * *
-	# FT:{START=-j %s}
-	[faad] -q -w -f 2 $START$ $FILE$
