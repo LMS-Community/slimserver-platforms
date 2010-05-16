@@ -10,3 +10,6 @@ Source: http://www.readynas.com/download/GPL/RNR4_RND4_RND2_4.1.6_WW_src.zip
 * alac is in the alac_decoder directory
 
 Read the README.INFRANT files in each directory for build instructions.
+
+faad was compiled with:
+-DFIXED_POINT -DPADRE -O3
