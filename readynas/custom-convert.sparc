@@ -1,3 +1,7 @@
+mov pcm * *
+	# FT:{START=-j %s}
+	[faad] -q -w -f 2 -b 1 $START$ $FILE$
+
 mp4 pcm * *
 	# FT:{START=-j %s}
 	[faad] -q -w -f 2 -b 1 $START$ $FILE$
