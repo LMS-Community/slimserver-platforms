@@ -46,7 +46,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Vendor:		Logitech
 
 
-Requires:	/usr/bin/mysqld_safe, perl >= 5.8.8
+Requires:	perl >= 5.8.8
 Obsoletes:	squeezecenter, slimserver, SliMP3
 AutoReqProv:	no
 
