@@ -257,7 +257,12 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                     ManagementPath mp = new ManagementPath(@"Win32_Service.Name='" + svcName + "'");
                     ManagementObject svcMgr = new ManagementObject(mp);
 
-                    svcMgr.InvokeMethod("ChangeStartMode", p);
+                    String success = svcMgr.InvokeMethod("ChangeStartMode", p).ToString();
+
+                    if (success != @"0")
+                    {
+                        MessageBox.Show("Service Manager returned error code " + success, "Squeezebox Server", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                 }
                 catch {
                     MessageBox.Show("Changing startup mode failed.", "Squeezebox Server", MessageBoxButtons.OK, MessageBoxIcon.Error);

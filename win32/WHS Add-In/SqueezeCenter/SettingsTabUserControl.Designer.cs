@@ -260,6 +260,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.cbStartAtBoot.TabIndex = 44;
             this.cbStartAtBoot.Text = "Start Squeezebox Server when system boots";
             this.cbStartAtBoot.UseVisualStyleBackColor = false;
+            this.cbStartAtBoot.Click += new System.EventHandler(this.cbStartAtBoot_Click);
             // 
             // btnStartStopService
             // 
