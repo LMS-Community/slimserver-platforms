@@ -17,3 +17,7 @@ Singleton: 1
 Trim: Slim::Utils::OS::*
 Trim: Slim::Utils::ServiceManager::*
 Trim: Slim::Utils::Update
+Trim: Slim::Utils::Prefs
+Trim: Win32::NetResource
+Trim: Win32API::File
+Trim: Win32::Shortcut
