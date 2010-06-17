@@ -1,8 +1,8 @@
-<?define version='7.5.1.!!revision!!' ?>
+<?define version='7.5.2.!!revision!!' ?>
 <?define UpgradeCode = "1DB91230-EBBC-11DD-BA2F-0800200C9A66" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product
-		Name="Squeezebox Server 7.5.1-!!revision!! for Windows Home Server"
+		Name="Squeezebox Server 7.5.2-!!revision!! for Windows Home Server"
 		Id="*"
 		UpgradeCode="$(var.UpgradeCode)"
 		Manufacturer="Logitech"
