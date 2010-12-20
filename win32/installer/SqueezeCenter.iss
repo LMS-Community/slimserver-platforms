@@ -6,7 +6,7 @@
 ; Script by Chris Eastwood, January 2003 - http://www.vbcodelibrary.co.uk
 
 #define AppName "Squeezebox Server"
-#define AppVersion "7.5.2"
+#define AppVersion "7.5.3"
 #define ProductURL "http://www.mysqueezebox.com/support"
 #define SSRegKey = "Software\SlimDevices\SlimServer"
 #define SCRegKey = "Software\Logitech\SqueezeCenter"
