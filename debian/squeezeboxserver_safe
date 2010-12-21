@@ -38,7 +38,7 @@ do
   # builtin to return immediately with an exit status greater than
   # 128, immediately after which the trap is executed.
 
-  "$@" > /dev/null 2>&1 &
+  "$@" --norestart > /dev/null 2>&1 &
   SLIMPID=$!
   
   # wait for Squeezebox to get started before wait()
