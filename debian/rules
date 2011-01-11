@@ -70,6 +70,7 @@ install:
 	cp -r ${source}/SQL ${base}/${share}
 	cp -r ${source}/strings.txt ${base}/${share}
 	cp -r ${source}/MySQL ${base}/${share}
+	cp -r ${source}/icudt46*.dat ${base}/${share}
 
 
 	# We put the Plugins into /var/lib/ because they are modifiable, 

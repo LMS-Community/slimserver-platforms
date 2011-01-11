@@ -70,6 +70,7 @@ install:
 	cp -rf ${source}/SQL ${base}/${share}
 	cp -rf ${source}/strings.txt ${base}/${share}
 	cp -rf ${source}/MySQL ${base}/${share}
+	cp -rf ${source}/icudt46*.dat ${base}/${share}
 
 	# Make sure we copy in the Bin directory
 	cp -rf ${source}/Bin ${base}/${share}
