@@ -52,9 +52,9 @@
 /* NSMenuItem : <title:To This User> (oid:201) */
 "To This User" = "Tälle käyttäjälle";
 
-/* NSTextField (Version 7.5.3 ) : <title:Version 7.5.3
+/* NSTextField (Version 7.5.4 ) : <title:Version 7.5.4
 > (oid:211) */
-"Version 7.5.3\n" = "Versio 7.5.3\n";
+"Version 7.5.4\n" = "Versio 7.5.4\n";
 
 /* NSTextField (Waiting for the System Preferences application to quit...) : <title:Waiting for the System Preferences application to quit...> (oid:214) */
 "Waiting for the System Preferences application to quit..." = "Odotetaan, että Järjestelmäasetukset-sovellus suljetaan...";
