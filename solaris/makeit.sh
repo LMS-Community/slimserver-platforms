@@ -1,6 +1,6 @@
 #!/bin/sh
 #set -x
-distdir="${1:-SlimServer_v7.5.3}"
+distdir="${1:-SlimServer_v7.5.4}"
 title="$distdir"
 
 mkdir $distdir/pkg

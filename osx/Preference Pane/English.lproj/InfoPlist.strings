@@ -1,7 +1,7 @@
 ﻿/* Localized versions of Info.plist keys */
 
 CFBundleName = "Squeezebox Server";
-CFBundleShortVersionString = "7.5.3";
-CFBundleGetInfoString = "Squeezebox Server version 7.5.3, Copyright 2002-2010 Logitech";
+CFBundleShortVersionString = "7.5.4";
+CFBundleGetInfoString = "Squeezebox Server version 7.5.4, Copyright 2002-2010 Logitech";
 NSHumanReadableCopyright = "Copyright 2002-2010 Logitech";
 NSPrefPaneIconLabel = "Squeezebox\nServer";
