@@ -10,14 +10,19 @@
 ;
 ; Maintained by Pierre Yager (pierre@levosgien.net)
 ;
-; Contributors : Frédéric Bonduelle, Francis Pallini, Lumina
+; Contributors : Frédéric Bonduelle, Francis Pallini, Lumina, Pascal Peyrot
 ;
 ; Changes :
-; + Accents on uppercase letters: http://www.academie-francaise.fr/langue/questions.html#accentuation (lumina)
-; + Typography quotes [see ISBN: 978-2-7433-0482-9]: http://fr.wikipedia.org/wiki/Guillemet (lumina)
-; + Binary units (Kio,Mio) [IEC 80000-13:2008]: http://fr.wikipedia.org/wiki/Octet (lumina)
+; + Accents on uppercase letters
+;      http://www.academie-francaise.fr/langue/questions.html#accentuation (lumina)
+; + Typography quotes [see ISBN: 978-2-7433-0482-9]
+;      http://fr.wikipedia.org/wiki/Guillemet (lumina)
+; + Binary units (Kio, Mio) [IEC 80000-13:2008]
+;      http://fr.wikipedia.org/wiki/Octet (lumina)
+; + Reverted to standard units (Ko, Mo) to follow Windows Explorer Standard
+;      http://blogs.msdn.com/b/oldnewthing/archive/2009/06/11/9725386.aspx
 ;
-; $jrsoftware: issrc/Files/Languages/French.isl,v 1.16 2009/04/02 22:22:04 pierrey Exp $
+; $jrsoftware: issrc/Files/Languages/French.isl,v 1.18 2011/02/15 14:52:59 mlaan Exp $
 
 [LangOptions]
 LanguageName=Fran<00E7>ais
@@ -136,12 +141,12 @@ WizardSelectDir=Dossier de destination
 SelectDirDesc=Où [name] doit-il être installé ?
 SelectDirLabel3=L'assistant va installer [name] dans le dossier suivant.
 SelectDirBrowseLabel=Pour continuer, appuyez sur Suivant. Si vous souhaitez choisir un dossier différent, appuyez sur Parcourir.
-DiskSpaceMBLabel=Le programme requiert au moins [mb] Mio d'espace disque disponible.
+DiskSpaceMBLabel=Le programme requiert au moins [mb] Mo d'espace disque disponible.
 ToUNCPathname=L'assistant d'installation ne supporte pas les chemins réseau. Si vous souhaitez effectuer cette installation sur un réseau, vous devez d'abord connecter un lecteur réseau.
 InvalidPath=Vous devez saisir un chemin complet avec sa lettre de lecteur ; par exemple :%n%nC:\APP%n%nou un chemin réseau de la forme :%n%n\\serveur\partage
 InvalidDrive=L'unité ou l'emplacement réseau que vous avez sélectionné n'existe pas ou n'est pas accessible. Veuillez choisir une autre destination.
 DiskSpaceWarningTitle=Espace disponible insuffisant
-DiskSpaceWarning=L'assistant a besoin d'au moins %1 Kio d'espace disponible pour effectuer l'installation, mais l'unité que vous avez sélectionnée ne dispose que de %2 Kio d'espace disponible.%n%nSouhaitez-vous continuer malgré tout ?
+DiskSpaceWarning=L'assistant a besoin d'au moins %1 Ko d'espace disponible pour effectuer l'installation, mais l'unité que vous avez sélectionnée ne dispose que de %2 Ko d'espace disponible.%n%nSouhaitez-vous continuer malgré tout ?
 DirNameTooLong=Le nom ou le chemin du dossier est trop long.
 InvalidDirName=Le nom du dossier est invalide.
 BadDirName32=Le nom du dossier ne doit contenir aucun des caractères suivants :%n%n%1
@@ -160,9 +165,9 @@ CompactInstallation=Installation compacte
 CustomInstallation=Installation personnalisée
 NoUninstallWarningTitle=Composants existants
 NoUninstallWarning=L'assistant d'installation a détecté que les composants suivants sont déjà installés sur votre système :%n%n%1%n%nDésélectionner ces composants ne les désinstallera pas pour autant.%n%nVoulez-vous continuer malgré tout ?
-ComponentSize1=%1 Kio
-ComponentSize2=%1 Mio
-ComponentsDiskSpaceMBLabel=Les composants sélectionnés nécessitent au moins [mb] Mio d'espace disponible.
+ComponentSize1=%1 Ko
+ComponentSize2=%1 Mo
+ComponentsDiskSpaceMBLabel=Les composants sélectionnés nécessitent au moins [mb] Mo d'espace disponible.
 
 ; *** "Select Additional Tasks" wizard page
 WizardSelectTasks=Tâches supplémentaires

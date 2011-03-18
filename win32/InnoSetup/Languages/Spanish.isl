@@ -1,8 +1,8 @@
 ; *** Inno Setup version 5.1.11+ Spanish messages ***
 ;
 ; Maintained by Jorge Andres Brugger (jbrugger@gmx.net)
-; Spanish.isl version 0.8 (20070328)
-; Default.isl version 1.69
+; Spanish.isl version 0.9 (20100922)
+; Default.isl version 1.72
 ; 
 ; Thanks to Germán Giraldo, Jordi Latorre, Ximo Tamarit, Emiliano Llano, 
 ; Ramón Verduzco, Graciela García and Carles Millan
@@ -286,8 +286,8 @@ UninstallUnknownEntry=Una entrada desconocida (%1) fue encontrada en el registro
 ConfirmUninstall=¿Está seguro que desea desinstalar completamente %1 y todos sus componentes?
 UninstallOnlyOnWin64=Este programa sólo puede ser desinstalado en Windows de 64-bits.
 OnlyAdminCanUninstall=Este programa sólo puede ser desinstalado por un usuario con privilegios administrativos.
-UninstallStatusLabel=Por favor, espere mientras %1 es removido de su sistema.
-UninstalledAll=%1 fue removido exitosamente de su sistema.
+UninstallStatusLabel=Por favor, espere mientras %1 es desinstalado de su sistema.
+UninstalledAll=%1 fue desinstalado satisfactoriamente de su sistema.
 UninstalledMost=La desinstalación de %1 ha sido completada.%n%nAlgunos elementos no pudieron eliminarse. Estos pueden ser eliminados manualmente.
 UninstalledAndNeedsRestart=Para completar la desinstalación de %1, su sistema debe reiniciarse.%n%n¿Desea reiniciarlo ahora?
 UninstallDataCorrupted=El archivo "%1" está dañado. No puede desinstalarse
@@ -308,7 +308,7 @@ StatusUninstalling=Desinstalando %1...
 NameAndVersion=%1 versión %2
 AdditionalIcons=Iconos adicionales:
 CreateDesktopIcon=Crear un icono en el &escritorio
-CreateQuickLaunchIcon=Crear un icono de Inicio Rápido
+CreateQuickLaunchIcon=Crear un icono de &Inicio Rápido
 ProgramOnTheWeb=%1 en la Web
 UninstallProgram=Desinstalar %1
 LaunchProgram=Ejecutar %1

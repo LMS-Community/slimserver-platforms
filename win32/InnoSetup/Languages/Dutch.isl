@@ -4,7 +4,7 @@
 ;
 ; Maintained by Martijn Laan (mlaan@jrsoftware.org)
 ;
-; $jrsoftware: issrc/Files/Languages/Dutch.isl,v 1.25 2010/01/06 10:03:55 mlaan Exp $
+; $jrsoftware: issrc/Files/Languages/Dutch.isl,v 1.27 2010/03/25 09:49:38 mlaan Exp $
                                      
 [LangOptions]                
 LanguageName=Nederlands      

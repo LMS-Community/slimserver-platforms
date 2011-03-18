@@ -50,7 +50,7 @@ A:visited, A:active {
 </table>
 
 
-<p><i>Last Updated: 2006-06-26</i></p>
+<p>The <b>Inno Setup Frequently Asked Questions</b> contains supplemental information not found in the <a href="http://www.jrsoftware.org/ishelp/" target="blank">documentation</a> or the <a href="http://www.jrsoftware.org/iskb.php">Knowledge Base</a>.</p>
 
 <h3>Functionality</h3>
 <ul>
@@ -303,7 +303,7 @@ URL=http://web.site.address/
 
 <p><tt>
 <b>[Registry]</b><br />
-<font color="blue">Root</font>: HKCR; <font color="blue">Subkey</font>: ".myp"; <font color="blue">ValueType</font>: string; <font color="blue">ValueName</font>: ""; ValueData: "MyProgramFile"; <font color="blue">Flags</font>: uninsdeletevalue
+<font color="blue">Root</font>: HKCR; <font color="blue">Subkey</font>: ".myp"; <font color="blue">ValueType</font>: string; <font color="blue">ValueName</font>: ""; ValueData: "MyProgramFile"; <font color="blue">Flags</font>: uninsdeletevalue uninsdeletekeyifempty
 </tt></p>
 <blockquote>
 ".myp" is the extension we're associating. "MyProgramFile" is the internal name for the file type as stored in the registry. Make sure you use a unique name for this so you don't inadvertently overwrite another application's registry key.
