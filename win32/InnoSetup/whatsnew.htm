@@ -19,14 +19,171 @@
 </head>
 <body>
 
-<!-- $jrsoftware: issrc/whatsnew.htm,v 1.640 2010/02/18 13:33:56 mlaan Exp $ -->
+<!-- $jrsoftware: issrc/whatsnew.htm,v 1.724 2011/03/17 11:07:07 mlaan Exp $ -->
 
 <div class="bluehead"><span class="head1">Inno Setup 5</span><br /><span class="head2">Revision History</span></div>
 
-<p>Copyright &copy; 1997-2010 <a href="http://www.jrsoftware.org/">Jordan Russell</a>. All rights reserved.<br />
-Portions Copyright &copy; 2000-2010 Martijn Laan. All rights reserved.<br />
+<p>Copyright &copy; 1997-2011 <a href="http://www.jrsoftware.org/">Jordan Russell</a>. All rights reserved.<br />
+Portions Copyright &copy; 2000-2011 Martijn Laan. All rights reserved.<br />
 For conditions of distribution and use, see <a href="http://www.jrsoftware.org/files/is/license.txt">LICENSE.TXT</a>.
 </p>
+
+<p><a name="5.4.2"></a><span class="ver">5.4.2 </span><span class="date">(2011-03-17)</span></p>
+<ul>
+<li>Windows 7 change:
+  <ul>
+  <li>Added new [Icons] section flag: <tt>excludefromshowinnewinstall</tt>. Prevents a Start menu entry for a newly installed application shortcut from receiving a highlight on Windows 7 (or later). Ignored on earlier Windows versions.</li>
+  </ul>
+</li>
+<li>Compiler IDE change:
+  <ul>
+  <li>Changed shortcut for <i>Edit | Complete Word</i> to Alt+Right (but still recognize Ctrl+Space). Reportedly, Ctrl+Space conflicts with the Chinese IME.</li>
+  </ul>
+</li>
+<li><i>Fixes:</i>
+  <ul>
+  <li>Inno Setup Preprocessor: <tt>#include</tt> handling of <tt>'.\'</tt> and <tt>'..\'</tt> now treats such filenames as relative to the directory containing the current file, not to the current directory (which is undefined).</li>
+  <li>On the 5.4.1 Unicode compiler, trying to build a multi-language installer while running under a DBCS code page could unexpectedly result in "Illegal null character" errors.</li>
+  <li>On Unicode, string-type parameters passed to <tt>BeforeInstall</tt> and <tt>AfterInstall</tt> functions were being converted to ANSI.</li>
+  </ul>
+</li>
+</ul>
+
+<p><a name="5.4.1"></a><span class="ver">5.4.1 </span><span class="date">(2011-02-09)</span></p>
+<ul>
+<li>Inno Setup Preprocessor (ISPP) changes:
+  <ul>
+  <li>ISPP is now an official part of Inno Setup and is included in the standard Inno Setup installer instead of only being included in the QuickStart Pack installer.</li>
+  <li>It is now possible to enable ISPP preprocessing on .isl files by adding a line saying <tt>#preproc ispp</tt> at the top of the .isl file.</li>
+  <li>With the exception of <tt>Exec</tt>, <tt>ReadIni</tt>, and <tt>WriteIni</tt>, all ISPP functions that take filenames have been changed to interpret the filenames as relative to <tt>SourcePath</tt> instead of the current directory. Additionally, these functions, the <tt>#include</tt> directive, and the <tt>#file</tt> directive now support prefix expansion (e.g. 'compiler:') in filenames.</li>
+  <li>The <tt>#include</tt> directive no longer searches the current directory.</li>
+  <li><i>Builtins.iss</i> has been renamed to <i>ISPPBuiltins.iss</i>.</li>
+  <li>The Compiler IDE no longer displays a separate ISPP version number in its title bar.</li>
+  </ul>
+</li>
+<li>Compiler IDE changes:
+  <ul>
+  <li>The <i>Edit | Replace | Replace All</i> command now actually replaces all occurrences, instead of doing a Delphi-style "From Cursor" replacement. Also it now counts all replacements as a single undo action and shows how many occurrences were replaced.</li>
+  <li>Unicode change: Added a new <i>File | Save Encoding</i> submenu. It now defaults to preserving the UTF-8 BOM of existing files, even if the UTF-8 encoding isn't really needed.</li>
+  </ul>
+</li>
+<li>Unicode change: Added support for Unicode characters in DLL filenames (not specified directly in the script, but returned by constants like <tt>{app}</tt>). This fixes the "Cannot Import" error seen with for example the <i>CodeDll.iss</i> example script when uninstalling from an <tt>{app}</tt> path containing non-ANSI characters.</li>
+<li>Two new Setup exit codes related to the <i>Preparing to Install</i> stage were added. See the help file for more information.</li>
+<li>Minor tweaks.</li>
+</ul>
+
+<p><a name="5.4.0"></a><span class="ver">5.4.0 </span><span class="date">(2010-10-31)</span></p>
+<ul>
+<li>Compiler IDE changes:
+  <ul>
+  <li>The editor component has been changed from SynEdit to <a href="http://www.scintilla.org/" target="_blank">Scintilla</a>.</li>
+  <li>Autocompletion support has been added to all sections except for <tt>[Messages]</tt>, <tt>[CustomMessages]</tt>, and <tt>[Code]</tt>.</li>
+  <li>Brace highlighting has been added to all sections.</li>
+  <li>Syntax errors are now underlined during editing. (Support for the <tt>[Code]</tt> section is limited.)</li>
+  <li>Constants are now highlighted.</li>
+  <li>Variable-pitch fonts may now be selected as the editor font.</li>
+  <li>ISPP inline directives (<tt>{#...}</tt>) are now consistently highlighted in all contexts.</li>
+  <li>Zooming is now supported.</li>
+  <li>Added new options: <i>Word wrap</i> (default: off), <i>Auto indent mode</i> (default: on), <i>Show indentation guides</i> (default: off), <i>Invoke autocomplete automatically</i> (default: on), <i>Underline syntax errors</i> (default: on), and <i>Use tab character</i> (default: off).</li>
+  </ul>
+</li>
+<li>Setup now instructs edit controls which are used to input a file or folder name to use AutoComplete to help complete file system paths.</li>
+<li>On disk space checks, Setup now queries the nearest volume mount point rather than the root.</li>
+<li>The default directory and Start Menu folder names specified via the <tt>/DIR=</tt>, <tt>/GROUP=</tt>, and <tt>/LOADINF=</tt> command line parameters now may include an "expand:" prefix which instructs Setup to expand any constants in the name. For example: <tt>/DIR="expand:{pf}\My Program"</tt>.</li>
+<li>Pascal Scripting changes:
+  <ul>
+  <li>TNewProgressBar: Added new <tt>Style</tt> and <tt>State</tt> properties. See the <i>CodeClasses.iss</i> example script for an example.</li>
+  <li>TBitmapImage: Added new <tt>OnClick</tt> and <tt>OnDblClick</tt> properties. See the <i>CodeClasses.iss</i> example script for an example.</li>
+  </ul>  
+</li>
+<li>Dropped Itanium-specific 64-bit support for the [Files] section's <tt>regtypelib</tt> flag and the [Registry] section's <tt>Permissions</tt> parameter. These features depended on an Itanium-specific "helper" binary, which we no longer have the ability to test or build. (x64 support for these features is unaffected.)</li>
+<li>Updated bzip2 library to version 1.0.6.</li>
+<li>Minor tweaks.</li>
+</ul>
+
+<hr />
+
+<p><a name="5.3.11"></a><span class="ver">5.3.11 </span><span class="date">(2010-09-17)</span></p>
+<ul>
+<li>QuickStart Pack: Now offers to download and install <a href="http://www.innoide.org/" target="_blank">InnoIDE</a> instead of ISTool. InnoIDE is an easy to use Inno Setup Script editor by Graham Murt and meant as a replacement of the standard Compiler IDE that comes with Inno Setup. Using InnoIDE is especially recommended for new users. Note: unlike ISTool, InnoIDE supports Unicode scripts.</li>
+<li>Unicode changes:
+  <ul>
+  <li>Previously, if a Unicode installer included translations for both Traditional Chinese and Simplified Chinese using the language IDs $0404 (Taiwan) and $0804 (PRC), a user running under another Traditional Chinese language ID&mdash;such as $0C04 (Hong Kong)&mdash;could have incorrectly received the Simplified Chinese translation by default if it was listed first in the script's [Languages] section. Now, like the ANSI version of Setup, Traditional Chinese and Simplified Chinese are treated as completely separate languages. Thus, provided other options are available, Simplified Chinese will not be considered for selection as the default language on Traditional Chinese systems, and vice versa.</li>
+  <li>Compiler IDE editor updated to the latest UniSynEdit version. This fixes the extra empty line appearing at the end of scripts when first saved.</li>
+  <li>Ctrl+V/Esc/etc. are no longer intercepted by the Compiler IDE's main window while the Find dialog has the focus.</li>
+  <li>Based on RemObjects Pascal Script SVN code revision 233. This fixes <tt>GetExceptionMessage</tt> always returning "(There is no current exception)" on Unicode.</li>
+  </ul>
+</li>
+<li>Compiler IDE: Added new <i>Build | Open Output Folder</i> command.</li>
+<li>In certain cases, applications started via <tt>postinstall</tt> <tt>nowait</tt> [Run] entries did not come to the foreground (top of the Z-order) as expected. This could occur if Setup exited before the spawned process(es) were able to initialize, causing Windows to bring the window that was underneath Setup in the Z-order to the foreground instead. Now, when <tt>postinstall</tt> <tt>nowait</tt> [Run] entries are processed, Setup will wait briefly (up to one second) before exiting for another process to bump Setup from the foreground.</li>
+<li>To help protect applications against potential <a href="http://msdn.microsoft.com/en-us/library/ff919712.aspx">DLL preloading attacks</a>, Setup now always specifies a working directory on shortcuts it creates. If a <tt>WorkingDir</tt> parameter is not specified or is blank, Setup will try to extract a directory name from the <tt>Filename</tt> parameter. If for some reason that fails, the working directory will be set to <tt>{sys}</tt>.</li>
+<li>To help protect installers against potential DLL/EXE preloading attacks, Setup/Uninstall now calls SetDllDirectory to remove the current directory from the DLL search order, and SetSearchPathMode to prevent SearchPath and CreateProcess from searching the current directory before system directories.</li>
+<li>If the <tt>Filename</tt> parameter of a [Run]/[UninstallRun] entry or <tt>Exec</tt>/<tt>ShellExec</tt> call does not include a path, and a <tt>WorkingDir</tt> value is not provided, Setup/Uninstall will now specify a known-safe default (currently <tt>{sys}</tt>) for the process's initial current directory, instead of allowing the process to inherit Setup/Uninstall's current directory. You should not rely on this behavior, however; it is best to always specify a path in the <tt>Filename</tt> parameter.</li>
+<li>When an Open or Save common dialog is dismissed, the current directory is now restored to its original value.</li>
+<li>Updated bzip2 library to version 1.0.5.</li>
+<li>QuickStart Pack: Any ISPP function that uses the system's DLL search path such as <tt>GetFileVersion</tt> will no longer search the current directory.</li>
+<li>Minor tweaks.</li>
+</ul>
+
+<p><a name="5.3.10"></a><span class="ver">5.3.10 </span><span class="date">(2010-06-11)</span></p>
+<ul>
+<li>Added .NET Framework 4.0 support:
+  <ul>
+  <li>Added constants <tt>{dotnet40}</tt>, <tt>{dotnet4032}</tt>, and <tt>{dotnet4064}</tt>. An exception will be raised if an attempt is made to expand these constants on a system with no .NET Framework version 4.0 present.</li>
+  <li>[Files] section flag <tt>gacinstall</tt> can now be used on .NET Framework 4.0 assemblies too.</li>
+  </ul>
+</li>
+<li>Windows 7 changes:
+  <ul>
+  <li>[Icons] section flag <tt>foldershortcut</tt> is now ignored when running on Windows 7 (or later), as folder shortcuts do not expand properly on the Start Menu anymore.</li>
+  </ul>
+</li>
+<li>[Setup] section directive changes:
+  <ul>
+  <li>When <tt>SignedUninstaller</tt> is set to <tt>yes</tt>, any temporary self-copies used by Setup are now digitally signed too.</li>
+  <li><tt>Uninstallable</tt> may now be set to a boolean expression, which may contain calls to check functions. For example: <tt>Uninstallable=not IsTaskSelected('portablemode')</tt>. See the <tt>Uninstallable</tt> documentation for details.</li>
+  <li><tt>AppVerName</tt> is no longer required if <tt>AppVersion</tt> is specified. It will now effectively default to: <tt>{cm:NameAndVersion,[AppName],[AppVersion]}</tt>. The Compiler IDE's New Script Wizard now also asks for an <tt>AppVersion</tt> instead of an <tt>AppVerName</tt>.</li>
+  <li>If a text <tt>VersionInfo*</tt> directive is set to an empty string (as opposed to not being specified), then the version info field is really set to an empty string now, instead of forcing a default value.</li>
+  <li><tt>VersionInfoProductTextVersion</tt> now defaults to <tt>VersionInfoProductVersion</tt> if set, else <tt>AppVersion</tt> if <tt>AppVersion</tt> is set and does not include constants, else <tt>VersionInfoTextVersion</tt>.</li>
+  </ul>
+</li>
+<li>Unicode Inno Setup: An issue with the taskbar button re-appearing on /VERYSILENT installs has been fixed.</li>
+<li>Unicode [Code] based on RemObjects Pascal Script SVN code revision 228.</li>
+<li>Minor tweaks.</li>
+</ul>
+
+<p><a name="5.3.9"></a><span class="ver">5.3.9 </span><span class="date">(2010-04-10)</span></p>
+<ul>
+<li>For better appearance on Windows 7 and Vista when ClearType is enabled, Tahoma is the new default font used by Setup and Uninstall. A new [Setup] section directive <tt>DefaultDialogFontName</tt> has also been added to make it easy to override the default dialog font for all languages that do not have a custom <tt>DialogFontName</tt> setting. If you would like to revert to the dialog font used in previous versions of Inno Setup (Microsoft Sans Serif if available, else MS Sans Serif), set <tt>DefaultDialogFontName</tt> to an empty string (<tt>DefaultDialogFontName=</tt>).</li>
+<li>Added new [Setup] section directive: <tt>DisableWelcomePage</tt> to hide the <i>Welcome</i> wizard page. Doing so is recommended by the Aero wizard guidelines. Additionally, the <tt>ShouldSkipPage</tt> event function is now also called for <tt>wpWelcome</tt>.</li>
+<li>When Setup is not running silently, the <i>Ready To Install</i> wizard page now ignores attempts to skip it when no other wizard page before it has been shown yet.</li>
+<li>Added LZMA2 compression support:
+  <ul>
+  <li>Updated the <a href="http://www.7-zip.org/sdk.html">LZMA SDK</a> compression code to version 9.10 which adds support for LZMA2 compression. LZMA2 is a modified version of LZMA that offers a better compression ratio for uncompressible data (random data expands about 0.005%, compared to 1.35% with original LZMA), and optionally can compress multiple parts of large files in parallel, greatly increasing compression speed but with a possible reduction in compression ratio. LZMA2 compression may be activated by setting the <tt>Compression</tt> [Setup] section directive to <tt>lzma2</tt>, and <tt>lzma2</tt> is now also the default value.</li>
+  </ul>
+</li>
+<li>Added various new [Setup] section directives with names that start with <tt>LZMA</tt> to fine-tune LZMA and LZMA2 compression parameters, including <tt>LZMADictionarySize</tt> which allows the LZMA dictionary size to be increased up to 256 MB from the previous maximum of 64 MB. Review the memory requirements listed in the <tt>Compression</tt> topic before using.</li>
+<li>Tweaked the JMP/CALL instruction optimization algorithm for slightly better compression of executable files. (On Inno Setup's own installer, this saved about 2 KB.)</li>
+<li>Improved compression of x64 executable files: just like for x86 executable files, JMP/CALL instruction optimization is now performed for x64 executable files. On average, this will reduce the compressed size of x64 executable files by 2-3%.</li>
+<li>[Setup] section directive <tt>DiskSliceSize</tt> can now be set to <tt>max</tt>, and <tt>max</tt> is now also the default value.</li>
+<li>Windows 7 change: The Compiler IDE is now pinnable. Also, files that are opened via the Welcome dialog, MRU list, and drag &amp; drop now get added to the Jump List.</li>
+<li>Windows 7 and Vista changes:
+  <ul>
+  <li>Before deleting a pinned shortcut, Uninstall now automatically removes it from the current user's Start menu pinned list and on Windows 7 also from the taskbar.</li>
+  <li>Changed the icon that is shown on <i>Select Start Menu Folder</i> wizard page. Previously, it used the same icon as the preceding <i>Select Destination Location</i> page, but that was never really the intention.</li>
+  <li>When Setup and Uninstall respawn for elevation, any SUBST'ed drives in the EXE filename are now expanded before the respawn, since the elevated user will not retain the original user's SUBST mappings. Fixes error seen when starting Setup from a SUBST'ed drive.</li>
+  </ul>
+</li>
+<li>Setup now uses the SHA-1 algorithm instead of MD5 for file checksums and various internally-used hashes.</li>
+<li>Pascal Scripting: Added support functions <tt>GetSHA1OfString</tt>, <tt>GetSHA1OfUnicodeString</tt>, and <tt>GetSHA1OfFile</tt>.</li>
+<li>QuickStart Pack: Added ISPP functions <tt>GetSHA1OfString</tt>, <tt>GetSHA1OfUnicodeString</tt>, and <tt>GetSHA1OfFile</tt>.</li>
+<li>[Icons] section parameter <tt>AppUserModelID</tt> is now also used on Windows Server 2008 R2.</li>
+<li>In Setup's version info text fields, "(C)" is now automatically replaced with real copyright symbols ("&copy;").</li>
+<li>Unicode Inno Setup: Added workaround for upstream Delphi bug that could cause Setup (versions 5.3.6 to 5.3.8) to display a "Stream read error" error message at startup on Windows 2000 systems that did not have Service Pack 4 installed.</li>
+<li>Compiler IDE change: the <i>Tools | Configure Sign Tools...</i> dialog now allows editing of existing Sign Tools.</li>
+<li>The uninstall program's version is now 51.(10)52.0.0.</li>
+<li>Minor tweaks.</li>
+</ul>
 
 <p><a name="5.3.8"></a><span class="ver">5.3.8 </span><span class="date">(2010-02-18)</span></p>
 <ul>
@@ -38,7 +195,7 @@ For conditions of distribution and use, see <a href="http://www.jrsoftware.org/f
 <li>In the <tt>MinVersion</tt> and <tt>OnlyBelowVersion</tt> directives and parameters, <tt>.x</tt> is now treated the same as <tt>.0x</tt> when a major version of 5 or higher is specified. Thus, you now have the option of using either <tt>5.01</tt> or <tt>5.1</tt> to specify Windows XP. However, to maintain compatibility with existing scripts, <tt>4.x</tt> will still be interpreted as <tt>4.x0</tt>.</li>
 <li>Pascal Scripting: Added new <tt>PageIndexFromID</tt> support function.</li>
 <li>The online documentation available at <a href="http://www.jrsoftware.org/ishelp/">http://www.jrsoftware.org/ishelp/</a> now has an index and is searchable.</li>
-<li>QuickStart Pack changes:</li>
+<li>QuickStart Pack changes:
   <ul>
   <li>Added ISPP function <tt>StringChange</tt>.</li>
   <li>The ISPP documentation is now available online at <a href="http://www.jrsoftware.org/ispphelp/">http://www.jrsoftware.org/ispphelp/</a>.</li>
@@ -186,7 +343,7 @@ For conditions of distribution and use, see <a href="http://www.jrsoftware.org/f
 <li>Added new [Setup] section directive: <tt>SignTool</tt>, which makes it possible to further automate digital signing of Setup and Uninstall. See the help file for more information.</li>
 <li>The value of the <tt>AppVersion</tt> directive is now also used to set the <tt>MajorVersion</tt> and <tt>MinorVersion</tt> values in the Uninstall registry key when possible.</li>
 <li>/LOG: Now logs exit codes on [UninstallRun] entries.</li>
-<li>IDE changes:
+<li>Compiler IDE changes:
   <ul>
   <li>Added new <i>Tools | Configure Sign Tools...</i> command.</li>
   </ul>

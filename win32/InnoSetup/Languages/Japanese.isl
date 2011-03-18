@@ -1,24 +1,15 @@
 ; *** Inno Setup version 5.1.11+ Japanese messages ***
 ;
-; Translated by Ryou Minakami (ryou32jp@yahoo.co.jp)
-; Fixes and updates: Koichi Shirasuka (shirasuka@eugrid.co.jp)
+; Maintained by Koichi Shirasuka (shirasuka@eugrid.co.jp)
 ;
-; $jrsoftware: issrc/Files/Default.isl,v 1.66 2005/02/25 20:23:48 mlaan Exp $
+; Translation based on Ryou Minakami (ryou32jp@yahoo.co.jp)
+;
+; $jrsoftware: issrc/Files/Languages/Japanese.isl,v 1.7 2010/11/02 10:57:03 mlaan Exp $
 
 [LangOptions]
-LanguageName=Japanese
+LanguageName=<65E5><672C><8A9E>
 LanguageID=$0411
 LanguageCodePage=932
-
-; If you don't need to support Windows 9x, commenting the following 4 lines gives better looking (banners not stretched).
-DialogFontName=‚l‚r ‚oƒSƒVƒbƒN
-DialogFontSize=9
-TitleFontName=‚l‚r ‚oƒSƒVƒbƒN
-TitleFontSize=29
-
-; Required for Win2K/older to display the welcome message with correct font.
-WelcomeFontName=‚l‚r ‚oƒSƒVƒbƒN
-WelcomeFontSize=12
 
 [Messages]
 
@@ -46,7 +37,7 @@ SetupFileCorruptOrWrongVer=ƒZƒbƒgƒAƒbƒvƒtƒ@ƒCƒ‹‚ª‰ó‚ê‚Ä‚¢‚é‚©A‚±‚Ìƒo[ƒWƒ‡ƒ“‚Ìƒ
 NotOnThisPlatform=‚±‚ÌƒvƒƒOƒ‰ƒ€‚Í %1 ‚Å‚Í“®ì‚µ‚Ü‚¹‚ñB
 OnlyOnThisPlatform=‚±‚ÌƒvƒƒOƒ‰ƒ€‚ÌÀs‚É‚Í %1 ‚ª•K—v‚Å‚·B
 OnlyOnTheseArchitectures=‚±‚ÌƒvƒƒOƒ‰ƒ€‚Í%n%n%1ƒvƒƒZƒbƒTŒü‚¯‚ÌWindows‚É‚µ‚©ƒCƒ“ƒXƒg[ƒ‹‚Å‚«‚Ü‚¹‚ñB
-MissingWOW64APIs=Œäg—p’†‚Ì64-bit”ÅWindows‚É‚Í‚±‚ÌƒvƒƒOƒ‰ƒ€‚ğƒCƒ“ƒXƒg[ƒ‹‚µA“®ì‚³‚¹‚éˆ×‚É•K—v‚È‹@”\‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚¹‚ñB‚±‚Ì–â‘è‚ğC³‚·‚éˆ×‚É‚ÍƒT[ƒrƒXƒpƒbƒN%1‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
+MissingWOW64APIs=‚²g—p’†‚Ì64-bit”ÅWindows‚É‚Í‚±‚ÌƒvƒƒOƒ‰ƒ€‚ğƒCƒ“ƒXƒg[ƒ‹‚µA“®ì‚³‚¹‚éˆ×‚É•K—v‚È‹@”\‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚¹‚ñB‚±‚Ì–â‘è‚ğC³‚·‚éˆ×‚É‚ÍƒT[ƒrƒXƒpƒbƒN%1‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
 WinVersionTooLowError=‚±‚ÌƒvƒƒOƒ‰ƒ€‚ÌÀs‚É‚Í %1 %2 ˆÈ~‚ª•K—v‚Å‚·B
 WinVersionTooHighError=‚±‚ÌƒvƒƒOƒ‰ƒ€‚Í %1 %2 ˆÈ~‚Å‚Í“®ì‚µ‚Ü‚¹‚ñB
 AdminPrivilegesRequired=‚±‚ÌƒvƒƒOƒ‰ƒ€‚ğƒCƒ“ƒXƒg[ƒ‹‚·‚é‚½‚ß‚É‚ÍŠÇ—Ò‚Æ‚µ‚ÄƒƒOƒCƒ“‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B
@@ -79,12 +70,12 @@ ButtonNo=‚¢‚¢‚¦(&N)
 ButtonNoToAll=‚·‚×‚Ä‚¢‚¢‚¦(&O)
 ButtonFinish=Š®—¹(&F)
 ButtonBrowse=QÆ(&B)...
-ButtonWizardBrowse=QÆ(&r)
+ButtonWizardBrowse=QÆ(&R)
 ButtonNewFolder=V‚µ‚¢ƒtƒHƒ‹ƒ_(&M)
 
 ; *** "Select Language" dialog messages
-SelectLanguageTitle=ƒZƒbƒgƒAƒbƒv‚Ég—p‚·‚éŒ¾Œê‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢B
-SelectLanguageLabel=ƒCƒ“ƒXƒg[ƒ‹’†‚É—˜—p‚·‚éŒ¾Œê‚ğï‚Ñ‚Ü‚·:
+SelectLanguageTitle=ƒZƒbƒgƒAƒbƒv‚Ég—p‚·‚éŒ¾Œê‚Ì‘I‘ğ
+SelectLanguageLabel=ƒCƒ“ƒXƒg[ƒ‹’†‚É—˜—p‚·‚éŒ¾Œê‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢:
 
 ; *** Common wizard text
 ClickNext=‘±s‚·‚é‚É‚ÍuŸ‚ÖvAƒZƒbƒgƒAƒbƒv‚ğI—¹‚·‚é‚É‚ÍuƒLƒƒƒ“ƒZƒ‹v‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
@@ -138,7 +129,7 @@ InvalidPath=ƒhƒ‰ƒCƒu•¶š‚ğŠÜ‚ŞŠ®‘S‚ÈƒpƒX‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B%n%n—áFC:\APP%n%n‚Ü
 InvalidDrive=w’è‚µ‚½ƒhƒ‰ƒCƒu‚Ü‚½‚ÍUNCƒpƒX‚ªŒ©‚Â‚©‚ç‚È‚¢‚©ƒAƒNƒZƒX‚Å‚«‚Ü‚¹‚ñB•Ê‚ÌƒpƒX‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B
 DiskSpaceWarningTitle=ƒfƒBƒXƒN‹ó‚«—Ìˆæ‚Ì•s‘«
 DiskSpaceWarning=ƒCƒ“ƒXƒg[ƒ‹‚É‚ÍÅ’á %1 KB‚ÌƒfƒBƒXƒN‹ó‚«—Ìˆæ‚ª•K—v‚Å‚·‚ªAw’è‚³‚ê‚½ƒhƒ‰ƒCƒu‚É‚Í %2 KB‚Ì‹ó‚«—Ìˆæ‚µ‚©‚ ‚è‚Ü‚¹‚ñB%n%n‚±‚Ì‚Ü‚Ü‘±s‚µ‚Ü‚·‚©H
-DirNameTooLong=ƒhƒ‰ƒCƒu–¼–”‚ÍƒpƒX‚ª’·‰ß‚¬‚Ü‚·B
+DirNameTooLong=ƒhƒ‰ƒCƒu–¼‚Ü‚½‚ÍƒpƒX‚ª’·‰ß‚¬‚Ü‚·B
 InvalidDirName=ƒtƒHƒ‹ƒ_–¼‚ª–³Œø‚Å‚·B
 BadDirName32=ˆÈ‰º‚Ì•¶š‚ğŠÜ‚ŞƒtƒHƒ‹ƒ_–¼‚Íw’è‚Å‚«‚Ü‚¹‚ñB:%n%n%1
 DirExistsTitle=Šù‘¶‚ÌƒtƒHƒ‹ƒ_
@@ -171,7 +162,7 @@ SelectStartMenuFolderDesc=ƒvƒƒOƒ‰ƒ€ƒAƒCƒRƒ“‚ğì¬‚·‚éêŠ‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B
 SelectStartMenuFolderLabel3=ƒZƒbƒgƒAƒbƒv‚ÍƒXƒ^[ƒgƒƒjƒ…[‚ÉƒvƒƒOƒ‰ƒ€‚ÌƒVƒ‡[ƒgƒJƒbƒg‚ğì¬‚µ‚Ü‚·B
 SelectStartMenuFolderBrowseLabel=‘±‚¯‚é‚É‚ÍuŸ‚Öv‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢Bˆá‚¤ƒfƒBƒŒƒNƒgƒŠ‚ğ‘I‘ğ‚·‚é‚É‚ÍuQÆv‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
 MustEnterGroupName=ƒOƒ‹[ƒv–¼‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B
-GroupNameTooLong=ƒtƒHƒ‹ƒ_–¼–”‚ÍƒpƒX‚ª’·‰ß‚¬‚Ü‚·B
+GroupNameTooLong=ƒtƒHƒ‹ƒ_–¼‚Ü‚½‚ÍƒpƒX‚ª’·‰ß‚¬‚Ü‚·B
 InvalidGroupName=ƒOƒ‹[ƒv–¼‚ª–³Œø‚Å‚·B
 BadGroupName=ˆÈ‰º‚Ì•¶š‚ğŠÜ‚ŞƒOƒ‹[ƒv–¼‚Íw’è‚Å‚«‚Ü‚¹‚ñB:%n%n%1
 NoProgramGroupCheck2=ƒvƒƒOƒ‰ƒ€ƒOƒ‹[ƒv‚ğì¬‚µ‚È‚¢(&D)
@@ -280,7 +271,7 @@ UninstallOpenError=ƒtƒ@ƒCƒ‹ %1 ‚ğŠJ‚¯‚é‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñBƒAƒ“ƒCƒ“ƒXƒg[ƒ‹‚ğÀs‚
 UninstallUnsupportedVer=ƒAƒ“ƒCƒ“ƒXƒg[ƒ‹ƒƒOƒtƒ@ƒCƒ‹ %1 ‚ÍA‚±‚Ìƒo[ƒWƒ‡ƒ“‚ÌƒAƒ“ƒCƒ“ƒXƒg[ƒ‹ƒvƒƒOƒ‰ƒ€‚ª”F¯‚Å‚«‚È‚¢Œ`®‚Å‚·BƒAƒ“ƒCƒ“ƒXƒg[ƒ‹‚ğÀs‚Å‚«‚Ü‚¹‚ñB
 UninstallUnknownEntry=ƒAƒ“ƒCƒ“ƒXƒg[ƒ‹ƒƒO‚É•s–¾‚ÌƒGƒ“ƒgƒŠ %1 ‚ªŒ©‚Â‚©‚è‚Ü‚µ‚½B
 ConfirmUninstall=%1 ‚Æ‚»‚ÌŠÖ˜AƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ‚·‚×‚Äíœ‚µ‚Ü‚·B‚æ‚ë‚µ‚¢‚Å‚·‚©H
-UninstallOnlyOnWin64=‚±‚ÌƒvƒƒOƒ‰ƒ€‚Í64-bit”ÅWindowsã‚Å‚Ì‚İƒAƒ“ƒCƒ“ƒXƒg[ƒ‹‚Å‚«‰Â”\‚Å‚·B
+UninstallOnlyOnWin64=‚±‚ÌƒvƒƒOƒ‰ƒ€‚Í64-bit”ÅWindowsã‚Å‚Ì‚İƒAƒ“ƒCƒ“ƒXƒg[ƒ‹‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B
 OnlyAdminCanUninstall=ƒAƒ“ƒCƒ“ƒXƒg[ƒ‹‚·‚é‚½‚ß‚É‚ÍŠÇ—ÒŒ ŒÀ‚ª•K—v‚Å‚·B
 UninstallStatusLabel=‚²g—p‚ÌƒRƒ“ƒsƒ…[ƒ^‚©‚ç %1 ‚ğíœ‚µ‚Ä‚¢‚Ü‚·B‚µ‚Î‚ç‚­‚¨‘Ò‚¿‚­‚¾‚³‚¢B
 UninstalledAll=%1 ‚Í‚²g—p‚ÌƒRƒ“ƒsƒ…[ƒ^‚©‚ç³í‚Éíœ‚³‚ê‚Ü‚µ‚½B
@@ -303,8 +294,8 @@ StatusUninstalling=%1 ‚ğƒAƒ“ƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚¢‚Ü‚·...
 
 NameAndVersion=%1 ƒo[ƒWƒ‡ƒ“ %2
 AdditionalIcons=ƒAƒCƒRƒ“‚ğ’Ç‰Á‚·‚é:
-CreateDesktopIcon=ƒfƒXƒNƒgƒbƒvã‚ÉƒAƒCƒRƒ“‚ğì¬‚·‚é(&d)
-CreateQuickLaunchIcon=&Quick Launch ƒAƒCƒRƒ“‚ğì¬‚·‚é
+CreateDesktopIcon=ƒfƒXƒNƒgƒbƒvã‚ÉƒAƒCƒRƒ“‚ğì¬‚·‚é(&D)
+CreateQuickLaunchIcon=ƒNƒCƒbƒN‹N“®ƒAƒCƒRƒ“‚ğì¬‚·‚é(&Q)
 ProgramOnTheWeb=%1 on the Web
 UninstallProgram=%1 ‚ğƒAƒ“ƒCƒ“ƒXƒg[ƒ‹‚·‚é
 LaunchProgram=%1 ‚ğÀs‚·‚é
