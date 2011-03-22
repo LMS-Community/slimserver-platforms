@@ -71,7 +71,6 @@ mv HTML/README.txt README.HTML
 rm MySQL/COPYING
 rm MySQL/README
 rm MySQL/errmsg.*
-rm Bin/i386-linux/mysqld
 rm -rf Bin/darwin
 rm -rf Bin/i386-freebsd-64int
 rm -rf Bin/MSWin32-x86-multi-thread
