@@ -16,8 +16,7 @@
 	#include SpAppSourcePath + "SqueezePlay-common.iss"
 #endif
 
-#define VCRedistKey  = "SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\a4cab25097f64d640a42c11e4b7fc34d"
-#define VCRedistKey2 = "SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\b25099274a207264182f8181add555d0"
+#define VCRedistKey  = "SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\d04bb691875110d32b98ebcf771aa1e1"
 
 [Languages]
 Name: cz; MessagesFile: "Czech.isl"
@@ -691,7 +690,7 @@ begin
 
 			// run VC runtime installer if not already installed
 			// http://blogs.msdn.com/astebner/archive/2006/08/23/715755.aspx
-			if ( (not Silent) and (not (RegKeyExists(HKLM, '{#VCRedistKey}') or RegKeyExists(HKLM, '{#VCRedistKey2}'))) ) then
+			if ( (not Silent) and (not (RegKeyExists(HKLM, '{#VCRedistKey}')) ) ) then
 				Exec(AddBackslash(ExpandConstant('{tmp}')) + 'vcredist.exe', '/q:a /c:"msiexec /i vcredist.msi /qb!"', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
 
 			ProgressPage := CreateOutputProgressPage(CustomMessage('RegisterServices'), CustomMessage('RegisterServicesDesc'));
