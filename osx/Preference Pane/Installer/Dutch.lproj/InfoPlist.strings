@@ -1,6 +1,6 @@
 ﻿/* Localized versions of Info.plist keys */
 
 CFBundleName = "Installatieprogramma voor Squeezebox Server";
-CFBundleShortVersionString = "7.5.4";
-CFBundleGetInfoString = "Installatieprogramma voor Squeezebox Server versie 7.5.4, Copyright 2003-2010 Logitech";
+CFBundleShortVersionString = "7.5.5";
+CFBundleGetInfoString = "Installatieprogramma voor Squeezebox Server versie 7.5.5, Copyright 2003-2010 Logitech";
 NSHumanReadableCopyright = "Copyright 2003-2010 Logitech";
