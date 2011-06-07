@@ -2,5 +2,5 @@
 
 CFBundleName = "Установщик Squeezebox Server";
 CFBundleShortVersionString = "7.6.0";
-CFBundleGetInfoString = "Установщик Squeezebox Server, версия 7.6.0. © Logitech, 2003-2010";
-NSHumanReadableCopyright = "© Logitech, 2003-2010";
+CFBundleGetInfoString = "Установщик Squeezebox Server, версия 7.6.0. © Logitech, 2003-2011";
+NSHumanReadableCopyright = "© Logitech, 2003-2011";
