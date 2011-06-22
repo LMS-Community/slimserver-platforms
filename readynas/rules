@@ -90,7 +90,7 @@ install:
 	## Overwrite some default settings with ReadyNas specific settings
 	cp -rf ${CURDIR}/readynas/custom-convert.conf ${base}/etc/squeezeboxserver
 
-	# Copy over the squeezecenter init script...
+	# Copy over the server init script...
 	cp -rf $(CURDIR)/readynas/squeezeboxserver.default ${base}/etc/default/squeezeboxserver
 	cp -rf $(CURDIR)/readynas/squeezeboxserver.init ${base}/etc/init.d/squeezeboxserver
 
