@@ -149,16 +149,15 @@ Type: files; Name: {commonstartup}\{cm:SqueezeCenterTrayTool}.url
 
 [Run]
 Filename: {app}\server\squeezeboxcp.exe; Description: {cm:StartupControlPanel}; Flags: postinstall nowait skipifsilent
+; remove potential left-overs from earlier installations
+Filename: "sc"; Parameters: "stop SqueezeMySQL"; Flags: runhidden; MinVersion: 0,4.00.1381
+Filename: "sc"; Parameters: "delete SqueezeMySQL"; Flags: runhidden; MinVersion: 0,4.00.1381
 
 [UninstallRun]
 Filename: "sc"; Parameters: "stop squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381
 Filename: "sc"; Parameters: "delete squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381
 Filename: {app}\server\SqueezeSvr.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
 Filename: {app}\SqueezeTray.exe; Parameters: "--exit --uninstall"; WorkingDir: {app}; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
-
-; the following two lines have to go away once we switch to SQLite
-Filename: "sc"; Parameters: "stop SqueezeMySQL"; Flags: runhidden; MinVersion: 0,4.00.1381
-Filename: "sc"; Parameters: "delete SqueezeMySQL"; Flags: runhidden; MinVersion: 0,4.00.1381
 
 [Code]
 #include "SocketTest.iss"
@@ -293,8 +292,6 @@ begin
 			Executable := 'squeez~3.exe';
 			LongExecutable := 'SqueezeSvr.exe';
 			TrayExe := 'SqueezeTray.exe';
-			
-			// the following variable can be emptied once we switch to SQLite
 			MySQLSvc := 'SqueezeMySQL';
 
 			// stop Squeezebox Server services if installed
