@@ -1,20 +1,16 @@
 ;
-; InnoSetup Script for Squeezebox Server
+; InnoSetup Script for Logitech Media Server
 ;
 ; Logitech : http://www.logitech.com
 ;
 ; Script by Chris Eastwood, January 2003 - http://www.vbcodelibrary.co.uk
 
-#define AppName "Squeezebox Server"
+#define AppName "Logitech Media Server"
 #define AppVersion "7.6.0"
 #define ProductURL "http://www.mysqueezebox.com/support"
 #define SSRegKey = "Software\SlimDevices\SlimServer"
 #define SCRegKey = "Software\Logitech\SqueezeCenter"
 #define SBRegKey = "Software\Logitech\Squeezebox"
-
-#ifdef SpAppSourcePath
-	#include SpAppSourcePath + "SqueezePlay-common.iss"
-#endif
 
 #define VCRedistKey  = "SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\d04bb691875110d32b98ebcf771aa1e1"
 
