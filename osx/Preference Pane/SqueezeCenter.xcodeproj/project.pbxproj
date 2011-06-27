@@ -997,6 +997,7 @@
 					i386,
 				);
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)\"";
+				GCC_VERSION = 4.0;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
@@ -1011,6 +1012,7 @@
 					i386,
 				);
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)\"";
+				GCC_VERSION = 4.0;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
@@ -1025,6 +1027,7 @@
 					i386,
 				);
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)\"";
+				GCC_VERSION = 4.0;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
