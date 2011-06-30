@@ -570,7 +570,7 @@
 															<object class="NSTableView" id="200783681">
 																<reference key="NSNextResponder" ref="291005927"/>
 																<int key="NSvFlags">256</int>
-																<string key="NSFrameSize">{515, 101}</string>
+																<string key="NSFrameSize">{515, 113}</string>
 																<reference key="NSSuperview" ref="291005927"/>
 																<bool key="NSEnabled">YES</bool>
 																<object class="_NSCornerView" key="NSCornerView">
@@ -643,7 +643,7 @@
 																<int key="NSTableViewDraggingDestinationStyle">0</int>
 															</object>
 														</object>
-														<string key="NSFrame">{{1, 1}, {515, 101}}</string>
+														<string key="NSFrame">{{1, 1}, {515, 113}}</string>
 														<reference key="NSSuperview" ref="279706499"/>
 														<reference key="NSNextKeyView" ref="200783681"/>
 														<reference key="NSDocView" ref="200783681"/>
@@ -670,7 +670,7 @@
 														<double key="NSPercent">0.99806201550387597</double>
 													</object>
 												</object>
-												<string key="NSFrame">{{20, 150}, {517, 103}}</string>
+												<string key="NSFrame">{{20, 138}, {517, 115}}</string>
 												<reference key="NSSuperview" ref="495301817"/>
 												<reference key="NSNextKeyView" ref="291005927"/>
 												<int key="NSsFlags">562</int>
@@ -678,6 +678,46 @@
 												<reference key="NSHScroller" ref="1057265107"/>
 												<reference key="NSContentView" ref="291005927"/>
 												<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
+											</object>
+											<object class="NSButton" id="580148796">
+												<reference key="NSNextResponder" ref="495301817"/>
+												<int key="NSvFlags">268</int>
+												<string key="NSFrame">{{20, 110}, {20, 20}}</string>
+												<reference key="NSSuperview" ref="495301817"/>
+												<bool key="NSEnabled">YES</bool>
+												<object class="NSButtonCell" key="NSCell" id="218485420">
+													<int key="NSCellFlags">67239424</int>
+													<int key="NSCellFlags2">134217728</int>
+													<string key="NSContents">+</string>
+													<reference key="NSSupport" ref="949661978"/>
+													<reference key="NSControlView" ref="580148796"/>
+													<int key="NSButtonFlags">-2036580097</int>
+													<int key="NSButtonFlags2">134</int>
+													<string key="NSAlternateContents"/>
+													<string key="NSKeyEquivalent"/>
+													<int key="NSPeriodicDelay">400</int>
+													<int key="NSPeriodicInterval">75</int>
+												</object>
+											</object>
+											<object class="NSButton" id="245418934">
+												<reference key="NSNextResponder" ref="495301817"/>
+												<int key="NSvFlags">268</int>
+												<string key="NSFrame">{{39, 110}, {20, 20}}</string>
+												<reference key="NSSuperview" ref="495301817"/>
+												<bool key="NSEnabled">YES</bool>
+												<object class="NSButtonCell" key="NSCell" id="1035346591">
+													<int key="NSCellFlags">67239424</int>
+													<int key="NSCellFlags2">134217728</int>
+													<string key="NSContents">-</string>
+													<reference key="NSSupport" ref="949661978"/>
+													<reference key="NSControlView" ref="245418934"/>
+													<int key="NSButtonFlags">-2036580097</int>
+													<int key="NSButtonFlags2">134</int>
+													<string key="NSAlternateContents"/>
+													<string key="NSKeyEquivalent"/>
+													<int key="NSPeriodicDelay">400</int>
+													<int key="NSPeriodicInterval">75</int>
+												</object>
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 33}, {557, 401}}</string>
@@ -2055,6 +2095,38 @@
 					</object>
 					<int key="connectionID">1122</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">addMediadir</string>
+						<reference key="source" ref="669683080"/>
+						<reference key="destination" ref="580148796"/>
+					</object>
+					<int key="connectionID">1127</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">removeMediadir</string>
+						<reference key="source" ref="669683080"/>
+						<reference key="destination" ref="245418934"/>
+					</object>
+					<int key="connectionID">1128</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">doAddMediadir:</string>
+						<reference key="source" ref="669683080"/>
+						<reference key="destination" ref="580148796"/>
+					</object>
+					<int key="connectionID">1129</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">doRemoveMediadir:</string>
+						<reference key="source" ref="669683080"/>
+						<reference key="destination" ref="245418934"/>
+					</object>
+					<int key="connectionID">1130</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -2559,6 +2631,8 @@
 							<reference ref="576465430"/>
 							<reference ref="243288362"/>
 							<reference ref="279706499"/>
+							<reference ref="580148796"/>
+							<reference ref="245418934"/>
 						</object>
 						<reference key="parent" ref="316117394"/>
 					</object>
@@ -3177,6 +3251,36 @@
 						<reference key="object" ref="669683080"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1123</int>
+						<reference key="object" ref="580148796"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="218485420"/>
+						</object>
+						<reference key="parent" ref="495301817"/>
+						<string key="objectName">addMediadir</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1124</int>
+						<reference key="object" ref="218485420"/>
+						<reference key="parent" ref="580148796"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1125</int>
+						<reference key="object" ref="245418934"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="1035346591"/>
+						</object>
+						<reference key="parent" ref="495301817"/>
+						<string key="objectName">removeMediadir</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1126</int>
+						<reference key="object" ref="1035346591"/>
+						<reference key="parent" ref="245418934"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -3201,6 +3305,12 @@
 					<string>1103.IBPluginDependency</string>
 					<string>1106.IBPluginDependency</string>
 					<string>1118.IBPluginDependency</string>
+					<string>1123.IBPluginDependency</string>
+					<string>1123.IBViewBoundsToFrameTransform</string>
+					<string>1124.IBPluginDependency</string>
+					<string>1125.IBPluginDependency</string>
+					<string>1125.IBViewBoundsToFrameTransform</string>
+					<string>1126.IBPluginDependency</string>
 					<string>12.IBEditorWindowLastContentRect</string>
 					<string>12.IBPluginDependency</string>
 					<string>12.IBWindowTemplateEditedContentRect</string>
@@ -3402,6 +3512,16 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABBoAAAwwAAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABByAAAwvYAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{329, 487}, {595, 538}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{329, 487}, {595, 538}}</string>
@@ -3600,7 +3720,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1122</int>
+			<int key="maxID">1130</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3631,8 +3751,10 @@
 							<string>changeStartupPreference:</string>
 							<string>checkSNPassword:</string>
 							<string>cleanupBtnHandler:</string>
+							<string>doAddMediadir:</string>
 							<string>doBrowseMusicFolder:</string>
 							<string>doBrowsePlaylistFolder:</string>
+							<string>doRemoveMediadir:</string>
 							<string>libraryNameChanged:</string>
 							<string>musicFolderChanged:</string>
 							<string>openSNPasswordReminder:</string>
@@ -3641,6 +3763,7 @@
 							<string>openWebInterface:</string>
 							<string>playlistFolderChanged:</string>
 							<string>rescan:</string>
+							<string>saveMediadirs:</string>
 							<string>selectLogSet:</string>
 							<string>showScannerLog:</string>
 							<string>showServerLog:</string>
@@ -3651,6 +3774,9 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3680,8 +3806,10 @@
 							<string>changeStartupPreference:</string>
 							<string>checkSNPassword:</string>
 							<string>cleanupBtnHandler:</string>
+							<string>doAddMediadir:</string>
 							<string>doBrowseMusicFolder:</string>
 							<string>doBrowsePlaylistFolder:</string>
+							<string>doRemoveMediadir:</string>
 							<string>libraryNameChanged:</string>
 							<string>musicFolderChanged:</string>
 							<string>openSNPasswordReminder:</string>
@@ -3690,6 +3818,7 @@
 							<string>openWebInterface:</string>
 							<string>playlistFolderChanged:</string>
 							<string>rescan:</string>
+							<string>saveMediadirs:</string>
 							<string>selectLogSet:</string>
 							<string>showScannerLog:</string>
 							<string>showServerLog:</string>
@@ -3713,11 +3842,19 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">doAddMediadir:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">doBrowseMusicFolder:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">doBrowsePlaylistFolder:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">doRemoveMediadir:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3750,6 +3887,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">rescan:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">saveMediadirs:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -3786,6 +3927,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addMediadir</string>
 							<string>advLaunchButton</string>
 							<string>browseMusicFolder</string>
 							<string>browsePlaylistFolder</string>
@@ -3798,6 +3940,7 @@
 							<string>musicLibraryStats</string>
 							<string>playlistFolder</string>
 							<string>prefsTab</string>
+							<string>removeMediadir</string>
 							<string>rescanButton</string>
 							<string>scVersion</string>
 							<string>scanModeOptions</string>
@@ -3826,12 +3969,14 @@
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
+							<string>NSButton</string>
 							<string>NSTableView</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>NSTabView</string>
+							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSTextField</string>
 							<string>NSPopUpButton</string>
@@ -3857,6 +4002,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addMediadir</string>
 							<string>advLaunchButton</string>
 							<string>browseMusicFolder</string>
 							<string>browsePlaylistFolder</string>
@@ -3869,6 +4015,7 @@
 							<string>musicLibraryStats</string>
 							<string>playlistFolder</string>
 							<string>prefsTab</string>
+							<string>removeMediadir</string>
 							<string>rescanButton</string>
 							<string>scVersion</string>
 							<string>scanModeOptions</string>
@@ -3891,6 +4038,10 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">addMediadir</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">advLaunchButton</string>
 								<string key="candidateClassName">NSButton</string>
@@ -3938,6 +4089,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">prefsTab</string>
 								<string key="candidateClassName">NSTabView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">removeMediadir</string>
+								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">rescanButton</string>

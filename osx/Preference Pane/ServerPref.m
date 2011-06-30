@@ -79,6 +79,7 @@
 	[self asyncJsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
 	
 	[self getMediaDirs];
+	[mediaDirsTable setDataSource:mediaDirs];
 }
 
 -(int)serverPID
@@ -274,6 +275,8 @@
 	[musicLibraryName setEnabled:serverState];
 	[musicFolder setEnabled:serverState];
 	[browseMusicFolder setEnabled:serverState];
+	[addMediadir setEnabled:serverState];
+	[removeMediadir setEnabled:serverState];
 	[playlistFolder setEnabled:serverState];
 	[browsePlaylistFolder setEnabled:serverState];
 	[useiTunes setEnabled:serverState];
@@ -729,6 +732,32 @@
 	[self browseFolder:musicFolder];
 }
 
+-(IBAction)doAddMediadir:(id)sender
+{
+	NSOpenPanel* openDlg = [NSOpenPanel openPanel];
+	
+	[openDlg setCanChooseFiles:NO];
+	[openDlg setCanChooseDirectories:YES];
+	[openDlg setAllowsMultipleSelection:NO];
+	
+	if ([openDlg runModalForDirectory:@"~" file:nil] == NSOKButton)
+	{
+		[mediaDirs addObject:[openDlg filename]];
+		[self saveMediadirs:self];
+	}
+}
+
+-(IBAction)doRemoveMediadir:(id)sender
+{
+	int selection = [mediaDirsTable selectedRow];
+	
+	if (selection >= 0 && selection < [mediaDirs count]) {
+		[mediaDirs removeObjectAtIndex:selection];
+		[self saveMediadirs:self];
+	}
+}
+
+
 -(IBAction)doBrowsePlaylistFolder:(id)sender
 {
 	[self browseFolder:playlistFolder];
@@ -750,6 +779,14 @@
 			[self musicFolderChanged:self];
 		}
 	}
+}
+
+-(IBAction)saveMediadirs:(id)sender
+{
+	// TODO: how to set array prefs through JSON/RPC?!?
+	NSLog(@"yo! %@", mediaDirs);
+	//	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"audiodir\", \"%@\"", [musicFolder stringValue]]];
+	[mediaDirsTable reloadData];
 }
 
 -(IBAction)musicFolderChanged:(id)sender
@@ -1145,6 +1182,7 @@
 	}
 
 	NSLog(@"Squeezebox: Got mediadirs '%@', %i", mediaDirs, [mediaDirs count]);
+	[mediaDirsTable reloadData];
 }
 
 /* very simplistic method to read an atomic pref from the server.prefs file */
