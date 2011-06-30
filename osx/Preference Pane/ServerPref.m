@@ -54,6 +54,8 @@
 	[startupType selectItemAtIndex:[startupType indexOfItemWithTag:[[defaultValues objectForKey:@"StartupMenuTag"] intValue]]];
 	
 	scStrings = [NSMutableDictionary new];
+	mediaDirs = [[NSMutableArray alloc] init];
+	[self getMediaDirs];
 
 	// monitor scan progress
 	//NSLog(@"Squeezebox: setting up status polling...");
@@ -769,6 +771,28 @@
 	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"libraryname\", \"%@\"", [musicLibraryName stringValue]]];
 }
 
+-(int)numberOfRowsInTableView:(NSTabView *)tv
+{
+	NSLog(@"%@, %i", mediaDirs, [mediaDirs count]);
+
+	if (mediaDirs == nil)
+		return 0;
+
+	return [mediaDirs count];
+}
+
+-(id)tableView:(NSTabView *)tv objectValueForTableColumn:(NSTableColumn *)dirsColumn row:(int)rowIndex
+{
+	//NSLog(@"%i", rowIndex);
+
+	if ([mediaDirs count] > rowIndex) {
+		return [mediaDirs objectAtIndex:rowIndex];
+	}
+	else {
+		return @"";
+	}
+}
+
 /* rescan buttons and progress */
 -(IBAction)rescan:(id)sender
 {
@@ -925,6 +949,8 @@
 	}
 	
 	else if ([[item identifier] isEqualToString:@"library"]) {
+		[self getMediaDirs];
+
 		[musicLibraryName setStringValue:[self getPref:@"libraryname"]];
 		[musicFolder setStringValue:[self getPref:@"audiodir"]];
 		[playlistFolder setStringValue:[self getPref:@"playlistdir"]];
@@ -1104,6 +1130,21 @@
 	//NSLog(@"Squeezebox: getting string '%@': '%@'", stringToken, s);
 	
 	return s;
+}
+
+-(void)getMediaDirs
+{
+	NSDictionary *prefValue = [self jsonRequest:[NSString stringWithString:@"\"pref\", \"mediadirs\", \"?\""]];
+	
+	if (prefValue != nil) {
+		[mediaDirs removeAllObjects];
+		NSArray *dirs = [prefValue objectForKey:@"_p2"];
+
+		[mediaDirs addObjectsFromArray:dirs];
+	}
+
+	NSLog(@"Squeezebox: Got mediadirs '%@', %i", mediaDirs, [mediaDirs count]);
+	[mediaDirsTable reloadData];
 }
 
 /* very simplistic method to read an atomic pref from the server.prefs file */
