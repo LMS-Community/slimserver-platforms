@@ -55,7 +55,6 @@
 	
 	scStrings = [NSMutableDictionary new];
 	mediaDirs = [[NSMutableArray alloc] init];
-	[self getMediaDirs];
 
 	// monitor scan progress
 	//NSLog(@"Squeezebox: setting up status polling...");
@@ -78,6 +77,8 @@
 	[self showRevision];
 	
 	[self asyncJsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
+	
+	[self getMediaDirs];
 }
 
 -(int)serverPID
@@ -1144,7 +1145,6 @@
 	}
 
 	NSLog(@"Squeezebox: Got mediadirs '%@', %i", mediaDirs, [mediaDirs count]);
-	[mediaDirsTable reloadData];
 }
 
 /* very simplistic method to read an atomic pref from the server.prefs file */
