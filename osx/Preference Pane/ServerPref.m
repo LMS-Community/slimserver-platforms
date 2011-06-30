@@ -783,9 +783,9 @@
 
 -(IBAction)saveMediadirs:(id)sender
 {
-	// TODO: how to set array prefs through JSON/RPC?!?
-	NSLog(@"yo! %@", mediaDirs);
-	//	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"audiodir\", \"%@\"", [musicFolder stringValue]]];
+	NSString *mediaDirsString = [NSString stringWithFormat:@"\"%@\"", [mediaDirs componentsJoinedByString:@"\",\""]];
+	//NSLog(mediaDirsString);
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"mediadirs\", [%@]", mediaDirsString]];
 	[mediaDirsTable reloadData];
 }
 
