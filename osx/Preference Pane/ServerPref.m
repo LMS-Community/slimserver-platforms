@@ -273,8 +273,7 @@
 	[snStatsOptions setEnabled:serverState];
 
 	[musicLibraryName setEnabled:serverState];
-	[musicFolder setEnabled:serverState];
-	[browseMusicFolder setEnabled:serverState];
+	[mediaDirsTable setEnabled:serverState];
 	[addMediadir setEnabled:serverState];
 	[removeMediadir setEnabled:serverState];
 	[playlistFolder setEnabled:serverState];
@@ -727,11 +726,6 @@
 
 
 /* Music Library settings */
--(IBAction)doBrowseMusicFolder:(id)sender
-{
-	[self browseFolder:musicFolder];
-}
-
 -(IBAction)doAddMediadir:(id)sender
 {
 	NSOpenPanel* openDlg = [NSOpenPanel openPanel];
@@ -760,23 +754,18 @@
 
 -(IBAction)doBrowsePlaylistFolder:(id)sender
 {
-	[self browseFolder:playlistFolder];
-}
-
--(void)browseFolder:(NSTextField *)path
-{
 	NSOpenPanel* openDlg = [NSOpenPanel openPanel];
 	
 	[openDlg setCanChooseFiles:NO];
 	[openDlg setCanChooseDirectories:YES];
 	[openDlg setAllowsMultipleSelection:NO];
 	
-	if ([openDlg runModalForDirectory:[path stringValue] file:nil] == NSOKButton)
+	if ([openDlg runModalForDirectory:[playlistFolder stringValue] file:nil] == NSOKButton)
 	{
-		if (![[openDlg filename] isEqual:[path stringValue]])
+		if (![[openDlg filename] isEqual:[playlistFolder stringValue]])
 		{
-			[path setStringValue:[openDlg filename]];
-			[self musicFolderChanged:self];
+			[playlistFolder setStringValue:[openDlg filename]];
+			[self playlistFolderChanged:self];
 		}
 	}
 }
@@ -787,11 +776,6 @@
 	//NSLog(mediaDirsString);
 	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"mediadirs\", [%@]", mediaDirsString]];
 	[mediaDirsTable reloadData];
-}
-
--(IBAction)musicFolderChanged:(id)sender
-{
-	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"audiodir\", \"%@\"", [musicFolder stringValue]]];
 }
 
 -(IBAction)playlistFolderChanged:(id)sender
@@ -974,9 +958,9 @@
 }	
 
 
-/* display SC server status in webkit frame */
 -(void)tabView:(NSTabView *)sender didSelectTabViewItem:(NSTabViewItem *)item
 {
+	/* display SC server status in webkit frame */
 	if ([[item identifier] isEqualToString:@"status"]) {
 		[[statusView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:statusUrl]]];
 	}
@@ -987,10 +971,9 @@
 	}
 	
 	else if ([[item identifier] isEqualToString:@"library"]) {
-		[self getMediaDirs];
-
 		[musicLibraryName setStringValue:[self getPref:@"libraryname"]];
-		[musicFolder setStringValue:[self getPref:@"audiodir"]];
+
+		[self getMediaDirs];
 		[playlistFolder setStringValue:[self getPref:@"playlistdir"]];
 		
 		int option = [[self getPref:@"itunes" fileName:@"itunes"] intValue];

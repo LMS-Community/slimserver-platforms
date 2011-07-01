@@ -51,12 +51,10 @@
 	IBOutlet NSButton *snCheckPassword;
 	IBOutlet NSPopUpButton *snStatsOptions;
 	
-	IBOutlet NSButton *browseMusicFolder;
 	IBOutlet NSButton *browsePlaylistFolder;
 	IBOutlet NSTableView *mediaDirsTable;
 	IBOutlet NSButton *addMediadir;
 	IBOutlet NSButton *removeMediadir;
-	IBOutlet NSTextField *musicFolder;
 	IBOutlet NSTextField *playlistFolder;
 	IBOutlet NSButton *useiTunes;
 	
@@ -99,15 +97,12 @@
 -(IBAction)openSNSubscription:(id)sender;
 -(IBAction)openSNPasswordReminder:(id)sender;
 
--(IBAction)doBrowseMusicFolder:(id)sender;
 -(IBAction)doAddMediadir:(id)sender;
 -(IBAction)doRemoveMediadir:(id)sender;
 -(void)getMediaDirs;
 -(IBAction)doBrowsePlaylistFolder:(id)sender;
 -(IBAction)useiTunesChanged:(id)sender;
 
--(void)browseFolder:(NSTextField *)path;
--(IBAction)musicFolderChanged:(id)sender;
 -(IBAction)playlistFolderChanged:(id)sender;
 -(int)numberOfRowsInTableView:(NSTabView *)tv;
 -(id)tableView:(NSTabView *)tv objectValueForTableColumn:(NSTableColumn *)dirsColumn row:(int)rowIndex;
