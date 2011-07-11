@@ -12,7 +12,7 @@ fi
 
 
 if [ z"$SERVER_RUNNING" != z ] ; then
-	echo "Please stop Squeezebox Server before running the installer."
+	echo "Please stop the server before running the installer."
 	exit 1
 fi
 
@@ -111,9 +111,9 @@ if [ -e "$PREFPANE_TO" ] ; then
 		cp -r 10.3/* .
 	fi
 
-	echo "Squeezebox Server installed successfully."
+	echo "Logitech Media Server installed successfully."
 	exit 0
 else
-	echo "Squeezebox Server install failed."
+	echo "Logitech Media Server install failed."
 	exit 1
 fi
