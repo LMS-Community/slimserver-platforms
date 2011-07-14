@@ -46,6 +46,7 @@ AppSupportURL={#ProductURL}
 AppUpdatesURL={#ProductURL}
 DefaultDirName={code:GetInstallFolder}
 DefaultGroupName={#AppName}
+DisableDirPage=yes
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 WizardImageFile=squeezebox.bmp
