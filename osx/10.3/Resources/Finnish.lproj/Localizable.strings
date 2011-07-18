@@ -1,8 +1,0 @@
-"Start Server" = "Käynnistä palvelin";
-"Stop Server" = "Pysäytä palvelin";
-"Start Server Description" = "Käynnistä Squeezebox Server tällä painikkeella. Kun se on käynnissä, soittimet voivat käyttää musiikkikirjastoa.";
-"Stop Server Description" = "Sulje Squeezebox Server tällä painikkeella. Kun se on suljettu, soittimet eivät voi käyttää musiikkikirjastoa.";
-"Authorization Launch Error" = "Laiteohjelmistoa ei voida päivittää: tiedosto Update Firmware.sh puuttuu.";
-"Expired Authorization Error" = "Laiteohjelmistoa ei voida päivittää: valtuutus vanhentunut.";
-"Firmware version" = "Laiteohjelmistoversio %@.";
-"Firmware version invalid" = "Väärä laiteohjelmistoversio.";

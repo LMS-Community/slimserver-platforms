@@ -103,14 +103,6 @@ if [ -e "$PREFPANE_TO" ] ; then
 
 	sudo -b -H -u $USER "../Resources/start-server.sh"
 
-	# if we're on OSX 10.3 we'll use an old version of the prefpane...	
-	if [ `sw_vers -productVersion | grep "^10\.3"` ] ; then
-		cd "$PREFPANE_TO/Contents/"
-		rm -rf Resources/*lproj
-		rm -f MacOS/Squeezebox
-		cp -r 10.3/* .
-	fi
-
 	echo "Logitech Media Server installed successfully."
 	exit 0
 else

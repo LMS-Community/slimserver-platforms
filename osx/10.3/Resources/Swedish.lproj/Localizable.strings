@@ -1,8 +1,0 @@
-"Start Server" = "Aktivera server";
-"Stop Server" = "Avaktivera server";
-"Start Server Description" = "Klicka på den här knappen för att aktivera Squeezebox Server. När du har gjort det får spelarna tillgång till ditt musikbibliotek.";
-"Stop Server Description" = "Klicka på den här knappen för att avaktivera Squeezebox Server. När du har gjort det har spelarna inte längre tillgång till ditt musikbibliotek.";
-"Authorization Launch Error" = "Det går inte att uppdatera den inbyggda programvaran eftersom filen Update Firmware.sh saknas.";
-"Expired Authorization Error" = "Det går inte att uppdatera den inbyggda programvaran eftersom auktoriseringen inte gäller längre.";
-"Firmware version" = "Inbyggd programvara version %@.";
-"Firmware version invalid" = "Ogiltig version av inbyggd programvara.";

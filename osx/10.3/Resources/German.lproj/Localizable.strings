@@ -1,8 +1,0 @@
-"Start Server" = "Server starten";
-"Stop Server" = "Server anhalten";
-"Start Server Description" = "Klicken Sie auf diese Schaltfläche, um Squeezebox Server zu starten. Nach dem Start können Player auf Ihre Musiksammlung zugreifen.";
-"Stop Server Description" = "Klicken Sie auf diese Schaltfläche, um Squeezebox Server anzuhalten. Wenn der Server angehalten wurde, können Player nicht mehr auf Ihre Musiksammlung zugreifen.";
-"Authorization Launch Error" = "Firmware konnte nicht aktualisiert werden: Datei Update Firmware.sh fehlt.";
-"Expired Authorization Error" = "Firmware konnte nicht aktualisiert werden: Autorisierung ist abgelaufen.";
-"Firmware version" = "Firmware-Version %@.";
-"Firmware version invalid" = "Ungültige Firmware-Version.";

@@ -1,8 +1,0 @@
-"Start Server" = "Start server";
-"Stop Server" = "Stop server";
-"Start Server Description" = "Klik op deze knop om de Squeezebox Server te starten. Nadat de  Squeezebox Server gestart is, hebben muzieksystemen toegang tot je muziekcollectie.";
-"Stop Server Description" = "Klik op deze knop om de Squeezebox Server te stoppen. Nadat de Squeezebox Server gestopt is, hebben muzieksystemen geen toegang meer tot je muziekcollectie.";
-"Authorization Launch Error" = "Kan firmware niet updaten: bestand Update Firmware.sh ontbreekt.";
-"Expired Authorization Error" = "Kan firmware niet updaten: autorisatie verlopen.";
-"Firmware version" = "Firmwareversie %@.";
-"Firmware version invalid" = "Firmwareversie ongeldig.";
