@@ -1,6 +1,6 @@
 ﻿
-/* Class = "NSWindow"; title = "Squeezebox Server"; ObjectID = "12"; */
-"12.title" = "Squeezebox Server";
+/* Class = "NSWindow"; title = "Logitech Media Server"; ObjectID = "12"; */
+"12.title" = "Logitech Media Server";
 
 /* Class = "NSTabViewItem"; label = "Account"; ObjectID = "372"; */
 "372.label" = "Compte";

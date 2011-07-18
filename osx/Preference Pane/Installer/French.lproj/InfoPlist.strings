@@ -1,6 +1,6 @@
 ﻿/* Localized versions of Info.plist keys */
 
-CFBundleName = "Programme d'installation du Squeezebox Server";
+CFBundleName = "Programme d'installation du Logitech Media Server";
 CFBundleShortVersionString = "7.6.0";
-CFBundleGetInfoString = "Programme d'installation du Squeezebox Server version 7.6.0, Copyright 2003-2011 Logitech";
+CFBundleGetInfoString = "Programme d'installation du Logitech Media Server version 7.6.0, Copyright 2003-2011 Logitech";
 NSHumanReadableCopyright = "Copyright 2003-2011 Logitech";

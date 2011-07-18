@@ -2,10 +2,10 @@
 "Update" = "Aktualizuj";
 "Install Results" = "Wyniki instalacji";
 "OK" = "OK";
-"Squeezebox Server installed successfully.\n" = "Program Squeezebox Server został zainstalowany pomyślnie.";
-"Squeezebox Server install failed.\n" = "Instalacja programu Squeezebox Server nie powiodła się.";
-"You must have OS X 10.3 or later to run Squeezebox Server.\n" = "Aby uruchomić program Squeezebox Server, wymagany jest system OS X 10.3 lub nowszy.";
+"Logitech Media Server installed successfully.\n" = "Program Logitech Media Server został zainstalowany pomyślnie.";
+"Logitech Media Server install failed.\n" = "Instalacja programu Logitech Media Server nie powiodła się.";
+"You must have OS X 10.3 or later to run Logitech Media Server.\n" = "Aby uruchomić program Logitech Media Server, wymagany jest system OS X 10.3 lub nowszy.";
 "Mac OS X 10.3 Required" = "Wymagany system Mac OS X 10.3";
 "Please quit System Preferences before running the installer.\n" = "Please quit System Preferences before running the installer.\n";
-"Please stop Squeezebox Server before running the installer.\n" = "Please stop Squeezebox Server before running the installer.\n";
+"Please stop Logitech Media Server before running the installer.\n" = "Please stop Logitech Media Server before running the installer.\n";
 "Version x.y.z" = "Wersja 7.6.0";
