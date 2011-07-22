@@ -339,7 +339,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 								</object>
 								<object class="NSMenuItem" id="773603718">
 									<reference key="NSMenu" ref="536348080"/>
-									<string key="NSTitle">Squeezebox Server Installer beenden</string>
+									<string key="NSTitle">Logitech Media Server Installer beenden</string>
 									<string key="NSKeyEquiv">q</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -1056,14 +1056,14 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 					<string>{{582, 929}, {194, 53}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{329, 982}, {336, 20}}</string>
+					<string>{{329, 960}, {336, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{341, 829}, {344, 153}}</string>
+					<string>{{341, 807}, {361, 153}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>

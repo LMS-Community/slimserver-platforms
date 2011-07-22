@@ -1,9 +1,9 @@
 //
 //  ServerPref.h
-//  Squeezebox Server
+//  Logitech Media Server
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
-//  Copyright 2002-2008 Logitech
+//  Copyright 2002-2011 Logitech
 //
 
 #import <PreferencePanes/PreferencePanes.h>
