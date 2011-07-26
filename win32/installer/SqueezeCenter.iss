@@ -1,23 +1,18 @@
 ;
-; InnoSetup Script for Squeezebox Server
+; InnoSetup Script for Logitech Media Server
 ;
 ; Logitech : http://www.logitech.com
 ;
 ; Script by Chris Eastwood, January 2003 - http://www.vbcodelibrary.co.uk
 
-#define AppName "Squeezebox Server"
+#define AppName "Logitech Media Server"
 #define AppVersion "7.6.1"
 #define ProductURL "http://www.mysqueezebox.com/support"
 #define SSRegKey = "Software\SlimDevices\SlimServer"
 #define SCRegKey = "Software\Logitech\SqueezeCenter"
 #define SBRegKey = "Software\Logitech\Squeezebox"
 
-#ifdef SpAppSourcePath
-	#include SpAppSourcePath + "SqueezePlay-common.iss"
-#endif
-
-#define VCRedistKey  = "SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\a4cab25097f64d640a42c11e4b7fc34d"
-#define VCRedistKey2 = "SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\b25099274a207264182f8181add555d0"
+#define VCRedistKey  = "SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\d04bb691875110d32b98ebcf771aa1e1"
 
 [Languages]
 Name: cz; MessagesFile: "Czech.isl"
@@ -51,6 +46,7 @@ AppSupportURL={#ProductURL}
 AppUpdatesURL={#ProductURL}
 DefaultDirName={code:GetInstallFolder}
 DefaultGroupName={#AppName}
+DisableDirPage=yes
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 WizardImageFile=squeezebox.bmp
@@ -90,7 +86,7 @@ Name: {userdesktop}\{#AppName}; Filename: {app}\SqueezeTray.exe; Parameters: "--
 
 [Registry]
 ;
-; The following keys open required Squeezebox Server ports in the XP Firewall
+; The following keys open required ports in the XP Firewall
 ;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "{code:GetHttpPort}:TCP"; ValueData: "{code:GetHttpPort}:TCP:*:Enabled:{#AppName} {code:GetHttpPort} tcp (UI)"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9001:TCP"; ValueData: "9001:TCP:*:Enabled:{#AppName} 9001 tcp (UI)"; MinVersion: 0,5.01;
@@ -295,7 +291,7 @@ begin
 			TrayExe := 'SqueezeTray.exe';
 			MySQLSvc := 'SqueezeMySQL';
 
-			// stop Squeezebox Server services if installed
+			// stop services if installed
 			StopService(Svc);
 		end
 	else if (UpperCase(Version) = 'SC') then
@@ -425,7 +421,7 @@ var
 	StartAtBoot: String;
 
 begin
-	// if we don't have a Squeezebox Server prefs file yet, migrate preference file before uninstalling SlimServer
+	// if we don't have a server.prefs file yet, migrate preference file before uninstalling SlimServer
 	if not FileExists(GetPrefsFile()) then
 		begin
 			PrefsPath := AddBackslash(GetPrefsFolder());
@@ -688,7 +684,7 @@ begin
 
 			// run VC runtime installer if not already installed
 			// http://blogs.msdn.com/astebner/archive/2006/08/23/715755.aspx
-			if ( (not Silent) and (not (RegKeyExists(HKLM, '{#VCRedistKey}') or RegKeyExists(HKLM, '{#VCRedistKey2}'))) ) then
+			if ( (not Silent) and (not (RegKeyExists(HKLM, '{#VCRedistKey}')) ) ) then
 				Exec(AddBackslash(ExpandConstant('{tmp}')) + 'vcredist.exe', '/q:a /c:"msiexec /i vcredist.msi /qb!"', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
 
 			ProgressPage := CreateOutputProgressPage(CustomMessage('RegisterServices'), CustomMessage('RegisterServicesDesc'));
@@ -788,7 +784,7 @@ begin
 								while (Wait > 0) do
 									begin
 									
-										Log('Waiting for Squeezebox Server to be running...');
+										Log('Waiting for the server to be running...');
 									
 										ProgressPage.setProgress(ProgressPage.ProgressBar.Position+2, ProgressPage.ProgressBar.Max);
 										Sleep(2000);

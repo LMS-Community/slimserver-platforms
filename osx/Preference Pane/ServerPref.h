@@ -1,9 +1,9 @@
 //
 //  ServerPref.h
-//  Squeezebox Server
+//  Logitech Media Server
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
-//  Copyright 2002-2008 Logitech
+//  Copyright 2002-2011 Logitech
 //
 
 #import <PreferencePanes/PreferencePanes.h>
@@ -51,9 +51,10 @@
 	IBOutlet NSButton *snCheckPassword;
 	IBOutlet NSPopUpButton *snStatsOptions;
 	
-	IBOutlet NSButton *browseMusicFolder;
 	IBOutlet NSButton *browsePlaylistFolder;
-	IBOutlet NSTextField *musicFolder;
+	IBOutlet NSTableView *mediaDirsTable;
+	IBOutlet NSButton *addMediadir;
+	IBOutlet NSButton *removeMediadir;
 	IBOutlet NSTextField *playlistFolder;
 	IBOutlet NSButton *useiTunes;
 	
@@ -96,13 +97,17 @@
 -(IBAction)openSNSubscription:(id)sender;
 -(IBAction)openSNPasswordReminder:(id)sender;
 
--(IBAction)doBrowseMusicFolder:(id)sender;
+-(IBAction)doAddMediadir:(id)sender;
+-(IBAction)doRemoveMediadir:(id)sender;
+-(void)getMediaDirs;
 -(IBAction)doBrowsePlaylistFolder:(id)sender;
 -(IBAction)useiTunesChanged:(id)sender;
 
--(void)browseFolder:(NSTextField *)path;
--(IBAction)musicFolderChanged:(id)sender;
 -(IBAction)playlistFolderChanged:(id)sender;
+-(int)numberOfRowsInTableView:(NSTabView *)tv;
+-(id)tableView:(NSTabView *)tv objectValueForTableColumn:(NSTableColumn *)dirsColumn row:(int)rowIndex;
+-(IBAction)saveMediadirs:(id)sender;
+NSMutableArray *mediaDirs;
 
 -(IBAction)rescan:(id)sender;
 -(void)scanPoll;

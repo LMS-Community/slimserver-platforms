@@ -19,10 +19,10 @@
 	
 	SInt32 vers;
 	Gestalt(gestaltSystemVersion,&vers);
-	if (vers < 0x00001030)
+	if (vers < 0x00001040)
 	{
 		
-		NSRunAlertPanel(@"Mac OS X 10.3 Required", @"You must have OS X 10.3 or later to run .", @"Quit", nil, nil);
+		NSRunAlertPanel(@"Mac OS X 10.4 Required", @"You must have OS X 10.4 or later to run .", @"Quit", nil, nil);
 		
 		[[NSApplication sharedApplication] terminate:nil];
 		return;

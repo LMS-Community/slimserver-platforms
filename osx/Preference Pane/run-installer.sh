@@ -1,7 +1,7 @@
 #! /bin/sh
 
 MOUNTPOINT=/Volumes/SCInstaller
-INSTALLER="/Volumes/SCInstaller/Squeezebox Server Installer.app"
+INSTALLER="/Volumes/SCInstaller/Logitech Media Server Installer.app"
 
 if [ -e "$1" ] ; then
 	xattr -d com.apple.quarantine $1

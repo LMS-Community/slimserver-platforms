@@ -5,8 +5,8 @@
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
 "19.title" = "Okno";
 
-/* Class = "NSWindow"; title = "Squeezebox Server Installer"; ObjectID = "21"; */
-"21.title" = "Instalator programu Squeezebox Server";
+/* Class = "NSWindow"; title = "Logitech Media Server Installer"; ObjectID = "21"; */
+"21.title" = "Instalator programu Logitech Media Server";
 
 /* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "23"; */
 "23.title" = "Minimalizuj";
@@ -17,14 +17,14 @@
 /* Class = "NSMenu"; title = "MainMenu"; ObjectID = "29"; */
 "29.title" = "Menu główne";
 
-/* Class = "NSMenuItem"; title = "Squeezebox Server Installer"; ObjectID = "56"; */
-"56.title" = "Instalator programu Squeezebox Server";
+/* Class = "NSMenuItem"; title = "Logitech Media Server Installer"; ObjectID = "56"; */
+"56.title" = "Instalator programu Logitech Media Server";
 
-/* Class = "NSMenu"; title = "Squeezebox Server Installer"; ObjectID = "57"; */
-"57.title" = "Instalator programu Squeezebox Server";
+/* Class = "NSMenu"; title = "Logitech Media Server Installer"; ObjectID = "57"; */
+"57.title" = "Instalator programu Logitech Media Server";
 
-/* Class = "NSMenuItem"; title = "About Squeezebox Server Installer"; ObjectID = "58"; */
-"58.title" = "Instalator programu Squeezebox Server — informacje";
+/* Class = "NSMenuItem"; title = "About Logitech Media Server Installer"; ObjectID = "58"; */
+"58.title" = "Instalator programu Logitech Media Server — informacje";
 
 /* Class = "NSMenu"; title = "Services"; ObjectID = "130"; */
 "130.title" = "Usługi";
@@ -32,11 +32,11 @@
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "131"; */
 "131.title" = "Usługi";
 
-/* Class = "NSMenuItem"; title = "Hide Squeezebox Server Installer"; ObjectID = "134"; */
-"134.title" = "Ukryj instalator programu Squeezebox Server";
+/* Class = "NSMenuItem"; title = "Hide Logitech Media Server Installer"; ObjectID = "134"; */
+"134.title" = "Ukryj instalator programu Logitech Media Server";
 
-/* Class = "NSMenuItem"; title = "Quit Squeezebox Server Installer"; ObjectID = "136"; */
-"136.title" = "Zamknij instalator programu Squeezebox Server";
+/* Class = "NSMenuItem"; title = "Quit Logitech Media Server Installer"; ObjectID = "136"; */
+"136.title" = "Zamknij instalator programu Logitech Media Server";
 
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "145"; */
 "145.title" = "Ukryj inne";
@@ -47,8 +47,8 @@
 /* Class = "NSPanel"; title = "Panel"; ObjectID = "212"; */
 "212.title" = "Panel";
 
-/* Class = "NSTextFieldCell"; title = "Welcome to the Squeezebox Server Installer.\n\nThis application will install the Squeezebox Server for use with System Preferences.\n\nClick Install or Update to continue, or click Quit to exit."; ObjectID = "225"; */
-"225.title" = "Instalator programu Squeezebox Server — Zapraszamy!\n\nTa aplikacja zainstaluje program Squeezebox Server w celu użycia w programie Preferencje systemowe.\n\nKliknij przycisk Instaluj lub Aktualizuj, aby kontynuować lub kliknij przycisk Zakończ, aby wyjść.";
+/* Class = "NSTextFieldCell"; title = "Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.\n\nClick Install or Update to continue, or click Quit to exit."; ObjectID = "225"; */
+"225.title" = "Instalator programu Logitech Media Server — Zapraszamy!\n\nTa aplikacja zainstaluje program Logitech Media Server w celu użycia w programie Preferencje systemowe.\n\nKliknij przycisk Instaluj lub Aktualizuj, aby kontynuować lub kliknij przycisk Zakończ, aby wyjść.";
 
 /* Class = "NSButtonCell"; title = "Install"; ObjectID = "226"; */
 "226.title" = "Zainstaluj";

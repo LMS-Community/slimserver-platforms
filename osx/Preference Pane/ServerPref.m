@@ -1,9 +1,9 @@
 //
 //  ServerPref.m
-//  Squeezebox Server
+//  Logitech Media Server
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
-//  Copyright 2002-2007 Logitech
+//  Copyright 2002-2011 Logitech
 //
 
 #include <Security/Authorization.h>
@@ -54,6 +54,7 @@
 	[startupType selectItemAtIndex:[startupType indexOfItemWithTag:[[defaultValues objectForKey:@"StartupMenuTag"] intValue]]];
 	
 	scStrings = [NSMutableDictionary new];
+	mediaDirs = [[NSMutableArray alloc] init];
 
 	// monitor scan progress
 	//NSLog(@"Squeezebox: setting up status polling...");
@@ -76,6 +77,9 @@
 	[self showRevision];
 	
 	[self asyncJsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
+	
+	[self getMediaDirs];
+	[mediaDirsTable setDataSource:mediaDirs];
 }
 
 -(int)serverPID
@@ -269,8 +273,9 @@
 	[snStatsOptions setEnabled:serverState];
 
 	[musicLibraryName setEnabled:serverState];
-	[musicFolder setEnabled:serverState];
-	[browseMusicFolder setEnabled:serverState];
+	[mediaDirsTable setEnabled:serverState];
+	[addMediadir setEnabled:serverState];
+	[removeMediadir setEnabled:serverState];
 	[playlistFolder setEnabled:serverState];
 	[browsePlaylistFolder setEnabled:serverState];
 	[useiTunes setEnabled:serverState];
@@ -556,7 +561,7 @@
 		[updateTimer invalidate];
 			
 		NSBeginAlertSheet (
-						   LocalizedPrefString(@"An updated Squeezebox Server version is available and ready to be installed.", @""),
+						   LocalizedPrefString(@"An updated Logitech Media Server version is available and ready to be installed.", @""),
 						   LocalizedPrefString(@"Install update", @""),
 						   LocalizedPrefString(@"Not now", @""),
 						   nil, 
@@ -721,17 +726,7 @@
 
 
 /* Music Library settings */
--(IBAction)doBrowseMusicFolder:(id)sender
-{
-	[self browseFolder:musicFolder];
-}
-
--(IBAction)doBrowsePlaylistFolder:(id)sender
-{
-	[self browseFolder:playlistFolder];
-}
-
--(void)browseFolder:(NSTextField *)path
+-(IBAction)doAddMediadir:(id)sender
 {
 	NSOpenPanel* openDlg = [NSOpenPanel openPanel];
 	
@@ -739,19 +734,48 @@
 	[openDlg setCanChooseDirectories:YES];
 	[openDlg setAllowsMultipleSelection:NO];
 	
-	if ([openDlg runModalForDirectory:[path stringValue] file:nil] == NSOKButton)
+	if ([openDlg runModalForDirectory:@"~" file:nil] == NSOKButton)
 	{
-		if (![[openDlg filename] isEqual:[path stringValue]])
+		[mediaDirs addObject:[openDlg filename]];
+		[self saveMediadirs:self];
+	}
+}
+
+-(IBAction)doRemoveMediadir:(id)sender
+{
+	int selection = [mediaDirsTable selectedRow];
+	
+	if (selection >= 0 && selection < [mediaDirs count]) {
+		[mediaDirs removeObjectAtIndex:selection];
+		[self saveMediadirs:self];
+	}
+}
+
+
+-(IBAction)doBrowsePlaylistFolder:(id)sender
+{
+	NSOpenPanel* openDlg = [NSOpenPanel openPanel];
+	
+	[openDlg setCanChooseFiles:NO];
+	[openDlg setCanChooseDirectories:YES];
+	[openDlg setAllowsMultipleSelection:NO];
+	
+	if ([openDlg runModalForDirectory:[playlistFolder stringValue] file:nil] == NSOKButton)
+	{
+		if (![[openDlg filename] isEqual:[playlistFolder stringValue]])
 		{
-			[path setStringValue:[openDlg filename]];
-			[self musicFolderChanged:self];
+			[playlistFolder setStringValue:[openDlg filename]];
+			[self playlistFolderChanged:self];
 		}
 	}
 }
 
--(IBAction)musicFolderChanged:(id)sender
+-(IBAction)saveMediadirs:(id)sender
 {
-	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"audiodir\", \"%@\"", [musicFolder stringValue]]];
+	NSString *mediaDirsString = [NSString stringWithFormat:@"\"%@\"", [mediaDirs componentsJoinedByString:@"\",\""]];
+	//NSLog(mediaDirsString);
+	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"mediadirs\", [%@]", mediaDirsString]];
+	[mediaDirsTable reloadData];
 }
 
 -(IBAction)playlistFolderChanged:(id)sender
@@ -767,6 +791,28 @@
 -(IBAction)libraryNameChanged:(id)sender
 {
 	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"libraryname\", \"%@\"", [musicLibraryName stringValue]]];
+}
+
+-(int)numberOfRowsInTableView:(NSTabView *)tv
+{
+	NSLog(@"%@, %i", mediaDirs, [mediaDirs count]);
+
+	if (mediaDirs == nil)
+		return 0;
+
+	return [mediaDirs count];
+}
+
+-(id)tableView:(NSTabView *)tv objectValueForTableColumn:(NSTableColumn *)dirsColumn row:(int)rowIndex
+{
+	//NSLog(@"%i", rowIndex);
+
+	if ([mediaDirs count] > rowIndex) {
+		return [mediaDirs objectAtIndex:rowIndex];
+	}
+	else {
+		return @"";
+	}
 }
 
 /* rescan buttons and progress */
@@ -865,7 +911,7 @@
 
 	if ([self serverState]) {
 		NSBeginAlertSheet (
-						   LocalizedPrefString(@"Squeezebox Server has to be stopped before running the cleanup. Do you want to stop it now?", @""),
+						   LocalizedPrefString(@"The server has to be stopped before running the cleanup. Do you want to stop it now?", @""),
 						   LocalizedPrefString(@"Run Cleanup", @""),
 						   LocalizedPrefString(@"Cancel", @""),
 						   nil, 
@@ -912,9 +958,9 @@
 }	
 
 
-/* display SC server status in webkit frame */
 -(void)tabView:(NSTabView *)sender didSelectTabViewItem:(NSTabViewItem *)item
 {
+	/* display SC server status in webkit frame */
 	if ([[item identifier] isEqualToString:@"status"]) {
 		[[statusView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:statusUrl]]];
 	}
@@ -926,7 +972,8 @@
 	
 	else if ([[item identifier] isEqualToString:@"library"]) {
 		[musicLibraryName setStringValue:[self getPref:@"libraryname"]];
-		[musicFolder setStringValue:[self getPref:@"audiodir"]];
+
+		[self getMediaDirs];
 		[playlistFolder setStringValue:[self getPref:@"playlistdir"]];
 		
 		int option = [[self getPref:@"itunes" fileName:@"itunes"] intValue];
@@ -1077,7 +1124,7 @@
 	return json;
 }
 
-/* get localized string from Squeezebox Server; cache in a dictionary for future uses */
+/* get localized string from Logitech Media Server; cache in a dictionary for future uses */
 -(NSString *)getSCString:(NSString *)stringToken
 {
 	stringToken = [stringToken uppercaseString];
@@ -1104,6 +1151,21 @@
 	//NSLog(@"Squeezebox: getting string '%@': '%@'", stringToken, s);
 	
 	return s;
+}
+
+-(void)getMediaDirs
+{
+	NSDictionary *prefValue = [self jsonRequest:[NSString stringWithString:@"\"pref\", \"mediadirs\", \"?\""]];
+	
+	if (prefValue != nil) {
+		[mediaDirs removeAllObjects];
+		NSArray *dirs = [prefValue objectForKey:@"_p2"];
+
+		[mediaDirs addObjectsFromArray:dirs];
+	}
+
+	NSLog(@"Squeezebox: Got mediadirs '%@', %i", mediaDirs, [mediaDirs count]);
+	[mediaDirsTable reloadData];
 }
 
 /* very simplistic method to read an atomic pref from the server.prefs file */

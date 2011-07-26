@@ -212,7 +212,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(323, 47);
             this.label5.TabIndex = 0;
-            this.label5.Text = "An updated Squeezebox Server version is available and ready to be installed. Plea" +
+            this.label5.Text = "An updated Logitech Media Server version is available and ready to be installed. Plea" +
                 "se go to the Add-ins menu to install the latest release.";
             // 
             // propertyPageSectionLabel10
@@ -258,7 +258,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.cbStartAtBoot.Name = "cbStartAtBoot";
             this.cbStartAtBoot.Size = new System.Drawing.Size(237, 17);
             this.cbStartAtBoot.TabIndex = 44;
-            this.cbStartAtBoot.Text = "Start Squeezebox Server when system boots";
+            this.cbStartAtBoot.Text = "Start Logitech Media Server when system boots";
             this.cbStartAtBoot.UseVisualStyleBackColor = false;
             this.cbStartAtBoot.Click += new System.EventHandler(this.cbStartAtBoot_Click);
             // 
@@ -282,7 +282,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
             this.btnStartStopService.Name = "btnStartStopService";
             this.btnStartStopService.Size = new System.Drawing.Size(138, 21);
             this.btnStartStopService.TabIndex = 45;
-            this.btnStartStopService.Text = "Start Squeezebox Server";
+            this.btnStartStopService.Text = "Start Logitech Media Server";
             this.btnStartStopService.UseVisualStyleBackColor = true;
             this.btnStartStopService.Click += new System.EventHandler(this.btnStartStopService_Click);
             // 

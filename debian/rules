@@ -87,7 +87,7 @@ install:
 	# Set up the pref's file locations...
 	cp -r ${source}/*.conf ${base}/etc/squeezeboxserver
 
-	# Wrapper to keep SqueezeCenter alive.
+	# Wrapper to keep the server alive.
 	cp -r $(CURDIR)/debian/squeezeboxserver_safe ${base}/usr/sbin/squeezeboxserver_safe
 
 	# Documentation

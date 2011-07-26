@@ -17,15 +17,15 @@ mkdir -p -m go-w /Library/StartupItems/Squeezebox
 
 cat >/Library/StartupItems/Squeezebox/StartupParameters.plist << '!!'
 {
-    Description		= "Squeezebox Server";
-    Provides		= ("Squeezebox Server");
+    Description		= "Logitech Media Server";
+    Provides		= ("Logitech Media Server");
     Requires		= ("Disks");
     Uses		= ("mDNSResponder", "Resolver", "DirectoryServices", "NFS", "Network Time");
     OrderPreference	= "Late";
     Messages =
     {
-	start = "Starting Squeezebox Server";
-	stop = "Stopping Squeezebox Server";
+	start = "Starting Logitech Media Server";
+	stop = "Stopping Logitech Media Server";
     };
 }
 !!
@@ -42,7 +42,7 @@ export HOME
 export home
 
 StartService() {
-ConsoleMessage "Starting Squeezebox Server"
+ConsoleMessage "Starting Logitech Media Server"
 if [ z"\$SERVER_RUNNING" = z ] ; then
 	if [ -e "$HOME/Library/PreferencePanes/Squeezebox.prefPane/Contents/server" ] ; then
 		pushd "$HOME/Library/PreferencePanes/Squeezebox.prefPane/Contents/server"
@@ -59,7 +59,7 @@ fi
 
 StopService() {
 if [ z"\$SERVER_RUNNING" != z ] ; then
-    ConsoleMessage "Stopping Squeezebox Server"
+    ConsoleMessage "Stopping Logitech Media Server"
     kill \`echo \$SERVER_RUNNING | sed -n 's/^[ ]*\([0-9]*\)[ ]*.*$/\1/p'\`
 fi
 }
@@ -91,10 +91,10 @@ cat >/Library/StartupItems/Squeezebox/Resources/French.lproj/Localizable.strings
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Starting Squeezebox Server</key>
-	<string>Démarrage de Squeezebox Server</string>
-	<key>Stopping Squeezebox Server</key>
-	<string>Arrêt de Squeezebox Server</string>
+	<key>Starting Logitech Media Server</key>
+	<string>Démarrage de Logitech Media Server</string>
+	<key>Stopping Logitech Media Server</key>
+	<string>Arrêt de Logitech Media Server</string>
 </dict>
 </plist>
 !!
@@ -107,10 +107,10 @@ cat >/Library/StartupItems/Squeezebox/Resources/English.lproj/Localizable.string
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Starting Squeezebox Server</key>
-	<string>Starting Squeezebox Server</string>
-	<key>Stopping Squeezebox Server</key>
-	<string>Stopping Squeezebox Server</string>
+	<key>Starting Logitech Media Server</key>
+	<string>Starte Logitech Media Server</string>
+	<key>Stopping Logitech Media Server</key>
+	<string>Beende Logitech Media Server</string>
 </dict>
 </plist>
 !!
@@ -122,10 +122,10 @@ cat >/Library/StartupItems/Squeezebox/Resources/English.lproj/Localizable.string
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Starting Squeezebox Server</key>
-	<string>Starting Squeezebox Server</string>
-	<key>Stopping Squeezebox Server</key>
-	<string>Stopping Squeezebox Server</string>
+	<key>Starting Logitech Media Server</key>
+	<string>Starting Logitech Media Server</string>
+	<key>Stopping Logitech Media Server</key>
+	<string>Stopping Logitech Media Server</string>
 </dict>
 </plist>
 !!

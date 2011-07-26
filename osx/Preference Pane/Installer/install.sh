@@ -12,7 +12,7 @@ fi
 
 
 if [ z"$SERVER_RUNNING" != z ] ; then
-	echo "Please stop Squeezebox Server before running the installer."
+	echo "Please stop the server before running the installer."
 	exit 1
 fi
 
@@ -103,17 +103,9 @@ if [ -e "$PREFPANE_TO" ] ; then
 
 	sudo -b -H -u $USER "../Resources/start-server.sh"
 
-	# if we're on OSX 10.3 we'll use an old version of the prefpane...	
-	if [ `sw_vers -productVersion | grep "^10\.3"` ] ; then
-		cd "$PREFPANE_TO/Contents/"
-		rm -rf Resources/*lproj
-		rm -f MacOS/Squeezebox
-		cp -r 10.3/* .
-	fi
-
-	echo "Squeezebox Server installed successfully."
+	echo "Logitech Media Server installed successfully."
 	exit 0
 else
-	echo "Squeezebox Server install failed."
+	echo "Logitech Media Server install failed."
 	exit 1
 fi

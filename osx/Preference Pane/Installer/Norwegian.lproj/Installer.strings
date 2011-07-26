@@ -1,5 +1,5 @@
-﻿/* NSMenuItem : <title:About SlimServer Installer> (oid:58) */
-"About Squeezebox server Installer" = "Om installasjonsprogrammet for Squeezebox Server";
+﻿/* NSMenuItem : <title:About Logitech Media Server Installer> (oid:58) */
+"About Logitech Media Server Installer" = "Om installasjonsprogrammet for Logitech Media Server";
 
 /* NSMenuItem : <title:Bring All to Front> (oid:5) */
 "Bring All to Front" = "Vis alle foran";
@@ -10,8 +10,8 @@
 /* NSMenuItem : <title:Hide Others> (oid:145) */
 "Hide Others" = "Skjul andre";
 
-/* NSMenuItem : <title:Hide Squeezebox server Installer> (oid:134) */
-"Hide Squeezebox server Installer" = "Skjul installasjonsprogrammet for Squeezebox Server";
+/* NSMenuItem : <title:Hide Logitech Media Server Installer> (oid:134) */
+"Hide Logitech Media Server Installer" = "Skjul installasjonsprogrammet for Logitech Media Server";
 
 /* NSButton (Install) : <title:Install> (oid:205) */
 "Install" = "Installer";
@@ -34,8 +34,8 @@
 /* NSButton (Quit) : <title:Quit> (oid:206) */
 "Quit" = "Avslutt";
 
-/* NSMenuItem : <title:Quit Squeezebox server Installer> (oid:136) */
-"Quit Squeezebox server Installer" = "Avslutt installasjonsprogrammet for Squeezebox Server";
+/* NSMenuItem : <title:Quit Logitech Media Server Installer> (oid:136) */
+"Quit Logitech Media Server Installer" = "Avslutt installasjonsprogrammet for Logitech Media Server";
 
 /* NSMenuItem : <title:Services> (oid:131) */
 "Services" = "Tjenester";
@@ -43,8 +43,8 @@
 /* NSMenuItem : <title:Show All> (oid:150) */
 "Show All" = "Vis alle";
 
-/* NSMenu : <title:Squeezebox server Installer> (oid:57) */
-"Squeezebox server Installer" = "Installasjonsprogram for Squeezebox Server";
+/* NSMenu : <title:Logitech Media Server Installer> (oid:57) */
+"Logitech Media Server Installer" = "Installasjonsprogram for Logitech Media Server";
 
 /* NSMenuItem : <title:To All Users (requires authentication)> (oid:202) */
 "To All Users (requires authentication)" = "For alle brukere (krever godkjenning)";
@@ -59,12 +59,12 @@
 /* NSTextField (Waiting for the System Preferences application to quit...) : <title:Waiting for the System Preferences application to quit...> (oid:214) */
 "Waiting for the System Preferences application to quit..." = "Vent mens programmet Systeminnstillinger avsluttes ...";
 
-/* NSTextField (Welcome to the Squeezebox server Installer.  This application will install the Squeezebox server for use with System Preferences.  You may choose to have the preference pane available to all users or just for the current user.   Click Install to install the preference pane or click Quit to exit.) : <title:Welcome to the Squeezebox server Installer.
+/* NSTextField (Welcome to the Logitech Media Server Installer.  This application will install the Logitech Media Server for use with System Preferences.  You may choose to have the preference pane available to all users or just for the current user.   Click Install to install the preference pane or click Quit to exit.) : <title:Welcome to the Logitech Media Server Installer.
 
-This application will install the Squeezebox server for use with System Preferences.  You may choose to have the preference pane available to all users or just for the current user. 
+This application will install the Logitech Media Server for use with System Preferences.  You may choose to have the preference pane available to all users or just for the current user. 
 
 Click Install to install the preference pane or click Quit to exit.> (oid:198) */
-"Welcome to the Squeezebox server Installer.\n\nThis application will install the Squeezebox server for use with System Preferences.  You may choose to have the preference pane available to all users or just for the current user. \n\nClick Install to install the preference pane or click Quit to exit." = "Velkommen til installasjonsprogrammet for Squeezebox.\n\nDette programmet installerer Squeezebox til bruk med Systeminnstillinger. Du kan angi om innstillingsruten skal være tilgjengelig for alle brukere, eller bare for gjeldende bruker. \n\nKlikk på Installer for å installere innstillingsruten, eller klikk på Avslutt for å lukke programmet.";
+"Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.  You may choose to have the preference pane available to all users or just for the current user. \n\nClick Install to install the preference pane or click Quit to exit." = "Velkommen til installasjonsprogrammet for Squeezebox.\n\nDette programmet installerer Squeezebox til bruk med Systeminnstillinger. Du kan angi om innstillingsruten skal være tilgjengelig for alle brukere, eller bare for gjeldende bruker. \n\nKlikk på Installer for å installere innstillingsruten, eller klikk på Avslutt for å lukke programmet.";
 
 /* NSMenu : <title:Window> (oid:24) */
 "Window" = "Vindu";
