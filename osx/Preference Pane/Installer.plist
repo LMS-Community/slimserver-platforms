@@ -13,17 +13,17 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.slimdevices.sliminstaller</string>
 	<key>CFBundleInfoDictionaryVersion</key>
-	<string>7.6.0</string>
+	<string>7.6.1</string>
 	<key>CFBundleName</key>
 	<string>Logitech Media Server Installer</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>7.6.0</string>
+	<string>7.6.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>7.6.0</string>
+	<string>7.6.1</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu.nib</string>
 	<key>NSPrincipalClass</key>

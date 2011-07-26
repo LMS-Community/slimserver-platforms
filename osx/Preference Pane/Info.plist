@@ -13,17 +13,17 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.slimdevices.slim</string>
 	<key>CFBundleInfoDictionaryVersion</key>
-	<string>7.6.0</string>
+	<string>7.6.1</string>
 	<key>CFBundleName</key>
 	<string>Squeezebox</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>7.6.0</string>
+	<string>7.6.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>7.6.0</string>
+	<string>7.6.1</string>
 	<key>NSMainNibFile</key>
 	<string>Pref</string>
 	<key>NSPrefPaneIconFile</key>
