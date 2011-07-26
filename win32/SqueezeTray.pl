@@ -182,7 +182,7 @@ sub Timer {
 
 	if ($state == SC_STATE_STARTING) {
 
-		SetAnimation(TIMERSECS * 1000, 1000, "Squeezebox Server", "SqueezeCenterOff");
+		SetAnimation(TIMERSECS * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
 
 	}
 	
