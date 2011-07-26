@@ -94,24 +94,24 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
         {
             if (this.scStatus == 1)
             {
-                btnStartStopService.Text = "Stop Squeezebox Server";
-                labelSCStatus.Text = "Squeezebox Server is running";
+                btnStartStopService.Text = "Stop Logitech Media Server";
+                labelSCStatus.Text = "Logitech Media Server is running";
             }
             else
             {
                 if (this.scStatus == -1)
-                    labelSCStatus.Text = "Squeezebox Server is not available";
+                    labelSCStatus.Text = "Logitech Media Server is not available";
 
                 else if (this.scStatus == -2)
-                    labelSCStatus.Text = "Squeezebox Server is stopping...";
+                    labelSCStatus.Text = "Logitech Media Server is stopping...";
                 
                 else if (this.scStatus == -3)
-                    labelSCStatus.Text = "Squeezebox Server is starting...";
+                    labelSCStatus.Text = "Logitech Media Server is starting...";
                 
                 else
-                    labelSCStatus.Text = "Squeezebox Server is stopped";
+                    labelSCStatus.Text = "Logitech Media Server is stopped";
                 
-                btnStartStopService.Text = "Start Squeezebox Server";
+                btnStartStopService.Text = "Start Logitech Media Server";
             }
 
             btnStartStopService.Enabled = this.scStatus >= 0;
@@ -261,11 +261,11 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
 
                     if (success != @"0")
                     {
-                        MessageBox.Show("Service Manager returned error code " + success, "Squeezebox Server", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Service Manager returned error code " + success, "Logitech Media Server", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
                 catch {
-                    MessageBox.Show("Changing startup mode failed.", "Squeezebox Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Changing startup mode failed.", "Logitech Media Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -328,7 +328,7 @@ namespace Microsoft.HomeServer.HomeServerConsoleTab.SqueezeCenter
                 if (this.scStatus == 1)
                     informationBrowser.Refresh();
                 else
-                    informationBrowser.DocumentText = @"No status information available. Please note that Squeezebox Server has to be up and running in order to display its status information.";
+                    informationBrowser.DocumentText = @"No status information available. Please note that Logitech Media Server has to be up and running in order to display its status information.";
             }
             else if (e.TabPage == status)
                 libraryStatsTimer.Interval = 150;

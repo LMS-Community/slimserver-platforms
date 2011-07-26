@@ -44,8 +44,8 @@ if ($install) {
 		$args .= " password= $password" if $password;
 
 		`$sc delete $SVC`;
-		`$sc create $SVC binPath= "$Bin/SqueezeSvr.exe" start= auto DisplayName= "Squeezebox Server" $args`;
-		`$sc description $SVC "Squeezebox Server - streaming music server"`;
+		`$sc create $SVC binPath= "$Bin/SqueezeSvr.exe" start= auto DisplayName= "Logitech Media Server" $args`;
+		`$sc description $SVC "Logitech Media Server - streaming music server"`;
 	}
 
 	my %status = ();

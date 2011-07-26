@@ -3,7 +3,7 @@
 # modify it under the terms of the GNU General Public License, 
 # version 2.
 
-# SqueezeTray.exe controls the starting & stopping of the Squeezebox Server application
+# SqueezeTray.exe controls the starting & stopping of the server application
 
 use strict;
 use PerlTray;
@@ -48,7 +48,7 @@ my $controlPanel   = catdir(scalar($os->dirsFor('base')), 'server', 'squeezeboxc
 
 ${^WIN32_SLOPPY_STAT} = 1;
 
-# Dynamically create the popup menu based on Squeezebox Server state
+# Dynamically create the popup menu based on the server's state
 sub PopupMenu {
 	my @menu = ();
 	
@@ -174,7 +174,7 @@ sub ToolTip {
 	return $state;
 }
 
-# The regular (heartbeat) timer that checks the state of Squeezebox Server
+# The regular (heartbeat) timer that checks the state of the server
 # and modifies state variables.
 sub Timer {
 
@@ -182,7 +182,7 @@ sub Timer {
 
 	if ($state == SC_STATE_STARTING) {
 
-		SetAnimation(TIMERSECS * 1000, 1000, "Squeezebox Server", "SqueezeCenterOff");
+		SetAnimation(TIMERSECS * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
 
 	}
 	
@@ -257,7 +257,7 @@ sub checkSCActive {
 # see whether SC has downloaded an update version
 sub checkForUpdate {
 	if ( $svcMgr->getServiceState() != SC_STATE_STARTING && Slim::Utils::Light->checkForUpdate() ) {
-		Balloon(string('UPDATE_AVAILABLE'), "Squeezebox Server", "info", 1);
+		Balloon(string('UPDATE_AVAILABLE'), "Logitech Media Server", "info", 1);
 		
 		# once the balloon is shown, only poll every hour 
 		SetTimer('1:00:00', \&checkForUpdate);
@@ -269,7 +269,7 @@ sub startServer {
 
 	if ($svcMgr->getServiceState() != SC_STATE_STARTING) {
 
-		Balloon(string('STARTING_SQUEEZEBOX_SERVER'), "Squeezebox Server", "", 1);
+		Balloon(string('STARTING_SQUEEZEBOX_SERVER'), "Logitech Media Server", "", 1);
 		SetAnimation(TIMERSECS * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
 
 	}
@@ -278,7 +278,7 @@ sub startServer {
 # Called from menu when SS is active
 sub openServer {
 
-	# Check HTTP first in case Squeezebox Server has changed the HTTP port while running
+	# Check HTTP first in case the server has changed the HTTP port while running
 	my $serverUrl = $svcMgr->checkForHTTP();
 	Execute($serverUrl) if $serverUrl;
 
@@ -294,7 +294,7 @@ sub openControlPanel {
 sub showErrorMessage {
 	my $message = shift;
 
-	MessageBox($message, "Squeezebox Server", MB_OK | MB_ICONERROR);
+	MessageBox($message, "Logitech Media Server", MB_OK | MB_ICONERROR);
 }
 
 sub processID {
@@ -322,7 +322,7 @@ sub stopServer {
 
 	if ($svcMgr->getServiceState() == SC_STATE_RUNNING) {
 
-		Balloon(string('STOPPING_SQUEEZEBOX_SERVER'), "Squeezebox Server", "", 1);
+		Balloon(string('STOPPING_SQUEEZEBOX_SERVER'), "Logitech Media Server", "", 1);
 
 	}
 }
@@ -414,7 +414,7 @@ sub sendCLICommand {
 	return 0;
 }
 
-# attempt to stop Squeezebox Server and exit
+# attempt to stop the server and exit
 sub uninstall {
 	# Kill the timer, we don't want SC to be restarted
 	SetTimer(0);

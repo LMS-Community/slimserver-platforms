@@ -86,7 +86,7 @@ Name: {userdesktop}\{#AppName}; Filename: {app}\SqueezeTray.exe; Parameters: "--
 
 [Registry]
 ;
-; The following keys open required Squeezebox Server ports in the XP Firewall
+; The following keys open required ports in the XP Firewall
 ;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "{code:GetHttpPort}:TCP"; ValueData: "{code:GetHttpPort}:TCP:*:Enabled:{#AppName} {code:GetHttpPort} tcp (UI)"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9001:TCP"; ValueData: "9001:TCP:*:Enabled:{#AppName} 9001 tcp (UI)"; MinVersion: 0,5.01;
@@ -291,7 +291,7 @@ begin
 			TrayExe := 'SqueezeTray.exe';
 			MySQLSvc := 'SqueezeMySQL';
 
-			// stop Squeezebox Server services if installed
+			// stop services if installed
 			StopService(Svc);
 		end
 	else if (UpperCase(Version) = 'SC') then
@@ -421,7 +421,7 @@ var
 	StartAtBoot: String;
 
 begin
-	// if we don't have a Squeezebox Server prefs file yet, migrate preference file before uninstalling SlimServer
+	// if we don't have a server.prefs file yet, migrate preference file before uninstalling SlimServer
 	if not FileExists(GetPrefsFile()) then
 		begin
 			PrefsPath := AddBackslash(GetPrefsFolder());
@@ -784,7 +784,7 @@ begin
 								while (Wait > 0) do
 									begin
 									
-										Log('Waiting for Squeezebox Server to be running...');
+										Log('Waiting for the server to be running...');
 									
 										ProgressPage.setProgress(ProgressPage.ProgressBar.Position+2, ProgressPage.ProgressBar.Max);
 										Sleep(2000);

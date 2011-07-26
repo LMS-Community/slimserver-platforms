@@ -1,6 +1,6 @@
 [Setup]
-AppName=Squeezebox Server Service Enabler
-AppVerName=Squeezebox Server
+AppName=Logitech Media Server Service Enabler
+AppVerName=Logitech Media Server
 OutputBaseFilename=ServiceEnabler
 WizardImageFile=squeezebox.bmp
 WizardImageBackColor=$ffffff
