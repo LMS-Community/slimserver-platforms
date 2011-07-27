@@ -1,6 +1,6 @@
 ﻿/* Localized versions of Info.plist keys */
 
 CFBundleName = "Installationsprogram för Logitech Media Server";
-CFBundleShortVersionString = "7.6.1";
-CFBundleGetInfoString = "Installationsprogram för Logitech Media Server version 7.6.1, © 2003–2011 Logitech";
+CFBundleShortVersionString = "7.7.0";
+CFBundleGetInfoString = "Installationsprogram för Logitech Media Server version 7.7.0, © 2003–2011 Logitech";
 NSHumanReadableCopyright = "© 2003–2011 Logitech";
