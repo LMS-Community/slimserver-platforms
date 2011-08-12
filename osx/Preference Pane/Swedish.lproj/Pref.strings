@@ -159,7 +159,7 @@
 "1081.title" = "Det här är namnet på ditt musikbibliotek i Squeezebox-menyn \Min musik\.";
 
 /* Class = "NSTextFieldCell"; title = "Music Folder\n"; ObjectID = "1083"; */
-"1083.title" = "Musikmapp";
+"1083.title" = "Musikmapp\n";
 
 /* Class = "NSButtonCell"; title = "Browse"; ObjectID = "1085"; */
 "1085.title" = "Bläddra";
@@ -168,7 +168,7 @@
 "1087.title" = "Bläddra";
 
 /* Class = "NSTextFieldCell"; title = "Playlist Folder\n"; ObjectID = "1088"; */
-"1088.title" = "Mapp med spellistor";
+"1088.title" = "Mapp med spellistor\n";
 
 /* Class = "NSButtonCell"; title = "Use iTunes"; ObjectID = "1089"; */
 "1089.title" = "Använd iTunes";
@@ -183,10 +183,10 @@
 "1093.title" = "Servern har stoppats";
 
 /* Class = "NSTextFieldCell"; title = "Music Library Stats"; ObjectID = "1094"; */
-"1094.title" = "Musikbibliotekstat.";
+"1094.title" = "Musikbiblioteksstat.";
 
 /* Class = "NSTextFieldCell"; title = "Server Status"; ObjectID = "1095"; */
 "1095.title" = "Serverstatus";
 
 /* Class = "NSTextFieldCell"; title = "Music Library Statistics"; ObjectID = "1096"; */
-"1096.title" = "Musikbibliotekstatistik";
+"1096.title" = "Musikbiblioteksstatistik";

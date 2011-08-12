@@ -57,14 +57,14 @@
 "Version 7.7.0\n" = "Version 7.7.0\n";
 
 /* NSTextField (Waiting for the System Preferences application to quit...) : <title:Waiting for the System Preferences application to quit...> (oid:214) */
-"Waiting for the System Preferences application to quit..." = "Väntar på att programmet Systeminställningar ska avslutas ...";
+"Waiting for the System Preferences application to quit..." = "Väntar på att programmet Systeminställningar ska avslutas...";
 
 /* NSTextField (Welcome to the Logitech Media Server Installer.  This application will install the Logitech Media Server for use with System Preferences.  You may choose to have the preference pane available to all users or just for the current user.   Click Install to install the preference pane or click Quit to exit.) : <title:Welcome to the Logitech Media Server Installer.
 
 This application will install the Logitech Media Server for use with System Preferences.  You may choose to have the preference pane available to all users or just for the current user. 
 
 Click Install to install the preference pane or click Quit to exit.> (oid:198) */
-"Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.  You may choose to have the preference pane available to all users or just for the current user. \n\nClick Install to install the preference pane or click Quit to exit." = "Välkommen till installationsprogrammet för Logitech Media Server.\n\nProgrammet installerar Logitech Media Server för användning med Systeminställningar.  Du kan ange om installationsfönstret ska vara tillgängligt för alla användare eller endast för den aktuella användaren. \n\nKlicka på Installera för att installera fönstret eller på Avsluta för att stänga programmet.";
+"Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.  You may choose to have the preference pane available to all users or just for the current user. \n\nClick Install to install the preference pane or click Quit to exit." = "Välkommen till installationsprogrammet för Logitech Media Server.\n\nProgrammet installerar Logitech Media Server för användning med Systeminställningar. Du kan ange om installationsfönstret ska vara tillgängligt för alla användare eller endast för den aktuella användaren. \n\nKlicka på Installera för att installera fönstret eller på Avsluta för att stänga programmet.";
 
 /* NSMenu : <title:Window> (oid:24) */
 "Window" = "Fönster";

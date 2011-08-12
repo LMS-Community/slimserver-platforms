@@ -45,7 +45,7 @@
 "836.title" = "Søg efter nye og ændrede musikfiler";
 
 /* Class = "NSMenuItem"; title = "Clear library and rescan everything"; ObjectID = "837"; */
-"837.title" = "Ryd musikbiblioteket, og gennemsøg alle mapper igen";
+"837.title" = "Ryd biblioteket, og gennemsøg alle mapper igen";
 
 /* Class = "NSMenuItem"; title = "Only rescan playlists"; ObjectID = "838"; */
 "838.title" = "Gennemsøg kun afspilningslister igen";

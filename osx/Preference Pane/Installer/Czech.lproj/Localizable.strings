@@ -6,6 +6,6 @@
 "Logitech Media Server install failed.\n" = "Instalace Logitech Media Server selhala.";
 "You must have OS X 10.3 or later to run Logitech Media Server.\n" = "Ke spuštění Logitech Media Server potřebujete OS X 10.3 nebo novější verzi.";
 "Mac OS X 10.3 Required" = "Vyžadován Mac OS X 10.3";
-"Please quit System Preferences before running the installer.\n" = "Please quit System Preferences before running the installer.\n";
-"Please stop Logitech Media Server before running the installer.\n" = "Please stop Logitech Media Server before running the installer.\n";
+"Please quit System Preferences before running the installer.\n" = "Opustit Předvolbách systému před spuštěním instalačního programu.\n";
+"Please stop Logitech Media Server before running the installer.\n" = "Zastavit Logitech Media Server před spuštěním instalačního programu.\n";
 "Version x.y.z" = "Verze 7.7.0";

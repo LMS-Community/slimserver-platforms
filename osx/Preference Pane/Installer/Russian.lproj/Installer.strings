@@ -64,7 +64,7 @@
 This application will install the Logitech Media Server for use with System Preferences.  You may choose to have the preference pane available to all users or just for the current user. 
 
 Click Install to install the preference pane or click Quit to exit.> (oid:198) */
-"Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.  You may choose to have the preference pane available to all users or just for the current user. \n\nClick Install to install the preference pane or click Quit to exit." = "Добро пожаловать в установщик Logitech Media Server.\n\nЭто приложение выполнит установку Logitech Media Server для работы с приложением System Preferences. Можно отобразить панель настроек для всех пользователей или только для текущего пользователя. \n\nДля установки панели настроек нажмите кнопку "Установить", для выхода — "Выход".";
+"Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.  You may choose to have the preference pane available to all users or just for the current user. \n\nClick Install to install the preference pane or click Quit to exit." = "Добро пожаловать в установщик Logitech Media Server.\n\nЭто приложение выполнит установку Logitech Media Server для работы с приложением System Preferences. Можно отобразить панель настроек для всех пользователей или только для текущего пользователя. \n\nДля установки панели настроек нажмите кнопку \"Установить\", для выхода — \"Выход\".";
 
 /* NSMenu : <title:Window> (oid:24) */
 "Window" = "Window";

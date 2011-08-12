@@ -120,7 +120,7 @@
 "1066.title" = "Pilot zdalnego sterowania";
 
 /* Class = "NSButtonCell"; title = "Advanced Settings"; ObjectID = "1067"; */
-"1067.title" = "Ustawienia zaawansowaneUstawienia zaawansowane";
+"1067.title" = "Ustawienia zaawansowane";
 
 /* Class = "NSButtonCell"; title = "Server Log"; ObjectID = "1068"; */
 "1068.title" = "Dziennik serwera";
@@ -159,7 +159,7 @@
 "1081.title" = "Taką nazwę będzie miała biblioteka muzyki w menu \"Moja muzyka\" urządzenia Squeezebox.";
 
 /* Class = "NSTextFieldCell"; title = "Music Folder\n"; ObjectID = "1083"; */
-"1083.title" = "Folder muzyki";
+"1083.title" = "Folder muzyki\n";
 
 /* Class = "NSButtonCell"; title = "Browse"; ObjectID = "1085"; */
 "1085.title" = "Przeglądaj";
@@ -168,7 +168,7 @@
 "1087.title" = "Przeglądaj";
 
 /* Class = "NSTextFieldCell"; title = "Playlist Folder\n"; ObjectID = "1088"; */
-"1088.title" = "Folder list odtwarzania";
+"1088.title" = "Folder list odtwarzania\n";
 
 /* Class = "NSButtonCell"; title = "Use iTunes"; ObjectID = "1089"; */
 "1089.title" = "Użyj programu iTunes";

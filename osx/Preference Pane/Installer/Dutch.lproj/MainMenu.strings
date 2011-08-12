@@ -24,7 +24,7 @@
 "57.title" = "Installatieprogramma voor Logitech Media Server";
 
 /* Class = "NSMenuItem"; title = "About Logitech Media Server Installer"; ObjectID = "58"; */
-"58.title" = "Installatieprogramma van Logitech Media Server";
+"58.title" = "Installatieprogramma voor Logitech Media Server";
 
 /* Class = "NSMenu"; title = "Services"; ObjectID = "130"; */
 "130.title" = "Services";
@@ -33,10 +33,10 @@
 "131.title" = "Services";
 
 /* Class = "NSMenuItem"; title = "Hide Logitech Media Server Installer"; ObjectID = "134"; */
-"134.title" = "Installatieprogramma van Logitech Media Server verbergen";
+"134.title" = "Verberg installatieprogramma voor Logitech Media Server";
 
 /* Class = "NSMenuItem"; title = "Quit Logitech Media Server Installer"; ObjectID = "136"; */
-"136.title" = "Installatieprogramma van Logitech Media Server sluiten";
+"136.title" = "Sluit installatieprogramma voor Logitech Media Server";
 
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "145"; */
 "145.title" = "Verberg andere";

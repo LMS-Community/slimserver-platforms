@@ -3,9 +3,9 @@
 "Install Results" = "Résultats de l'installation";
 "OK" = "OK";
 "Logitech Media Server installed successfully.\n" = "L'installation du Logitech Media Server est terminée.";
-"Logitech Media Server install failed.\n" = "L'installation de Logitech Media Server a échoué.";
+"Logitech Media Server install failed.\n" = "L'installation du Logitech Media Server a échoué.";
 "You must have OS X 10.3 or later to run Logitech Media Server.\n" = "Vous devez disposer du système OS X 10.3 ou version ultérieure pour exécuter le Logitech Media Server.";
 "Mac OS X 10.3 Required" = "Mac OS X 10.3 requis";
-"Please quit System Preferences before running the installer.\n" = "Please quit System Preferences before running the installer.\n";
-"Please stop Logitech Media Server before running the installer.\n" = "Please stop Logitech Media Server before running the installer.\n";
+"Please quit System Preferences before running the installer.\n" = "Veuillez quitter les Préférences Système avant de lancer le programme d'installation.\n";
+"Please stop Logitech Media Server before running the installer.\n" = "Veuillez arrêter le Logitech Media Server avant de lancer le programme d'installation.\n";
 "Version x.y.z" = "Version 7.7.0";

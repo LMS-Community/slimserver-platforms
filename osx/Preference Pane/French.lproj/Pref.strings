@@ -117,7 +117,7 @@
 "1065.title" = "Pour activer certaines fonctions, veuillez vérifier que l'adresse électronique mysqueezebox.com et le mot de passe saisis sont corrects.";
 
 /* Class = "NSButtonCell"; title = "Web Remote Control"; ObjectID = "1066"; */
-"1066.title" = "Télécommande Web";
+"1066.title" = "Commande Web";
 
 /* Class = "NSButtonCell"; title = "Advanced Settings"; ObjectID = "1067"; */
 "1067.title" = "Paramètres avancés";
@@ -156,7 +156,7 @@
 "1079.title" = "Analyse de la collection musicale";
 
 /* Class = "NSTextFieldCell"; title = "This is how your music library will be named in your Squeezebox's \"My Music\" menu."; ObjectID = "1081"; */
-"1081.title" = "Votre collection musicale est nommée de cette manière sous le menu \"Ma musique\" de la Squeezebox.";
+"1081.title" = "Votre collection musicale est nommée ainsi sous le menu \"Ma musique\" de la Squeezebox.";
 
 /* Class = "NSTextFieldCell"; title = "Music Folder\n"; ObjectID = "1083"; */
 "1083.title" = "Dossier de musique\n";
