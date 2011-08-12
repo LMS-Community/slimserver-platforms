@@ -339,7 +339,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 								</object>
 								<object class="NSMenuItem" id="773603718">
 									<reference key="NSMenu" ref="536348080"/>
-									<string key="NSTitle">Salir del instalador de Squeezebox Server</string>
+									<string key="NSTitle">Quit Installer</string>
 									<string key="NSKeyEquiv">q</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>

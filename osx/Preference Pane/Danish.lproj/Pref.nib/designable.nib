@@ -1137,7 +1137,7 @@
 															<reference ref="407468879"/>
 															<object class="NSMenuItem" id="912765588">
 																<reference key="NSMenu" ref="152862286"/>
-																<string key="NSTitle">Ryd musikbiblioteket, og gennemsøg alle mapper igen</string>
+																<string key="NSTitle">Ryd biblioteket, og gennemsøg alle mapper igen</string>
 																<string key="NSKeyEquiv"/>
 																<int key="NSKeyEquivModMask">1048576</int>
 																<int key="NSMnemonicLoc">2147483647</int>

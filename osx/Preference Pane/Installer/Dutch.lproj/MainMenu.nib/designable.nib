@@ -339,7 +339,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 								</object>
 								<object class="NSMenuItem" id="773603718">
 									<reference key="NSMenu" ref="536348080"/>
-									<string key="NSTitle">Installatieprogramma van Logitech Media Server sluiten</string>
+									<string key="NSTitle">Sluit installatieprogramma voor Logitech Media Server</string>
 									<string key="NSKeyEquiv">q</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
