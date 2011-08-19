@@ -29,7 +29,7 @@
 %endif
 
 
-Name:		squeezeboxserver
+Name:		logitechmediaserver
 Packager:	Logitech - please visit www.mysqueezebox.com/support
 Version:	%{_version}
 Release:	%{rpm_release}
@@ -158,7 +158,7 @@ rm -rf $RPM_BUILD_ROOT
 getent group squeezeboxserver >/dev/null || groupadd -r squeezeboxserver
 getent passwd squeezeboxserver >/dev/null || \
 useradd -r -g squeezeboxserver -d %{_datadir}/squeezeboxserver -s /sbin/nologin \
-    -c "SqueezeBox Server" squeezeboxserver
+    -c "Logitech Media Server" squeezeboxserver
 exit 0
 
 
@@ -195,7 +195,7 @@ fi
 PORT=`awk '/^httpport/ {print $2}' %{_var}/lib/squeezeboxserver/prefs/server.prefs`
 [ -z "$PORT" ] && PORT=9000
 HOSTNAME=`uname -n`
-echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure SqueezeBox Server."
+echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure Logitech Media Server."
 
 
 %preun
