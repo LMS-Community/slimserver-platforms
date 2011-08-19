@@ -1,16 +1,16 @@
-Source: squeezeboxserver
+Source: logitechmediaserver
 Section: sound
 Priority: optional
 Maintainer: Logitech/Slim Devices <debian@slimdevices.com>
 Build-Depends: debhelper (>= 4.0.0)
 Standards-Version: 3.6.2
 
-Package: squeezeboxserver
+Package: logitechmediaserver
 Architecture: all
-Conflicts: slimp3,slimserver,squeezecenter
-Replaces: slimp3,slimserver,squeezecenter
+Conflicts: slimp3,slimserver,squeezecenter,squeezeboxserver
+Replaces: slimp3,slimserver,squeezecenter,squeezeboxserver
 Depends: perl (>= 5.8.8), adduser
 Description: Streaming Audio Server
- Squeezebox Server is a cross-platform streaming server that supports a wide range
+ Logitech Media Server is a cross-platform streaming media server that supports a wide range
  of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and WMA.
  .

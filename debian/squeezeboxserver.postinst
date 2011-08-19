@@ -2,7 +2,7 @@
 
 # $Id$
 
-# postinst script for SqueezeBox
+# postinst script for Logitech Media Server
 
 set -e
 . /usr/share/debconf/confmodule

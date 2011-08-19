@@ -1,10 +1,10 @@
 $Id$
 
-This is Squeezebox Server for Debian.
+This is Logitech Media Server for Debian.
 
 It includes all fonts, HTML & Firmware, unlike the "Official Debian Package".
 
-Please see http://www.slimdevices.com/ for more information.
+Please see http://www.mysqueezebox.com/ for more information.
 
 - Matt Wise <debian | at | slimdevices.com>
 

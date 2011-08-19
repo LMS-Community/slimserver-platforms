@@ -11,24 +11,25 @@
 
 #
 ### BEGIN INIT INFO
-# Provides:          	squeezeboxserver
+# Provides:          	logitechmediaserver
 # Required-Start:    	$all
 # Required-Stop:     	$all
 # Should-Start:      	$all
 # Should-Stop:       	$all
 # Default-Start:     	2 3 4 5
 # Default-Stop:      	0 1 6
-# Short-Description:	Startup script for the SqueezeBox Music Server
-# Description:		SqueezeBox Server powers the Squeezebox, Transporter and SLIMP3 network music \
+# Short-Description:	Startup script for the Logitech Media Server
+# Description:		Logitech Media Server powers the Squeezebox, Transporter and SLIMP3 network music \
 #			players and is the best software to stream your music to any software MP3 \
-#			player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
+#			player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more! \
+#			As of version 7.7 it also supports UPnP clients, serving pictures and movies too!"
 ### END INIT INFO
 #
 
 set -e
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DESC="Squeezebox Server"
+DESC="Logitech Media Server"
 NAME=squeezeboxserver
 DAEMON=/usr/sbin/$NAME
 DAEMON_SAFE=/usr/sbin/${NAME}_safe

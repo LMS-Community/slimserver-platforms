@@ -1,5 +1,5 @@
-squeezeboxserver (_VERSION_) testing; urgency=low
+logitechmediaserver (_VERSION_) testing; urgency=low
 
-  * Squeezebox Server Package
+  * Logitech Media Package
 
  -- Matt Wise <debian@slimdevices.com>  Mon, 03 Aug 2009 15:14:33 -0000
