@@ -29,6 +29,7 @@ install:
 	install -d -m0755 ${base}/etc/init.d/
 	install -d -m0755 ${base}/usr/share/perl5/
 	install -d -m0755 ${base}/${share}
+	install -d -m0755 ${base}/usr/share/lintian/overrides/
 	install -d -m0755 ${base}/usr/share/doc/squeezeboxserver/
 	install -d -m0755 ${base}/${varlib}/prefs
 	install -d -m0755 ${base}/${varlib}/cache
@@ -97,6 +98,9 @@ install:
 
 	# Copy the revision file
 	cp ${source}/revision.txt ${base}/${share}
+
+	# lintian overrides file
+	cp $(CURDIR)/debian/lintian.overrides ${base}/usr/share/lintian/overrides/$(package)
 
 binary-indep: install
 	dh_testdir

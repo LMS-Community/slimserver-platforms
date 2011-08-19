@@ -1,0 +1,18 @@
+# override some policies
+# we provide tons of binaries for various platforms, thus "arch-independant" etc.
+
+logitechmediaserver: arch-dependent-file-in-usr-share
+logitechmediaserver: arch-independent-package-contains-binary-or-object
+logitechmediaserver: executable-not-elf-or-script
+
+logitechmediaserver: binary-or-shlib-defines-rpath
+logitechmediaserver: unstripped-binary-or-object
+logitechmediaserver: statically-linked-binary
+logitechmediaserver: embedded-library
+
+logitechmediaserver: copyright-file-contains-full-gpl-license
+logitechmediaserver: copyright-should-refer-to-common-license-file-for-lgpl
+logitechmediaserver: binary-without-manpage
+
+logitechmediaserver: wrong-path-for-interpreter
+
