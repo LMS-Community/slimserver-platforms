@@ -5,7 +5,7 @@
 # Uncomment this to turn on verbose mode.
 export DH_VERBOSE=1
 
-package=squeezeboxserver
+package=logitechmediaserver
 base=$(CURDIR)/debian/$(package)
 share=usr/share/squeezeboxserver/
 source=$(CURDIR)/../server
