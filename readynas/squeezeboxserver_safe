@@ -4,20 +4,20 @@
 
 if [ $# = 0 ]
 then
-  echo "Script to restart Squeezebox Server over and over again."
-  echo "This has to be done since the mysql-server is sometimes"
+  echo "Script to restart Logitech Media Server over and over again."
+  echo "This might need to be done since the mysql-server is sometimes"
   echo "restarted due to upgrades and log-rotation and this causes"
-  echo "Squeezebox Server to exit."
+  echo "Logitech Media Server to exit."
   echo
-  echo "To stop Squeezebox Server, kill this script instead of the"
-  echo "actual Squeezebox Server process."
+  echo "To stop Logitech Media Server, kill this script instead of the"
+  echo "actual Logitech Media Server process."
   echo
   echo "Usage: $0 <squeezebox-binary> <squeezebox-arguments>"
   exit 1
 fi
 
 function clean_up {
-  # Kill the Squeezebox Server daemon if it is running
+  # Kill the daemon if it is running
   kill $SLIMPID
   echo `date "+%F %H:%M:%S"` "squeezeboxserver_safe stopped." >> /var/log/squeezeboxserver/server.log
   exit
@@ -41,13 +41,13 @@ do
   "$@" > /dev/null 2>&1 &
   SLIMPID=$!
   
-  # wait for Squeezebox Server to get started before wait()
+  # wait for the server to get started before wait()
   sleep 15
   
   wait $SLIMPID
-  echo `date "+%F %H:%M:%S"` "Squeezebox Server died. Restarting." >> /var/log/squeezeboxserver/server.log
+  echo `date "+%F %H:%M:%S"` "Logitech Media Server died. Restarting." >> /var/log/squeezeboxserver/server.log
 
-  # Normally, when Squeezebox Server realizes that the mysql-connection is gone,
+  # Normally, when Logitech Media Server realizes that the mysql-connection is gone,
   # the mysql server has already been started again. So no need to sleep
   # here.
 

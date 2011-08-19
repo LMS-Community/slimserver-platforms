@@ -12,6 +12,6 @@ Replaces: slimp3,slimserver,squeezecenter,squeezecenter-readynas
 Depends: perl (>= 5.8.1),
  flac, sox, adduser, libmad0, libvorbis0a, libvorbisenc2, libvorbisfile3
 Description: Streaming Audio Server
- Squeezebox Server is a cross-platform streaming server that supports a wide range
+ Logitech Media Server is a cross-platform streaming server that supports a wide range
  of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and WMA.
  .

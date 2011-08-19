@@ -62,7 +62,7 @@ install:
 	# let's use the system's mysql server
 	rm -rf ${source}/Bin/i386-linux/mysqld
 
-	# And aux files needed to run SqueezeBox Server
+	# And aux files needed to run Logitech Media Server
 	cp -rf ${source}/Firmware ${base}/${share}
 	cp -rf ${source}/Graphics ${base}/${share}
 	cp -rf ${source}/HTML ${base}/${share}
@@ -94,7 +94,7 @@ install:
 	cp -rf $(CURDIR)/readynas/squeezeboxserver.default ${base}/etc/default/squeezeboxserver
 	cp -rf $(CURDIR)/readynas/squeezeboxserver.init ${base}/etc/init.d/squeezeboxserver
 
-	# Wrapper to keep SqueezeBox Server alive.
+	# Wrapper to keep Logitech Media Server alive.
 	cp -rf $(CURDIR)/readynas/squeezeboxserver_safe ${base}/usr/sbin/
 
 	# Documentation

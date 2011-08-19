@@ -1,4 +1,4 @@
-# User to run Squeezebox Server as
+# User to run Logitech Media Server as
 SLIMUSER=root
 
 SLIMOPTIONS=""

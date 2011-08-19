@@ -12,7 +12,7 @@
 set -e
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DESC="Squeezebox Server"
+DESC="Logitech Media Server"
 NAME=squeezeboxserver
 DAEMON=/usr/sbin/$NAME
 DAEMON_SAFE=/usr/sbin/${NAME}_safe
