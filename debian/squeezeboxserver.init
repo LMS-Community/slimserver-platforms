@@ -11,7 +11,7 @@
 
 #
 ### BEGIN INIT INFO
-# Provides:          	logitechmediaserver
+# Provides:          	squeezeboxserver
 # Required-Start:    	$all
 # Required-Stop:     	$all
 # Should-Start:      	$all

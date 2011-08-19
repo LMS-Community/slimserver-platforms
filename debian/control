@@ -1,14 +1,14 @@
-Source: logitechmediaserver
+Source: squeezeboxserver
 Section: sound
 Priority: optional
 Maintainer: Logitech/Slim Devices <debian@slimdevices.com>
 Build-Depends: debhelper (>= 4.0.0)
 Standards-Version: 3.6.2
 
-Package: logitechmediaserver
+Package: squeezeboxserver
 Architecture: all
-Conflicts: slimp3,slimserver,squeezecenter,squeezeboxserver
-Replaces: slimp3,slimserver,squeezecenter,squeezeboxserver
+Conflicts: slimp3,slimserver,squeezecenter
+Replaces: slimp3,slimserver,squeezecenter
 Depends: perl (>= 5.8.8), adduser
 Description: Streaming Audio Server
  Logitech Media Server is a cross-platform streaming media server that supports a wide range
