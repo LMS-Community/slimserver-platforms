@@ -13,4 +13,3 @@ Depends: perl (>= 5.8.8), adduser, libc6
 Description: Streaming Audio Server
  Logitech Media Server is a cross-platform streaming media server that supports a wide range
  of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and WMA.
- .
