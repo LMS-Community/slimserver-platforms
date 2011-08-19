@@ -3,7 +3,7 @@ error() {
   exit 1;
 }
 
-name="SqueezeboxServer"
+name="LogitechMediaServer"
 vers=$(awk -F'!!' '{ print $3 }' $name/addons.conf)
 time=$(date +%s)
 
