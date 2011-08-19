@@ -1,11 +1,12 @@
 #!/bin/bash
 #
-# squeezeboxserver	Startup script for the Squeezebox Server
+# squeezeboxserver	Startup script for the Logitech Media Server
 #
 # chkconfig:		345 80 30
-# description:		Squeezebox server powers the Squeezebox, Transporter and SLIMP3 network music \
+# description:		Logitech Media Server powers the Squeezebox, Transporter and SLIMP3 network music \
 #			players and is the best software to stream your music to any software MP3 \
-#			player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
+#			player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more! \
+#			As of version 7.7 it also supports UPnP clients, serving pictures and movies too!
 # processname:		squeezeboxserver
 # config: 		/etc/squeezeboxserver/squeezeboxserver.conf
 # config:		/etc/sysconfig/squeezeboxserver
@@ -19,10 +20,11 @@
 # Should-Stop:		$time ypbind sendmail
 # Default-Start:	3 5
 # Default-Stop:		0 1 2 6
-# Short-Description:	Startup script for the Squeezebox Server
-# Description:		Squeezebox Server powers the Squeezebox, Transporter and SLIMP3 network music \
+# Short-Description:	Startup script for the Logitech Media Server
+# Description:		Logitech Media Server powers the Squeezebox, Transporter and SLIMP3 network music \
 #			players and is the best software to stream your music to any software MP3 \
-#			player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
+#			player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more! \
+#			As of version 7.7 it also supports UPnP clients, serving pictures and movies too!
 ### END INIT INFO
 # 
 

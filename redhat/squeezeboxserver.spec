@@ -33,11 +33,11 @@ Name:		squeezeboxserver
 Packager:	Logitech - please visit www.mysqueezebox.com/support
 Version:	%{_version}
 Release:	%{rpm_release}
-Summary:        SqueezeBox Server
+Summary:        Logitech Media Server
 
 Group:		System Environment/Daemons          
 License:	GPL and proprietary        
-URL:		http://www.slimdevices.com            
+URL:		http://www.mysqueezebox.com            
 Source0:	%{src_basename}.tgz
 Source1:	squeezeboxserver.config
 Source2:	squeezeboxserver.init
@@ -53,10 +53,10 @@ AutoReqProv:	no
 BuildArch:	noarch       
 
 %description
-SqueezeBox Server powers the Squeezebox, Transporter and SLIMP3 network music 
+Logitech Media Server powers the Squeezebox, Transporter and SLIMP3 network music 
 players and is the best software to stream your music to any software MP3 
 player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
-
+As of version 7.7 it also supports UPnP clients, serving pictures and movies too!
 
 %prep
 %setup -q -n %{src_basename}
