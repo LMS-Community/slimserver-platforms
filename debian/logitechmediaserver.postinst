@@ -64,6 +64,8 @@ case "$1" in
 	fi
 	
 	db_stop
+
+	/etc/init.d/squeezeboxserver restart
     ;;
 	
     abort-upgrade|abort-remove|abort-deconfigure)
