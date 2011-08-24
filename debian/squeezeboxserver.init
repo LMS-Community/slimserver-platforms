@@ -31,6 +31,7 @@ set -e
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="Logitech Media Server"
 NAME=squeezeboxserver
+NEWNAME=logitechmediaserver
 DAEMON=/usr/sbin/$NAME
 DAEMON_SAFE=/usr/sbin/${NAME}_safe
 PIDFILE=/var/run/$NAME.pid
@@ -43,8 +44,9 @@ CHARSET=utf8
 SLIMOPTIONS=
 
 # Read config file if it is present.
-if [ -r /etc/default/$NAME ]
-then
+if [ -r /etc/default/$NEWNAME ]; then
+	. /etc/default/$NEWNAME
+elif [ -r /etc/default/$NAME ]; then
 	. /etc/default/$NAME
 fi
 

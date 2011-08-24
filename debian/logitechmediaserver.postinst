@@ -18,6 +18,21 @@ case "$1" in
 
 	# Remove the old Favorites module.
 	rm -rf /var/lib/squeezeboxserver/Plugins/Favorites
+	
+	# remove some Squeezebox Server leftovers
+	if [ -f /etc/default/squeezeboxserver ]; then
+		if [ -f /etc/default/logitechmediaserver ]; then
+			rm -f /etc/default/logitechmediaserver
+		fi
+		mv /etc/default/squeezeboxserver /etc/default/logitechmediaserver
+	fi
+
+	if [ -f /etc/logrotate.d/squeezeboxserver ]; then
+		if [ -f /etc/logrotate.d/logitechmediaserver ]; then
+			rm -f /etc/logrotate.d/logitechmediaserver
+		fi
+		mv /etc/logrotate.d/squeezeboxserver /etc/logrotate.d/logitechmediaserver
+	fi
 
 	# Create a "squeezebox" user. This has modeled after the code in the postfix.deb
 	# postinst. We first try to set the ownership of /var/lib/squeezeboxserver. If that
