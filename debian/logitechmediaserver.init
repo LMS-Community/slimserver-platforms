@@ -2,16 +2,16 @@
 #
 # $Id$
 #
-# squeezeboxserver	initscript for squeezebox.pl
+# logitechmediaserver	initscript for slimserver.pl
 #			This file should be placed in /etc/init.d.
 #
 # Original Author: Mattias Holmlund
 #
-# Updated By: Dan Sully
+# Updated By: Dan Sully, Michael Herger
 
 #
 ### BEGIN INIT INFO
-# Provides:          	squeezeboxserver
+# Provides:          	logitechmediaserver
 # Required-Start:    	$all
 # Required-Stop:     	$all
 # Should-Start:      	$all
@@ -34,8 +34,8 @@ NAME=squeezeboxserver
 NEWNAME=logitechmediaserver
 DAEMON=/usr/sbin/$NAME
 DAEMON_SAFE=/usr/sbin/${NAME}_safe
-PIDFILE=/var/run/$NAME.pid
-SCRIPTNAME=/etc/init.d/$NAME
+PIDFILE=/var/run/$NEWNAME.pid
+SCRIPTNAME=/etc/init.d/$NEWNAME
 SLIMUSER=$NAME
 PREFSDIR=/var/lib/$NAME/prefs
 LOGDIR=/var/log/$NAME/
