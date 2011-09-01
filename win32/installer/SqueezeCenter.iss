@@ -688,8 +688,8 @@ begin
 
 			// run VC runtime installer if not already installed
 			// http://blogs.msdn.com/astebner/archive/2006/08/23/715755.aspx
-			if ((RegKeyExists(HKLM, '{#VCRedistKey}') or RegKeyExists(HKLM, '{#VCRedistKey2}')) 
-					or (IsWin64 and ((RegKeyExists(HKLM64, '{#VCRedistKey}') or RegKeyExists(HKLM64, '{#VCRedistKey2}'))))) then
+			if ( (not Silent) and not (RegKeyExists(HKLM, '{#VCRedistKey}') or RegKeyExists(HKLM, '{#VCRedistKey2}')) 
+					and not (IsWin64 and ((RegKeyExists(HKLM64, '{#VCRedistKey}') or RegKeyExists(HKLM64, '{#VCRedistKey2}')))) ) then
 				Exec(AddBackslash(ExpandConstant('{tmp}')) + 'vcredist.exe', '/q:a /c:"msiexec /i vcredist.msi /qb!"', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
 
 			ProgressPage := CreateOutputProgressPage(CustomMessage('RegisterServices'), CustomMessage('RegisterServicesDesc'));
