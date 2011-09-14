@@ -169,6 +169,8 @@ var
 	// 1002 - SC wasn't able to establish a connection to mysqueezebox.com on port 3483 (SNConnectFailed_Description)
 	// 1101 - SliMP3 uninstall failed
 	// 1102 - SlimServer uninstall failed
+	// 1103 - SqueezeCenter uninstall failed
+	// 1104 - Squeezebox Server uninstall failed
 	CustomExitCode: Integer;
 
 function GetHttpPort(Param: String) : String;
@@ -469,7 +471,7 @@ begin
 			if not Exec(RemoveQuotes(Uninstaller), '', UninstallPath, SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
 				begin
 					SuppressibleMsgBox(CustomMessage('ProblemUninstallingSqueezeCenter') + SysErrorMessage(ErrorCode), mbError, MB_OK, IDOK);
-					CustomExitCode := 1102;
+					CustomExitCode := 1103;
 				end
 		end;
 
@@ -509,7 +511,7 @@ begin
 			if not Exec(RemoveQuotes(Uninstaller), '/SILENT','', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
 				begin
 					SuppressibleMsgBox(CustomMessage('ProblemUninstallingSqueezboxServer') + SysErrorMessage(ErrorCode), mbError, MB_OK, IDOK);
-					CustomExitCode := 1101;
+					CustomExitCode := 1104;
 				end
 		end;
 end;
