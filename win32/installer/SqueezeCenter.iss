@@ -497,6 +497,24 @@ begin
 end;
 
 
+procedure UninstallSqueezeboxServer();
+var
+	ErrorCode: Integer;
+	Uninstaller: String;
+begin
+	// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr.
+	// Returns True if successful. When False is returned, ResultStr is unmodified.
+	if RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then
+		begin
+			if not Exec(RemoveQuotes(Uninstaller), '/SILENT','', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
+				begin
+					SuppressibleMsgBox(CustomMessage('ProblemUninstallingSqueezboxServer') + SysErrorMessage(ErrorCode), mbError, MB_OK, IDOK);
+					CustomExitCode := 1101;
+				end
+		end;
+end;
+
+
 procedure RemoveLegacyFiles();
 var
 	ServerDir: String;
@@ -646,6 +664,8 @@ begin
 						RemoveServices('SC');
 						ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 						MigrateSqueezeCenter();
+
+						UninstallSqueezeboxServer();
 
 						RemoveServices('SB');
 	

@@ -405,6 +405,20 @@ pl.ProblemUninstallingSqueezeCenter=Problem z dezinstalacją oprogramowania Sque
 ru.ProblemUninstallingSqueezeCenter=При удалении программы SqueezeCenter возникла проблема:
 sv.ProblemUninstallingSqueezeCenter=Det uppstod ett problem mär SqueezeCenter-programmet skulle avinstalleras:
 
+cz.ProblemUninstallingSqueezboxServer=Problém při odinstalování softwaru Squeezbox Server:
+da.ProblemUninstallingSqueezboxServer=Problem ved afinstallation af Squeezbox Server-softwaren:
+de.ProblemUninstallingSqueezboxServer=Problem bei Deinstallation der Squeezbox Server-Software:
+en.ProblemUninstallingSqueezboxServer=Problem uninstalling Squeezbox Server software:
+es.ProblemUninstallingSqueezboxServer=Problema al desinstalar el software Squeezbox Server:
+fi.ProblemUninstallingSqueezboxServer=Ongelma Squeezbox Server-ohjelmiston poistamisessa:
+fr.ProblemUninstallingSqueezboxServer=Un problème est survenu en désinstallant le logiciel Squeezbox Server:
+it.ProblemUninstallingSqueezboxServer=Problema durante la disinstallazione del software Squeezbox Server:
+nl.ProblemUninstallingSqueezboxServer=Probleem tijdens verwijderen van Squeezbox Server-software:
+no.ProblemUninstallingSqueezboxServer=Problem med avinstallering av Squeezbox Server-programvare:
+pl.ProblemUninstallingSqueezboxServer=Problem z dezinstalacją oprogramowania Squeezbox Server:
+ru.ProblemUninstallingSqueezboxServer=При удалении программы Squeezbox Server возникла проблема:
+sv.ProblemUninstallingSqueezboxServer=Problem med att avinstallera Squeezbox Server-programvaran:
+
 cz.ProgressForm_Caption=Průvodce odstraňováním problému Squeezebox
 da.ProgressForm_Caption=Squeezebox-guiden Problemløsning
 de.ProgressForm_Caption=Squeezebox - Assistent zur Fehlerbehebung
