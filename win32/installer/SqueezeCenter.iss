@@ -12,7 +12,7 @@
 #define SCRegKey = "Software\Logitech\SqueezeCenter"
 #define SBRegKey = "Software\Logitech\Squeezebox"
 
-#define VCRedistKey  = "SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\d04bb691875110d32b98ebcf771aa1e1"
+#define VCRedistKey  = "SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86"
 
 [Languages]
 Name: cz; MessagesFile: "Czech.isl"
@@ -638,6 +638,7 @@ var
 	Wait, ErrorCode, i: Integer;
 	NewServerDir, PrefsFile, PrefsPath, PrefString, PortConflict, s: String;
 	Started, Silent, TrayIcon, NoTrayIcon, InstallService: Boolean;
+	VCRedistInstalled: Cardinal;
 
 begin
 	if CurStep = ssInstall then
@@ -705,9 +706,8 @@ begin
 			Silent := Silent or WizardSilent;
 
 			// run VC runtime installer if not already installed
-			// http://blogs.msdn.com/astebner/archive/2006/08/23/715755.aspx
-			if ( (not Silent) and not (RegKeyExists(HKLM, '{#VCRedistKey}')) 
-					and not (IsWin64 and RegKeyExists(HKLM64, '{#VCRedistKey}')) ) then
+			// http://blogs.msdn.com/b/astebner/archive/2010/05/05/10008146.aspx
+			if ( not RegQueryDWordValue(HKLM; '{#VCRedistKey}', 'Installed'; VCRedistInstalled) or VCRedistInstalled <> 1 ) then
 				Exec(AddBackslash(ExpandConstant('{tmp}')) + 'vcredist.exe', '/q:a /c:"msiexec /i vcredist.msi /qb!"', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
 
 			ProgressPage := CreateOutputProgressPage(CustomMessage('RegisterServices'), CustomMessage('RegisterServicesDesc'));
