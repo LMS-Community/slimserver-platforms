@@ -52,13 +52,10 @@ install:
 	rm -rf ${base}/${share}/Bin/i386-linux/mysqld 
 
 	# Remove non-Linux binary modules and binaries
-	rm -rf ${base}/${share}/CPAN/arch/5.8/darwin-thread-multi-2level
-	rm -rf ${base}/${share}/CPAN/arch/5.8/i386-freebsd-64int
-	rm -rf ${base}/${share}/CPAN/arch/5.8/sparc-linux
-	rm -rf ${base}/${share}/CPAN/arch/5.10/darwin-thread-multi-2level
-	rm -rf ${base}/${share}/CPAN/arch/5.10/MSWin32-x86-multi-thread
-	rm -rf ${base}/${share}/CPAN/arch/5.12/darwin-thread-multi-2level
-	rm -rf ${base}/${share}/CPAN/arch/5.12/MSWin32-x86-multi-thread
+	rm -rf ${base}/${share}/CPAN/arch/*/darwin-thread-multi-2level
+	rm -rf ${base}/${share}/CPAN/arch/*/i386-freebsd-64int
+	rm -rf ${base}/${share}/CPAN/arch/*/sparc-linux
+	rm -rf ${base}/${share}/CPAN/arch/*/MSWin32-x86-multi-thread
 	rm -rf ${base}/${share}/Bin/darwin
 	rm -rf ${base}/${share}/Bin/MSWin32-x86-multi-thread
 	rm -rf ${base}/${share}/Bin/i386-freebsd-64int
