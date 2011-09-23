@@ -74,13 +74,10 @@ rm MySQL/errmsg.*
 rm -rf Bin/darwin
 rm -rf Bin/i386-freebsd-64int
 rm -rf Bin/MSWin32-x86-multi-thread
-rm -rf CPAN/arch/5.8/darwin-thread-multi-2level
-rm -rf CPAN/arch/5.8/sparc-linux
-rm -rf CPAN/arch/5.8/i386-freebsd-64int
-rm -rf CPAN/arch/5.10/darwin-thread-multi-2level
-rm -rf CPAN/arch/5.10/MSWin32-x86-multi-thread
-rm -rf CPAN/arch/5.12/darwin-thread-multi-2level
-rm -rf CPAN/arch/5.12/MSWin32-x86-multi-thread
+rm -rf CPAN/arch/*/darwin-thread-multi-2level
+rm -rf CPAN/arch/*/sparc-linux
+rm -rf CPAN/arch/*/i386-freebsd-64int
+rm -rf CPAN/arch/*/MSWin32-x86-multi-thread
 
 %install
 rm -rf $RPM_BUILD_ROOT
