@@ -47,7 +47,7 @@ Vendor:		Logitech
 
 
 Requires:	perl >= 5.8.8
-Obsoletes:	squeezecenter, slimserver, SliMP3
+Obsoletes:	squeezeboxserver, squeezecenter, slimserver, SliMP3
 AutoReqProv:	no
 
 BuildArch:	noarch       
