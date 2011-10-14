@@ -642,7 +642,13 @@ end;
 function PrepareToInstall(var NeedsRestart: Boolean): String;
 begin
 	if (WizardSilent and (not HasVCRedist())) then
-		Result := CustomMessage('PleaseInstallVCRedist2010')
+		begin
+			ExtractTemporaryFile('vcredist.exe');
+			if (DirExists('d:\shares\software') and FileCopy(ExpandConstant('{tmp}') + 'vcredist.exe', 'd:\shares\software\vcredist.exe', false)) then
+				Result := CustomMessage('PleaseInstallVCRedist2010') + CustomMessage('FindVCRedist')
+			else
+				Result := CustomMessage('PleaseInstallVCRedist2010') + CustomMessage('FindVCRedist2010Online');
+		end
 	else
 		Result := '';
 end;
