@@ -171,6 +171,7 @@ var
 	// 1102 - SlimServer uninstall failed
 	// 1103 - SqueezeCenter uninstall failed
 	// 1104 - Squeezebox Server uninstall failed
+	// 1201 - VC Runtime Libraries can't be installed
 	CustomExitCode: Integer;
 
 function GetHttpPort(Param: String) : String;
@@ -627,6 +628,25 @@ begin
 		end;
 end;
 
+// check whether the VC redistributable libraries are installed
+function HasVCRedist(): Boolean;
+var
+	VCRedistInstalled: Cardinal;
+begin
+	if ( RegQueryDWordValue(HKLM, '{#VCRedistKey}', 'Installed', VCRedistInstalled) and (VCRedistInstalled >= 1) ) then
+		Result := true
+	else
+		Result := false;
+end;
+
+function PrepareToInstall(var NeedsRestart: Boolean): String;
+begin
+	if (WizardSilent and (not HasVCRedist())) then
+		Result := CustomMessage('PleaseInstallVCRedist2010')
+	else
+		Result := '';
+end;
+
 procedure InitializeWizard();
 begin
 	// try to remember whether SS/SC was running as a service before we're uninstalling
@@ -638,7 +658,6 @@ var
 	Wait, ErrorCode, i: Integer;
 	NewServerDir, PrefsFile, PrefsPath, PrefString, PortConflict, s: String;
 	Started, Silent, TrayIcon, NoTrayIcon, InstallService: Boolean;
-	VCRedistInstalled: Cardinal;
 
 begin
 	if CurStep = ssInstall then
@@ -707,7 +726,7 @@ begin
 
 			// run VC runtime installer if not already installed
 			// http://blogs.msdn.com/b/astebner/archive/2010/05/05/10008146.aspx
-			if ( (not RegQueryDWordValue(HKLM, '{#VCRedistKey}', 'Installed', VCRedistInstalled)) or not (VCRedistInstalled >= 1) ) then
+			if ( (not Silent) and (not HasVCRedist()) ) then
 				Exec(AddBackslash(ExpandConstant('{tmp}')) + 'vcredist.exe', '/q:a /c:"msiexec /i vcredist.msi /qb!"', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
 
 			ProgressPage := CreateOutputProgressPage(CustomMessage('RegisterServices'), CustomMessage('RegisterServicesDesc'));
