@@ -19,13 +19,13 @@ fi
 function clean_up {
   # Kill the daemon if it is running
   kill $SLIMPID
-  echo `date "+%F %H:%M:%S"` "squeezeboxserver_safe stopped." >> /var/log/squeezeboxserver/server.log
+  echo `date "+%F %H:%M:%S"` "squeezeboxserver_safe stopped." >> /c/squeezeboxserver/log/server.log
   exit
 }
 
 trap clean_up SIGINT SIGHUP SIGTERM
 
-echo `date "+%F %H:%M:%S"` "squeezeboxserver_safe started." >> /var/log/squeezeboxserver/server.log
+echo `date "+%F %H:%M:%S"` "squeezeboxserver_safe started." >> /c/squeezeboxserver/log/server.log
 
 while true
 do
@@ -45,7 +45,7 @@ do
   sleep 15
   
   wait $SLIMPID
-  echo `date "+%F %H:%M:%S"` "Logitech Media Server died. Restarting." >> /var/log/squeezeboxserver/server.log
+  echo `date "+%F %H:%M:%S"` "Logitech Media Server died. Restarting." >> /c/squeezeboxserver/log/server.log
 
   # Normally, when Logitech Media Server realizes that the mysql-connection is gone,
   # the mysql server has already been started again. So no need to sleep

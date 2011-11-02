@@ -10,7 +10,7 @@ base=$(CURDIR)/readynas/$(package)
 share=usr/share/squeezeboxserver/
 source=$(CURDIR)/../server
 
-varlib=var/lib/squeezeboxserver
+varlib=c/squeezeboxserver
 
 clean:
 	dh_testdir
@@ -31,6 +31,7 @@ install:
 	install -d -m0755 ${base}/usr/share/doc/squeezeboxserver/
 	install -d -m0755 ${base}/${varlib}/prefs
 	install -d -m0755 ${base}/${varlib}/cache
+	install -d -m0755 ${base}/${varlib}/log
 
 	## This only occurs if the files exist ... if they do not exist here, they were probably
 	## removed by the buildme.pl script on purpose.
@@ -75,7 +76,7 @@ install:
 	# Make sure we copy in the Bin directory
 	cp -rf ${source}/Bin ${base}/${share}
 
-	# We put the Plugins into /var/lib/ because they are modifiable, 
+	# We put the Plugins into /c/ because they are modifiable, 
 	# and shouldn't be put into /usr. 
 	cp -rf ${source}/Plugins ${base}/${varlib}
 	ln -s /${varlib}/Plugins ${base}/${share}/Plugins

@@ -19,9 +19,9 @@ DAEMON_SAFE=/usr/sbin/${NAME}_safe
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 SLIMUSER=root
-PREFSDIR=/var/lib/$NAME/prefs
-LOGDIR=/var/log/$NAME/
-CACHEDIR=/var/lib/$NAME/cache
+PREFSDIR=/c/$NAME/prefs
+LOGDIR=/c/$NAME/log
+CACHEDIR=/c/$NAME/cache
 SLIMOPTIONS=-utf8
 
 # Read config file if it is present.

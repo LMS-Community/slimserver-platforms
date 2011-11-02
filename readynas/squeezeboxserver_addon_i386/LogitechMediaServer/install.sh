@@ -25,26 +25,13 @@ friendly_name=`awk -F'!!' '{ print $2 " " $3 }' addons.conf`
 MAJOR=$((`sed -e 's/.*version=//' -e 's/\..*//' /etc/raidiator_version`))
 MINOR=$((`sed -e 's/.*version=//' -e 's/.*\.//' -e 's/[a-z,-].*//' /etc/raidiator_version`))
 
-
 VERS=$(printf "%04d%04d" $MAJOR $MINOR)
 [ $VERS -lt 40001 ] && bye "ERROR: Addon is not compatible with this RAIDiator version!"
 
 eval $stop && sleep 1
 
-# Kill the whole DB if we're updating from SlimServer < 7, so the SC7 DB schema update doesn't freak out
-start-stop-daemon -S -q -b -x /usr/sbin/mysqld -- \
-  --basedir=/usr --datadir=/var/lib/mysql --pid-file=/var/run/mysqld/mysqld.pid --skip-locking --socket=/var/run/mysqld/mysqld.sock
-for i in `seq 1 10`; do
-  if mysql -s -u slimserver -e 'show databases' &>/dev/null; then
-    break
-  else
-    sleep .5
-  fi
-done
-if [ $((`mysql -s --skip-column-names -uslimserver slimserver -e "SELECT value FROM dbix_migration;"`)) -lt 10 ]; then
-  mysql -s -uslimserver -e 'DROP DATABASE slimserver'
-  mysql -s -uslimserver -e 'CREATE DATABASE slimserver'
-fi
+# Kill the squeezebox DB - we're now using SQLite
+mysql -s -uslimserver -e 'DROP DATABASE slimserver'
 
 # Remove old versions of our addon
 if [ -f "/etc/frontview/addons/${name}.remove" ]; then
@@ -75,9 +62,18 @@ rm -f /tmp/services$$ || bye "ERROR: Could not clean up temporary space!"
 dpkg -i --force-all squeezeboxserver*.deb &>/dev/null || bye "ERROR: $friendly_name installation failed"
 >/etc/debian_version 
 
+# we can't leave our files on the root partition, it's too small
+if [ !-e /c/squeezeboxserver/prefs/server.prefs ]; then
+  mv /var/lib/squeezeboxserver/* /c/squeezeboxserver/ > /dev/null 2>&1
+  mv /var/log/squeezeboxserver/* /c/squeezeboxserver/log/ > /dev/null 2>&1
+fi
+
+rm -rf /var/lib/squeezeboxserver
+rm -rf /var/log/squeezeboxserver
+
 # Symlink the new log file to the old location, so the log .zip file picks it up
 rm -f /var/log/slimserver.log
-ln -sf /var/log/squeezeboxserver/server.log /var/log/slimserver.log 
+ln -sf /c/squeezeboxserver/log/server.log /var/log/slimserver.log 
 
 # Start up the addon program
 eval $run || bye "ERROR: Could not start $friendly_name service"
