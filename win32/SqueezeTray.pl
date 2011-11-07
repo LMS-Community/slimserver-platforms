@@ -64,11 +64,9 @@ sub PopupMenu {
 	push @menu, ["--------"];
 
 	if ($type == SC_STARTUP_TYPE_SERVICE) {
-#		push @menu, [string('OPEN_SQUEEZEBOX_SERVER'), $state == SC_STATE_RUNNING ? \&openServer : undef];
 		push @menu, [string('STOP_SQUEEZEBOX_SERVER'), $state == SC_STATE_RUNNING ? \&stopServer : undef];
 	}
 	elsif ($state == SC_STATE_RUNNING) {
-#		push @menu, [string('OPEN_SQUEEZEBOX_SERVER'), \&openServer];
 		push @menu, [string('STOP_SQUEEZEBOX_SERVER'), \&stopServer];
 	}
 	elsif ($svcMgr->getServiceState() == SC_STATE_STARTING) {
