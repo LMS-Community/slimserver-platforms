@@ -732,7 +732,7 @@ begin
 
 			// run VC runtime installer if not already installed
 			// http://blogs.msdn.com/b/astebner/archive/2010/05/05/10008146.aspx
-			if ( (not Silent) and (not HasVCRedist()) ) then
+			if ( (TrayIcon or not Silent) and (not HasVCRedist()) ) then
 				Exec(AddBackslash(ExpandConstant('{tmp}')) + 'vcredist.exe', '/q:a /c:"msiexec /i vcredist.msi /qb!"', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
 
 			ProgressPage := CreateOutputProgressPage(CustomMessage('RegisterServices'), CustomMessage('RegisterServicesDesc'));
