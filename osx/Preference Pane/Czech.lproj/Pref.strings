@@ -59,9 +59,6 @@
 /* Class = "NSBox"; title = "Box"; ObjectID = "861"; */
 "861.title" = "Schránka";
 
-/* Class = "NSBox"; title = "Box"; ObjectID = "863"; */
-"863.title" = "Schránka";
-
 /* Class = "NSBox"; title = "Box"; ObjectID = "868"; */
 "868.title" = "Schránka";
 
@@ -160,9 +157,6 @@
 
 /* Class = "NSTextFieldCell"; title = "Music Folder\n"; ObjectID = "1083"; */
 "1083.title" = "Složka Hudby\n";
-
-/* Class = "NSButtonCell"; title = "Browse"; ObjectID = "1085"; */
-"1085.title" = "Procházet";
 
 /* Class = "NSButtonCell"; title = "Browse"; ObjectID = "1087"; */
 "1087.title" = "Procházet";

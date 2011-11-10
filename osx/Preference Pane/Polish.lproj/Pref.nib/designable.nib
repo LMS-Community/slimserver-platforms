@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10K540</string>
+		<string key="IBDocument.SystemVersion">10K549</string>
 		<string key="IBDocument.InterfaceBuilderVersion">851</string>
 		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
@@ -192,7 +192,7 @@
 													</object>
 													<bool key="NSMenuItemRespectAlignment">YES</bool>
 													<object class="NSMenu" key="NSMenu" id="488741773">
-														<string key="NSTitle">OtherViews</string>
+														<string key="NSTitle">Inne widoki</string>
 														<object class="NSMutableArray" key="NSMenuItems">
 															<bool key="EncodedWithXMLCoder">YES</bool>
 															<reference ref="952634448"/>
@@ -210,7 +210,7 @@
 															</object>
 															<object class="NSMenuItem" id="668324382">
 																<reference key="NSMenu" ref="488741773"/>
-																<string key="NSTitle">Automatically start server when system boots</string>
+																<string key="NSTitle">Uruchom serwer automatycznie przy rozruchu systemu</string>
 																<string key="NSKeyEquiv"/>
 																<int key="NSKeyEquivModMask">1048576</int>
 																<int key="NSMnemonicLoc">2147483647</int>
@@ -237,7 +237,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="486230914">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272760832</int>
-													<string key="NSContents">The server is stopped</string>
+													<string key="NSContents">Serwer jest zatrzymany</string>
 													<object class="NSFont" key="NSSupport" id="26">
 														<string key="NSName">LucidaGrande</string>
 														<double key="NSSize">11</double>
@@ -257,7 +257,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="513768442">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272629760</int>
-													<string key="NSContents">Music Library Stats</string>
+													<string key="NSContents">Statystyka biblioteki muzyki</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="305183925"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -273,7 +273,7 @@
 												<object class="NSTextFieldCell" key="NSTitleCell">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">0</int>
-													<string key="NSContents">Box</string>
+													<string key="NSContents">Ramka</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<object class="NSColor" key="NSBackgroundColor" id="821302382">
 														<int key="NSColorSpace">6</int>
@@ -303,7 +303,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="607053198">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Server Status</string>
+													<string key="NSContents">Stan serwera</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="543997209"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -319,7 +319,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="1042779920">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Media Library Statistics</string>
+													<string key="NSContents">Statystyka biblioteki muzyki</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="445465194"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -330,7 +330,7 @@
 										<string key="NSFrame">{{10, 33}, {557, 401}}</string>
 										<reference key="NSSuperview" ref="226825540"/>
 									</object>
-									<string key="NSLabel">Status</string>
+									<string key="NSLabel">Stan</string>
 									<reference key="NSColor" ref="788284320"/>
 									<reference key="NSTabView" ref="226825540"/>
 								</object>
@@ -350,7 +350,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="540456695">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272760832</int>
-													<string key="NSContents">This is how your media library will be named on your client devices.</string>
+													<string key="NSContents">Taką nazwę będzie miała biblioteka muzyki w menu "Moja muzyka" urządzenia Squeezebox.</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="612122993"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -421,7 +421,7 @@
 												<object class="NSButtonCell" key="NSCell" id="834014792">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">134217728</int>
-													<string key="NSContents">Browse</string>
+													<string key="NSContents">Przeglądaj</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="340958507"/>
 													<int key="NSButtonFlags">-2038284033</int>
@@ -444,7 +444,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="994906265">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">4194304</int>
-													<string type="base64-UTF8" key="NSContents">UGxheWxpc3QgRm9sZGVyCg</string>
+													<string type="base64-UTF8" key="NSContents">Rm9sZGVyIGxpc3Qgb2R0d2FyemFuaWEKA</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="191088365"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -460,7 +460,7 @@
 												<object class="NSButtonCell" key="NSCell" id="221384266">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">0</int>
-													<string key="NSContents">Use iTunes</string>
+													<string key="NSContents">Użyj programu iTunes</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="576465430"/>
 													<int key="NSButtonFlags">1211912703</int>
@@ -712,7 +712,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="601147993">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">4194304</int>
-													<string type="base64-UTF8" key="NSContents">UGFzc3dvcmQKA</string>
+													<string type="base64-UTF8" key="NSContents">SGFzxYJvCg</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="374843812"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -745,7 +745,7 @@
 												<object class="NSButtonCell" key="NSCell" id="929765200">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">134217728</int>
-													<string key="NSContents">Verify password</string>
+													<string key="NSContents">Weryfikuj hasło</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="603693263"/>
 													<int key="NSButtonFlags">-2034876161</int>
@@ -768,7 +768,7 @@
 												<object class="NSButtonCell" key="NSCell" id="766154926">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">134217728</int>
-													<string key="NSContents">I need to create an account</string>
+													<string key="NSContents">Muszę utworzyć konto</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="820308007"/>
 													<int key="NSButtonFlags">-2034876161</int>
@@ -845,7 +845,7 @@
 													<int key="NSPeriodicInterval">75</int>
 													<object class="NSMenuItem" key="NSMenuItem" id="899159904">
 														<reference key="NSMenu" ref="113856579"/>
-														<string key="NSTitle">Yes, help improve mysqueezebox.com by reporting statistics.</string>
+														<string key="NSTitle">Tak, pomóż w ulepszeniu usługi mysqueezebox.com przez wysyłanie statystyk.</string>
 														<string key="NSKeyEquiv"/>
 														<int key="NSKeyEquivModMask">1048576</int>
 														<int key="NSMnemonicLoc">2147483647</int>
@@ -857,15 +857,13 @@
 													</object>
 													<bool key="NSMenuItemRespectAlignment">YES</bool>
 													<object class="NSMenu" key="NSMenu" id="113856579">
-														<object class="NSMutableString" key="NSTitle">
-															<characters key="NS.bytes">OtherViews</characters>
-														</object>
+														<string key="NSTitle">Inne widoki</string>
 														<object class="NSMutableArray" key="NSMenuItems">
 															<bool key="EncodedWithXMLCoder">YES</bool>
 															<reference ref="899159904"/>
 															<object class="NSMenuItem" id="537765628">
 																<reference key="NSMenu" ref="113856579"/>
-																<string key="NSTitle">No, do not report statistics.</string>
+																<string key="NSTitle">Nie, nie wysyłaj statystyk.</string>
 																<string key="NSKeyEquiv"/>
 																<int key="NSKeyEquivModMask">1048576</int>
 																<int key="NSMnemonicLoc">2147483647</int>
@@ -892,7 +890,7 @@
 												<object class="NSTextFieldCell" key="NSTitleCell">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">0</int>
-													<string key="NSContents">Box</string>
+													<string key="NSContents">Ramka</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSBackgroundColor" ref="821302382"/>
 													<object class="NSColor" key="NSTextColor">
@@ -914,7 +912,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="994071130">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272760832</int>
-													<string key="NSContents">In order to enable certain features, please be sure you've entered a current mysqueezebox.com email address and password.</string>
+													<string key="NSContents">Przed włączeniem niektórych funkcji należy upewnić się, że wprowadzono aktualny adres e-mail i hasło usługi mysqueezebox.com.</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="897521174"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -924,7 +922,7 @@
 										</object>
 										<string key="NSFrame">{{10, 33}, {557, 401}}</string>
 									</object>
-									<string key="NSLabel">Account</string>
+									<string key="NSLabel">Konto</string>
 									<reference key="NSColor" ref="788284320"/>
 									<reference key="NSTabView" ref="226825540"/>
 								</object>
@@ -944,7 +942,7 @@
 												<object class="NSButtonCell" key="NSCell" id="389118732">
 													<int key="NSCellFlags">604110336</int>
 													<int key="NSCellFlags2">134217728</int>
-													<string key="NSContents">Web Remote Control</string>
+													<string key="NSContents">Pilot zdalnego sterowania</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="442448727"/>
 													<int key="NSButtonFlags">-2038284033</int>
@@ -967,7 +965,7 @@
 												<object class="NSButtonCell" key="NSCell" id="748086191">
 													<int key="NSCellFlags">604110336</int>
 													<int key="NSCellFlags2">134217728</int>
-													<string key="NSContents">Advanced Settings</string>
+													<string key="NSContents">Ustawienia zaawansowane</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="333805031"/>
 													<int key="NSButtonFlags">-2038284033</int>
@@ -991,7 +989,7 @@
 												<object class="NSButtonCell" key="NSCell" id="120825282">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">134217728</int>
-													<string key="NSContents">Server Log</string>
+													<string key="NSContents">Dziennik serwera</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="674762538"/>
 													<int key="NSButtonFlags">-2038284033</int>
@@ -1059,7 +1057,7 @@
 												<object class="NSButtonCell" key="NSCell" id="1004456253">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">0</int>
-													<string key="NSContents">Clean cache folder, including music database, artwork cache etc.</string>
+													<string key="NSContents">Czyści folder pamięci podręcznej, w tym bazę danych muzyki, pamięć podręczną okładek itp.</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="913241592"/>
 													<int key="NSButtonFlags">1211912703</int>
@@ -1081,7 +1079,7 @@
 												<object class="NSButtonCell" key="NSCell" id="37611128">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">134217728</int>
-													<string key="NSContents">Run Cleanup</string>
+													<string key="NSContents">Uruchom czyszczenie</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="395994540"/>
 													<int key="NSButtonFlags">-2038284033</int>
@@ -1174,7 +1172,7 @@
 												<object class="NSButtonCell" key="NSCell" id="866453898">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">134217728</int>
-													<string key="NSContents">Rescan</string>
+													<string key="NSContents">Przeszukaj ponownie</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="398472804"/>
 													<int key="NSButtonFlags">-2038284033</int>
@@ -1206,7 +1204,7 @@
 												<object class="NSTextFieldCell" key="NSTitleCell">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">0</int>
-													<string key="NSContents">Box</string>
+													<string key="NSContents">Ramka</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSBackgroundColor" ref="821302382"/>
 													<object class="NSColor" key="NSTextColor">
@@ -1228,7 +1226,7 @@
 												<object class="NSTextFieldCell" key="NSTitleCell">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">0</int>
-													<string key="NSContents">Box</string>
+													<string key="NSContents">Ramka</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSBackgroundColor" ref="821302382"/>
 													<object class="NSColor" key="NSTextColor">
@@ -1250,7 +1248,7 @@
 												<object class="NSTextFieldCell" key="NSTitleCell">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">0</int>
-													<string key="NSContents">Box</string>
+													<string key="NSContents">Ramka</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSBackgroundColor" ref="821302382"/>
 													<object class="NSColor" key="NSTextColor">
@@ -1345,7 +1343,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="592512599">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Media Library Scan</string>
+													<string key="NSContents">Skanowanie biblioteki muzyki</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="619161498"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -1371,7 +1369,7 @@
 													<int key="NSPeriodicInterval">75</int>
 													<object class="NSMenuItem" key="NSMenuItem" id="202261815">
 														<reference key="NSMenu" ref="768702194"/>
-														<string key="NSTitle">Please select log set...</string>
+														<string key="NSTitle">Wybierz zestaw dzienników...</string>
 														<string key="NSKeyEquiv"/>
 														<int key="NSKeyEquivModMask">1048576</int>
 														<int key="NSMnemonicLoc">2147483647</int>
@@ -1389,7 +1387,7 @@
 															<reference ref="202261815"/>
 															<object class="NSMenuItem" id="953127745">
 																<reference key="NSMenu" ref="768702194"/>
-																<string key="NSTitle">Reset logging preferences</string>
+																<string key="NSTitle">Resetuj preferencje rejestrowania</string>
 																<string key="NSKeyEquiv"/>
 																<int key="NSKeyEquivModMask">1048576</int>
 																<int key="NSMnemonicLoc">2147483647</int>
@@ -1400,7 +1398,7 @@
 															</object>
 															<object class="NSMenuItem" id="633913218">
 																<reference key="NSMenu" ref="768702194"/>
-																<string key="NSTitle">Server</string>
+																<string key="NSTitle">Serwer</string>
 																<string key="NSKeyEquiv"/>
 																<int key="NSKeyEquivModMask">1048576</int>
 																<int key="NSMnemonicLoc">2147483647</int>
@@ -1436,7 +1434,7 @@
 															</object>
 															<object class="NSMenuItem" id="186389100">
 																<reference key="NSMenu" ref="768702194"/>
-																<string key="NSTitle">Transcoder</string>
+																<string key="NSTitle">Transkoder</string>
 																<string key="NSKeyEquiv"/>
 																<int key="NSKeyEquivModMask">1048576</int>
 																<int key="NSMnemonicLoc">2147483647</int>
@@ -1456,7 +1454,7 @@
 										</object>
 										<string key="NSFrame">{{10, 33}, {557, 401}}</string>
 									</object>
-									<string key="NSLabel">Advanced</string>
+									<string key="NSLabel">Zaawansowane</string>
 									<reference key="NSColor" ref="788284320"/>
 									<reference key="NSTabView" ref="226825540"/>
 								</object>
@@ -3185,6 +3183,7 @@
 					<string>12.IBWindowTemplateEditedContentRect</string>
 					<string>12.ImportedFromIB2</string>
 					<string>12.windowTemplate.hasMinSize</string>
+					<string>12.windowTemplate.maxSize</string>
 					<string>12.windowTemplate.minSize</string>
 					<string>364.IBPluginDependency</string>
 					<string>364.ImportedFromIB2</string>
@@ -3389,6 +3388,7 @@
 					<string>{{329, 487}, {595, 538}}</string>
 					<boolean value="YES"/>
 					<boolean value="YES"/>
+					<string>{1.79769e+308, 1.79769e+308}</string>
 					<string>{213.664, 10}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
