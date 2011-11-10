@@ -48,7 +48,7 @@ foreach my $item (readdir(PROJ)) {
 		
 		print "Merging $nibFolder\n";
 
-		`ibtool '$EN' --strings-file '$stringsFile' --write $nibBackup; rm -rf $nibBackup/.svn && mv $nibBackup/* $nibFolder && rmdir $nibBackup`;
+		print `ibtool '$EN' --strings-file '$stringsFile' --write $nibBackup; rm -rf $nibBackup/.svn && mv $nibBackup/* $nibFolder && rmdir $nibBackup`;
 #		`open $nibFolder`;
 	}
 }
