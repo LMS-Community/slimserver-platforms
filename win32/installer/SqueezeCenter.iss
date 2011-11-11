@@ -131,9 +131,6 @@ Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\
 
 [InstallDelete]
 Type: filesandordirs; Name: {group}
-; bug 9698: remove old (<=7.5) artwork cache, as it can take a loooong time to check permissions and we don't use it any more
-Type: filesandordirs; Name: {commonappdata}\Squeezebox\Cache\Artwork;
-Type: filesandordirs; Name: {commonappdata}\Squeezebox\Cache\ArtworkCache;
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
@@ -603,6 +600,14 @@ begin
 	// Remove other defunct pieces
 	DeleteFile(ServerDir + 'psapi.dll');
 	DeleteFile(ServerDir + 'SlimServer.exe');
+
+	// bug 9698: remove old (<=7.5) artwork cache, as it can take a loooong time to check permissions and we don't use it any more
+	DelDir := AddBackslash(GetWritablePath('')) + AddBackslash('Cache');
+	Deltree(DelDir + AddBackslash('Artwork'), true, true, true);
+	Deltree(DelDir + AddBackslash('ArtworkCache'), true, true, true);
+	
+	// bug 17734: dito for the FileCache folder. Under certain circumstances this can have grown to tens of thousands of files
+	Deltree(DelDir + AddBackslash('FileCache'), true, true, true);
 end;
 
 procedure GetStartupMode();
@@ -697,6 +702,9 @@ begin
 
 						RemoveServices('SB');
 	
+						ProgressPage.setProgress(0, 0);
+						ProgressPage.SetText(CustomMessage('RemoveLegacyFiles'), CustomMessage('RemoveLegacyFilesWarning'));
+
 						RemoveLegacyFiles();
 	
 					finally

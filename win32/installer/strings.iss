@@ -1,4 +1,4 @@
-﻿
+
 cz.AppConflict=Nalezen možný konflikt softwaru
 da.AppConflict=Der er fundet en mulig softwarekonflikt
 de.AppConflict=Möglicher Software-Konflikt gefunden
@@ -796,6 +796,10 @@ no.UninstallPrefs=Vil du slette alle innstillingene og loggfilene også?
 pl.UninstallPrefs=Czy chcesz usunąć także wszystkie preferencje i pliki dziennika?
 ru.UninstallPrefs=Удалить все настройки и файлы журналов?
 sv.UninstallPrefs=Vill du ta bort alla inställningar och loggfiler?
+
+en.RemoveLegacyFiles=Removing legacy files from earlier installations...
+
+en.RemoveLegacyFilesWarning=Please be patient - this task can take several minutes!
 
 cz.UninstallSqueezeCenter=Odinstalovat Logitech Media Server
 da.UninstallSqueezeCenter=Afinstaller Logitech Media Server
