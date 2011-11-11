@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10K540</string>
+		<string key="IBDocument.SystemVersion">10K549</string>
 		<string key="IBDocument.InterfaceBuilderVersion">851</string>
 		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
@@ -39,7 +39,7 @@
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{259, 387}, {544, 288}}</string>
 				<int key="NSWTFlags">1886912512</int>
-				<string key="NSWindowTitle">Logitech Media Server Installer</string>
+				<string key="NSWindowTitle">Programme d'installation du Logitech Media Server</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<object class="NSMutableString" key="NSViewClass">
 					<characters key="NS.bytes">View</characters>
@@ -60,10 +60,11 @@
 							<object class="NSTextFieldCell" key="NSCell" id="931961504">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">4194304</int>
-								<string type="base64-UTF8" key="NSContents">V2VsY29tZSB0byB0aGUgTG9naXRlY2ggTWVkaWEgU2VydmVyIEluc3RhbGxlci4KClRoaXMgYXBwbGlj
-YXRpb24gd2lsbCBpbnN0YWxsIHRoZSBMb2dpdGVjaCBNZWRpYSBTZXJ2ZXIgZm9yIHVzZSB3aXRoIFN5
-c3RlbSBQcmVmZXJlbmNlcy4KCkNsaWNrIEluc3RhbGwgb3IgVXBkYXRlIHRvIGNvbnRpbnVlLCBvciBj
-bGljayBRdWl0IHRvIGV4aXQuA</string>
+								<string type="base64-UTF8" key="NSContents">QmllbnZlbnVlIGRhbnMgbGUgcHJvZ3JhbW1lIGQnaW5zdGFsbGF0aW9uIGR1IExvZ2l0ZWNoIE1lZGlh
+IFNlcnZlci4KCkNldHRlIGFwcGxpY2F0aW9uIHZhIGluc3RhbGxlciBsZSBMb2dpdGVjaCBNZWRpYSBT
+ZXJ2ZXIgcG91ciB1bmUgdXRpbGlzYXRpb24gYXZlYyBsZXMgcHLDqWbDqXJlbmNlcyBzeXN0w6htZS4K
+CkNsaXF1ZXogc3VyIEluc3RhbGxlciBvdSBNZXR0cmUgw6Agam91ciBwb3VyIGNvbnRpbnVlciBvdSBj
+bGlxdWV6IHN1ciBRdWl0dGVyIHBvdXIgZmVybWVyIGxlIHByb2dyYW1tZS4</string>
 								<object class="NSFont" key="NSSupport" id="930510706">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">13</double>
@@ -99,7 +100,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 							<object class="NSButtonCell" key="NSCell" id="163124409">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">137887744</int>
-								<string key="NSContents">Install</string>
+								<string key="NSContents">Installer</string>
 								<reference key="NSSupport" ref="930510706"/>
 								<reference key="NSControlView" ref="579447849"/>
 								<int key="NSButtonFlags">-2038284033</int>
@@ -124,15 +125,13 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 							<object class="NSButtonCell" key="NSCell" id="628817405">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">137887744</int>
-								<string key="NSContents">Quit</string>
+								<string key="NSContents">Quitter</string>
 								<reference key="NSSupport" ref="930510706"/>
 								<reference key="NSControlView" ref="735433035"/>
 								<int key="NSButtonFlags">-2038284033</int>
 								<int key="NSButtonFlags2">1</int>
 								<reference key="NSAlternateImage" ref="374388977"/>
-								<object class="NSMutableString" key="NSAlternateContents">
-									<characters key="NS.bytes"/>
-								</object>
+								<string key="NSAlternateContents"/>
 								<object class="NSMutableString" key="NSKeyEquivalent">
 									<characters key="NS.bytes"/>
 								</object>
@@ -228,12 +227,12 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 			</object>
 			<object class="NSMenu" id="731620175">
-				<string key="NSTitle">MainMenu</string>
+				<string key="NSTitle">Menu principal</string>
 				<object class="NSMutableArray" key="NSMenuItems">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="NSMenuItem" id="278402026">
 						<reference key="NSMenu" ref="731620175"/>
-						<string key="NSTitle">Logitech Media Server Installer</string>
+						<string key="NSTitle">Programme d'installation du Logitech Media Server</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSKeyEquivModMask">1048576</int>
 						<int key="NSMnemonicLoc">2147483647</int>
@@ -247,12 +246,12 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 						</object>
 						<string key="NSAction">submenuAction:</string>
 						<object class="NSMenu" key="NSSubmenu" id="536348080">
-							<string key="NSTitle">Logitech Media Server Installer</string>
+							<string key="NSTitle">Programme d'installation du Logitech Media Server</string>
 							<object class="NSMutableArray" key="NSMenuItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSMenuItem" id="194268872">
 									<reference key="NSMenu" ref="536348080"/>
-									<string key="NSTitle">About Logitech Media Server Installer</string>
+									<string key="NSTitle">A propos du programme d'installation du Logitech Media Server</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="612149773"/>
@@ -301,7 +300,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 								</object>
 								<object class="NSMenuItem" id="232502215">
 									<reference key="NSMenu" ref="536348080"/>
-									<string key="NSTitle">Hide Installer</string>
+									<string key="NSTitle">Masquer le programme d'installation du Logitech Media Server</string>
 									<string key="NSKeyEquiv">h</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -310,7 +309,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 								</object>
 								<object class="NSMenuItem" id="975179372">
 									<reference key="NSMenu" ref="536348080"/>
-									<string key="NSTitle">Hide Others</string>
+									<string key="NSTitle">Masquer les autres</string>
 									<string key="NSKeyEquiv">h</string>
 									<int key="NSKeyEquivModMask">1572864</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -319,7 +318,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 								</object>
 								<object class="NSMenuItem" id="672792553">
 									<reference key="NSMenu" ref="536348080"/>
-									<string key="NSTitle">Show All</string>
+									<string key="NSTitle">Afficher tout</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -352,7 +351,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 					</object>
 					<object class="NSMenuItem" id="1007355915">
 						<reference key="NSMenu" ref="731620175"/>
-						<string key="NSTitle">Window</string>
+						<string key="NSTitle">Fenêtre</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSKeyEquivModMask">1048576</int>
 						<int key="NSMnemonicLoc">2147483647</int>
@@ -360,14 +359,12 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 						<reference key="NSMixedImage" ref="877930976"/>
 						<string key="NSAction">submenuAction:</string>
 						<object class="NSMenu" key="NSSubmenu" id="148303243">
-							<object class="NSMutableString" key="NSTitle">
-								<characters key="NS.bytes">Window</characters>
-							</object>
+							<string key="NSTitle">Fenêtre</string>
 							<object class="NSMutableArray" key="NSMenuItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSMenuItem" id="104922436">
 									<reference key="NSMenu" ref="148303243"/>
-									<string key="NSTitle">Minimize</string>
+									<string key="NSTitle">Réduire</string>
 									<string key="NSKeyEquiv">m</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -387,7 +384,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 								</object>
 								<object class="NSMenuItem" id="182763242">
 									<reference key="NSMenu" ref="148303243"/>
-									<string key="NSTitle">Bring All to Front</string>
+									<string key="NSTitle">Tout au premier plan</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -409,9 +406,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{408, 396}, {390, 107}}</string>
 				<int key="NSWTFlags">1886912512</int>
-				<object class="NSMutableString" key="NSWindowTitle">
-					<characters key="NS.bytes">Panel</characters>
-				</object>
+				<string key="NSWindowTitle">Panneau</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<object class="NSMutableString" key="NSViewClass">
 					<characters key="NS.bytes">View</characters>
@@ -432,7 +427,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 							<object class="NSTextFieldCell" key="NSCell" id="627818710">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">4194304</int>
-								<string key="NSContents">Waiting for the System Preferences application to quit...</string>
+								<string key="NSContents">En attente de la fermeture de l'application Préférences système...</string>
 								<reference key="NSSupport" ref="930510706"/>
 								<reference key="NSControlView" ref="595357311"/>
 								<reference key="NSBackgroundColor" ref="724870618"/>
@@ -448,7 +443,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 							<object class="NSButtonCell" key="NSCell" id="673398884">
 								<int key="NSCellFlags">-2080244224</int>
 								<int key="NSCellFlags2">137887744</int>
-								<string key="NSContents">Cancel</string>
+								<string key="NSContents">Annuler</string>
 								<reference key="NSSupport" ref="930510706"/>
 								<reference key="NSControlView" ref="714545846"/>
 								<int key="NSButtonFlags">-2038284033</int>
@@ -953,6 +948,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 					<string>21.ImportedFromIB2</string>
 					<string>21.NSWindowTemplate.visibleAtLaunch</string>
 					<string>21.windowTemplate.hasMinSize</string>
+					<string>21.windowTemplate.maxSize</string>
 					<string>21.windowTemplate.minSize</string>
 					<string>211.IBPluginDependency</string>
 					<string>211.ImportedFromIB2</string>
@@ -961,6 +957,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 					<string>212.IBWindowTemplateEditedContentRect</string>
 					<string>212.ImportedFromIB2</string>
 					<string>212.windowTemplate.hasMinSize</string>
+					<string>212.windowTemplate.maxSize</string>
 					<string>212.windowTemplate.minSize</string>
 					<string>213.IBPluginDependency</string>
 					<string>213.ImportedFromIB2</string>
@@ -1032,6 +1029,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 					<boolean value="YES"/>
 					<boolean value="YES"/>
 					<boolean value="YES"/>
+					<string>{1.79769e+308, 1.79769e+308}</string>
 					<string>{213, 107}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
@@ -1040,6 +1038,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 					<string>{{329, 884}, {390, 107}}</string>
 					<boolean value="YES"/>
 					<boolean value="YES"/>
+					<string>{1.79769e+308, 1.79769e+308}</string>
 					<string>{213, 107}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
