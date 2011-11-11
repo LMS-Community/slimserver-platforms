@@ -47,20 +47,17 @@
 /* Class = "NSPanel"; title = "Panel"; ObjectID = "212"; */
 "212.title" = "Paneeli";
 
-/* Class = "NSTextFieldCell"; title = "Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.\n\nClick Install or Update to continue, or click Quit to exit."; ObjectID = "225"; */
-"225.title" = "Tervetuloa Logitech Media Serverin asennusohjelmaan.\n\nTämä sovellus asentaa Logitech Media Serverin käytettäväksi Järjestelmäasetukset-kohdasta.\n\nJatka valitsemalla Asenna tai Päivitä. Poistu valitsemalla Lopeta.";
+/* Class = "NSTextFieldCell"; title = "Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.\n\nClick Install or Update to continue, or click Quit to exit."; ObjectID = "235"; */
+"235.title" = "Tervetuloa Logitech Media Serverin asennusohjelmaan.\n\nTämä sovellus asentaa Logitech Media Serverin käytettäväksi Järjestelmäasetukset-kohdasta.\n\nJatka valitsemalla Asenna tai Päivitä. Poistu valitsemalla Lopeta.";
 
-/* Class = "NSButtonCell"; title = "Install"; ObjectID = "226"; */
-"226.title" = "Asenna";
+/* Class = "NSButtonCell"; title = "Install"; ObjectID = "236"; */
+"236.title" = "Asenna";
 
-/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "227"; */
-"227.title" = "Lopeta";
+/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "237"; */
+"237.title" = "Lopeta";
 
-/* Class = "NSTextFieldCell"; title = "Version 7.7.1\n"; ObjectID = "228"; */
-"228.title" = "Versio 7.7.1\n";
+/* Class = "NSTextFieldCell"; title = "Waiting for the System Preferences application to quit..."; ObjectID = "241"; */
+"241.title" = "Odotetaan, että Järjestelmäasetukset-sovellus suljetaan...";
 
-/* Class = "NSTextFieldCell"; title = "Waiting for the System Preferences application to quit..."; ObjectID = "231"; */
-"231.title" = "Odotetaan, että Järjestelmäasetukset-sovellus suljetaan...";
-
-/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "232"; */
-"232.title" = "Peruuta";
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "242"; */
+"242.title" = "Peruuta";

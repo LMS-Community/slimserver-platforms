@@ -1,4 +1,5 @@
-﻿/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
+﻿
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
 "5.title" = "Переместить все вперед";
 
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
@@ -46,20 +47,17 @@
 /* Class = "NSPanel"; title = "Panel"; ObjectID = "212"; */
 "212.title" = "Панель";
 
-/* Class = "NSTextFieldCell"; title = "Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.\n\nClick Install or Update to continue, or click Quit to exit."; ObjectID = "225"; */
-"225.title" = "Добро пожаловать в установщик Logitech Media Server.\n\nЭто приложение установит сервер Logitech Media Server для использования с приложением System Preferences.\n\nНажмите кнопку \"Установить\" или \"Обновить\", чтобы продолжить, или кнопку \"Выйти\", чтобы закрыть приложение.";
+/* Class = "NSTextFieldCell"; title = "Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.\n\nClick Install or Update to continue, or click Quit to exit."; ObjectID = "235"; */
+"235.title" = "Добро пожаловать в установщик Logitech Media Server.\n\nЭто приложение установит сервер Logitech Media Server для использования с приложением System Preferences.\n\nНажмите кнопку \"Установить\" или \"Обновить\", чтобы продолжить, или кнопку \"Выйти\", чтобы закрыть приложение.";
 
-/* Class = "NSButtonCell"; title = "Install"; ObjectID = "226"; */
-"226.title" = "Установить";
+/* Class = "NSButtonCell"; title = "Install"; ObjectID = "236"; */
+"236.title" = "Установить";
 
-/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "227"; */
-"227.title" = "Выйти";
+/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "237"; */
+"237.title" = "Выйти";
 
-/* Class = "NSTextFieldCell"; title = "Version 7.7.1\n"; ObjectID = "228"; */
-"228.title" = "Версия 7.7.1\n";
+/* Class = "NSTextFieldCell"; title = "Waiting for the System Preferences application to quit..."; ObjectID = "241"; */
+"241.title" = "Приложение System Preferences завершает работу...";
 
-/* Class = "NSTextFieldCell"; title = "Waiting for the System Preferences application to quit..."; ObjectID = "231"; */
-"231.title" = "Приложение System Preferences завершает работу...";
-
-/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "232"; */
-"232.title" = "Отмена";
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "242"; */
+"242.title" = "Отмена";

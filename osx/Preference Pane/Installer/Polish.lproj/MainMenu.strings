@@ -47,20 +47,17 @@
 /* Class = "NSPanel"; title = "Panel"; ObjectID = "212"; */
 "212.title" = "Panel";
 
-/* Class = "NSTextFieldCell"; title = "Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.\n\nClick Install or Update to continue, or click Quit to exit."; ObjectID = "225"; */
-"225.title" = "Instalator programu Logitech Media Server — Zapraszamy!\n\nTa aplikacja zainstaluje program Logitech Media Server w celu użycia w programie Preferencje systemowe.\n\nKliknij przycisk Instaluj lub Aktualizuj, aby kontynuować lub kliknij przycisk Zakończ, aby wyjść.";
+/* Class = "NSTextFieldCell"; title = "Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.\n\nClick Install or Update to continue, or click Quit to exit."; ObjectID = "235"; */
+"235.title" = "Instalator programu Logitech Media Server — Zapraszamy!\n\nTa aplikacja zainstaluje program Logitech Media Server w celu użycia w programie Preferencje systemowe.\n\nKliknij przycisk Instaluj lub Aktualizuj, aby kontynuować lub kliknij przycisk Zakończ, aby wyjść.";
 
-/* Class = "NSButtonCell"; title = "Install"; ObjectID = "226"; */
-"226.title" = "Zainstaluj";
+/* Class = "NSButtonCell"; title = "Install"; ObjectID = "236"; */
+"236.title" = "Zainstaluj";
 
-/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "227"; */
-"227.title" = "Zamknij";
+/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "237"; */
+"237.title" = "Zamknij";
 
-/* Class = "NSTextFieldCell"; title = "Version 7.7.1\n"; ObjectID = "228"; */
-"228.title" = "Wersja 7.7.1\n";
+/* Class = "NSTextFieldCell"; title = "Waiting for the System Preferences application to quit..."; ObjectID = "241"; */
+"241.title" = "Trwa oczekiwanie na zamknięcie programu Preferencje systemowe...";
 
-/* Class = "NSTextFieldCell"; title = "Waiting for the System Preferences application to quit..."; ObjectID = "231"; */
-"231.title" = "Trwa oczekiwanie na zamknięcie programu Preferencje systemowe...";
-
-/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "232"; */
-"232.title" = "Anuluj";
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "242"; */
+"242.title" = "Anuluj";

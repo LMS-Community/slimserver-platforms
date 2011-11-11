@@ -47,20 +47,17 @@
 /* Class = "NSPanel"; title = "Panel"; ObjectID = "212"; */
 "212.title" = "Panel";
 
-/* Class = "NSTextFieldCell"; title = "Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.\n\nClick Install or Update to continue, or click Quit to exit."; ObjectID = "225"; */
-"225.title" = "Välkommen till installationsprogrammet för Logitech Media Server.\n\nDenna applikation installerar Logitech Media Server för användning med Systeminställningar.\n\nKlicka på Installera eller Uppdatera för att fortsätta, eller klicka på Avbryt för att avsluta.";
+/* Class = "NSTextFieldCell"; title = "Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.\n\nClick Install or Update to continue, or click Quit to exit."; ObjectID = "235"; */
+"235.title" = "Välkommen till installationsprogrammet för Logitech Media Server.\n\nDenna applikation installerar Logitech Media Server för användning med Systeminställningar.\n\nKlicka på Installera eller Uppdatera för att fortsätta, eller klicka på Avbryt för att avsluta.";
 
-/* Class = "NSButtonCell"; title = "Install"; ObjectID = "226"; */
-"226.title" = "Installera";
+/* Class = "NSButtonCell"; title = "Install"; ObjectID = "236"; */
+"236.title" = "Installera";
 
-/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "227"; */
-"227.title" = "Avsluta";
+/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "237"; */
+"237.title" = "Avsluta";
 
-/* Class = "NSTextFieldCell"; title = "Version 7.7.1\n"; ObjectID = "228"; */
-"228.title" = "Version 7.7.1\n";
+/* Class = "NSTextFieldCell"; title = "Waiting for the System Preferences application to quit..."; ObjectID = "241"; */
+"241.title" = "Väntar på att programmet Systeminställningar ska avslutas...";
 
-/* Class = "NSTextFieldCell"; title = "Waiting for the System Preferences application to quit..."; ObjectID = "231"; */
-"231.title" = "Väntar på att programmet Systeminställningar ska avslutas...";
-
-/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "232"; */
-"232.title" = "Avbryt";
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "242"; */
+"242.title" = "Avbryt";

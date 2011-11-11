@@ -47,20 +47,17 @@
 /* Class = "NSPanel"; title = "Panel"; ObjectID = "212"; */
 "212.title" = "Panneau";
 
-/* Class = "NSTextFieldCell"; title = "Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.\n\nClick Install or Update to continue, or click Quit to exit."; ObjectID = "225"; */
-"225.title" = "Bienvenue dans le programme d'installation du Logitech Media Server.\n\nCette application va installer le Logitech Media Server pour une utilisation avec les préférences système.\n\nCliquez sur Installer ou Mettre à jour pour continuer ou cliquez sur Quitter pour fermer le programme.";
+/* Class = "NSTextFieldCell"; title = "Welcome to the Logitech Media Server Installer.\n\nThis application will install the Logitech Media Server for use with System Preferences.\n\nClick Install or Update to continue, or click Quit to exit."; ObjectID = "235"; */
+"235.title" = "Bienvenue dans le programme d'installation du Logitech Media Server.\n\nCette application va installer le Logitech Media Server pour une utilisation avec les préférences système.\n\nCliquez sur Installer ou Mettre à jour pour continuer ou cliquez sur Quitter pour fermer le programme.";
 
-/* Class = "NSButtonCell"; title = "Install"; ObjectID = "226"; */
-"226.title" = "Installer";
+/* Class = "NSButtonCell"; title = "Install"; ObjectID = "236"; */
+"236.title" = "Installer";
 
-/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "227"; */
-"227.title" = "Quitter";
+/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "237"; */
+"237.title" = "Quitter";
 
-/* Class = "NSTextFieldCell"; title = "Version 7.7.1\n"; ObjectID = "228"; */
-"228.title" = "Version 7.7.1\n";
+/* Class = "NSTextFieldCell"; title = "Waiting for the System Preferences application to quit..."; ObjectID = "241"; */
+"241.title" = "En attente de la fermeture de l'application Préférences système...";
 
-/* Class = "NSTextFieldCell"; title = "Waiting for the System Preferences application to quit..."; ObjectID = "231"; */
-"231.title" = "En attente de la fermeture de l'application Préférences système...";
-
-/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "232"; */
-"232.title" = "Annuler";
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "242"; */
+"242.title" = "Annuler";
