@@ -1,4 +1,4 @@
-
+﻿
 cz.AppConflict=Nalezen možný konflikt softwaru
 da.AppConflict=Der er fundet en mulig softwarekonflikt
 de.AppConflict=Möglicher Software-Konflikt gefunden
