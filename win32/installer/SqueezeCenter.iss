@@ -15,10 +15,11 @@
 #define VCRedistKey  = "SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86"
 
 [Languages]
+; order of languages is important when falling back when a localization is missing
+Name: en; MessagesFile: "Default.isl"
 Name: cz; MessagesFile: "Czech.isl"
 Name: da; MessagesFile: "Danish.isl"
 Name: de; MessagesFile: "German.isl"
-Name: en; MessagesFile: "Default.isl"
 Name: es; MessagesFile: "Spanish.isl"
 Name: fi; MessagesFile: "Finnish.isl"
 Name: fr; MessagesFile: "French.isl"
