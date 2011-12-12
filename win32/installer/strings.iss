@@ -797,11 +797,11 @@ pl.UninstallPrefs=Czy chcesz usunąć także wszystkie preferencje i pliki dzien
 ru.UninstallPrefs=Удалить все настройки и файлы журналов?
 sv.UninstallPrefs=Vill du ta bort alla inställningar och loggfiler?
 
-de.RemoveLegacyFiles=Entferne nicht mehr benötigte Dateien...
 en.RemoveLegacyFiles=Removing legacy files from earlier installations...
+de.RemoveLegacyFiles=Entferne nicht mehr benötigte Dateien...
 
-de.RemoveLegacyFilesWarning=Bitte haben Sie Geduld - diese Aktion kann mehrere Minuten dauern. Zukünftige Installationen sollten nach Entfernen dieser Dateien zügiger verlaufen.
 en.RemoveLegacyFilesWarning=Please be patient - this task can take several minutes. Future installations should run faster once the cleanup has succeeded.
+de.RemoveLegacyFilesWarning=Bitte haben Sie Geduld - diese Aktion kann mehrere Minuten dauern. Zukünftige Installationen sollten nach Entfernen dieser Dateien zügiger verlaufen.
 
 cz.UninstallSqueezeCenter=Odinstalovat Logitech Media Server
 da.UninstallSqueezeCenter=Afinstaller Logitech Media Server
