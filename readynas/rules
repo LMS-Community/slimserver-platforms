@@ -10,7 +10,7 @@ base=$(CURDIR)/readynas/$(package)
 share=usr/share/squeezeboxserver/
 source=$(CURDIR)/../server
 
-varlib=c/squeezeboxserver
+varlib=c/.squeezeboxserver
 
 clean:
 	dh_testdir

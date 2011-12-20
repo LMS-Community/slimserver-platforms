@@ -20,24 +20,24 @@ case "$1" in
 	update-rc.d -f squeezeboxserver remove
 
 	# Remove the old Favorites module.
-	rm -rf /c/squeezeboxserver/Plugins/Favorites
+	rm -rf /c/.squeezeboxserver/Plugins/Favorites
 
 	# Create a "squeezebox" user. This has modeled after the code in the postfix.deb
 	# postinst. We first try to set the ownership of /c/squeezebox. If that
 	# fails, we create the user and re-try. If that still fails, we abort.
 	# Note that the Firmware directory has to be owned by squeezebox, since the
 	# server may download files to there during operation.
-	if chown squeezeboxserver:nogroup /c/squeezeboxserver 2>/dev/null ; then
+	if chown squeezeboxserver:nogroup /c/.squeezeboxserver 2>/dev/null ; then
 
 	    chown $VERBOSE squeezeboxserver:nogroup /etc/squeezeboxserver -R
-	    chown $VERBOSE squeezeboxserver:nogroup /c/squeezeboxserver -R
+	    chown $VERBOSE squeezeboxserver:nogroup /c/.squeezeboxserver -R
 
 	elif adduser --system --home /usr/share/squeezeboxserver --no-create-home --gecos "Logitech Media Server" squeezeboxserver --disabled-password; then
 
 	    sleep 1 # wait for user creation
 
 	    chown $VERBOSE squeezeboxserver:nogroup /etc/squeezeboxserver -R
-	    chown $VERBOSE squeezeboxserver:nogroup /c/squeezeboxserver -R
+	    chown $VERBOSE squeezeboxserver:nogroup /c/.squeezeboxserver -R
 
 	fi
 	

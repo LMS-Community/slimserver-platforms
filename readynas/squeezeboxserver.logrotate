@@ -1,4 +1,4 @@
-/c/squeezeboxserver/log/server.log {
+/c/.squeezeboxserver/log/server.log {
   weekly
   rotate 5
   size 200k
@@ -11,7 +11,7 @@
   endscript
 }
 
-/c/squeezeboxserver/log/scanner.log {
+/c/.squeezeboxserver/log/scanner.log {
   weekly
   rotate 5
   size 200k

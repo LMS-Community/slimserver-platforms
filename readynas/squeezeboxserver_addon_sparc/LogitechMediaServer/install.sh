@@ -62,10 +62,16 @@ rm -f /tmp/services$$ || bye "ERROR: Could not clean up temporary space!"
 dpkg -i --force-all squeezeboxserver*.deb &>/dev/null || bye "ERROR: $friendly_name installation failed"
 >/etc/debian_version && chattr +i /etc/debian_version
 
+# Argh... ReadyNAS messes up the Samba configuration if there are folders in /c/ - let's hid ours
+# http://bugs.slimdevices.com/show_bug.cgi?id=17819
+if [ !-e /c/.squeezeboxserver ]; then
+  mv /c/squeezeboxserver/* /c/.squeezeboxserver/ > /dev/null 2>&1
+fi
+
 # we can't leave our files on the root partition, it's too small
-if [ !-e /c/squeezeboxserver/prefs/server.prefs ]; then
-  mv /var/lib/squeezeboxserver/* /c/squeezeboxserver/ > /dev/null 2>&1
-  mv /var/log/squeezeboxserver/* /c/squeezeboxserver/log/ > /dev/null 2>&1
+if [ !-e /c/.squeezeboxserver/prefs/server.prefs ]; then
+  mv /var/lib/squeezeboxserver/* /c/.squeezeboxserver/ > /dev/null 2>&1
+  mv /var/log/squeezeboxserver/* /c/.squeezeboxserver/log/ > /dev/null 2>&1
 fi
 
 rm -rf /var/lib/squeezeboxserver
@@ -73,7 +79,7 @@ rm -rf /var/log/squeezeboxserver
 
 # Symlink the new log file to the old location, so the log .zip file picks it up
 rm -f /var/log/slimserver.log
-ln -sf /c/squeezeboxserver/log/server.log /var/log/slimserver.log 
+ln -sf /c/.squeezeboxserver/log/server.log /var/log/slimserver.log 
 
 # Start up the addon program
 eval $run || bye "ERROR: Could not start $friendly_name service"

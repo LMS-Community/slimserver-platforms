@@ -2,3 +2,4 @@ etc/squeezeboxserver
 usr/sbin
 usr/share/squeezeboxserver
 c/squeezeboxserver
+c/.squeezeboxserver

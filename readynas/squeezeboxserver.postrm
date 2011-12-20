@@ -3,9 +3,11 @@
 if [ "$1" = purge ]; then
 
 	rm -rf /var/lib/squeezeboxserver/cache
+	rm -rf /var/log/squeezeboxserver
 	rm -rf /c/squeezeboxserver/cache
 	rm -rf /c/squeezeboxserver/log
-	rm -rf /var/log/squeezeboxserver
+	rm -rf /c/.squeezeboxserver/cache
+	rm -rf /c/.squeezeboxserver/log
 
 fi
 

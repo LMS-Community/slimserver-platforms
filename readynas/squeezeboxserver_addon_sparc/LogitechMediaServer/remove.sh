@@ -14,7 +14,8 @@ DIRECTORIES="/var/log/squeezeboxserver \
            ./etc/default/squeezeboxserver \
            ./usr/share/perl5/Slim \
             /var/lib/mysql/slimserver \
-            /c/squeezeboxserver"
+            /c/squeezeboxserver \
+            /c/.squeezeboxserver"
 
 # Stop service from running
 eval `awk -F'!!' "/$SERVICE/ { print \\$5 }" /etc/frontview/addons/addons.conf`
@@ -46,8 +47,8 @@ else
   # Doing an upgrade. Look for old config files. If we find them, copy them, then remove them
   for package in $OLD_PACKAGE_NAMES; do
     if [ -e /var/lib/$package/prefs ]; then 
-      mkdir -p /c/squeezeboxserver/prefs
-      mv -n /var/lib/$package/prefs/* /c/squeezeboxserver/prefs &>/dev/null 
+      mkdir -p /c/.squeezeboxserver/prefs
+      mv -n /var/lib/$package/prefs/* /c/.squeezeboxserver/prefs &>/dev/null 
       rm -rf /var/lib/$package
     fi
   done
