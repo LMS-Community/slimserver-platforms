@@ -1,0 +1,15 @@
+<addon>
+  <name>SQUEEZEBOX</name>
+  <friendly_name>squeezebox</friendly_name>
+  <version>1.0</version>
+  <author>Logitech Inc.</author>
+  <description>
+    <en-us>
+      <![CDATA[The Logitech Media Server aka. Squeezebox Server aka. SqueezeCenter aka. SlimServer aka. SliMP3]]>
+    </en-us>
+  </description>
+  <detail_url>http://wiki.slimdevices.com</detail_url>
+  <download_url>http://downloads.slimdevices.com/lms/logitechmediaserver.bin</download_url>
+  <icon>https://mysqueezebox.com/static/images/logitech-logo.png</icon>
+  <min_raidiator_version>4.1.3</min_raidiator_version>
+</addon>

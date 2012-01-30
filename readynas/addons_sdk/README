@@ -1,0 +1,22 @@
+Frontview Add-on SDK, Version 2.0
+=================================
+
+Welcome to the Frontview Add-on software development kit (SDK) environment.  It is recommended that you install this SDK in a shell environment on the ReadyNAS.  This README file will explain how you can get started creating a stub add-on for Frontview.  For more detailed info on this SDK, please visit the ReadyNAS Developer's Corner on www.readynas.com.
+
+
+To generate an add-on template, from this directory, run:
+
+  # bin/create_addon
+
+You will be asked to enter some basic information about your add-on (e.g. add-on name, description, etc).  Alternatively, you can pre-fill the necessary configuration for the add-on in addon.config and run:
+
+  # bin/create_addon addon.config
+
+Once complete, an add-on directory will be created for you with template files for your add-on.  If this is your first time, you can proceed with building this add-on as follows:
+
+  # cd <ADDON>
+  # ../bin/build_addon
+
+This will create a <ADDON>.bin file that you can install from Frontview's System->Update->Local tab.  Once installed, you'll see the add-on stub in the Services->Installed Add-ons tab.
+
+

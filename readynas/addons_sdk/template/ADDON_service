@@ -1,0 +1,8 @@
+#!/bin/bash
+
+. /etc/default/services
+
+if [ "$%ADDON%_RUNTIME_SECS" = "" ]; then
+  %ADDON%_RUNTIME_SECS=60
+fi
+sleep $%ADDON%_RUNTIME_SECS

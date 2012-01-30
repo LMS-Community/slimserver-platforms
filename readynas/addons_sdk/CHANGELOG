@@ -1,0 +1,82 @@
+Version: 2.0
+Date:    Jan 5, 2011
+
+FrontView Add-on SDK 2.0 introduces a new update framework to add-ons.  The new framework
+adds the ability for FrontView to detect if there's a new update for the add-on, get
+info on the new update, and download and install the add-on.  In addition, progress of
+the download and installation are displayed.
+
+You will need RAIDiator 4.2.16 or above to utilize the new framework.  Any add-on created
+with SDK 2.0 will still work with earlier RAIDiator releases, however new update
+framework will not be exposed.  Similarly, add-ons created with pre-SDK 2.0 will still
+show up in 4.2.16 but will not have the update option.
+
+Changes from Version 1.0
+------------------------
+
+(Note: "ADDON" below refers to the add-on name.)
+
+
+1. Added <author> and <current_url> tags to ADDON.xml.
+
+   <author>:        Individual or company that created the add-on.
+
+   <current_url>:   XML path that describes the latest available add-on.  See #2 below.
+
+
+2. ADDON_CURRENT.xml added.  This is the XML that is posted at the URL specified in the
+   <current_url> tag of the ADDON.xml.
+
+   <version>:       Version of the add-on.
+
+   <detail_url>:    URL of an online page describing the add-on in detail.
+
+   <download_url>:  Download URL of the add-on.  This is used to update the add-on from
+                    FrontView.
+
+   <message>:       Describes the changes made in this release of the add-on.  Note 
+                    that this tag supports localization.  Default English should be 
+                    enclosed within the <en-us> tag.  French should be <fr>, German <de>,
+                    Japanese <ja>, etc.  Message should be further enclosed in a CDATA 
+                    tag, i.e.:
+
+                    <en-us>
+                      <![CDATA[This and that got changed in this add-on.]]>
+                    </en-us>
+
+   <min_raidiator_version>: Minimum RAIDiator version required for this add-on, i.e. 4.2.16.
+
+   <reboot_required>: y/n - set to "y" if add-on requires a reboot to take effect.
+
+
+3. ADDON_AVAILABLE.xml added.  This is the XML posted by NETGEAR if the add-on will show up
+   in the Add-on Available page.  The content will get set automatically after running the
+   "create_addon" script.
+
+   <name>:          Name of add-on.
+
+   <friendly_name>: Friendly name of add-on.
+
+   <version>:       Version of add-on.
+
+   <author>:        Individual or company that created the add-on.
+
+   <description>:   Describes the add-on.  Note that this tag supports localization.  
+                    Default English should be enclosed within the <en-us> tag.  French
+                    should be <fr>, German <de>, Japanese <ja>, etc.  Message should be
+                    further enclosed in a CDATA tag, i.e.:
+
+                    <en-us>
+                      <![CDATA[The add-on does a lot of cool stuff.]]>
+                    </en-us>
+
+   <detail_url>:    URL of an online page describing the add-on in detail.
+
+   <download_url>:  Download URL of the add-on.  This is used to download the add-on from
+                    FrontView when user clicks Install.
+
+   <icon>:          URL of icon to display in FrontView.
+
+   <min_raidiator_version>: Minimum RAIDiator version required for this add-on, i.e. 4.2.16.
+
+   <reboot_required>: y/n - set to "y" if add-on requires a reboot to take effect.

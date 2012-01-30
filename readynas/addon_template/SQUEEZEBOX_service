@@ -1,0 +1,8 @@
+#!/bin/bash
+
+. /etc/default/services
+
+if [ "$SQUEEZEBOX_RUNTIME_SECS" = "" ]; then
+  SQUEEZEBOX_RUNTIME_SECS=60
+fi
+sleep $SQUEEZEBOX_RUNTIME_SECS

@@ -1,0 +1,254 @@
+#!/bin/bash
+
+function addon_wizard {
+  clear
+  echo "Welcome to the Frontview Add-on Wizard"
+  
+  while true; do
+    echo 
+    read -p "Enter a name for the add-on (please keep it short): " FRIENDLY_NAME
+    TAG_NAME=$(echo $FRIENDLY_NAME | sed 's/ //g')
+    TAG_NAME=$(echo $TAG_NAME | sed 's/[-|\.]/_/g')
+    TAG_NAME=$(echo $TAG_NAME | tr [:lower:] [:upper:])
+    if [ ${#FRIENDLY_NAME} -gt 20 ]; then
+      echo "\"$FRIENDLY_NAME\" looks a little long.  Please try to keep the name shorter."
+      continue
+    fi
+    echo -e "\n$TAG_NAME will be used as the tag for the add-on and"
+    echo -e "will be used as the base name for your add-on files.\n\n"
+    read -p "Is this okay? (y/n) " ANS
+    case $ANS in
+      y|Y) break;;
+      *)   echo -e "\n"; continue;;
+    esac
+  done
+  
+  while true; do
+    echo
+    read -ep "Enter a brief description for \"$FRIENDLY_NAME\" (no single quotes): " DESCRIPTION
+    echo -e "\nDescription will read:"
+    echo -e "$DESCRIPTION\n\n"
+    read -p "Is this okay? (y/n) " ANS
+    case $ANS in
+      y|Y) break;;
+      *)   echo -e "\n"; continue;;
+    esac
+  done
+  
+  while true; do
+    echo 
+    read -p "Enter the version of the add-on [1.0]: " VERSION
+    [ -z "$VERSION" ] && VERSION="1.0"
+    echo -e "\nVersion: $VERSION\n\n"
+    read -p "Is this okay? (y/n) " ANS
+    case $ANS in
+      y|Y) break;;
+      *)   echo -e "\n"; continue;;
+    esac
+  done
+  
+  while true; do
+    echo 
+    read -p "Enter the download URL of the add-on (i.e. http://www.UPDATEME.com/download/${TAG_NAME}.bin) []: " DOWNLOAD_URL
+    [ -z "$DOWNLOAD_URL" ] && DOWNLOAD_URL=""
+    echo -e "\nDownload URL: $DOWNLOAD_URL\n\n"
+    read -p "Is this okay? (y/n) " ANS
+    case $ANS in
+      y|Y) break;;
+      *)   echo -e "\n"; continue;;
+    esac
+  done
+  
+  while true; do
+    echo 
+    read -p "Enter the URL for the XML file describing the currently available add-on (e.g. http://www.UPDATEME.com/download/${TAG_NAME}_CURRENT.xml) []: " CURRENT_URL
+    [ -z "$CURRENT_URL" ] && CURRENT_URL=""
+    echo -e "\nCurrent URL: $CURRENT_URL\n\n"
+    read -p "Is this okay? (y/n) " ANS
+    case $ANS in
+      y|Y) break;;
+      *)   echo -e "\n"; continue;;
+    esac
+  done
+  
+  while true; do
+    echo 
+    read -p "Enter the URL where more detailed information about the add-on can be found []: " DETAIL_URL
+    [ -z "$DETAIL_URL" ] && DETAIL_URL=""
+    echo -e "\nMore Detail URL: $DETAIL_URL\n\n"
+    read -p "Is this okay? (y/n) " ANS
+    case $ANS in
+      y|Y) break;;
+      *)   echo -e "\n"; continue;;
+    esac
+  done
+  
+  while true; do
+    echo 
+    read -p "Enter the icon URL of the add-on (must be https URL) []: " ICON_URL
+    [ -z "$ICON_URL" ] && ICON_URL=""
+    echo -e "\nIcon URL: $ICON_URL\n\n"
+    read -p "Is this okay? (y/n) " ANS
+    case $ANS in
+      y|Y) break;;
+      *)   echo -e "\n"; continue;;
+    esac
+  done
+  
+  while true; do
+    echo 
+    read -p "Enter the author of the add-on []: " AUTHOR
+    [ -z "$AUTHOR" ] && AUTHOR=""
+    echo -e "\nAuthor: $AUTHOR\n\n"
+    read -p "Is this okay? (y/n) " ANS
+    case $ANS in
+      y|Y) break;;
+      *)   echo -e "\n"; continue;;
+    esac
+  done
+  
+  while true; do
+    echo 
+    read -p "Enter the minimum version of RAIDiator firmware required (leave blank if none) []: " MIN_RAIDIATOR_VERSION
+    [ -z "$MIN_RAIDIATOR_VERSION" ] && MIN_RAIDIATOR_VERSION=""
+    echo -e "\nMinimum RAIDiator version required: $MIN_RAIDIATOR_VERSION\n\n"
+    read -p "Is this okay? (y/n) " ANS
+    case $ANS in
+      y|Y) break;;
+      *)   echo -e "\n"; continue;;
+    esac
+  done
+  
+  while true; do
+    echo 
+    read -p "Does the ReadyNAS need to be rebooted after the add-on installation? (y/n) [n]: " REBOOT_REQUIRED
+    [ -z "$REBOOT_REQUIRED" ] && REBOOT_REQUIRED="n"
+    if [ "$REBOOT_REQUIRED" == "y" ] || [ "$REBOOT_REQUIRED" == "Y" ]; then
+      REBOOT_REQUIRED="y"
+    fi
+    echo -e "\nReboot required: $REBOOT_REQUIRED\n\n"
+    read -p "Is this okay? (y/n) " ANS
+    case $ANS in
+      y|Y) break;;
+      *)   echo -e "\n"; continue;;
+    esac
+  done
+  
+  while true; do
+    echo 
+    read -p "Does the web server need to be restarted after the add-on installation? (y/n) [n]: " RESTART_APACHE
+    [ -z "$RESTART_APACHE" ] && RESTART_APACHE="n"
+    if [ "$RESTART_APACHE" == "y" ] || [ "$RESTART_APACHE" == "Y" ]; then
+      RESTART_APACHE="y"
+    fi
+    echo -e "\nRestart web server after installation: $RESTART_APACHE\n\n"
+    read -p "Is this okay? (y/n) " ANS
+    case $ANS in
+      y|Y) break;;
+      *)   echo -e "\n"; continue;;
+    esac
+  done
+}
+
+if [ $# -eq 1 ]; then
+  if [ -f $1 ]; then
+    . $1
+    if [ "$FRIENDLY_NAME" == "" ]; then
+      echo "Please enter a non-empty add-on name."
+      exit
+    fi
+    TAG_NAME=$(echo $FRIENDLY_NAME | sed 's/ //g')
+    TAG_NAME=$(echo $TAG_NAME | sed 's/[-|\.]/_/g')
+    TAG_NAME=$(echo $TAG_NAME | tr [:lower:] [:upper:])
+  else
+    echo "$1 does not exist."
+    exit
+  fi
+else
+  addon_wizard
+fi
+
+cat <<END
+If you would like to make changes to your input, please make them in
+${TAG_NAME}.xml.  A base source code tree has been generated using the
+information that you provided.  You'll find the following files
+
+  ${TAG_NAME}/install.sh
+  ${TAG_NAME}/remove.sh
+  ${TAG_NAME}/start.sh
+  ${TAG_NAME}/stop.sh
+  ${TAG_NAME}/running.sh
+  ${TAG_NAME}/${TAG_NAME}.html
+  ${TAG_NAME}/${TAG_NAME}.js
+  ${TAG_NAME}/${TAG_NAME}.xml
+  ${TAG_NAME}/${TAG_NAME}_AVAILABLE.xml
+  ${TAG_NAME}/${TAG_NAME}_CURRENT.xml
+  ${TAG_NAME}/${TAG_NAME}_HANDLER.pl
+  ${TAG_NAME}/${TAG_NAME}.conf
+  ${TAG_NAME}/language/en-us/${TAG_NAME}.str
+  ${TAG_NAME}/language/de/${TAG_NAME}.str
+  ${TAG_NAME}/language/fr/${TAG_NAME}.str
+  ${TAG_NAME}/language/ja/${TAG_NAME}.str
+  ${TAG_NAME}/language/ko/${TAG_NAME}.str
+  ${TAG_NAME}/language/zh-cn/${TAG_NAME}.str
+  ${TAG_NAME}/language/zh-tw/${TAG_NAME}.str
+
+After you make appropriate changes to the files above, you can build your add-on
+with build_addon.  You need to be in the ${TAG_NAME} directory and run ../bin/build_addon.
+
+END
+
+START="/etc/frontview/addons/bin/${TAG_NAME}/start.sh"
+STOP="/etc/frontview/addons/bin/${TAG_NAME}/stop.sh"
+RUNNING="/etc/frontview/addons/bin/${TAG_NAME}/running.sh"
+
+for file in $(cd template; find . -follow -name CVS -prune -o -type f -print); do
+  dir=$(dirname $file)
+  newname=$(basename $file | sed "s/ADDON/$TAG_NAME/")
+  [ -d "${TAG_NAME}/$dir" ] || ( mkdir -p ${TAG_NAME}/$dir; mkdir -p ${TAG_NAME}/files/etc/frontview/addons/ui/${TAG_NAME}/$dir ) || ( echo "Could not make directory $dir" && exit )
+  eval sed 's/%ADDON%/${TAG_NAME}/g' template/$file > ${TAG_NAME}/$dir/$newname
+done
+
+eval sed -i -e \'s#%VERSION%#${VERSION}#g\' \
+            -e \'s#%FRIENDLY_NAME%#${FRIENDLY_NAME}#g\' \
+            -e \'s#%DESCRIPTION%#${DESCRIPTION}#g\' \
+            -e \'s#%DETAIL_URL%#${DETAIL_URL}#g\' \
+            -e \'s#%START%#${START}#g\' \
+            -e \'s#%STOP%#${STOP}#g\' \
+            -e \'s#%RUNNING%#${RUNNING}#g\' \
+            -e \'s#%CURRENT_URL%#${CURRENT_URL}#g\' \
+            -e \'s#%AUTHOR%#${AUTHOR}#g\' \
+            -e \'s#%MIN_RAIDIATOR_VERSION%#${MIN_RAIDIATOR_VERSION}#g\' \
+            ${TAG_NAME}/${TAG_NAME}.xml
+eval sed -i -e \'s#%VERSION%#${VERSION}#g\' \
+            -e \'s#%FRIENDLY_NAME%#${FRIENDLY_NAME}#g\' \
+            -e \'s#%DESCRIPTION%#${DESCRIPTION}#g\' \
+            -e \'s#%DETAIL_URL%#${DETAIL_URL}#g\' \
+            -e \'s#%DOWNLOAD_URL%#${DOWNLOAD_URL}#g\' \
+            -e \'s#%ICON_URL%#${ICON_URL}#g\' \
+            -e \'s#%AUTHOR%#${AUTHOR}#g\' \
+            -e \'s#%MIN_RAIDIATOR_VERSION%#${MIN_RAIDIATOR_VERSION}#g\' \
+            ${TAG_NAME}/${TAG_NAME}_AVAILABLE.xml
+eval sed -i -e \'s#%VERSION%#${VERSION}#g\' \
+            -e \'s#%DOWNLOAD_URL%#${DOWNLOAD_URL}#g\' \
+            -e \'s#%MIN_RAIDIATOR_VERSION%#${MIN_RAIDIATOR_VERSION}#g\' \
+            ${TAG_NAME}/${TAG_NAME}_CURRENT.xml
+
+echo -e "
+DETAIL_URL=${DETAIL_URL}
+CURRENT_URL=${CURRENT_URL}
+ICON_URL=${ICON_URL}
+REBOOT_REQUIRED=${REBOOT_REQUIRED}
+RESTART_APACHE=${RESTART_APACHE}
+MIN_RAIDIATOR_VERSION=${MIN_RAIDIATOR_VERSION}
+" > ${TAG_NAME}/.${TAG_NAME}_BUILD_SETTINGS
+
+for lang in en-us de fr ja ko zh-cn zh-tw; do
+  eval sed -i -e \'s#%DESCRIPTION%#${DESCRIPTION}#g\' \
+            -e \'s#%FRIENDLY_NAME%#${FRIENDLY_NAME}#g\' \
+            ${TAG_NAME}/language/$lang/${TAG_NAME}.str
+done
+
+mkdir -p ${TAG_NAME}/files/etc/frontview/addons/ui/${TAG_NAME} \
+         ${TAG_NAME}/files/etc/frontview/addons/bin/${TAG_NAME} \
+         ${TAG_NAME}/files/etc/frontview/apache/addons

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<addon>
+  <name>%ADDON%</name>
+  <friendly_name>%FRIENDLY_NAME%</friendly_name>
+  <version>%VERSION%</version>
+  <detail_url>%DETAIL_URL%</detail_url>
+  <author>%AUTHOR%</author>
+  <get_url>/addons/%ADDON%_HANDLER.pl</get_url>
+  <set_url>/addons/%ADDON%_HANDLER.pl</set_url>
+  <preaction>%ADDON%_preaction</preaction>
+  <onloadaction>%ADDON%_onloadaction</onloadaction>
+  <current_url>%CURRENT_URL%</current_url>
+  <min_raidiator_version>%MIN_RAIDIATOR_VERSION%</min_raidiator_version>
+</addon>
+

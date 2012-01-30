@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<addon>
+  <version>%VERSION%</version>
+  <download_url>%DOWNLOAD_URL%</download_url>
+  <message>
+    <en-us>
+      <![CDATA[This is the short message describing the changes made in this release of the add-on.]]>
+    </en-us>
+  </message>
+  <min_raidiator_version>%MIN_RAIDIATOR_VERSION%</min_raidiator_version>
+</addon>

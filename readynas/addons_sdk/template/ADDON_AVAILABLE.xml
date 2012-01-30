@@ -1,0 +1,15 @@
+<addon>
+  <name>%ADDON%</name>
+  <friendly_name>%FRIENDLY_NAME%</friendly_name>
+  <version>%VERSION%</version>
+  <author>%AUTHOR%</author>
+  <description>
+    <en-us>
+      <![CDATA[%DESCRIPTION%]]>
+    </en-us>
+  </description>
+  <detail_url>%DETAIL_URL%</detail_url>
+  <download_url>%DOWNLOAD_URL%</download_url>
+  <icon>%ICON_URL%</icon>
+  <min_raidiator_version>%MIN_RAIDIATOR_VERSION%</min_raidiator_version>
+</addon>

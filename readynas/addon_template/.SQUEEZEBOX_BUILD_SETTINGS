@@ -1,0 +1,8 @@
+
+DETAIL_URL=http://wiki.slimdevices.com
+CURRENT_URL=http://downloads.slimdevices.com/lms/logitechmediaserver_latest.xml
+ICON_URL=https://mysqueezebox.com/static/images/logitech-logo.png
+REBOOT_REQUIRED=n
+RESTART_APACHE=n
+MIN_RAIDIATOR_VERSION=4.1.3
+
