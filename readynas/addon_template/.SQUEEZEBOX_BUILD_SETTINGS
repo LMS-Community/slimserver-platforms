@@ -1,6 +1,6 @@
 
 DETAIL_URL=http://wiki.slimdevices.com
-CURRENT_URL=http://downloads.slimdevices.com/lms/logitechmediaserver_latest.xml
+CURRENT_URL=
 ICON_URL=/addons/SQUEEZEBOX/icon.png
 REBOOT_REQUIRED=n
 RESTART_APACHE=n

@@ -1,2 +1,1 @@
-LABEL_SERVICE_SQUEEZEBOX_INFO::::<b>squeezebox.</b> The Logitech Media Server aka. Squeezebox Server aka. SqueezeCenter aka. SlimServer aka. SliMP3
-PROMPT_SQUEEZEBOX_RUNTIME_SECS::::Run-time (in secs):
+LABEL_SERVICE_SQUEEZEBOX_INFO::::<b>Logitech Media Server</b> - Logitech Media Server is a cross-platform streaming media server that supports a wide range of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and WMA.
