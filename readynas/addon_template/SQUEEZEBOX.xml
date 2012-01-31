@@ -5,8 +5,8 @@
   <version>7.7.2</version>
   <detail_url>http://wiki.slimdevices.com</detail_url>
   <author>Logitech Inc.</author>
-  <get_url>SQUEEZEBOX_HANDLER.pl</get_url>
-  <set_url>SQUEEZEBOX_HANDLER.pl</set_url>
+  <get_url>../addons/SQUEEZEBOX/SQUEEZEBOX_HANDLER.pl</get_url>
+  <set_url>../addons/SQUEEZEBOX/SQUEEZEBOX_HANDLER.pl</set_url>
   <preaction>SQUEEZEBOX_preaction</preaction>
   <onloadaction>SQUEEZEBOX_onloadaction</onloadaction>
   <current_url></current_url>
