@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <addon>
   <name>SQUEEZEBOX</name>
-  <friendly_name>squeezebox</friendly_name>
-  <version>1.0</version>
+  <friendly_name>Logitech Media Server</friendly_name>
+  <version>7.7.2</version>
   <detail_url>http://wiki.slimdevices.com</detail_url>
   <author>Logitech Inc.</author>
   <get_url>/addons/SQUEEZEBOX_HANDLER.pl</get_url>
