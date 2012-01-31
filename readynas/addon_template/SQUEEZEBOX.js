@@ -4,6 +4,9 @@ self.SQUEEZEBOX_preaction = function()
 
 self.SQUEEZEBOX_onloadaction = function()
 {
+	// set a link to the Logitech Media Server web UI
+	// TODO: read the port from the server's configuration
+	$('#sbwebui').attr('href', 'http://' + window.location.hostname + ':9000')
 }
 
 self.SQUEEZEBOX_enable = function()

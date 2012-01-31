@@ -53,13 +53,31 @@ rm -f /tmp/services$$ || bye "ERROR: Could not clean up."
 
 ###########  Addon specific action go here ###########
 
-
-# Set run-time secs to 60 secs.  We'll save this in /etc/default/services.
-grep -v SQUEEZEBOX_RUNTIME_SECS /etc/default/services > /tmp/services
-echo "SQUEEZEBOX_RUNTIME_SECS=60" >> /tmp/services
+# enable LMS by default
+grep -v SQUEEZEBOX /etc/default/services > /tmp/services
+echo "SQUEEZEBOX=1" >> /tmp/services
 cp /tmp/services /etc/default/services
 rm -f /tmp/services
 
+# Some ReadyNAS firmware builds mess up the Samba configuration if there are folders in /c/ - let's hide ours
+# http://bugs.slimdevices.com/show_bug.cgi?id=17819
+if [ ! -e /c/.squeezeboxserver/prefs/server.prefs ]; then
+  cp -rf /c/squeezeboxserver/* /c/.squeezeboxserver/ > /dev/null 2>&1
+fi
+
+# we can't leave our files on the root partition, it's too small
+if [ ! -e /c/.squeezeboxserver/prefs/server.prefs ]; then
+  cp -rf /var/lib/squeezeboxserver/* /c/.squeezeboxserver/ > /dev/null 2>&1
+  cp -rf /var/log/squeezeboxserver/* /c/.squeezeboxserver/log/ > /dev/null 2>&1
+fi
+
+rm -rf /var/lib/squeezeboxserver
+rm -rf /var/log/squeezeboxserver
+rm -rf /c/squeezeboxserver
+
+# Symlink the new log file to the old location, so the log .zip file picks it up
+rm -f /var/log/slimserver.log
+ln -sf /c/.squeezeboxserver/log/server.log /var/log/slimserver.log 
 
 ######################################################
 
