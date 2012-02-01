@@ -1,0 +1,20 @@
+/c/.squeezeboxserver/log/server.log {
+  weekly
+  rotate 5
+  size 200k
+  compress
+  missingok
+
+  postrotate
+    # send USR1 to squeezebox PID to reset logging
+    /bin/kill -USR1 `pgrep squeezeboxserve 2>/dev/null` 2>/dev/null || :
+  endscript
+}
+
+/c/.squeezeboxserver/log/scanner.log {
+  weekly
+  rotate 5
+  size 200k
+  compress
+  missingok
+}
