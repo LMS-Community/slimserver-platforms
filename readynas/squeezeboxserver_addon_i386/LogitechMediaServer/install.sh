@@ -76,6 +76,11 @@ if [ ! -e /c/.squeezeboxserver/prefs/server.prefs ]; then
   cp -rf /var/log/squeezeboxserver/* /c/.squeezeboxserver/log/ > /dev/null 2>&1
 fi
 
+# remove invalid dbsource definition
+grep -v "dbsource.*/c/sq" /c/.squeezeboxserver/prefs/server.prefs > /tmp/server.prefs
+cp /tmp/server.prefs /c/.squeezeboxserver/prefs/server.prefs
+rm -f /tmp/server.prefs
+
 rm -rf /var/lib/squeezeboxserver
 rm -rf /var/log/squeezeboxserver
 rm -rf /c/squeezeboxserver
