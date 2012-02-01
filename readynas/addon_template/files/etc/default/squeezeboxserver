@@ -1,0 +1,4 @@
+# User to run Logitech Media Server as
+SLIMUSER=root
+
+SLIMOPTIONS=""

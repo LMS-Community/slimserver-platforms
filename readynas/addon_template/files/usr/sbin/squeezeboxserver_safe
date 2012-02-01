@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# $Id$
+
+if [ $# = 0 ]
+then
+  echo "Script to restart Logitech Media Server over and over again."
+  echo "This might need to be done since the mysql-server is sometimes"
+  echo "restarted due to upgrades and log-rotation and this causes"
+  echo "Logitech Media Server to exit."
+  echo
+  echo "To stop Logitech Media Server, kill this script instead of the"
+  echo "actual Logitech Media Server process."
+  echo
+  echo "Usage: $0 <squeezebox-binary> <squeezebox-arguments>"
+  exit 1
+fi
+
+function clean_up {
+  # Kill the daemon if it is running
+  kill $SLIMPID
+  echo `date "+%F %H:%M:%S"` "squeezeboxserver_safe stopped." >> /c/.squeezeboxserver/log/server.log
+  exit
+}
+
+trap clean_up SIGINT SIGHUP SIGTERM
+
+echo `date "+%F %H:%M:%S"` "squeezeboxserver_safe started." >> /c/.squeezeboxserver/log/server.log
+
+while true
+do
+  # From the Bash Reference Manual:
+  # When Bash receives a signal for which a trap has been set 
+  # while waiting for a command to complete, the trap will not 
+  # be executed until the command completes. When Bash is waiting
+  # for an asynchronous command via the wait builtin, the reception
+  # of a signal for which a trap has been set will cause the wait
+  # builtin to return immediately with an exit status greater than
+  # 128, immediately after which the trap is executed.
+
+  "$@" > /dev/null 2>&1 &
+  SLIMPID=$!
+  
+  # wait for the server to get started before wait()
+  sleep 15
+  
+  wait $SLIMPID
+  echo `date "+%F %H:%M:%S"` "Logitech Media Server died. Restarting." >> /c/.squeezeboxserver/log/server.log
+
+  # Normally, when Logitech Media Server realizes that the mysql-connection is gone,
+  # the mysql server has already been started again. So no need to sleep
+  # here.
+
+done

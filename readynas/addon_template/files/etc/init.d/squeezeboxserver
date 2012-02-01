@@ -1,0 +1,114 @@
+#!/bin/sh
+#
+# $Id$
+#
+# squeezebox	initscript for slimserver.pl
+#		This file should be placed in /etc/init.d.
+#
+# Original Author: Mattias Holmlund
+#
+# Updated By: Dan Sully
+
+set -e
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DESC="Logitech Media Server"
+NAME=squeezeboxserver
+DAEMON=/usr/sbin/$NAME
+DAEMON_SAFE=/usr/sbin/${NAME}_safe
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+SLIMUSER=root
+PREFSDIR=/c/.$NAME/prefs
+LOGDIR=/c/.$NAME/log
+CACHEDIR=/c/.$NAME/cache
+SLIMOPTIONS=-utf8
+
+# Read config file if it is present.
+if [ -r /etc/default/$NAME ]
+then
+	. /etc/default/$NAME
+fi
+
+#
+#	Function that starts the daemon/service.
+#
+d_start() {
+        # Use squeezebox_safe to restart the daemon when
+        # it dies. This must be done to handle mysql restarts.
+                start-stop-daemon --start --quiet \
+                --chuid $SLIMUSER \
+                --pidfile $PIDFILE \
+                --exec /bin/bash \
+                --background \
+                --make-pidfile \
+                --name squeezeboxserve \
+                --startas $DAEMON_SAFE \
+                -- \
+                $DAEMON \
+                --prefsdir $PREFSDIR \
+                --logdir $LOGDIR \
+                --cachedir $CACHEDIR \
+                $SLIMOPTIONS
+}
+
+d_start_direct() {
+	start-stop-daemon --start --quiet \
+                --chuid $SLIMUSER \
+                --pidfile $PIDFILE \
+                --exec $DAEMON \
+                -- \
+                --pidfile $PIDFILE \
+                --daemon \
+                --prefsdir $PREFSDIR \
+                --logdir $LOGDIR \
+                --cachedir $CACHEDIR \
+                $SLIMOPTIONS
+}
+
+#	Function that stops the daemon/service.
+#
+d_stop() {
+	start-stop-daemon --oknodo --stop --pidfile $PIDFILE --name squeezeboxserve --retry=TERM/30/KILL/5
+}
+
+#
+#	Function that sends a SIGHUP to the daemon/service.
+#
+d_reload() {
+	start-stop-daemon --stop --quiet --pidfile $PIDFILE \
+		--name squeezeboxserve --signal 1
+}
+
+case "$1" in
+  start)
+	echo -n "Making sure $DESC is stopped already: "
+	d_stop
+	echo -n "Starting $DESC: "
+	d_start
+	echo "."
+	;;
+  stop)
+	echo -n "Stopping $DESC: "
+	d_stop
+	echo "."
+	;;
+  restart|force-reload)
+	#
+	#	If the "reload" option is implemented, move the "force-reload"
+	#	option to the "reload" entry above. If not, "force-reload" is
+	#	just the same as "restart".
+	#
+	echo -n "Restarting $NAME: "
+	d_stop
+	d_start
+	echo "."
+	;;
+  *)
+	# echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
+	echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
