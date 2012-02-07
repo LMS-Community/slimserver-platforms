@@ -12,11 +12,6 @@ self.SQUEEZEBOX_onloadaction = function()
 self.SQUEEZEBOX_enable = function()
 {
   document.getElementById('BUTTON_SQUEEZEBOX_APPLY').disabled = false;
-  var runtimeSecs = document.getElementById('SQUEEZEBOX_RUNTIME_SECS');
-  if (runtimeSecs)
-  {
-    runtimeSecs.disabled = false;
-  }
 }
 
 self.SQUEEZEBOX_remove = function()
@@ -86,7 +81,7 @@ self.SQUEEZEBOX_handle_remove_response = function()
 
 self.SQUEEZEBOX_page_change = function()
 {
-  var id_array = new Array( 'SQUEEZEBOX_RUNTIME_SECS' );
+  var id_array = new Array();
   for (var ix = 0; ix < id_array.length; ix++ )
   {
      NasState.otherAddOnHash['SQUEEZEBOX'].DisplayAtom.fieldHash[id_array[ix]].value = 
@@ -106,19 +101,7 @@ self.SQUEEZEBOX_apply = function()
 
    var page_changed = false;
    var set_url = NasState.otherAddOnHash['SQUEEZEBOX'].DisplayAtom.set_url;
-   var runtimeSecs = document.getElementById('SQUEEZEBOX_RUNTIME_SECS');
-   if (runtimeSecs)
-   {
-     var id_array = new Array ('SQUEEZEBOX_RUNTIME_SECS');
-     for (var ix = 0; ix < id_array.length ; ix ++)
-     {
-       if (  NasState.otherAddOnHash['SQUEEZEBOX'].DisplayAtom.fieldHash[id_array[ix]].modified )
-       {
-          page_changed = true;
-          break;
-       }
-     }
-   }
+
    var enabled = document.getElementById('CHECKBOX_SQUEEZEBOX_ENABLED').checked ? 'checked' :  'unchecked';
    var current_status  = NasState.otherAddOnHash['SQUEEZEBOX'].Status;
    if ( page_changed )
