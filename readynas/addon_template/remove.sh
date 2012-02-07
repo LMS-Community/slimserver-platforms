@@ -38,7 +38,7 @@ sed -i "/^${SERVICE}_SUPPORT=/d" /etc/default/services
 sed -i "/^${SERVICE}\!\!/d" /etc/frontview/addons/addons.conf
 
 # Reread modified service configuration files
-(/usr/sbin/apache-ssl -f /etc/frontview/apache/httpd.conf -t > /dev/null 2>&1) && (/usr/sbin/apache-ssl -f /etc/frontview/apache/httpd.conf -k graceful > /dev/null 2>&1)
+#(/usr/sbin/apache-ssl -f /etc/frontview/apache/httpd.conf -t > /dev/null 2>&1) && (/usr/sbin/apache-ssl -f /etc/frontview/apache/httpd.conf -k graceful > /dev/null 2>&1)
 
 # Now remove ourself
 rm -f $0
