@@ -69,20 +69,20 @@ fi
 if [ ! -e /c/.squeezeboxserver/prefs/server.prefs ]; then
   cp -rf /var/lib/squeezeboxserver/* /c/.squeezeboxserver/ > /dev/null 2>&1
   cp -rf /var/log/squeezeboxserver/* /c/.squeezeboxserver/log/ > /dev/null 2>&1
+else
+	# remove invalid dbsource definition
+	grep -v "dbsource.*/c/sq" /c/.squeezeboxserver/prefs/server.prefs > /tmp/server.prefs 2> /dev/null
+	cp /tmp/server.prefs /c/.squeezeboxserver/prefs/server.prefs > /dev/null 2>&1
+	rm -f /tmp/server.prefs > /dev/null 2>&1
 fi
 
-# remove invalid dbsource definition
-grep -v "dbsource.*/c/sq" /c/.squeezeboxserver/prefs/server.prefs > /tmp/server.prefs
-cp /tmp/server.prefs /c/.squeezeboxserver/prefs/server.prefs
-rm -f /tmp/server.prefs
-
-rm -rf /var/lib/squeezeboxserver
-rm -rf /var/log/squeezeboxserver
-rm -rf /c/squeezeboxserver
+rm -rf /var/lib/squeezeboxserver > /dev/null 2>&1
+rm -rf /var/log/squeezeboxserver > /dev/null 2>&1
+rm -rf /c/squeezeboxserver > /dev/null 2>&1
 
 # Symlink the new log file to the old location, so the log .zip file picks it up
-rm -f /var/log/slimserver.log
-ln -sf /c/.squeezeboxserver/log/server.log /var/log/slimserver.log 
+rm -f /var/log/slimserver.log > /dev/null 2>&1
+ln -sf /c/.squeezeboxserver/log/server.log /var/log/slimserver.log  > /dev/null 2>&1
 
 ######################################################
 
