@@ -1,0 +1,68 @@
+LABEL_SERVICE_SQUEEZEBOX_INFO
+	DE	<b>Logitech Media Server</b> - Logitech Media Server ist ein Cross-Plattform Streaming Media Server, der eine grosse Auswahl von Formaten unterstützt, darunter AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV und WMA.
+	EN	<b>Logitech Media Server</b> - Logitech Media Server is a cross-platform streaming media server that supports a wide range of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and WMA.
+	
+LABEL_ACCESS_LMS
+	DE	Auf Logitech Media Server zugreifen
+	EN	Access Logitech Media Server
+
+BUTTON_CLEANUP_DO
+	CS	Spustit čištění
+	DA	Foretag oprydning
+	DE	Bereinigung durchführen
+	EN	Run Cleanup
+	ES	Ejecutar limpieza
+	FI	Suorita puhdistus
+	FR	Lancer le nettoyage
+	IT	Esegui pulizia
+	NL	Opschoning uitvoeren
+	NO	Kjør opprydding
+	PL	Uruchom czyszczenie
+	RU	Запустить очистку
+	SV	Kör rensning
+
+LABEL_CLEANUP_PLEASE_STOP_SC
+	CS	Před spuštěním čištění prosím zastavte Logitech Media Server.
+	DA	Du skal stoppe Logitech Media Server før du foretager oprydningen.
+	DE	Vor der Bereinigung muss Logitech Media Server beendet werden.
+	EN	Please Stop Logitech Media Server before running the cleanup.
+	ES	Detenga Logitech Media Server antes de ejecutar la limpieza.
+	FI	Sulje Logitech Media Server ennen puhdistuksen suorittamista.
+	FR	Arrêtez le Logitech Media Server avant de lancer le nettoyage.
+	IT	Prima di eseguire la pulizia, arrestare Logitech Media Server.
+	NL	Stop Logitech Media Server voordat je de opschoning uitvoert.
+	NO	Stopp Logitech Media Server før du kjører oppryddingen.
+	PL	Przed rozpoczęciem czyszczenia zatrzymaj program Logitech Media Server.
+	RU	Перед очисткой остановите работу Logitech Media Server.
+	SV	Stoppa Logitech Media Server innan du börjar med rensningen.
+	
+LABEL_CLEANUP_PREFS
+	CS	Smazat soubory předvoleb
+	DA	Slet filer med indstillinger
+	DE	Einstellungsdateien löschen
+	EN	Delete preference files
+	ES	Eliminar archivos de preferencias
+	FI	Poista asetustiedostot
+	FR	Supprimer les fichiers de préférence
+	IT	Elimina file delle preferenze
+	NL	Voorkeurenbestanden verwijderen
+	NO	Slett innstillingsfiler
+	PL	Usuń pliki preferencji
+	RU	Удалить файлы настроек
+	SV	Ta bort inställningsfiler
+
+LABEL_CLEANUP_CACHE
+	CS	Smazat odkládací složku, včetně databáze médií, vyrovnávací paměti obalů alb atd.
+	DA	Ryd op i cachemappen, herunder mediedatabasen, cachelagrede coverbilleder osv.
+	DE	Zwischenspeicher-Ordner mit Mediendatenbank, Plattenhüllen usw. bereinigen
+	EN	Clean cache folder, including media library database, artwork cache etc.
+	ES	Limpiar carpeta de caché, incluidas base de datos multimedia, caché de carátulas, etc.
+	FI	Tyhjennä välimuistikansio, mukaan luettuna mediatietokanta ja kansitaiteen välimuisti.
+	FR	Nettoyer le dossier cache, y compris la base de données de la bibliothèque multimédia, les pochettes, etc.
+	IT	Pulisci cartella della cache, inclusi il database della libreria multimediale, la cache delle copertine e così via.
+	NL	Cachemap opschonen, inclusief mediadatabase, hoesafbeeldingencache, enz.
+	NO	Tøm hurtigbuffermappen, inkludert mediedatabasen, hurtigbufrede omslag osv.
+	PL	Czyści folder pamięci podręcznej, w tym bazę danych biblioteki multimedialnej, pamięć podręczną okładek itp.
+	RU	Очистить папку кэша, включая базу данных библиотеки мультимедиа, кэш обложек и др.
+	SV	Rensa cachemappen (innehåller bland annat mediedatabasen och cacheminnet med albumomslag)
+
