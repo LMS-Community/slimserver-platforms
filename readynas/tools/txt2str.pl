@@ -28,7 +28,7 @@ my %langs = (
 my $string;
 my %data;
 
-while(<STRINGS>) {
+while (<STRINGS>) {
 
 	# remove newline chars and trailing tabs/spaces
 	chomp; s/[\t\s]+$//; 
@@ -51,8 +51,6 @@ while(<STRINGS>) {
 }
 
 close(STRINGS);
-
-print Data::Dump::dump(%data);
 
 for my $lang (keys %data) {
 	my $dir = 'addon_template/language/' . $langs{$lang};
