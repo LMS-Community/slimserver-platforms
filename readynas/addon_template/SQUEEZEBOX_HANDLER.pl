@@ -47,6 +47,9 @@ elsif( $operation eq "set" )
 elsif ($operation eq 'cleanup') {
 	run_cleanup($command);
 }
+elsif ($operation eq 'get_web_port') {
+	$xml_payload .= get_web_port();
+}
 
 print $xml_payload;
   
@@ -97,6 +100,28 @@ sub run_cleanup
 		spool_file("${ORDER_SERVICE}_SQUEEZEBOX", $SPOOL);
 		empty_spool();
 	}
+}
+
+sub get_web_port
+{
+	my $port = 9000;
+	my $prefFile = '/c/.squeezeboxserver/pres/server.prefs';
+	
+	if (-r $prefFile) {
+		if (open(PREF, $prefFile)) {
+			local $_;
+			while (<PREF>) {
+				if (/^httpport(:| \=)? (\d+)$/) {
+					$port = $2;
+					last;
+				}
+			}
+
+			close(PREF);
+		}
+	}
+	
+	return "<payload><content>$port</content><warning>No Warnings</warning><error>No Errors</error></payload>";
 }
 
 1;

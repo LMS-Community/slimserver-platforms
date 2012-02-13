@@ -5,8 +5,20 @@ self.SQUEEZEBOX_preaction = function()
 self.SQUEEZEBOX_onloadaction = function()
 {
 	// set a link to the Logitech Media Server web UI
-	// TODO: read the port from the server's configuration
-	$('#sbwebui').html('<a href="http://' + window.location.hostname + ':9000" target="_blank">Free Your Music!</a>');
+	$.ajax({
+		url: NasState.otherAddOnHash['SQUEEZEBOX'].DisplayAtom.set_url + '?OPERATION=get_web_port',
+		success: function(xmlPayLoad) {
+			var port = xmlPayLoad.getElementsByTagName('content').item(0);
+			
+			if (port.firstChild.data)
+				port = port.firstChild.data;
+				
+			if (isNaN(parseInt(port)))
+				port = 9000;
+			
+			$('#sbwebui').html('<a href="http://' + window.location.hostname + ':' + port + '" target="_blank">Free Your Music!</a>');
+		}
+	});
 	
 	toggleCleanupOptions();
 }
