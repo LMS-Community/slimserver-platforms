@@ -7,6 +7,8 @@ self.SQUEEZEBOX_onloadaction = function()
 	// set a link to the Logitech Media Server web UI
 	// TODO: read the port from the server's configuration
 	$('#sbwebui').html('<a href="http://' + window.location.hostname + ':9000" target="_blank">Free Your Music!</a>');
+	
+	toggleCleanupOptions();
 }
 
 self.SQUEEZEBOX_enable = function()
@@ -162,12 +164,20 @@ self.SQUEEZEBOX_handle_apply_response = function()
 	      {
 	        NasState.otherAddOnHash['SQUEEZEBOX'].Status = 'on';
 	        NasState.otherAddOnHash['SQUEEZEBOX'].RunStatus = 'OK';
+
+			// enable/disable cleanup options	        
+	        toggleCleanupOptions(false);
+	        
 	        refresh_applicable_pages();
 	      }
 	      else
 	      {
 	        NasState.otherAddOnHash['SQUEEZEBOX'].Status = 'off';
 	        NasState.otherAddOnHash['SQUEEZEBOX'].RunStatus = 'not_present';
+
+			// enable/disable cleanup options	        
+	        toggleCleanupOptions(true);
+	        
 	        refresh_applicable_pages();
 	      }
 	    }
@@ -251,10 +261,28 @@ self.SQUEEZEBOX_cleanup = function()
 	showProgressBar('wait');
 
 	$.ajax({
-		url: '/addons/SQUEEZEBOX/SQUEEZEBOX_HANDLER.pl?OPERATION=cleanup&command=' + (prefs ? 'prefs|' : '') + (cache ? 'cache|' : ''),
+		url: NasState.otherAddOnHash['SQUEEZEBOX'].DisplayAtom.set_url + '?OPERATION=cleanup&command=' + (prefs ? 'prefs|' : '') + (cache ? 'cache|' : ''),
 		cache: false,
 		complete: function(jqXHR, textStatus) {
+			document.forms.squeezebox_cleanup.cleanup_prefs.checked = false;
+			document.forms.squeezebox_cleanup.cleanup_cache.checked = false;
+		
 			showProgressBar('default');
 		}
 	});
+}
+
+function toggleCleanupOptions(enable)
+{
+	if (enable == undefined)
+		enable = NasState.otherAddOnHash['SQUEEZEBOX'].Status != 'on';
+		
+	document.forms.squeezebox_cleanup.cleanup_prefs.disabled = !enable;
+	document.forms.squeezebox_cleanup.cleanup_cache.disabled = !enable;
+	document.forms.squeezebox_cleanup.cleanup_do.disabled    = !enable;
+	
+	if (enable)
+		$('#LABEL_CLEANUP_PLEASE_STOP_SC').hide();
+	else
+		$('#LABEL_CLEANUP_PLEASE_STOP_SC').show();
 }

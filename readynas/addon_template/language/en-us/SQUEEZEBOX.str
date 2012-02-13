@@ -3,3 +3,4 @@ LABEL_ACCESS_LMS::::Access Logitech Media Server
 BUTTON_CLEANUP_DO::::Run Cleanup
 LABEL_CLEANUP_CACHE::::Clean cache folder, including media library database, artwork cache etc.
 LABEL_CLEANUP_PREFS::::Delete preference files
+LABEL_CLEANUP_PLEASE_STOP_SC::::Please Stop Logitech Media Server before running the cleanup.
