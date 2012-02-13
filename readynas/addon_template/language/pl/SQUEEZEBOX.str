@@ -1,0 +1,4 @@
+LABEL_CLEANUP_PLEASE_STOP_SC::::Przed rozpoczęciem czyszczenia zatrzymaj program Logitech Media Server.
+LABEL_CLEANUP_CACHE::::Czyści folder pamięci podręcznej, w tym bazę danych biblioteki multimedialnej, pamięć podręczną okładek itp.
+LABEL_CLEANUP_PREFS::::Usuń pliki preferencji
+BUTTON_CLEANUP_DO::::Uruchom czyszczenie

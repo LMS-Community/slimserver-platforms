@@ -1,0 +1,4 @@
+LABEL_CLEANUP_PLEASE_STOP_SC::::Stoppa Logitech Media Server innan du börjar med rensningen.
+LABEL_CLEANUP_CACHE::::Rensa cachemappen (innehåller bland annat mediedatabasen och cacheminnet med albumomslag)
+LABEL_CLEANUP_PREFS::::Ta bort inställningsfiler
+BUTTON_CLEANUP_DO::::Kör rensning

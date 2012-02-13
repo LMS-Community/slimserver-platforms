@@ -1,0 +1,4 @@
+LABEL_CLEANUP_PLEASE_STOP_SC::::Detenga Logitech Media Server antes de ejecutar la limpieza.
+LABEL_CLEANUP_CACHE::::Limpiar carpeta de caché, incluidas base de datos multimedia, caché de carátulas, etc.
+LABEL_CLEANUP_PREFS::::Eliminar archivos de preferencias
+BUTTON_CLEANUP_DO::::Ejecutar limpieza

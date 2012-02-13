@@ -1,0 +1,4 @@
+LABEL_CLEANUP_PLEASE_STOP_SC::::Sulje Logitech Media Server ennen puhdistuksen suorittamista.
+LABEL_CLEANUP_CACHE::::Tyhjennä välimuistikansio, mukaan luettuna mediatietokanta ja kansitaiteen välimuisti.
+LABEL_CLEANUP_PREFS::::Poista asetustiedostot
+BUTTON_CLEANUP_DO::::Suorita puhdistus

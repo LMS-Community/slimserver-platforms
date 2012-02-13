@@ -1,0 +1,4 @@
+LABEL_CLEANUP_PLEASE_STOP_SC::::Stopp Logitech Media Server før du kjører oppryddingen.
+LABEL_CLEANUP_CACHE::::Tøm hurtigbuffermappen, inkludert mediedatabasen, hurtigbufrede omslag osv.
+LABEL_CLEANUP_PREFS::::Slett innstillingsfiler
+BUTTON_CLEANUP_DO::::Kjør opprydding

@@ -1,0 +1,4 @@
+LABEL_CLEANUP_PLEASE_STOP_SC::::Stop Logitech Media Server voordat je de opschoning uitvoert.
+LABEL_CLEANUP_CACHE::::Cachemap opschonen, inclusief mediadatabase, hoesafbeeldingencache, enz.
+LABEL_CLEANUP_PREFS::::Voorkeurenbestanden verwijderen
+BUTTON_CLEANUP_DO::::Opschoning uitvoeren

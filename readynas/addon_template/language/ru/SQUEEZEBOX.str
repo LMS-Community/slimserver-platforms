@@ -1,0 +1,4 @@
+LABEL_CLEANUP_PLEASE_STOP_SC::::Перед очисткой остановите работу Logitech Media Server.
+LABEL_CLEANUP_CACHE::::Очистить папку кэша, включая базу данных библиотеки мультимедиа, кэш обложек и др.
+LABEL_CLEANUP_PREFS::::Удалить файлы настроек
+BUTTON_CLEANUP_DO::::Запустить очистку
