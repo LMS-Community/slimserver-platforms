@@ -1,0 +1,4 @@
+LABEL_CLEANUP_PLEASE_STOP_SC::::Arrêtez le Logitech Media Server avant de lancer le nettoyage.
+LABEL_CLEANUP_CACHE::::Nettoyer le dossier cache, y compris la base de données de la bibliothèque multimédia, les pochettes, etc.
+LABEL_CLEANUP_PREFS::::Supprimer les fichiers de préférence
+BUTTON_CLEANUP_DO::::Lancer le nettoyage

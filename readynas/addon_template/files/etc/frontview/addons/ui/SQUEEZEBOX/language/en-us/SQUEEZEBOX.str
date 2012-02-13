@@ -1,0 +1,6 @@
+LABEL_CLEANUP_PLEASE_STOP_SC::::Please Stop Logitech Media Server before running the cleanup.
+LABEL_SERVICE_SQUEEZEBOX_INFO::::<b>Logitech Media Server</b> - Logitech Media Server is a cross-platform streaming media server that supports a wide range of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and WMA.
+LABEL_CLEANUP_CACHE::::Clean cache folder, including media library database, artwork cache etc.
+LABEL_CLEANUP_PREFS::::Delete preference files
+BUTTON_CLEANUP_DO::::Run Cleanup
+LABEL_ACCESS_LMS::::Access Logitech Media Server
