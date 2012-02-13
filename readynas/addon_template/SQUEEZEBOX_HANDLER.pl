@@ -96,7 +96,6 @@ sub run_cleanup
 	
 	if ($params) {
 		my $SPOOL = "cd /usr/share/squeezeboxserver && ./cleanup.pl $params\n";
-		$SPOOL = "echo '$params' > /tmp/test.txt\n";
 		spool_file("${ORDER_SERVICE}_SQUEEZEBOX", $SPOOL);
 		empty_spool();
 	}
