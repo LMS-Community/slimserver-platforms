@@ -242,3 +242,19 @@ self.SQUEEZEBOX_service_toggle = function()
   }
 }
 
+// custom callback to remove Squeezebox prefs/cache etc.
+self.SQUEEZEBOX_cleanup = function() 
+{
+	var prefs = document.forms.squeezebox_cleanup.cleanup_prefs.checked;
+	var cache = document.forms.squeezebox_cleanup.cleanup_cache.checked;
+
+	showProgressBar('wait');
+
+	$.ajax({
+		url: '/addons/SQUEEZEBOX/SQUEEZEBOX_HANDLER.pl?OPERATION=cleanup&command=' + (prefs ? 'prefs|' : '') + (cache ? 'cache|' : ''),
+		cache: false,
+		complete: function(jqXHR, textStatus) {
+			showProgressBar('default');
+		}
+	});
+}

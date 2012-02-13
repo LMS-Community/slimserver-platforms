@@ -43,30 +43,17 @@ elsif( $operation eq "set" )
   }
 }
 
+# handle Squeezebox cleanup requests
+elsif ($operation eq 'cleanup') {
+	run_cleanup($command);
+}
+
 print $xml_payload;
   
 
 sub Show_SQUEEZEBOX_xml
 {
   my $xml_payload = "<payload><content>" ;
-
-  # check if service is running or not 
-  my $enabled = GetServiceStatus("SQUEEZEBOX");
-
-  # get SQUEEZEBOX_RUNTIME_SECS parameter from /etc/default_services
-  my $run_time = GetValueFromServiceFile("SQUEEZEBOX_RUNTIME_SECS");
-
-  if( $run_time eq "not_found" )
-  {
-    # set run_time to a default value
-    $run_time = "60";
-  }
-
-  my $enabled_disabled = "disabled";
-     $enabled_disabled = "enabled" if( $enabled );
-
-  # return run_time value for HTML
-  $xml_payload .= "<SQUEEZEBOX_RUNTIME_SECS><value>$run_time</value><enable>$enabled_disabled</enable></SQUEEZEBOX_RUNTIME_SECS>"; 
 
   $xml_payload .= "</content><warning>No Warnings</warning><error>No Errors</error></payload>";
   
@@ -76,33 +63,40 @@ sub Show_SQUEEZEBOX_xml
 
 sub Modify_SQUEEZEBOX_xml 
 {
-  my $run_time  = $in{"SQUEEZEBOX_RUNTIME_SECS"};
-  my $SPOOL;
   my $xml_payload;
   
-  $run_time = "60" if( $run_time eq "" );
-  
-  $SPOOL .= "
-if grep -q SQUEEZEBOX_RUNTIME_SECS /etc/default/services; then
-  sed -i 's/SQUEEZEBOX_RUNTIME_SECS=.*/SQUEEZEBOX_RUNTIME_SECS=${run_time}/' /etc/default/services
-else
-  echo 'SQUEEZEBOX_RUNTIME_SECS=${run_time}' >> /etc/default/services
-fi
-";
- 
   if( $in{SWITCH} eq "YES" ) 
   {
     $xml_payload = Toggle_Service_xml("SQUEEZEBOX", $enabled);
   }
   else
   {
-    spool_file("${ORDER_SERVICE}_SQUEEZEBOX", $SPOOL);
-    empty_spool();
-
     $xml_payload = _build_xml_set_payload_sync();
   }
   return $xml_payload;
 }
 
+# custom handler to run Squeezebox cleanup tool
+sub run_cleanup 
+{
+	my $command = shift;
+	
+	my $params = '';
+	
+	if ($command =~ /prefs/) {
+		$params .= ' --prefs';
+	}
+
+	if ($command =~ /cache/) {
+		$params .= ' --cache';
+	}
+	
+	if ($params) {
+		my $SPOOL = "cd /usr/share/squeezeboxserver && ./cleanup.pl $params\n";
+		$SPOOL = "echo '$params' > /tmp/test.txt\n";
+		spool_file("${ORDER_SERVICE}_SQUEEZEBOX", $SPOOL);
+		empty_spool();
+	}
+}
 
 1;
