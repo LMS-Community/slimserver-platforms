@@ -40,29 +40,6 @@ case "$1" in
 
 	fi
 
-	# If there's an apparmor config, we need to update it to allow mysql to work properly
-	if [ -f /etc/apparmor.d/usr.sbin.mysqld ]; then
-		## Remove the end-bracket so we can input our data into the file...
-		sed -e 's/}//' /etc/apparmor.d/usr.sbin.mysqld > /etc/apparmor.d/usr.sbin.mysqld.squeezeboxserver.new
-		echo "  # SqueezeBox Apparmor Changes for MySqld
-  /var/lib/squeezeboxserver/cache/ r,
-  /var/lib/squeezeboxserver/cache/my.cnf r,
-  /var/lib/squeezeboxserver/cache/mysql.startup rw,
-  /var/lib/squeezeboxserver/cache/mysql-error-log.txt rw,
-  /var/lib/squeezeboxserver/cache/squeezebox-mysql.pid w,
-  /var/lib/squeezeboxserver/cache/squeezebox-mysql.sock w,
-  /var/lib/squeezeboxserver/cache/MySQL/ r,
-  /var/lib/squeezeboxserver/cache/MySQL/** rwk,
- } " >> /etc/apparmor.d/usr.sbin.mysqld.squeezeboxserver.new
-
-		mv /etc/apparmor.d/usr.sbin.mysqld /var/lib/squeezeboxserver/usr.sbin.mysqld.orig
-		mv /etc/apparmor.d/usr.sbin.mysqld.squeezeboxserver.new /etc/apparmor.d/usr.sbin.mysqld
-		if [ -x /etc/init.d/apparmor ]; then
-			/etc/init.d/apparmor restart		 
-		fi
-		echo "\n"
-	fi
-	
 	db_stop
 
     ;;

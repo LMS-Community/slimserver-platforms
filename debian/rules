@@ -48,9 +48,6 @@ install:
 	# Make sure we copy in the Bin directory
 	cp -r ${source}/Bin ${base}/${share}
 
-	# Remove the mysqld daemon on purpose, so that we use the system binary
-	rm -rf ${base}/${share}/Bin/i386-linux/mysqld 
-
 	# Remove non-Linux binary modules and binaries
 	rm -rf ${base}/${share}/CPAN/arch/*/darwin-thread-multi-2level
 	rm -rf ${base}/${share}/CPAN/arch/*/i386-freebsd-64int
