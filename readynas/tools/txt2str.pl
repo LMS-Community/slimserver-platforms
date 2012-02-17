@@ -53,7 +53,7 @@ while (<STRINGS>) {
 close(STRINGS);
 
 for my $lang (keys %data) {
-	my $dir = 'addon_template/files/etc/frontview/addons/ui/SQUEEZEBOX/language/' . $langs{$lang};
+	my $dir = 'addon_template/language/' . $langs{$lang};
 	make_path($dir) unless -d $dir;
 	
 	my $stringsFile = $dir . '/SQUEEZEBOX.str';
