@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10K540</string>
+		<string key="IBDocument.SystemVersion">10K549</string>
 		<string key="IBDocument.InterfaceBuilderVersion">851</string>
 		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="212"/>
 			<integer value="57"/>
+			<integer value="212"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -56,7 +56,7 @@
 						<object class="NSTextField" id="793092742">
 							<reference key="NSNextResponder" ref="389304079"/>
 							<int key="NSvFlags">256</int>
-							<string key="NSFrame">{{17, 100}, {446, 122}}</string>
+							<string key="NSFrame">{{17, 60}, {510, 149}}</string>
 							<reference key="NSSuperview" ref="389304079"/>
 							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
@@ -647,12 +647,12 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 						<reference key="object" ref="389304079"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="793092742"/>
 							<reference ref="579447849"/>
 							<reference ref="735433035"/>
 							<reference ref="669068573"/>
 							<reference ref="567799659"/>
 							<reference ref="977690610"/>
+							<reference ref="793092742"/>
 						</object>
 						<reference key="parent" ref="1062095632"/>
 					</object>
@@ -950,6 +950,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 					<string>19.IBPluginDependency</string>
 					<string>19.ImportedFromIB2</string>
 					<string>198.IBPluginDependency</string>
+					<string>198.IBViewBoundsToFrameTransform</string>
 					<string>198.ImportedFromIB2</string>
 					<string>2.IBPluginDependency</string>
 					<string>2.ImportedFromIB2</string>
@@ -1029,6 +1030,9 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABBiAAAw1UAAA</bytes>
+					</object>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
@@ -1106,6 +1110,7 @@ bGljayBRdWl0IHRvIGV4aXQuA</string>
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
 					<string key="className">FirstResponder</string>
+					<string key="superclassName">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
