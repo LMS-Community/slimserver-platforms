@@ -104,7 +104,7 @@ sub run_cleanup
 sub get_web_port
 {
 	my $port = 9000;
-	my $prefFile = '/c/.squeezeboxserver/pres/server.prefs';
+	my $prefFile = '/c/.squeezeboxserver/presf/server.prefs';
 	
 	if (-r $prefFile) {
 		if (open(PREF, $prefFile)) {
