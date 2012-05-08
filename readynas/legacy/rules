@@ -78,7 +78,7 @@ install:
 
 	# We put the Plugins into /c/ because they are modifiable, 
 	# and shouldn't be put into /usr. 
-	cp -rf ${source}/Plugins ${base}/${varlib}
+	cp -rf ${source}/Plugins ${base}/${varlib} || mkdir ${base}/${varlib}/Plugins
 	ln -s /${varlib}/Plugins ${base}/${share}/Plugins
 
 	# Remove errmsg.sys files from the MySQL dir, since they may not match

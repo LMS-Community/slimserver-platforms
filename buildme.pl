@@ -319,14 +319,21 @@ sub doCommandOptions {
 ##############################################################################################
 sub getRevisionForRepo {
 	my $revision;
-	open (SVN, "svn info $sourceDir |") or die "Problem: Couldn't run svn info $sourceDir : $!\n";
-	
-	while (<SVN>) {
-		if (/Last Changed Rev: (\d+)/) { 
-			$revision = $1;
+	if (-d "$sourceDir/.svn") {
+		open (SVN, "svn info $sourceDir |") or die "Problem: Couldn't run svn info $sourceDir : $!\n";
+		
+		while (<SVN>) {
+			if (/Last Changed Rev: (\d+)/) { 
+				$revision = $1;
+			}
 		}
+		close(SVN);
+	} elsif (-d "$sourceDir/.git") {
+		$revision = `git --git-dir=$sourceDir/.git log -n 1 --format=%H`;
+		chop $revision;
+	} else {
+		$revision = 'UNKNOWN';
 	}
-	close(SVN);
 	return $revision;
 }
 
