@@ -727,6 +727,9 @@ sub buildReadyNasV2 {
 	system("install -d -m0755 $workDir/etc/squeezeboxserver/ && install -d -m0755 $varlib/cache && install -d -m0755 $varlib/log && install -d -m0755 $varlib/prefs");
 
 	system("install -m0755 $buildDir/server/slimserver.pl $workDir/usr/sbin/squeezeboxserver && install -m0755 $buildDir/server/scanner.pl $workDir/usr/sbin/squeezeboxserver-scanner");
+	
+	# unfortunately GIT can't handle empty folders - let's create them here
+	system("install -d -m0755 $workDir/etc/frontview/addons/bin/SQUEEZEBOX $workDir/etc/frontview/apache/addons");
 
 	system("mv $buildDir/server/Slim $workDir/usr/share/perl5/; mv $buildDir/server/cleanup.pl $share/");
 	system("mv $buildDir/server/CPAN/* $share/CPAN/; mv $buildDir/server/lib $buildDir/server/Firmware $buildDir/server/Graphics $buildDir/server/HTML $share/");
