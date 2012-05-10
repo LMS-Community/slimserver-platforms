@@ -892,7 +892,7 @@ sub buildWin32 {
 		my $rev = $revision || getRevisionForRepo() || $version;
 		my @versionInfo = (
 			"CompanyName=Logitech Inc.",
-			"FileVersion=$rev",
+			"FileVersion=" . ($rev % 65536),
 			"LegalCopyright=Copyright 2001-2011 Logitech Inc.",
 			"ProductVersion=$version",
 			"ProductName=Logitech Media Server",
