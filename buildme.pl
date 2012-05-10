@@ -329,7 +329,7 @@ sub getRevisionForRepo {
 		}
 		close(SVN);
 	} elsif (-d "$sourceDir/server/.git") {
-		$revision = `git --git-dir=$sourceDir/server/.git log -n 1 --format=%h`;
+		$revision = `git --git-dir=$sourceDir/server/.git log -n 1 --format=%ct`;
 		chop $revision;
 	} else {
 		$revision = 'UNKNOWN';
