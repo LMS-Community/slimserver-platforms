@@ -889,10 +889,10 @@ sub buildWin32 {
 		#print "INFO: Copying additional perl modules to $windowsPerlDir\\site...\n";
 		#system("cp -R $buildDir/platforms/win32/lib/perl5/* \"$windowsPerlDir/site\" ");
 
-		my $rev = ($revision || getRevisionForRepo() || $version) % 65536;
+		my $rev = int(($revision || getRevisionForRepo() || $version) / 3600) % 65536;
 		my @versionInfo = (
 			"CompanyName=Logitech Inc.",
-			"FileVersion=" . $rev,
+			"FileVersion=$rev",
 			"LegalCopyright=Copyright 2001-2011 Logitech Inc.",
 			"ProductVersion=$version",
 			"ProductName=Logitech Media Server",
