@@ -231,7 +231,7 @@ cp -R HTML %buildroot%_datadir/slimserver
 cp -R IR %buildroot%_datadir/slimserver
 cp -R lib %buildroot%_datadir/slimserver
 cp -R MySQL %buildroot%_datadir/slimserver
-cp -R Plugins %buildroot%_datadir/slimserver
+cp -R Plugins %buildroot%_datadir/slimserver || true
 cp -R SQL %buildroot%_datadir/slimserver
 cp revision.txt %buildroot%_datadir/slimserver
 cp strings.txt %buildroot%_datadir/slimserver
