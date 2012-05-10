@@ -14,7 +14,7 @@ use POSIX qw(strftime);
 
 ## Here we set some basic settings.. most of these dont need to change very often.
 my $squeezeCenterStartupScript = "server/slimserver.pl";
-my $sourceDirsToExclude = ".svn tests slimp3 squeezebox /softsqueeze tools ext/source ext-all-debug.js build"; 
+my $sourceDirsToExclude = ".svn .git tests slimp3 squeezebox /softsqueeze tools ext/source ext-all-debug.js build"; 
 my $revisionTextFile = "server/revision.txt";
 my $revision;
 my $myVersion = "0.0.3";
