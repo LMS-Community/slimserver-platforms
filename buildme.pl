@@ -889,10 +889,10 @@ sub buildWin32 {
 		#print "INFO: Copying additional perl modules to $windowsPerlDir\\site...\n";
 		#system("cp -R $buildDir/platforms/win32/lib/perl5/* \"$windowsPerlDir/site\" ");
 
-		my $rev = $revision || getRevisionForRepo() || $version;
+		my $rev = ($revision || getRevisionForRepo() || $version) % 65536;
 		my @versionInfo = (
 			"CompanyName=Logitech Inc.",
-			"FileVersion=" . ($rev % 65536),
+			"FileVersion=" . $rev,
 			"LegalCopyright=Copyright 2001-2011 Logitech Inc.",
 			"ProductVersion=$version",
 			"ProductName=Logitech Media Server",
@@ -1009,7 +1009,7 @@ sub buildWin32 {
 		copy("$buildDir/platforms/win32/installer/squeezebox.bmp", "$buildDir/build");
 		
 		# replacing build number in installer script
-		system("sed -e \"s/VersionInfoVersion=0.0.0.0/VersionInfoVersion=$revision/\" \"$buildDir/platforms/win32/installer/SqueezeCenter.iss\" > \"$buildDir/build/SqueezeCenter.iss\"");
+		system("sed -e \"s/VersionInfoVersion=0.0.0.0/VersionInfoVersion=$rev/\" \"$buildDir/platforms/win32/installer/SqueezeCenter.iss\" > \"$buildDir/build/SqueezeCenter.iss\"");
 		system("cd $buildDir/build; \"$buildDir/platforms/win32/InnoSetup/ISCC.exe\" \/Q SqueezeCenter.iss ");
 
 		unlink("$buildDir/build/SqueezeCenter.iss");
