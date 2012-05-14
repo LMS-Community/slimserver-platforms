@@ -330,7 +330,7 @@ sub getRevisionForRepo {
 		close(SVN);
 	} elsif (-d "$sourceDir/server/.git") {
 		$revision = `git --git-dir=$sourceDir/server/.git log -n 1 --pretty=format:%ct`;
-		$revision =~ s/\s*$//sS;
+		$revision =~ s/\s*$//s;
 	} else {
 		$revision = 'UNKNOWN';
 	}
