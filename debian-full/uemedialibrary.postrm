@@ -2,11 +2,11 @@
 
 if [ "$1" = purge ]; then
 
-	rm -rf /var/lib/squeezeboxserver/cache
-	rm -rf /var/log/squeezeboxserver
+	rm -rf /var/lib/uemusiclibrary/cache
+	rm -rf /var/log/uemusiclibrary
 
 	if [ -x `which deluser` ]; then
-		deluser squeezeboxserver 
+		deluser uemusiclibrary 
 	fi
 
 fi

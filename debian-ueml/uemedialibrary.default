@@ -1,0 +1,4 @@
+# User to run UE Music Library as
+UEMLUSER=uemusiclibrary
+
+UEMLOPTIONS=""

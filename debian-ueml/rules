@@ -1,0 +1,101 @@
+#!/usr/bin/make -f
+
+# $Id$
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+package=uemusiclibrary
+base=$(CURDIR)/debian/$(package)
+share=usr/share/uemusiclibrary/
+source=$(CURDIR)/../server
+
+varlib=var/lib/uemusiclibrary
+
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -rf ${base}
+
+install:
+	dh_testdir
+	dh_testroot
+	dh_installdirs
+
+	# Create directories needed.
+	install -d -m0755 ${base}/etc/default/
+	install -d -m0755 ${base}/etc/uemusiclibrary/
+	install -d -m0755 ${base}/etc/init.d/
+	install -d -m0755 ${base}/${share}
+	install -d -m0755 ${base}/usr/share/lintian/overrides/
+	install -d -m0755 ${base}/usr/share/doc/uemusiclibrary/
+	install -d -m0755 ${base}/${varlib}/prefs
+	install -d -m0755 ${base}/${varlib}/cache
+
+	# Copy our server files to the appropriate Debian locations.
+	install -m0755 ${source}/ueml.pl ${base}/usr/sbin/uemusiclibrary
+	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/uemusiclibrary-scanner
+	install -m0755 ${source}/cleanup.pl ${base}/usr/sbin/uemusiclibrary-cleanup
+
+	# We cannot use /usr/share/perl5/ here because it could conflict with
+	# a parallel installation of LMS
+	cp -r ${source}/Slim ${base}/${share}
+
+	# Copy our CPAN directory and locally modified perl modules
+	cp -r ${source}/CPAN ${base}/${share}
+	cp -r ${source}/lib ${base}/${share}
+
+	# Remove non-Linux binary modules and binaries
+	rm -rf ${base}/${share}/CPAN/arch/*/darwin-thread-multi-2level
+	rm -rf ${base}/${share}/CPAN/arch/*/i386-freebsd-64int
+	rm -rf ${base}/${share}/CPAN/arch/*/sparc-linux
+	rm -rf ${base}/${share}/CPAN/arch/*/MSWin32-x86-multi-thread
+	rm -rf ${base}/${share}/Slim/Plugin/PreventStandby
+
+	# And aux files needed to run SlimServer
+	cp -r ${source}/HTML ${base}/${share}
+	cp -r ${source}/SQL ${base}/${share}
+	cp -r ${source}/strings.txt ${base}/${share}
+	cp -r ${source}/icudt46*.dat ${base}/${share}
+
+	# We put the Plugins into /var/lib/ because they are modifiable, 
+	# and shouldn't be put into /usr. 
+	cp -r ${source}/Plugins ${base}/${varlib} || mkdir ${base}/${varlib}/Plugins
+	ln -s /${varlib}/Plugins ${base}/${share}/Plugins
+
+	# Set up the pref's file locations...
+	cp -r ${source}/*.conf ${base}/etc/uemusiclibrary
+
+	# Wrapper to keep the server alive.
+	cp -r $(CURDIR)/debian/uemusiclibrary_safe ${base}/usr/sbin/uemusiclibrary_safe
+
+	# Documentation
+	cp ${source}/Change* ${base}/usr/share/doc/uemusiclibrary/
+	cp ${source}/Installation.txt ${base}/usr/share/doc/uemusiclibrary/
+	cp ${source}/License.txt $(CURDIR)/debian/copyright
+
+	# Copy the revision file
+	cp ${source}/revision.txt ${base}/${share}
+
+	# lintian overrides file
+	cp $(CURDIR)/debian/lintian.overrides ${base}/usr/share/lintian/overrides/$(package)
+
+binary-indep: install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs 
+	dh_installdocs
+	dh_install
+	dh_installlogrotate
+	dh_installinit
+	dh_installman
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep
+.PHONY: build clean binary-indep binary install configure

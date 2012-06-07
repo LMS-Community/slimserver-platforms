@@ -1,0 +1,5 @@
+etc/uemusiclibrary
+usr/sbin
+usr/share/uemusiclibrary
+var/lib/uemusiclibrary
+var/log/uemusiclibrary

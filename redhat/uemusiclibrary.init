@@ -1,0 +1,182 @@
+#!/bin/bash
+#
+# uemusiclibrary	Startup script for the UE Music Library
+#
+# chkconfig:		345 80 30
+# description:		UE Music Library powers the UE Smart Radio
+# processname:		uemusiclibrary
+# config: 		/etc/uemusiclibrary/uemusiclibrary.conf
+# config:		/etc/sysconfig/uemusiclibrary
+
+#
+### BEGIN INIT INFO
+# Provides:		uemusiclibrary
+# Required-Start:	$syslog $remote_fs
+# Should-Start:		$time ypbind sendmail
+# Required-Stop:	$syslog $remote_fs
+# Should-Stop:		$time ypbind sendmail
+# Default-Start:	3 5
+# Default-Stop:		0 1 2 6
+# Short-Description:	Startup script for the UE Music Library
+# Description:		UE Music Library powers the UE Smart Radio
+### END INIT INFO
+# 
+
+if [ -f /etc/redhat-release ] ; then
+
+	# Source function library.
+	. /etc/rc.d/init.d/functions
+	# Source networking configuration.
+	. /etc/sysconfig/network
+	# Check that networking is up.
+	[ ${NETWORKING} = "no" ] && exit 0
+
+	# Check for existence of needed config file and read it
+	UEML_CONFIG=/etc/sysconfig/uemusiclibrary
+	test -r $UEML_CONFIG || { echo "$UEML_CONFIG not existing";
+		if [ "$1" = "stop" ]; then exit 0;
+		else exit 6; fi; }
+
+	# Read config	
+	. $UEML_CONFIG
+
+	# Check for missing binaries (stale symlinks should not happen)
+	# Note: Special treatment of stop for LSB conformance
+	UEML_BIN="$UEML_HOME/uemusiclibrary"
+	test -x $UEML_BIN || { echo "$UEML_BIN not installed"; 
+		if [ "$1" = "stop" ]; then exit 0;
+		else exit 5; fi; }
+
+	LOCKFILE="/var/lock/subsys/uemusiclibrary"
+	RETVAL=0
+
+	start() {
+		echo -n "Starting UE Music Library: "
+		daemon --user $UEML_USER $UEML_BIN $UEML_ARGS
+		RETVAL=$?
+		echo
+		[ $RETVAL -eq 0 ] && touch $LOCKFILE
+		return $RETVAL
+	}
+
+	stop() {
+		echo -n "Stopping UE Music Library: "
+		# Support old versions of RHEL and still fix bug 5620
+		KILLPROC_ARGS=""
+		if [ `grep -c 'Usage: killproc.*-d delay' /etc/init.d/functions` -ge 1 ]; then
+			KILLPROC_ARGS="-d 6"
+		fi
+		killproc $KILLPROC_ARGS $UEML_BIN
+		RETVAL=$?
+                if [ $RETVAL -ne 0 ]; then
+                        # If killproc fails, try killall (fix for RHEL4)
+                        killall uemusiclibrary
+                        RETVAL=$?
+                        [ $RETVAL -eq 0 ] && echo_success
+                        [ $RETVAL -ne 0 ] && echo_failure
+                fi
+		echo
+		[ $RETVAL -eq 0 ] && rm -f $LOCKFILE
+		return $RETVAL
+	}
+
+	restart() {
+		stop
+		sleep 5
+		start
+	}
+
+	condrestart() {
+		[ -f $LOCKFILE ] && restart || :
+	}
+
+	fdr_status() {
+        	status $UEML_BIN
+       		RETVAL=$?
+	}
+
+elif [ -f /etc/SuSE-release ] ; then
+
+	# Check for existence of needed config file and read it
+	UEML_CONFIG=/etc/sysconfig/uemusiclibrary
+	test -r $UEML_CONFIG || { echo "$UEML_CONFIG not existing";
+		if [ "$1" = "stop" ]; then exit 0;
+		else exit 6; fi; }
+
+	# Read config	
+	. $UEML_CONFIG
+
+	# Check for missing binaries (stale symlinks should not happen)
+	# Note: Special treatment of stop for LSB conformance
+	UEML_BIN="$UEML_HOME/uemusiclibrary"
+	test -x $UEML_BIN || { echo "$UEML_BIN not installed"; 
+		if [ "$1" = "stop" ]; then exit 0;
+		else exit 5; fi; }
+
+	# Source rc.status and reset
+	. /etc/rc.status
+	rc_reset
+
+	start() {
+		echo -n "Starting UE Music Library: "
+		export HOME=$UEML_HOME
+		startproc -u $UEML_USER $UEML_BIN $UEML_ARGS
+		rc_status -v
+	}
+
+	stop() {
+		echo -n "Stopping UE Music Library: "
+		killproc -TERM $UEML_BIN
+		rc_status -v
+	}
+
+	restart() {
+		$0 stop
+		$0 start
+		rc_status
+	}
+
+	condrestart() {
+		$0 status
+		if test $? = 0; then
+			$0 restart
+		else
+			rc_reset
+		fi
+		rc_status
+	}
+
+	fdr_status() {
+		/sbin/checkproc $UEML_BIN
+		rc_status -v
+	}
+
+else
+	exit 1
+fi
+
+# See how we were called.
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart|reload|force-reload)
+		restart
+		;;
+	condrestart|try-restart)
+		condrestart
+		;;
+	status)
+       		fdr_status
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|reload|force-reload|condrestart|try-restart|status}"
+		exit 1
+esac
+
+[ -f /etc/redhat-release ] && exit $RETVAL
+[ -f /etc/SuSE-release ] && rc_exit
+

@@ -1,0 +1,14 @@
+Source: uemusiclibrary
+Section: sound
+Priority: optional
+Maintainer: Logitech/Slim Devices <debian@slimdevices.com>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.6.2
+
+Package: uemusiclibrary
+Architecture: all
+Conflicts: uemlfull
+Replaces: 
+Depends: perl (>= 5.8.8), adduser, libc6
+Description: Streaming Audio Server
+ UE Music Library powers the UE Smart Radio

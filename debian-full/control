@@ -1,15 +1,15 @@
-Source: logitechmediaserver
+Source: uemusiclibrary
 Section: sound
 Priority: optional
 Maintainer: Logitech/Slim Devices <debian@slimdevices.com>
 Build-Depends: debhelper (>= 4.0.0)
 Standards-Version: 3.6.2
 
-Package: logitechmediaserver
+Package: uemlfull
 Architecture: all
-Conflicts: slimp3,slimserver,squeezecenter,squeezeboxserver
-Replaces: slimp3,slimserver,squeezecenter,squeezeboxserver
+Conflicts: slimp3,slimserver,squeezecenter,squeezeboxserver,logitechmediaserver,uemusiclibrary
+Replaces: slimp3,slimserver,squeezecenter,squeezeboxserver,logitechmediaserver,uemusiclibrary
 Depends: perl (>= 5.8.8), adduser, libc6
 Description: Streaming Audio Server
- Logitech Media Server is a cross-platform streaming media server that supports a wide range
+ UE Music Library is a cross-platform streaming media server that supports a wide range
  of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and WMA.

@@ -4,28 +4,28 @@
 
 if [ $# = 0 ]
 then
-  echo "Script to restart Logitech Media Server over and over again."
+  echo "Script to restart UE Music Library over and over again."
   echo "This might need to be done since the mysql-server is sometimes"
   echo "restarted due to upgrades and log-rotation and this causes"
-  echo "Logitech Media Server to exit."
+  echo "UE Music Library to exit."
   echo
-  echo "To stop Logitech Media Server, kill this script instead of the"
-  echo "actual Logitech Media Server process."
+  echo "To stop UE Music Library, kill this script instead of the"
+  echo "actual UE Music Library process."
   echo
-  echo "Usage: $0 <squeezeboxserver-binary> <squeezeboxserver-arguments>"
+  echo "Usage: $0 <uemusiclibrary-binary> <uemusiclibrary-arguments>"
   exit 1
 fi
 
 function clean_up {
   # Kill the daemon if it is running
-  kill $SLIMPID
-  echo `date "+%F %H:%M:%S"` "squeezeboxserver_safe stopped." >> /var/log/squeezeboxserver/server.log
+  kill $UEMLPID
+  echo `date "+%F %H:%M:%S"` "uemusiclibrary_safe stopped." >> /var/log/uemusiclibrary/server.log
   exit
 }
 
 trap clean_up SIGINT SIGHUP SIGTERM
 
-echo `date "+%F %H:%M:%S"` "squeezeboxserver_safe started." >> /var/log/squeezeboxserver/server.log
+echo `date "+%F %H:%M:%S"` "uemusiclibrary_safe started." >> /var/log/uemusiclibrary/server.log
 
 while true
 do
@@ -39,13 +39,13 @@ do
   # 128, immediately after which the trap is executed.
 
   "$@" --norestart > /dev/null 2>&1 &
-  SLIMPID=$!
+  UEMLPID=$!
   
   # wait for the server to get started before wait()
   sleep 5
   
-  wait $SLIMPID
-  echo `date "+%F %H:%M:%S"` "Logitech Media Server died. Restarting." >> /var/log/squeezeboxserver/server.log
+  wait $UEMLPID
+  echo `date "+%F %H:%M:%S"` "UE Music Library died. Restarting." >> /var/log/uemusiclibrary/server.log
 
   # Normally, when the server realizes that the mysql-connection is gone,
   # the mysql server has already been started again. So no need to sleep

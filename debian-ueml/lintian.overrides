@@ -1,0 +1,18 @@
+# override some policies
+# we provide tons of binaries for various platforms, thus "arch-independant" etc.
+
+uemusiclibrary: arch-dependent-file-in-usr-share
+uemusiclibrary: arch-independent-package-contains-binary-or-object
+uemusiclibrary: executable-not-elf-or-script
+
+uemusiclibrary: binary-or-shlib-defines-rpath
+uemusiclibrary: unstripped-binary-or-object
+uemusiclibrary: statically-linked-binary
+uemusiclibrary: embedded-library
+
+uemusiclibrary: copyright-file-contains-full-gpl-license
+uemusiclibrary: copyright-should-refer-to-common-license-file-for-lgpl
+uemusiclibrary: binary-without-manpage
+
+uemusiclibrary: wrong-path-for-interpreter
+

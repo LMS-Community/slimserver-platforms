@@ -1,0 +1,20 @@
+/var/log/uemusiclibrary/server.log {
+  weekly
+  rotate 5
+  size 200k
+  compress
+  missingok
+
+  postrotate
+    # send USR1 to UEML PID to reset logging
+    /bin/kill -USR1 `pgrep uemusiclibrary -n 2>/dev/null` 2>/dev/null || :
+  endscript
+}
+
+/var/log/uemusiclibrary/scanner.log {
+  weekly
+  rotate 5
+  size 200k
+  compress
+  missingok
+}
