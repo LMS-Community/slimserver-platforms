@@ -5,7 +5,7 @@
 # Uncomment this to turn on verbose mode.
 export DH_VERBOSE=1
 
-package=uemusiclibrary
+package=uemlfull
 base=$(CURDIR)/debian/$(package)
 share=usr/share/uemusiclibrary/
 source=$(CURDIR)/../server
@@ -69,7 +69,7 @@ install:
 
 	# We put the Plugins into /var/lib/ because they are modifiable, 
 	# and shouldn't be put into /usr. 
-	cp -r ${source}/Plugins ${base}/${varlib} || mkdir ${base}/${varlib}/Plugins
+	cp -r ${source}/Plugins ${base}/${varlib} 2>/dev/null || mkdir ${base}/${varlib}/Plugins
 	ln -s /${varlib}/Plugins ${base}/${share}/Plugins
 
 	# Set up the pref's file locations...
@@ -95,8 +95,8 @@ binary-indep: install
 	dh_installchangelogs 
 	dh_installdocs
 	dh_install
-	dh_installlogrotate
-	dh_installinit
+	dh_installlogrotate --name=uemusiclibrary
+	dh_installinit --name=uemusiclibrary
 	dh_installman
 	dh_compress
 	dh_fixperms

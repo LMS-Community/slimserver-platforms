@@ -39,6 +39,7 @@ LOGDIR=/var/log/$NAME/
 CACHEDIR=/var/lib/$NAME/cache
 CHARSET=utf8
 UEMLOPTIONS=
+export PERL5LIB=/usr/share/$NAME
 
 # Read config file if it is present.
 if [ -r /etc/default/$NEWNAME ]; then

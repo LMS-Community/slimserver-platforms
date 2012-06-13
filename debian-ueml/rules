@@ -61,7 +61,7 @@ install:
 
 	# We put the Plugins into /var/lib/ because they are modifiable, 
 	# and shouldn't be put into /usr. 
-	cp -r ${source}/Plugins ${base}/${varlib} || mkdir ${base}/${varlib}/Plugins
+	cp -r ${source}/Plugins ${base}/${varlib} 2>/dev/null || mkdir ${base}/${varlib}/Plugins
 	ln -s /${varlib}/Plugins ${base}/${share}/Plugins
 
 	# Set up the pref's file locations...
