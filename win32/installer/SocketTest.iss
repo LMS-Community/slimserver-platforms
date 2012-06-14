@@ -76,8 +76,7 @@ end;
 
 function CheckPort9000: Integer;
 begin
-  if (IsServiceRunning('squeezesvc') or IsServiceRunning('slimsvc') or IsModuleLoaded('SqueezeSvr.exe')
-    or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('squeezecenter.exe') or IsModuleLoaded('slimserver.exe')) then
+  if (IsServiceRunning('{#ServiceName}') or IsModuleLoaded('{#ServiceName}')) then
 
     if IsPortOpen(GetLocalIP, '9000') then
       Result := 1           // SC running and available

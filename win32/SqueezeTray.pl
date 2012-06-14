@@ -1,4 +1,4 @@
-# Logitech Media Server Copyright 2001-2011 Logitech.
+# UE Music Library Copyright 2001-2011 Logitech.
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License, 
 # version 2.
@@ -19,7 +19,8 @@ use Win32::Process::List;
 
 use Win32::TieRegistry ('Delimiter' => '/');
 
-use constant SB_USER_REGISTRY_KEY => 'CUser/Software/Logitech/Squeezebox';
+use constant SB_USER_REGISTRY_KEY => 'CUser/Software/Logitech/UEML';
+use constant PRODUCT_NAME         => 'UE Music Library';
 
 use constant SLIM_SERVICE => 0;
 use constant SCANNER      => 0;
@@ -44,7 +45,7 @@ my $os             = Slim::Utils::OSDetect::getOS();
 my $language       = getPref('language') || $os->getSystemLanguage() || 'EN';
 
 my $restartFlag    = catdir(getPref('cachedir') || $os->dirsFor('cache'), 'restart.txt');
-my $controlPanel   = catdir(scalar($os->dirsFor('base')), 'server', 'squeezeboxcp.exe');
+my $controlPanel   = catdir(scalar($os->dirsFor('base')), 'server', 'uemlcp.exe');
 
 ${^WIN32_SLOPPY_STAT} = 1;
 
@@ -255,7 +256,7 @@ sub checkSCActive {
 # see whether SC has downloaded an update version
 sub checkForUpdate {
 	if ( $svcMgr->getServiceState() != SC_STATE_STARTING && Slim::Utils::Light->checkForUpdate() ) {
-		Balloon(string('UPDATE_AVAILABLE'), "Logitech Media Server", "info", 1);
+		Balloon(string('UPDATE_AVAILABLE'), PRODUCT_NAME, "info", 1);
 		
 		# once the balloon is shown, only poll every hour 
 		SetTimer('1:00:00', \&checkForUpdate);
@@ -267,7 +268,7 @@ sub startServer {
 
 	if ($svcMgr->getServiceState() != SC_STATE_STARTING) {
 
-		Balloon(string('STARTING_SQUEEZEBOX_SERVER'), "Logitech Media Server", "", 1);
+		Balloon(string('STARTING_SQUEEZEBOX_SERVER'), PRODUCT_NAME, "", 1);
 		SetAnimation(TIMERSECS * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
 
 	}
@@ -292,7 +293,7 @@ sub openControlPanel {
 sub showErrorMessage {
 	my $message = shift;
 
-	MessageBox($message, "Logitech Media Server", MB_OK | MB_ICONERROR);
+	MessageBox($message, PRODUCT_NAME, MB_OK | MB_ICONERROR);
 }
 
 sub processID {
@@ -320,7 +321,7 @@ sub stopServer {
 
 	if ($svcMgr->getServiceState() == SC_STATE_RUNNING) {
 
-		Balloon(string('STOPPING_SQUEEZEBOX_SERVER'), "Logitech Media Server", "", 1);
+		Balloon(string('STOPPING_SQUEEZEBOX_SERVER'), PRODUCT_NAME, "", 1);
 
 	}
 }
@@ -337,7 +338,7 @@ sub stopComponents {
 		my %processes = $p->GetProcesses();
 		foreach my $pid (%processes) {
 
-			next unless $processes{$pid} =~ /^(?:squeezesvr|squeezeboxcp|scanner|squeezesvc|squeezecenter|squeez~\d).exe$/i;
+			next unless $processes{$pid} =~ /^(?:uemlsvc|ueml).exe$/i;
 
 			my $error;
 			Win32::Process::KillProcess($pid, $error);

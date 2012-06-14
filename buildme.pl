@@ -26,7 +26,7 @@ my $verboseName = 'UE Music Library';
 my $compactName = 'UEMusicLibrary';
 
 ## Windows Specific Stuff
-my $windowsPerlDir = "C:\\perl";
+my $windowsPerlDir = "C:\\perl514";
 my $windowsPerlPath = "$windowsPerlDir\\bin\\perl.exe";
 
 ## Directories to exclude when building certain packages...
@@ -42,7 +42,7 @@ my $dirsToExcludeForWin32 = "5.8 5.10 5.12 i386-freebsd-64int i386-linux x86_64-
 my $dirsToExcludeForReadyNasi386 = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin MSWin32-x86 arm-linux powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46b.dat";
 my $dirsToExcludeForReadyNasSparc = "i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin arm-linux MSWin32-x86 powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46l.dat";
 my $dirsToExcludeForReadyNasARM = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu i386 x86_64 darwin-thread-multi darwin MSWin32-x86 powerpc-linux 5.8 5.12 5.14 PreventStandby icudt46b.dat";
-my $dirsToExcludeForUeml = "server/Plugin! server/Bin server/Firmware server/Graphics server/IR /MySQL Slim/Buttons Slim/Hardware Slim/Display/Lib Slim/Networking/SliMP3 Slim/Player/Protocols";
+my $dirsToExcludeForUeml = "server/Plugins server/Bin server/Firmware server/Graphics server/IR /MySQL Slim/Buttons Slim/Hardware Slim/Display/Lib Slim/Networking/SliMP3 Slim/Player/Protocols";
 my $dirsToIncludeForUeml = "Plugin/iTunes Plugin/Extensions Plugin/JiveExtras Plugin/Base.pm";
 
 ## Initialize some variables we'll use later
@@ -765,7 +765,7 @@ sub buildMacOSX {
 sub buildWin32 { 
 	## Grab the variables passed to us...
 	if ( ($_[0] ) || die("Problem: Not all of the variables were passed to the BuildWin32 function...") ) { 
-		## Take the filename passed to us and make sure that we build the DMG with
+		## Take the filename passed to us and make sure that we build the installer with
 		## that name, and that the 'pretty mounted name' also matches
 		my $destFileName = $_[0];
 		my $destPrettyDirName = $_[0];
@@ -804,37 +804,36 @@ sub buildWin32 {
 
 		my $programInfo = join(';', @versionInfo, (
 			"FileDescription=$verboseName Tray Icon",
-			"OriginalFilename=SqueezeTray",
-			"InternalName=SqueezeTray",
+			"OriginalFilename=UEMLTray",
+			"InternalName=UEMLTray",
 		));
 
 		system("cd $buildDir/platforms/win32; perltray --perl \"$windowsPerlPath\" --info \"$programInfo\" SqueezeTray.perltray");
-		move("$buildDir/platforms/win32/SqueezeTray.exe", "$buildDir/build/SqueezeTray.exe");
+		move("$buildDir/platforms/win32/SqueezeTray.exe", "$buildDir/build/UEMLTray.exe");
 		copy("$buildDir/platforms/win32/strings.txt", "$buildDir/build/strings.txt");
 
 		print "INFO: Building $verboseName Service Helper executable...\n";
 
-
 		$programInfo = join(';', @versionInfo, (
 			"FileDescription=$verboseName Service Helper",
-			"OriginalFilename=squeezesvc",
-			"InternalName=squeezesvc",
+			"OriginalFilename=uemlsvc",
+			"InternalName=uemlsvc",
 		));
 
 		system("cd $buildDir/platforms/win32; perlapp --perl \"$windowsPerlPath\" --info \"$programInfo\" --clean --bind=grant.exe[file=../../server/Bin/MSWin32-x86-multi-thread/grant.exe,mode=666] --force squeezesvc.pl");
-		move("$buildDir/platforms/win32/squeezesvc.exe", "$buildDir/build/server/squeezesvc.exe");
+		move("$buildDir/platforms/win32/squeezesvc.exe", "$buildDir/build/server/uemlsvc.exe");
 
 
 		print "INFO: Building $verboseName executable for server...\n";
 
 		$programInfo = join(';', @versionInfo, (
 			"FileDescription=$verboseName",
-			"OriginalFilename=SqueezeboxServer",
-			"InternalName=SqueezeboxServer",
+			"OriginalFilename=UEMusicLibrary",
+			"InternalName=UEMusicLibrary",
 		));
 
 		system("cd $buildDir/server; perlsvc --perl \"$windowsPerlPath\" --info \"$programInfo\" ../platforms/win32/squeezecenter.perlsvc");
-		move("$buildDir/server/slimserver.exe", "$buildDir/build/server/SqueezeSvr.exe");
+		move("$buildDir/server/slimserver.exe", "$buildDir/build/server/ueml.exe");
 
 
 		print "Making scanner executable...\n";
@@ -858,7 +857,7 @@ sub buildWin32 {
 		));
 
 		system("cd $buildDir/server; perlapp --perl \"$windowsPerlPath\" --info \"$programInfo\" ../platforms/win32/cleanup.perlapp");
-		move("$buildDir/server/cleanup.exe", "$buildDir/build/server/squeezeboxcp.exe");
+		move("$buildDir/server/cleanup.exe", "$buildDir/build/server/uemlcp.exe");
 
 
 		print "INFO: Removing files we don't want to have in the binary distribution...\n";
@@ -911,7 +910,7 @@ sub buildWin32 {
 		
 		# replacing build number in installer script
 		system("sed -e \"s/VersionInfoVersion=0.0.0.0/VersionInfoVersion=$rev/\" \"$buildDir/platforms/win32/installer/SqueezeCenter.iss\" > \"$buildDir/build/SqueezeCenter.iss\"");
-		system("cd $buildDir/build; \"$buildDir/platforms/win32/InnoSetup/ISCC.exe\" \/Q SqueezeCenter.iss ");
+		system("cd $buildDir/build; \"$buildDir/platforms/win32/InnoSetup/ISCC.exe\" " . ($ueml ? '' : '/dFullBuild') . " \/Q SqueezeCenter.iss ");
 
 		unlink("$buildDir/build/SqueezeCenter.iss");
 		unlink("$buildDir/build/ServiceManager.iss");
@@ -942,6 +941,7 @@ sub buildWin32 {
 		unlink("$buildDir/build/Russian.isl");
 
 
+=pod
 		print "INFO: Making Windows Home Server installer... $version.$revision \n";
 		# replacing build number in installer script
 		system("sed -e \"s/!!revision!!/$revision/\" \"$buildDir/platforms/win32/installer/SqueezeCenter.wxs\" > \"$buildDir/build/Output/SqueezeCenter.wxs\"");
@@ -954,6 +954,7 @@ sub buildWin32 {
 		unlink("$buildDir/build/Output/SqueezeCenter.wixpdb");
 		unlink("$buildDir/build/Output/SqueezeCenter.wxs");
 		unlink("$buildDir/build/Output/HomeServerConsoleTab.SqueezeCenter.dll");
+=cut
 
 		print "INFO: Everything is finally ready, renaming directories and building the .exe and zip files...\n";
 		print "INFO: Moving [$buildDir/build] to [$buildDir/$destPrettyDirName] for packaging\n";
@@ -976,10 +977,10 @@ sub buildWin32 {
 		}
 
 		# rename the Windows Home Server installer
-		print "INFO: Moving [$buildDir/$destPrettyDirName/Output/SqueezeCenter.msi] to [$destDir/$destFileName-whs.msi]\n";
-		move("$buildDir/$destPrettyDirName/Output/SqueezeCenter.msi", "$destDir/$destFileName-whs.msi");
+#		print "INFO: Moving [$buildDir/$destPrettyDirName/Output/SqueezeCenter.msi] to [$destDir/$destFileName-whs.msi]\n";
+#		move("$buildDir/$destPrettyDirName/Output/SqueezeCenter.msi", "$destDir/$destFileName-whs.msi");
 
-		rmtree("$buildDir/$destPrettyDirName/Output");
+#		rmtree("$buildDir/$destPrettyDirName/Output");
 
 #		print "INFO: Building zip [$destDir/$destFileName.ZIP] of [$buildDir/$destPrettyDirName]\n";
 #		unlink("$destDir/$destFileName.ZIP");

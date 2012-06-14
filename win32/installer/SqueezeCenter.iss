@@ -5,12 +5,24 @@
 ;
 ; Script by Chris Eastwood, January 2003 - http://www.vbcodelibrary.co.uk
 
-#define AppName "Logitech Media Server"
-#define AppVersion "7.8.0"
-#define ProductURL "http://www.mysqueezebox.com/support"
-#define SSRegKey = "Software\SlimDevices\SlimServer"
-#define SCRegKey = "Software\Logitech\SqueezeCenter"
-#define SBRegKey = "Software\Logitech\Squeezebox"
+#define AppName = "UE Music Library"
+#define InstallFolderName = AppName
+#define DataFolderName = AppName
+#define AppVersion = "10.0.0"
+#define ProductURL = "http://www.logitech.com/"
+
+#define SSRegKey   = "Software\SlimDevices\SlimServer"
+#define SCRegKey   = "Software\Logitech\SqueezeCenter"
+#define SBRegKey   = "Software\Logitech\Squeezebox"
+#define UEMLRegKey = "Software\Logitech\UEML"
+
+#define TrayHelper  = "UEMLTray"
+#define ServiceName = "uemlsvc"
+#define ExeName     = "ueml.exe"
+#define ControlPanel= "uemlcp.exe"
+
+; defined on the command line to distinguish UEML light/full builds
+;#define FullBuild
 
 #define VCRedistKey  = "SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86"
 
@@ -71,19 +83,19 @@ Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Flags: ignore
 ; Next line takes everything from the source '\server' directory and copies it into the setup
 ; it's output into the same location from the users choice.
 Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*"; Flags: recursesubdirs ignoreversion
-Source: SqueezeTray.exe; DestDir: {app}; Flags: ignoreversion
+Source: {#TrayHelper}.exe; DestDir: {app}; Flags: ignoreversion
 
 [Dirs]
-Name: {commonappdata}\Squeezebox; Permissions: users-modify
+Name: {commonappdata}\Logitech\{#AppName}; Permissions: users-modify
 Name: {app}\server\Plugins; Permissions: users-modify
 
 [Icons]
-Name: {group}\{#AppName}; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
-Name: {group}\{cm:ControlPanel}; Filename: {app}\server\squeezeboxcp.exe; WorkingDir: "{app}\server";
+Name: {group}\{#AppName}; Filename: {app}\{#TrayHelper}.exe; Parameters: "--start"; WorkingDir: "{app}";
+Name: {group}\{cm:ControlPanel}; Filename: {app}\server\{#ControlPanel}; WorkingDir: "{app}\server";
 Name: {group}\{cm:License}; Filename: {app}\{cm:License}.txt
 Name: {group}\{cm:UninstallSqueezeCenter}; Filename: {uninstallexe}
-Name: {commonstartup}\{cm:SqueezeCenterTrayTool}; Filename: {app}\SqueezeTray.exe; WorkingDir: "{app}"
-Name: {userdesktop}\{#AppName}; Filename: {app}\SqueezeTray.exe; Parameters: "--start"; WorkingDir: "{app}";
+Name: {commonstartup}\{cm:SqueezeCenterTrayTool}; Filename: {app}\{#TrayHelper}.exe; WorkingDir: "{app}"
+Name: {userdesktop}\{#AppName}; Filename: {app}\{#TrayHelper}.exe; Parameters: "--start"; WorkingDir: "{app}";
 
 [Registry]
 ;
@@ -106,6 +118,8 @@ Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\Fi
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9090:TCP"; ValueData: "9090:TCP:*:Enabled:{#AppName} 9090 tcp (UI)"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:{#AppName} 3483 udp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:{#AppName} 3483 tcp"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3546:UDP"; ValueData: "3483:UDP:*:Enabled:{#AppName} 3483 udp"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3546:TCP"; ValueData: "3483:TCP:*:Enabled:{#AppName} 3483 tcp"; MinVersion: 0,5.01;
 
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "{code:GetHttpPort}:TCP"; ValueData: "{code:GetHttpPort}:TCP:*:Enabled:{#AppName} {code:GetHttpPort} tcp (UI)"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9001:TCP"; ValueData: "9001:TCP:*:Enabled:{#AppName} 9001 tcp (UI)"; MinVersion: 0,5.01;
@@ -124,11 +138,13 @@ Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\Fi
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9090:TCP"; ValueData: "9090:TCP:*:Enabled:{#AppName} 9090 tcp (UI)"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:{#AppName} 3483 udp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:{#AppName} 3483 tcp"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3546:UDP"; ValueData: "3483:UDP:*:Enabled:{#AppName} 3483 udp"; MinVersion: 0,5.01;
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3546:TCP"; ValueData: "3483:TCP:*:Enabled:{#AppName} 3483 tcp"; MinVersion: 0,5.01;
 
-Root: HKLM; Subkey: SOFTWARE\Logitech\Squeezebox; ValueType: string; ValueName: Path; ValueData: {app}
-Root: HKLM; Subkey: SOFTWARE\Logitech\Squeezebox; ValueType: string; ValueName: DataPath; ValueData: {code:GetWritablePath}
-; flag the squeezesvc.exe to be run as administrator on Vista
-Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers; ValueType: string; ValueName: {app}\server\squeezesvc.exe; ValueData: RUNASADMIN; Flags: uninsdeletevalue; MinVersion: 0,6.0;
+Root: HKLM; Subkey: {#UEMLRegKey}; ValueType: string; ValueName: Path; ValueData: {app}
+Root: HKLM; Subkey: {#UEMLRegKey}; ValueType: string; ValueName: DataPath; ValueData: {code:GetWritablePath}
+; flag the service to be run as administrator on Vista
+Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers; ValueType: string; ValueName: {app}\server\{#ServiceName}.exe; ValueData: RUNASADMIN; Flags: uninsdeletevalue; MinVersion: 0,6.0;
 
 [InstallDelete]
 Type: filesandordirs; Name: {group}
@@ -143,18 +159,20 @@ Type: dirifempty; Name: {app}\server\SQL
 Type: files; Name: {commonstartup}\{cm:SqueezeCenterTrayTool}.url
 
 [Run]
-Filename: {app}\server\squeezeboxcp.exe; Description: {cm:StartupControlPanel}; Flags: postinstall nowait skipifsilent
+Filename: {app}\server\{#ControlPanel}; Description: {cm:StartupControlPanel}; Flags: postinstall nowait skipifsilent
 ; remove potential left-overs from earlier installations
 Filename: "sc"; Parameters: "stop SqueezeMySQL"; Flags: runhidden; MinVersion: 0,4.00.1381
 Filename: "sc"; Parameters: "delete SqueezeMySQL"; Flags: runhidden; MinVersion: 0,4.00.1381
 
 [UninstallRun]
-Filename: "sc"; Parameters: "stop squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381
-Filename: "sc"; Parameters: "delete squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381
-Filename: {app}\server\SqueezeSvr.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
-Filename: {app}\SqueezeTray.exe; Parameters: "--exit --uninstall"; WorkingDir: {app}; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
+Filename: "sc"; Parameters: "stop {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381
+Filename: "sc"; Parameters: "delete {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381
+; XXX - probably no longer needed, as the installer is now killing files which need to be installed
+Filename: {app}\server\{#ExeName}; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
+Filename: {app}\{#TrayHelper}.exe; Parameters: "--exit --uninstall"; WorkingDir: {app}; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
 
 [Code]
+// XXX - is this still useful?
 #include "SocketTest.iss"
 
 var
@@ -169,11 +187,13 @@ var
 	// 1102 - SlimServer uninstall failed
 	// 1103 - SqueezeCenter uninstall failed
 	// 1104 - Squeezebox Server uninstall failed
+	// 1105 - Logitech Media Server failed
 	// 1201 - VC Runtime Libraries can't be installed
 	CustomExitCode: Integer;
 
 function GetHttpPort(Param: String) : String;
 begin
+#ifdef FullBuild
 	if HttpPort = '' then
 		begin
 			if CheckPort9000 = 102 then
@@ -181,6 +201,9 @@ begin
 			else
 				HttpPort := '9000';
 		end;
+#else
+	HttpPort := '3546';
+#endif
 		
 	Result := HttpPort
 end;
@@ -189,8 +212,8 @@ function GetInstallFolder(Param: String) : String;
 var
 	InstallFolder: String;
 begin
-	if (not RegQueryStringValue(HKLM, '{#SBRegKey}', 'Path', InstallFolder)) then
-		InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'Squeezebox';
+	if (not RegQueryStringValue(HKLM, '{#UEMLRegKey}', 'Path', InstallFolder)) then
+		InstallFolder := AddBackslash(ExpandConstant('{pf}')) + AddBackslash('Logitech') + '{#InstallFolderName}';
 
 	Result := InstallFolder;
 end;
@@ -201,7 +224,7 @@ var
 	DataPath: String;
 begin
 
-	if (not RegQueryStringValue(HKLM, '{#SBRegKey}', 'DataPath', DataPath)) then
+	if (not RegQueryStringValue(HKLM, '{#UEMLRegKey}', 'DataPath', DataPath)) then
 		begin
 
 			if ExpandConstant('{commonappdata}') = '' then
@@ -214,16 +237,23 @@ begin
 			else
 				DataPath := ExpandConstant('{commonappdata}');
 		
-			DataPath := AddBackslash(DataPath) + 'Squeezebox';
+			DataPath := AddBackslash(DataPath) + AddBackslash('Logitech') + '{#DataFolderName}';
 		end;
 
 	Result := DataPath;
 end;	
 
 function GetPrefsFolder() : String;
+var
+	PrefsPath: String;
+	PlubinsPath: String;
 begin
-	Result := AddBackslash(GetWritablePath('')) + 'prefs'
-end;	
+	PrefsPath := AddBackslash(GetWritablePath('')) + 'prefs';
+	if (not DirExists(PrefsPath)) then
+		ForceDirectories( AddBackslash(PrefsPath) + AddBackslash('plugin') );
+
+	Result := PrefsPath;
+end;
 
 
 function GetPrefsFile() : String;
@@ -246,23 +276,6 @@ begin
 		RegWriteMultiStringValue(HKLM, RegKey, RegValue, ReservedPorts + #0 + Port + '-' + Port);
 end;
 
-procedure UninstallSliMP3();
-var
-	ErrorCode: Integer;
-	Uninstaller: String;
-begin
-	// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr.
-	// Returns True if successful. When False is returned, ResultStr is unmodified.
-	if RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SLIMP3 Server_is1','UninstallString', Uninstaller) then
-		begin
-			if not Exec(RemoveQuotes(Uninstaller), '/SILENT','', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
-				begin
-					SuppressibleMsgBox(CustomMessage('ProblemUninstallingSLIMP3') + SysErrorMessage(ErrorCode), mbError, MB_OK, IDOK);
-					CustomExitCode := 1101;
-				end
-		end;
-end;
-
 procedure RemoveServices(Version: String);
 var
 	ErrorCode: Integer;
@@ -281,16 +294,29 @@ begin
 	ProgressPage.show();
 	ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
-	// remove SlimTray if it's still running
-	if (UpperCase(Version) = 'SB') then
+	if (UpperCase(Version) = 'UEML') then
+		begin
+			RegKey := '{#UEMLRegKey}';
+			InstallDefault := ExpandConstant('{app}');
+			Svc := '{#ServiceName}';
+			Executable := '{#ExeName}';
+			LongExecutable := '{#ExeName}';
+			TrayExe := '{#TrayHelper}.exe';
+
+			// stop services if installed
+			StopService(Svc);
+		end
+	else if (UpperCase(Version) = 'SB') or (UpperCase(Version) = 'LMS') then
 		begin
 			RegKey := '{#SBRegKey}';
-			InstallDefault := ExpandConstant('{app}');
+			InstallDefault := AddBackslash(ExpandConstant('{pf}')) + 'Squeezebox';
 			Svc := 'squeezesvc';
 			Executable := 'squeez~3.exe';
 			LongExecutable := 'SqueezeSvr.exe';
 			TrayExe := 'SqueezeTray.exe';
-			MySQLSvc := 'SqueezeMySQL';
+			
+			if (UpperCase(Version) = 'LMS') then
+				MySQLSvc := 'SqueezeMySQL';
 
 			// stop services if installed
 			StopService(Svc);
@@ -298,7 +324,7 @@ begin
 	else if (UpperCase(Version) = 'SC') then
 		begin
 			RegKey := '{#SCRegKey}';
-			InstallDefault := ExpandConstant('{app}');
+			InstallDefault := AddBackslash(ExpandConstant('{pf}')) + 'SqueezeCenter';
 			Svc := 'squeezesvc';
 			Executable := 'squeez~1.exe';
 			LongExecutable := 'squeezecenter.exe';
@@ -357,6 +383,65 @@ begin
 end;
 
 
+procedure UninstallSoftware(ID: String; ErrorMsg: String; ExitCode: Integer; SvcId: String);
+var
+	ErrorCode: Integer;
+	Uninstaller: String;
+
+ begin
+	if RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\' + ID, 'UninstallString', Uninstaller) then
+		begin
+			if (SvcId <> '') then
+				RemoveServices(SvcId);
+			
+			if not Exec(RemoveQuotes(Uninstaller), '/SILENT','', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
+				begin
+					SuppressibleMsgBox(CustomMessage(ErrorMsg) + SysErrorMessage(ErrorCode), mbError, MB_OK, IDOK);
+					CustomExitCode := ExitCode;
+				end
+		end;
+end;
+
+procedure UninstallSliMP3();
+var
+	ErrorCode: Integer;
+	Uninstaller: String;
+begin
+	UninstallSoftware('SLIMP3 Server_is1', 'ProblemUninstallingSLIMP3', 1101, '');
+end;
+
+
+procedure MigratePrefs(OldPrefsPath: String; PrefsPath: String);
+var
+	FindRec: TFindRec;
+	PluginsPath: String;
+begin
+	if (FindFirst(OldPrefsPath + '*.*', FindRec)) then begin
+		try
+			repeat
+				FileCopy(OldPrefsPath + FindRec.Name, PrefsPath + FindRec.Name, false);
+			until not FindNext(FindRec);
+		finally
+			FindClose(FindRec);
+		end;
+	end;
+
+	// migrate plugin prefs
+	OldPrefsPath := OldPrefsPath + AddBackslash('plugin');
+	PluginsPath := AddBackslash(PrefsPath) + AddBackslash('plugin');
+
+	if (FindFirst(OldPrefsPath + '*.*', FindRec)) then begin
+		try
+			repeat
+				FileCopy(OldPrefsPath + FindRec.Name, PluginsPath + FindRec.Name, false);
+			until not FindNext(FindRec);
+		finally
+			FindClose(FindRec);
+		end;
+	end;
+end;
+
+
 procedure MigrateSlimServer();
 var
 	ErrorCode: Integer;
@@ -371,9 +456,6 @@ begin
 	if not FileExists(GetPrefsFile()) then
 		begin
 			PrefsPath := GetPrefsFolder();
-			if (not DirExists(PrefsPath)) then
-				ForceDirectories(PrefsPath);
-
 			PrefsFile := AddBackslash(PrefsPath) + '..\slimserver.pref';
 
 			if ((RegQueryStringValue(HKLM, '{#SSRegKey}', 'Path', OldPrefsPath) and DirExists(AddBackslash(OldPrefsPath) + 'server'))) then
@@ -390,18 +472,9 @@ begin
 		end;
 
 	// call the SlimServer uninstaller
-	if (RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SlimServer_is1', 'QuietUninstallString', Uninstaller)
-		and RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SlimServer_is1', 'InstallLocation', UninstallPath)) then
-		begin
-			if not Exec(RemoveQuotes(Uninstaller), '', UninstallPath, SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
-				begin
-					SuppressibleMsgBox(CustomMessage('ProblemUninstallingSlimServer') + SysErrorMessage(ErrorCode), mbError, MB_OK, IDOK);
-					CustomExitCode := 1102;
-				end
-		end;
+	UninstallSoftware('SlimServer_is1', 'ProblemUninstallingSlimServer', 1102, 'SS');
 
 	// some manual cleanup work, in case previous uninstall didn't succeed
-	RemoveServices('SS');
 	DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Devices website.lnk');
 	DeleteFile(AddBackslash(ExpandConstant('{group}')) + 'Slim Web Interface.lnk');
 	DelTree(AddBackslash(ExpandConstant('{group}')) + 'SlimServer', true, true, true);
@@ -414,65 +487,25 @@ var
 	ErrorCode: Integer;
 	PrefsFile: String;
 	PrefsPath: String;
-	PluginsPath: String;
 	OldPrefsPath: String;
 	Uninstaller: String;
 	UninstallPath: String;
-	FindRec: TFindRec;
 	StartAtBoot: String;
 
 begin
-	// if we don't have a server.prefs file yet, migrate preference file before uninstalling SlimServer
+	// if we don't have a server.prefs file yet, migrate preference file before uninstalling SqueezeCenter
 	if not FileExists(GetPrefsFile()) then
 		begin
 			PrefsPath := AddBackslash(GetPrefsFolder());
-			if (not DirExists(PrefsPath)) then
-				ForceDirectories(PrefsPath);
+			PrefsFile := GetPrefsFile();
 
-			PluginsPath := AddBackslash(PrefsPath) + AddBackslash('plugin');
-			if (not DirExists(PluginsPath)) then
-				ForceDirectories(PluginsPath);
+			if ((RegQueryStringValue(HKLM, '{#SCRegKey}', 'DataPath', OldPrefsPath) and DirExists(AddBackslash(OldPrefsPath) + 'prefs'))) then
+				MigratePrefs( AddBackslash(OldPrefsPath) + AddBackslash('prefs'), PrefsPath );
 
-			PrefsFile := PrefsPath + 'server.prefs';
-
-			if ((RegQueryStringValue(HKLM, '{#SCRegKey}', 'DataPath', OldPrefsPath) and DirExists(AddBackslash(OldPrefsPath) + 'prefs'))) then begin
-			
-				OldPrefsPath := AddBackslash(OldPrefsPath) + AddBackslash('prefs');
-				if (FindFirst(OldPrefsPath + '*.*', FindRec)) then begin
-					try
-						repeat
-							FileCopy(OldPrefsPath + FindRec.Name, PrefsPath + FindRec.Name, false);
-						until not FindNext(FindRec);
-					finally
-						FindClose(FindRec);
-					end;
-				end;
-			
-				// migrate plugin prefs
-				OldPrefsPath := OldPrefsPath + AddBackslash('plugin');
-				if (FindFirst(OldPrefsPath + '*.*', FindRec)) then begin
-					try
-						repeat
-							FileCopy(OldPrefsPath + FindRec.Name, PluginsPath + FindRec.Name, false);
-						until not FindNext(FindRec);
-					finally
-						FindClose(FindRec);
-					end;
-				end;
-				
-			end;
 		end;
 
 	// call the SqueezeCenter uninstaller
-	if (RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SqueezeCenter_is1', 'QuietUninstallString', Uninstaller)
-		and RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\SqueezeCenter_is1', 'InstallLocation', UninstallPath)) then
-		begin
-			if not Exec(RemoveQuotes(Uninstaller), '', UninstallPath, SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
-				begin
-					SuppressibleMsgBox(CustomMessage('ProblemUninstallingSqueezeCenter') + SysErrorMessage(ErrorCode), mbError, MB_OK, IDOK);
-					CustomExitCode := 1103;
-				end
-		end;
+	UninstallSoftware('SqueezeCenter_is1', 'ProblemUninstallingSqueezeCenter', 1103, 'SC');
 
 	// remove some legacy stuff
 	if (RegQueryStringValue(HKLM, '{#SCRegKey}', 'DataPath', OldPrefsPath)) then begin
@@ -481,7 +514,6 @@ begin
 		if (DirExists(AddBackslash(OldPrefsPath) + 'Cache')) then begin
 			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'Artwork', True, True, True);
 			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'DownloadedPlugins', True, True, True);
-			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'FileCache', True, True, True);
 			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'icons', True, True, True);
 			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'InstalledPlugins', True, True, True);
 			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'MySQL', True, True, True);
@@ -490,29 +522,40 @@ begin
 		
 	end;
 
-	if (StartupMode = '') and (RegQueryStringValue(HKCU, '{#SCRegKey}', 'StartAtBoot', StartAtBoot)) then
-		if (StartAtBoot = '1') then
-			StartupMode := 'logon';
-
 	RegDeleteKeyIncludingSubkeys(HKLM, '{#SCRegKey}');
 end;
 
 
-procedure UninstallSqueezeboxServer();
+procedure MigrateLMS();
 var
 	ErrorCode: Integer;
+	PrefsFile: String;
+	PrefsPath: String;
+	OldPrefsPath: String;
 	Uninstaller: String;
+	UninstallPath: String;
+	StartAtBoot: String;
+
 begin
-	// Queries the specified REG_SZ or REG_EXPAND_SZ registry key/value, and returns the value in ResultStr.
-	// Returns True if successful. When False is returned, ResultStr is unmodified.
-	if RegQueryStringValue(HKLM, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\Squeezebox Server_is1','UninstallString', Uninstaller) then
+	// if we don't have a server.prefs file yet, migrate preference file before uninstalling LMS
+	if not FileExists(GetPrefsFile()) then
 		begin
-			if not Exec(RemoveQuotes(Uninstaller), '/SILENT','', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode) then
-				begin
-					SuppressibleMsgBox(CustomMessage('ProblemUninstallingSqueezboxServer') + SysErrorMessage(ErrorCode), mbError, MB_OK, IDOK);
-					CustomExitCode := 1104;
-				end
+			PrefsPath := AddBackslash(GetPrefsFolder());
+
+			if ((RegQueryStringValue(HKLM, '{#SBRegKey}', 'DataPath', OldPrefsPath) and DirExists(AddBackslash(OldPrefsPath) + 'prefs'))) then
+				MigratePrefs( AddBackslash(OldPrefsPath) + AddBackslash('prefs'), PrefsPath );
+
 		end;
+
+	// call the LMS uninstaller
+	UninstallSoftware('Squeezebox Server_is1', 'ProblemUninstallingSqueezboxServer', 1104, 'SB');
+	UninstallSoftware('Logitech Media Server_is1', 'ProblemUninstallingLMS', 1105, '');
+
+	if (StartupMode = '') and (RegQueryStringValue(HKCU, '{#SBRegKey}', 'StartAtBoot', StartAtBoot)) then
+		if (StartAtBoot = '1') then
+			StartupMode := 'logon';
+
+	RegDeleteKeyIncludingSubkeys(HKLM, '{#SBRegKey}');
 end;
 
 
@@ -604,7 +647,6 @@ begin
 
 	// bug 9698: remove old (<=7.5) artwork cache, as it can take a loooong time to check permissions and we don't use it any more
 	DelDir := AddBackslash(GetWritablePath('')) + AddBackslash('Cache');
-	Deltree(DelDir + AddBackslash('Artwork'), true, true, true);
 	Deltree(DelDir + AddBackslash('ArtworkCache'), true, true, true);
 	
 	// bug 17734: dito for the FileCache folder. Under certain circumstances this can have grown to tens of thousands of files
@@ -620,15 +662,12 @@ begin
 	// 'logon' - to be started on at logon (application mode)
 	StartupMode := '';
 
-	if GetStartType('squeezesvc') <> '' then
-		StartupMode := GetStartType('squeezesvc')
-
-	else if GetStartType('slimsvc') <> '' then
-		StartupMode := GetStartType('slimsvc')
+	if GetStartType('{#ServiceName}') <> '' then
+		StartupMode := GetStartType('{#ServiceName}')
 
 	else
 		begin
-			if RegQueryStringValue(HKCU, '{#SBRegKey}', 'StartAtBoot', StartAtBoot) then
+			if RegQueryStringValue(HKCU, '{#UEMLRegKey}', 'StartAtBoot', StartAtBoot) then
 				if (StartAtBoot = '1') then
 					StartupMode := 'logon';
 		end;
@@ -645,6 +684,8 @@ begin
 		Result := false;
 end;
 
+#ifdef FullBuild
+// VCRedist is only being used by transcoding helpers - which is not supported in UEML 
 function PrepareToInstall(var NeedsRestart: Boolean): String;
 begin
 	if (WizardSilent and (not HasVCRedist())) then
@@ -658,6 +699,7 @@ begin
 	else
 		Result := '';
 end;
+#endif
 
 procedure InitializeWizard();
 begin
@@ -676,32 +718,43 @@ begin
 		begin
 			CustomExitCode := 0;
 
-			if ( RegQueryStringValue(HKLM, '{#SBRegKey}', 'Path', PrefsPath)
+			if ( RegQueryStringValue(HKLM, '{#UEMLRegKey}', 'Path', PrefsPath)
+#ifdef FullBuild
+					or RegQueryStringValue(HKLM, '{#SBRegKey}', 'Path', PrefsPath)
 					or RegQueryStringValue(HKLM, '{#SCRegKey}', 'Path', PrefsPath)
-					or RegQueryStringValue(HKLM, '{#SSRegKey}', 'Path', PrefsPath) ) then
+					or RegQueryStringValue(HKLM, '{#SSRegKey}', 'Path', PrefsPath)
+#endif
+			) then
 				begin
 					// add custom progress bar to be displayed while unregistering services
 					ProgressPage := CreateOutputProgressPage(CustomMessage('UnregisterServices'), CustomMessage('UnregisterServicesDesc'));
 	
 					try
 						ProgressPage.setProgress(0, 170);
-						if (StartupMode = '') and (IsServiceRunning('squeezesvc') or IsServiceRunning('slimsvc') or IsModuleLoaded('SqueezeSvr.exe') or IsModuleLoaded('squeez~3.exe')
-							or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('squeezecenter.exe') or IsModuleLoaded('slimserver.exe')) then
+#ifdef FullBuild
+						if (StartupMode = '') and (IsServiceRunning('{#ServiceName}') or IsModuleLoaded('{#ExeName}')
+							or IsServiceRunning('squeezesvc') or IsModuleLoaded('SqueezeSvr.exe') or IsModuleLoaded('squeez~3.exe')or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('squeezecenter.exe')  
+							or IsServiceRunning('slimsvc') or IsModuleLoaded('slimserver.exe')
+						) then
 							StartupMode := 'running';
-	
-						UninstallSliMP3();
-	
-						ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
-	
-						MigrateSlimServer();
 
-						RemoveServices('SC');
+						ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
+						MigrateLMS();
+
 						ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 						MigrateSqueezeCenter();
 
-						UninstallSqueezeboxServer();
+						ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
+						MigrateSlimServer();
 
-						RemoveServices('SB');
+						ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
+						UninstallSliMP3();
+#else
+						if (StartupMode = '') and (IsServiceRunning('{#ServiceName}') or IsModuleLoaded('{#ExeName}') ) then
+							StartupMode := 'running';
+#endif
+	
+						RemoveServices('UEML');
 	
 						ProgressPage.setProgress(0, 0);
 						ProgressPage.SetText(CustomMessage('RemoveLegacyFiles'), CustomMessage('RemoveLegacyFilesWarning'));
@@ -739,10 +792,12 @@ begin
 			
 			Silent := Silent or WizardSilent;
 
+#ifdef FullBuild
 			// run VC runtime installer if not already installed
 			// http://blogs.msdn.com/b/astebner/archive/2010/05/05/10008146.aspx
 			if ( (TrayIcon or not Silent) and (not HasVCRedist()) ) then
 				Exec(AddBackslash(ExpandConstant('{tmp}')) + 'vcredist.exe', '/q:a /c:"msiexec /i vcredist.msi /qb!"', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
+#endif
 
 			ProgressPage := CreateOutputProgressPage(CustomMessage('RegisterServices'), CustomMessage('RegisterServicesDesc'));
 
@@ -750,6 +805,7 @@ begin
 				ProgressPage.Show;
 				ProgressPage.setProgress(0, 170);
 
+#ifdef FullBuild
 				// check network configuration and potential port conflicts
 				ProgressPage.setText(CustomMessage('ProgressForm_Description'), CustomMessage('PortConflict'));
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
@@ -765,14 +821,30 @@ begin
 				ProgressPage.setText(CustomMessage('ProgressForm_Description'), CustomMessage('ProbingPorts'));
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
+				// trying to connect to SN
+				ProgressPage.setText(CustomMessage('ProgressForm_Description'), CustomMessage('SNConnecting'));
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
+
+				if not IsPortOpen('www.mysqueezebox.com', '3483') then
+				begin
+					SuppressibleMsgBox(CustomMessage('SNConnectFailed_Description') + #13#10 + #13#10 + CustomMessage('SNConnectFailed_Solution'), mbInformation, MB_OK, IDOK);
+ 					CustomExitCode := 1002;
+				end;
+
+				RegisterPort('3483');
+#endif
+
+				RegisterPort(GetHttpPort(''));
+				RegisterPort('9090');
+
+				ProgressPage.setText(CustomMessage('RegisteringServices'), '{#AppName}');
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
+
 				// Add firewall rules for Windows XP/Vista
 				if (GetWindowsVersion shr 24 >= 6) then
-					Exec('netsh', 'advfirewall firewall add rule name="{#AppName}" description="Allow {#AppName} to accept inbound connections." dir=in action=allow program="' + ExpandConstant('{app}') + '\server\SqueezeSvr.exe' + '"', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+					Exec('netsh', 'advfirewall firewall add rule name="{#AppName}" description="Allow {#AppName} to accept inbound connections." dir=in action=allow program="' + ExpandConstant('{app}') + '\server\{#ExeName}' + '"', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 	
 				PrefsFile := GetPrefsFile();
-	
-				if (not DirExists(PrefsPath)) then
-					ForceDirectories(PrefsPath);
 		
 				if not FileExists(PrefsFile) then
 					begin
@@ -785,37 +857,18 @@ begin
 						CustomExitCode := 1001;
 					end;
 
-				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-
-				// trying to connect to SN
-				ProgressPage.setText(CustomMessage('ProgressForm_Description'), CustomMessage('SNConnecting'));
-				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
-
-				if not IsPortOpen('www.mysqueezebox.com', '3483') then
-				begin
-					SuppressibleMsgBox(CustomMessage('SNConnectFailed_Description') + #13#10 + #13#10 + CustomMessage('SNConnectFailed_Solution'), mbInformation, MB_OK, IDOK);
- 					CustomExitCode := 1002;
-				end;
-
-				ProgressPage.setText(CustomMessage('RegisteringServices'), '{#AppName}');
-				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
-
-				RegisterPort('9000');
-				RegisterPort(GetHttpPort(''));
-				RegisterPort('9090');
-				RegisterPort('9092');
-				RegisterPort('3483');
-				
+#if 0
 				if InstallService then
 				begin
-					Exec(AddBackslash(NewServerDir) + 'SqueezeSvr.exe', '-install auto', NewServerDir, SW_HIDE, ewWaitUntilIdle, ErrorCode);
+					NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
+					Exec(AddBackslash(NewServerDir) + '{#ExeName}', '-install auto', NewServerDir, SW_HIDE, ewWaitUntilIdle, ErrorCode);
 					StartupMode := 'auto';
 				end;
 
 				if StartupMode = 'auto' then
-					StartService('squeezesvc');
+					StartService('{#ServiceName}');
 
-				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeTray');
+				ProgressPage.setText(CustomMessage('RegisteringServices'), '{#TrayHelper}');
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
 
 				if NoTrayIcon then
@@ -824,11 +877,11 @@ begin
 				// in silent mode do not wait for SC to be started before quitting the installer
 				if not Silent or (TrayIcon and not NoTrayIcon) then
 					begin
-						Exec(ExpandConstant('{app}') + '\SqueezeTray.exe', '--install', ExpandConstant('{app}'), SW_SHOW, ewWaitUntilIdle, ErrorCode);
+						Exec(ExpandConstant('{app}') + '\{#TrayHelper}.exe', '--install', ExpandConstant('{app}'), SW_SHOW, ewWaitUntilIdle, ErrorCode);
 
 						// "running" means: starting manually only, but was running when installer was launched
 						if (StartupMode = 'running') then
-							Exec(ExpandConstant('{app}') + '\SqueezeTray.exe', '--start', ExpandConstant('{app}'), SW_SHOW, ewWaitUntilIdle, ErrorCode);
+							Exec(ExpandConstant('{app}') + '\{#TrayHelper}.exe', '--start', ExpandConstant('{app}'), SW_SHOW, ewWaitUntilIdle, ErrorCode);
 				
 						if (StartupMode = 'auto') or (StartupMode = 'logon') or (StartupMode = 'running') then
 							begin
@@ -857,7 +910,7 @@ begin
 												break;
 											end
 										
-										else if (IsServiceRunning('squeezesvc') or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('SqueezeSvr.exe') or IsModuleLoaded('squeez~3.exe')) then
+										else if (IsServiceRunning('{#ServiceName}') or IsModuleLoaded('{#ExeName}'))) then
 											Started := true
 											
 										else if Started then
@@ -867,7 +920,7 @@ begin
 									end;	
 							end;
 					end;
-
+#endif
 			finally
 				ProgressPage.Hide;
 			end;
@@ -893,12 +946,15 @@ begin
 				begin
 					Deltree(ExpandConstant('{app}\server\Cache'), True, True, True);
 					Deltree(ExpandConstant('{commonappdata}\Squeezebox\Cache'), True, True, True);
+					Deltree(ExpandConstant('{commonappdata}\Logitech\UE Music Library\Cache'), True, True, True);
 					Deltree(ExpandConstant('{code:GetWritablePath}\Cache'), True, True, True);
 				end;
 
 			if SuppressibleMsgBox(CustomMessage('UninstallPrefs'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2, IDNO) = IDYES then
 				begin
 					DelTree(GetWritablePath(''), True, True, True);
+					RegDeleteKeyIncludingSubkeys(HKCU, '{#UEMLRegKey}');
+					RegDeleteKeyIncludingSubkeys(HKLM, '{#UEMLRegKey}');
 					RegDeleteKeyIncludingSubkeys(HKCU, '{#SBRegKey}');
 					RegDeleteKeyIncludingSubkeys(HKLM, '{#SBRegKey}');
 					RegDeleteKeyIncludingSubkeys(HKCU, '{#SCRegKey}');

@@ -419,6 +419,9 @@ pl.ProblemUninstallingSqueezboxServer=Problem z dezinstalacją oprogramowania Sq
 ru.ProblemUninstallingSqueezboxServer=При удалении программы Squeezbox Server возникла проблема:
 sv.ProblemUninstallingSqueezboxServer=Problem med att avinstallera Squeezbox Server-programvaran:
 
+en.ProblemUninstallingLMS=Problem uninstalling Logitech Media Server software:
+de.ProblemUninstallingSqueezboxServer=Problem bei Deinstallation der Logitech Media Server-Software:
+
 cz.ProgressForm_Caption=Průvodce odstraňováním problému Squeezebox
 da.ProgressForm_Caption=Squeezebox-guiden Problemløsning
 de.ProgressForm_Caption=Squeezebox - Assistent zur Fehlerbehebung

@@ -4,9 +4,9 @@ use Getopt::Long;
 use Win32;
 use Win32::Service;
 
-my $SVC = 'squeezesvc';
+my $SVC = 'uemlsvc';
 
-my $cmd = Win32::GetShortPathName( "$Bin/SqueezeSvr.exe" );
+my $cmd = Win32::GetShortPathName( "$Bin/ueml.exe" );
 my $sc  = which('sc.exe');
 
 my ($username, $password, $install, $start, $restart, $remove);
@@ -44,8 +44,8 @@ if ($install) {
 		$args .= " password= $password" if $password;
 
 		`$sc delete $SVC`;
-		`$sc create $SVC binPath= "$Bin/SqueezeSvr.exe" start= auto DisplayName= "Logitech Media Server" $args`;
-		`$sc description $SVC "Logitech Media Server - streaming music server"`;
+		`$sc create $SVC binPath= "$Bin/ueml.exe" start= auto DisplayName= "UE Music Library" $args`;
+		`$sc description $SVC "UE Music Library"`;
 	}
 
 	my %status = ();
@@ -75,7 +75,7 @@ elsif ($restart || $start) {
 	
 	my $max = 10;
 	
-	# wait a few seconds or until squeezesvc has stopped
+	# wait a few seconds or until the service has stopped
 	Win32::Service::GetStatus('', $SVC, \%status);
 
 	while ($status{CurrentState} != 0x01 && $max-- > 0) {
