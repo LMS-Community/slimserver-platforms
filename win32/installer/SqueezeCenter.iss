@@ -909,7 +909,7 @@ begin
 												break;
 											end
 										
-										else if (IsServiceRunning('{#ServiceName}') or IsModuleLoaded('{#ExeName}'))) then
+										else if (IsServiceRunning('{#ServiceName}') or IsModuleLoaded('{#ExeName}')) then
 											Started := true
 											
 										else if Started then
