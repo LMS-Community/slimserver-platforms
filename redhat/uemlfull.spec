@@ -69,9 +69,7 @@ mv lib/README README.lib
 mv HTML/README.txt README.HTML
 
 # Remove mysqld and other unneeded files
-rm -f MySQL/COPYING
-rm -f MySQL/README
-rm -f MySQL/errmsg.*
+rm -rf MySQL
 rm -rf Bin/darwin
 rm -rf Bin/i386-freebsd-64int
 rm -rf Bin/MSWin32-x86-multi-thread
@@ -98,19 +96,19 @@ mkdir -p $RPM_BUILD_ROOT%{_var}/lib/uemusiclibrary/prefs/plugin
 mkdir -p $RPM_BUILD_ROOT%{_var}/log/uemusiclibrary
 
 # Copy over the files
-cp -Rp Bin $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary || echo "No Bin"
+cp -Rp Bin $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary 2>/dev/null || echo "No Bin"
 cp -Rp CPAN $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary
-cp -Rp Firmware $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary || echo "No Firmware"
-cp -Rp Graphics $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary || echo "No Graphics"
-cp -Rp HTML $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary || echo "No HTML"
-cp -Rp IR $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary || echo "No IR"
+cp -Rp Firmware $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary 2>/dev/null || echo "No Firmware"
+cp -Rp Graphics $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary 2>/dev/null || echo "No Graphics"
+cp -Rp HTML $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary 2>/dev/null || echo "No HTML"
+cp -Rp IR $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary 2>/dev/null || echo "No IR"
 cp -Rp lib $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary
-cp -Rp MySQL $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary || echo "No MySQL"
 cp -Rp Slim $RPM_BUILD_ROOT%{_usr}/lib/perl5/vendor_perl
 cp -Rp SQL $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary
 cp -p revision.txt $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary
 cp -p strings.txt $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary
 cp -p icudt46*.dat $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary
+cp -p ueml.pl $RPM_BUILD_ROOT%{_datadir}/uemusiclibrary
 cp -p slimserver.pl $RPM_BUILD_ROOT%{_usr}/libexec/uemusiclibrary
 cp -p scanner.pl $RPM_BUILD_ROOT%{_usr}/libexec/uemusiclibrary-scanner
 cp -p cleanup.pl $RPM_BUILD_ROOT%{_usr}/sbin/uemusiclibrary-cleanup
@@ -167,6 +165,7 @@ CACHEDIR=%{_var}/lib/uemusiclibrary/cache
 if [ -f /etc/redhat-release ] ; then
 	# Add SELinux contexts
 	if [ -x /usr/sbin/selinuxenabled ] ; then
+		if [ /usr/sbin/selinuxenabled ] ; then
 			/sbin/restorecon -R ${CACHEDIR}
 		fi
 	fi

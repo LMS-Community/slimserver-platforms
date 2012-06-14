@@ -109,6 +109,7 @@ ln -s %{_var}/lib/uemusiclibrary/Plugins \
 
 # Install init, configuration and log files
 install -Dp -m755 %SOURCE1 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/uemusiclibrary
+echo "export PERL5LIB=%{_datadir}/uemusiclibrary" >> $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/uemusiclibrary
 install -Dp -m755 %SOURCE2 $RPM_BUILD_ROOT%{_sysconfdir}/init.d/uemusiclibrary
 install -Dp -m644 %SOURCE3 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/uemusiclibrary
 touch $RPM_BUILD_ROOT%{_var}/lib/uemusiclibrary/prefs/server.prefs
@@ -147,6 +148,7 @@ CACHEDIR=%{_var}/lib/uemusiclibrary/cache
 if [ -f /etc/redhat-release ] ; then
 	# Add SELinux contexts
 	if [ -x /usr/sbin/selinuxenabled ] ; then
+		if [ /usr/sbin/selinuxenabled ] ; then
 			/sbin/restorecon -R ${CACHEDIR}
 		fi
 	fi
@@ -178,7 +180,7 @@ if [ "$1" -eq "0" ] ; then
 			db configuration set uemusiclibrary service status disabled
 			rm /etc/rc7.d/S80uemusiclibrary
 		fi
-        	/sbin/chkconfig --del uemusiclibrary
+		/sbin/chkconfig --del uemusiclibrary
 		# Remove SELinux contexts
 		if [ -x /usr/sbin/selinuxenabled ] ; then
 			if /usr/sbin/selinuxenabled; then
