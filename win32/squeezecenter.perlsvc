@@ -1,7 +1,7 @@
 PAP-Version: 1.0
 Packer: 
 Script: slimserver.pl
-Bind: grant.exe[file=Bin/MSWin32-x86-multi-thread/grant.exe,mode=666]
+Bind: grant.exe[file=../platforms/win32/lib/grant.exe,mode=666]
 Add: version
 Add: AnyEvent::Impl::EV
 Add: CGI

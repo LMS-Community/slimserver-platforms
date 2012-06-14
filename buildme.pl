@@ -26,7 +26,7 @@ my $verboseName = 'UE Music Library';
 my $compactName = 'UEMusicLibrary';
 
 ## Windows Specific Stuff
-my $windowsPerlDir = "C:\\perl514";
+my $windowsPerlDir = "C:\\perl";
 my $windowsPerlPath = "$windowsPerlDir\\bin\\perl.exe";
 
 ## Directories to exclude when building certain packages...
@@ -767,7 +767,7 @@ sub buildWin32 {
 	if ( ($_[0] ) || die("Problem: Not all of the variables were passed to the BuildWin32 function...") ) { 
 		## Take the filename passed to us and make sure that we build the installer with
 		## that name, and that the 'pretty mounted name' also matches
-		my $destFileName = $_[0];
+		my $destFileName = $_[0] . ($ueml ? '' : '-full');
 		my $destPrettyDirName = $_[0];
 		$destPrettyDirName =~ s/-/ /g;
 		
@@ -820,7 +820,7 @@ sub buildWin32 {
 			"InternalName=uemlsvc",
 		));
 
-		system("cd $buildDir/platforms/win32; perlapp --perl \"$windowsPerlPath\" --info \"$programInfo\" --clean --bind=grant.exe[file=../../server/Bin/MSWin32-x86-multi-thread/grant.exe,mode=666] --force squeezesvc.pl");
+		system("cd $buildDir/platforms/win32; perlapp --perl \"$windowsPerlPath\" --info \"$programInfo\" --clean --bind=grant.exe[file=lib/grant.exe,mode=666] --force squeezesvc.pl");
 		move("$buildDir/platforms/win32/squeezesvc.exe", "$buildDir/build/server/uemlsvc.exe");
 
 
