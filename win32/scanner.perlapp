@@ -61,7 +61,6 @@ Add: Slim::Schema::ResultSet::Playlist
 Add: Slim::Schema::ResultSet::PlaylistTrack
 Add: Slim::Schema::ResultSet::Track
 Add: Slim::Schema::ResultSet::Year
-Add: Slim::Utils::MySQLHelper
 Add: Slim::Utils::SQLiteHelper
 Add: Slim::Utils::OS::Win32
 Add: Slim::Utils::Scanner::API
@@ -74,7 +73,12 @@ Lib: lib:lib
 Lib: lib:CPAN\arch\5.14\MSWin32-x86-multi-thread\auto
 Lib: lib:CPAN\arch\5.14\MSWin32-x86-multi-thread
 Lib: lib:CPAN
+Trim: Slim::Buttons::**
+Trim: Slim::Hardware::*
+Trim: Slim::Display::Lib::*
+Trim: Slim::Networking::SliMP3::*
 Trim: Slim::Networking::IO::EV
+Trim: Slim::Player::Protocols::*
 Trim: Slim::Utils::Update
 Trim: Slim::Utils::OS::*
 Trim: SDI::

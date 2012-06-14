@@ -832,7 +832,7 @@ sub buildWin32 {
 			"InternalName=UEMusicLibrary",
 		));
 
-		system("cd $buildDir/server; perlsvc --perl \"$windowsPerlPath\" --info \"$programInfo\" ../platforms/win32/squeezecenter.perlsvc");
+		system("cd $buildDir/server; perlsvc --perl \"$windowsPerlPath\" --info \"$programInfo\" " . ($ueml ? ' ../platforms/win32/ueml.perlsvc' : ' ../platforms/win32/squeezecenter.perlsvc'));
 		move("$buildDir/server/slimserver.exe", "$buildDir/build/server/ueml.exe");
 
 
@@ -875,8 +875,14 @@ sub buildWin32 {
 		unlink("$buildDir/build/server/Slim/Schema.pm");
 		unlink("$buildDir/build/server/cleanup.pl");
 		unlink("$buildDir/build/server/slimserver.pl");
-		unlink("$buildDir/build/server/slimservice.pl");
+		unlink("$buildDir/build/server/ueml.pl");
+		unlink("$buildDir/build/server/gdresize.pl");
+		unlink("$buildDir/build/server/gdresized.pl");
+		unlink(glob "$buildDir/build/server/slimservice*");
 		unlink("$buildDir/build/server/scanner.pl");
+		
+		rmtree("$buildDir/build/server/SQL/mysql");
+		rmtree("$buildDir/build/server/SQL/slimservice");
 
 
 		print "INFO: Making installer...\n";

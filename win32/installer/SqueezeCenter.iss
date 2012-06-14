@@ -684,8 +684,6 @@ begin
 		Result := false;
 end;
 
-#ifdef FullBuild
-// VCRedist is only being used by transcoding helpers - which is not supported in UEML 
 function PrepareToInstall(var NeedsRestart: Boolean): String;
 begin
 	if (WizardSilent and (not HasVCRedist())) then
@@ -699,7 +697,6 @@ begin
 	else
 		Result := '';
 end;
-#endif
 
 procedure InitializeWizard();
 begin
@@ -792,12 +789,10 @@ begin
 			
 			Silent := Silent or WizardSilent;
 
-#ifdef FullBuild
 			// run VC runtime installer if not already installed
 			// http://blogs.msdn.com/b/astebner/archive/2010/05/05/10008146.aspx
 			if ( (TrayIcon or not Silent) and (not HasVCRedist()) ) then
 				Exec(AddBackslash(ExpandConstant('{tmp}')) + 'vcredist.exe', '/q:a /c:"msiexec /i vcredist.msi /qb!"', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
-#endif
 
 			ProgressPage := CreateOutputProgressPage(CustomMessage('RegisterServices'), CustomMessage('RegisterServicesDesc'));
 
