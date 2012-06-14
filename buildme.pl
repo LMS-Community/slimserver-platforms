@@ -42,7 +42,7 @@ my $dirsToExcludeForWin32 = "5.8 5.10 5.12 i386-freebsd-64int i386-linux x86_64-
 my $dirsToExcludeForReadyNasi386 = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin MSWin32-x86 arm-linux powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46b.dat";
 my $dirsToExcludeForReadyNasSparc = "i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin arm-linux MSWin32-x86 powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46l.dat";
 my $dirsToExcludeForReadyNasARM = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu i386 x86_64 darwin-thread-multi darwin MSWin32-x86 powerpc-linux 5.8 5.12 5.14 PreventStandby icudt46b.dat";
-my $dirsToExcludeForUeml = "server/Plugins server/Bin server/Firmware server/Graphics server/IR /MySQL Slim/Buttons Slim/Hardware Slim/Display/Lib Slim/Networking/SliMP3 Slim/Player/Protocols";
+my $dirsToExcludeForUeml = "Slim/Plugin/! server/Bin server/Firmware server/Graphics server/IR /MySQL Slim/Buttons Slim/Hardware Slim/Display/Lib Slim/Networking/SliMP3 Slim/Player/Protocols";
 my $dirsToIncludeForUeml = "Plugin/iTunes Plugin/Extensions Plugin/JiveExtras Plugin/Base.pm";
 
 ## Initialize some variables we'll use later
