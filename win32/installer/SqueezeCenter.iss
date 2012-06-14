@@ -857,7 +857,6 @@ begin
 						CustomExitCode := 1001;
 					end;
 
-#if 0
 				if InstallService then
 				begin
 					NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
@@ -920,7 +919,6 @@ begin
 									end;	
 							end;
 					end;
-#endif
 			finally
 				ProgressPage.Hide;
 			end;
