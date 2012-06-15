@@ -1,32 +1,32 @@
 START_FAILED
-	CS	Logitech Media Server se neotevřel. Logitech Media Server se může spouštět nebo ukončovat. Laskavě chvíli počkejte a zkuste znovu.
-	DA	Logitech Media Server kunne ikke åbnes. Logitech Media Server er muligvis ved at starte eller stoppe. Vent et minut, og prøv igen.
-	DE	Logitech Media Server konnte nicht geöffnet werden. Es wird evtl. gerade gestartet oder angehalten. Versuchen Sie es in einer Minute noch einmal.
-	EN	Logitech Media Server would not open. The server may be starting or stopping. Please wait a minute and try again.
-	ES	Fallo al abrir Logitech Media Server. Puede que Logitech Media Server esté iniciándose o deteniéndose. Espere un minuto y vuelva a intentarlo.
-	FI	Logitech Media Server ei auennut. Logitech Media Server saattaa olla käynnistymässä, tai se on saattanut pysähtyä. Odota hetki ja yritä uudelleen.
-	FR	Echec du démarrage du Logitech Media Server. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
-	IT	Avvio di Logitech Media Server non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
-	NL	Logitech Media Server kan niet worden geopend. De toepassing wordt misschien gestart of gestopt. Wacht even en probeer het overnieuw.
-	NO	Logitech Media Server kunne ikke åpnes. Logitech Media Server holder kanskje på å starte eller stoppe. Vent et øyeblikk, og prøv igjen.
-	PL	Nie można otworzyć programu Logitech Media Server. Być może trwa uruchamianie lub zatrzymywanie programu Logitech Media Server. Odczekaj chwilę i spróbuj ponownie.
-	RU	Logitech Media Server не открывается. Возможно, сейчас идет запуск или остановка Logitech Media Server. Повторите попытку позднее.
-	SV	Det gick inte att öppna Logitech Media Server. Logitech Media Server kanske håller på att startas eller avslutas. Vänta någon minut och försök igen.
+	CS	UE Music Library se neotevřel. UE Music Library se může spouštět nebo ukončovat. Laskavě chvíli počkejte a zkuste znovu.
+	DA	UE Music Library kunne ikke åbnes. UE Music Library er muligvis ved at starte eller stoppe. Vent et minut, og prøv igen.
+	DE	UE Music Library konnte nicht geöffnet werden. Es wird evtl. gerade gestartet oder angehalten. Versuchen Sie es in einer Minute noch einmal.
+	EN	UE Music Library would not open. The server may be starting or stopping. Please wait a minute and try again.
+	ES	Fallo al abrir UE Music Library. Puede que UE Music Library esté iniciándose o deteniéndose. Espere un minuto y vuelva a intentarlo.
+	FI	UE Music Library ei auennut. UE Music Library saattaa olla käynnistymässä, tai se on saattanut pysähtyä. Odota hetki ja yritä uudelleen.
+	FR	Echec du démarrage du UE Music Library. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
+	IT	Avvio di UE Music Library non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
+	NL	UE Music Library kan niet worden geopend. De toepassing wordt misschien gestart of gestopt. Wacht even en probeer het overnieuw.
+	NO	UE Music Library kunne ikke åpnes. UE Music Library holder kanskje på å starte eller stoppe. Vent et øyeblikk, og prøv igjen.
+	PL	Nie można otworzyć programu UE Music Library. Być może trwa uruchamianie lub zatrzymywanie programu UE Music Library. Odczekaj chwilę i spróbuj ponownie.
+	RU	UE Music Library не открывается. Возможно, сейчас идет запуск или остановка UE Music Library. Повторите попытку позднее.
+	SV	Det gick inte att öppna UE Music Library. UE Music Library kanske håller på att startas eller avslutas. Vänta någon minut och försök igen.
 
 STOP_FAILED
-	CS	Ukončování Logitech Media Server selhalo. Podívejte se do Prohlížeče událostí & Kontaktujte podporu
-	DA	Det lykkedes ikke at stoppe Logitech Media Server. Tjek Logbog, og kontakt supportafdelingen
-	DE	Logitech Media Server konnte nicht angehalten werden. Weitere Informationen erhalten Sie in der Ereignisanzeige und vom Support
-	EN	Stopping Logitech Media Server Failed. Please see the Event Viewer & Contact Support
-	ES	Fallo al detener Logitech Media Server. Consulte el Visor de sucesos y póngase en contacto con el servicio de asistencia
-	FI	Logitech Media Serverin pysäyttäminen epäonnistui. Katso Tapahtumien tarkastelu ja Tekninen tuki
-	FR	Echec de l'arrêt du Logitech Media Server. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
-	IT	Arresto di Logitech Media Server non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
-	NL	Logitech Media Server kan niet worden gestopt. Zie de logboeken en neem contact op met ondersteuning
-	NO	Mislyktes med å stoppe Logitech Media Server. Se i hendelsesoversikten, og ring kundestøtte
-	PL	Zatrzymywanie programu Logitech Media Server nie powiodło się. Sprawdź przeglądarkę zdarzeń i skontaktuj się z działem pomocy
-	RU	Сбой остановки Logitech Media Server. Просмотрите журнал средства просмотра событий и обратитесь в службу поддержки
-	SV	Det gick inte att avsluta Logitech Media Server. Se loggboken och kontakta supportavdelningen.
+	CS	Ukončování UE Music Library selhalo. Podívejte se do Prohlížeče událostí & Kontaktujte podporu
+	DA	Det lykkedes ikke at stoppe UE Music Library. Tjek Logbog, og kontakt supportafdelingen
+	DE	UE Music Library konnte nicht angehalten werden. Weitere Informationen erhalten Sie in der Ereignisanzeige und vom Support
+	EN	Stopping UE Music Library Failed. Please see the Event Viewer & Contact Support
+	ES	Fallo al detener UE Music Library. Consulte el Visor de sucesos y póngase en contacto con el servicio de asistencia
+	FI	UE Music Libraryin pysäyttäminen epäonnistui. Katso Tapahtumien tarkastelu ja Tekninen tuki
+	FR	Echec de l'arrêt du UE Music Library. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
+	IT	Arresto di UE Music Library non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
+	NL	UE Music Library kan niet worden gestopt. Zie de logboeken en neem contact op met ondersteuning
+	NO	Mislyktes med å stoppe UE Music Library. Se i hendelsesoversikten, og ring kundestøtte
+	PL	Zatrzymywanie programu UE Music Library nie powiodło się. Sprawdź przeglądarkę zdarzeń i skontaktuj się z działem pomocy
+	RU	Сбой остановки UE Music Library. Просмотрите журнал средства просмотра событий и обратитесь в службу поддержки
+	SV	Det gick inte att avsluta UE Music Library. Se loggboken och kontakta supportavdelningen.
 
 RUN_AT_BOOT
 	CS	Spustit automaticky při startu systému
@@ -74,109 +74,109 @@ OPEN_SQUEEZEBOX_SERVER
 	SV	Öppna webbkontroll...
 
 START_SQUEEZEBOX_SERVER
-	CS	Spustit Logitech Media Server
-	DA	Start Logitech Media Server
-	DE	Logitech Media Server starten
-	EN	Start Logitech Media Server
-	ES	Iniciar Logitech Media Server
-	FI	Käynnistä Logitech Media Server
-	FR	Démarrer Logitech Media Server
-	IT	Avvia Logitech Media Server
-	NL	Logitech Media Server starten
-	NO	Start Logitech Media Server
-	PL	Uruchom program Logitech Media Server
-	RU	Запустить Logitech Media Server
-	SV	Starta Logitech Media Server
+	CS	Spustit UE Music Library
+	DA	Start UE Music Library
+	DE	UE Music Library starten
+	EN	Start UE Music Library
+	ES	Iniciar UE Music Library
+	FI	Käynnistä UE Music Library
+	FR	Démarrer UE Music Library
+	IT	Avvia UE Music Library
+	NL	UE Music Library starten
+	NO	Start UE Music Library
+	PL	Uruchom program UE Music Library
+	RU	Запустить UE Music Library
+	SV	Starta UE Music Library
 
 STARTING_SQUEEZEBOX_SERVER
-	CS	Spouštění Logitech Media Server...
-	DA	Starter Logitech Media Server...
-	DE	Logitech Media Server wird gestartet...
-	EN	Starting Logitech Media Server...
-	ES	Iniciando Logitech Media Server...
-	FI	Käynnistetään Logitech Media Server...
-	FR	Démarrage du Logitech Media Server...
-	IT	Avvio di Logitech Media Server in corso...
-	NL	Logitech Media Server wordt gestart...
-	NO	Starter Logitech Media Server ...
-	PL	Trwa uruchamianie programu Logitech Media Server...
-	RU	Logitech Media Server запускается...
-	SV	Logitech Media Server startas ...
+	CS	Spouštění UE Music Library...
+	DA	Starter UE Music Library...
+	DE	UE Music Library wird gestartet...
+	EN	Starting UE Music Library...
+	ES	Iniciando UE Music Library...
+	FI	Käynnistetään UE Music Library...
+	FR	Démarrage du UE Music Library...
+	IT	Avvio di UE Music Library in corso...
+	NL	UE Music Library wordt gestart...
+	NO	Starter UE Music Library ...
+	PL	Trwa uruchamianie programu UE Music Library...
+	RU	UE Music Library запускается...
+	SV	UE Music Library startas ...
 
 STOPPING_SQUEEZEBOX_SERVER
-	CS	Ukončování Logitech Media Server...
-	DA	Stopper Logitech Media Server...
-	DE	Logitech Media Server wird angehalten...
-	EN	Stopping Logitech Media Server...
-	ES	Deteniendo Logitech Media Server...
-	FI	Pysäytetään Logitech Media Server...
-	FR	Arrêt du Logitech Media Server...
-	IT	Arresto di Logitech Media Server in corso...
-	NL	Logitech Media Server wordt gestopt...
-	NO	Stopper Logitech Media Server ...
-	PL	Trwa zatrzymywanie programu Logitech Media Server...
-	RU	Остановка Logitech Media Server...
-	SV	Stoppar Logitech Media Server ...
+	CS	Ukončování UE Music Library...
+	DA	Stopper UE Music Library...
+	DE	UE Music Library wird angehalten...
+	EN	Stopping UE Music Library...
+	ES	Deteniendo UE Music Library...
+	FI	Pysäytetään UE Music Library...
+	FR	Arrêt du UE Music Library...
+	IT	Arresto di UE Music Library in corso...
+	NL	UE Music Library wordt gestopt...
+	NO	Stopper UE Music Library ...
+	PL	Trwa zatrzymywanie programu UE Music Library...
+	RU	Остановка UE Music Library...
+	SV	Stoppar UE Music Library ...
 
 STOP_SQUEEZEBOX_SERVER
-	CS	Zastavit Logitech Media Server
-	DA	Stop Logitech Media Server
-	DE	Logitech Media Server anhalten
-	EN	Stop Logitech Media Server
-	ES	Detener Logitech Media Server
-	FI	Pysäytä Logitech Media Server
-	FR	Arrêter le Logitech Media Server
-	IT	Arresta Logitech Media Server
-	NL	Logitech Media Server stoppen
-	NO	Stopp Logitech Media Server
-	PL	Zatrzymaj program Logitech Media Server
-	RU	Остановить Logitech Media Server
-	SV	Stoppa Logitech Media Server
+	CS	Zastavit UE Music Library
+	DA	Stop UE Music Library
+	DE	UE Music Library anhalten
+	EN	Stop UE Music Library
+	ES	Detener UE Music Library
+	FI	Pysäytä UE Music Library
+	FR	Arrêter le UE Music Library
+	IT	Arresta UE Music Library
+	NL	UE Music Library stoppen
+	NO	Stopp UE Music Library
+	PL	Zatrzymaj program UE Music Library
+	RU	Остановить UE Music Library
+	SV	Stoppa UE Music Library
 
 SQUEEZEBOX_SERVER_STARTING
-	CS	Spouštění Logitech Media Server
-	DA	Logitech Media Server starter
-	DE	Logitech Media Server wird gestartet...
-	EN	Logitech Media Server Starting
-	ES	Iniciando Logitech Media Server
-	FI	Logitech Media Server käynnistetään
-	FR	Démarrage de Logitech Media Server...
-	IT	Avvio di Logitech Media Server in corso
-	NL	Logitech Media Server wordt gestart
-	NO	Logitech Media Server starter
-	PL	Uruchamianie programu Logitech Media Server
-	RU	Запуск Logitech Media Server
-	SV	Logitech Media Server startar
+	CS	Spouštění UE Music Library
+	DA	UE Music Library starter
+	DE	UE Music Library wird gestartet...
+	EN	UE Music Library Starting
+	ES	Iniciando UE Music Library
+	FI	UE Music Library käynnistetään
+	FR	Démarrage de UE Music Library...
+	IT	Avvio di UE Music Library in corso
+	NL	UE Music Library wordt gestart
+	NO	UE Music Library starter
+	PL	Uruchamianie programu UE Music Library
+	RU	Запуск UE Music Library
+	SV	UE Music Library startar
 
 SQUEEZEBOX_SERVER_RUNNING
-	CS	Logitech Media Server v provozu
-	DA	Logitech Media Server kører
-	DE	Logitech Media Server wird ausgeführt
-	EN	Logitech Media Server Running
-	ES	Logitech Media Server en ejecución
-	FI	Logitech Media Server on käynnissä
-	FR	Logitech Media Server en cours d'exécution
-	IT	Logitech Media Server in esecuzione
-	NL	Logitech Media Server wordt uitgevoerd
-	NO	Logitech Media Server kjører
-	PL	Program Logitech Media Server działa
-	RU	Logitech Media Server выполняется
-	SV	Logitech Media Server körs
+	CS	UE Music Library v provozu
+	DA	UE Music Library kører
+	DE	UE Music Library wird ausgeführt
+	EN	UE Music Library Running
+	ES	UE Music Library en ejecución
+	FI	UE Music Library on käynnissä
+	FR	UE Music Library en cours d'exécution
+	IT	UE Music Library in esecuzione
+	NL	UE Music Library wordt uitgevoerd
+	NO	UE Music Library kjører
+	PL	Program UE Music Library działa
+	RU	UE Music Library выполняется
+	SV	UE Music Library körs
 
 SQUEEZEBOX_SERVER_STOPPED
-	CS	Logitech Media Server ukončen
-	DA	Logitech Media Server er stoppet
-	DE	Logitech Media Server wurde angehalten
-	EN	Logitech Media Server Stopped
-	ES	Logitech Media Server detenido
-	FI	Logitech Media Server pysäytetty
-	FR	Logitech Media Server arrêté
-	IT	Logitech Media Server arrestato
-	NL	Logitech Media Server gestopt
-	NO	Logitech Media Server stoppet
-	PL	Program Logitech Media Server jest zatrzymany
-	RU	Logitech Media Server остановлен
-	SV	Logitech Media Server har stoppats
+	CS	UE Music Library ukončen
+	DA	UE Music Library er stoppet
+	DE	UE Music Library wurde angehalten
+	EN	UE Music Library Stopped
+	ES	UE Music Library detenido
+	FI	UE Music Library pysäytetty
+	FR	UE Music Library arrêté
+	IT	UE Music Library arrestato
+	NL	UE Music Library gestopt
+	NO	UE Music Library stoppet
+	PL	Program UE Music Library jest zatrzymany
+	RU	UE Music Library остановлен
+	SV	UE Music Library har stoppats
 
 GO_TO_WEBSITE
 	CS	Přejděte na webovou stránku Logitech
@@ -254,19 +254,19 @@ OPEN_CONTROLPANEL
 	SV	Öppna kontrollpanelen ...
 
 UPDATE_AVAILABLE
-	CS	K dispozici je aktualizovaná verze Logitech Media Server a je připravena k instalaci. Pro aktualizaci stiskněte ikonu v systémové liště.
-	DA	En opdateret version af Logitech Media Server er klar til at blive installeret. Klik på Squeezebox-ikonet i systembakken for at starte opgraderingen.
-	DE	Eine aktualisierte Version von Logitech Media Server ist verfügbar und kann installiert werden. Klicken Sie auf das Squeezebox-Symbol in der Taskleiste, um das Update zu starten.
-	EN	An updated version of Logitech Media Server is available and ready to install. Click the Squeezebox tray icon to start the upgrade.
-	ES	Hay disponible una versión actualizada de Logitech Media Server y está lista para instalar. Haga clic en el icono de Squeezebox en la bandeja del sistema para iniciar la actualización.
-	FI	Logitech Media Serveristä on olemassa päivitetty ja asennusvalmis versio. Valitse Squeezeboxin tehtäväpalkki ja aloita päivityksen suorittaminen.
-	FR	Une nouvelle version du Logitech Media Server est disponible et prête à être installée. Cliquez sur l'icône Squeezebox dans la barre d'état système pour lancer la mise à niveau.
-	IT	È disponibile una versione aggiornata di Logitech Media Server, pronta per essere installata. Fare clic sull'area di notifica di Squeezebox per avviare l'aggiornamento.
-	NL	Er is een bijgewerkte versie van Logitech Media Server beschikbaar voor installatie. Klik op het Squeezebox-pictogram in het systeemvak om de upgrade te starten.
-	NO	En oppdatert versjon av Logitech Media Server er tilgjengelig og klar til installering. Du kan starte oppgraderingen ved å klikke på Squeezebox-ikonet i systemstatusfeltet.
-	PL	Zaktualizowana wersja programu Logitech Media Server jest dostępna i gotowa do zainstalowania. Kliknij ikonę usługi Squeezebox na pasku zadań, aby uruchomić uaktualnianie.
-	RU	Доступна и готова к установке обновленная версия Logitech Media Server. Чтобы начать установку обновления, щелкните значок Squeezebox на панели задач.
-	SV	En uppdaterad version av Logitech Media Server finns tillgänglig och redo att installeras. Klicka på Squeezebox-fältikonen för att starta uppgraderingen.
+	CS	K dispozici je aktualizovaná verze UE Music Library a je připravena k instalaci. Pro aktualizaci stiskněte ikonu v systémové liště.
+	DA	En opdateret version af UE Music Library er klar til at blive installeret. Klik på Squeezebox-ikonet i systembakken for at starte opgraderingen.
+	DE	Eine aktualisierte Version von UE Music Library ist verfügbar und kann installiert werden. Klicken Sie auf das Symbol in der Taskleiste, um das Update zu starten.
+	EN	An updated version of UE Music Library is available and ready to install. Click the tray icon to start the upgrade.
+	ES	Hay disponible una versión actualizada de UE Music Library y está lista para instalar. Haga clic en el icono en la bandeja del sistema para iniciar la actualización.
+	FI	UE Music Libraryistä on olemassa päivitetty ja asennusvalmis versio. Valitse Squeezeboxin tehtäväpalkki ja aloita päivityksen suorittaminen.
+	FR	Une nouvelle version du UE Music Library est disponible et prête à être installée. Cliquez sur l'icône dans la barre d'état système pour lancer la mise à niveau.
+	IT	È disponibile una versione aggiornata di UE Music Library, pronta per essere installata. Fare clic sull'area di notifica per avviare l'aggiornamento.
+	NL	Er is een bijgewerkte versie van UE Music Library beschikbaar voor installatie. Klik op het Squeezebox-pictogram in het systeemvak om de upgrade te starten.
+	NO	En oppdatert versjon av UE Music Library er tilgjengelig og klar til installering. Du kan starte oppgraderingen ved å klikke på Squeezebox-ikonet i systemstatusfeltet.
+	PL	Zaktualizowana wersja programu UE Music Library jest dostępna i gotowa do zainstalowania. Kliknij ikonę usługi Squeezebox na pasku zadań, aby uruchomić uaktualnianie.
+	RU	Доступна и готова к установке обновленная версия UE Music Library. Чтобы начать установку обновления, щелкните значок Squeezebox на панели задач.
+	SV	En uppdaterad version av UE Music Library finns tillgänglig och redo att installeras. Klicka på Squeezebox-fältikonen för att starta uppgraderingen.
 
 INSTALL_UPDATE
 	CS	Instalovat aktualizaci...
