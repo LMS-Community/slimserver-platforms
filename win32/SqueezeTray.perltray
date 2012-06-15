@@ -1,6 +1,6 @@
 PAP-Version: 1.0
 Packer: 
-Script: SqueezeTray.pl
+Script: UEMLTray.pl
 Add: Slim::Utils::OS::Win32
 Add: Slim::Utils::ServiceManager::Win32
 Bind: strings.txt[file=strings.txt,text,mode=444]
