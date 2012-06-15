@@ -809,7 +809,7 @@ sub buildWin32 {
 		));
 
 		system("cd $buildDir/platforms/win32; perltray --perl \"$windowsPerlPath\" --info \"$programInfo\" SqueezeTray.perltray");
-		move("$buildDir/platforms/win32/SqueezeTray.exe", "$buildDir/build/UEMLTray.exe");
+		move("$buildDir/platforms/win32/UEMLTray.exe", "$buildDir/build/UEMLTray.exe");
 		copy("$buildDir/platforms/win32/strings.txt", "$buildDir/build/strings.txt");
 
 		print "INFO: Building $verboseName Service Helper executable...\n";
