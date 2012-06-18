@@ -687,10 +687,6 @@ sub buildMacOSX {
 		## First, lets make sure we get rid of the files we don't need for this install
 		excludeDirs($dirsToExcludeForMacOSX);
 		
-		## Next, lets build the openUp helper app
-#		print "INFO: Building the openUP helper app...\n";
-#		system("cc $buildDir/platforms/osx/openUp.c -o $buildDir/openUp");
-	
 		## Now, lets make the Install Files directory
 		print "INFO: Making $buildDir/$diskImageName/Install Files...\n";
 		mkpath("$buildDir/$diskImageName/Install Files");
@@ -711,9 +707,6 @@ sub buildMacOSX {
 		print "INFO: Copying Preference Pane...\n";
 		system("ditto \"$xcodeBuildDir/Squeezebox.prefPane\" \"$prefPaneDir\"");
 	
-#		print "INFO: Copying MacOSX Installer...\n";
-#		system("ditto \"$xcodeBuildDir/Installer.app\" \"$buildDir/$diskImageName/Squeezebox Server Installer.app\" ");
-	
 		system("mv \"$buildDir/server\" \"$contentsDir/\" ");
 	
 		print "INFO: Copying MacOSX Launcher App...\n";
@@ -730,43 +723,6 @@ sub buildMacOSX {
 		# add localized resource files to the package
 		system("rm -rf $destDir/$diskImageFileName/Contents/Resources/*.lproj");
 		system("cp -R $buildDir/platforms/osx/Installer/l10n/* \"$destDir/$diskImageFileName/Contents/Resources/\"");
-	
-#		print "INFO: Building MacOSX DMG Image...\n";
-#		system("hdiutil create -fs HFS+ -layout SPUD -volname \"$diskImageName\" -size 150m \"$buildDir/temp-$diskImageFileName\" ");
-	
-#		print "INFO: Mounting MacOSX DMG Image...\n";
-#		my $scDiskImageMountPoint = "/tmp/diskimage.$random_number";
-#		system("hdiutil mount \"$buildDir/temp-$diskImageFileName\" -mountpoint $scDiskImageMountPoint");
-
-#		print "INFO: Opening MacOSX DMG Image (template - sc-template-ro.dmg)...\n";
-#		my $scTemplateMountPoint = "/tmp/template.$random_number";
-#		system("hdiutil mount \"$buildDir/platforms/osx/sc-template-ro.dmg\" -mountpoint $scTemplateMountPoint");
-
-#		print "INFO: Copying over template image files to new DMG...\n";
-#		system("ditto -rsrc \"$scTemplateMountPoint\" \"$scDiskImageMountPoint\" ");	
-
-#		print "INFO: Opening MacOSX DMG Image (template - sc-template-ro.dmg)...\n";
-#		system("hdiutil detach \"$scTemplateMountPoint\" ");
-
-#		print "INFO: Copying over MacOSX Files...\n";
-#		system("ditto -rsrc \"$buildDir/$diskImageName\" \"$scDiskImageMountPoint\" ");
-		# backward compatibility: leave "Squeezebox Server Installer" in place, but hide it, add user visible link called "Logitech Media Server Installer"
-#		system("cd \"$scDiskImageMountPoint\" && ln -s \"Squeezebox Server Installer.app\" \"Logitech Media Server Installer.app\" && setfile -a V \"Squeezebox Server Installer.app\"");
-		# moving forward we're going to launch install.app instead
-#		system("cd \"$scDiskImageMountPoint\" && ln -s \"Squeezebox Server Installer.app\" \".install.app\"");
-	
-#		print "INFO: Making auto open\n";
-#		system("$buildDir/openUp \"$scDiskImageMountPoint\" ");
-	
-#		print "INFO: Unmounting MacOSX DMG Image...\n";
-#		system("hdiutil detach \"/$scDiskImageMountPoint\"  ");
-	
-#		print "INFO: Converting MacOSX DMG Image...\n";
-#		system("hdiutil convert -ov -format UDZO \"$buildDir/temp-$diskImageFileName\" -o \"$destDir/$diskImageFileName\" ");
-	
-#		print "INFO: Removing temporary DMG file...\n";
-#		unlink("$destDir/temp-$diskImageFileName");
-	
 	}
 }
 
