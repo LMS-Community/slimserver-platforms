@@ -72,7 +72,7 @@ sub show {
 	
 	    tell application "System Events"
 	        activate
-	        display dialog "$msg" buttons { "$ok" } with title "$title"
+	        display dialog "$msg" buttons { "$ok" } with title "$title" default button 1
 	    end tell
 	
 	EOF`;

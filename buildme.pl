@@ -691,7 +691,6 @@ sub buildMacOSX {
 #		print "INFO: Building the openUP helper app...\n";
 #		system("cc $buildDir/platforms/osx/openUp.c -o $buildDir/openUp");
 	
-	
 		## Now, lets make the Install Files directory
 		print "INFO: Making $buildDir/$diskImageName/Install Files...\n";
 		mkpath("$buildDir/$diskImageName/Install Files");
@@ -702,7 +701,6 @@ sub buildMacOSX {
 
 		## Set some xcodebuild paths... 
 		my $xcodeBuildDir = "$buildDir/platforms/osx/Preference Pane/build/Deployment";
-		# XXX - need to rename this
 		my $prefPaneDir = "$buildDir/$diskImageName/Install Files/UEMusicLibrary.prefPane";
 		my $contentsDir = "$prefPaneDir/Contents";
 
@@ -721,12 +719,17 @@ sub buildMacOSX {
 		print "INFO: Copying MacOSX Launcher App...\n";
 		system("ditto \"$xcodeBuildDir/Launcher.app\" \"$contentsDir/server/Launcher.app\"");
 		
-		print "INFO: Create installer package...\n";
+		print "INFO: Create installer package $diskImageFileName...\n";
 		# disable LMS -> UEML migration by replacing module with dummy
 		if ( $ueml ) {
-			system("mv -f \"$buildDir/platforms/osx/install-scripts/LMSMigration-UEML.pm\" \"$buildDir/platforms/osx/install-scripts/LMSMigration-UEML.pm\"");
+			system("mv -f \"$buildDir/platforms/osx/Installer/scripts/LMSMigration-UEML.pm\" \"$buildDir/platforms/osx/Installer/scripts/LMSMigration-UEML.pm\"");
 		}
-		system("/Developer/usr/bin/packagemaker --verbose --root \"$prefPaneDir\" --scripts \"$buildDir/platforms/osx/install-scripts\" --id com.logitech.ueml --version 1 --title \"UE Music Library\" --out \"$destDir/$diskImageFileName\" --install-to /Library/PreferencePanes/ --target 10.4 --domain system --root-volume-only");
+				
+		system("/Developer/usr/bin/packagemaker --verbose --root \"$prefPaneDir\" --info \"$buildDir/platforms/osx/Installer/Info.plist\" --scripts \"$buildDir/platforms/osx/Installer/scripts\" --out \"$destDir/$diskImageFileName\" --target 10.4 --domain system");
+
+		# add localized resource files to the package
+		system("rm -rf $destDir/$diskImageFileName/Contents/Resources/*.lproj");
+		system("cp -R $buildDir/platforms/osx/Installer/l10n/* \"$destDir/$diskImageFileName/Contents/Resources/\"");
 	
 #		print "INFO: Building MacOSX DMG Image...\n";
 #		system("hdiutil create -fs HFS+ -layout SPUD -volname \"$diskImageName\" -size 150m \"$buildDir/temp-$diskImageFileName\" ");
