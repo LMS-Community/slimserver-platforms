@@ -6,8 +6,8 @@
 "Expired Authorization Error" = "Unable to update firmware: authorization expired.";
 "Firmware version" = "Firmware version %@.";
 "Firmware version invalid" = "Firmware version invalid.";
-"An updated Logitech Media Server version is available and ready to be installed." = "An updated Logitech Media Server version is available and ready to be installed.";
-"There's no updated Logitech Media Server version available." = "There's no updated Logitech Media Server version available.";
+"An updated UE Music Library version is available and ready to be installed." = "An updated UE Music Library version is available and ready to be installed.";
+"There's no updated UE Music Library version available." = "There's no updated UE Music Library version available.";
 "Check for update" = "Check for update";
 "Download update" = "Download update";
 "Install update" = "Install update";
@@ -21,4 +21,4 @@
 "The server is stopped" = "The server is stopped.";
 "The server is running" = "The server is running.";
 "The server is starting" = "The server is starting.";
-"Version x.y.z" = "Version 7.8.0";
+"Version x.y.z" = "Version 10.0.0";

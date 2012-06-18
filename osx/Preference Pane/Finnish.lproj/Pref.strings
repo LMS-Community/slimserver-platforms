@@ -1,6 +1,6 @@
 ﻿
-/* Class = "NSWindow"; title = "Logitech Media Server"; ObjectID = "12"; */
-"12.title" = "Logitech Media Server";
+/* Class = "NSWindow"; title = "UE Music Library"; ObjectID = "12"; */
+"12.title" = "UE Music Library";
 
 /* Class = "NSTabViewItem"; label = "Account"; ObjectID = "372"; */
 "372.label" = "Tili";
@@ -86,11 +86,11 @@
 /* Class = "NSMenuItem"; title = "Reset logging preferences"; ObjectID = "1004"; */
 "1004.title" = "Palauta kirjausasetukset";
 
-/* Class = "NSTextFieldCell"; title = "© 2001-2011 Logitech"; ObjectID = "1054"; */
-"1054.title" = "© 2001-2011 Logitech";
+/* Class = "NSTextFieldCell"; title = "© 2001-2012 Logitech"; ObjectID = "1054"; */
+"1054.title" = "© 2001-2012 Logitech";
 
-/* Class = "NSTextFieldCell"; title = "Version 7.8.0"; ObjectID = "1055"; */
-"1055.title" = "Versio 7.8.0";
+/* Class = "NSTextFieldCell"; title = "Version 10.0.0"; ObjectID = "1055"; */
+"1055.title" = "Versio 10.0.0";
 
 /* Class = "NSTextFieldCell"; title = "Email address"; ObjectID = "1056"; */
 "1056.title" = "Sähköpostiosoite";
