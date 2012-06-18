@@ -1,0 +1,26 @@
+TITLE
+	EN	UE Music Library
+
+PLEASE_STOP_SERVER
+	EN	Please stop the server before running the installer.
+
+PLEASE_STOP_LMS
+	EN	Please stop Logitech Media Server before running the installer.
+
+PLEASE_QUIT_SYSTEMPREFERENCES
+	EN	Please quit System Preferences before running the installer.
+	
+OK
+	CS	OK
+	DA	OK
+	DE	OK
+	EN	OK
+	ES	Correcto
+	FI	OK
+	FR	OK
+	IT	OK
+	NL	OK
+	NO	OK
+	PL	OK
+	RU	ОК
+	SV	OK

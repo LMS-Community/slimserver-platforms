@@ -15,7 +15,7 @@ use POSIX qw(strftime);
 ## Here we set some basic settings.. most of these dont need to change very often.
 my $squeezeCenterStartupScript = "server/slimserver.pl";
 my $uemlStartupScript = "server/ueml.pl";
-my $sourceDirsToExclude = ".svn .git tests slimp3 squeezebox /softsqueeze tools ext/source ext-all-debug.js build"; 
+my $sourceDirsToExclude = '".*" tests slimp3 squeezebox /softsqueeze tools ext/source ext-all-debug.js build'; 
 my $revisionTextFile = "server/revision.txt";
 my $revision;
 my $myVersion = "0.1.0";
@@ -30,18 +30,18 @@ my $windowsPerlDir = "C:\\perl";
 my $windowsPerlPath = "$windowsPerlDir\\bin\\perl.exe";
 
 ## Directories to exclude when building certain packages...
-my $dirsToExcludeForLinuxTarball = "MSWin32-x86-multi-thread PreventStandby";
-my $dirsToExcludeForFreeBSDTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux arm-linux powerpc-linux icudt46b.dat";
-my $dirsToExcludeForARMTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat";
-my $dirsToExcludeForPPCTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux arm-linux i386-freebsd-64int icudt46l.dat";
-my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-thread darwin i386-linux-thread-multi x86_64-linux arm-linux powerpc-linux /arch/ PreventStandby";
+my $dirsToExcludeForLinuxTarball = "win32 osx MSWin32-x86-multi-thread PreventStandby";
+my $dirsToExcludeForFreeBSDTarball = "win32 osx MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux arm-linux powerpc-linux icudt46b.dat";
+my $dirsToExcludeForARMTarball = "win32 osx MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat";
+my $dirsToExcludeForPPCTarball = "win32 osx MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux arm-linux i386-freebsd-64int icudt46l.dat";
+my $dirsToExcludeForLinuxNoCpanTarball = "win32 osx i386-freebsd-64int MSWin32-x86-multi-thread darwin i386-linux-thread-multi x86_64-linux arm-linux powerpc-linux /arch/ PreventStandby";
 my $dirsToExcludeForLinuxNoCpanLightTarball = $dirsToExcludeForLinuxNoCpanTarball . " /Bin/ /HTML/! /Firmware/ /MySQL/ Graphics/CODE2000* Plugin/DateTime DigitalInput iTunes LineIn LineOut MusicMagic RSSNews Rescan SavePlaylist SlimTris Snow Plugin/TT/ Visualizer xPL";
 my $dirsToIncludeForLinuxNoCpanLightTarball = "EN.*html/images CPAN/HTML";
-my $dirsToExcludeForMacOSX = "i386-freebsd-64int i386-linux x86_64-linux MSWin32 arm-linux powerpc-linux PreventStandby sparc-linux";
-my $dirsToExcludeForWin32 = "5.8 5.10 5.12 i386-freebsd-64int i386-linux x86_64-linux darwin sparc-linux arm-linux powerpc-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat";
-my $dirsToExcludeForReadyNasi386 = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin MSWin32-x86 arm-linux powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46b.dat";
-my $dirsToExcludeForReadyNasSparc = "i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin arm-linux MSWin32-x86 powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46l.dat";
-my $dirsToExcludeForReadyNasARM = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu i386 x86_64 darwin-thread-multi darwin MSWin32-x86 powerpc-linux 5.8 5.12 5.14 PreventStandby icudt46b.dat";
+my $dirsToExcludeForMacOSX = "win32 gentoo solaris debian-full debian-ueml redhat readynas fedora i386-freebsd-64int i386-linux x86_64-linux MSWin32 arm-linux powerpc-linux PreventStandby sparc-linux";
+my $dirsToExcludeForWin32 = "gentoo solaris debian-full debian-ueml redhat readynas fedora osx 5.8 5.10 5.12 i386-freebsd-64int i386-linux x86_64-linux darwin sparc-linux arm-linux powerpc-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat";
+my $dirsToExcludeForReadyNasi386 = "win32 osx i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin MSWin32-x86 arm-linux powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46b.dat";
+my $dirsToExcludeForReadyNasSparc = "win32 osx i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin arm-linux MSWin32-x86 powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46l.dat";
+my $dirsToExcludeForReadyNasARM = "win32 osx i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu i386 x86_64 darwin-thread-multi darwin MSWin32-x86 powerpc-linux 5.8 5.12 5.14 PreventStandby icudt46b.dat";
 my $dirsToExcludeForUeml = "Slim/Plugin/! server/Bin server/Firmware server/Graphics server/IR /MySQL Slim/Buttons Slim/Hardware Slim/Display/Lib Slim/Networking/SliMP3 Slim/Player/Protocols";
 my $dirsToIncludeForUeml = "Plugin/iTunes Plugin/Extensions Plugin/JiveExtras Plugin/Base.pm";
 
@@ -239,7 +239,7 @@ sub setupBuildTree {
 	print "INFO: Making copy of server source ($sourceDir -> $buildDir)\n";
 
 	## Exclude the .svn directory, and anything else we configured in the beginning of the script.
-	system("rsync -a --quiet $sourceExclude $sourceDir/ $buildDir");
+	system("rsync -a --quiet $sourceExclude $sourceDir/server $sourceDir/platforms $buildDir");
 
 	## Verify that things went OK during the transfer...
 	if (!-d "$buildDir/server") {
@@ -678,7 +678,7 @@ sub buildMacOSX {
 	if ( ($_[0] ) || die("Problem: Not all of the variables were passed to the buildMacOSX function...") ) { 
 		## Take the filename passed to us and make sure that we build the DMG with
 		## that name, and that the 'pretty mounted name' also matches
-		my $diskImageFileName = "$_[0].dmg";
+		my $diskImageFileName = "$_[0].pkg";
 		my $diskImageName = $_[0];
 		$diskImageName =~ s/-/ /g;
 
@@ -688,8 +688,8 @@ sub buildMacOSX {
 		excludeDirs($dirsToExcludeForMacOSX);
 		
 		## Next, lets build the openUp helper app
-		print "INFO: Building the openUP helper app...\n";
-		system("cc $buildDir/platforms/osx/openUp.c -o $buildDir/openUp");
+#		print "INFO: Building the openUP helper app...\n";
+#		system("cc $buildDir/platforms/osx/openUp.c -o $buildDir/openUp");
 	
 	
 		## Now, lets make the Install Files directory
@@ -702,59 +702,67 @@ sub buildMacOSX {
 
 		## Set some xcodebuild paths... 
 		my $xcodeBuildDir = "$buildDir/platforms/osx/Preference Pane/build/Deployment";
-		my $contentsDir = "$buildDir/$diskImageName/Install Files/Squeezebox.prefPane/Contents";
+		# XXX - need to rename this
+		my $prefPaneDir = "$buildDir/$diskImageName/Install Files/UEMusicLibrary.prefPane";
+		my $contentsDir = "$prefPaneDir/Contents";
 
 		## Lets build the pref pane and installer...
 		print "INFO: Beginning PreferencePane and Installer build...\n";
 		system("cd \"$buildDir/platforms/osx/Preference Pane\"; xcodebuild -project \"SqueezeCenter.xcodeproj\" -target \"Squeezebox\" -configuration Deployment");
 	
 		print "INFO: Copying Preference Pane...\n";
-		system("ditto \"$xcodeBuildDir/Squeezebox.prefPane\" \"$buildDir/$diskImageName/Install Files/Squeezebox.prefPane\"");
+		system("ditto \"$xcodeBuildDir/Squeezebox.prefPane\" \"$prefPaneDir\"");
 	
-		print "INFO: Copying MacOSX Installer...\n";
-		system("ditto \"$xcodeBuildDir/Installer.app\" \"$buildDir/$diskImageName/Squeezebox Server Installer.app\" ");
+#		print "INFO: Copying MacOSX Installer...\n";
+#		system("ditto \"$xcodeBuildDir/Installer.app\" \"$buildDir/$diskImageName/Squeezebox Server Installer.app\" ");
 	
-		# .svn directories have already been removed.
 		system("mv \"$buildDir/server\" \"$contentsDir/\" ");
 	
 		print "INFO: Copying MacOSX Launcher App...\n";
 		system("ditto \"$xcodeBuildDir/Launcher.app\" \"$contentsDir/server/Launcher.app\"");
+		
+		print "INFO: Create installer package...\n";
+		# disable LMS -> UEML migration by replacing module with dummy
+		if ( $ueml ) {
+			system("mv -f \"$buildDir/platforms/osx/install-scripts/LMSMigration-UEML.pm\" \"$buildDir/platforms/osx/install-scripts/LMSMigration-UEML.pm\"");
+		}
+		system("/Developer/usr/bin/packagemaker --verbose --root \"$prefPaneDir\" --scripts \"$buildDir/platforms/osx/install-scripts\" --id com.logitech.ueml --version 1 --title \"UE Music Library\" --out \"$destDir/$diskImageFileName\" --install-to /Library/PreferencePanes/ --target 10.4 --domain system --root-volume-only");
 	
-		print "INFO: Building MacOSX DMG Image...\n";
-		system("hdiutil create -fs HFS+ -layout SPUD -volname \"$diskImageName\" -size 150m \"$buildDir/temp-$diskImageFileName\" ");
+#		print "INFO: Building MacOSX DMG Image...\n";
+#		system("hdiutil create -fs HFS+ -layout SPUD -volname \"$diskImageName\" -size 150m \"$buildDir/temp-$diskImageFileName\" ");
 	
-		print "INFO: Mounting MacOSX DMG Image...\n";
-		my $scDiskImageMountPoint = "/tmp/diskimage.$random_number";
-		system("hdiutil mount \"$buildDir/temp-$diskImageFileName\" -mountpoint $scDiskImageMountPoint");
+#		print "INFO: Mounting MacOSX DMG Image...\n";
+#		my $scDiskImageMountPoint = "/tmp/diskimage.$random_number";
+#		system("hdiutil mount \"$buildDir/temp-$diskImageFileName\" -mountpoint $scDiskImageMountPoint");
 
-		print "INFO: Opening MacOSX DMG Image (template - sc-template-ro.dmg)...\n";
-		my $scTemplateMountPoint = "/tmp/template.$random_number";
-		system("hdiutil mount \"$buildDir/platforms/osx/sc-template-ro.dmg\" -mountpoint $scTemplateMountPoint");
+#		print "INFO: Opening MacOSX DMG Image (template - sc-template-ro.dmg)...\n";
+#		my $scTemplateMountPoint = "/tmp/template.$random_number";
+#		system("hdiutil mount \"$buildDir/platforms/osx/sc-template-ro.dmg\" -mountpoint $scTemplateMountPoint");
 
-		print "INFO: Copying over template image files to new DMG...\n";
-		system("ditto -rsrc \"$scTemplateMountPoint\" \"$scDiskImageMountPoint\" ");	
+#		print "INFO: Copying over template image files to new DMG...\n";
+#		system("ditto -rsrc \"$scTemplateMountPoint\" \"$scDiskImageMountPoint\" ");	
 
-		print "INFO: Opening MacOSX DMG Image (template - sc-template-ro.dmg)...\n";
-		system("hdiutil detach \"$scTemplateMountPoint\" ");
+#		print "INFO: Opening MacOSX DMG Image (template - sc-template-ro.dmg)...\n";
+#		system("hdiutil detach \"$scTemplateMountPoint\" ");
 
-		print "INFO: Copying over MacOSX Files...\n";
-		system("ditto -rsrc \"$buildDir/$diskImageName\" \"$scDiskImageMountPoint\" ");
+#		print "INFO: Copying over MacOSX Files...\n";
+#		system("ditto -rsrc \"$buildDir/$diskImageName\" \"$scDiskImageMountPoint\" ");
 		# backward compatibility: leave "Squeezebox Server Installer" in place, but hide it, add user visible link called "Logitech Media Server Installer"
-		system("cd \"$scDiskImageMountPoint\" && ln -s \"Squeezebox Server Installer.app\" \"Logitech Media Server Installer.app\" && setfile -a V \"Squeezebox Server Installer.app\"");
+#		system("cd \"$scDiskImageMountPoint\" && ln -s \"Squeezebox Server Installer.app\" \"Logitech Media Server Installer.app\" && setfile -a V \"Squeezebox Server Installer.app\"");
 		# moving forward we're going to launch install.app instead
-		system("cd \"$scDiskImageMountPoint\" && ln -s \"Squeezebox Server Installer.app\" \".install.app\"");
+#		system("cd \"$scDiskImageMountPoint\" && ln -s \"Squeezebox Server Installer.app\" \".install.app\"");
 	
-		print "INFO: Making auto open\n";
-		system("$buildDir/openUp \"$scDiskImageMountPoint\" ");
+#		print "INFO: Making auto open\n";
+#		system("$buildDir/openUp \"$scDiskImageMountPoint\" ");
 	
-		print "INFO: Unmounting MacOSX DMG Image...\n";
-		system("hdiutil detach \"/$scDiskImageMountPoint\"  ");
+#		print "INFO: Unmounting MacOSX DMG Image...\n";
+#		system("hdiutil detach \"/$scDiskImageMountPoint\"  ");
 	
-		print "INFO: Converting MacOSX DMG Image...\n";
-		system("hdiutil convert -ov -format UDZO \"$buildDir/temp-$diskImageFileName\" -o \"$destDir/$diskImageFileName\" ");
+#		print "INFO: Converting MacOSX DMG Image...\n";
+#		system("hdiutil convert -ov -format UDZO \"$buildDir/temp-$diskImageFileName\" -o \"$destDir/$diskImageFileName\" ");
 	
-		print "INFO: Removing temporary DMG file...\n";
-		unlink("$destDir/temp-$diskImageFileName");
+#		print "INFO: Removing temporary DMG file...\n";
+#		unlink("$destDir/temp-$diskImageFileName");
 	
 	}
 }
