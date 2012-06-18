@@ -48,7 +48,7 @@
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{138, 392}, {595, 538}}</string>
 				<int key="NSWTFlags">1081606144</int>
-				<string key="NSWindowTitle">Logitech Media Server</string>
+				<string key="NSWindowTitle">UE Music Library</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<object class="NSMutableString" key="NSViewClass">
 					<characters key="NS.bytes">View</characters>
@@ -69,7 +69,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="328956764">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string key="NSContents">© 2001-2011 Logitech</string>
+								<string key="NSContents">© 2001-2012 Logitech</string>
 								<object class="NSFont" key="NSSupport" id="976073678">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">10</double>

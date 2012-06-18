@@ -4,4 +4,4 @@ CFBundleName = "UE Music Library";
 CFBundleShortVersionString = "10.0.0";
 CFBundleGetInfoString = "UE Music Library versión 10.0.0, Copyright 2002-2012 Logitech";
 NSHumanReadableCopyright = "Copyright 2002-2012 Logitech";
-NSPrefPaneIconLabel = "Logitech\nMedia Server";
+NSPrefPaneIconLabel = "UE Music Library";

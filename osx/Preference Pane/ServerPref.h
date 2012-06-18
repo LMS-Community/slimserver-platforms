@@ -1,9 +1,9 @@
 //
 //  ServerPref.h
-//  Logitech Media Server
+//  UE Music Library
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
-//  Copyright 2002-2011 Logitech
+//  Copyright 2002-2012 Logitech
 //
 
 #import <PreferencePanes/PreferencePanes.h>

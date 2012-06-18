@@ -10,8 +10,6 @@
 		052452BD0CE2687C00513B2A /* check-web.pl in Resources */ = {isa = PBXBuildFile; fileRef = 052452BC0CE2687B00513B2A /* check-web.pl */; };
 		058257D20BF90D7B0000DD33 /* Pref.nib in Resources */ = {isa = PBXBuildFile; fileRef = F506C042013D9D8C01CA16C8 /* Pref.nib */; };
 		1477C981098864CD0087109C /* Launcher.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1477C980098864CD0087109C /* Launcher.plist */; };
-		1477C985098865030087109C /* Pref_Tester.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1477C982098865030087109C /* Pref_Tester.plist */; };
-		1477C986098865030087109C /* Installer.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1477C983098865030087109C /* Installer.plist */; };
 		14A9400909875F57001992EB /* ServerPref.h in Headers */ = {isa = PBXBuildFile; fileRef = F506C03C013D9D7901CA16C8 /* ServerPref.h */; };
 		14A9400B09875F57001992EB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		14A9400F09875F57001992EB /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = F52F883E035DDAB901A80172 /* icon.icns */; };
@@ -21,7 +19,6 @@
 		14A9401409875F57001992EB /* stop-server.sh in Resources */ = {isa = PBXBuildFile; fileRef = E7EDF7BE03C5D22300A80172 /* stop-server.sh */; };
 		14A9401509875F57001992EB /* remove-startup.sh in Resources */ = {isa = PBXBuildFile; fileRef = E7EDF7C303C5D25800A80172 /* remove-startup.sh */; };
 		14A9401609875F57001992EB /* start-server.sh in Resources */ = {isa = PBXBuildFile; fileRef = E7EDF7C503C5D26A00A80172 /* start-server.sh */; };
-		14A9401909875F57001992EB /* logotype.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0533446307007AE900B0416B /* logotype.tiff */; };
 		14A9401B09875F57001992EB /* ServerPref.m in Sources */ = {isa = PBXBuildFile; fileRef = F506C03D013D9D7901CA16C8 /* ServerPref.m */; };
 		14A9401D09875F57001992EB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		14A9401E09875F57001992EB /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F506C035013D953901CA16C8 /* PreferencePanes.framework */; };
@@ -30,30 +27,10 @@
 		14A9402C09875F57001992EB /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = F52F8834035DD30401A80172 /* MainMenu.nib */; };
 		14A9402D09875F57001992EB /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = F52F883E035DDAB901A80172 /* icon.icns */; };
 		14A9402E09875F57001992EB /* start-server.sh in Resources */ = {isa = PBXBuildFile; fileRef = E7EDF7C503C5D26A00A80172 /* start-server.sh */; };
-		14A9402F09875F57001992EB /* logotype.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0533446307007AE900B0416B /* logotype.tiff */; };
 		14A9403109875F57001992EB /* Launcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F52F8828035DCE9701A80172 /* Launcher.m */; };
 		14A9403309875F57001992EB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		14A9403409875F57001992EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C1672FE841209C02AAC07 /* Foundation.framework */; };
 		14A9403509875F57001992EB /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C167FFE841241C02AAC07 /* AppKit.framework */; };
-		14A9404209875F57001992EB /* Test.h in Headers */ = {isa = PBXBuildFile; fileRef = F52F885D035DF7A401A80172 /* Test.h */; };
-		14A9404509875F57001992EB /* logotype.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0533446307007AE900B0416B /* logotype.tiff */; };
-		14A9404709875F57001992EB /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = F52F885E035DF7A401A80172 /* Test.m */; };
-		14A9404909875F57001992EB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
-		14A9405409875F57001992EB /* Installer_Prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = E7C5E13D03C6161300A80172 /* Installer_Prefix.h */; };
-		14A9405509875F57001992EB /* installer.h in Headers */ = {isa = PBXBuildFile; fileRef = E736AD1A03C74D0000A80172 /* installer.h */; };
-		14A9405709875F57001992EB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7C5E14103C6163000A80172 /* InfoPlist.strings */; };
-		14A9405809875F57001992EB /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = E7C5E14303C6163000A80172 /* MainMenu.nib */; };
-		14A9405909875F57001992EB /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = F52F883E035DDAB901A80172 /* icon.icns */; };
-		14A9405A09875F57001992EB /* install.sh in Resources */ = {isa = PBXBuildFile; fileRef = E77C98AA03F33E8500FE7493 /* install.sh */; };
-		14A9405B09875F57001992EB /* installer.icns in Resources */ = {isa = PBXBuildFile; fileRef = 054032D203F42BC800000167 /* installer.icns */; };
-		14A9405C09875F57001992EB /* Preflight.sh in Resources */ = {isa = PBXBuildFile; fileRef = E74160210428EB9300A80172 /* Preflight.sh */; };
-		14A9405D09875F57001992EB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7D4F10C054D98D0009AFDA0 /* Localizable.strings */; };
-		14A9405F09875F57001992EB /* Postflight.sh in Resources */ = {isa = PBXBuildFile; fileRef = E7A160500563CACD00BE7791 /* Postflight.sh */; };
-		14A9406009875F57001992EB /* logotype.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0533446307007AE900B0416B /* logotype.tiff */; };
-		14A9406209875F57001992EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C5E13E03C6161300A80172 /* main.m */; };
-		14A9406309875F57001992EB /* installer.m in Sources */ = {isa = PBXBuildFile; fileRef = E736AD1B03C74D0000A80172 /* installer.m */; };
-		14A9406509875F57001992EB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EC8D80035F597B01A80172 /* Security.framework */; };
-		14A9406609875F57001992EB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		14A9407109875F57001992EB /* Launcher_Prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = E7447F9403D905E900A80172 /* Launcher_Prefix.h */; };
 		14A9407209875F57001992EB /* RendezvousPublisher.h in Headers */ = {isa = PBXBuildFile; fileRef = E744CA9F03D9BCC700A80172 /* RendezvousPublisher.h */; };
 		14A9407409875F57001992EB /* LauncherTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E7447F9503D905E900A80172 /* LauncherTool.m */; };
@@ -69,26 +46,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		14A9407F09875F57001992EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 14A9405209875F57001992EB;
-			remoteInfo = "SqueezeCenter Installer";
-		};
 		14A9408109875F57001992EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 14A9402809875F57001992EB;
 			remoteInfo = Launcher;
-		};
-		14A9408309875F57001992EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 14A9400309875F57001992EB;
-			remoteInfo = SqueezeCenter;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -108,29 +71,13 @@
 /* Begin PBXFileReference section */
 		0503792F0BF901140075151F /* Italian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		050379300BF9011E0075151F /* Spanish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		052088B506377B540020810E /* German */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = German; path = Installer/German.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		052452BC0CE2687B00513B2A /* check-web.pl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.perl; path = "check-web.pl"; sourceTree = "<group>"; };
 		05286B0705D4480F00E88B81 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		05286B0C05D4482600E88B81 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/Pref.nib; sourceTree = "<group>"; };
-		05286B2005D4485900E88B81 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = French; path = Installer/French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05286B2405D4486A00E88B81 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = Installer/French.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		052A43EB0CAD998300E85D4D /* Installer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Installer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0533446307007AE900B0416B /* logotype.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = logotype.tiff; sourceTree = "<group>"; };
-		054032D203F42BC800000167 /* installer.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = installer.icns; path = Installer/installer.icns; sourceTree = "<group>"; };
 		0545F86006377BD800BA96E1 /* German */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = German; path = German.lproj/Pref.nib; sourceTree = "<group>"; };
 		0545F86706377BEA00BA96E1 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0545F89406377C2A00BA96E1 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = Installer/German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0545F89C06377C3A00BA96E1 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = Installer/German.lproj/Localizable.strings; sourceTree = "<group>"; };
-		058257910BF902D70000DD33 /* Italian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Italian; path = Installer/Italian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		058257930BF902E00000DD33 /* Spanish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Spanish; path = Installer/Spanish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0591BECD05FCCEBA00F5DCAE /* Dutch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = Dutch; path = Installer/Dutch.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0591BED005FCCED400F5DCAE /* Dutch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Dutch; path = Installer/Dutch.lproj/Localizable.strings; sourceTree = "<group>"; };
-		0591BEEE05FCCF4300F5DCAE /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Dutch; path = Installer/Dutch.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		0591BEFE05FCCF8900F5DCAE /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Dutch; path = Dutch.lproj/Pref.nib; sourceTree = "<group>"; };
 		0591BF0105FCCF9200F5DCAE /* Dutch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = Dutch; path = Dutch.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05ACBF470E5CD6A3006B30BB /* Danish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Danish; path = Installer/Danish.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		05ACBF480E5CD6A8006B30BB /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Swedish; path = Installer/Swedish.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		05ACBF4A0E5CD6B4006B30BB /* Norwegian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Norwegian; path = Installer/Norwegian.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		05ACBF4B0E5CD6EF006B30BB /* Danish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Danish; path = Danish.lproj/Pref.nib; sourceTree = "<group>"; };
 		05ACBF4C0E5CD6F3006B30BB /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Swedish; path = Swedish.lproj/Pref.nib; sourceTree = "<group>"; };
 		05ACBF4D0E5CD6FD006B30BB /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Finnish; path = Finnish.lproj/Pref.nib; sourceTree = "<group>"; };
@@ -139,47 +86,21 @@
 		05ACBF540E5CD737006B30BB /* Swedish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Swedish; path = Swedish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		05ACBF550E5CD73A006B30BB /* Finnish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Finnish; path = Finnish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		05ACBF560E5CD73E006B30BB /* Norwegian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Norwegian; path = Norwegian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05ACBF570E5CD752006B30BB /* Danish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Danish; path = Installer/Danish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05ACBF580E5CD755006B30BB /* Swedish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Swedish; path = Installer/Swedish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05ACBF590E5CD758006B30BB /* Finnish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Finnish; path = Installer/Finnish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05ACBF5A0E5CD75B006B30BB /* Norwegian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Norwegian; path = Installer/Norwegian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		05ACBF5B0E5CD76B006B30BB /* Finnish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Finnish; path = Installer/Finnish.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		05ACBF5C0E5CD77A006B30BB /* Danish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Danish; path = Installer/Danish.lproj/Localizable.strings; sourceTree = "<group>"; };
-		05ACBF5D0E5CD77C006B30BB /* Swedish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Swedish; path = Installer/Swedish.lproj/Localizable.strings; sourceTree = "<group>"; };
-		05ACBF5E0E5CD780006B30BB /* Finnish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Finnish; path = Installer/Finnish.lproj/Localizable.strings; sourceTree = "<group>"; };
-		05ACBF5F0E5CD783006B30BB /* Norwegian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Norwegian; path = Installer/Norwegian.lproj/Localizable.strings; sourceTree = "<group>"; };
-		05B446E00BEF9BE90069C1E6 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Spanish; path = Installer/Spanish.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		05B446E50BEF9BFE0069C1E6 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Italian; path = Italian.lproj/Pref.nib; sourceTree = "<group>"; };
 		05B446E60BEF9C020069C1E6 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Spanish; path = Spanish.lproj/Pref.nib; sourceTree = "<group>"; };
-		05B446EA0BEF9C180069C1E6 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Italian; path = Installer/Italian.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		05B446ED0BEF9C2A0069C1E6 /* Italian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Italian; path = Installer/Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		1477C980098864CD0087109C /* Launcher.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Launcher.plist; sourceTree = "<group>"; };
-		1477C982098865030087109C /* Pref_Tester.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Pref_Tester.plist; sourceTree = "<group>"; };
-		1477C983098865030087109C /* Installer.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Installer.plist; sourceTree = "<group>"; };
 		1477C984098865030087109C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14A9402709875F57001992EB /* Squeezebox.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Squeezebox.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9403C09875F57001992EB /* Launcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Launcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		14A9405009875F57001992EB /* Preference Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Preference Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9407D09875F57001992EB /* Launcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Launcher; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6A9CF550601257A00C3E0BF /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = French; path = Installer/French.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E736AD1A03C74D0000A80172 /* installer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = installer.h; path = Installer/installer.h; sourceTree = "<group>"; };
-		E736AD1B03C74D0000A80172 /* installer.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = installer.m; path = Installer/installer.m; sourceTree = "<group>"; };
-		E74160210428EB9300A80172 /* Preflight.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; name = Preflight.sh; path = Installer/Preflight.sh; sourceTree = "<group>"; };
 		E7447F9403D905E900A80172 /* Launcher_Prefix.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Launcher_Prefix.h; sourceTree = "<group>"; };
 		E7447F9503D905E900A80172 /* LauncherTool.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = LauncherTool.m; sourceTree = "<group>"; };
 		E744CA9F03D9BCC700A80172 /* RendezvousPublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RendezvousPublisher.h; sourceTree = "<group>"; };
 		E744CAA003D9BCC700A80172 /* RendezvousPublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RendezvousPublisher.m; sourceTree = "<group>"; };
-		E77C98AA03F33E8500FE7493 /* install.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; name = install.sh; path = Installer/install.sh; sourceTree = "<group>"; };
-		E7A160500563CACD00BE7791 /* Postflight.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = Postflight.sh; path = Installer/Postflight.sh; sourceTree = "<group>"; };
-		E7C5E13D03C6161300A80172 /* Installer_Prefix.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Installer_Prefix.h; path = Installer/Installer_Prefix.h; sourceTree = "<group>"; };
-		E7C5E13E03C6161300A80172 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Installer/main.m; sourceTree = "<group>"; };
-		E7C5E14203C6163000A80172 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = Installer/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E7C5E14403C6163000A80172 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = Installer/English.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		E7D4F10D054D98D0009AFDA0 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = Installer/English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E7EDF7BB03C5D22300A80172 /* create-startup.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "create-startup.sh"; sourceTree = "<group>"; };
 		E7EDF7BC03C5D22300A80172 /* get-server.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "get-server.sh"; sourceTree = "<group>"; };
 		E7EDF7BE03C5D22300A80172 /* stop-server.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "stop-server.sh"; sourceTree = "<group>"; };
@@ -188,21 +109,12 @@
 		EC2DC1E40FB8717300DAACFC /* Russian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC2DC1E50FB8717800DAACFC /* Polish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Polish; path = Polish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC2DC1E60FB8717A00DAACFC /* Czech */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Czech; path = Czech.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EC2DC1E90FB871A700DAACFC /* Czech */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Czech; path = Installer/Czech.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EC2DC1EA0FB871AA00DAACFC /* Russian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Russian; path = Installer/Russian.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EC2DC1EB0FB871AD00DAACFC /* Polish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Polish; path = Installer/Polish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC3D72630FB86D6B0020486C /* Russian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Russian; path = Russian.lproj/Pref.nib; sourceTree = "<group>"; };
 		EC3D72640FB86DE20020486C /* Czech */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Czech; path = Czech.lproj/Pref.nib; sourceTree = "<group>"; };
 		EC3D72650FB86DF00020486C /* Polish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Polish; path = Polish.lproj/Pref.nib; sourceTree = "<group>"; };
 		EC3D72660FB86E240020486C /* Czech */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Czech; path = Czech.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EC3D72670FB86E280020486C /* Russian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EC3D72680FB86E2D0020486C /* Polish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Polish; path = Polish.lproj/Localizable.strings; sourceTree = "<group>"; };
-		EC3D726D0FB86E970020486C /* Russian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Russian; path = Installer/Russian.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		EC3D726E0FB86E9A0020486C /* Polish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Polish; path = Installer/Polish.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		EC3D726F0FB86E9D0020486C /* Czech */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Czech; path = Installer/Czech.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		EC3D72700FB86EA60020486C /* Russian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Russian; path = Installer/Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
-		EC3D72710FB86EA90020486C /* Polish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Polish; path = Installer/Polish.lproj/Localizable.strings; sourceTree = "<group>"; };
-		EC3D72720FB86EAD0020486C /* Czech */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Czech; path = Installer/Czech.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EC568D900F83FA850025274A /* JSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSON.framework; sourceTree = "<group>"; };
 		EC59811B0F8100F40098B526 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		EC6916D10F9883930035673E /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -214,7 +126,6 @@
 		EC6916D70F9883CA0035673E /* Norwegian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Norwegian; path = Norwegian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EC6916D80F9883CE0035673E /* Spanish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EC6916D90F9883D30035673E /* Danish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Danish; path = Danish.lproj/Localizable.strings; sourceTree = "<group>"; };
-		ECD758A10BEE27E4008A40DA /* Spanish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Spanish; path = Installer/Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ECD767970F9E1A6E009204CD /* run-installer.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "run-installer.sh"; sourceTree = "<group>"; };
 		ECE0ACAE0FB81BEB00BDDB7D /* logitech-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logitech-logo.png"; sourceTree = "<group>"; };
 		ECFABFD80F824E0C00997A5B /* cleanup.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = cleanup.sh; sourceTree = "<group>"; };
@@ -227,8 +138,6 @@
 		F52F8835035DD30401A80172 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		F52F883E035DDAB901A80172 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		F52F884D035DF02B01A80172 /* off.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = off.icns; sourceTree = "<group>"; };
-		F52F885D035DF7A401A80172 /* Test.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
-		F52F885E035DF7A401A80172 /* Test.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
 		F56E7161035DB29001A80172 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F5EC8D80035F597B01A80172 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -256,23 +165,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		14A9404809875F57001992EB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				14A9404909875F57001992EB /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		14A9406409875F57001992EB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				14A9406509875F57001992EB /* Security.framework in Frameworks */,
-				14A9406609875F57001992EB /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		14A9407609875F57001992EB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -287,15 +179,11 @@
 		089C166AFE841209C02AAC07 /* SqueezeCenter */ = {
 			isa = PBXGroup;
 			children = (
-				1477C982098865030087109C /* Pref_Tester.plist */,
-				1477C983098865030087109C /* Installer.plist */,
 				1477C984098865030087109C /* Info.plist */,
 				1477C980098864CD0087109C /* Launcher.plist */,
 				F52F8822035DCCA301A80172 /* Preference Pane */,
-				F52F8854035DF5F401A80172 /* PrefPane Tester */,
 				F52F8823035DCCCC01A80172 /* Launcher */,
 				E7447F8C03D904ED00A80172 /* Launcher Tool */,
-				E7C5E12903C6149C00A80172 /* Installer */,
 				F58B0871035DF7DA01A80172 /* Products */,
 			);
 			name = SqueezeCenter;
@@ -361,49 +249,6 @@
 			name = "Launcher Tool";
 			sourceTree = "<group>";
 		};
-		E760389203C61F6A00A80172 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				E736AD1A03C74D0000A80172 /* installer.h */,
-				E736AD1B03C74D0000A80172 /* installer.m */,
-			);
-			name = Classes;
-			sourceTree = "<group>";
-		};
-		E7C5E12903C6149C00A80172 /* Installer */ = {
-			isa = PBXGroup;
-			children = (
-				E760389203C61F6A00A80172 /* Classes */,
-				E7C5E14703C6164500A80172 /* Resources */,
-				E7C5E14803C6166900A80172 /* Other Sources */,
-			);
-			name = Installer;
-			sourceTree = "<group>";
-		};
-		E7C5E14703C6164500A80172 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				0533446307007AE900B0416B /* logotype.tiff */,
-				E7C5E14103C6163000A80172 /* InfoPlist.strings */,
-				E7C5E14303C6163000A80172 /* MainMenu.nib */,
-				054032D203F42BC800000167 /* installer.icns */,
-				E7D4F10C054D98D0009AFDA0 /* Localizable.strings */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		E7C5E14803C6166900A80172 /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				E7C5E13D03C6161300A80172 /* Installer_Prefix.h */,
-				E7C5E13E03C6161300A80172 /* main.m */,
-				E77C98AA03F33E8500FE7493 /* install.sh */,
-				E74160210428EB9300A80172 /* Preflight.sh */,
-				E7A160500563CACD00BE7791 /* Postflight.sh */,
-			);
-			name = "Other Sources";
-			sourceTree = "<group>";
-		};
 		F52F8822035DCCA301A80172 /* Preference Pane */ = {
 			isa = PBXGroup;
 			children = (
@@ -453,23 +298,12 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		F52F8854035DF5F401A80172 /* PrefPane Tester */ = {
-			isa = PBXGroup;
-			children = (
-				F52F885D035DF7A401A80172 /* Test.h */,
-				F52F885E035DF7A401A80172 /* Test.m */,
-			);
-			name = "PrefPane Tester";
-			sourceTree = "<group>";
-		};
 		F58B0871035DF7DA01A80172 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				14A9402709875F57001992EB /* Squeezebox.prefPane */,
 				14A9403C09875F57001992EB /* Launcher.app */,
-				14A9405009875F57001992EB /* Preference Tester.app */,
 				14A9407D09875F57001992EB /* Launcher */,
-				052A43EB0CAD998300E85D4D /* Installer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -507,23 +341,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		14A9404109875F57001992EB /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				14A9404209875F57001992EB /* Test.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		14A9405309875F57001992EB /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				14A9405409875F57001992EB /* Installer_Prefix.h in Headers */,
-				14A9405509875F57001992EB /* installer.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		14A9407009875F57001992EB /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -551,7 +368,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				14A9408009875F57001992EB /* PBXTargetDependency */,
 				14A9408209875F57001992EB /* PBXTargetDependency */,
 			);
 			name = Squeezebox;
@@ -578,47 +394,6 @@
 			productInstallPath = "$(USER_APPS_DIR)";
 			productName = Launcher;
 			productReference = 14A9403C09875F57001992EB /* Launcher.app */;
-			productType = "com.apple.product-type.application";
-		};
-		14A9403E09875F57001992EB /* Pref Tester */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 14A9404B09875F57001992EB /* Build configuration list for PBXNativeTarget "Pref Tester" */;
-			buildPhases = (
-				14A9404109875F57001992EB /* Headers */,
-				14A9404309875F57001992EB /* Resources */,
-				14A9404609875F57001992EB /* Sources */,
-				14A9404809875F57001992EB /* Frameworks */,
-				14A9404A09875F57001992EB /* Rez */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				14A9408409875F57001992EB /* PBXTargetDependency */,
-			);
-			name = "Pref Tester";
-			productInstallPath = "$(USER_APPS_DIR)";
-			productName = "Pref Tester";
-			productReference = 14A9405009875F57001992EB /* Preference Tester.app */;
-			productType = "com.apple.product-type.application";
-		};
-		14A9405209875F57001992EB /* Installer */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 14A9406809875F57001992EB /* Build configuration list for PBXNativeTarget "Installer" */;
-			buildPhases = (
-				14A9405309875F57001992EB /* Headers */,
-				14A9405609875F57001992EB /* Resources */,
-				14A9406109875F57001992EB /* Sources */,
-				14A9406409875F57001992EB /* Frameworks */,
-				14A9406709875F57001992EB /* Rez */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Installer;
-			productInstallPath = "$(USER_APPS_DIR)";
-			productName = Installer;
-			productReference = 052A43EB0CAD998300E85D4D /* Installer.app */;
 			productType = "com.apple.product-type.application";
 		};
 		14A9406F09875F57001992EB /* Launcher */ = {
@@ -673,8 +448,6 @@
 			targets = (
 				14A9400309875F57001992EB /* Squeezebox */,
 				14A9402809875F57001992EB /* Launcher */,
-				14A9403E09875F57001992EB /* Pref Tester */,
-				14A9405209875F57001992EB /* Installer */,
 				14A9406F09875F57001992EB /* Launcher */,
 			);
 		};
@@ -694,10 +467,7 @@
 				14A9401409875F57001992EB /* stop-server.sh in Resources */,
 				14A9401509875F57001992EB /* remove-startup.sh in Resources */,
 				14A9401609875F57001992EB /* start-server.sh in Resources */,
-				14A9401909875F57001992EB /* logotype.tiff in Resources */,
 				1477C981098864CD0087109C /* Launcher.plist in Resources */,
-				1477C985098865030087109C /* Pref_Tester.plist in Resources */,
-				1477C986098865030087109C /* Installer.plist in Resources */,
 				058257D20BF90D7B0000DD33 /* Pref.nib in Resources */,
 				052452BD0CE2687C00513B2A /* check-web.pl in Resources */,
 				ECFABFD90F824E0C00997A5B /* cleanup.sh in Resources */,
@@ -713,31 +483,6 @@
 				14A9402C09875F57001992EB /* MainMenu.nib in Resources */,
 				14A9402D09875F57001992EB /* icon.icns in Resources */,
 				14A9402E09875F57001992EB /* start-server.sh in Resources */,
-				14A9402F09875F57001992EB /* logotype.tiff in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		14A9404309875F57001992EB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				14A9404509875F57001992EB /* logotype.tiff in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		14A9405609875F57001992EB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				14A9405709875F57001992EB /* InfoPlist.strings in Resources */,
-				14A9405809875F57001992EB /* MainMenu.nib in Resources */,
-				14A9405909875F57001992EB /* icon.icns in Resources */,
-				14A9405A09875F57001992EB /* install.sh in Resources */,
-				14A9405B09875F57001992EB /* installer.icns in Resources */,
-				14A9405C09875F57001992EB /* Preflight.sh in Resources */,
-				14A9405D09875F57001992EB /* Localizable.strings in Resources */,
-				14A9405F09875F57001992EB /* Postflight.sh in Resources */,
-				14A9406009875F57001992EB /* logotype.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,20 +497,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		14A9403609875F57001992EB /* Rez */ = {
-			isa = PBXRezBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		14A9404A09875F57001992EB /* Rez */ = {
-			isa = PBXRezBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		14A9406709875F57001992EB /* Rez */ = {
 			isa = PBXRezBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -810,23 +541,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		14A9404609875F57001992EB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				14A9404709875F57001992EB /* Test.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		14A9406109875F57001992EB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				14A9406209875F57001992EB /* main.m in Sources */,
-				14A9406309875F57001992EB /* installer.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		14A9407309875F57001992EB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -839,20 +553,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		14A9408009875F57001992EB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 14A9405209875F57001992EB /* Installer */;
-			targetProxy = 14A9407F09875F57001992EB /* PBXContainerItemProxy */;
-		};
 		14A9408209875F57001992EB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 14A9402809875F57001992EB /* Launcher */;
 			targetProxy = 14A9408109875F57001992EB /* PBXContainerItemProxy */;
-		};
-		14A9408409875F57001992EB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 14A9400309875F57001992EB /* Squeezebox */;
-			targetProxy = 14A9408309875F57001992EB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -875,66 +579,6 @@
 				EC2DC1E60FB8717A00DAACFC /* Czech */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		E7C5E14103C6163000A80172 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E7C5E14203C6163000A80172 /* English */,
-				05286B2005D4485900E88B81 /* French */,
-				0591BECD05FCCEBA00F5DCAE /* Dutch */,
-				0545F89406377C2A00BA96E1 /* German */,
-				058257910BF902D70000DD33 /* Italian */,
-				058257930BF902E00000DD33 /* Spanish */,
-				05ACBF570E5CD752006B30BB /* Danish */,
-				05ACBF580E5CD755006B30BB /* Swedish */,
-				05ACBF590E5CD758006B30BB /* Finnish */,
-				05ACBF5A0E5CD75B006B30BB /* Norwegian */,
-				EC2DC1E90FB871A700DAACFC /* Czech */,
-				EC2DC1EA0FB871AA00DAACFC /* Russian */,
-				EC2DC1EB0FB871AD00DAACFC /* Polish */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		E7C5E14303C6163000A80172 /* MainMenu.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E7C5E14403C6163000A80172 /* English */,
-				05286B2405D4486A00E88B81 /* French */,
-				0591BEEE05FCCF4300F5DCAE /* Dutch */,
-				052088B506377B540020810E /* German */,
-				05B446E00BEF9BE90069C1E6 /* Spanish */,
-				05B446EA0BEF9C180069C1E6 /* Italian */,
-				05ACBF470E5CD6A3006B30BB /* Danish */,
-				05ACBF480E5CD6A8006B30BB /* Swedish */,
-				05ACBF4A0E5CD6B4006B30BB /* Norwegian */,
-				05ACBF5B0E5CD76B006B30BB /* Finnish */,
-				EC3D726D0FB86E970020486C /* Russian */,
-				EC3D726E0FB86E9A0020486C /* Polish */,
-				EC3D726F0FB86E9D0020486C /* Czech */,
-			);
-			name = MainMenu.nib;
-			sourceTree = "<group>";
-		};
-		E7D4F10C054D98D0009AFDA0 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E7D4F10D054D98D0009AFDA0 /* English */,
-				C6A9CF550601257A00C3E0BF /* French */,
-				0591BED005FCCED400F5DCAE /* Dutch */,
-				0545F89C06377C3A00BA96E1 /* German */,
-				ECD758A10BEE27E4008A40DA /* Spanish */,
-				05B446ED0BEF9C2A0069C1E6 /* Italian */,
-				05ACBF5C0E5CD77A006B30BB /* Danish */,
-				05ACBF5D0E5CD77C006B30BB /* Swedish */,
-				05ACBF5E0E5CD780006B30BB /* Finnish */,
-				05ACBF5F0E5CD783006B30BB /* Norwegian */,
-				EC3D72700FB86EA60020486C /* Russian */,
-				EC3D72710FB86EA90020486C /* Polish */,
-				EC3D72720FB86EAD0020486C /* Czech */,
-			);
-			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		EC6916B90F9883040035673E /* Localizable.strings */ = {
@@ -1204,138 +848,6 @@
 			};
 			name = Default;
 		};
-		14A9404C09875F57001992EB /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_USE_GCC3_PFE_SUPPORT = YES;
-				INFOPLIST_FILE = Pref_Tester.plist;
-				OTHER_CFLAGS = "-mmacosx-version-min=10.3";
-				OTHER_LDFLAGS = "-mmacosx-version-min=10.3";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "Preference Tester";
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = app;
-				ZERO_LINK = YES;
-			};
-			name = Development;
-		};
-		14A9404D09875F57001992EB /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_USE_GCC3_PFE_SUPPORT = YES;
-				INFOPLIST_FILE = Pref_Tester.plist;
-				OTHER_CFLAGS = "-mmacosx-version-min=10.3";
-				OTHER_LDFLAGS = "-mmacosx-version-min=10.3";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "Preference Tester";
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = app;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-		14A9404E09875F57001992EB /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_USE_GCC3_PFE_SUPPORT = YES;
-				INFOPLIST_FILE = Pref_Tester.plist;
-				OTHER_CFLAGS = "-mmacosx-version-min=10.3";
-				OTHER_LDFLAGS = "-mmacosx-version-min=10.3";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "Preference Tester";
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = app;
-			};
-			name = Default;
-		};
-		14A9406909875F57001992EB /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				INFOPLIST_FILE = Installer.plist;
-				OTHER_CFLAGS = "-mmacosx-version-min=10.3";
-				OTHER_LDFLAGS = "-mmacosx-version-min=10.3";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "SqueezeCenter Installer";
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = app;
-				ZERO_LINK = YES;
-			};
-			name = Development;
-		};
-		14A9406A09875F57001992EB /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				INFOPLIST_FILE = Installer.plist;
-				OTHER_CFLAGS = "-mmacosx-version-min=10.3";
-				OTHER_LDFLAGS = "-mmacosx-version-min=10.3";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = Installer;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = app;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-		14A9406B09875F57001992EB /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				INFOPLIST_FILE = Installer.plist;
-				OTHER_CFLAGS = "-mmacosx-version-min=10.3";
-				OTHER_LDFLAGS = "-mmacosx-version-min=10.3";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "SqueezeCenter Installer";
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = app;
-			};
-			name = Default;
-		};
 		14A9407A09875F57001992EB /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1434,26 +946,6 @@
 				14A9403809875F57001992EB /* Development */,
 				14A9403909875F57001992EB /* Deployment */,
 				14A9403A09875F57001992EB /* Default */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
-		};
-		14A9404B09875F57001992EB /* Build configuration list for PBXNativeTarget "Pref Tester" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				14A9404C09875F57001992EB /* Development */,
-				14A9404D09875F57001992EB /* Deployment */,
-				14A9404E09875F57001992EB /* Default */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
-		};
-		14A9406809875F57001992EB /* Build configuration list for PBXNativeTarget "Installer" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				14A9406909875F57001992EB /* Development */,
-				14A9406A09875F57001992EB /* Deployment */,
-				14A9406B09875F57001992EB /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;

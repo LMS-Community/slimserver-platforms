@@ -1,9 +1,9 @@
 //
 //  ServerPref.m
-//  Logitech Media Server
+//  UE Music Library
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
-//  Copyright 2002-2011 Logitech
+//  Copyright 2002-2012 Logitech
 //
 
 #include <Security/Authorization.h>
@@ -561,7 +561,7 @@
 		[updateTimer invalidate];
 			
 		NSBeginAlertSheet (
-						   LocalizedPrefString(@"An updated Logitech Media Server version is available and ready to be installed.", @""),
+						   LocalizedPrefString(@"An updated UE Music Library version is available and ready to be installed.", @""),
 						   LocalizedPrefString(@"Install update", @""),
 						   LocalizedPrefString(@"Not now", @""),
 						   nil, 
@@ -1124,7 +1124,7 @@
 	return json;
 }
 
-/* get localized string from Logitech Media Server; cache in a dictionary for future uses */
+/* get localized string from UE Music Library; cache in a dictionary for future uses */
 -(NSString *)getSCString:(NSString *)stringToken
 {
 	stringToken = [stringToken uppercaseString];
