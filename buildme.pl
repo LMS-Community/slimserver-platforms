@@ -19,7 +19,8 @@ my $sourceDirsToExclude = '".*" tests slimp3 squeezebox /softsqueeze tools ext/s
 my $revisionTextFile = "server/revision.txt";
 my $revision;
 my $myVersion = "0.1.0";
-my $defaultDestName = "uemusiclibrary";
+my $defaultDestName = "uemlfull";
+my $uemlDefaultDestName = "uemusiclibrary";
 my $defaultReleaseType = "nightly";
 my $defaultPathId = 'uemusiclibrary';
 my $verboseName = 'UE Music Library';
@@ -102,6 +103,7 @@ sub checkCommandOptions {
 
 	if ($ueml) {
 		$squeezeCenterStartupScript = $uemlStartupScript;
+		$defaultDestName = $uemlDefaultDestName;
 	}
 
 	if ( !$build || $build eq 'readynas' ) { 
