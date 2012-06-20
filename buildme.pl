@@ -678,7 +678,7 @@ sub buildMacOSX {
 	if ( ($_[0] ) || die("Problem: Not all of the variables were passed to the buildMacOSX function...") ) { 
 		## Take the filename passed to us and make sure that we build the DMG with
 		## that name, and that the 'pretty mounted name' also matches
-		my $diskImageFileName = "$_[0].pkg";
+		my $diskImageFileName = $_[0] . ($ueml ? '' : '-full') . '.pkg';
 		my $diskImageName = $_[0];
 		$diskImageName =~ s/-/ /g;
 
@@ -715,6 +715,7 @@ sub buildMacOSX {
 		print "INFO: Create installer package $diskImageFileName...\n";
 		# disable LMS -> UEML migration by replacing module with dummy
 		if ( $ueml ) {
+			system("mv -f \"$contentsDir/server/slimserver.pl\" \"$contentsDir/server/ueml.pl\"");
 			system("mv -f \"$buildDir/platforms/osx/Installer/scripts/LMSMigration-UEML.pm\" \"$buildDir/platforms/osx/Installer/scripts/LMSMigration-UEML.pm\"");
 		}
 				
