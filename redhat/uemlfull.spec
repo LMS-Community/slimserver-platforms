@@ -221,6 +221,7 @@ fi
 %doc Changelog*.html Installation.txt License.* README.lib README.HTML
 
 # Main files
+%{_usr}/lib/perl5/vendor_perl/Slim
 %{_datadir}/uemusiclibrary
 
 # Empty directories
