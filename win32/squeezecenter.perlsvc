@@ -38,6 +38,9 @@ Add: HTML::Parser
 Add: HTML::PullParser
 Add: HTML::FormatText;
 Add: HTML::TreeBuilder;
+Add: Slim::Control::LocalPlayers::Jive
+Add: Slim::Control::LocalPlayers::Commands
+Add: Slim::Control::LocalPlayers::Queries
 Add: Slim::Display::Display
 Add: Slim::Display::Boom
 Add: Slim::Display::EmulatedSqueezebox2
@@ -59,6 +62,8 @@ Add: Slim::Player::Squeezebox2
 Add: Slim::Player::SqueezePlay
 Add: Slim::Player::SqueezeSlave
 Add: Slim::Player::Transporter
+Add: Slim::Player::Disconnected
+Add: Slim::Player::LocalClient
 Add: Slim::Player::Protocols::File
 Add: Slim::Player::Protocols::HTTP
 Add: Slim::Player::Protocols::MMS

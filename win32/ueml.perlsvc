@@ -63,6 +63,7 @@ Add: Slim::Formats::Wav
 Add: Slim::Formats::WavPack
 Add: Slim::Formats::WMA
 Add: Slim::Formats::XML
+Add: Slim::Player::Disconnected
 Add: Slim::Plugin::Base
 Add: Slim::Plugin::OPMLBased
 Add: Slim::Media::MediaFolderScan
