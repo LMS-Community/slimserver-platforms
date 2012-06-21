@@ -680,9 +680,9 @@ sub buildMacOSX {
 	if ( ($_[0] ) || die("Problem: Not all of the variables were passed to the buildMacOSX function...") ) { 
 		## Take the filename passed to us and make sure that we build the DMG with
 		## that name, and that the 'pretty mounted name' also matches
-		my $diskImageFileName = $_[0] . ($ueml ? '' : '-full') . '.pkg';
-		my $diskImageName = $_[0];
-		$diskImageName =~ s/-/ /g;
+		my $pkgName = $_[0] . ($ueml ? '' : '-full');
+		my $downloadableFile = $pkgName . '.zip';
+		$pkgName =~ s/-/ /g;
 
 		print "INFO: Building package for Mac OSX (Universal)... \n";
 	
@@ -690,16 +690,16 @@ sub buildMacOSX {
 		excludeDirs($dirsToExcludeForMacOSX);
 		
 		## Now, lets make the Install Files directory
-		print "INFO: Making $buildDir/$diskImageName/Install Files...\n";
-		mkpath("$buildDir/$diskImageName/Install Files");
+		print "INFO: Making $buildDir/$pkgName/Install Files...\n";
+		mkpath("$buildDir/$pkgName/Install Files");
 	
 		## Copy in the documentation and license files..
 		print "INFO: Copying documentation & licenses...\n";
-		copy("$buildDir/server/license.txt", "$buildDir/$diskImageName/License.txt");
+		copy("$buildDir/server/license.txt", "$buildDir/$pkgName/License.txt");
 
 		## Set some xcodebuild paths... 
 		my $xcodeBuildDir = "$buildDir/platforms/osx/Preference Pane/build/Deployment";
-		my $prefPaneDir = "$buildDir/$diskImageName/Install Files/UEMusicLibrary.prefPane";
+		my $prefPaneDir = "$buildDir/$pkgName/Install Files/UEMusicLibrary.prefPane";
 		my $contentsDir = "$prefPaneDir/Contents";
 
 		## Lets build the pref pane and installer...
@@ -714,18 +714,21 @@ sub buildMacOSX {
 		print "INFO: Copying MacOSX Launcher App...\n";
 		system("ditto \"$xcodeBuildDir/Launcher.app\" \"$contentsDir/server/Launcher.app\"");
 		
-		print "INFO: Create installer package $diskImageFileName...\n";
+		print "INFO: Create installer package $pkgName...\n";
 		# disable LMS -> UEML migration by replacing module with dummy
 		if ( $ueml ) {
 			system("mv -f \"$contentsDir/server/slimserver.pl\" \"$contentsDir/server/ueml.pl\"");
 			system("mv -f \"$buildDir/platforms/osx/Installer/scripts/LMSMigration-UEML.pm\" \"$buildDir/platforms/osx/Installer/scripts/LMSMigration-UEML.pm\"");
 		}
 				
-		system("/Developer/usr/bin/packagemaker --verbose --root \"$prefPaneDir\" --info \"$buildDir/platforms/osx/Installer/Info.plist\" --scripts \"$buildDir/platforms/osx/Installer/scripts\" --out \"$destDir/$diskImageFileName\" --target 10.4 --domain system");
+		system("/Developer/usr/bin/packagemaker --verbose --root \"$prefPaneDir\" --info \"$buildDir/platforms/osx/Installer/Info.plist\" --scripts \"$buildDir/platforms/osx/Installer/scripts\" --out \"$destDir/$pkgName.pkg\" --target 10.4 --domain system");
 
 		# add localized resource files to the package
-		system("rm -rf $destDir/$diskImageFileName/Contents/Resources/*.lproj");
-		system("cp -R $buildDir/platforms/osx/Installer/l10n/* \"$destDir/$diskImageFileName/Contents/Resources/\"");
+		system("rm -rf $destDir/$pkgName.pkg/Contents/Resources/*.lproj");
+		system("cp -R $buildDir/platforms/osx/Installer/l10n/* \"$destDir/$pkgName.pkg/Contents/Resources/\"");
+		
+		print "\nINFO: zip up package bundle\n";
+		system("zip -r9 $destDir/$downloadableFile \"$destDir/$pkgName.pkg\"")
 	}
 }
 
@@ -806,7 +809,7 @@ sub buildWin32 {
 		move("$buildDir/server/slimserver.exe", "$buildDir/build/server/ueml.exe");
 
 
-		print "Making scanner executable...\n";
+		print "INFO: Making scanner executable...\n";
 
 		$programInfo = join(';', @versionInfo, (
 			"FileDescription=$verboseName Scanner",
@@ -818,7 +821,7 @@ sub buildWin32 {
 		move("$buildDir/server/scanner.exe", "$buildDir/build/server/scanner.exe");
 
 
-		print "Making control panel executable...\n";
+		print "INFO: Making control panel executable...\n";
 
 		$programInfo = join(';', @versionInfo, (
 			"FileDescription=$verboseName Control Panel",
