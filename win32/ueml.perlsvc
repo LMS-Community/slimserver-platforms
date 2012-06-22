@@ -65,7 +65,6 @@ Add: Slim::Formats::WMA
 Add: Slim::Formats::XML
 Add: Slim::Player::Disconnected
 Add: Slim::Plugin::Base
-Add: Slim::Plugin::OPMLBased
 Add: Slim::Media::MediaFolderScan
 Add: Slim::Utils::Scanner::Local::Async
 Add: Slim::Utils::AutoRescan::Stat::Async
@@ -157,11 +156,13 @@ Lib: lib:CPAN\arch\5.14\MSWin32-x86-multi-thread\auto
 Lib: lib:CPAN\arch\5.14\MSWin32-x86-multi-thread
 Lib: lib:CPAN
 Trim: Slim::Buttons::**
-Trim: Slim::Hardware::*
+Trim: Slim::Control::LocalPlayers::*
 Trim: Slim::Display::Lib::*
+Trim: Slim::Hardware::*
 Trim: Slim::Networking::SliMP3::*
 Trim: Slim::Networking::IO::EV
 Trim: Slim::Player::Protocols::*
+Trim: Slim::Plugin::OPMLBased
 Trim: Slim::Utils::OS::*
 Trim: SDI::
 Verbose: 0

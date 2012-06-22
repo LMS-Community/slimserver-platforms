@@ -74,8 +74,9 @@ Lib: lib:CPAN\arch\5.14\MSWin32-x86-multi-thread\auto
 Lib: lib:CPAN\arch\5.14\MSWin32-x86-multi-thread
 Lib: lib:CPAN
 Trim: Slim::Buttons::**
-Trim: Slim::Hardware::*
+Trim: Slim::Control::LocalPlayers::*
 Trim: Slim::Display::Lib::*
+Trim: Slim::Hardware::*
 Trim: Slim::Networking::SliMP3::*
 Trim: Slim::Networking::IO::EV
 Trim: Slim::Player::Protocols::*
