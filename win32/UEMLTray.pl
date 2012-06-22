@@ -24,9 +24,11 @@ use constant PRODUCT_NAME         => 'UE Music Library';
 
 use constant SLIM_SERVICE => 0;
 use constant SCANNER      => 0;
-use constant ISWINDOWS    => 1;
-use constant TIMERSECS    => 10;
 use constant INFOLOG      => 0;
+use constant SERVICES     => 0;
+use constant ISWINDOWS    => 1;
+
+use constant TIMERSECS    => 10;
 
 use Slim::Utils::ServiceManager;
 use Slim::Utils::Light;
