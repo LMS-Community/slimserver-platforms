@@ -728,7 +728,7 @@ sub buildMacOSX {
 		system("cp -R $buildDir/platforms/osx/Installer/l10n/* \"$destDir/$pkgName.pkg/Contents/Resources/\"");
 		
 		print "\nINFO: zip up package bundle\n";
-		system("zip -r9 $destDir/$downloadableFile \"$destDir/$pkgName.pkg\"")
+		system("cd \"$destDir\"; zip -r9 $downloadableFile \"$pkgName.pkg\"")
 	}
 }
 
