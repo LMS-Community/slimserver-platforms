@@ -717,8 +717,10 @@ sub buildMacOSX {
 		print "INFO: Create installer package $pkgName...\n";
 		# disable LMS -> UEML migration by replacing module with dummy
 		if ( $ueml ) {
+			system("mv -f \"$buildDir/platforms/osx/Installer/scripts/LMSMigration-UEML.pm\" \"$buildDir/platforms/osx/Installer/scripts/LMSMigration.pm\"");
+		}
+		else {
 			system("mv -f \"$contentsDir/server/slimserver.pl\" \"$contentsDir/server/ueml.pl\"");
-			system("mv -f \"$buildDir/platforms/osx/Installer/scripts/LMSMigration-UEML.pm\" \"$buildDir/platforms/osx/Installer/scripts/LMSMigration-UEML.pm\"");
 		}
 				
 		system("/Developer/usr/bin/packagemaker --verbose --root \"$prefPaneDir\" --info \"$buildDir/platforms/osx/Installer/Info.plist\" --scripts \"$buildDir/platforms/osx/Installer/scripts\" --out \"$destDir/$pkgName.pkg\" --target 10.4 --domain system");
