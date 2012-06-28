@@ -13,12 +13,12 @@
 rm -rf /Library/StartupItems/SqueezeCenter
 rm -rf /Library/StartupItems/Squeezebox\ Server
 
-PRODUCT_NAME=UE Music Library
+PRODUCT_NAME="UE Music Library"
 PRODUCT_FOLDER=UEMusicLibrary
 
 mkdir -p -m go-w /Library/StartupItems/$PRODUCT_FOLDER
 
-cat >/Library/StartupItems/$PRODUCT_FOLDER/StartupParameters.plist << '!!'
+cat >/Library/StartupItems/$PRODUCT_FOLDER/StartupParameters.plist << !!
 {
 	Description     = "$PRODUCT_NAME";
 	Provides        = ("$PRODUCT_NAME");
@@ -89,7 +89,7 @@ chmod +x /Library/StartupItems/$PRODUCT_FOLDER/$PRODUCT_FOLDER
 
 mkdir -p -m go-w /Library/StartupItems/$PRODUCT_FOLDER/Resources/French.lproj
 
-cat >/Library/StartupItems/$PRODUCT_FOLDER/Resources/French.lproj/Localizable.strings << '!!'
+cat >/Library/StartupItems/$PRODUCT_FOLDER/Resources/French.lproj/Localizable.strings << !!
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -105,7 +105,7 @@ cat >/Library/StartupItems/$PRODUCT_FOLDER/Resources/French.lproj/Localizable.st
 
 mkdir -p -m go-w /Library/StartupItems/$PRODUCT_FOLDER/Resources/German.lproj
 
-cat >/Library/StartupItems/$PRODUCT_FOLDER/Resources/English.lproj/Localizable.strings << '!!'
+cat >/Library/StartupItems/$PRODUCT_FOLDER/Resources/English.lproj/Localizable.strings << !!
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -120,7 +120,7 @@ cat >/Library/StartupItems/$PRODUCT_FOLDER/Resources/English.lproj/Localizable.s
 
 mkdir -p -m go-w /Library/StartupItems/$PRODUCT_FOLDER/Resources/English.lproj
 
-cat >/Library/StartupItems/$PRODUCT_FOLDER/Resources/English.lproj/Localizable.strings << '!!'
+cat >/Library/StartupItems/$PRODUCT_FOLDER/Resources/English.lproj/Localizable.strings << !!
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
