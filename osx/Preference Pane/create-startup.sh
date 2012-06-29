@@ -48,11 +48,11 @@ StartService() {
 ConsoleMessage "Starting $PRODUCT_NAME"
 if [ z"\$SERVER_RUNNING" = z ] ; then
 	if [ -e "$HOME/Library/PreferencePanes/UEMusicLibrary.prefPane/Contents/server" ] ; then
-		pushd "$HOME/Library/PreferencePanes/UEMusicLibrary.prefPane/Contents/server"
+		pushd "$HOME/Library/PreferencePanes/UEMusicLibrary.prefPane/Contents/Resources"
 	else
-		pushd "/Library/PreferencePanes/UEMusicLibrary.prefPane/Contents/server"
+		pushd "/Library/PreferencePanes/UEMusicLibrary.prefPane/Contents/Resources"
 	fi
-	sudo -H -u \$SLIMUSER "Launcher.app/Contents/Resources/start-server.sh"
+	sudo -H -u \$SLIMUSER start-server.sh
 	popd
 fi
 if [ z"\$#" != z"0" ] ; then

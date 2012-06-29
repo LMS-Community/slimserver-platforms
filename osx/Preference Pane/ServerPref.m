@@ -444,7 +444,7 @@
 	 **  We always remove our login item, just in case the entry is there. (Otherwise, we end up with two.)
 	 */
 
-	NSString *pathToServer = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/Launcher.app"];
+	NSString *pathToServer = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"start-server.sh"];
 
 	NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
 	NSMutableArray *allLoginItems, *objectsToRemove = [[NSMutableArray alloc] init];
@@ -506,7 +506,7 @@
 
 -(void)toggleServer:(id)sender
 {
-	NSString *pathToServer = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/Launcher.app"];
+	NSString *pathToServer = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"start-server.sh"];
 
 	/*
 	 **  Disable the button...it'll get re-enabled when the server state changes in updateUI.
@@ -795,7 +795,7 @@
 
 -(int)numberOfRowsInTableView:(NSTabView *)tv
 {
-	NSLog(@"%@, %i", mediaDirs, [mediaDirs count]);
+	//NSLog(@"%@, %i", mediaDirs, [mediaDirs count]);
 
 	if (mediaDirs == nil)
 		return 0;
@@ -1112,7 +1112,7 @@
 	NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	//NSLog(@"%@", json_string);
 	
-	SBJSON *parser = [SBJSON new];
+	SBJsonParser *parser = [SBJsonParser new];
 	NSDictionary *json = [parser objectWithString:json_string error:nil];
 	
 	if (json != nil) 
@@ -1164,7 +1164,7 @@
 		[mediaDirs addObjectsFromArray:dirs];
 	}
 
-	NSLog(@"Squeezebox: Got mediadirs '%@', %i", mediaDirs, [mediaDirs count]);
+	//NSLog(@"Squeezebox: Got mediadirs '%@', %i", mediaDirs, [mediaDirs count]);
 	[mediaDirsTable reloadData];
 }
 
@@ -1228,7 +1228,7 @@
 		}
 	}
 	
-	NSLog(@"Squeezebox: failed reading preference '%@' from file '%@'", pref, pathToPrefs);
+	//NSLog(@"Squeezebox: failed reading preference '%@' from file '%@'", pref, pathToPrefs);
 	
 	return @"";
 }

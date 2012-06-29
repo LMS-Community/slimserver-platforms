@@ -9,7 +9,7 @@
 #import <PreferencePanes/PreferencePanes.h>
 #import <Foundation/NSPathUtilities.h>
 #import <WebKit/WebKit.h>
-#import <JSON/JSON.h>
+#import <SBJson.h>
 
 #define LocalizedPrefString(key, comment) [[NSBundle bundleForClass:[self class]] localizedStringForKey:(key) value:@"" table:nil]
 

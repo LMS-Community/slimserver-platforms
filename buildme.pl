@@ -710,9 +710,6 @@ sub buildMacOSX {
 		system("ditto \"$xcodeBuildDir/Squeezebox.prefPane\" \"$prefPaneDir\"");
 	
 		system("mv \"$buildDir/server\" \"$contentsDir/\" ");
-	
-		print "INFO: Copying MacOSX Launcher App...\n";
-		system("ditto \"$xcodeBuildDir/Launcher.app\" \"$contentsDir/server/Launcher.app\"");
 		
 		print "INFO: Create installer package $pkgName...\n";
 		# disable LMS -> UEML migration by replacing module with dummy
