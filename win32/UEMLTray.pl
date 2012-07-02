@@ -27,6 +27,7 @@ use constant SCANNER      => 0;
 use constant INFOLOG      => 0;
 use constant SERVICES     => 0;
 use constant ISWINDOWS    => 1;
+use constant THIRDPARTY   => 0;
 
 use constant TIMERSECS    => 10;
 
