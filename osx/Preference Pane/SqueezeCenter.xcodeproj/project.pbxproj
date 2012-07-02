@@ -51,6 +51,7 @@
 		EC922896159DDA6000638E53 /* start-server.sh in Resources */ = {isa = PBXBuildFile; fileRef = EC922895159DDA6000638E53 /* start-server.sh */; };
 		ECD767980F9E1A6E009204CD /* run-installer.sh in Resources */ = {isa = PBXBuildFile; fileRef = ECD767970F9E1A6E009204CD /* run-installer.sh */; };
 		ECE0ACAF0FB81BEB00BDDB7D /* logitech-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE0ACAE0FB81BEB00BDDB7D /* logitech-logo.png */; };
+		ECEEA93D15A1A3550076F783 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = ECEEA93C15A1A3550076F783 /* icon.icns */; };
 		ECFABFD90F824E0C00997A5B /* cleanup.sh in Resources */ = {isa = PBXBuildFile; fileRef = ECFABFD80F824E0C00997A5B /* cleanup.sh */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +133,7 @@
 		EC922895159DDA6000638E53 /* start-server.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "start-server.sh"; sourceTree = "<group>"; };
 		ECD767970F9E1A6E009204CD /* run-installer.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "run-installer.sh"; sourceTree = "<group>"; };
 		ECE0ACAE0FB81BEB00BDDB7D /* logitech-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logitech-logo.png"; sourceTree = "<group>"; };
+		ECEEA93C15A1A3550076F783 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		ECFABFD80F824E0C00997A5B /* cleanup.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = cleanup.sh; sourceTree = "<group>"; };
 		F506C035013D953901CA16C8 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
 		F506C03C013D9D7901CA16C8 /* ServerPref.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ServerPref.h; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				ECEEA93C15A1A3550076F783 /* icon.icns */,
 				ECE0ACAE0FB81BEB00BDDB7D /* logitech-logo.png */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
 				F506C042013D9D8C01CA16C8 /* Pref.nib */,
@@ -379,6 +382,7 @@
 				ECD767980F9E1A6E009204CD /* run-installer.sh in Resources */,
 				ECE0ACAF0FB81BEB00BDDB7D /* logitech-logo.png in Resources */,
 				EC922896159DDA6000638E53 /* start-server.sh in Resources */,
+				ECEEA93D15A1A3550076F783 /* icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
