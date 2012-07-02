@@ -13,7 +13,7 @@
 
 #define LocalizedPrefString(key, comment) [[NSBundle bundleForClass:[self class]] localizedStringForKey:(key) value:@"" table:nil]
 
-#define statusUrl @"http://localhost:9000/EN/settings/server/status.html?simple=1&os=osx"
+#define statusUrl @"http://localhost:%i/EN/settings/server/status.html?simple=1&os=osx"
 
 #define versionFile @"Caches/UEMusicLibrary/updates/server.version"
 #define prefsFile @"Application Support/UEMusicLibrary/server.prefs"

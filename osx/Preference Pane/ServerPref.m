@@ -851,7 +851,11 @@
 {
 	/* display SC server status in webkit frame */
 	if ([[item identifier] isEqualToString:@"status"]) {
-		[[statusView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:statusUrl]]];
+		int port = [self serverPort];
+		if (port == 0)
+			port = 3546;
+		
+		[[statusView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:statusUrl, port]]]];
 	}
 	
 	// Music Library Stats
