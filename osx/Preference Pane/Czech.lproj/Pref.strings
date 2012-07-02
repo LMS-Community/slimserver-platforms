@@ -2,9 +2,6 @@
 /* Class = "NSWindow"; title = "UE Music Library"; ObjectID = "12"; */
 "12.title" = "UE Music Library";
 
-/* Class = "NSTabViewItem"; label = "Account"; ObjectID = "372"; */
-"372.label" = "Účet";
-
 /* Class = "NSTabViewItem"; label = "Advanced"; ObjectID = "405"; */
 "405.label" = "Pokročilé";
 
@@ -29,15 +26,6 @@
 /* Class = "NSMenuItem"; title = "Automatically start server at login"; ObjectID = "696"; */
 "696.title" = "Automaticky spustit server při přihlášení";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "795"; */
-"795.title" = "Další zobrazení";
-
-/* Class = "NSMenuItem"; title = "No, do not report statistics."; ObjectID = "796"; */
-"796.title" = "Ne, neodesílat statistiku.";
-
-/* Class = "NSMenuItem"; title = "Yes, help improve mysqueezebox.com by reporting statistics."; ObjectID = "797"; */
-"797.title" = "Ano, pomoci zlepšovat mysqueezebox.com odesíláním statistik.";
-
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "835"; */
 "835.title" = "Další zobrazení";
 
@@ -53,14 +41,8 @@
 /* Class = "NSBox"; title = "Box"; ObjectID = "857"; */
 "857.title" = "Schránka";
 
-/* Class = "NSBox"; title = "Box"; ObjectID = "859"; */
-"859.title" = "Schránka";
-
 /* Class = "NSBox"; title = "Box"; ObjectID = "861"; */
 "861.title" = "Schránka";
-
-/* Class = "NSBox"; title = "Box"; ObjectID = "868"; */
-"868.title" = "Schránka";
 
 /* Class = "NSBox"; title = "Box"; ObjectID = "870"; */
 "870.title" = "Schránka";
@@ -91,33 +73,6 @@
 
 /* Class = "NSTextFieldCell"; title = "Version 10.0.0"; ObjectID = "1055"; */
 "1055.title" = "Verze 10.0.0";
-
-/* Class = "NSTextFieldCell"; title = "Email address"; ObjectID = "1056"; */
-"1056.title" = "E-mailová adresa";
-
-/* Class = "NSTextFieldCell"; title = "Password\n"; ObjectID = "1058"; */
-"1058.title" = "Heslo\n";
-
-/* Class = "NSButtonCell"; title = "Verify password"; ObjectID = "1060"; */
-"1060.title" = "Ověřit heslo";
-
-/* Class = "NSButtonCell"; title = "I need to create an account"; ObjectID = "1061"; */
-"1061.title" = "Potřebuji vytvořit účet";
-
-/* Class = "NSButtonCell"; title = "I forgot my password"; ObjectID = "1062"; */
-"1062.title" = "Zapomněl jsem své heslo";
-
-/* Class = "NSTextFieldCell"; title = "Help improve mysqueezebox.com by reporting statistics on internet radio and music service listening. (This information is collected in aggregate and is protected under our privacy policy)."; ObjectID = "1063"; */
-"1063.title" = "Pomozte zdokonalit mysqueezebox.com tím, že nahlásíte statistiky o poslechu internetových rádií a hudebních služeb. (Tyto informace jsou shromažďovány jako celek a jsou chráněny v souladu s naší politikou ochrany důvěrných informací).";
-
-/* Class = "NSTextFieldCell"; title = "In order to enable certain features, please be sure you've entered a current mysqueezebox.com email address and password."; ObjectID = "1065"; */
-"1065.title" = "Pro aktivaci některých vlastností se prosím ujistěte, že jste zadali platnou e-mailovou adresu a heslo pro mysqueezebox.com.";
-
-/* Class = "NSButtonCell"; title = "Web Remote Control"; ObjectID = "1066"; */
-"1066.title" = "Webové dálkové ovládání";
-
-/* Class = "NSButtonCell"; title = "Advanced Settings"; ObjectID = "1067"; */
-"1067.title" = "Upřesnit nastavení";
 
 /* Class = "NSButtonCell"; title = "Server Log"; ObjectID = "1068"; */
 "1068.title" = "Protokolový záznam serveru";
@@ -157,12 +112,6 @@
 
 /* Class = "NSTextFieldCell"; title = "Music Folder\n"; ObjectID = "1083"; */
 "1083.title" = "Složka Hudby\n";
-
-/* Class = "NSButtonCell"; title = "Browse"; ObjectID = "1087"; */
-"1087.title" = "Procházet";
-
-/* Class = "NSTextFieldCell"; title = "Playlist Folder\n"; ObjectID = "1088"; */
-"1088.title" = "Složka seznamu skladeb\n";
 
 /* Class = "NSButtonCell"; title = "Use iTunes"; ObjectID = "1089"; */
 "1089.title" = "Použít iTunes";

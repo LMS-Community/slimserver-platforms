@@ -13,7 +13,6 @@
 
 #define LocalizedPrefString(key, comment) [[NSBundle bundleForClass:[self class]] localizedStringForKey:(key) value:@"" table:nil]
 
-#define snPasswordPlaceholder @"SN_PASSWORD_PLACEHOLDER"
 #define statusUrl @"http://localhost:9000/EN/settings/server/status.html?simple=1&os=osx"
 
 #define versionFile @"Caches/Squeezebox/updates/server.version"
@@ -42,20 +41,11 @@
 	IBOutlet NSTextField *musicLibraryStats;
 	IBOutlet NSTextField *scVersion;
 
-	IBOutlet NSButton *webLaunchButton;
-	IBOutlet NSButton *advLaunchButton;
 	IBOutlet NSPopUpButton *startupType;
 	
-	IBOutlet NSTextField *snUsername;
-	IBOutlet NSSecureTextField *snPassword;
-	IBOutlet NSButton *snCheckPassword;
-	IBOutlet NSPopUpButton *snStatsOptions;
-	
-	IBOutlet NSButton *browsePlaylistFolder;
 	IBOutlet NSTableView *mediaDirsTable;
 	IBOutlet NSButton *addMediadir;
 	IBOutlet NSButton *removeMediadir;
-	IBOutlet NSTextField *playlistFolder;
 	IBOutlet NSButton *useiTunes;
 	
 	IBOutlet NSPopUpButton *scanModeOptions;
@@ -90,20 +80,11 @@
 -(void)updateMusicLibraryStats;
 -(void)_updateMusicLibraryStats:(NSDictionary *)libraryStats;
 
--(IBAction)checkSNPassword:(id)sender;
--(IBAction)snCredentialsChanged:(id)sender;
--(NSDictionary *)saveSNCredentials;
--(IBAction)snStatsOptionChanged:(id)sender;
--(IBAction)openSNSubscription:(id)sender;
--(IBAction)openSNPasswordReminder:(id)sender;
-
 -(IBAction)doAddMediadir:(id)sender;
 -(IBAction)doRemoveMediadir:(id)sender;
 -(void)getMediaDirs;
--(IBAction)doBrowsePlaylistFolder:(id)sender;
 -(IBAction)useiTunesChanged:(id)sender;
 
--(IBAction)playlistFolderChanged:(id)sender;
 -(int)numberOfRowsInTableView:(NSTabView *)tv;
 -(id)tableView:(NSTabView *)tv objectValueForTableColumn:(NSTableColumn *)dirsColumn row:(int)rowIndex;
 -(IBAction)saveMediadirs:(id)sender;
@@ -117,8 +98,6 @@ NSMutableArray *mediaDirs;
 -(int)serverPort;
 -(void)updateUI;
 
--(IBAction)openWebInterface:(id)sender;
--(IBAction)openSettingsWebInterface:(id)sender;
 -(IBAction)toggleServer:(id)sender;
 -(NSString *)getUpdateInstaller;
 -(void)checkUpdateInstaller;

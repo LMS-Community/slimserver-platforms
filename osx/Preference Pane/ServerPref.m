@@ -264,20 +264,10 @@
 		}
 	}
 	
-	[webLaunchButton setEnabled:currentWebState];
-	[advLaunchButton setEnabled:currentWebState];
-	
-	[snUsername setEnabled:serverState];
-	[snPassword setEnabled:serverState];
-	[snCheckPassword setEnabled:serverState];
-	[snStatsOptions setEnabled:serverState];
-
 	[musicLibraryName setEnabled:serverState];
 	[mediaDirsTable setEnabled:serverState];
 	[addMediadir setEnabled:serverState];
 	[removeMediadir setEnabled:serverState];
-	[playlistFolder setEnabled:serverState];
-	[browsePlaylistFolder setEnabled:serverState];
 	[useiTunes setEnabled:serverState];
 
 	[rescanButton setEnabled:serverState];
@@ -356,22 +346,6 @@
 	}
 
 	//NSLog(@"Squeezebox: music library stats update done.");
-}
-	
--(void)openWebInterface:(id)sender
-{
-	int port = [self serverPort];
-	if (!port > 0) { port = 9000; }
-	
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://localhost:%i/", port] ]];
-}
-
--(void)openSettingsWebInterface:(id)sender
-{
-	int port = [self serverPort];
-	if (!port > 0) { port = 9000; }
-	
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://localhost:%i/settings/index.html", port] ]];
 }
 
 -(IBAction)changeStartupPreference:(id)sender
@@ -667,64 +641,6 @@
 	[[NSWorkspace sharedWorkspace] openFile:pathToLog];
 }
 
-/* SqueezeNetwork */
--(IBAction)checkSNPassword:(id)sender
-{
-	NSString *username = [snUsername stringValue];
-	NSString *password = [snPassword stringValue];
-
-	if (username != nil && password != nil && username != @"" && password != @"" && password != snPasswordPlaceholder) {
-		NSDictionary *snResult = [self saveSNCredentials];
-		
-		NSString *msg = @"";
-	
-		if (snResult == nil || [[snResult valueForKey:@"validated"] intValue] == 0)
-			msg = @"Invalid SqueezeNetwork username or password.";
-		else if (snResult != nil && [[snResult valueForKey:@"validated"] intValue] != 0) 
-			msg = @"Connected successfully to SqueezeNetwork.";
-
-		if (snResult != nil && [snResult valueForKey:@"warning"] != nil)
-			msg = LocalizedPrefString([snResult valueForKey:@"warning"], @"");
-
-		if (msg != @"")
-			NSBeginAlertSheet (LocalizedPrefString(msg, @""), LocalizedPrefString(@"Ok", @""), nil, nil,[[NSApplication sharedApplication] mainWindow], self, nil, NULL, @"", @"");
-	}
-}
-
--(IBAction)snCredentialsChanged:(id)sender
-{
-	[self saveSNCredentials];
-}
-
--(NSDictionary *)saveSNCredentials
-{
-	NSString *username = [snUsername stringValue];
-	NSString *password = [snPassword stringValue];
-	
-	NSDictionary *snResult = nil;
-	
-	if (username != nil && password != nil && username != @"" && password != @"" && password != snPasswordPlaceholder)
-		snResult = [self jsonRequest:[NSString stringWithFormat:@"\"setsncredentials\", \"%@\", \"%@\"", username, password]];
-
-	return snResult;
-}
-
--(IBAction)snStatsOptionChanged:(id)sender
-{
-	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"sn_disable_stats\", \"%@\"", [snStatsOptions objectValue]]];
-}
-
--(void)openSNSubscription:(id)sender
-{
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: @"http://www.squeezenetwork.com/" ]];
-}
-
--(void)openSNPasswordReminder:(id)sender
-{
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: @"http://www.squeezenetwork.com/user/forgotPassword" ]];
-}
-
-
 /* Music Library settings */
 -(IBAction)doAddMediadir:(id)sender
 {
@@ -751,36 +667,12 @@
 	}
 }
 
-
--(IBAction)doBrowsePlaylistFolder:(id)sender
-{
-	NSOpenPanel* openDlg = [NSOpenPanel openPanel];
-	
-	[openDlg setCanChooseFiles:NO];
-	[openDlg setCanChooseDirectories:YES];
-	[openDlg setAllowsMultipleSelection:NO];
-	
-	if ([openDlg runModalForDirectory:[playlistFolder stringValue] file:nil] == NSOKButton)
-	{
-		if (![[openDlg filename] isEqual:[playlistFolder stringValue]])
-		{
-			[playlistFolder setStringValue:[openDlg filename]];
-			[self playlistFolderChanged:self];
-		}
-	}
-}
-
 -(IBAction)saveMediadirs:(id)sender
 {
 	NSString *mediaDirsString = [NSString stringWithFormat:@"\"%@\"", [mediaDirs componentsJoinedByString:@"\",\""]];
 	//NSLog(mediaDirsString);
 	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"mediadirs\", [%@]", mediaDirsString]];
 	[mediaDirsTable reloadData];
-}
-
--(IBAction)playlistFolderChanged:(id)sender
-{
-	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"playlistdir\", \"%@\"", [playlistFolder stringValue]]];
 }
 
 -(IBAction)useiTunesChanged:(id)sender
@@ -834,9 +726,6 @@
 				break;
 			case 1:
 				[self asyncJsonRequest:@"\"wipecache\""];
-				break;
-			case 2:
-				[self asyncJsonRequest:@"\"rescan\", \"playlists\""];
 				break;
 		}
 	
@@ -974,27 +863,9 @@
 		[musicLibraryName setStringValue:[self getPref:@"libraryname"]];
 
 		[self getMediaDirs];
-		[playlistFolder setStringValue:[self getPref:@"playlistdir"]];
 		
 		int option = [[self getPref:@"itunes" fileName:@"itunes"] intValue];
 		[useiTunes setState:(option == 1 ? 1 : 0)];
-	}
-	
-	// SqueezeNetwork settings
-	else {
-		NSString *username = [self getPref:@"sn_email"];
-		
-		if (username == nil || [username isEqual:[NSNull null]]) {
-			[snUsername setStringValue:@""];
-			[snPassword setStringValue:@""];
-		}
-		else {
-			[snUsername setStringValue:(username)];
-			[snPassword setStringValue:([self getPref:@"sn_password_sha"] != @"" ? snPasswordPlaceholder : @"")];
-		}
-		
-		int option = [[self getPref:@"sn_disable_stats"] intValue];
-		[snStatsOptions selectItemAtIndex:(option == 1 ? 1 : 0)];
 	}
 }
 
