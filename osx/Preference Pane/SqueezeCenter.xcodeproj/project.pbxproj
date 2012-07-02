@@ -80,7 +80,7 @@
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		1477C984098865030087109C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		14A9402709875F57001992EB /* Squeezebox.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Squeezebox.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
+		14A9402709875F57001992EB /* UEMusicLibrary.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UEMusicLibrary.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7EDF7BB03C5D22300A80172 /* create-startup.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "create-startup.sh"; sourceTree = "<group>"; };
 		E7EDF7BC03C5D22300A80172 /* get-server.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "get-server.sh"; sourceTree = "<group>"; };
 		E7EDF7BE03C5D22300A80172 /* stop-server.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "stop-server.sh"; sourceTree = "<group>"; };
@@ -260,7 +260,7 @@
 		F58B0871035DF7DA01A80172 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				14A9402709875F57001992EB /* Squeezebox.prefPane */,
+				14A9402709875F57001992EB /* UEMusicLibrary.prefPane */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -308,9 +308,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		14A9400309875F57001992EB /* Squeezebox */ = {
+		14A9400309875F57001992EB /* UEMusicLibrary */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 14A9402209875F57001992EB /* Build configuration list for PBXNativeTarget "Squeezebox" */;
+			buildConfigurationList = 14A9402209875F57001992EB /* Build configuration list for PBXNativeTarget "UEMusicLibrary" */;
 			buildPhases = (
 				14A9400809875F57001992EB /* Headers */,
 				14A9400A09875F57001992EB /* Resources */,
@@ -322,10 +322,10 @@
 			);
 			dependencies = (
 			);
-			name = Squeezebox;
+			name = UEMusicLibrary;
 			productInstallPath = "$(HOME)/Library/PreferencePanes";
 			productName = SqueezeCenter;
-			productReference = 14A9402709875F57001992EB /* Squeezebox.prefPane */;
+			productReference = 14A9402709875F57001992EB /* UEMusicLibrary.prefPane */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -359,7 +359,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				14A9400309875F57001992EB /* Squeezebox */,
+				14A9400309875F57001992EB /* UEMusicLibrary */,
 			);
 		};
 /* End PBXProject section */
@@ -554,7 +554,7 @@
 					"-twolevel_namespace",
 				);
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = Squeezebox;
+				PRODUCT_NAME = UEMusicLibrary;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = (
 					"-Wmost",
@@ -587,7 +587,7 @@
 					"-twolevel_namespace",
 				);
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = Squeezebox;
+				PRODUCT_NAME = UEMusicLibrary;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = (
 					"-Wmost",
@@ -618,7 +618,7 @@
 					"-twolevel_namespace",
 				);
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = SqueezeCenter;
+				PRODUCT_NAME = UEMusicLibrary;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = (
 					"-Wmost",
@@ -642,7 +642,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;
 		};
-		14A9402209875F57001992EB /* Build configuration list for PBXNativeTarget "Squeezebox" */ = {
+		14A9402209875F57001992EB /* Build configuration list for PBXNativeTarget "UEMusicLibrary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				14A9402309875F57001992EB /* Development */,

@@ -704,10 +704,10 @@ sub buildMacOSX {
 
 		## Lets build the pref pane and installer...
 		print "INFO: Beginning PreferencePane and Installer build...\n";
-		system("cd \"$buildDir/platforms/osx/Preference Pane\"; xcodebuild -project \"SqueezeCenter.xcodeproj\" -target \"Squeezebox\" -configuration Deployment");
+		system("cd \"$buildDir/platforms/osx/Preference Pane\"; xcodebuild -project \"SqueezeCenter.xcodeproj\" -target \"UEMusicLibrary\" -configuration Deployment");
 	
 		print "INFO: Copying Preference Pane...\n";
-		system("ditto \"$xcodeBuildDir/Squeezebox.prefPane\" \"$prefPaneDir\"");
+		system("ditto \"$xcodeBuildDir/UEMusicLibrary.prefPane\" \"$prefPaneDir\"");
 	
 		system("mv \"$buildDir/server\" \"$contentsDir/\" ");
 		

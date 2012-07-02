@@ -15,10 +15,10 @@
 
 #define statusUrl @"http://localhost:9000/EN/settings/server/status.html?simple=1&os=osx"
 
-#define versionFile @"Caches/Squeezebox/updates/server.version"
-#define prefsFile @"Application Support/Squeezebox/server.prefs"
-#define pluginPrefs @"Application Support/Squeezebox/plugin/"
-#define logDir @"Logs/Squeezebox"
+#define versionFile @"Caches/UEMusicLibrary/updates/server.version"
+#define prefsFile @"Application Support/UEMusicLibrary/server.prefs"
+#define pluginPrefs @"Application Support/UEMusicLibrary/plugin/"
+#define logDir @"Logs/UEMusicLibrary"
 
 #define kNoAutomaticStartup 0
 #define kStartupAtLogin 1
