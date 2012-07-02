@@ -44,7 +44,7 @@ my $dirsToExcludeForReadyNasi386 = "win32 osx i386-freebsd-64int sparc-linux spa
 my $dirsToExcludeForReadyNasSparc = "win32 osx i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin arm-linux MSWin32-x86 powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46l.dat";
 my $dirsToExcludeForReadyNasARM = "win32 osx i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu i386 x86_64 darwin-thread-multi darwin MSWin32-x86 powerpc-linux 5.8 5.12 5.14 PreventStandby icudt46b.dat";
 my $dirsToExcludeForUeml = "Slim/Plugin/! server/Bin/! server/Firmware server/Graphics server/IR /MySQL Slim/Buttons Slim/Hardware Slim/Control/LocalPlayers Slim/Display/Lib Slim/Networking/SliMP3 Slim/Player/Protocols";
-my $dirsToIncludeForUeml = "Plugin/iTunes Plugin/Extensions Plugin/JiveExtras Plugin/Base.pm Bin/darwin";
+my $dirsToIncludeForUeml = "Plugin/iTunes Plugin/Base.pm Bin/darwin";
 
 ## Initialize some variables we'll use later
 my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $ueml, $light, $freebsd, $arm, $ppc, $releaseType, $release, $archType);
