@@ -8,10 +8,14 @@
 use strict;
 use PerlTray;
 
+# Tell PerlTray to bundle these modules
+if (0) {
+	require 'auto/Compress/Raw/Zlib/autosplit.ix';
+}
+
 use File::Spec::Functions qw(catdir);
 use Getopt::Long;
 use Socket;
-use Encode;
 
 use Win32::Locale;
 use Win32::Process;
@@ -27,7 +31,13 @@ use constant SCANNER      => 0;
 use constant INFOLOG      => 0;
 use constant SERVICES     => 0;
 use constant ISWINDOWS    => 1;
+use constant LOCAL_PLAYERS=> $ENV{nolocalplayers} ? 0 : 1;
 use constant THIRDPARTY   => 0;
+
+# IANA-assigned port for the Slim protocol, used by all Slim Devices hardware is 3483.
+# IANA-requested port for the UEML-discovery and UEML-HTTP protocols is 3546
+use constant WEB_PORT     => LOCAL_PLAYERS ? 9000 : 3546;
+use constant CLI_PORT     => 9090;
 
 use constant TIMERSECS    => 10;
 
@@ -59,8 +69,8 @@ sub PopupMenu {
 	my $type = $svcMgr->getStartupType();
 	my $state = $svcMgr->getServiceState();
 
-	push @menu, [($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'} ? '' : '*') . string('OPEN_CONTROLPANEL'), \&openControlPanel];
-	push @menu, [($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'} ? '*' : '') . string('OPEN_SQUEEZEBOX_SERVER'), $state == SC_STATE_RUNNING ? \&openServer : undef];
+	push @menu, [(LOCAL_PLAYERS && $Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'} ? '' : '*') . string('OPEN_CONTROLPANEL'), \&openControlPanel];
+	push @menu, [($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'} ? '*' : '') . string('OPEN_SQUEEZEBOX_SERVER'), $state == SC_STATE_RUNNING ? \&openServer : undef] if LOCAL_PLAYERS;
 
 	if ( my $installer = Slim::Utils::Light->checkForUpdate() ) {
 		push @menu, [string('INSTALL_UPDATE'), \&updateServerSoftware];	
@@ -116,7 +126,7 @@ sub Singleton {
 				startServer();
 			}
 
-			if ($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'}) {
+			if (LOCAL_PLAYERS && $Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'}) {
 				openServer();
 			}
 			else {
@@ -135,7 +145,7 @@ sub Singleton {
 }
 
 sub DoubleClick {
-	if ($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'}) {
+	if (LOCAL_PLAYERS && $Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'}) {
 
 		if ($svcMgr->isRunning()) {
 			openServer();
@@ -169,9 +179,6 @@ sub ToolTip {
  	else {
 		$state = string('SQUEEZEBOX_SERVER_STOPPED', $lang);
  	}
- 
-	# try to prevent intermittent "Unknown encoding 'cp1250' at SqueezeTray.pl line 170" crasher
-	eval "$state = encode($lang eq 'HE' ? 'cp1255' : 'cp1250', $state);";
 
 	return $state;
 }
@@ -234,7 +241,7 @@ sub checkAndStart {
 			startServer();
 		}
 
-		if ($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'}) {
+		if (LOCAL_PLAYERS && $Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'}) {
 			openServer();
 		}
 		else {
@@ -375,7 +382,6 @@ sub runWatchDog {
 	# cut short if file doesn't exist, don't continue if we can't delete it
 	return unless -e $restartFlag && -w _;
 
-	
 	my @filestat = stat(_);
 	my $age = time() - $filestat[9];
 
@@ -392,10 +398,14 @@ sub runWatchDog {
 
 sub sendCLICommand {
 	my $cmd = shift;
-	my $cliPort = getPref('cliport', 'cli.prefs') || 9090;
+
+	# in UEML we don't run the CLI plugin - use slightly more expensive HTTP request
+	return sendJSONRPCCommand($cmd) if !LOCAL_PLAYERS;
+
+	my $cliPort = getPref('cliport', 'cli.prefs') || CLI_PORT;
 
 	# Use low-level socket code. IO::Socket returns a 'Invalid Descriptor'
-	# erorr. It also sucks more memory than it should.
+	# error. It also sucks more memory than it should.
 	my $raddr = '127.0.0.1';
 	my $rport = $cliPort;
 
@@ -415,6 +425,32 @@ sub sendCLICommand {
 
 	return 0;
 }
+
+# very simple json/rpc client implementation - doesn't even encode/decode json
+# only supposed to run simple comands, no queries
+sub sendJSONRPCCommand {
+	my $cmd = shift;
+	
+	return 0 unless $svcMgr->isRunning();
+
+	require LWP::UserAgent;
+
+	my $req = HTTP::Request->new( 
+		'POST' => 'http://127.0.0.1:' . (getPref('httpport') || main::WEB_PORT) . '/jsonrpc.js',
+	);
+	$req->header('Content-Type' => 'text/plain');
+	$req->content('{"id":1,"method":"slim.request","params":["",["' . $cmd . '"]]}');
+
+	my $ua = LWP::UserAgent->new();
+	$ua->timeout(2);
+
+	my $response = $ua->request($req);
+	
+	return 0 if !$response;
+	
+	return $response->decoded_content;
+}
+
 
 # attempt to stop the server and exit
 sub uninstall {

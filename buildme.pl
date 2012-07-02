@@ -780,7 +780,7 @@ sub buildWin32 {
 			"InternalName=UEMLTray",
 		));
 
-		system("cd $buildDir/platforms/win32; perltray --perl \"$windowsPerlPath\" --info \"$programInfo\" SqueezeTray.perltray");
+		system("cd $buildDir/platforms/win32; perltray --perl \"$windowsPerlPath\" --env nolocalplayers=$ueml --info \"$programInfo\" SqueezeTray.perltray");
 		move("$buildDir/platforms/win32/UEMLTray.exe", "$buildDir/build/UEMLTray.exe");
 		copy("$buildDir/platforms/win32/strings.txt", "$buildDir/build/strings.txt");
 
@@ -828,7 +828,7 @@ sub buildWin32 {
 			"InternalName=Cleanup",
 		));
 
-		system("cd $buildDir/server; perlapp --perl \"$windowsPerlPath\" --info \"$programInfo\" ../platforms/win32/cleanup.perlapp");
+		system("cd $buildDir/server; perlapp --perl \"$windowsPerlPath\" --env nolocalplayers=$ueml --env no3rdpartyplugins=$ueml --info \"$programInfo\" ../platforms/win32/cleanup.perlapp");
 		move("$buildDir/server/cleanup.exe", "$buildDir/build/server/uemlcp.exe");
 
 
