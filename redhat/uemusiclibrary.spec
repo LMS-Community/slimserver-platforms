@@ -30,7 +30,7 @@
 
 
 Name:		uemusiclibrary
-Packager:	Logitech - please visit www.mysqueezebox.com/support
+Packager:	Logitech - please visit www.logitech.com/support
 Version:	%{_version}
 Release:	%{rpm_release}
 Summary:	UE Music Library

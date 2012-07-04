@@ -11,7 +11,7 @@
 %define include_firmware %{?_with_firmware:1}0
 
 Name:           slimserver
-Packager:       Logitech - please visit www.mysqueezebox.com/support
+Packager:       Logitech - please visit www.logitech.com/support
 Version:        %{version}
 # My guess is we'll want to set the 'dist' macro to differentiate the Fedora
 # RPM from the generic linux RPM, but that would seem to mean that somebody
