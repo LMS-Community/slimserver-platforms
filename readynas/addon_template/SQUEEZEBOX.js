@@ -4,7 +4,7 @@ self.SQUEEZEBOX_preaction = function()
 
 self.SQUEEZEBOX_onloadaction = function()
 {
-	// set a link to the Logitech Media Server web UI
+	// set a link to the UE Music Library web UI
 	$.ajax({
 		url: NasState.otherAddOnHash['SQUEEZEBOX'].DisplayAtom.set_url + '?OPERATION=get_web_port',
 		success: function(xmlPayLoad) {

@@ -1,10 +1,10 @@
 LABEL_SERVICE_SQUEEZEBOX_INFO
-	DE	<b>Logitech Media Server</b> - Logitech Media Server ist ein Cross-Plattform Streaming Media Server, der eine grosse Auswahl von Formaten unterstützt, darunter AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV und WMA.
-	EN	<b>Logitech Media Server</b> - Logitech Media Server is a cross-platform streaming media server that supports a wide range of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and WMA.
+	DE	<b>UE Music Library</b> - UE Music Library ist ein Cross-Plattform Streaming Media Server, der eine grosse Auswahl von Formaten unterstützt, darunter AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV und WMA.
+	EN	<b>UE Music Library</b> - UE Music Library is a cross-platform streaming media server that supports a wide range of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and WMA.
 	
 LABEL_ACCESS_LMS
-	DE	Auf Logitech Media Server zugreifen
-	EN	Access Logitech Media Server
+	DE	Auf UE Music Library zugreifen
+	EN	Access UE Music Library
 
 BUTTON_CLEANUP_DO
 	CS	Spustit čištění
@@ -22,19 +22,19 @@ BUTTON_CLEANUP_DO
 	SV	Kör rensning
 
 LABEL_CLEANUP_PLEASE_STOP_SC
-	CS	Před spuštěním čištění prosím zastavte Logitech Media Server.
-	DA	Du skal stoppe Logitech Media Server før du foretager oprydningen.
-	DE	Vor der Bereinigung muss Logitech Media Server beendet werden.
-	EN	Please Stop Logitech Media Server before running the cleanup.
-	ES	Detenga Logitech Media Server antes de ejecutar la limpieza.
-	FI	Sulje Logitech Media Server ennen puhdistuksen suorittamista.
-	FR	Arrêtez le Logitech Media Server avant de lancer le nettoyage.
-	IT	Prima di eseguire la pulizia, arrestare Logitech Media Server.
-	NL	Stop Logitech Media Server voordat je de opschoning uitvoert.
-	NO	Stopp Logitech Media Server før du kjører oppryddingen.
-	PL	Przed rozpoczęciem czyszczenia zatrzymaj program Logitech Media Server.
-	RU	Перед очисткой остановите работу Logitech Media Server.
-	SV	Stoppa Logitech Media Server innan du börjar med rensningen.
+	CS	Před spuštěním čištění prosím zastavte UE Music Library.
+	DA	Du skal stoppe UE Music Library før du foretager oprydningen.
+	DE	Vor der Bereinigung muss UE Music Library beendet werden.
+	EN	Please Stop UE Music Library before running the cleanup.
+	ES	Detenga UE Music Library antes de ejecutar la limpieza.
+	FI	Sulje UE Music Library ennen puhdistuksen suorittamista.
+	FR	Arrêtez le UE Music Library avant de lancer le nettoyage.
+	IT	Prima di eseguire la pulizia, arrestare UE Music Library.
+	NL	Stop UE Music Library voordat je de opschoning uitvoert.
+	NO	Stopp UE Music Library før du kjører oppryddingen.
+	PL	Przed rozpoczęciem czyszczenia zatrzymaj program UE Music Library.
+	RU	Перед очисткой остановите работу UE Music Library.
+	SV	Stoppa UE Music Library innan du börjar med rensningen.
 	
 LABEL_CLEANUP_PREFS
 	CS	Smazat soubory předvoleb

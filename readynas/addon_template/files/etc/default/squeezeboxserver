@@ -1,4 +1,4 @@
-# User to run Logitech Media Server as
+# User to run UE Music Library as
 SLIMUSER=root
 
 SLIMOPTIONS=""

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <addon>
   <name>SQUEEZEBOX</name>
-  <friendly_name>Logitech Media Server</friendly_name>
-  <version>7.8.0</version>
+  <friendly_name>UE Music Library</friendly_name>
+  <version>10.0.0</version>
   <detail_url>http://www.logitech.com/speakers_audio/wireless_music_systems</detail_url>
   <author>Logitech Inc.</author>
   <get_url>../addons/SQUEEZEBOX/SQUEEZEBOX_HANDLER.pl</get_url>

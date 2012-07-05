@@ -1,5 +1,5 @@
 ;
-; InnoSetup Script for Logitech Media Server
+; InnoSetup Script for UE Music Library
 ;
 ; Logitech : http://www.logitech.com
 ;

@@ -1,11 +1,11 @@
 <addon>
   <name>SQUEEZEBOX</name>
-  <friendly_name>Logitech Media Server</friendly_name>
-  <version>7.8.0</version>
+  <friendly_name>UE Music Library</friendly_name>
+  <version>10.0.0</version>
   <author>Logitech Inc.</author>
   <description>
     <en-us>
-      <![CDATA[UE Music Library aka. Logitech Media Server aka. Squeezebox Server aka. SqueezeCenter aka. SlimServer aka. SliMP3]]>
+      <![CDATA[UE Music Library aka. UE Music Library aka. Squeezebox Server aka. SqueezeCenter aka. SlimServer aka. SliMP3]]>
     </en-us>
   </description>
   <detail_url>http://www.logitech.com/speakers_audio/wireless_music_systems</detail_url>
