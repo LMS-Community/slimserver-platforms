@@ -107,8 +107,8 @@
 /* Class = "NSTextFieldCell"; title = "Music Library Scan"; ObjectID = "1079"; */
 "1079.title" = "Skanowanie biblioteki muzyki";
 
-/* Class = "NSTextFieldCell"; title = "This is how your music library will be named in your Squeezebox's \"My Music\" menu."; ObjectID = "1081"; */
-"1081.title" = "Taką nazwę będzie miała biblioteka muzyki w menu \"Moja muzyka\" urządzenia Squeezebox.";
+/* Class = "NSTextFieldCell"; title = "This is how your music library will be named in your Smart Radio's \"My Music\" menu."; ObjectID = "1081"; */
+"1081.title" = "Taką nazwę będzie miała biblioteka muzyki w menu \"Moja muzyka\" urządzenia Smart Radio.";
 
 /* Class = "NSTextFieldCell"; title = "Music Folder\n"; ObjectID = "1083"; */
 "1083.title" = "Folder muzyki\n";

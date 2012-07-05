@@ -452,7 +452,7 @@ var
 	UninstallPath: String;
  
 begin
-	// if we don't have a Squeezebox prefs file yet, migrate preference file before uninstalling SlimServer
+	// if we don't have a server.pref file yet, migrate preference file before uninstalling SlimServer
 	if not FileExists(GetPrefsFile()) then
 		begin
 			PrefsPath := GetPrefsFolder();

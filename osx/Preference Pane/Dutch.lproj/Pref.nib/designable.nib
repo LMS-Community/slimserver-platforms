@@ -350,7 +350,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="540456695">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272760832</int>
-													<string key="NSContents">Dit is de naam waarmee je muziekcollectie in het Squeezebox-menu "Mijn muziek" verschijnt.</string>
+													<string key="NSContents">Dit is de naam waarmee je muziekcollectie in het Smart Radio-menu "Mijn muziek" verschijnt.</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="612122993"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>

@@ -255,18 +255,18 @@ OPEN_CONTROLPANEL
 
 UPDATE_AVAILABLE
 	CS	K dispozici je aktualizovaná verze UE Music Library a je připravena k instalaci. Pro aktualizaci stiskněte ikonu v systémové liště.
-	DA	En opdateret version af UE Music Library er klar til at blive installeret. Klik på Squeezebox-ikonet i systembakken for at starte opgraderingen.
+	DA	En opdateret version af UE Music Library er klar til at blive installeret. Klik på UE Music Library-ikonet i systembakken for at starte opgraderingen.
 	DE	Eine aktualisierte Version von UE Music Library ist verfügbar und kann installiert werden. Klicken Sie auf das Symbol in der Taskleiste, um das Update zu starten.
 	EN	An updated version of UE Music Library is available and ready to install. Click the tray icon to start the upgrade.
 	ES	Hay disponible una versión actualizada de UE Music Library y está lista para instalar. Haga clic en el icono en la bandeja del sistema para iniciar la actualización.
-	FI	UE Music Libraryistä on olemassa päivitetty ja asennusvalmis versio. Valitse Squeezeboxin tehtäväpalkki ja aloita päivityksen suorittaminen.
+	FI	UE Music Libraryistä on olemassa päivitetty ja asennusvalmis versio. Valitse UE Music Libraryin tehtäväpalkki ja aloita päivityksen suorittaminen.
 	FR	Une nouvelle version du UE Music Library est disponible et prête à être installée. Cliquez sur l'icône dans la barre d'état système pour lancer la mise à niveau.
 	IT	È disponibile una versione aggiornata di UE Music Library, pronta per essere installata. Fare clic sull'area di notifica per avviare l'aggiornamento.
-	NL	Er is een bijgewerkte versie van UE Music Library beschikbaar voor installatie. Klik op het Squeezebox-pictogram in het systeemvak om de upgrade te starten.
-	NO	En oppdatert versjon av UE Music Library er tilgjengelig og klar til installering. Du kan starte oppgraderingen ved å klikke på Squeezebox-ikonet i systemstatusfeltet.
-	PL	Zaktualizowana wersja programu UE Music Library jest dostępna i gotowa do zainstalowania. Kliknij ikonę usługi Squeezebox na pasku zadań, aby uruchomić uaktualnianie.
-	RU	Доступна и готова к установке обновленная версия UE Music Library. Чтобы начать установку обновления, щелкните значок Squeezebox на панели задач.
-	SV	En uppdaterad version av UE Music Library finns tillgänglig och redo att installeras. Klicka på Squeezebox-fältikonen för att starta uppgraderingen.
+	NL	Er is een bijgewerkte versie van UE Music Library beschikbaar voor installatie. Klik op het UE Music Library-pictogram in het systeemvak om de upgrade te starten.
+	NO	En oppdatert versjon av UE Music Library er tilgjengelig og klar til installering. Du kan starte oppgraderingen ved å klikke på UE Music Library-ikonet i systemstatusfeltet.
+	PL	Zaktualizowana wersja programu UE Music Library jest dostępna i gotowa do zainstalowania. Kliknij ikonę usługi UE Music Library na pasku zadań, aby uruchomić uaktualnianie.
+	RU	Доступна и готова к установке обновленная версия UE Music Library. Чтобы начать установку обновления, щелкните значок UE Music Library на панели задач.
+	SV	En uppdaterad version av UE Music Library finns tillgänglig och redo att installeras. Klicka på UE Music Library-fältikonen för att starta uppgraderingen.
 
 INSTALL_UPDATE
 	CS	Instalovat aktualizaci...

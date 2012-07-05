@@ -350,7 +350,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="540456695">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272760832</int>
-													<string key="NSContents">Das ist der Name der Squeezebox im Menü "Eigene Musik".</string>
+													<string key="NSContents">Das ist der Name ihrer Musiksammlung im Smart Radio Menü "Eigene Musik".</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="612122993"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>

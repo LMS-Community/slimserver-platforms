@@ -350,7 +350,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="540456695">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272760832</int>
-													<string key="NSContents">Это имя медиатеки будет отображаться в меню Squeezebox Моя музыка.</string>
+													<string key="NSContents">Это имя медиатеки будет отображаться в меню Smart Radio Моя музыка.</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="612122993"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
