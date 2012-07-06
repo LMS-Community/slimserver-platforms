@@ -19,15 +19,6 @@ stop=`awk -F'!!' '{ print $5 }' addons.conf`
 run=`awk -F'!!' '{ print $4 }' addons.conf`
 version=`awk -F'!!' '{ print $3 }' addons.conf`
 
-###########  Addon specific action go here ###########
-
-# tell user to uninstall LMS before installing UEMLfull
-if [ z"$UEML" = z ] && grep -q SQUEEZEBOX $ADDON_HOME/addons.conf; then
-	bye "ERROR: Please uninstall Logitech Media Server before installing UE Music Library."
-fi 
-
-######################################################
-
 if grep -q ${name} $ADDON_HOME/addons.conf; then
   orig_vers=`awk -F'!!' '/UEML/ { print $3 }' $ADDON_HOME/addons.conf | cut -f1 -d'.'`
 fi
@@ -68,12 +59,22 @@ echo "UEML=1" >> /tmp/services
 cp /tmp/services /etc/default/services
 rm -f /tmp/services
 
-# try to migrate LMS prefs to UEML
-if [ ! -e /c/.uemusiclibrary/prefs/server.prefs ] && [ -f /c/.squeezeboxserver/prefs/server.prefs ]; then
+# stop LMS if it's installed and we're running UEML in full mode
+if [ z"$UEML" = z ] && grep -q SQUEEZEBOX $ADDON_HOME/addons.conf; then
+	grep -v SQUEEZEBOX /etc/default/services > /tmp/services
+	echo "SQUEEZEBOX=0" >> /tmp/services
+	cp /tmp/services /etc/default/services
+	rm -f /tmp/services
+
+	/etc/init.d/squeezeboxserver stop > /dev/null 2>&1
+fi 
+
+# try to migrate LMS prefs to UEML full
+if [ z"$UEML" = z ] && [ ! -e /c/.uemusiclibrary/prefs/server.prefs ] && [ -f /c/.squeezeboxserver/prefs/server.prefs ]; then
+	mkdir -p /c/.uemusiclibrary/prefs/
 	# remove invalid dbsource definition
-	grep -v "dbsource.*/c/sq" | grep -v "squeezeboxserver" /c/.squeezeboxserver/prefs/server.prefs > /tmp/server.prefs 2> /dev/null
+	grep -v "dbsource.*/c/sq" | grep -v "squeezeboxserver" /c/.squeezeboxserver/prefs/server.prefs | grep httpport > /tmp/server.prefs 2> /dev/null
 	mv /tmp/server.prefs /c/.uemusiclibrary/prefs/server.prefs > /dev/null 2>&1
-	#rm -f /tmp/server.prefs > /dev/null 2>&1
 fi
 ######################################################
 
