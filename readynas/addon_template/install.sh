@@ -71,7 +71,7 @@ fi
 
 # try to migrate LMS prefs to UEML full
 if [ z"$UEML" = z ] && [ ! -e /c/.uemusiclibrary/prefs/server.prefs ] && [ -f /c/.squeezeboxserver/prefs/server.prefs ]; then
-	mkdir -p /c/.uemusiclibrary/prefs/
+	mkdir -p /c/.uemusiclibrary/prefs/ > /dev/null 2>&1
 	# remove invalid dbsource definition
 	grep -v "dbsource.*/c/sq" | grep -v "squeezeboxserver" /c/.squeezeboxserver/prefs/server.prefs | grep httpport > /tmp/server.prefs 2> /dev/null
 	mv /tmp/server.prefs /c/.uemusiclibrary/prefs/server.prefs > /dev/null 2>&1
