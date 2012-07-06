@@ -106,15 +106,13 @@ sub checkCommandOptions {
 		$defaultDestName = $uemlDefaultDestName;
 	}
 
-	if ( !$build || $build eq 'readynas' ) { 
+	if ( !$build ) { 
 		showUsage();
-
-		if ( $build eq 'readynas' ) {
-			print "\n\nPLEASE NOTE: the old style ReadyNAS package is no longer supported. Please use --readynasv2 instead.\n\n";
-		}
-
-		exit(1);
-	}; 
+	}
+	elsif ( $build eq 'readynas' ) {
+		print "\n\nPLEASE NOTE: the old style ReadyNAS package is no longer supported. Using --readynasv2 instead.\n\n";
+		$build = 'readynasv2';
+	}
 
 	if ($build eq "tarball" || $build eq 'readynasv2' || $build eq "debian" || $build eq "rpm" || $build eq "macosx" || $build eq "win32") { 
 		## releaseType is an option, but if its not there, we need
@@ -297,9 +295,6 @@ sub doCommandOptions {
 			## Use the CPAN variables
 			buildTarball($dirsToExcludeForLinuxTarball, "$destDir/$destName");
 		}			
-#	} elsif ($build eq "readynas") { 
-#		## Next, we'll build the ReadyNAS/debian package... 
-#		buildReadyNas();
 
 	} elsif ($build eq "readynasv2") { 
 		## Next, we'll build the ReadyNAS add-in... 
@@ -603,7 +598,7 @@ sub buildReadyNasV2 {
 	my $dirsToExcludeForReadyNas;
 	if ($archType eq "i386") { 
 		## Since i386 was selected, lets make sure to remove sparc libs
-		print "INFO: \$archType was provided as [$archType], removing ls other files...\n";
+		print "INFO: \$archType was provided as [$archType], removing other files...\n";
 		$dirsToExcludeForReadyNas = $dirsToExcludeForReadyNasi386;
 		$target_arch = 'TARGET_MACHTYPE=i386';
 		
@@ -631,12 +626,12 @@ sub buildReadyNasV2 {
 	excludeDirs($dirsToExcludeForReadyNas);
 	
 	my $baseDir = "$buildDir/platforms/readynas";
-	my $workDir = "$baseDir/addons_sdk/SQUEEZEBOX/files";
+	my $workDir = "$baseDir/addons_sdk/UEML/files";
 	my $share   = "$workDir/usr/share/$defaultPathId";
 	my $varlib  = "$workDir/c/.$defaultPathId";
 
 	print "INFO: Preparing add-on build environment...\n";
-	system("mv $baseDir/addon_template $baseDir/addons_sdk/SQUEEZEBOX");
+	system("mv $baseDir/addon_template $baseDir/addons_sdk/UEML");
 
 	system("install -d -m0755 $workDir/usr/share/perl5/ && install -d -m0755 $share/ && install -d -m0755 $workDir/usr/share/doc/$defaultPathId/");
 	system("install -d -m0755 $workDir/etc/$defaultPathId/ && install -d -m0755 $varlib/cache && install -d -m0755 $varlib/log && install -d -m0755 $varlib/prefs");
@@ -644,22 +639,29 @@ sub buildReadyNasV2 {
 	system("install -m0755 $buildDir/$squeezeCenterStartupScript $workDir/usr/sbin/$defaultPathId && install -m0755 $buildDir/server/scanner.pl $workDir/usr/sbin/$defaultPathId-scanner");
 	
 	# unfortunately GIT can't handle empty folders - let's create them here
-	system("install -d -m0755 $workDir/etc/frontview/addons/bin/SQUEEZEBOX $workDir/etc/frontview/apache/addons");
+	system("install -d -m0755 $workDir/etc/frontview/addons/bin/UEML $workDir/etc/frontview/apache/addons");
 
 	system("mv $buildDir/server/Slim $workDir/usr/share/perl5/; mv $buildDir/server/cleanup.pl $share/");
-	system("mv $buildDir/server/CPAN/* $share/CPAN/; mv $buildDir/server/lib $buildDir/server/Firmware $buildDir/server/Graphics $buildDir/server/HTML $share/");
-	system("mv $buildDir/server/IR $buildDir/server/SQL $buildDir/server/strings.txt $buildDir/server/icudt46*.dat $buildDir/server/Bin $share/");
-	system("cp -r $baseDir/addons_sdk/SQUEEZEBOX/language $workDir/etc/frontview/addons/ui/SQUEEZEBOX/");
+	system("mv $buildDir/server/CPAN/* $share/CPAN/; mv $buildDir/server/lib $buildDir/server/HTML $share/");
+	system("mv $buildDir/server/SQL $buildDir/server/strings.txt $buildDir/server/icudt46*.dat $buildDir/server/Bin $share/");
+	system("mv $buildDir/server/Firmware $buildDir/server/Graphics $buildDir/server/IR $share/") unless $ueml;
+	system("cp -r $baseDir/addons_sdk/UEML/language $workDir/etc/frontview/addons/ui/UEML/");
+	
+	# git and/or this build script don't handle dot files nicely
+	system("mv $baseDir/addons_sdk/UEML/UEML_BUILD_SETTINGS $baseDir/addons_sdk/UEML/.UEML_BUILD_SETTINGS");
 	
 	system("mv $buildDir/server/*.conf $workDir/etc/$defaultPathId");
 	
 	system("install -d -m0755 $varlib/Plugins");
 	
 	system("mv $buildDir/server/Change* $workDir/usr/share/doc/$defaultPathId/ && mv $buildDir/$revisionTextFile $share");
+	
+	# set a flag if building UEML-full to tell the installer to check about LMS
+	system("cd $baseDir/addons_sdk/UEML/; mv install.sh install-ueml.sh; grep -v \"UEML=UEML\" install-ueml.sh > install.sh") unless $ueml;
 
 	## Build the addon now
 	print "INFO: Executing build_addon...\n";
-	system("cd $baseDir/addons_sdk/SQUEEZEBOX; $target_arch ../bin/build_addon");
+	system("cd $baseDir/addons_sdk/UEML; $target_arch ../bin/build_addon");
 
 	## Move the final addon into place
 	if ($releaseType eq "release") { 
@@ -669,7 +671,7 @@ sub buildReadyNasV2 {
 	$destName .= "-$archType-readynas.bin";
 
 	print "INFO: Moving the final addon into [$destDir] - $destName\n";
-	system("mv $baseDir/addons_sdk/SQUEEZEBOX/*.bin $destDir/$destName");	
+	system("mv $baseDir/addons_sdk/UEML/*.bin $destDir/$destName");	
 }
 
 ##############################################################################################

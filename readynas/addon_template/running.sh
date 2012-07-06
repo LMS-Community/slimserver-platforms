@@ -5,7 +5,7 @@
 # UNCOMMENT and MODIFY as necessary; return 1 for now.
 #
 
-if ! ps -ef | grep "/usr/sbin/squeezeboxserver " | grep -v grep &> /dev/null; then
+if ! ps -ef | grep "/usr/sbin/uemusiclibrary " | grep -v grep &> /dev/null; then
   exit 1
 fi
 

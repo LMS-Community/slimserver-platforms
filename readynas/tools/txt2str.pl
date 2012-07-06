@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# read strings.txt file and split it up into ReadyNAS specific SQUEEZEBOX.str files for every language
+# read strings.txt file and split it up into ReadyNAS specific UEML.str files for every language
 
 use strict;
 use Data::Dump qw(dump);
@@ -56,7 +56,7 @@ for my $lang (keys %data) {
 	my $dir = 'addon_template/language/' . $langs{$lang};
 	make_path($dir) unless -d $dir;
 	
-	my $stringsFile = $dir . '/SQUEEZEBOX.str';
+	my $stringsFile = $dir . '/UEML.str';
 	open(STRINGS, ">:utf8", $stringsFile) or die "Couldn't open $stringsFile for writing: $!\n";
 	binmode STRINGS;
 

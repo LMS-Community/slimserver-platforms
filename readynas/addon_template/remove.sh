@@ -1,17 +1,17 @@
 #!/bin/bash
 
-SERVICE=SQUEEZEBOX
-CONF_FILES="/etc/squeezeboxserver \
-            /c/.squeezeboxserver"
+SERVICE=UEML
+CONF_FILES="/etc/uemusiclibrary \
+            /c/.uemusiclibrary"
             
-PROG_FILES="/etc/frontview/apache/addons/SQUEEZEBOX.conf* \
-            /etc/frontview/addons/*/SQUEEZEBOX \
-            /usr/share/squeezeboxserver \
+PROG_FILES="/etc/frontview/apache/addons/UEML.conf* \
+            /etc/frontview/addons/*/UEML \
+            /usr/share/uemusiclibrary \
             /usr/share/perl5/Slim \
-            /usr/share/doc/squeezeboxserver \
-            /etc/default/squeezeboxserver \
-            /etc/init.d/squeezeboxserver \
-            /usr/sbin/squeezeboxserver*"
+            /usr/share/doc/uemusiclibrary \
+            /etc/default/uemusiclibrary \
+            /etc/init.d/uemusiclibrary \
+            /usr/sbin/uemusiclibrary*"
 
 # Stop service from running
 eval `awk -F'!!' "/^${SERVICE}\!\!/ { print \\$5 }" /etc/frontview/addons/addons.conf`

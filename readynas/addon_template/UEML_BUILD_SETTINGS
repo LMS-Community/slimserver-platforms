@@ -1,7 +1,7 @@
 
 DETAIL_URL=http://www.logitech.com/speakers_audio/wireless_music_systems
 CURRENT_URL=
-ICON_URL=/addons/SQUEEZEBOX/icon.png
+ICON_URL=/addons/UEML/icon.png
 REBOOT_REQUIRED=n
 RESTART_APACHE=n
 MIN_RAIDIATOR_VERSION=4.1.3

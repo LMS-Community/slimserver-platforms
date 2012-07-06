@@ -1,5 +1,5 @@
 <addon>
-  <name>SQUEEZEBOX</name>
+  <name>UEML</name>
   <friendly_name>UE Music Library</friendly_name>
   <version>10.0.0</version>
   <author>Logitech Inc.</author>
@@ -9,7 +9,7 @@
     </en-us>
   </description>
   <detail_url>http://www.logitech.com/speakers_audio/wireless_music_systems</detail_url>
-  <download_url>http://downloads.slimdevices.com/lms/logitechmediaserver.bin</download_url>
-  <icon>/addons/SQUEEZEBOX/icon.png</icon>
+  <download_url>http://downloads.slimdevices.com/ueml/uemusiclibrary.bin</download_url>
+  <icon>/addons/UEML/icon.png</icon>
   <min_raidiator_version>4.1.3</min_raidiator_version>
 </addon>

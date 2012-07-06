@@ -2,7 +2,7 @@
 #
 # $Id$
 #
-# squeezebox	initscript for slimserver.pl
+# uemusiclibrary	initscript for uemusiclibrary.pl
 #		This file should be placed in /etc/init.d.
 #
 # Original Author: Mattias Holmlund
@@ -13,7 +13,7 @@ set -e
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="UE Music Library"
-NAME=squeezeboxserver
+NAME=uemusiclibrary
 DAEMON=/usr/sbin/$NAME
 DAEMON_SAFE=/usr/sbin/${NAME}_safe
 PIDFILE=/var/run/$NAME.pid
@@ -34,7 +34,7 @@ fi
 #	Function that starts the daemon/service.
 #
 d_start() {
-        # Use squeezebox_safe to restart the daemon when
+        # Use uemusiclibrary_safe to restart the daemon when
         # it dies. This must be done to handle mysql restarts.
                 start-stop-daemon --start --quiet \
                 --chuid $SLIMUSER \
@@ -42,7 +42,7 @@ d_start() {
                 --exec /bin/bash \
                 --background \
                 --make-pidfile \
-                --name squeezeboxserve \
+                --name uemusiclibrary \
                 --startas $DAEMON_SAFE \
                 -- \
                 $DAEMON \
@@ -69,7 +69,7 @@ d_start_direct() {
 #	Function that stops the daemon/service.
 #
 d_stop() {
-	start-stop-daemon --oknodo --stop --pidfile $PIDFILE --name squeezeboxserve --retry=TERM/30/KILL/5
+	start-stop-daemon --oknodo --stop --pidfile $PIDFILE --name uemusiclibrary --retry=TERM/30/KILL/5
 }
 
 #
@@ -77,7 +77,7 @@ d_stop() {
 #
 d_reload() {
 	start-stop-daemon --stop --quiet --pidfile $PIDFILE \
-		--name squeezeboxserve --signal 1
+		--name uemusiclibrary --signal 1
 }
 
 case "$1" in

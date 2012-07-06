@@ -1,0 +1,8 @@
+#!/bin/bash
+
+. /etc/default/services
+
+if [ "$UEML_RUNTIME_SECS" = "" ]; then
+  UEML_RUNTIME_SECS=60
+fi
+sleep $UEML_RUNTIME_SECS

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <addon>
   <version>10.0.0</version>
-  <download_url>http://downloads.slimdevices.com/lms/logitechmediaserver.bin</download_url>
+  <download_url>http://downloads.slimdevices.com/ueml/uemusiclibrary.bin</download_url>
   <message>
     <en-us>
       <![CDATA[This is the short message describing the changes made in this release of the add-on.]]>
