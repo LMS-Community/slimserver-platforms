@@ -725,8 +725,21 @@ sub buildMacOSX {
 		system("/Developer/usr/bin/packagemaker --verbose --root \"$prefPaneDir\" --info \"$buildDir/platforms/osx/Installer/Info.plist\" --scripts \"$buildDir/platforms/osx/Installer/scripts\" --out \"$destDir/$pkgName.pkg\" --target 10.4 --domain system");
 
 		# add localized resource files to the package
+		print "INFO: Add localized resource files to package...\n";
 		system("rm -rf $destDir/$pkgName.pkg/Contents/Resources/*.lproj");
 		system("cp -R $buildDir/platforms/osx/Installer/l10n/* \"$destDir/$pkgName.pkg/Contents/Resources/\"");
+
+		opendir my ($dirh), "$destDir/$pkgName.pkg/Contents/Resources/";
+
+		# copy the background image in each localization's folder
+		for ( readdir $dirh ) {
+			my $f = "$destDir/$pkgName.pkg/Contents/Resources/$_";
+			if ( $f =~ /\.lproj$/i && -d $f ) {
+				copy("$buildDir/platforms/osx/Installer/installer_osx.png", "$f/background");
+			}
+		}
+
+		closedir $dirh;
 		
 		print "\nINFO: zip up package bundle\n";
 		system("cd \"$destDir\"; zip -r9 $downloadableFile \"$pkgName.pkg\"")
