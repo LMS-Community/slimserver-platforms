@@ -781,18 +781,6 @@
 																<int key="NSTag">1</int>
 																<reference key="NSTarget" ref="121790594"/>
 															</object>
-															<object class="NSMenuItem" id="6647226">
-																<reference key="NSMenu" ref="152862286"/>
-																<string key="NSTitle">Pouze znovu prohledat seznamy skladeb</string>
-																<string key="NSKeyEquiv"/>
-																<int key="NSKeyEquivModMask">1048576</int>
-																<int key="NSMnemonicLoc">2147483647</int>
-																<reference key="NSOnImage" ref="483667511"/>
-																<reference key="NSMixedImage" ref="76175770"/>
-																<string key="NSAction">_popUpItemAction:</string>
-																<int key="NSTag">2</int>
-																<reference key="NSTarget" ref="121790594"/>
-															</object>
 														</object>
 													</object>
 													<int key="NSPreferredEdge">3</int>
@@ -2130,16 +2118,10 @@
 						<reference key="object" ref="152862286"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="6647226"/>
 							<reference ref="912765588"/>
 							<reference ref="407468879"/>
 						</object>
 						<reference key="parent" ref="121790594"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">838</int>
-						<reference key="object" ref="6647226"/>
-						<reference key="parent" ref="152862286"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">837</int>
@@ -2420,8 +2402,6 @@
 					<string>836.ImportedFromIB2</string>
 					<string>837.IBPluginDependency</string>
 					<string>837.ImportedFromIB2</string>
-					<string>838.IBPluginDependency</string>
-					<string>838.ImportedFromIB2</string>
 					<string>839.IBPluginDependency</string>
 					<string>839.ImportedFromIB2</string>
 					<string>840.IBPluginDependency</string>
@@ -2571,9 +2551,7 @@
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{355, 897}, {320, 63}}</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<boolean value="YES"/>
+					<string>{{355, 917}, {320, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>

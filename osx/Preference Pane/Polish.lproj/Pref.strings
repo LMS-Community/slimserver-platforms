@@ -35,9 +35,6 @@
 /* Class = "NSMenuItem"; title = "Clear library and rescan everything"; ObjectID = "837"; */
 "837.title" = "Wyczyść bibliotekę i przeszukaj wszystko ponownie";
 
-/* Class = "NSMenuItem"; title = "Only rescan playlists"; ObjectID = "838"; */
-"838.title" = "Przeszukaj ponownie tylko listy odtwarzania";
-
 /* Class = "NSBox"; title = "Box"; ObjectID = "857"; */
 "857.title" = "Ramka";
 
