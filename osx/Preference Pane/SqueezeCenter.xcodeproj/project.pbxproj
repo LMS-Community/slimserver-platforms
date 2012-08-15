@@ -11,7 +11,6 @@
 		058257D20BF90D7B0000DD33 /* Pref.nib in Resources */ = {isa = PBXBuildFile; fileRef = F506C042013D9D8C01CA16C8 /* Pref.nib */; };
 		14A9400909875F57001992EB /* ServerPref.h in Headers */ = {isa = PBXBuildFile; fileRef = F506C03C013D9D7901CA16C8 /* ServerPref.h */; };
 		14A9400B09875F57001992EB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
-		14A9401009875F57001992EB /* off.icns in Resources */ = {isa = PBXBuildFile; fileRef = F52F884D035DF02B01A80172 /* off.icns */; };
 		14A9401209875F57001992EB /* create-startup.sh in Resources */ = {isa = PBXBuildFile; fileRef = E7EDF7BB03C5D22300A80172 /* create-startup.sh */; };
 		14A9401309875F57001992EB /* get-server.sh in Resources */ = {isa = PBXBuildFile; fileRef = E7EDF7BC03C5D22300A80172 /* get-server.sh */; };
 		14A9401409875F57001992EB /* stop-server.sh in Resources */ = {isa = PBXBuildFile; fileRef = E7EDF7BE03C5D22300A80172 /* stop-server.sh */; };
@@ -139,7 +138,6 @@
 		F506C03C013D9D7901CA16C8 /* ServerPref.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ServerPref.h; sourceTree = "<group>"; };
 		F506C03D013D9D7901CA16C8 /* ServerPref.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ServerPref.m; sourceTree = "<group>"; };
 		F506C043013D9D8C01CA16C8 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/Pref.nib; sourceTree = "<group>"; };
-		F52F884D035DF02B01A80172 /* off.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = off.icns; sourceTree = "<group>"; };
 		F56E7161035DB29001A80172 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F5EC8D80035F597B01A80172 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -186,7 +184,6 @@
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
 				F506C042013D9D8C01CA16C8 /* Pref.nib */,
 				EC6916B90F9883040035673E /* Localizable.strings */,
-				F52F884D035DF02B01A80172 /* off.icns */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -371,7 +368,6 @@
 			files = (
 				14A9400B09875F57001992EB /* InfoPlist.strings in Resources */,
 				EC6916BA0F9883040035673E /* Localizable.strings in Resources */,
-				14A9401009875F57001992EB /* off.icns in Resources */,
 				14A9401209875F57001992EB /* create-startup.sh in Resources */,
 				14A9401309875F57001992EB /* get-server.sh in Resources */,
 				14A9401409875F57001992EB /* stop-server.sh in Resources */,
