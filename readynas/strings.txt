@@ -1,10 +1,32 @@
 LABEL_SERVICE_UEML_INFO
+	CS	<b>UE Music Library</b> - UE Music Library je multiplatformový mediální server pro přenos datových toků, který podporuje široké množství formátů, včetně AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV a WMA.
+	DA	<b>UE Music Library</b> – UE Music Library et en medieserver til streaming som fungerer på tværs af forskellige platforme og understøtter en lang række formater, inklusive AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV og WMA.
 	DE	<b>UE Music Library</b> - UE Music Library ist ein Cross-Plattform Streaming Media Server, der eine grosse Auswahl von Formaten unterstützt, darunter AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV und WMA.
 	EN	<b>UE Music Library</b> - UE Music Library is a cross-platform streaming media server that supports a wide range of formats, including AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV, and WMA.
-	
+	ES	<b>UE Music Library</b> - UE Music Library es un servidor de streaming de multimedia compatible con diversas plataformas que admite una amplia gama de formatos, como AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV y WMA.
+	FI	<b>UE Music Library</b> - UE Music Library on alustojen välinen virtautusmediapalvelin, joka tukee erilaisia tiedostomuotoja, kuten AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV ja WMA.
+	FR	<b>UE Music Library</b> - Serveur de support de diffusion multiplateforme qui prend en charge divers formats, dont AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV et WMA.
+	IT	<b>UE Music Library</b> - UE Music Library è un server per lo streaming di contenuti multimediali tra piattaforme che supporta una vasta gamma di formati, tra cui AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV e WMA.
+	NL	<b>UE Music Library</b> - UE Music Library is een mediaserver voor streaming op meerdere platform die een breed scala aan indelingen ondersteunt, waaronder AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV en WMA.
+	NO	<b>UE Music Library</b> – UE Music Library er en server for direkteavspilling av medier som fungerer på flere plattformer og som støtter et bredt utvalg formater, inkludert AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV og WMA.
+	PL	<b>UE Music Library</b> — program UE Music Library to serwer multimediów strumieniowych działający na różnych platformach, który obsługuje szeroką gamę formatów, w tym AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV i WMA.
+	RU	<b>UE Music Library</b> — UE Music Library — это сервер межплатформенной потоковой передачи медиафайлов самых разнообразных форматов, включая AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV и WMA.
+	SV	<b>UE Music Library</b> – UE Music Library är en plattformsoberoende server för direktuppspelade media som stöder en rad olika format, bland annat AAC, AIFF, FLAC, Ogg Vorbis, MP3, WAV och WMA.
+
 LABEL_ACCESS_UEML
+	CS	Otevřít UE Music Library
+	DA	Få adgang til UE Music Library
 	DE	Auf UE Music Library zugreifen
 	EN	Access UE Music Library
+	ES	Acceso a UE Music Library
+	FI	Käytä UE Music Librarya
+	FR	Accéder à UE Music Library
+	IT	Accedi a UE Music Library
+	NL	UE Music Library openen
+	NO	Gå til UE Music Library
+	PL	Przejdź do programu UE Music Library
+	RU	Доступ к UE Music Library
+	SV	Öppna UE Music Library
 
 BUTTON_CLEANUP_DO
 	CS	Spustit čištění
@@ -28,14 +50,14 @@ LABEL_CLEANUP_PLEASE_STOP_SC
 	EN	Please Stop UE Music Library before running the cleanup.
 	ES	Detenga UE Music Library antes de ejecutar la limpieza.
 	FI	Sulje UE Music Library ennen puhdistuksen suorittamista.
-	FR	Arrêtez le UE Music Library avant de lancer le nettoyage.
+	FR	Arrêtez UE Music Library avant de lancer le nettoyage.
 	IT	Prima di eseguire la pulizia, arrestare UE Music Library.
 	NL	Stop UE Music Library voordat je de opschoning uitvoert.
 	NO	Stopp UE Music Library før du kjører oppryddingen.
 	PL	Przed rozpoczęciem czyszczenia zatrzymaj program UE Music Library.
 	RU	Перед очисткой остановите работу UE Music Library.
 	SV	Stoppa UE Music Library innan du börjar med rensningen.
-	
+
 LABEL_CLEANUP_PREFS
 	CS	Smazat soubory předvoleb
 	DA	Slet filer med indstillinger
@@ -54,15 +76,15 @@ LABEL_CLEANUP_PREFS
 LABEL_CLEANUP_CACHE
 	CS	Smazat odkládací složku, včetně databáze médií, vyrovnávací paměti obalů alb atd.
 	DA	Ryd op i cachemappen, herunder mediedatabasen, cachelagrede coverbilleder osv.
-	DE	Zwischenspeicher-Ordner mit Mediendatenbank, Plattenhüllen usw. bereinigen
+	DE	Zwischenspeicher-Ordner mit Mediendatenbank, Plattenhüllen usw. bereinigen.
 	EN	Clean cache folder, including media library database, artwork cache etc.
 	ES	Limpiar carpeta de caché, incluidas base de datos multimedia, caché de carátulas, etc.
-	FI	Tyhjennä välimuistikansio, mukaan luettuna mediatietokanta ja kansitaiteen välimuisti.
+	FI	Tyhjennä välimuistikansio, mukaan luettuna mediatietokanta ja kansikuvien välimuisti.
 	FR	Nettoyer le dossier cache, y compris la base de données de la bibliothèque multimédia, les pochettes, etc.
 	IT	Pulisci cartella della cache, inclusi il database della libreria multimediale, la cache delle copertine e così via.
 	NL	Cachemap opschonen, inclusief mediadatabase, hoesafbeeldingencache, enz.
 	NO	Tøm hurtigbuffermappen, inkludert mediedatabasen, hurtigbufrede omslag osv.
 	PL	Czyści folder pamięci podręcznej, w tym bazę danych biblioteki multimedialnej, pamięć podręczną okładek itp.
 	RU	Очистить папку кэша, включая базу данных библиотеки мультимедиа, кэш обложек и др.
-	SV	Rensa cachemappen (innehåller bland annat mediedatabasen och cacheminnet med albumomslag)
+	SV	Rensa cachemappen (innehåller bland annat mediedatabasen och cacheminnet med albumomslag).
 

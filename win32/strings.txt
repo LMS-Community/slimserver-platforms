@@ -1,32 +1,32 @@
 START_FAILED
 	CS	UE Music Library se neotevřel. UE Music Library se může spouštět nebo ukončovat. Laskavě chvíli počkejte a zkuste znovu.
-	DA	UE Music Library kunne ikke åbnes. UE Music Library er muligvis ved at starte eller stoppe. Vent et minut, og prøv igen.
-	DE	UE Music Library konnte nicht geöffnet werden. Es wird evtl. gerade gestartet oder angehalten. Versuchen Sie es in einer Minute noch einmal.
+	DA	UE Music Library kunne ikke åbnes. Serveren er muligvis ved at starte eller stoppe. Vent et minut, og prøv igen.
+	DE	Die UE Music Library konnte nicht geöffnet werden. Der Server wird evtl. gerade gestartet oder wurde angehalten. Warten Sie einen Moment und versuchen Sie es dann noch einmal.
 	EN	UE Music Library would not open. The server may be starting or stopping. Please wait a minute and try again.
-	ES	Fallo al abrir UE Music Library. Puede que UE Music Library esté iniciándose o deteniéndose. Espere un minuto y vuelva a intentarlo.
-	FI	UE Music Library ei auennut. UE Music Library saattaa olla käynnistymässä, tai se on saattanut pysähtyä. Odota hetki ja yritä uudelleen.
-	FR	Echec du démarrage du UE Music Library. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
+	ES	Fallo al abrir Biblioteca de música de Logitech UE. Puede que UE Music Library esté iniciándose o deteniéndose. Espere un minuto y vuelva a intentarlo.
+	FI	UE Music Library ei auennut. UE Music Library saattaa olla käynnistymässä tai se on saattanut pysähtyä. Odota hetki ja yritä uudelleen.
+	FR	Impossible d'ouvrir UE Music Library. Il est possible que le serveur soit en cours d'arrêt ou de démarrage. Patientez une minute et réessayez.
 	IT	Avvio di UE Music Library non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
-	NL	UE Music Library kan niet worden geopend. De toepassing wordt misschien gestart of gestopt. Wacht even en probeer het overnieuw.
-	NO	UE Music Library kunne ikke åpnes. UE Music Library holder kanskje på å starte eller stoppe. Vent et øyeblikk, og prøv igjen.
-	PL	Nie można otworzyć programu UE Music Library. Być może trwa uruchamianie lub zatrzymywanie programu UE Music Library. Odczekaj chwilę i spróbuj ponownie.
-	RU	UE Music Library не открывается. Возможно, сейчас идет запуск или остановка UE Music Library. Повторите попытку позднее.
+	NL	UE Music Library kan niet worden geopend. De toepassing wordt mogelijk gestart of gestopt. Wacht even en probeer het opnieuw.
+	NO	UE Music Library kunne ikke åpnes. Serveren er kanskje i ferd med å starte eller stoppe. Vent et øyeblikk, og prøv igjen.
+	PL	Nie można otworzyć programu UE Music Library. Być może trwa uruchamianie lub zatrzymywanie serwera. Odczekaj chwilę i spróbuj ponownie.
+	RU	UE Music Library не открывается. Возможно, идет запуск или остановка сервера. Повторите попытку через минуту.
 	SV	Det gick inte att öppna UE Music Library. UE Music Library kanske håller på att startas eller avslutas. Vänta någon minut och försök igen.
 
 STOP_FAILED
 	CS	Ukončování UE Music Library selhalo. Podívejte se do Prohlížeče událostí & Kontaktujte podporu
 	DA	Det lykkedes ikke at stoppe UE Music Library. Tjek Logbog, og kontakt supportafdelingen
-	DE	UE Music Library konnte nicht angehalten werden. Weitere Informationen erhalten Sie in der Ereignisanzeige und vom Support
+	DE	Die UE Music Library konnte nicht angehalten werden. Weitere Informationen erhalten Sie in der Ereignisanzeige und vom Support.
 	EN	Stopping UE Music Library Failed. Please see the Event Viewer & Contact Support
 	ES	Fallo al detener UE Music Library. Consulte el Visor de sucesos y póngase en contacto con el servicio de asistencia
-	FI	UE Music Libraryin pysäyttäminen epäonnistui. Katso Tapahtumien tarkastelu ja Tekninen tuki
-	FR	Echec de l'arrêt du UE Music Library. Veuillez consulter le journal des événements et contacter le service d'assistance technique.
+	FI	UE Music Libraryn pysäyttäminen epäonnistui. Katso Tapahtumien tarkastelu ja Tekninen tuki
+	FR	Echec de l'arrêt d'UE Music Library. Consultez l'Observateur d'événements et contactez le service de support.
 	IT	Arresto di UE Music Library non riuscito. Vedere il visualizzatore eventi e contattare il servizio di assistenza.
-	NL	UE Music Library kan niet worden gestopt. Zie de logboeken en neem contact op met ondersteuning
-	NO	Mislyktes med å stoppe UE Music Library. Se i hendelsesoversikten, og ring kundestøtte
+	NL	UE Music Library kan niet worden gestopt. Raadpleeg de logboeken en neem contact op met ondersteuning
+	NO	Mislyktes med å stoppe UE Music Library. Se i hendelsesoversikten, og kontakt kundestøtte
 	PL	Zatrzymywanie programu UE Music Library nie powiodło się. Sprawdź przeglądarkę zdarzeń i skontaktuj się z działem pomocy
-	RU	Сбой остановки UE Music Library. Просмотрите журнал средства просмотра событий и обратитесь в службу поддержки
-	SV	Det gick inte att avsluta UE Music Library. Se loggboken och kontakta supportavdelningen.
+	RU	Сбой остановки UE Music Library. Просмотрите журнал событий и обратитесь в службу поддержки
+	SV	Det gick inte att avsluta UE Music Library. Se loggboken och kontakta supportavdelningen
 
 RUN_AT_BOOT
 	CS	Spustit automaticky při startu systému
@@ -95,13 +95,13 @@ STARTING_SQUEEZEBOX_SERVER
 	EN	Starting UE Music Library...
 	ES	Iniciando UE Music Library...
 	FI	Käynnistetään UE Music Library...
-	FR	Démarrage du UE Music Library...
+	FR	Démarrage d'UE Music Library...
 	IT	Avvio di UE Music Library in corso...
 	NL	UE Music Library wordt gestart...
-	NO	Starter UE Music Library ...
+	NO	Starter UE Music Library...
 	PL	Trwa uruchamianie programu UE Music Library...
 	RU	UE Music Library запускается...
-	SV	UE Music Library startas ...
+	SV	UE Music Library startas...
 
 STOPPING_SQUEEZEBOX_SERVER
 	CS	Ukončování UE Music Library...
@@ -110,13 +110,13 @@ STOPPING_SQUEEZEBOX_SERVER
 	EN	Stopping UE Music Library...
 	ES	Deteniendo UE Music Library...
 	FI	Pysäytetään UE Music Library...
-	FR	Arrêt du UE Music Library...
+	FR	Arrêt d'UE Music Library...
 	IT	Arresto di UE Music Library in corso...
 	NL	UE Music Library wordt gestopt...
-	NO	Stopper UE Music Library ...
+	NO	Stopper UE Music Library...
 	PL	Trwa zatrzymywanie programu UE Music Library...
 	RU	Остановка UE Music Library...
-	SV	Stoppar UE Music Library ...
+	SV	Stoppar UE Music Library...
 
 STOP_SQUEEZEBOX_SERVER
 	CS	Zastavit UE Music Library
@@ -125,7 +125,7 @@ STOP_SQUEEZEBOX_SERVER
 	EN	Stop UE Music Library
 	ES	Detener UE Music Library
 	FI	Pysäytä UE Music Library
-	FR	Arrêter le UE Music Library
+	FR	Arrêter UE Music Library
 	IT	Arresta UE Music Library
 	NL	UE Music Library stoppen
 	NO	Stopp UE Music Library
@@ -136,11 +136,11 @@ STOP_SQUEEZEBOX_SERVER
 SQUEEZEBOX_SERVER_STARTING
 	CS	Spouštění UE Music Library
 	DA	UE Music Library starter
-	DE	UE Music Library wird gestartet...
+	DE	UE Music Library wird gestartet
 	EN	UE Music Library Starting
 	ES	Iniciando UE Music Library
 	FI	UE Music Library käynnistetään
-	FR	Démarrage de UE Music Library...
+	FR	Démarrage de UE Music Library
 	IT	Avvio di UE Music Library in corso
 	NL	UE Music Library wordt gestart
 	NO	UE Music Library starter
@@ -217,7 +217,7 @@ WRITE_FAILED
 	FI	Ei voi kirjoittaa kohteeseen
 	FR	Ecriture impossible dans
 	IT	Impossibile scrivere in
-	NL	Kan niet wegschrijven naar
+	NL	Kan niet schrijven naar
 	NO	Klarer ikke å skrive til
 	PL	Nie można zapisać do
 	RU	Не удалось выполнить запись в
@@ -251,19 +251,19 @@ OPEN_CONTROLPANEL
 	NO	Åpne kontrollpanelet ...
 	PL	Otwórz Panel sterowania...
 	RU	Открыть панель управления...
-	SV	Öppna kontrollpanelen ...
+	SV	Öppna kontrollpanelen...
 
 UPDATE_AVAILABLE
 	CS	K dispozici je aktualizovaná verze UE Music Library a je připravena k instalaci. Pro aktualizaci stiskněte ikonu v systémové liště.
 	DA	En opdateret version af UE Music Library er klar til at blive installeret. Klik på UE Music Library-ikonet i systembakken for at starte opgraderingen.
-	DE	Eine aktualisierte Version von UE Music Library ist verfügbar und kann installiert werden. Klicken Sie auf das Symbol in der Taskleiste, um das Update zu starten.
+	DE	Eine aktualisierte Version der UE Music Library ist verfügbar und kann installiert werden. Klicken Sie auf das Symbol in der Taskleiste, um das Update zu starten.
 	EN	An updated version of UE Music Library is available and ready to install. Click the tray icon to start the upgrade.
 	ES	Hay disponible una versión actualizada de UE Music Library y está lista para instalar. Haga clic en el icono en la bandeja del sistema para iniciar la actualización.
-	FI	UE Music Libraryistä on olemassa päivitetty ja asennusvalmis versio. Valitse UE Music Libraryin tehtäväpalkki ja aloita päivityksen suorittaminen.
-	FR	Une nouvelle version du UE Music Library est disponible et prête à être installée. Cliquez sur l'icône dans la barre d'état système pour lancer la mise à niveau.
+	FI	UE Music Librarystä on olemassa päivitetty asennusversio. Valitse UE Music Libraryn tehtäväpalkki ja aloita päivitys.
+	FR	Une nouvelle version d'UE Music Library est disponible et prête à être installée. Cliquez sur l'icône dans la barre d'état système pour lancer la mise à niveau.
 	IT	È disponibile una versione aggiornata di UE Music Library, pronta per essere installata. Fare clic sull'area di notifica per avviare l'aggiornamento.
 	NL	Er is een bijgewerkte versie van UE Music Library beschikbaar voor installatie. Klik op het UE Music Library-pictogram in het systeemvak om de upgrade te starten.
-	NO	En oppdatert versjon av UE Music Library er tilgjengelig og klar til installering. Du kan starte oppgraderingen ved å klikke på UE Music Library-ikonet i systemstatusfeltet.
+	NO	En oppdatert versjon av UE Music Library er tilgjengelig og klar til installering. Du kan starte oppgraderingen ved å klikke på ikonet i systemstatusfeltet.
 	PL	Zaktualizowana wersja programu UE Music Library jest dostępna i gotowa do zainstalowania. Kliknij ikonę usługi UE Music Library na pasku zadań, aby uruchomić uaktualnianie.
 	RU	Доступна и готова к установке обновленная версия UE Music Library. Чтобы начать установку обновления, щелкните значок UE Music Library на панели задач.
 	SV	En uppdaterad version av UE Music Library finns tillgänglig och redo att installeras. Klicka på UE Music Library-fältikonen för att starta uppgraderingen.
