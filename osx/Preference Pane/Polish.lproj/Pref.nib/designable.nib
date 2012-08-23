@@ -104,7 +104,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="1055373337">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string key="NSContents">Wersja 10.0.0</string>
+								<string key="NSContents">Wersja</string>
 								<reference key="NSSupport" ref="976073678"/>
 								<reference key="NSControlView" ref="88621131"/>
 								<reference key="NSBackgroundColor" ref="788284320"/>
@@ -192,7 +192,7 @@
 													</object>
 													<bool key="NSMenuItemRespectAlignment">YES</bool>
 													<object class="NSMenu" key="NSMenu" id="488741773">
-														<string key="NSTitle">Inne widoki</string>
+														<string key="NSTitle">OtherViews</string>
 														<object class="NSMutableArray" key="NSMenuItems">
 															<bool key="EncodedWithXMLCoder">YES</bool>
 															<reference ref="952634448"/>
@@ -273,7 +273,7 @@
 												<object class="NSTextFieldCell" key="NSTitleCell">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">0</int>
-													<string key="NSContents">Ramka</string>
+													<string key="NSContents">Box</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<object class="NSColor" key="NSBackgroundColor" id="821302382">
 														<int key="NSColorSpace">6</int>
@@ -319,7 +319,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="1042779920">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Statystyka biblioteki muzyki</string>
+													<string key="NSContents">Statystyka biblioteki multimedialnej</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="445465194"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -350,7 +350,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="540456695">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272760832</int>
-													<string key="NSContents">Taką nazwę będzie miała biblioteka muzyki w menu "Moja muzyka" urządzenia Smart Radio.</string>
+													<string key="NSContents">Taką nazwę otrzyma biblioteka multimedialna na urządzeniu Smart Radio.</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="612122993"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -388,7 +388,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="324883477">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">4194304</int>
-													<string type="base64-UTF8" key="NSContents">Rm9sZGVyIG11enlraQo</string>
+													<string key="NSContents">Foldery multimedialne</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="783665595"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -431,7 +431,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="915233572">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Nazwa biblioteki muzyki</string>
+													<string key="NSContents">Nazwa biblioteki multimedialnej</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="243288362"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -765,7 +765,9 @@
 													</object>
 													<bool key="NSMenuItemRespectAlignment">YES</bool>
 													<object class="NSMenu" key="NSMenu" id="152862286">
-														<string key="NSTitle">Inne widoki</string>
+														<object class="NSMutableString" key="NSTitle">
+															<characters key="NS.bytes">OtherViews</characters>
+														</object>
 														<object class="NSMutableArray" key="NSMenuItems">
 															<bool key="EncodedWithXMLCoder">YES</bool>
 															<reference ref="407468879"/>
@@ -830,7 +832,7 @@
 												<object class="NSTextFieldCell" key="NSTitleCell">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">0</int>
-													<string key="NSContents">Ramka</string>
+													<string key="NSContents">Box</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSBackgroundColor" ref="821302382"/>
 													<object class="NSColor" key="NSTextColor">
@@ -852,7 +854,7 @@
 												<object class="NSTextFieldCell" key="NSTitleCell">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">0</int>
-													<string key="NSContents">Ramka</string>
+													<string key="NSContents">Box</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSBackgroundColor" ref="821302382"/>
 													<object class="NSColor" key="NSTextColor">
@@ -947,7 +949,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="592512599">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Skanowanie biblioteki muzyki</string>
+													<string key="NSContents">Skanowanie biblioteki multimedialnej</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="619161498"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -985,7 +987,7 @@
 													</object>
 													<bool key="NSMenuItemRespectAlignment">YES</bool>
 													<object class="NSMenu" key="NSMenu" id="768702194">
-														<string key="NSTitle">Inne widoki</string>
+														<string key="NSTitle">OtherViews</string>
 														<object class="NSMutableArray" key="NSMenuItems">
 															<bool key="EncodedWithXMLCoder">YES</bool>
 															<reference ref="202261815"/>

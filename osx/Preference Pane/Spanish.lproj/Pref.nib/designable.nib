@@ -104,7 +104,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="1055373337">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string key="NSContents">Versión 10.0.0</string>
+								<string key="NSContents">Versión</string>
 								<reference key="NSSupport" ref="976073678"/>
 								<reference key="NSControlView" ref="88621131"/>
 								<reference key="NSBackgroundColor" ref="788284320"/>
@@ -257,7 +257,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="513768442">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272629760</int>
-													<string key="NSContents">Estadísticas de la biblioteca de música</string>
+													<string key="NSContents">Estadísticas de biblioteca de música</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="305183925"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -319,7 +319,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="1042779920">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Estadísticas de la biblioteca de música</string>
+													<string key="NSContents">Estadísticas de biblioteca multimedia</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="445465194"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -350,7 +350,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="540456695">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272760832</int>
-													<string key="NSContents">Así es como se llamará la biblioteca de música en el menú "Mi música" de Smart Radio.</string>
+													<string key="NSContents">Así se llamará la biblioteca multimedia en su Smart Radio.</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="612122993"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -388,7 +388,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="324883477">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">4194304</int>
-													<string type="base64-UTF8" key="NSContents">Q2FycGV0YSBkZSBtw7pzaWNhCg</string>
+													<string key="NSContents">Carpetas de material multimedia</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="783665595"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -431,7 +431,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="915233572">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Nombre de biblioteca de música</string>
+													<string key="NSContents">Nombre de biblioteca multimedia</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="243288362"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -753,7 +753,7 @@
 													<int key="NSPeriodicInterval">75</int>
 													<object class="NSMenuItem" key="NSMenuItem" id="407468879">
 														<reference key="NSMenu" ref="152862286"/>
-														<string key="NSTitle">Buscar música nueva y cambiada</string>
+														<string key="NSTitle">Buscar medios nuevos y cambiados</string>
 														<string key="NSKeyEquiv"/>
 														<int key="NSKeyEquivModMask">1048576</int>
 														<int key="NSMnemonicLoc">2147483647</int>
@@ -949,7 +949,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="592512599">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Examen de biblioteca de música</string>
+													<string key="NSContents">Detector de biblioteca multimedia</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="619161498"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>

@@ -104,7 +104,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="1055373337">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string key="NSContents">Version 10.0.0</string>
+								<string key="NSContents">Version</string>
 								<reference key="NSSupport" ref="976073678"/>
 								<reference key="NSControlView" ref="88621131"/>
 								<reference key="NSBackgroundColor" ref="788284320"/>
@@ -134,7 +134,7 @@
 												<object class="NSButtonCell" key="NSCell" id="402707190">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">134217728</int>
-													<string key="NSContents">Starta server</string>
+													<string key="NSContents">Starta servern</string>
 													<object class="NSFont" key="NSSupport" id="949661978">
 														<string key="NSName">LucidaGrande</string>
 														<double key="NSSize">13</double>
@@ -198,7 +198,7 @@
 															<reference ref="952634448"/>
 															<object class="NSMenuItem" id="679487946">
 																<reference key="NSMenu" ref="488741773"/>
-																<string key="NSTitle">Starta automatiskt servern vid inloggning</string>
+																<string key="NSTitle">Starta servern automatiskt vid inloggning</string>
 																<string key="NSKeyEquiv"/>
 																<int key="NSKeyEquivModMask">1048576</int>
 																<int key="NSMnemonicLoc">2147483647</int>
@@ -210,7 +210,7 @@
 															</object>
 															<object class="NSMenuItem" id="668324382">
 																<reference key="NSMenu" ref="488741773"/>
-																<string key="NSTitle">Starta automatiskt servern när systemet startas upp</string>
+																<string key="NSTitle">Starta servern automatiskt när systemet startas</string>
 																<string key="NSKeyEquiv"/>
 																<int key="NSKeyEquivModMask">1048576</int>
 																<int key="NSMnemonicLoc">2147483647</int>
@@ -257,7 +257,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="513768442">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272629760</int>
-													<string key="NSContents">Musikbiblioteksstat.</string>
+													<string key="NSContents">Musikbiblioteksstat</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="305183925"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -319,7 +319,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="1042779920">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Musikbiblioteksstatistik</string>
+													<string key="NSContents">Mediebiblioteksstatistik</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="445465194"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -350,7 +350,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="540456695">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272760832</int>
-													<string key="NSContents">Det här är namnet på ditt musikbibliotek i Smart Radio-menyn Min musik.</string>
+													<string key="NSContents">Ditt mediebibliotek får det här namnet i Smart Radio.</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="612122993"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -388,7 +388,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="324883477">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">4194304</int>
-													<string type="base64-UTF8" key="NSContents">TXVzaWttYXBwCg</string>
+													<string key="NSContents">Mediemappar</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="783665595"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -431,7 +431,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="915233572">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Musikbiblioteksnamn</string>
+													<string key="NSContents">Mediebiblioteksnamn</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="243288362"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -753,7 +753,7 @@
 													<int key="NSPeriodicInterval">75</int>
 													<object class="NSMenuItem" key="NSMenuItem" id="407468879">
 														<reference key="NSMenu" ref="152862286"/>
-														<string key="NSTitle">Sök efter ny eller ändrad musik</string>
+														<string key="NSTitle">Sök efter nya el ändrade media</string>
 														<string key="NSKeyEquiv"/>
 														<int key="NSKeyEquivModMask">1048576</int>
 														<int key="NSMnemonicLoc">2147483647</int>
@@ -949,7 +949,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="592512599">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Musikbibliotekssökning</string>
+													<string key="NSContents">Sök mediebibliotek</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="619161498"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>

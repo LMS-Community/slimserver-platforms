@@ -104,7 +104,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="1055373337">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string key="NSContents">Versjon 10.0.0</string>
+								<string key="NSContents">Versjon</string>
 								<reference key="NSSupport" ref="976073678"/>
 								<reference key="NSControlView" ref="88621131"/>
 								<reference key="NSBackgroundColor" ref="788284320"/>
@@ -257,7 +257,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="513768442">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272629760</int>
-													<string key="NSContents">Data for musikkbibliotek</string>
+													<string key="NSContents">Statistikk for musikkbibliotek</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="305183925"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -303,7 +303,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="607053198">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Server-status</string>
+													<string key="NSContents">Serverstatus</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="543997209"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -319,7 +319,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="1042779920">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Statistikk for musikkbibliotek</string>
+													<string key="NSContents">Media Library-statistikk</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="445465194"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -350,7 +350,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="540456695">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272760832</int>
-													<string key="NSContents">Slik vises navnet på musikkbiblioteket i menyen "Min musikk" på Smart Radio.</string>
+													<string key="NSContents">Slik vil mediebiblioteket bli navngitt på Smart Radio.</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="612122993"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -388,7 +388,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="324883477">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">4194304</int>
-													<string type="base64-UTF8" key="NSContents">TXVzaWtrbWFwcGUKA</string>
+													<string key="NSContents">Mediemapper</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="783665595"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -431,7 +431,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="915233572">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Navn på musikkbibliotek</string>
+													<string key="NSContents">Navn på mediebibliotek</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="243288362"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -753,7 +753,7 @@
 													<int key="NSPeriodicInterval">75</int>
 													<object class="NSMenuItem" key="NSMenuItem" id="407468879">
 														<reference key="NSMenu" ref="152862286"/>
-														<string key="NSTitle">Søk etter ny eller endret musikk</string>
+														<string key="NSTitle">Søk etter nye eller endrede medier</string>
 														<string key="NSKeyEquiv"/>
 														<int key="NSKeyEquivModMask">1048576</int>
 														<int key="NSMnemonicLoc">2147483647</int>
@@ -901,7 +901,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="161374386">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">71434240</int>
-													<string type="base64-UTF8" key="NSContents">MDAuMDAuMDAKA</string>
+													<string type="base64-UTF8" key="NSContents">MDA6MDA6MDAKA</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="244320683"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -949,7 +949,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="592512599">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Søk i musikkbibliotek</string>
+													<string key="NSContents">Media Library-søk</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="619161498"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -975,7 +975,7 @@
 													<int key="NSPeriodicInterval">75</int>
 													<object class="NSMenuItem" key="NSMenuItem" id="202261815">
 														<reference key="NSMenu" ref="768702194"/>
-														<string key="NSTitle">Velg logg-sett...</string>
+														<string key="NSTitle">Velg logg-sett ...</string>
 														<string key="NSKeyEquiv"/>
 														<int key="NSKeyEquivModMask">1048576</int>
 														<int key="NSMnemonicLoc">2147483647</int>

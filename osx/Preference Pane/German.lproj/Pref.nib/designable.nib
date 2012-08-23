@@ -104,7 +104,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="1055373337">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string key="NSContents">Version 10.0.0</string>
+								<string key="NSContents">Version</string>
 								<reference key="NSSupport" ref="976073678"/>
 								<reference key="NSControlView" ref="88621131"/>
 								<reference key="NSBackgroundColor" ref="788284320"/>
@@ -319,7 +319,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="1042779920">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Musiksammlungsstatistik</string>
+													<string key="NSContents">Statistik für die Musiksammlung</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="445465194"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -350,7 +350,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="540456695">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272760832</int>
-													<string key="NSContents">Das ist der Name ihrer Musiksammlung im Smart Radio Menü "Eigene Musik".</string>
+													<string key="NSContents">So wird Ihre Musiksammlung auf Ihrem Smart Radio benannt.</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="612122993"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -388,7 +388,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="324883477">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">4194304</int>
-													<string type="base64-UTF8" key="NSContents">TXVzaWtvcmRuZXIKA</string>
+													<string key="NSContents">Musikordner</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="783665595"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -753,7 +753,7 @@
 													<int key="NSPeriodicInterval">75</int>
 													<object class="NSMenuItem" key="NSMenuItem" id="407468879">
 														<reference key="NSMenu" ref="152862286"/>
-														<string key="NSTitle">Nach neuen und veränderten Musikstücken suchen</string>
+														<string key="NSTitle">Nach neuen und veränderten Musikdateien suchen</string>
 														<string key="NSKeyEquiv"/>
 														<int key="NSKeyEquivModMask">1048576</int>
 														<int key="NSMnemonicLoc">2147483647</int>
@@ -800,7 +800,7 @@
 												<object class="NSButtonCell" key="NSCell" id="866453898">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">134217728</int>
-													<string key="NSContents">Musiksammlung durchsuchen</string>
+													<string key="NSContents">Erneut durchsuchen</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="398472804"/>
 													<int key="NSButtonFlags">-2038284033</int>
@@ -949,7 +949,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="592512599">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Durchsuchen der Musiksammlung</string>
+													<string key="NSContents">Scan der Musiksammlung</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="619161498"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>

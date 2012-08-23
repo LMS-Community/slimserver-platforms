@@ -104,7 +104,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="1055373337">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string key="NSContents">Versione 10.0.0</string>
+								<string key="NSContents">Versione</string>
 								<reference key="NSSupport" ref="976073678"/>
 								<reference key="NSControlView" ref="88621131"/>
 								<reference key="NSBackgroundColor" ref="788284320"/>
@@ -319,7 +319,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="1042779920">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Statistiche libreria musicale</string>
+													<string key="NSContents">Statistiche della libreria multimediale</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="445465194"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -350,7 +350,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="540456695">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272760832</int>
-													<string key="NSContents">La libreria musicale viene denominata in questo modo nel menu "Musica" di Smart Radio.</string>
+													<string key="NSContents">Questo è il nome che verrà utilizzato per la libreria multimediale nella Smart Radio.</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="612122993"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -388,7 +388,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="324883477">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">4194304</int>
-													<string type="base64-UTF8" key="NSContents">Q2FydGVsbGEgTXVzaWNhCg</string>
+													<string key="NSContents">Cartelle dei file multimediali</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="783665595"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -431,7 +431,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="915233572">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Nome libreria musicale</string>
+													<string key="NSContents">Nome libreria multimediale</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="243288362"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -753,7 +753,7 @@
 													<int key="NSPeriodicInterval">75</int>
 													<object class="NSMenuItem" key="NSMenuItem" id="407468879">
 														<reference key="NSMenu" ref="152862286"/>
-														<string key="NSTitle">Cerca la musica nuova e modificata</string>
+														<string key="NSTitle">Cerca file multimediali nuovi e modificati</string>
 														<string key="NSKeyEquiv"/>
 														<int key="NSKeyEquivModMask">1048576</int>
 														<int key="NSMnemonicLoc">2147483647</int>
@@ -949,7 +949,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="592512599">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Analisi libreria musicale</string>
+													<string key="NSContents">Scansione libreria multimediale</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="619161498"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -975,7 +975,7 @@
 													<int key="NSPeriodicInterval">75</int>
 													<object class="NSMenuItem" key="NSMenuItem" id="202261815">
 														<reference key="NSMenu" ref="768702194"/>
-														<string key="NSTitle">Selezionare un gruppo di opzioni di accesso...</string>
+														<string key="NSTitle">Selezionare un gruppo di registri...</string>
 														<string key="NSKeyEquiv"/>
 														<int key="NSKeyEquivModMask">1048576</int>
 														<int key="NSMnemonicLoc">2147483647</int>

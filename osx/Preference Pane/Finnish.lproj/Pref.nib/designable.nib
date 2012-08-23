@@ -104,7 +104,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="1055373337">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string key="NSContents">Versio 10.0.0</string>
+								<string key="NSContents">Versio</string>
 								<reference key="NSSupport" ref="976073678"/>
 								<reference key="NSControlView" ref="88621131"/>
 								<reference key="NSBackgroundColor" ref="788284320"/>
@@ -319,7 +319,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="1042779920">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Musiikkikirjaston tilastot</string>
+													<string key="NSContents">Mediakirjaston tilastot</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="445465194"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -350,7 +350,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="540456695">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272760832</int>
-													<string key="NSContents">Näin musiikkikirjastosi nimetään Smart Radioisi Oma musiikki -valikossa.</string>
+													<string key="NSContents">Näin mediakirjasto nimetään Smart Radiossa.</string>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="612122993"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -388,7 +388,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="324883477">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">4194304</int>
-													<string type="base64-UTF8" key="NSContents">TXVzaWlra2lrYW5zaW8KA</string>
+													<string key="NSContents">Mediakansiot</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="783665595"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -404,7 +404,7 @@
 												<object class="NSButtonCell" key="NSCell" id="221384266">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">0</int>
-													<string key="NSContents">Käytä iTunesiä</string>
+													<string key="NSContents">Käytä iTunesia</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="576465430"/>
 													<int key="NSButtonFlags">1211912703</int>
@@ -431,7 +431,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="915233572">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Musiikkikirjaston nimi</string>
+													<string key="NSContents">Mediakirjaston nimi</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="243288362"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -691,7 +691,7 @@
 												<object class="NSButtonCell" key="NSCell" id="1004456253">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">0</int>
-													<string key="NSContents">Tyhjennä välimuistikansio, mukaan luettuna musiikkitietokanta, kansitaiteen välimuisti jne.</string>
+													<string key="NSContents">Tyhjennä välimuistikansio, mukaan luettuna musiikkitietokanta ja kansikuvien välimuisti.</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="913241592"/>
 													<int key="NSButtonFlags">1211912703</int>
@@ -949,7 +949,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="592512599">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Musiikkikirjaston tarkistus</string>
+													<string key="NSContents">Mediakirjaston tarkistus</string>
 													<reference key="NSSupport" ref="949661978"/>
 													<reference key="NSControlView" ref="619161498"/>
 													<reference key="NSBackgroundColor" ref="788284320"/>
@@ -1018,7 +1018,7 @@
 															</object>
 															<object class="NSMenuItem" id="347760488">
 																<reference key="NSMenu" ref="768702194"/>
-																<string key="NSTitle">Nettiradio</string>
+																<string key="NSTitle">Verkkoradio</string>
 																<string key="NSKeyEquiv"/>
 																<int key="NSKeyEquivModMask">1048576</int>
 																<int key="NSMnemonicLoc">2147483647</int>

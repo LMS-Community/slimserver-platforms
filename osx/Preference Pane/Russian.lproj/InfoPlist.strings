@@ -2,6 +2,6 @@
 
 CFBundleName = "UE Music Library";
 CFBundleShortVersionString = "10.0.0";
-CFBundleGetInfoString = "UE Music Library, версия 10.0.0. © Logitech, 2002-2012";
+CFBundleGetInfoString = "UE Music Library, версия 10.0.0";
 NSHumanReadableCopyright = "© Logitech, 2002-2012";
 NSPrefPaneIconLabel = "UE Music Library";
