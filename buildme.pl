@@ -304,6 +304,11 @@ sub doCommandOptions {
 	} elsif ($build eq "macosx") { 
 		## Build the Mac OSX package
 		$destName =~ s/$defaultDestName/LogitechMediaServer/;
+		
+		if ( $releaseType && $releaseType eq "release" ) { 
+			$destName =~ s/-$revision//;
+		}
+		
 		buildMacOSX("$destName");
 
 	} elsif ($build eq "win32") { 
