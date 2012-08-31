@@ -94,12 +94,8 @@ sub checkCommandOptions {
 
 
 
-	if ( !$build || $build eq 'readynas' ) { 
+	if ( !$build ) { 
 		showUsage();
-
-		if ( $build eq 'readynas' ) {
-			print "\n\nPLEASE NOTE: the old style ReadyNAS package is no longer supported. Please use --readynasv2 instead.\n\n";
-		}
 
 		exit(1);
 	}; 
@@ -115,7 +111,7 @@ sub checkCommandOptions {
 
 		## make sure that IF its a readynas package, they picked an architecture
 		if ($build eq "readynasv2" && !$archType) { 
-			print "INFO: Required data missing.\n";
+			print "INFO: Please define an architecture.\n";
 			showUsage();
 			exit 1;
 		}
@@ -285,9 +281,6 @@ sub doCommandOptions {
 			## Use the CPAN variables
 			buildTarball($dirsToExcludeForLinuxTarball, "$destDir/$destName");
 		}			
-#	} elsif ($build eq "readynas") { 
-#		## Next, we'll build the ReadyNAS/debian package... 
-#		buildReadyNas();
 
 	} elsif ($build eq "readynasv2") { 
 		## Next, we'll build the ReadyNAS add-in... 
@@ -393,22 +386,11 @@ sub showUsage {
 	print "    --sourceDir <dir>            - The location of the source code repository\n";
 	print "                                   that you've checked out from SVN\n";
 	print "    --destDir <dir>              - The destination you'd like your files \n";
-#	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
-#	print "        (optional)                 or you're building a nightly-style package\n";
+	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
+	print "        (optional)                 or you're building a nightly-style package\n";
 	print "    --archType <arm/i386/sparc>  - Pick the right architecture because \n";
 	print "                                   ONLY the libraries for that ARCH will be included\n";
 	print "\n";
-#	print "--- Building a ReadyNas Deb. Package\n";
-#	print "    --build readynas <required opts below>\n";
-#	print "    --buildDir <dir>             - The directory to do temporary work in\n";
-#	print "    --sourceDir <dir>            - The location of the source code repository\n";
-#	print "                                   that you've checked out from SVN\n";
-#	print "    --destDir <dir>              - The destination you'd like your files \n";
-#	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
-#	print "        (optional)                 or you're building a nightly-style package\n";
-#	print "    --archType <i386/sparc>      - Pick the right architecture because \n";
-#	print "                                   ONLY the libraries for that ARCH will be included\n";
-#	print "\n";
 	print "--- Building a Mac OSX Package\n";
 	print "    --build macosx <required opts below>\n";
 	print "    --buildDir <dir>             - The directory to do temporary work in\n";
@@ -572,108 +554,6 @@ sub buildDebian {
 }
 
 
-# XXX - Old style ReadyNAS/Debian package is no longer supported
-##############################################################################################
-## Build the ReadyNas Debian Package... this package is very simple. 			    ##
-##############################################################################################
-#sub buildReadyNas {
-#	print "INFO: Building package for ReadyNas Debian Release... \n";
-#
-#	## We need to make sure the ARCHTYPE is correct for our build...
-#	open (READ, "$sourceDir/platforms/readynas/control") || die "Can't open control file to read: $!\n";
-#	open (WRITE, ">$buildDir/platforms/readynas/control") ||  die "Can't open control file to write: $!\n";
-#	while (<READ>) {
-#		s/_ARCHTYPE_/$archType/;
-#		print WRITE $_;
-#	}
-#	close WRITE;
-#
-#	## Lets setup the right version/build #...
-#	open (READ, "$sourceDir/platforms/readynas/changelog") || die "Can't open changelog file to read: $!\n";
-#	open (WRITE, ">$buildDir/platforms/readynas/changelog") ||  die "Can't open changelog file to write: $!\n";
-#	## Unlike the RPM, with a Debian package there's no simple way to go from a 
-#	## 'release' to a 'nightly.' We need to make that choice here, and update
-#	## the changelog file accordingly.
-#	if ($releaseType eq "nightly") {
-#		$release = "$version~$revision";
-#	} elsif ($releaseType eq "release") { 
-#		$release = "$version";
-#	}
-#	while (<READ>) {
-#		s/_VERSION_/$release/;
-#		print WRITE $_;
-#	}
-#	close WRITE;
-#
-#	## dpkg-buildpackage on the ReadyNas units isn't completely up to date, so 
-#	## we have to do some funny things to get things right. First, we'll
-#	## get rid of the real 'debian' platforms directory, and move the readynas control 
-#	## directory into the 'debian' place. 
-#	system("mv $buildDir/platforms/debian $buildDir/platforms/debian.orig");
-#	system("ln -s $buildDir/platforms/readynas $buildDir/platforms/debian");
-#
-#	## Check if a specific architecture was selected ...
-#	my $dirsToExcludeForReadyNas;
-#	if ($archType eq "i386") { 
-#		## Since i386 was selected, lets make sure to remove sparc libs
-#		print "INFO: \$archType was provided as [$archType], removing sparc-linux files...\n";
-#		$dirsToExcludeForReadyNas = $dirsToExcludeForReadyNasi386;
-#
-#	} elsif ($archType =~ /sparc/) { 
-#		## In this case, we remove all the i386 libs
-#		print "INFO: \$archType was provided as [$archType], removing i386 files...\n";
-#		$dirsToExcludeForReadyNas = $dirsToExcludeForReadyNasSparc;
-#		
-#		## use sparc specific custom-convert.conf to disable transcoding to flac
-#		copy("$sourceDir/platforms/readynas/custom-convert.sparc", "$buildDir/platforms/readynas/custom-convert.conf");
-#
-#	} else {
-#		## Fail if no architecture was specified...
-#		die("No valid archType was specified. I got [$archType] submitted, but did not recognize it.");
-#	}
-#
-#	## First, lets make sure we get rid of the files we don't need for this install
-#	my @dirsToExclude = split(/ /, $dirsToExcludeForReadyNas);
-#	my $n = 0;
-#	while ($dirsToExclude[$n]) { 
-#		print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
-#		system("find $buildDir | grep -i $dirsToExclude[$n] | xargs rm -rf ");
-#		$n++;
-#	}
-#	
-#        ## Ok, we've set everything up... lets run the dpkg-buildpkg command...
-#	if ($fakeRoot) {
-#		print `cd $buildDir/platforms; fakeroot dpkg-buildpackage -b -a$archType -d ;`;
-#	} else {
-#		print `cd $buildDir/platforms; dpkg-buildpackage -b -a$archType -d ;`;
-#	}
-#
-#	## Now that the package is built, lets put it into the addon dir for final packaging
-#	print "INFO: Putting .deb file into the appropriate squeezeboxserver_addon dir for final packaging...\n";
-#	system("mv $buildDir/*.deb $buildDir/platforms/readynas/squeezeboxserver_addon_$archType/LogitechMediaServer/files/");
-#
-#	## Update the addon package version info
-#	## Lets setup the right version/build #...
-#	open (READ, "$buildDir/platforms/readynas/squeezeboxserver_addon_$archType/LogitechMediaServer/addons.tmpl") || die "Can't open addons.tmpl file to read: $!\n";
-#	open (WRITE, ">$buildDir/platforms/readynas/squeezeboxserver_addon_$archType/LogitechMediaServer/addons.conf") ||  die "Can't open addons.conf file to write: $!\n";
-#
-#	while (<READ>) {
-#		s/VERSION/$release-$archType-readynas/;
-#		print WRITE $_;
-#	}
-#	close WRITE;
-#
-#	## Build the addon now
-#	print "INFO: Executing build_addon.sh...\n";
-#	system("cd $buildDir/platforms/readynas/squeezeboxserver_addon_$archType/; ./build_addon.sh");
-#
-#	## Move the final addon into place
-#	print "INFO: Moving the final addon into [$destDir]\n";
-#	system("mv $buildDir/platforms/readynas/squeezeboxserver_addon_$archType/*.bin $destDir/");	
-#	 	
-#
-#}
-
 ##############################################################################################
 ## Build the ReadyNas Add-On based on the second generation add-on packager 			    ##
 ##############################################################################################
@@ -719,7 +599,7 @@ sub buildReadyNasV2 {
 		system("find $buildDir | grep -i $dirsToExclude[$n] | xargs rm -rf ");
 		$n++;
 	}
-	
+
 	my $baseDir = "$buildDir/platforms/readynas";
 	my $workDir = "$baseDir/addons_sdk/SQUEEZEBOX/files";
 	my $share   = "$workDir/usr/share/squeezeboxserver";
@@ -753,7 +633,7 @@ sub buildReadyNasV2 {
 
 	## Move the final addon into place
 	if ($releaseType eq "release") { 
-		$destName =~ s/~\d[5,]-/-/;
+		$destName =~ s/-\d[5,]-/-/;
 	}
 	
 	$destName .= "-$archType-readynas.bin";
