@@ -38,13 +38,13 @@ my $dirsToExcludeForPPCTarball = "win32 osx MSWin32-x86-multi-thread PreventStan
 my $dirsToExcludeForLinuxNoCpanTarball = "win32 osx i386-freebsd-64int MSWin32-x86-multi-thread darwin i386-linux-thread-multi x86_64-linux arm-linux powerpc-linux /arch/ PreventStandby";
 my $dirsToExcludeForLinuxNoCpanLightTarball = $dirsToExcludeForLinuxNoCpanTarball . " /Bin/ /HTML/! /Firmware/ /MySQL/ Graphics/CODE2000* Plugin/DateTime DigitalInput iTunes LineIn LineOut MusicMagic RSSNews Rescan SavePlaylist SlimTris Snow Plugin/TT/ Visualizer xPL";
 my $dirsToIncludeForLinuxNoCpanLightTarball = "EN.*html/images CPAN/HTML";
-my $dirsToExcludeForMacOSX = "win32 gentoo solaris debian-full debian-ueml redhat readynas fedora i386-freebsd-64int i386-linux x86_64-linux MSWin32 arm-linux powerpc-linux PreventStandby sparc-linux darwin/faad darwin/flac darwin/mac darwin/sls darwin/sox darwin/wvunpack";
+my $dirsToExcludeForMacOSX = "win32 gentoo solaris debian-full debian-ueml redhat readynas fedora i386-freebsd-64int i386-linux x86_64-linux MSWin32 arm-linux powerpc-linux sparc-linux darwin/faad darwin/flac darwin/mac darwin/sls darwin/sox darwin/wvunpack";
 my $dirsToExcludeForWin32 = "gentoo solaris debian-full debian-ueml redhat readynas fedora osx 5.8 5.10 5.12 i386-freebsd-64int i386-linux x86_64-linux darwin sparc-linux arm-linux powerpc-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat";
 my $dirsToExcludeForReadyNasi386 = "win32 osx i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin MSWin32-x86 arm-linux powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46b.dat";
 my $dirsToExcludeForReadyNasSparc = "win32 osx i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin arm-linux MSWin32-x86 powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46l.dat";
 my $dirsToExcludeForReadyNasARM = "win32 osx i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu i386 x86_64 darwin-thread-multi darwin MSWin32-x86 powerpc-linux 5.8 5.12 5.14 PreventStandby icudt46b.dat";
 my $dirsToExcludeForUeml = "Slim/Plugin/! server/Bin/! server/Firmware server/Graphics server/IR /MySQL Slim/Buttons Slim/Hardware Slim/Control/LocalPlayers Slim/Display/Lib Slim/Networking/SliMP3 Slim/Player/Protocols";
-my $dirsToIncludeForUeml = "Plugin/iTunes Plugin/Base.pm Bin/darwin";
+my $dirsToIncludeForUeml = "Plugin/iTunes Plugin/PreventStandby Plugin/Base.pm Bin/darwin";
 
 ## Initialize some variables we'll use later
 my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $ueml, $light, $freebsd, $arm, $ppc, $releaseType, $release, $archType);
@@ -108,11 +108,9 @@ sub checkCommandOptions {
 
 	if ( !$build ) { 
 		showUsage();
-	}
-	elsif ( $build eq 'readynas' ) {
-		print "\n\nPLEASE NOTE: the old style ReadyNAS package is no longer supported. Using --readynasv2 instead.\n\n";
-		$build = 'readynasv2';
-	}
+
+		exit(1);
+	}; 
 
 	if ($build eq "tarball" || $build eq 'readynasv2' || $build eq "debian" || $build eq "rpm" || $build eq "macosx" || $build eq "win32") { 
 		## releaseType is an option, but if its not there, we need
@@ -125,7 +123,7 @@ sub checkCommandOptions {
 
 		## make sure that IF its a readynas package, they picked an architecture
 		if ($build eq "readynasv2" && !$archType) { 
-			print "INFO: Required data missing.\n";
+			print "INFO: Please define an architecture.\n";
 			showUsage();
 			exit 1;
 		}
@@ -311,6 +309,11 @@ sub doCommandOptions {
 	} elsif ($build eq "macosx") { 
 		## Build the Mac OSX package
 		$destName =~ s/$defaultDestName/$compactName/;
+		
+		if ( $releaseType && $releaseType eq "release" ) { 
+			$destName =~ s/-$revision//;
+		}
+		
 		buildMacOSX("$destName");
 
 	} elsif ($build eq "win32") { 
@@ -395,8 +398,8 @@ sub showUsage {
 	print "    --sourceDir <dir>            - The location of the source code repository\n";
 	print "                                   that you've checked out from SVN\n";
 	print "    --destDir <dir>              - The destination you'd like your files \n";
-#	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
-#	print "        (optional)                 or you're building a nightly-style package\n";
+	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
+	print "        (optional)                 or you're building a nightly-style package\n";
 	print "    --archType <arm/i386/sparc>  - Pick the right architecture because \n";
 	print "                                   ONLY the libraries for that ARCH will be included\n";
 	print "\n";
@@ -665,7 +668,7 @@ sub buildReadyNasV2 {
 
 	## Move the final addon into place
 	if ($releaseType eq "release") { 
-		$destName =~ s/~\d[5,]-/-/;
+		$destName =~ s/-\d[5,]-/-/;
 	}
 	
 	$destName .= "-$archType-readynas.bin";
