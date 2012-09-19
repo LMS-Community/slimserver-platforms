@@ -418,63 +418,10 @@
 	 **  We always remove our login item, just in case the entry is there. (Otherwise, we end up with two.)
 	 */
 
-	NSString *pathToServer = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"start-server.sh"];
 
-	NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
-	NSMutableArray *allLoginItems, *objectsToRemove = [[NSMutableArray alloc] init];
-	NSMutableDictionary *loginwindow = [[userDefaults persistentDomainForName:@"loginwindow"] mutableCopy];
-	NSDictionary *currentStartupDictionary;
-	int currItem, totalItems;
-
-	allLoginItems = [[loginwindow objectForKey:@"AutoLaunchedApplicationDictionary"] mutableCopy];
-
-	/*
-	 **  If there are no login items, it'll end up nil. So, we allocate our own.
-	 */
-
-	if (allLoginItems == nil)
-		allLoginItems = [[NSMutableArray alloc] init];
-
-	/*
-	 **  Remove all instances of our server startup.
-	 */
-
-	totalItems = [allLoginItems count];
-
-	for (currItem = 0 ; currItem < totalItems ; currItem++)
-	{
-		NSString *path;
+	NSString *scriptToRun = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent: (newStartupType == kStartupAtLogin) ? @"create-launchitem.sh" : @"remove-launchitem.sh"];
+	[[NSWorkspace sharedWorkspace] launchApplication:scriptToRun showIcon:NO autolaunch:YES];
 	
-		currentStartupDictionary = [allLoginItems objectAtIndex:currItem];
-		path = [currentStartupDictionary objectForKey:@"Path"];
-	
-		if (path != nil && [path isEqualToString:pathToServer])
-			[objectsToRemove addObject:currentStartupDictionary];
-	}
-	[allLoginItems removeObjectsInArray:objectsToRemove];
-	[objectsToRemove release];
-
-	if (newStartupType == kStartupAtLogin)
-	{
-		/*
-		 **  Ensure we start up when this user logs in.
-		 */
-	
-		[allLoginItems insertObject:[NSDictionary dictionaryWithObjectsAndKeys:pathToServer,@"Path",[NSNumber numberWithBool:NO],@"Hide", nil] atIndex:0];
-	}
-	
-	if ([allLoginItems count] == 0)
-		[loginwindow removeObjectForKey:@"AutoLaunchedApplicationDictionary"];
-	else
-		[loginwindow setObject:allLoginItems forKey:@"AutoLaunchedApplicationDictionary"];
-
-	[userDefaults removePersistentDomainForName:@"loginwindow"];
-	[userDefaults setPersistentDomain:loginwindow forName:@"loginwindow"];
-	[userDefaults synchronize];
-	[userDefaults release];
-	[allLoginItems release];
-	[loginwindow release];
-
 	return YES;
 }
 
