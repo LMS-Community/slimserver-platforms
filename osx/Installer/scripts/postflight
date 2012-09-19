@@ -14,16 +14,16 @@ fi
 
 
 if [ -e "$PREFPANE_TO" ] ; then
-	cd "$PREFPANE_TO/Contents/server"
+	cd "$PREFPANE_TO/Contents/Resources"
 
 	# install SC to start at boot time if it hasn't been configured yet; update startupitem if we're updating
 	if [ -e /Library/StartupItems/$PRODUCT_NAME ] ; then
-		../Resources/create-startup.sh
+		./create-startup.sh
 	fi
 
-	sudo -b -H -u $USER "../Resources/start-server.sh"
+	sudo -b -H -u $USER "./start-server.sh"
 
-	cd "/Library/PreferencePanes/$PRODUCT_NAME.prefPane/Contents/server/Bin/darwin"
+	cd "$PREFPANE_TO/Contents/server/Bin/darwin"
 
 	osascript openprefs.scpt &
 

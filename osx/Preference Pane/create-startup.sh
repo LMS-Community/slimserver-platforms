@@ -52,7 +52,7 @@ if [ z"\$SERVER_RUNNING" = z ] ; then
 	else
 		pushd "/Library/PreferencePanes/UEMusicLibrary.prefPane/Contents/Resources"
 	fi
-	sudo -H -u \$SLIMUSER start-server.sh
+	sudo -H -u \$SLIMUSER ./start-server.sh
 	popd
 fi
 if [ z"\$#" != z"0" ] ; then
@@ -105,7 +105,7 @@ cat >/Library/StartupItems/$PRODUCT_FOLDER/Resources/French.lproj/Localizable.st
 
 mkdir -p -m go-w /Library/StartupItems/$PRODUCT_FOLDER/Resources/German.lproj
 
-cat >/Library/StartupItems/$PRODUCT_FOLDER/Resources/English.lproj/Localizable.strings << !!
+cat >/Library/StartupItems/$PRODUCT_FOLDER/Resources/German.lproj/Localizable.strings << !!
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
