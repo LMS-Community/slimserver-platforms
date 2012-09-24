@@ -172,7 +172,7 @@
 #endif
 	
 	[pipeTask release];
-	
+
 	if (sscanf([portString UTF8String], "%d", &port) == 1)
 		return port;
 	else
@@ -232,36 +232,33 @@
 
 //	NSLog(@"Squeezebox: updating UI...");
 
-	if (currentWebState != [self webState] || currentServerState != [self serverState]) 
+	if (currentWebState && [[[prefsTab selectedTabViewItem] identifier] isEqualToString:@"status"]) 
 	{
-		if (currentWebState && [[[prefsTab selectedTabViewItem] identifier] isEqualToString:@"status"]) 
-		{
-			[[statusView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:statusUrl]]];
-			[[statusView mainFrame] reload];
-		}
-		[self setWebState:currentWebState];
+		[[statusView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:statusUrl]]];
+		[[statusView mainFrame] reload];
+	}
+	[self setWebState:currentWebState];
 
-		[self setServerState:currentServerState];
-		
-		if (currentServerState && !currentWebState)
-		{
-			[serverStateLabel setStringValue:LocalizedPrefString(@"The server is starting", "The server is starting")];
-			[toggleServerButton setTitle:LocalizedPrefString(@"Start Server", "Start Server")];
-			[toggleServerButton setEnabled:NO];
-		}
-		else if (currentServerState)
-		{
-			[serverStateLabel setStringValue:LocalizedPrefString(@"The server is running", "The server is running")];
-			[toggleServerButton setTitle:LocalizedPrefString(@"Stop Server", "Stop Server")];
-			[toggleServerButton setEnabled:YES];
-		}
-		else
-		{
-			[serverStateLabel setStringValue:LocalizedPrefString(@"The server is stopped", "The server is stopped")];
-			[toggleServerButton setTitle:LocalizedPrefString(@"Start Server", "Start Server")];
-			isScanning = NO;
-			[toggleServerButton setEnabled:YES];
-		}
+	[self setServerState:currentServerState];
+	
+	if (currentServerState && !currentWebState)
+	{
+		[serverStateLabel setStringValue:LocalizedPrefString(@"The server is starting", "The server is starting")];
+		[toggleServerButton setTitle:LocalizedPrefString(@"Start Server", "Start Server")];
+		[toggleServerButton setEnabled:NO];
+	}
+	else if (currentServerState)
+	{
+		[serverStateLabel setStringValue:LocalizedPrefString(@"The server is running", "The server is running")];
+		[toggleServerButton setTitle:LocalizedPrefString(@"Stop Server", "Stop Server")];
+		[toggleServerButton setEnabled:YES];
+	}
+	else
+	{
+		[serverStateLabel setStringValue:LocalizedPrefString(@"The server is stopped", "The server is stopped")];
+		[toggleServerButton setTitle:LocalizedPrefString(@"Start Server", "Start Server")];
+		isScanning = NO;
+		[toggleServerButton setEnabled:YES];
 	}
 	
 	[musicLibraryName setEnabled:serverState];
