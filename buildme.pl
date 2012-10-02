@@ -480,7 +480,7 @@ sub excludeDirs {
 			}
 			
 			print "INFO: Removing $_ files from buildDir...\n";
-			system("find $buildDir -depth | grep '$_' $doInclude | xargs rm -rf &> /dev/null");
+			system("find $buildDir -depth | grep '$_' $doInclude | xargs rm -rf > /dev/null 2>&1");
 			$n++;
 		}
 	}
