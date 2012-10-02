@@ -436,7 +436,7 @@ sub buildTarball {
 			}
 			
 			print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
-			system("find $buildDir -depth | grep '$dirsToExclude[$n]' $doInclude | xargs rm -rf &> /dev/null");
+			system("find $buildDir -depth | grep '$dirsToExclude[$n]' $doInclude | xargs rm -rf > /dev/null 2>&1");
 			$n++;
 		}
 			
