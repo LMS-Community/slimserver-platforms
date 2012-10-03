@@ -756,7 +756,7 @@ sub buildMacOSX {
 		system("pkgutil --flatten $buildDir/ueml_tmp \"$destDir/$pkgName-unsigned.pkg\"");
 
 		print "\nINFO: Sign the installer package...\n";
-		system("productsign --sign \"Developer ID Installer: Logitech Inc.\" \"$destDir/$pkgName-unsigned.pkg\" \"$destDir/$pkgName.pkg\"");
+		system("/Developer/usr/bin/packagemaker --sign \"$destDir/$pkgName-unsigned.pkg\" --certificate \"Developer ID Installer: Logitech Inc.\" --out \"$destDir/$pkgName.pkg\"");
 
 #		print "\nINFO: zip up package bundle\n";
 #		system("cd \"$destDir\"; zip -r9 $downloadableFile \"$pkgName.pkg\"")
