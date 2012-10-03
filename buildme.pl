@@ -99,7 +99,7 @@ sub checkCommandOptions {
 			'releaseType=s' => \$releaseType,
 			'archType=s'    => \$archType,
 			'fakeRoot'      => \$fakeRoot,
-			'password'      => \$password,
+			'password=s'    => \$password,
 			'ueml'          => \$ueml);
 
 
@@ -765,7 +765,12 @@ sub buildMacOSX {
 		}
 		else {
 			print "\nINFO: Installer package was NOT signed - please provide user's password...\n";
-			move("$destDir/$pkgName-unsigned.pkg", "$destDir/$pkgName.pkg");
+			if ($releaseType eq 'release') {
+				unlink("$destDir/$pkgName.pkg");
+			}
+			else {
+				move("$destDir/$pkgName-unsigned.pkg", "$destDir/$pkgName.pkg");
+			}
 		}
 
 #		print "\nINFO: zip up package bundle\n";
