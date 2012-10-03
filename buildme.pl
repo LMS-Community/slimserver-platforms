@@ -729,7 +729,7 @@ sub buildMacOSX {
 		system("/Developer/usr/bin/packagemaker --verbose --root-volume-only --root \"$prefPaneDir\" --scripts \"$buildDir/platforms/osx/Installer/scripts\" --out \"$destDir/$pkgName.pkg\" --target 10.5 --domain system --id com.logitech.music.ueMusicLibrary --version 1.0 --resources \"$buildDir/platforms/osx/Installer/l10n\" --title \"UE Music Library\"");
 
 		# add localized resource files to the package
-		print "INFO: Add localized resource files to package...\n";
+		print "\nINFO: Add localized resource files to package...\n";
 
 		rmtree("$buildDir/ueml_tmp");
 		
@@ -753,8 +753,11 @@ sub buildMacOSX {
 
 		closedir $dirh;
 
-		system("pkgutil --flatten $buildDir/ueml_tmp \"$destDir/$pkgName.pkg\"");
-		
+		system("pkgutil --flatten $buildDir/ueml_tmp \"$destDir/$pkgName-unsigned.pkg\"");
+
+		print "\nINFO: Sign the installer package...\n";
+		system("productsign --sign \"Developer ID Installer: Logitech Inc.\" \"$destDir/$pkgName-unsigned.pkg\" \"$destDir/$pkgName.pkg\"");
+
 #		print "\nINFO: zip up package bundle\n";
 #		system("cd \"$destDir\"; zip -r9 $downloadableFile \"$pkgName.pkg\"")
 	}
