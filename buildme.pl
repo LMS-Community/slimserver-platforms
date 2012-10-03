@@ -48,7 +48,7 @@ my $dirsToExcludeForUeml = "Slim/Plugin/! server/Bin/! server/Firmware server/Gr
 my $dirsToIncludeForUeml = "Plugin/iTunes Plugin/PreventStandby Plugin/RandomPlay Plugin/MusicMagic Plugin/Base.pm Bin/darwin";
 
 ## Initialize some variables we'll use later
-my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $ueml, $light, $freebsd, $arm, $ppc, $releaseType, $release, $archType);
+my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $ueml, $light, $freebsd, $arm, $ppc, $releaseType, $release, $archType, $password);
 
 ## Generate a random number... used for a single instance wherever we need a temp file. 
 my $range = 10000;
@@ -99,6 +99,7 @@ sub checkCommandOptions {
 			'releaseType=s' => \$releaseType,
 			'archType=s'    => \$archType,
 			'fakeRoot'      => \$fakeRoot,
+			'password'      => \$password,
 			'ueml'          => \$ueml);
 
 
@@ -411,7 +412,9 @@ sub showUsage {
 	print "                                   that you've checked out from SVN\n";
 	print "    --destDir <dir>              - The destination you'd like your files \n";
 	print "    --destName <filename>        - The name of the OSX Package Name, do not \n";
-	print "       (optional)                  include the .dmg\n";
+	print "       (optional)                  include the .pkg\n";
+	print "    --password <password>        - the build user's password, required in order\n";
+	print "       (optional)                  to be able to sign the installer\n";
 	print "\n";
 	print "--- Building a Windows Package\n";
 	print "    --build win32 <required opts below>\n";
@@ -755,8 +758,15 @@ sub buildMacOSX {
 
 		system("pkgutil --flatten $buildDir/ueml_tmp \"$destDir/$pkgName-unsigned.pkg\"");
 
-		print "\nINFO: Sign the installer package...\n";
-		system("/Developer/usr/bin/packagemaker --sign \"$destDir/$pkgName-unsigned.pkg\" --certificate \"Developer ID Installer: Logitech Inc.\" --out \"$destDir/$pkgName.pkg\"");
+		# if a password to access the keychain was provided, try to sign the package
+		if ($password) {
+			print "\nINFO: Sign the installer package...\n";
+			system("security unlock-keychain -p \"$password\" && /Developer/usr/bin/packagemaker --sign \"$destDir/$pkgName-unsigned.pkg\" --certificate \"Developer ID Application: Logitech Inc.\" --out \"$destDir/$pkgName.pkg\"");
+		}
+		else {
+			print "\nINFO: Installer package was NOT signed - please provide user's password...\n";
+			move("$destDir/$pkgName-unsigned.pkg", "$destDir/$pkgName.pkg");
+		}
 
 #		print "\nINFO: zip up package bundle\n";
 #		system("cd \"$destDir\"; zip -r9 $downloadableFile \"$pkgName.pkg\"")
