@@ -8,6 +8,7 @@ use Cwd;
 use File::Basename;
 use File::Copy;
 use File::Path;
+use File::Slurp;
 use File::Spec::Functions qw(:ALL);
 use Getopt::Long;
 use POSIX qw(strftime);
@@ -724,28 +725,38 @@ sub buildMacOSX {
 		else {
 			system("mv -f \"$contentsDir/server/slimserver.pl\" \"$contentsDir/server/ueml.pl\"");
 		}
-				
-		system("/Developer/usr/bin/packagemaker --verbose --root \"$prefPaneDir\" --info \"$buildDir/platforms/osx/Installer/Info.plist\" --scripts \"$buildDir/platforms/osx/Installer/scripts\" --out \"$destDir/$pkgName.pkg\" --target 10.4 --domain system");
+
+		system("/Developer/usr/bin/packagemaker --verbose --root-volume-only --root \"$prefPaneDir\" --scripts \"$buildDir/platforms/osx/Installer/scripts\" --out \"$destDir/$pkgName.pkg\" --target 10.5 --domain system --id com.logitech.music.ueMusicLibrary --version 1.0 --resources \"$buildDir/platforms/osx/Installer/l10n\" --title \"UE Music Library\"");
 
 		# add localized resource files to the package
 		print "INFO: Add localized resource files to package...\n";
-		system("rm -rf $destDir/$pkgName.pkg/Contents/Resources/*.lproj");
-		system("cp -R $buildDir/platforms/osx/Installer/l10n/* \"$destDir/$pkgName.pkg/Contents/Resources/\"");
 
-		opendir my ($dirh), "$destDir/$pkgName.pkg/Contents/Resources/";
+		rmtree("$buildDir/ueml_tmp");
+		
+		# we need to manually modify the Distribution file in the package to make it recognize the localizations - known bug in packagemaker
+		system("pkgutil --expand \"$destDir/$pkgName.pkg\" $buildDir/ueml_tmp");
+
+		my $distributionXML = read_file("$buildDir/ueml_tmp/Distribution");
+		$distributionXML =~ s/(<\/title>)/$1\n<welcome file="Welcome"\/>\n<background file="background" alignment="topleft" scaling="none"\/>/;
+		$distributionXML =~ s/(<choice) /$1 customLocation="\/Library\/PreferencePanes" /;
+		write_file("$buildDir/ueml_tmp/Distribution", $distributionXML);
+
+		opendir my ($dirh), "$buildDir/ueml_tmp/Resources/";
 
 		# copy the background image in each localization's folder
 		for ( readdir $dirh ) {
-			my $f = "$destDir/$pkgName.pkg/Contents/Resources/$_";
+			my $f = "$buildDir/ueml_tmp/Resources/$_";
 			if ( $f =~ /\.lproj$/i && -d $f ) {
 				copy("$buildDir/platforms/osx/Installer/installer_osx.png", "$f/background");
 			}
 		}
 
 		closedir $dirh;
+
+		system("pkgutil --flatten $buildDir/ueml_tmp \"$destDir/$pkgName.pkg\"");
 		
-		print "\nINFO: zip up package bundle\n";
-		system("cd \"$destDir\"; zip -r9 $downloadableFile \"$pkgName.pkg\"")
+#		print "\nINFO: zip up package bundle\n";
+#		system("cd \"$destDir\"; zip -r9 $downloadableFile \"$pkgName.pkg\"")
 	}
 }
 
