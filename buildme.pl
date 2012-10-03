@@ -761,7 +761,7 @@ sub buildMacOSX {
 		# if a password to access the keychain was provided, try to sign the package
 		if ($password) {
 			print "\nINFO: Sign the installer package...\n";
-			system("security unlock-keychain -p \"$password\" && /Developer/usr/bin/packagemaker --sign \"$destDir/$pkgName-unsigned.pkg\" --certificate \"Developer ID Application: Logitech Inc.\" --out \"$destDir/$pkgName.pkg\"");
+			system("security unlock-keychain -p $password && /Developer/usr/bin/packagemaker --sign \"$destDir/$pkgName-unsigned.pkg\" --certificate \"Developer ID Installer: Logitech Inc.\" --out \"$destDir/$pkgName.pkg\"");
 		}
 		else {
 			print "\nINFO: Installer package was NOT signed - please provide user's password...\n";
