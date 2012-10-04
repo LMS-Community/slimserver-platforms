@@ -690,8 +690,8 @@ sub buildMacOSX {
 		## Take the filename passed to us and make sure that we build the DMG with
 		## that name, and that the 'pretty mounted name' also matches
 		my $pkgName = $_[0] . ($ueml ? '' : '-full');
-		my $downloadableFile = $pkgName . '.zip';
-		$pkgName =~ s/-/ /g;
+#		my $downloadableFile = $pkgName . '.zip';
+#		$pkgName =~ s/-/ /g;
 
 		print "INFO: Building package for Mac OSX (Universal)... \n";
 	
