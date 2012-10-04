@@ -8,7 +8,6 @@ use Cwd;
 use File::Basename;
 use File::Copy;
 use File::Path;
-use File::Slurp;
 use File::Spec::Functions qw(:ALL);
 use Getopt::Long;
 use POSIX qw(strftime);
@@ -739,10 +738,12 @@ sub buildMacOSX {
 		# we need to manually modify the Distribution file in the package to make it recognize the localizations - known bug in packagemaker
 		system("pkgutil --expand \"$destDir/$pkgName.pkg\" $buildDir/ueml_tmp");
 
-		my $distributionXML = read_file("$buildDir/ueml_tmp/Distribution");
+		require File::Slurp;
+
+		my $distributionXML = File::Slurp::read_file("$buildDir/ueml_tmp/Distribution");
 		$distributionXML =~ s/(<\/title>)/$1\n<welcome file="Welcome"\/>\n<background file="background" alignment="topleft" scaling="none"\/>/;
 		$distributionXML =~ s/(<choice) /$1 customLocation="\/Library\/PreferencePanes" /;
-		write_file("$buildDir/ueml_tmp/Distribution", $distributionXML);
+		File::Slurp::write_file("$buildDir/ueml_tmp/Distribution", $distributionXML);
 
 		opendir my ($dirh), "$buildDir/ueml_tmp/Resources/";
 
