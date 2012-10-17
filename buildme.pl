@@ -690,8 +690,8 @@ sub buildMacOSX {
 		## Take the filename passed to us and make sure that we build the DMG with
 		## that name, and that the 'pretty mounted name' also matches
 		my $pkgName = $_[0] . ($ueml ? '' : '-full');
-		my $downloadableFile = $pkgName . '.zip';
-		$pkgName =~ s/-/ /g;
+#		my $downloadableFile = $pkgName . '.zip';
+#		$pkgName =~ s/-/ /g;
 
 		print "INFO: Building package for Mac OSX (Universal)... \n";
 	
@@ -764,17 +764,14 @@ sub buildMacOSX {
 			system("security unlock-keychain -p $password && /Developer/usr/bin/packagemaker --sign \"$destDir/$pkgName-unsigned.pkg\" --certificate \"Developer ID Installer: Logitech Inc.\" --out \"$destDir/$pkgName.pkg\"");
 		}
 		else {
-			print "\nINFO: Installer package was NOT signed - please provide user's password...\n";
+#			print "\nINFO: Installer package was NOT signed - please provide user's password...\n";
 			if ($releaseType eq 'release') {
-				unlink("$destDir/$pkgName.pkg");
+#				unlink("$destDir/$pkgName.pkg");
 			}
 			else {
 				move("$destDir/$pkgName-unsigned.pkg", "$destDir/$pkgName.pkg");
 			}
 		}
-
-#		print "\nINFO: zip up package bundle\n";
-#		system("cd \"$destDir\"; zip -r9 $downloadableFile \"$pkgName.pkg\"")
 	}
 }
 
