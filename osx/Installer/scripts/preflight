@@ -1,0 +1,50 @@
+#!/usr/bin/perl
+
+use strict;
+
+use FindBin qw($Bin);
+use lib "$Bin";
+
+use MsgBox;
+use LMSMigration;
+
+use constant SERVER_NAME => 'slimserver\.pl';
+
+my $check = 'ps -axww | grep "' . SERVER_NAME . '" | grep -v grep | cat';
+
+if ( `$check` =~ /^\s*(\d+) / ) {
+	kill 15, $1;
+}
+
+# Wait for it to stop
+for my $i (0 .. 9) {
+	last if !`$check`;
+	sleep 1;
+}
+
+# If it didn't quit, fail
+if ( `$check` ) {
+	MsgBox->show('TITLE', 'PLEASE_STOP_SERVER');
+	exit 1;
+}
+
+$check = 'ps -axww | grep "System Preferences" | grep -v grep | cat';
+
+if ( `$check` ) {
+	system('osascript -e "tell application \"System Preferences\" to quit"');
+}
+
+for my $i (0 .. 9) {
+	last if !`$check`;
+	sleep 1;
+}
+
+if ( `$check` ) {
+	MsgBox->show('TITLE', 'PLEASE_QUIT_SYSTEMPREFERENCES');
+	exit 1;
+}
+
+# try to migrate LMS preferences
+LMSMigration->migrate();
+
+exit 0;
