@@ -1,0 +1,42 @@
+#!/bin/sh
+
+PRODUCT_NAME=Squeezebox
+PREFPANE_TO="/Library/PreferencePanes/$PRODUCT_NAME.prefPane"
+
+# remove the version file triggering the update prompt
+if [ -e ~/Library/Caches/$PRODUCT_NAME/updates/server.version ] ; then
+	rm -f ~/Library/Caches/$PRODUCT_NAME/updates/server.version
+fi
+
+if [ -e /Library/Caches/$PRODUCT_NAME/updates/server.version ] ; then
+	rm -f /Library/Caches/$PRODUCT_NAME/updates/server.version
+fi
+
+# stupid bug in packagemaker/installer on OSX 10.5 would drop the content in the system's root instead of the target folder
+# http://simx.me/technonova/tips/packagemaker_and_installer.html
+if [ -e "/$PRODUCT_NAME.prefpane" ] ; then
+	if [ -e "$PREFPANE_TO" ] ; then
+		rm -rf "$PREFPANE_TO"
+	fi
+	
+	mv "/$PRODUCT_NAME.prefpane" "$PREFPANE_TO"
+fi
+
+if [ -e "$PREFPANE_TO" ] ; then
+	cd "$PREFPANE_TO/Contents/Resources"
+
+	# install SC to start at boot time if it hasn't been configured yet; update startupitem if we're updating
+	if [ -e /Library/StartupItems/$PRODUCT_NAME ] ; then
+		./create-startup.sh
+	fi
+
+	sudo -b -H -u $USER "./start-server.sh"
+
+	cd "$PREFPANE_TO/Contents/server/Bin/darwin"
+
+	sudo -b -H -u $USER osascript openprefs.scpt &
+
+	exit 0
+else
+	exit 1
+fi
