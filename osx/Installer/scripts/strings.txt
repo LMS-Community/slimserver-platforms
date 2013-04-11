@@ -1,0 +1,63 @@
+TITLE
+	EN	Logitech Media Server
+
+PLEASE_STOP_SERVER
+	CS	Před spuštěním instalačního programu zastavte chod serveru.
+	DA	Stop serveren før du kører installationsprogrammet.
+	DE	Bitte halten Sie den Server an, bevor Sie das Installationsprogramm ausführen.
+	EN	Please stop the server before running the installer.
+	ES	Debe detener el servidor antes de ejecutar el instalador.
+	FI	Keskeytä palvelin ennen asennusohjelman suorittamista.
+	FR	Arrêtez le serveur avant d'exécuter le programme d'installation.
+	IT	Prima di eseguire il programma di installazione, arrestare il server.
+	NL	Stop de server voordat je het installatieprogramma uitvoert.
+	NO	Stopp serveren før du kjører installasjonsprogrammet.
+	PL	Przed uruchomieniem instalatora zatrzymaj serwer.
+	RU	Остановите сервер перед запуском программы установки.
+	SV	Stoppa servern innan du kör installationsprogrammet.
+
+PLEASE_STOP_LMS
+	CS	Před spuštěním instalačního programu zastavte chod serveru Logitech Media Server.
+	DA	Du skal stoppe Logitech Media Server før du kører installationsprogrammet.
+	DE	Vor Ausführung des Installationsprogramms muss Logitech Media Server beendet werden.
+	EN	Please stop Logitech Media Server before running the installer.
+	ES	Debe detener Logitech Media Server antes de ejecutar el instalador.
+	FI	Keskeytä Logitechin mediapalvelin ennen asennusohjelman suorittamista.
+	FR	Fermez Logitech Media Server avant d'exécuter le programme d'installation.
+	IT	Prima di eseguire il programma di installazione, arrestare Logitech Media Server.
+	NL	Stop de Logitech Media Server voordat je het installatieprogramma uitvoert.
+	NO	Stopp Logitech Media Server før du kjører installasjonsprogrammet.
+	PL	Przed uruchomieniem instalatora zatrzymaj program Logitech Media Server.
+	RU	Остановите медиасервер Logitech перед запуском программы установки.
+	SV	Stoppa Logitech Media Server innan du kör installationsprogrammet.
+
+PLEASE_QUIT_SYSTEMPREFERENCES
+	CS	Před spuštěním instalačního programu ukončete předvolby systému.
+	DA	Afslut Systemindstillinger før du kører installationsprogrammet.
+	DE	Beenden Sie die Systemeinstellungen, bevor Sie das Installationsprogramm ausführen.
+	EN	Please quit System Preferences before running the installer.
+	ES	Debe salir de Preferencias del sistema antes de ejecutar el instalador.
+	FI	Poistu järjestelmäasetuksista ennen asennusohjelman suorittamista.
+	FR	Quittez les Préférences système avant d'exécuter le programme d'installation.
+	IT	Prima di eseguire il programma di installazione, uscire dalle preferenze di sistema.
+	NL	Sluit Systeemvoorkeuren voordat je het installatieprogramma uitvoert.
+	NO	Lukk Systemvalg før du kjører installasjonsprogrammet.
+	PL	Przed uruchomieniem instalatora zamknij okno Preferencje systemowe.
+	RU	Выйдите из системных настроек перед запуском программы установки.
+	SV	Stäng Systeminställningar innan du kör installationsprogrammet.
+
+OK
+	CS	OK
+	DA	OK
+	DE	OK
+	EN	OK
+	ES	Aceptar
+	FI	OK
+	FR	OK
+	IT	OK
+	NL	OK
+	NO	OK
+	PL	OK
+	RU	ОК
+	SV	OK
+

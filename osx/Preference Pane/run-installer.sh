@@ -2,16 +2,16 @@
 
 # this script is being called from the PrefPane to launch the installer
 
-MOUNTPOINT=/Volumes/SCInstaller
-INSTALLER="/Volumes/SCInstaller/.install.app"
+UPDATEFOLDER=`dirname $1`
+PRODUCT_PREFIX=Squeezebox
+INSTALLER="$UPDATEFOLDER/$PRODUCT_PREFIX*.pkg"
 
-if [ -e "$1" ] ; then
-	xattr -d com.apple.quarantine $1
-	hdiutil unmount $MOUNTPOINT
-	hdiutil mount "$1" -mountpoint $MOUNTPOINT
-fi
+# clean up remnants of earlier installations
+rm -rf $UPDATEFOLDER/$PRODUCT_PREFIX*.pkg
 
-if [ -e "$INSTALLER" ] ; then
-	open "$INSTALLER"
+if [ -e $INSTALLER ] ; then
+	xattr -d com.apple.quarantine $INSTALLER &> /dev/null
+
+	open $INSTALLER
 fi
 	

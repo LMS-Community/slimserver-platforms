@@ -33,7 +33,7 @@ my $dirsToExcludeForPPCTarball = "MSWin32-x86-multi-thread PreventStandby i386-l
 my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-thread darwin i386-linux-thread-multi x86_64-linux arm-linux powerpc-linux /arch/ PreventStandby";
 my $dirsToExcludeForLinuxNoCpanLightTarball = $dirsToExcludeForLinuxNoCpanTarball . " /Bin/ /HTML/! /Firmware/ /MySQL/ Graphics/CODE2000* Plugin/DateTime DigitalInput iTunes LineIn LineOut MusicMagic RSSNews Rescan SavePlaylist SlimTris Snow Plugin/TT/ Visualizer xPL";
 my $dirsToIncludeForLinuxNoCpanLightTarball = "EN.*html/images CPAN/HTML";
-my $dirsToExcludeForMacOSX = "i386-freebsd-64int i386-linux x86_64-linux MSWin32 arm-linux powerpc-linux PreventStandby sparc-linux";
+my $dirsToExcludeForMacOSX = "i386-freebsd-64int i386-linux x86_64-linux MSWin32 arm-linux powerpc-linux sparc-linux";
 my $dirsToExcludeForWin32 = "5.8 5.10 5.12 i386-freebsd-64int i386-linux x86_64-linux darwin sparc-linux arm-linux powerpc-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat";
 my $dirsToExcludeForReadyNasi386 = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin MSWin32-x86 arm-linux powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46b.dat";
 my $dirsToExcludeForReadyNasSparc = "i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin arm-linux MSWin32-x86 powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46l.dat";
@@ -229,7 +229,7 @@ sub setupBuildTree {
 	print "INFO: Making copy of server source ($sourceDir -> $buildDir)\n";
 
 	## Exclude the .svn directory, and anything else we configured in the beginning of the script.
-	system("rsync -a --quiet $sourceExclude $sourceDir/ $buildDir");
+	system("rsync -a --quiet $sourceExclude $sourceDir/server $sourceDir/platforms $buildDir");
 
 	## Verify that things went OK during the transfer...
 	if (!-d "$buildDir/server") {
@@ -304,6 +304,11 @@ sub doCommandOptions {
 	} elsif ($build eq "macosx") { 
 		## Build the Mac OSX package
 		$destName =~ s/$defaultDestName/LogitechMediaServer/;
+		
+		if ( $releaseType && $releaseType eq "release" ) { 
+			$destName =~ s/-$revision//;
+		}
+		
 		buildMacOSX("$destName");
 
 	} elsif ($build eq "win32") { 
@@ -765,9 +770,9 @@ sub buildMacOSX {
 	if ( ($_[0] ) || die("Problem: Not all of the variables were passed to the buildMacOSX function...") ) { 
 		## Take the filename passed to us and make sure that we build the DMG with
 		## that name, and that the 'pretty mounted name' also matches
-		my $diskImageFileName = "$_[0].dmg";
-		my $diskImageName = $_[0];
-		$diskImageName =~ s/-/ /g;
+		my $pkgName = $_[0];
+#		my $downloadableFile = $pkgName . '.zip';
+#		$pkgName =~ s/-/ /g;
 
 		print "INFO: Building package for Mac OSX (Universal)... \n";
 	
@@ -780,75 +785,66 @@ sub buildMacOSX {
 			$n++;
 		}
 		
-		## Next, lets build the openUp helper app
-		print "INFO: Building the openUP helper app...\n";
-		system("cc $buildDir/platforms/osx/openUp.c -o $buildDir/openUp");
-	
-	
 		## Now, lets make the Install Files directory
-		print "INFO: Making $buildDir/$diskImageName/Install Files...\n";
-		mkpath("$buildDir/$diskImageName/Install Files");
+		print "INFO: Making $buildDir/$pkgName/Install Files...\n";
+		mkpath("$buildDir/$pkgName/Install Files");
 	
 		## Copy in the documentation and license files..
 		print "INFO: Copying documentation & licenses...\n";
-		copy("$buildDir/server/license.txt", "$buildDir/$diskImageName/License.txt");
+		copy("$buildDir/server/license.txt", "$buildDir/$pkgName/License.txt");
 
 		## Set some xcodebuild paths... 
 		my $xcodeBuildDir = "$buildDir/platforms/osx/Preference Pane/build/Deployment";
-		my $contentsDir = "$buildDir/$diskImageName/Install Files/Squeezebox.prefPane/Contents";
+		my $prefPaneDir = "$buildDir/$pkgName/Install Files/Squeezebox.prefPane";
+		my $contentsDir = "$prefPaneDir/Contents";
 
 		## Lets build the pref pane and installer...
 		print "INFO: Beginning PreferencePane and Installer build...\n";
 		system("cd \"$buildDir/platforms/osx/Preference Pane\"; xcodebuild -project \"SqueezeCenter.xcodeproj\" -target \"Squeezebox\" -configuration Deployment");
 	
 		print "INFO: Copying Preference Pane...\n";
-		system("ditto \"$xcodeBuildDir/Squeezebox.prefPane\" \"$buildDir/$diskImageName/Install Files/Squeezebox.prefPane\"");
+		system("ditto \"$xcodeBuildDir/Squeezebox.prefPane\" \"$prefPaneDir\"");
 	
-		print "INFO: Copying MacOSX Installer...\n";
-		system("ditto \"$xcodeBuildDir/Installer.app\" \"$buildDir/$diskImageName/Squeezebox Server Installer.app\" ");
-	
-		# .svn directories have already been removed.
 		system("mv \"$buildDir/server\" \"$contentsDir/\" ");
-	
-		print "INFO: Copying MacOSX Launcher App...\n";
-		system("ditto \"$xcodeBuildDir/Launcher.app\" \"$contentsDir/server/Launcher.app\"");
-	
-		print "INFO: Building MacOSX DMG Image...\n";
-		system("hdiutil create -fs HFS+ -layout SPUD -volname \"$diskImageName\" -size 150m \"$buildDir/temp-$diskImageFileName\" ");
-	
-		print "INFO: Mounting MacOSX DMG Image...\n";
-		my $scDiskImageMountPoint = "/tmp/diskimage.$random_number";
-		system("hdiutil mount \"$buildDir/temp-$diskImageFileName\" -mountpoint $scDiskImageMountPoint");
 
-		print "INFO: Opening MacOSX DMG Image (template - sc-template-ro.dmg)...\n";
-		my $scTemplateMountPoint = "/tmp/template.$random_number";
-		system("hdiutil mount \"$buildDir/platforms/osx/sc-template-ro.dmg\" -mountpoint $scTemplateMountPoint");
+		print "INFO: Create installer package $pkgName...\n";
+		system("/Developer/usr/bin/packagemaker --verbose --root-volume-only --root \"$prefPaneDir\" --scripts \"$buildDir/platforms/osx/Installer/scripts\" --out \"$destDir/$pkgName.pkg\" --target 10.5 --domain system --id com.logitech.music.Squeezebox --version 1.0 --resources \"$buildDir/platforms/osx/Installer/l10n\" --title \"Logitech Media Server\"");
 
-		print "INFO: Copying over template image files to new DMG...\n";
-		system("ditto -rsrc \"$scTemplateMountPoint\" \"$scDiskImageMountPoint\" ");	
+		# add localized resource files to the package
+		print "\nINFO: Add localized resource files to package...\n";
 
-		print "INFO: Opening MacOSX DMG Image (template - sc-template-ro.dmg)...\n";
-		system("hdiutil detach \"$scTemplateMountPoint\" ");
+		rmtree("$buildDir/lms_tmp");
+		
+		# we need to manually modify the Distribution file in the package to make it recognize the localizations - known bug in packagemaker
+		system("pkgutil --expand \"$destDir/$pkgName.pkg\" $buildDir/lms_tmp");
 
-		print "INFO: Copying over MacOSX Files...\n";
-		system("ditto -rsrc \"$buildDir/$diskImageName\" \"$scDiskImageMountPoint\" ");
-		# backward compatibility: leave "Squeezebox Server Installer" in place, but hide it, add user visible link called "Logitech Media Server Installer"
-		system("cd \"$scDiskImageMountPoint\" && ln -s \"Squeezebox Server Installer.app\" \"Logitech Media Server Installer.app\" && setfile -a V \"Squeezebox Server Installer.app\"");
-		# moving forward we're going to launch install.app instead
-		system("cd \"$scDiskImageMountPoint\" && ln -s \"Squeezebox Server Installer.app\" \".install.app\"");
-	
-		print "INFO: Making auto open\n";
-		system("$buildDir/openUp \"$scDiskImageMountPoint\" ");
-	
-		print "INFO: Unmounting MacOSX DMG Image...\n";
-		system("hdiutil detach \"/$scDiskImageMountPoint\"  ");
-	
-		print "INFO: Converting MacOSX DMG Image...\n";
-		system("hdiutil convert -ov -format UDZO \"$buildDir/temp-$diskImageFileName\" -o \"$destDir/$diskImageFileName\" ");
-	
-		print "INFO: Removing temporary DMG file...\n";
-		unlink("$destDir/temp-$diskImageFileName");
-	
+		require File::Slurp;
+
+		my $distributionXML = File::Slurp::read_file("$buildDir/lms_tmp/Distribution");
+		$distributionXML =~ s/(<\/title>)/$1\n<welcome file="Welcome"\/>\n<background file="background" alignment="topleft" scaling="none"\/>/;
+		$distributionXML =~ s/(<choice) /$1 customLocation="\/Library\/PreferencePanes" /;
+		File::Slurp::write_file("$buildDir/lms_tmp/Distribution", $distributionXML);
+
+		opendir my ($dirh), "$buildDir/lms_tmp/Resources/";
+
+		# copy the background image in each localization's folder
+		for ( readdir $dirh ) {
+			my $f = "$buildDir/lms_tmp/Resources/$_";
+			if ( $f =~ /\.lproj$/i && -d $f ) {
+				copy("$buildDir/platforms/osx/Installer/installer_osx.png", "$f/background");
+			}
+		}
+
+		closedir $dirh;
+
+		system("pkgutil --flatten $buildDir/lms_tmp \"$destDir/$pkgName-unsigned.pkg\"");
+
+		if ($releaseType eq 'release') {
+#			unlink("$destDir/$pkgName.pkg");
+		}
+		else {
+			move("$destDir/$pkgName-unsigned.pkg", "$destDir/$pkgName.pkg");
+		}
 	}
 }
 
