@@ -31,7 +31,7 @@ my $windowsPerlDir = "C:\\perl";
 my $windowsPerlPath = "$windowsPerlDir\\bin\\perl.exe";
 
 ## Directories to exclude when building certain packages...
-my $dirsToExcludeForLinuxTarball = "win32 osx MSWin32-x86-multi-thread PreventStandby";
+my $dirsToExcludeForLinuxTarball = "i386-freebsd-64int win32 osx MSWin32-x86-multi-thread PreventStandby";
 my $dirsToExcludeForFreeBSDTarball = "win32 osx MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux arm-linux powerpc-linux icudt46b.dat";
 my $dirsToExcludeForARMTarball = "win32 osx MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat";
 my $dirsToExcludeForPPCTarball = "win32 osx MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux arm-linux i386-freebsd-64int icudt46l.dat";
@@ -39,10 +39,10 @@ my $dirsToExcludeForLinuxNoCpanTarball = "win32 osx i386-freebsd-64int MSWin32-x
 my $dirsToExcludeForLinuxNoCpanLightTarball = $dirsToExcludeForLinuxNoCpanTarball . " /Bin/ /HTML/! /Firmware/ /MySQL/ Graphics/CODE2000* Plugin/DateTime DigitalInput iTunes LineIn LineOut MusicMagic RSSNews Rescan SavePlaylist SlimTris Snow Plugin/TT/ Visualizer xPL";
 my $dirsToIncludeForLinuxNoCpanLightTarball = "EN.*html/images CPAN/HTML";
 my $dirsToExcludeForMacOSX = "win32 gentoo solaris debian-full debian-ueml redhat readynas fedora i386-freebsd-64int i386-linux x86_64-linux MSWin32 arm-linux powerpc-linux sparc-linux darwin/faad darwin/flac darwin/mac darwin/sls darwin/sox darwin/wvunpack";
-my $dirsToExcludeForWin32 = "gentoo solaris debian-full debian-ueml redhat readynas fedora osx 5.8 5.10 5.12 i386-freebsd-64int i386-linux x86_64-linux darwin sparc-linux arm-linux powerpc-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat";
-my $dirsToExcludeForReadyNasi386 = "win32 osx i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin MSWin32-x86 arm-linux powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46b.dat";
-my $dirsToExcludeForReadyNasSparc = "win32 osx i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin arm-linux MSWin32-x86 powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46l.dat";
-my $dirsToExcludeForReadyNasARM = "win32 osx i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu i386 x86_64 darwin-thread-multi darwin MSWin32-x86 powerpc-linux 5.8 5.12 5.14 PreventStandby icudt46b.dat";
+my $dirsToExcludeForWin32 = "gentoo solaris debian-full debian-ueml redhat readynas fedora osx 5.8 5.10 5.12 5.16 i386-freebsd-64int i386-linux x86_64-linux darwin sparc-linux arm-linux powerpc-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat";
+my $dirsToExcludeForReadyNasi386 = "win32 osx i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin MSWin32-x86 arm-linux powerpc-linux 5.10 5.12 5.14 5.16 PreventStandby icudt46b.dat";
+my $dirsToExcludeForReadyNasSparc = "win32 osx i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin arm-linux MSWin32-x86 powerpc-linux 5.10 5.12 5.14 icudt46l.dat";
+my $dirsToExcludeForReadyNasARM = "win32 osx i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu i386 x86_64 darwin-thread-multi darwin MSWin32-x86 powerpc-linux 5.8 5.12 5.14 5.16 PreventStandby icudt46b.dat";
 my $dirsToExcludeForUeml = "Slim/Plugin/! server/Bin/! server/Firmware server/Graphics server/IR /MySQL Slim/Buttons Slim/Hardware Slim/Control/LocalPlayers Slim/Display/Lib Slim/Networking/SliMP3 Slim/Player/Protocols";
 my $dirsToIncludeForUeml = "Plugin/iTunes Plugin/PreventStandby Plugin/RandomPlay Plugin/MusicMagic Plugin/Base.pm Bin/darwin";
 
