@@ -186,6 +186,9 @@ if [ -f /etc/redhat-release ] ; then
 	fi
 	/sbin/service squeezeboxserver restart >/dev/null 2>&1 || :
 elif [ -f /etc/SuSE-release ] ; then
+	# Suse is expecting us in local_perl?
+	ln -s %{_usr}/lib/perl5/vendor_perl/Slim %{_usr}/lib/perl5/site_perl/Slim
+
 	/usr/lib/lsb/install_initd /etc/init.d/squeezeboxserver
 	/etc/init.d/squeezeboxserver restart  > /dev/null 2>&1
 fi
@@ -220,6 +223,8 @@ if [ "$1" -eq "0" ] ; then
 	elif [ -f /etc/SuSE-release ] ; then
 		/etc/init.d/squeezeboxserver stop  > /dev/null 2>&1
 		/usr/lib/lsb/remove_initd /etc/init.d/squeezeboxserver
+
+		rm -f %{_usr}/lib/perl5/site_perl/Slim
 	fi
 fi
 

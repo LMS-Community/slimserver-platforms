@@ -26,7 +26,7 @@ my $windowsPerlDir = "C:\\perl";
 my $windowsPerlPath = "$windowsPerlDir\\bin\\perl.exe";
 
 ## Directories to exclude when building certain packages...
-my $dirsToExcludeForLinuxTarball = "MSWin32-x86-multi-thread PreventStandby";
+my $dirsToExcludeForLinuxTarball = "i386-freebsd-64int MSWin32-x86-multi-thread darwin PreventStandby";
 my $dirsToExcludeForFreeBSDTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux arm-linux powerpc-linux icudt46b.dat";
 my $dirsToExcludeForARMTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat";
 my $dirsToExcludeForPPCTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux arm-linux i386-freebsd-64int icudt46l.dat";
@@ -34,10 +34,10 @@ my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-t
 my $dirsToExcludeForLinuxNoCpanLightTarball = $dirsToExcludeForLinuxNoCpanTarball . " /Bin/ /HTML/! /Firmware/ /MySQL/ Graphics/CODE2000* Plugin/DateTime DigitalInput iTunes LineIn LineOut MusicMagic RSSNews Rescan SavePlaylist SlimTris Snow Plugin/TT/ Visualizer xPL";
 my $dirsToIncludeForLinuxNoCpanLightTarball = "EN.*html/images CPAN/HTML";
 my $dirsToExcludeForMacOSX = "i386-freebsd-64int i386-linux x86_64-linux MSWin32 arm-linux powerpc-linux sparc-linux";
-my $dirsToExcludeForWin32 = "5.8 5.10 5.12 i386-freebsd-64int i386-linux x86_64-linux darwin sparc-linux arm-linux powerpc-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat";
-my $dirsToExcludeForReadyNasi386 = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin MSWin32-x86 arm-linux powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46b.dat";
-my $dirsToExcludeForReadyNasSparc = "i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin arm-linux MSWin32-x86 powerpc-linux 5.10 5.12 5.14 PreventStandby icudt46l.dat";
-my $dirsToExcludeForReadyNasARM = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu i386 x86_64 darwin-thread-multi darwin MSWin32-x86 powerpc-linux 5.8 5.12 5.14 PreventStandby icudt46b.dat";
+my $dirsToExcludeForWin32 = "5.8 5.10 5.12 5.16 i386-freebsd-64int i386-linux x86_64-linux darwin sparc-linux arm-linux powerpc-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat";
+my $dirsToExcludeForReadyNasi386 = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin MSWin32-x86 arm-linux powerpc-linux 5.10 5.12 5.14 5.16 PreventStandby icudt46b.dat";
+my $dirsToExcludeForReadyNasSparc = "i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin arm-linux MSWin32-x86 powerpc-linux 5.10 5.12 5.14 5.16 PreventStandby icudt46l.dat";
+my $dirsToExcludeForReadyNasARM = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu i386 x86_64 darwin-thread-multi darwin MSWin32-x86 powerpc-linux 5.8 5.12 5.14 5.16 PreventStandby icudt46b.dat";
 
 ## Initialize some variables we'll use later
 my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $releaseType, $release, $archType);
