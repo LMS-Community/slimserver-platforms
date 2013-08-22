@@ -276,6 +276,11 @@ sub doCommandOptions {
 	
 	## If we're building a tarball, do the tarball only...
 	if ($build eq "tarball") { 
+	
+		if ( $releaseType && $releaseType eq "release" ) { 
+			$destName =~ s/-$revision//;
+		}
+
 		## If we're building without CPAN libraries, make sure thats in the filename...
 		if ($noCPAN && $light) { 
 			## Use the NO CPAN Light variables
