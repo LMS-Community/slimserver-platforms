@@ -891,7 +891,8 @@ sub buildWin32 {
 		
 		# replacing build number in installer script
 		system("sed -e \"s/VersionInfoVersion=0.0.0.0/VersionInfoVersion=$rev/\" \"$buildDir/platforms/win32/installer/SqueezeCenter.iss\" > \"$buildDir/build/SqueezeCenter.iss\"");
-		system("cd $buildDir/build; \"$buildDir/platforms/win32/InnoSetup/ISCC.exe\" \/Q SqueezeCenter.iss ");
+		system("cd $buildDir/build; \"$buildDir/platforms/win32/InnoSetup/ISCC.exe\" SqueezeCenter.iss ");
+#		system("cd $buildDir/build; \"$buildDir/platforms/win32/InnoSetup/ISCC.exe\" \/Q SqueezeCenter.iss ");
 
 		unlink("$buildDir/build/SqueezeCenter.iss");
 		unlink("$buildDir/build/ServiceManager.iss");
@@ -954,6 +955,8 @@ sub buildWin32 {
 		else {
 			print "INFO: didn't find signing tool $logiSign - skipping installer signing\n";
 		}
+
+		print `ls -l "$buildDir/$destPrettyDirName/Output";`;
 
 		# rename the Windows Home Server installer
 		print "INFO: Moving [$buildDir/$destPrettyDirName/Output/SqueezeCenter.msi] to [$destDir/$destFileName-whs.msi]\n";
