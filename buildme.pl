@@ -952,7 +952,7 @@ sub buildWin32 {
 			die "Signing failed:\n$status\n" if $status =~ /ERROR/ && $releaseType eq 'release';
 		}
 		else {
-			print "INFO: didn't find signing tool $logiSign - skipping installer signing";
+			print "INFO: didn't find signing tool $logiSign - skipping installer signing\n";
 		}
 
 		# rename the Windows Home Server installer
