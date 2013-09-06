@@ -8,7 +8,7 @@
 #define AppName = "UE Music Library"
 #define InstallFolderName = AppName
 #define DataFolderName = AppName
-#define AppVersion = "10.0.2"
+#define AppVersion = "10.0.3"
 #define ProductURL = "http://www.logitech.com/"
 
 #define SSRegKey   = "Software\SlimDevices\SlimServer"

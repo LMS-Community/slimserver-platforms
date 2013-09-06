@@ -7,23 +7,23 @@
 	<key>CFBundleExecutable</key>
 	<string>UEMusicLibrary</string>
 	<key>CFBundleGetInfoString</key>
-	<string>UE Music Library 10.0.2, Copyright 2002-2012 Logitech</string>
+	<string>UE Music Library 10.0.3, Copyright 2002-2012 Logitech</string>
 	<key>CFBundleIconFile</key>
 	<string>icon.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.logitech.ueml</string>
 	<key>CFBundleInfoDictionaryVersion</key>
-	<string>10.0.2</string>
+	<string>10.0.3</string>
 	<key>CFBundleName</key>
 	<string>UE Smart Radio</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>10.0.2</string>
+	<string>10.0.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>10.0.2</string>
+	<string>10.0.3</string>
 	<key>NSMainNibFile</key>
 	<string>Pref</string>
 	<key>NSPrefPaneIconFile</key>
