@@ -12,8 +12,10 @@ elif echo ${MACHTYPE} | grep -q i.86; then
 elif echo ${MACHTYPE} | grep -q arm; then
   harch="arm"
 else
-  echo "Unknown host machine type.  This kit will only work on ReadyNAS Padre, x86, and ARM platforms."
-  exit 1
+  echo "Unknown host machine type (${MACHTYPE}).  This kit will only work on ReadyNAS Padre, x86, and ARM platforms."
+  echo "Will try platform independent tools instead. Good luck!"
+  harch="pl"
+#  exit 1
 fi
 
 if [ -z "${TARGET_MACHTYPE+x}" ]; then
