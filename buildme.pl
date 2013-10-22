@@ -27,10 +27,10 @@ my $windowsPerlPath = "$windowsPerlDir\\bin\\perl.exe";
 
 ## Directories to exclude when building certain packages...
 my $dirsToExcludeForLinuxTarball = "i386-freebsd-64int MSWin32-x86-multi-thread darwin PreventStandby";
-my $dirsToExcludeForFreeBSDTarball = "5.18 MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux x86_64-linux-gnu-thread-multi darwin sparc-linux arm-linux powerpc-linux icudt46b.dat";
-my $dirsToExcludeForARMTarball = "5.18 MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux x86_64-linux-gnu-thread-multi darwin sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat";
-my $dirsToExcludeForPPCTarball = "5.18 MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux x86_64-linux-gnu-thread-multi darwin sparc-linux arm-linux i386-freebsd-64int icudt46l.dat";
-my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-thread darwin i386-linux-thread-multi x86_64-linux-gnu-thread-multi x86_64-linux arm-linux powerpc-linux /arch/ PreventStandby";
+my $dirsToExcludeForFreeBSDTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux arm-linux powerpc-linux icudt46b.dat";
+my $dirsToExcludeForARMTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat";
+my $dirsToExcludeForPPCTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux arm-linux i386-freebsd-64int icudt46l.dat";
+my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-thread darwin i386-linux sparc-linux x86_64-linux arm-linux powerpc-linux /arch/ PreventStandby";
 my $dirsToExcludeForLinuxNoCpanLightTarball = $dirsToExcludeForLinuxNoCpanTarball . " /Bin/ /HTML/! /Firmware/ /MySQL/ Graphics/CODE2000* Plugin/DateTime DigitalInput iTunes LineIn LineOut MusicMagic RSSNews Rescan SavePlaylist SlimTris Snow Plugin/TT/ Visualizer xPL";
 my $dirsToIncludeForLinuxNoCpanLightTarball = "EN.*html/images CPAN/HTML";
 my $dirsToExcludeForMacOSX = "5.18 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi MSWin32 arm-linux powerpc-linux sparc-linux";
