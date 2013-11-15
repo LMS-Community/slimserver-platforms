@@ -5,6 +5,8 @@
 PRODUCT_NAME=UEMusicLibrary
 PRODUCT_PLIST="$HOME/Library/LaunchAgents/$PRODUCT_NAME.plist"
 
+mkdir -p $HOME/Library/LaunchAgents
+
 if [ -e "$HOME/Library/PreferencePanes/PRODUCT_NAME.prefPane/Contents/server" ] ; then
 	PRODUCT_FOLDER="$HOME/Library/PreferencePanes/$PRODUCT_NAME.prefPane/Contents/server"
 else
@@ -17,7 +19,7 @@ cat >$HOME/Library/LaunchAgents/$PRODUCT_NAME.plist << !!
 <plist version="1.0">
 	<dict>
 		<key>Label</key>
-		<string>UEMusicLibrary</string>
+		<string>$PRODUCT_NAME</string>
 		<key>RunAtLoad</key>
 		<true />
 		<key>Program</key>
