@@ -3,8 +3,6 @@ Packer:
 Script: scanner.pl
 Add: version
 Add: I18N::LangTags
-Add: Net::UPnP
-Add: Tie::LLHash
 Add: Encode::CN
 Add: Encode::JP
 Add: Encode::KR
