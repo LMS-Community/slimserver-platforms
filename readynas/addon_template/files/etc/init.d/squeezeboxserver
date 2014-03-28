@@ -82,8 +82,11 @@ d_reload() {
 
 case "$1" in
   start)
-	echo -n "Making sure $DESC is stopped already: "
-	d_stop
+
+# We should not stop the service on a simple start call - this causes playback to be interrupted whenever the ReadyNAS receives a WOL packet
+# This was added in response to some dependency issues when we were introducing MySQL back in 2009. But we're no longer using MySQL. - mh
+#	echo -n "Making sure $DESC is stopped already: "
+#	d_stop
 	echo -n "Starting $DESC: "
 	d_start
 	echo "."
