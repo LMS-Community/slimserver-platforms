@@ -813,7 +813,7 @@ sub buildWin32 {
 			"InternalName=SqueezeboxServer",
 		));
 
-		system("cd $buildDir/server; perlsvc --perl \"$windowsPerlPath\" --info \"$programInfo\" ../platforms/win32/squeezecenter.perlsvc");
+		system("cd $buildDir/server; perlsvc --perl \"$windowsPerlPath\" --info \"$programInfo\" --verbose ../platforms/win32/squeezecenter.perlsvc");
 		move("$buildDir/server/slimserver.exe", "$buildDir/build/server/SqueezeSvr.exe");
 
 
