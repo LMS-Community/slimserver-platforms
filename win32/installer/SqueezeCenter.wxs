@@ -1,8 +1,8 @@
-<?define version='7.8.1.!!revision!!' ?>
+<?define version='7.9.0.!!revision!!' ?>
 <?define UpgradeCode = "1DB91230-EBBC-11DD-BA2F-0800200C9A66" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product
-		Name="Logitech Media Server 7.8.1-!!revision!! for Windows Home Server"
+		Name="Logitech Media Server 7.9.0-!!revision!! for Windows Home Server"
 		Id="*"
 		UpgradeCode="$(var.UpgradeCode)"
 		Manufacturer="Logitech"
