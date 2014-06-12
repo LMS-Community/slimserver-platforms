@@ -101,6 +101,7 @@ Add: Slim::Schema::ContributorTrack
 Add: Slim::Schema::Genre
 Add: Slim::Schema::GenreTrack
 Add: Slim::Schema::Image
+Add: Slim::Schema::LibraryTrack
 Add: Slim::Schema::MetaInformation
 Add: Slim::Schema::Playlist
 Add: Slim::Schema::PlaylistTrack
