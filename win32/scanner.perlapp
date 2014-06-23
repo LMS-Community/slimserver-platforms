@@ -11,6 +11,9 @@ Add: Win32::API
 Add: Win32::Process
 Add: Slim::Formats::AIFF
 Add: Slim::Formats::APE
+Add: Slim::Formats::DFF
+Add: Slim::Formats::DSD
+Add: Slim::Formats::DSF
 Add: Slim::Formats::FLAC
 Add: Slim::Formats::Movie
 Add: Slim::Formats::MP3
