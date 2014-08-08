@@ -35,7 +35,7 @@ if [ -f /etc/redhat-release ] ; then
 	# Source networking configuration.
 	. /etc/sysconfig/network
 	# Check that networking is up.
-	[ ${NETWORKING} = "no" ] && exit 0
+	[ "${NETWORKING}" = "no" ] && exit 0
 
 	# Check for existence of needed config file and read it
 	SQUEEZEBOX_CONFIG=/etc/sysconfig/squeezeboxserver
