@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Create the LaunchAgent item for the server.
+# Remove the LaunchAgent item for the server.
 
 PRODUCT_NAME=UEMusicLibrary
 PRODUCT_PLIST="$HOME/Library/LaunchAgents/$PRODUCT_NAME.plist"

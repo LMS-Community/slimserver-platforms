@@ -4,7 +4,9 @@
 
 PRODUCT_NAME=UEMusicLibrary
 PRODUCT_PLIST="$HOME/Library/LaunchAgents/$PRODUCT_NAME.plist"
+LOG_FILE="$HOME/Library/Logs/$PRODUCT_NAME/server.log"
 
+mkdir -p $HOME/Library/Logs/$PRODUCT_NAME
 mkdir -p $HOME/Library/LaunchAgents
 
 if [ -e "$HOME/Library/PreferencePanes/PRODUCT_NAME.prefPane/Contents/server" ] ; then
@@ -26,6 +28,10 @@ cat >$HOME/Library/LaunchAgents/$PRODUCT_NAME.plist << !!
 		<string>$PRODUCT_FOLDER/ueml.pl</string>
 		<key>WorkingDirectory</key>
 		<string>$PRODUCT_FOLDER</string>
+		<key>StandardOutPath</key>
+		<string>$LOG_FILE</string>
+		<key>StandardErrorPath</key>
+		<string>$LOG_FILE</string>
 	</dict>
 </plist>
 !!
