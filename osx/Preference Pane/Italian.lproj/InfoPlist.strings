@@ -1,7 +1,7 @@
 ﻿/* Localized versions of Info.plist keys */
 
 CFBundleName = "UE Music Library";
-CFBundleShortVersionString = "10.0.4";
-CFBundleGetInfoString = "UE Music Library versione 10.0.4";
+CFBundleShortVersionString = "10.0.5";
+CFBundleGetInfoString = "UE Music Library versione 10.0.5";
 NSHumanReadableCopyright = "Copyright 2002-2012 Logitech";
 NSPrefPaneIconLabel = "UE Music Library";

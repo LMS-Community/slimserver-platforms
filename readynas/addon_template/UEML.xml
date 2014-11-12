@@ -2,7 +2,7 @@
 <addon>
   <name>UEML</name>
   <friendly_name>UE Music Library</friendly_name>
-  <version>10.0.4</version>
+  <version>10.0.5</version>
   <detail_url>http://www.logitech.com/speakers_audio/wireless_music_systems</detail_url>
   <author>Logitech Inc.</author>
   <get_url>../addons/UEML/UEML_HANDLER.pl</get_url>
