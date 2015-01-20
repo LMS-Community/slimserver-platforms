@@ -39,3 +39,7 @@ cat >/Library/LaunchDaemons/$PRODUCT_NAME.plist << !!
 !!
 
 launchctl load $PRODUCT_PLIST &> /dev/null
+
+if [ z"$USER" != zroot ] ; then
+	chown -R $USER $HOME/Library/logs/$PRODUCT_NAME
+fi
