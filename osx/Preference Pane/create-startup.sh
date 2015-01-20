@@ -39,3 +39,7 @@ cat >/Library/LaunchDaemons/$PRODUCT_NAME.plist << !!
 !!
 
 launchctl load $PRODUCT_PLIST &> /dev/null
+
+if [ z"$SUDO_USER" != z ] ; then
+	chown -R $SUDO_USER $HOME/Library/logs/$PRODUCT_NAME
+fi
