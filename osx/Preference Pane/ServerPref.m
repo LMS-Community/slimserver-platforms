@@ -68,7 +68,6 @@
 	//NSLog(@"Squeezebox: initializing update checker...");
 
 	updateTimer = [NSTimer scheduledTimerWithTimeInterval: 60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
-	[self checkUpdateInstaller];
 	
 	[NSTimer scheduledTimerWithTimeInterval: 1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
 	[self updateUI];
@@ -80,6 +79,14 @@
 	
 	[self getMediaDirs];
 	[mediaDirsTable setDataSource:mediaDirs];
+}
+
+/*
+ Show an update notification immediately after we get shown
+ */
+-(void)didSelect
+{
+    [self checkUpdateInstaller];
 }
 
 -(int)serverPID
