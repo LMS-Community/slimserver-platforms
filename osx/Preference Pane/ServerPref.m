@@ -66,7 +66,6 @@
 	
 	// check whether an update installer is available
 	//NSLog(@"Squeezebox: initializing update checker...");
-
 	updateTimer = [NSTimer scheduledTimerWithTimeInterval: 60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
 	
 	[NSTimer scheduledTimerWithTimeInterval: 1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
@@ -87,7 +86,10 @@
 -(void)didSelect
 {
 	NSLog(@"Squeezebox: check for update...");
-    [self checkUpdateInstaller];
+
+	// schedule one-off update check to present update if available
+	// we can't call this directly, as it lead to crashes in OSX 10.10+
+	[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:NO];
 }
 
 -(int)serverPID
