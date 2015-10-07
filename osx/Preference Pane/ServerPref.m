@@ -86,6 +86,7 @@
  */
 -(void)didSelect
 {
+	NSLog(@"Squeezebox: check for update...");
     [self checkUpdateInstaller];
 }
 
