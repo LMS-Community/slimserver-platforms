@@ -4,9 +4,10 @@
 
 PRODUCT_NAME=Squeezebox
 PRODUCT_PLIST="/Library/LaunchDaemons/$PRODUCT_NAME.plist"
-LOG_FILE="$HOME/Library/Logs/$PRODUCT_NAME/server.log"
+LOG_FOLDER="$HOME/Library/Logs/$PRODUCT_NAME"
+LOG_FILE="$LOG_FOLDER/server.log"
 
-mkdir -p $HOME/Library/Logs/$PRODUCT_NAME
+mkdir -p $LOG_FOLDER
 mkdir -p /Library/LaunchDaemons
 
 if [ -e "$HOME/Library/PreferencePanes/PRODUCT_NAME.prefPane/Contents/server" ] ; then
@@ -41,5 +42,5 @@ cat >/Library/LaunchDaemons/$PRODUCT_NAME.plist << !!
 launchctl load $PRODUCT_PLIST &> /dev/null
 
 if [ z"$USER" != zroot ] ; then
-	chown -R $USER $HOME/Library/logs/$PRODUCT_NAME
+	chown -R $USER $LOG_FOLDER
 fi
