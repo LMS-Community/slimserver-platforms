@@ -2,15 +2,9 @@
 
 # this script is being called from the PrefPane to launch the installer
 
-UPDATEFOLDER=`dirname $1`
-PRODUCT_PREFIX=UEMusicLibrary
-INSTALLER="$UPDATEFOLDER/$PRODUCT_PREFIX*.pkg"
+if [ -e $1 ] ; then
+	xattr -d com.apple.quarantine $1 &> /dev/null
 
-# clean up remnants of earlier installations
-rm -rf $UPDATEFOLDER/$PRODUCT_PREFIX*.pkg
-
-if [ -e $INSTALLER ] ; then
-	xattr -d com.apple.quarantine $INSTALLER &> /dev/null
-	open $INSTALLER
+	open $1
 fi
 	

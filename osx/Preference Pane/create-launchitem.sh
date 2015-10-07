@@ -4,9 +4,10 @@
 
 PRODUCT_NAME=UEMusicLibrary
 PRODUCT_PLIST="$HOME/Library/LaunchAgents/$PRODUCT_NAME.plist"
-LOG_FILE="$HOME/Library/Logs/$PRODUCT_NAME/server.log"
+LOG_FOLDER="$HOME/Library/Logs/$PRODUCT_NAME"
+LOG_FILE="$LOG_FOLDER/server.log"
 
-mkdir -p $HOME/Library/Logs/$PRODUCT_NAME
+mkdir -p $LOG_FOLDER
 mkdir -p $HOME/Library/LaunchAgents
 
 if [ -e "$HOME/Library/PreferencePanes/PRODUCT_NAME.prefPane/Contents/server" ] ; then
@@ -37,3 +38,7 @@ cat >$HOME/Library/LaunchAgents/$PRODUCT_NAME.plist << !!
 !!
 
 launchctl load $PRODUCT_PLIST &> /dev/null
+
+if [ z"$USER" != zroot ] ; then
+	chown -R $USER $LOG_FOLDER
+fi
