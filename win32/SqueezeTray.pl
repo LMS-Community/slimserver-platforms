@@ -48,6 +48,8 @@ my $controlPanel   = catdir(scalar($os->dirsFor('base')), 'server', 'squeezeboxc
 
 ${^WIN32_SLOPPY_STAT} = 1;
 
+Slim::Utils::Light::loadStrings();
+
 # Dynamically create the popup menu based on the server's state
 sub PopupMenu {
 	my @menu = ();
@@ -148,28 +150,34 @@ sub DoubleClick {
 }
 
 # Display tooltip based on SS state
+my %toolTips;
 sub ToolTip {
 	my $state = $svcMgr->getServiceState();
+	my $stateString;
+	
+	return $toolTips{$state} if $toolTips{$state};
 
 	# use English if HE is selected on western systems, as these can't handle the Hebrew tooltip
 	my $lang = ($language eq 'HE' && Win32::Locale::get_language() ne 'he' ? 'EN' : $language);
 
  	if ($state == SC_STATE_STARTING) {
-		$state = string('SQUEEZEBOX_SERVER_STARTING', $lang);
+		$stateString = string('SQUEEZEBOX_SERVER_STARTING', $lang);
  	}
  
  	elsif ($state == SC_STATE_RUNNING) {
-		$state = string('SQUEEZEBOX_SERVER_RUNNING', $lang);
+		$stateString = string('SQUEEZEBOX_SERVER_RUNNING', $lang);
  	}
     
  	else {
-		$state = string('SQUEEZEBOX_SERVER_STOPPED', $lang);
+		$stateString = string('SQUEEZEBOX_SERVER_STOPPED', $lang);
  	}
  
 	# try to prevent intermittent "Unknown encoding 'cp1250' at SqueezeTray.pl line 170" crasher
-	eval "$state = encode($lang eq 'HE' ? 'cp1255' : 'cp1250', $state);";
+	$stateString = eval { encode(($lang eq 'HE' ? 'cp1255' : 'cp1250'), $stateString); };
+	
+	$toolTips{$state} = $stateString if $stateString;
 
-	return $state;
+	return $stateString || 'Logitech Media Server';
 }
 
 # The regular (heartbeat) timer that checks the state of the server
