@@ -173,7 +173,7 @@ sub ToolTip {
  	}
  
 	# try to prevent intermittent "Unknown encoding 'cp1250' at SqueezeTray.pl line 170" crasher
-	$stateString = eval { encode(($lang eq 'HE' ? 'cp1255' : 'cp1250'), $stateString); };
+	$stateString = eval { encode(($lang eq 'HE' ? 'cp1255' : 'cp1250'), $stateString); } if $lang eq 'HE';
 	
 	$toolTips{$state} = $stateString if $stateString;
 
