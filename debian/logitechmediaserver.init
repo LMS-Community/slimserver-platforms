@@ -27,6 +27,7 @@
 #
 
 set -e
+. /lib/lsb/init-functions
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="Logitech Media Server"
@@ -128,9 +129,11 @@ case "$1" in
 	d_start
 	echo "."
 	;;
+  status)  
+	status_of_proc /usr/bin/$NEWNAME $NEWNAME
+	;;
   *)
-	# echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
-	echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload}" >&2
+	echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload|status}" >&2
 	exit 1
 	;;
 esac
