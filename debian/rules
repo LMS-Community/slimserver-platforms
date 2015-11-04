@@ -85,8 +85,6 @@ install:
 	cp -r $(CURDIR)/debian/squeezeboxserver_safe ${base}/usr/sbin/squeezeboxserver_safe
 
 	# Documentation
-	cp ${source}/Change* ${base}/usr/share/doc/squeezeboxserver/
-	cp ${source}/Installation.txt ${base}/usr/share/doc/squeezeboxserver/
 	cp ${source}/License.txt $(CURDIR)/debian/copyright
 
 	# Copy the revision file
