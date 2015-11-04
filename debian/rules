@@ -7,7 +7,7 @@ export DH_VERBOSE=1
 
 package=logitechmediaserver
 base=$(CURDIR)/debian/$(package)
-share=usr/share/squeezeboxserver/
+share=usr/share/squeezeboxserver
 source=$(CURDIR)/../server
 
 varlib=var/lib/squeezeboxserver
@@ -18,24 +18,22 @@ clean:
 	dh_testroot
 	rm -rf ${base}
 
-install:
+binary-indep: 
 	dh_testdir
 	dh_testroot
 	dh_installdirs
+	dh_installchangelogs 
+
+	# Documentation
+	cp ${source}/License.txt $(CURDIR)/debian/copyright
+
+	dh_installdocs
+	dh_install
 
 	# Copy our server files to the appropriate Debian locations.
 	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezeboxserver
 	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/squeezeboxserver-scanner
 	install -m0755 ${source}/cleanup.pl ${base}/usr/sbin/squeezeboxserver-cleanup
-
-	cp -r ${source}/Slim ${base}/usr/share/perl5/
-	
-	# Copy our CPAN directory and locally modified perl modules
-	cp -r ${source}/CPAN ${base}/${share}
-	cp -r ${source}/lib ${base}/${share}
-
-	# Make sure we copy in the Bin directory
-	cp -r ${source}/Bin ${base}/${share}
 
 	# Remove non-Linux binary modules and binaries
 	rm -rf ${base}/${share}/CPAN/arch/*/darwin-thread-multi-2level
@@ -46,41 +44,11 @@ install:
 	rm -rf ${base}/${share}/Bin/MSWin32-x86-multi-thread
 	rm -rf ${base}/${share}/Bin/i386-freebsd-64int
 	rm -rf ${base}/usr/share/perl5/Slim/Plugin/PreventStandby
-	
-
-	# And aux files needed to run SlimServer
-	cp -r ${source}/Firmware ${base}/${share}
-	cp -r ${source}/Graphics ${base}/${share}
-	cp -r ${source}/HTML ${base}/${share}
-	cp -r ${source}/IR ${base}/${share}
-	cp -r ${source}/SQL ${base}/${share}
-	cp -r ${source}/strings.txt ${base}/${share}
-	cp -r ${source}/MySQL ${base}/${share}
-	cp -r ${source}/icudt46*.dat ${base}/${share}
-
 
 	# Remove errmsg.sys files from the MySQL dir, since they may not match
 	# up with the installed version's
 	rm ${base}/${share}/MySQL/errmsg.*
 
-	# Set up the pref's file locations...
-	cp -r ${source}/*.conf ${base}/etc/squeezeboxserver
-
-	# Wrapper to keep the server alive.
-	cp -r $(CURDIR)/debian/squeezeboxserver_safe ${base}/usr/sbin/squeezeboxserver_safe
-
-	# Documentation
-	cp ${source}/License.txt $(CURDIR)/debian/copyright
-
-	# Copy the revision file
-	cp ${source}/revision.txt ${base}/${share}
-
-binary-indep: install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs 
-	dh_installdocs
-	dh_install
 	dh_installlogrotate
 	dh_installinit
 	dh_installman

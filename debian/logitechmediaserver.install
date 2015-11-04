@@ -1,0 +1,15 @@
+../server/Slim         usr/share/perl5
+../server/CPAN         usr/share/squeezeboxserver
+../server/lib          usr/share/squeezeboxserver
+../server/Bin          usr/share/squeezeboxserver
+../server/Firmware     usr/share/squeezeboxserver
+../server/Graphics     usr/share/squeezeboxserver
+../server/HTML         usr/share/squeezeboxserver
+../server/IR           usr/share/squeezeboxserver
+../server/SQL          usr/share/squeezeboxserver
+../server/strings.txt  usr/share/squeezeboxserver
+../server/MySQL        usr/share/squeezeboxserver
+../server/icudt46*.dat usr/share/squeezeboxserver
+../server/*.conf       etc/squeezeboxserver
+debian/squeezeboxserver_safe  usr/sbin
+../server/revision.txt usr/share/squeezeboxserver
