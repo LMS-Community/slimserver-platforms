@@ -23,17 +23,6 @@ install:
 	dh_testroot
 	dh_installdirs
 
-	# Create directories needed.
-	install -d -m0755 ${base}/etc/default/
-	install -d -m0755 ${base}/etc/squeezeboxserver/
-	install -d -m0755 ${base}/etc/init.d/
-	install -d -m0755 ${base}/usr/share/perl5/
-	install -d -m0755 ${base}/${share}
-	install -d -m0755 ${base}/usr/share/lintian/overrides/
-	install -d -m0755 ${base}/usr/share/doc/squeezeboxserver/
-	install -d -m0755 ${base}/${varlib}/prefs
-	install -d -m0755 ${base}/${varlib}/cache
-
 	# Copy our server files to the appropriate Debian locations.
 	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezeboxserver
 	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/squeezeboxserver-scanner
@@ -69,10 +58,6 @@ install:
 	cp -r ${source}/MySQL ${base}/${share}
 	cp -r ${source}/icudt46*.dat ${base}/${share}
 
-
-	# We put the Plugins into /var/lib/ because they are modifiable, 
-	# and shouldn't be put into /usr. 
-	cp -r ${source}/Plugins ${base}/${varlib} || mkdir ${base}/${varlib}/Plugins
 
 	# Remove errmsg.sys files from the MySQL dir, since they may not match
 	# up with the installed version's

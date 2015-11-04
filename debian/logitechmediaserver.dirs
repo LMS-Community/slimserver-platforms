@@ -1,0 +1,8 @@
+usr/share/perl5
+etc/squeezeboxserver
+usr/sbin
+usr/share/squeezeboxserver
+var/log/squeezeboxserver
+var/lib/squeezeboxserver/Plugins
+var/lib/squeezeboxserver/cache
+var/lib/squeezeboxserver/prefs
