@@ -7,45 +7,23 @@ export DH_VERBOSE=1
 
 package=logitechmediaserver
 base=$(CURDIR)/debian/$(package)
-share=usr/share/squeezeboxserver
 source=$(CURDIR)/../server
 
-varlib=var/lib/squeezeboxserver
+# main packaging script based on dh7 syntax
+%:
+	dh $@ 
 
+# Overrides for variances within Logitech Media Server file locations
+override_dh_perl:
+	# using hard-coded dependency in control file
 
-clean:
-	dh_testdir
-	dh_testroot
-	rm -rf ${base}
-
-binary-indep: 
-	dh_testdir
-	dh_testroot
-	dh_installdirs
-	dh_installchangelogs 
-
-	# Documentation
+override_dh_installdocs:
 	cp ${source}/License.txt $(CURDIR)/debian/copyright
-
 	dh_installdocs
-	dh_install -X darwin -X freebsd -X MSWin -X sparc-linux -X PreventStandby -X errmsg
 
+override_dh_install:
+	dh_install -X darwin -X freebsd -X MSWin -X sparc-linux -X PreventStandby -X errmsg
 	# Copy our server files to the appropriate Debian locations.
 	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezeboxserver
 	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/squeezeboxserver-scanner
 	install -m0755 ${source}/cleanup.pl ${base}/usr/sbin/squeezeboxserver-cleanup
-
-	dh_installlogrotate
-	dh_installinit
-	dh_installman
-	dh_lintian
-	dh_link
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary: binary-indep
-.PHONY: build clean binary-indep binary install configure
