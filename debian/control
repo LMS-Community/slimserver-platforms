@@ -2,8 +2,8 @@ Source: logitechmediaserver
 Section: sound
 Priority: optional
 Maintainer: Logitech/Slim Devices <debian@slimdevices.com>
-Build-Depends: debhelper (>= 4.0.0)
-Standards-Version: 3.6.2
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
 
 Package: logitechmediaserver
 Architecture: all

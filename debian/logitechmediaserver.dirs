@@ -1,0 +1,4 @@
+var/log/squeezeboxserver
+var/lib/squeezeboxserver/Plugins
+var/lib/squeezeboxserver/cache
+var/lib/squeezeboxserver/prefs
