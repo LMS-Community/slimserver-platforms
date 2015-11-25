@@ -14,6 +14,7 @@ use Socket;
 use Encode;
 
 use Win32::Locale;
+use Win32::OLE;
 use Win32::Process;
 use Win32::Process::List;
 
@@ -58,6 +59,7 @@ sub PopupMenu {
 	my $state = $svcMgr->getServiceState();
 
 	push @menu, [($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'} ? '' : '*') . string('OPEN_CONTROLPANEL'), \&openControlPanel];
+	push @menu, [string('OPEN_CONTROLPANEL_AS_ADMIN'), \&openControlPanelAsAdmin];
 	push @menu, [($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'} ? '*' : '') . string('OPEN_SQUEEZEBOX_SERVER'), $state == SC_STATE_RUNNING ? \&openServer : undef];
 
 	if ( my $installer = Slim::Utils::Light->checkForUpdate() ) {
@@ -293,6 +295,14 @@ sub openServer {
 
 sub openControlPanel {
 	Execute($controlPanel);
+
+	$cliStart = $cliInstall = 0;
+}
+
+# run the control panel as Administrator
+sub openControlPanelAsAdmin {
+	my $shell = Win32::OLE->new("Shell.Application");
+    $shell->ShellExecute($controlPanel, undef, undef, 'runas');
 
 	$cliStart = $cliInstall = 0;
 }
