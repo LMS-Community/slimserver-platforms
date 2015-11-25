@@ -2,6 +2,15 @@
 
 PRODUCT_NAME=Squeezebox
 PREFPANE_TO="/Library/PreferencePanes/$PRODUCT_NAME.prefPane"
+LOG_FOLDER="$HOME/Library/Logs/$PRODUCT_NAME.$USER"
+
+if [ ! -e $LOG_FOLDER ] ; then
+	sudo -b -H -u $USER mkdir -p $LOG_FOLDER;
+fi
+
+if [ z"$USER" != zroot ] ; then
+	sudo -b -H -u $USER chown -R $USER $LOG_FOLDER
+fi
 
 # remove the version file triggering the update prompt
 if [ -e ~/Library/Caches/$PRODUCT_NAME/updates/server.version ] ; then
