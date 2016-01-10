@@ -93,6 +93,7 @@ Add: Slim::Plugin::OPMLBased
 Add: Slim::Hardware::mas3507d
 Add: Slim::Media::MediaFolderScan
 Add: Slim::Networking::SliMP3::Stream
+Add: Slim::Networking::Async::Socket::UDP
 Add: Slim::Utils::Scanner::Local::Async
 Add: Slim::Utils::AutoRescan::Stat::Async
 Add: Slim::Utils::AutoRescan::Win32
