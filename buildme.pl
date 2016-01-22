@@ -534,12 +534,12 @@ sub buildDebian {
 	
 	my $suffix;
 	if ($arm) {
-		print "This is an ARM Debian build.\n";
+		print "INFO: This is an ARM Debian build.\n";
 		removeExclusions($dirsToExcludeForARMTarball);
 		$suffix = 'arm';
 	}
 	elsif ($x86_64) {
-		print "This is a x86_64 Debian build.\n";
+		print "INFO: This is a x86_64 Debian build.\n";
 		removeExclusions($dirsToExcludeForx86_64);
 		$suffix = 'amd64';
 	}
@@ -566,24 +566,18 @@ sub buildDebian {
 	close WRITE;
 	close READ;
 	
-        ## Ok, we've set everything up... lets run the dpkg-buildpkg command...
+	## Ok, we've set everything up... lets run the dpkg-buildpkg command...
 	if ($fakeRoot) {
 		print `cd $buildDir/platforms; fakeroot dpkg-buildpackage -b -d ;`;
 	} else {
 		print `cd $buildDir/platforms; dpkg-buildpackage -b -d ;`;
 	}
 
-	# TODO - rename file based on architecture string?
 	if ($suffix) {
-		print "need to change filename: $suffix\n";
 		my ($old) = glob("$buildDir/*all.deb");
-		print "old name: $old\n";
 		my $new = $old;
-		print "new name: $old\n";
 		$new =~ s/_all\.deb/_$suffix.deb/;
 		rename $old, $new;
-		
-		print glob("$buildDir/*.deb"), "\n";
 	}
 
 	## Now that the package is built, lets put it into the destDir
