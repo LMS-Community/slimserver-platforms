@@ -30,17 +30,18 @@ my $dirsToExcludeForLinuxTarball = "i386-freebsd-64int MSWin32-x86-multi-thread 
 my $dirsToExcludeForFreeBSDTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux arm-linux armhf-linux powerpc-linux icudt46b.dat";
 my $dirsToExcludeForARMTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat";
 my $dirsToExcludeForPPCTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux arm-linux armhf-linux i386-freebsd-64int icudt46l.dat";
+my $dirsToExcludeForx86_64 = "MSWin32-x86-multi-thread PreventStandby i386-linux darwin sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux icudt46l.dat";
 my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-thread darwin i386-linux sparc-linux x86_64-linux arm-linux armhf-linux powerpc-linux /arch/ PreventStandby";
 my $dirsToExcludeForLinuxNoCpanLightTarball = $dirsToExcludeForLinuxNoCpanTarball . " /Bin/ /HTML/! /Firmware/ /MySQL/ Graphics/CODE2000* Plugin/DateTime DigitalInput iTunes LineIn LineOut MusicMagic RSSNews Rescan SavePlaylist SlimTris Snow Plugin/TT/ Visualizer xPL";
 my $dirsToIncludeForLinuxNoCpanLightTarball = "EN.*html/images CPAN/HTML";
-my $dirsToExcludeForMacOSX = "5.14 5.20 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi MSWin32 arm-linux armhf-linux powerpc-linux sparc-linux";
-my $dirsToExcludeForWin32 = "5.8 5.10 5.12 5.16 5.18 5.20 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi darwin sparc-linux arm-linux armhf-linux powerpc-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat";
-my $dirsToExcludeForReadyNasi386 = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin MSWin32-x86 arm-linux armhf-linux powerpc-linux 5.10 5.12 5.14 5.16 5.18 5.20 PreventStandby icudt46b.dat";
-my $dirsToExcludeForReadyNasSparc = "i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin arm-linux armhf-linux MSWin32-x86 powerpc-linux 5.10 5.12 5.14 5.16 5.18 5.20 PreventStandby icudt46l.dat";
-my $dirsToExcludeForReadyNasARM = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu armhf-linux i386 x86_64 darwin-thread-multi darwin MSWin32-x86 powerpc-linux 5.8 5.12 5.14 5.16 5.18 5.20 PreventStandby icudt46b.dat";
+my $dirsToExcludeForMacOSX = "5.14 5.20 5.22 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi MSWin32 arm-linux armhf-linux powerpc-linux sparc-linux";
+my $dirsToExcludeForWin32 = "5.8 5.10 5.12 5.16 5.18 5.20 5.22 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi darwin sparc-linux arm-linux armhf-linux powerpc-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat";
+my $dirsToExcludeForReadyNasi386 = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin MSWin32-x86 arm-linux armhf-linux powerpc-linux 5.10 5.12 5.14 5.16 5.18 5.20 5.22 PreventStandby icudt46b.dat";
+my $dirsToExcludeForReadyNasSparc = "i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin arm-linux armhf-linux MSWin32-x86 powerpc-linux 5.10 5.12 5.14 5.16 5.18 5.20 5.22 PreventStandby icudt46l.dat";
+my $dirsToExcludeForReadyNasARM = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu armhf-linux i386 x86_64 darwin-thread-multi darwin MSWin32-x86 powerpc-linux 5.8 5.12 5.14 5.16 5.18 5.20 5.22 PreventStandby icudt46b.dat";
 
 ## Initialize some variables we'll use later
-my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $releaseType, $release, $archType);
+my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $releaseType, $release, $archType);
 
 ## Generate a random number... used for a single instance wherever we need a temp file. 
 my $range = 10000;
@@ -85,6 +86,7 @@ sub checkCommandOptions {
 			'destDir=s'	=> \$destDir,
 			'noCPAN'	=> \$noCPAN,
 			'freebsd'       => \$freebsd,
+			'x86_64'        => \$x86_64,
 			'arm'           => \$arm,
 			'ppc'           => \$ppc,
 			'light'         => \$light,
@@ -384,6 +386,8 @@ sub showUsage {
 	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
 	print "        (optional)                 or you're building a nightly-style package\n";
 	print "    --fakeroot (optional)        - Whether to use fakeroot to run the build or not. \n";
+	print "    --arm (optional)             - Build a package with only ARM Linux binaries\n";
+	print "    --x86_64 (optional)          - Build a package with only x86_64 Linux binaries\n";
 	print "\n";
 	print "--- Building a ReadyNas Add-On\n";
 	print "    --build readynasv2 <required opts below>\n";
@@ -413,6 +417,33 @@ sub showUsage {
 	print "    --destDir <dir>              - The destination you'd like your files \n";
 }
 
+sub removeExclusions {
+	my ($dirsToExclude, $dirsToInclude) = @_;
+	
+	## First, lets make sure we get rid of the files we don't need for this install
+	my @dirsToExclude = split(/ /, $dirsToExclude);
+	my $n = 0;
+
+	$dirsToInclude ||= '';
+	if ($dirsToInclude) {
+		$dirsToInclude =~ s/ /\|/g;
+		$dirsToInclude = "| grep -v -E '$dirsToInclude'" if $dirsToInclude;
+	}
+
+	while ($dirsToExclude[$n]) {
+		my $doInclude = '';
+		
+		# exclusions with a trailing ! should respect inclusions
+		if ($dirsToExclude[$n] =~ s/!$//) {
+			$doInclude = $dirsToInclude;
+		}
+		
+		print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
+		system("find $buildDir -depth | grep '$dirsToExclude[$n]' $doInclude | xargs rm -rf > /dev/null 2>&1");
+		$n++;
+	}
+}
+
 ##############################################################################################
 ## Here we can build a no-cpan tarball, if we either need one, or the user calls for one    ##
 ##############################################################################################
@@ -422,28 +453,7 @@ sub buildTarball {
 	## Grab the variables passed to us...
 	if ( ($dirsToExclude && $tarballName) || die("Problem: Not all of the variables were passed to the BuildTarball function...") ) { 
 
-		## First, lets make sure we get rid of the files we don't need for this install
-		my @dirsToExclude = split(/ /, $dirsToExclude);
-		my $n = 0;
-
-		$dirsToInclude ||= '';
-		if ($dirsToInclude) {
-			$dirsToInclude =~ s/ /\|/g;
-			$dirsToInclude = "| grep -v -E '$dirsToInclude'" if $dirsToInclude;
-		}
-
-		while ($dirsToExclude[$n]) {
-			my $doInclude = '';
-			
-			# exclusions with a trailing ! should respect inclusions
-			if ($dirsToExclude[$n] =~ s/!$//) {
-				$doInclude = $dirsToInclude;
-			}
-			
-			print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
-			system("find $buildDir -depth | grep '$dirsToExclude[$n]' $doInclude | xargs rm -rf > /dev/null 2>&1");
-			$n++;
-		}
+		removeExclusions($dirsToExclude, $dirsToInclude);
 			
 		## We want a pretty name as the output dir, so we rename the server directory real quick
 		## (the old script would do an rsync here, but an rsync takes too long and is an unnecessary waste of space, even temorarily)
@@ -521,6 +531,13 @@ sub buildRPM {
 ##############################################################################################
 sub buildDebian {
 	print "INFO: Building package for Debian Release... \n";
+	
+	if ($arm) {
+		removeExclusions($dirsToExcludeForARMTarball);
+	}
+	elsif ($x86_64) {
+		removeExclusions($dirsToExcludeForx86_64);
+	}
 
 	## Lets setup the right version/build #...
 	open (READ, "$sourceDir/platforms/debian/changelog") || die "Can't open changelog file to read: $!\n";
@@ -551,6 +568,7 @@ sub buildDebian {
 		print `cd $buildDir/platforms; dpkg-buildpackage -b -d ;`;
 	}
 
+	# TODO - rename file based on architecture string?
 
 
 	## Now that the package is built, lets put it into the destDir
