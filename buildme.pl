@@ -31,6 +31,7 @@ my $dirsToExcludeForFreeBSDTarball = "MSWin32-x86-multi-thread PreventStandby i3
 my $dirsToExcludeForARMTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat";
 my $dirsToExcludeForPPCTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux darwin sparc-linux arm-linux armhf-linux i386-freebsd-64int icudt46l.dat";
 my $dirsToExcludeForx86_64 = "MSWin32-x86-multi-thread PreventStandby i386-linux darwin sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux icudt46l.dat";
+my $dirsToExcludeFori386 = "MSWin32-x86-multi-thread PreventStandby x86_64-linux darwin sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux icudt46l.dat";
 my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-thread darwin i386-linux sparc-linux x86_64-linux arm-linux armhf-linux powerpc-linux /arch/ PreventStandby";
 my $dirsToExcludeForLinuxNoCpanLightTarball = $dirsToExcludeForLinuxNoCpanTarball . " /Bin/ /HTML/! /Firmware/ /MySQL/ Graphics/CODE2000* Plugin/DateTime DigitalInput iTunes LineIn LineOut MusicMagic RSSNews Rescan SavePlaylist SlimTris Snow Plugin/TT/ Visualizer xPL";
 my $dirsToIncludeForLinuxNoCpanLightTarball = "EN.*html/images CPAN/HTML";
@@ -41,7 +42,7 @@ my $dirsToExcludeForReadyNasSparc = "i386-freebsd-64int i386 x86_64 darwin-threa
 my $dirsToExcludeForReadyNasARM = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu armhf-linux i386 x86_64 darwin-thread-multi darwin MSWin32-x86 powerpc-linux 5.8 5.12 5.14 5.16 5.18 5.20 5.22 PreventStandby icudt46b.dat";
 
 ## Initialize some variables we'll use later
-my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $releaseType, $release, $archType);
+my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $i386, $releaseType, $release, $archType);
 
 ## Generate a random number... used for a single instance wherever we need a temp file. 
 my $range = 10000;
@@ -87,6 +88,7 @@ sub checkCommandOptions {
 			'noCPAN'	=> \$noCPAN,
 			'freebsd'       => \$freebsd,
 			'x86_64'        => \$x86_64,
+			'i386'          => \$i386,
 			'arm'           => \$arm,
 			'ppc'           => \$ppc,
 			'light'         => \$light,
@@ -388,6 +390,7 @@ sub showUsage {
 	print "    --fakeroot (optional)        - Whether to use fakeroot to run the build or not. \n";
 	print "    --arm (optional)             - Build a package with only ARM Linux binaries\n";
 	print "    --x86_64 (optional)          - Build a package with only x86_64 Linux binaries\n";
+	print "    --i386 (optional)            - Build a package with only i386 Linux binaries\n";
 	print "\n";
 	print "--- Building a ReadyNas Add-On\n";
 	print "    --build readynasv2 <required opts below>\n";
@@ -542,6 +545,11 @@ sub buildDebian {
 		print "INFO: This is a x86_64 Debian build.\n";
 		removeExclusions($dirsToExcludeForx86_64);
 		$suffix = 'amd64';
+	}
+	elsif ($i386) {
+		print "INFO: This is an i386 Debian build.\n";
+		removeExclusions($dirsToExcludeFori386);
+		$suffix = 'i386';
 	}
 
 	## Lets setup the right version/build #...
