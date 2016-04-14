@@ -42,7 +42,12 @@ PREFSDIR=/var/lib/$NAME/prefs
 LOGDIR=/var/log/$NAME/
 CACHEDIR=/var/lib/$NAME/cache
 CHARSET=utf8
-SLIMOPTIONS=
+
+## if you want to add additional options
+## use /usr/sbin/squeezeboxserver --help 
+## for the supported options and place them
+## into the configfile  /etc/default/logitechmediaserver
+
 
 # Read config file if it is present.
 if [ -r /etc/default/$NEWNAME ]; then
