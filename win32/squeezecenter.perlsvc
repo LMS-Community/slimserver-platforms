@@ -61,6 +61,7 @@ Add: Slim::Player::SqueezeSlave
 Add: Slim::Player::Transporter
 Add: Slim::Player::Protocols::File
 Add: Slim::Player::Protocols::HTTP
+Add: Slim::Player::Protocols::HTTPS
 Add: Slim::Player::Protocols::MMS
 Add: Slim::Player::Protocols::SqueezePlayDirect
 Add: Slim::Formats::AIFF
