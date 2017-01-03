@@ -30,6 +30,7 @@ Add: Template::Plugin::URL
 Add: Template::Plugin::View
 Add: Template::Plugin::Wrap
 Add: Template::Plugin::XML::Style
+Add: Tie::LLHash
 Add: Win32::API
 Add: Win32::Process
 Add: Win32::OLE::NLS
@@ -159,7 +160,6 @@ Add: Slim::Web::Pages::BrowseDB
 Add: Slim::Web::Pages::Home
 Add: Slim::Web::Pages::Status
 Add: Slim::Web::Pages::Playlist
-Add: Slim::Web::Pages::History
 Add: Slim::Web::Pages::EditPlaylist
 Add: Slim::Web::Pages::Progress
 Add: Slim::Web::Settings
