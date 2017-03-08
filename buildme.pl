@@ -673,7 +673,7 @@ sub buildReadyNasV2 {
 
 	## Move the final addon into place
 	if ($releaseType eq "release") { 
-		$destName =~ s/-\d[5,]-/-/;
+		$destName =~ s/-\d{5,}-/-/;
 	}
 	
 	$destName .= "-$archType-readynas.bin";
