@@ -11,6 +11,7 @@ Add: Encode::KR
 Add: Encode::TW
 Add: IPC::Open2
 Add: Network::IPv4Addr
+Add: Net::UPnP
 Add: SOAP::Lite
 Add: Template
 Add: Template::Plugin::Autoformat
