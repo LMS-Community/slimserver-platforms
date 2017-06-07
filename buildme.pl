@@ -26,20 +26,20 @@ my $windowsPerlDir = "C:\\perl";
 my $windowsPerlPath = "$windowsPerlDir\\bin\\perl.exe";
 
 ## Directories to exclude when building certain packages...
-my $dirsToExcludeForLinuxTarball = "i386-freebsd-64int MSWin32-x86-multi-thread darwin PreventStandby";
-my $dirsToExcludeForFreeBSDTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin sparc-linux arm-linux armhf-linux powerpc-linux icudt46b.dat";
-my $dirsToExcludeForARMTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat";
-my $dirsToExcludeForPPCTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin sparc-linux arm-linux armhf-linux i386-freebsd-64int icudt46l.dat";
-my $dirsToExcludeForx86_64 = "MSWin32-x86-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux icudt46b.dat";
-my $dirsToExcludeFori386 = "MSWin32-x86-multi-thread PreventStandby x86_64-linux i86pc-solaris-thread-multi-64int darwin sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux icudt46b.dat";
-my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-thread i86pc-solaris-thread-multi-64int darwin i386-linux sparc-linux x86_64-linux arm-linux armhf-linux powerpc-linux /arch/ PreventStandby";
+my $dirsToExcludeForLinuxTarball = "i386-freebsd-64int MSWin32-x86-multi-thread darwin darwin-x86_64 PreventStandby";
+my $dirsToExcludeForFreeBSDTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux powerpc-linux icudt46b.dat";
+my $dirsToExcludeForARMTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat";
+my $dirsToExcludeForPPCTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int icudt46l.dat";
+my $dirsToExcludeForx86_64 = "MSWin32-x86-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux icudt46b.dat";
+my $dirsToExcludeFori386 = "MSWin32-x86-multi-thread PreventStandby x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux icudt46b.dat";
+my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-thread i86pc-solaris-thread-multi-64int darwin darwin-x86_64 i386-linux sparc-linux x86_64-linux arm-linux armhf-linux powerpc-linux /arch/ PreventStandby";
 my $dirsToExcludeForLinuxNoCpanLightTarball = $dirsToExcludeForLinuxNoCpanTarball . " /Bin/ /HTML/! /Firmware/ /MySQL/ Graphics/CODE2000* Plugin/DateTime DigitalInput iTunes LineIn LineOut MusicMagic RSSNews Rescan SavePlaylist SlimTris Snow Plugin/TT/ Visualizer xPL";
 my $dirsToIncludeForLinuxNoCpanLightTarball = "EN.*html/images CPAN/HTML";
 my $dirsToExcludeForMacOSX = "5.14 5.20 5.22 5.24 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi MSWin32 i86pc-solaris-thread-multi-64int arm-linux armhf-linux powerpc-linux sparc-linux";
-my $dirsToExcludeForWin32 = "5.8 5.10 5.12 5.16 5.18 5.20 5.22 5.24 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi i86pc-solaris-thread-multi-64int darwin sparc-linux arm-linux armhf-linux powerpc-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat";
-my $dirsToExcludeForReadyNasi386 = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin MSWin32-x86 i86pc-solaris-thread-multi-64int arm-linux armhf-linux powerpc-linux 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 PreventStandby icudt46b.dat";
-my $dirsToExcludeForReadyNasSparc = "i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin arm-linux armhf-linux MSWin32-x86 i86pc-solaris-thread-multi-64int powerpc-linux 5.10 5.12 5.14 5.16 5.18 5.20 5.225.24 PreventStandby icudt46l.dat CGI/Util.pm";
-my $dirsToExcludeForReadyNasARM = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu armhf-linux i386 x86_64 darwin-thread-multi i86pc-solaris-thread-multi-64int darwin MSWin32-x86 powerpc-linux 5.8 5.12 5.14 5.16 5.18 5.20 5.22 5.24 PreventStandby icudt46b.dat";
+my $dirsToExcludeForWin32 = "5.8 5.10 5.12 5.16 5.18 5.20 5.22 5.24 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux powerpc-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat";
+my $dirsToExcludeForReadyNasi386 = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin darwin-x86_64 MSWin32-x86 i86pc-solaris-thread-multi-64int arm-linux armhf-linux powerpc-linux 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 PreventStandby icudt46b.dat";
+my $dirsToExcludeForReadyNasSparc = "i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin darwin-x86_64 arm-linux armhf-linux MSWin32-x86 i86pc-solaris-thread-multi-64int powerpc-linux 5.10 5.12 5.14 5.16 5.18 5.20 5.225.24 PreventStandby icudt46l.dat CGI/Util.pm";
+my $dirsToExcludeForReadyNasARM = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu armhf-linux i386 x86_64 darwin-thread-multi i86pc-solaris-thread-multi-64int darwin darwin-x86_64 MSWin32-x86 powerpc-linux 5.8 5.12 5.14 5.16 5.18 5.20 5.22 5.24 PreventStandby icudt46b.dat";
 
 ## Initialize some variables we'll use later
 my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $i386, $releaseType, $release, $archType);
