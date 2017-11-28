@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 
 use strict;
 use warnings;
@@ -25,21 +25,53 @@ my $defaultReleaseType = "nightly";
 my $windowsPerlDir = "C:\\perl";
 my $windowsPerlPath = "$windowsPerlDir\\bin\\perl.exe";
 
+## This allows for future compatibility with all ICU versions.
+my $icuBigEnd = "icudt[0-9][0-9]b.dat ";
+my $icuLittleEnd = "icudt[0-9][0-9]l.dat ";
+
+## Some builds only need the icudt46, so everything 50-99 can be excluded
+my $icuNew = "icudt[5-9][0-9][bl].dat ";  
+my $freebsdDirs = "i386-freebsd-64int ";
+my $solarisDirs = "i86pc-solaris-thread-multi-64int ";
+my $win32Dirs = "MSWin32-x86-multi-thread ";
+my $macOSDirs = "darwin darwin-x86_64 darwin-thread-multi ";
+my $nonLinuxOSDirs = $freebsdDirs . $win32Dirs . $solarisDirs . $macOSDirs;
+
+my $sparcLinuxDirs = "sparc-linux sparc-unknown-linux ";
+my $ppcLinuxDirs = "powerpc-linux ";
+my $armHFLinuxDirs = "armhf-linux ";
+my $arm64LinuxDirs = "aarch64-linux ";
+my $armLinuxDirs = "arm-linux aarch-linux " . $armHFLinuxDirs . $arm64LinuxDirs;
+my $mainLinuxDirs = "i386-linux x86_64-linux ";
+my $linuxDirs = $armLinuxDirs . $sparcLinuxDirs . $mainLinuxDirs . $ppcLinuxDirs;
+my $commonDirs = "PreventStandby ";
+
+## This allows for future compatibility with all Perl versions 5.20-5.99 for those systems with static Perl.
+my $newPerlDirs = "5.[2-9][0-9] ";
+
 ## Directories to exclude when building certain packages...
-my $dirsToExcludeForLinuxTarball = "i386-freebsd-64int MSWin32-x86-multi-thread darwin darwin-x86_64 PreventStandby";
-my $dirsToExcludeForFreeBSDTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux powerpc-linux aarch64-linux icudt46b.dat";
-my $dirsToExcludeForARMTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat";
-my $dirsToExcludeForPPCTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int aarch64-linux icudt46l.dat icudt58l.dat";
-my $dirsToExcludeForx86_64 = "MSWin32-x86-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux aarch64-linux icudt46b.dat icudt58b.dat";
-my $dirsToExcludeFori386 = "MSWin32-x86-multi-thread PreventStandby x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux aarch64-linux icudt46b.dat icudt58b.dat";
-my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-thread i86pc-solaris-thread-multi-64int darwin darwin-x86_64 i386-linux sparc-linux x86_64-linux arm-linux armhf-linux powerpc-linux aarch64-linux /arch/ PreventStandby";
+my $dirsToExcludeForLinuxTarball = $commonDirs . $nonLinuxOSDirs;
+my $dirsToExcludeForFreeBSDTarball = $commonDirs . $win32Dirs . $linuxDirs . $solarisDirs . $macOSDirs . $icuBigEnd;
+my $dirsToExcludeForARMTarball = $commonDirs . $nonLinuxOSDirs . $mainLinuxDirs . $ppcLinuxDirs . $sparcLinuxDirs . $icuBigEnd;
+my $dirsToExcludeForPPCTarball = $commonDirs . $nonLinuxOSDirs . $mainLinuxDirs . $sparcLinuxDirs .  $armLinuxDirs . $icuLittleEnd;
+my $dirsToExcludeForx86_64 = "i386-linux " . $commonDirs . $nonLinuxOSDirs . $sparcLinuxDirs . $armLinuxDirs . $ppcLinuxDirs . $icuBigEnd;
+my $dirsToExcludeFori386 = "x86_64-linux " . $commonDirs . $nonLinuxOSDirs . $sparcLinuxDirs . $armLinuxDirs . $ppcLinuxDirs . $icuBigEnd;
+my $dirsToExcludeForLinuxNoCpanTarball = "/arch/ " . $commonDirs . $nonLinuxOSDirs . $linuxDirs;
 my $dirsToExcludeForLinuxNoCpanLightTarball = $dirsToExcludeForLinuxNoCpanTarball . " /Bin/ /HTML/! /Firmware/ /MySQL/ Graphics/CODE2000* Plugin/DateTime DigitalInput iTunes LineIn LineOut MusicMagic RSSNews Rescan SavePlaylist SlimTris Snow Plugin/TT/ Visualizer xPL";
 my $dirsToIncludeForLinuxNoCpanLightTarball = "EN.*html/images CPAN/HTML";
-my $dirsToExcludeForMacOSX = "5.14 5.20 5.22 5.24 5.26 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi MSWin32 i86pc-solaris-thread-multi-64int arm-linux armhf-linux powerpc-linux sparc-linux aarch64-linux";
-my $dirsToExcludeForWin32 = "5.8 5.10 5.12 5.16 5.18 5.20 5.22 5.24 5.26 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux powerpc-linux aarch64-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat icudt58b.dat icudt58l.dat";
-my $dirsToExcludeForReadyNasi386 = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin darwin-x86_64 MSWin32-x86 i86pc-solaris-thread-multi-64int arm-linux armhf-linux powerpc-linux aarch64-linux 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 PreventStandby icudt46b.dat icudt58b.dat icudt58l.dat";
-my $dirsToExcludeForReadyNasSparc = "i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin darwin-x86_64 arm-linux armhf-linux MSWin32-x86 i86pc-solaris-thread-multi-64int powerpc-linux aarch64-linux 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 PreventStandby icudt46l.dat icudt58b.dat icudt58l.dat CGI/Util.pm";
-my $dirsToExcludeForReadyNasARM = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu armhf-linux i386 x86_64 darwin-thread-multi i86pc-solaris-thread-multi-64int darwin darwin-x86_64 MSWin32-x86 powerpc-linux aarch64-linux 5.8 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 PreventStandby icudt46b.dat icudt58l.dat icudt58b.dat";
+
+## MacOSX has 5.8 and 5.{10,12,16,18}, so we need to exclude 5.14, and all future ICU dats.
+my $dirsToExcludeForMacOSX = "5.14 " . $newPerlDirs . $freebsdDirs . $win32Dirs . $solarisDirs . $linuxDirs . $icuNew ;
+
+## We only need to keep 5.14 for Win32, so we can exclude 5.8, 5.{10,12,16,18}, along with all future ICU dat files.
+my $dirsToExcludeForWin32 = "5.8 5.1[0268] " . $newPerlDirs . $freebsdDirs . $solarisDirs . $linuxDirs . $macOSDirs . "OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm " . $icuBigEnd . $icuNew ;
+
+## We only need to keep Perl 5.8, so we can exclude 5.1*, along with 5.20-5.99 and all future ICU dats.
+my $dirsToExcludeForReadyNasi386 = "5.1[0-9] x86_64 " . $newPerlDirs . $commonDirs . $nonLinuxOSDirs . $sparcLinuxDirs . $armLinuxDirs . $ppcLinuxDirs . $icuBigEnd . $icuNew ;
+my $dirsToExcludeForReadyNasSparc = "5.1[0-9] CGI/Util.pm " . $newPerlDirs . $commonDirs . $nonLinuxOSDirs . $mainLinuxDirs . $armLinuxDirs . $ppcLinuxDirs . $icuLittleEnd . $icuNew ;
+
+## We only need to keep 5.10 for ReadyNasARM, so we exclude 5.8, 5.12-5.18. Additionally, exclude all future ICU dats.
+my $dirsToExcludeForReadyNasARM = "5.8 5.1[2-8] " . $newPerlDirs . $commonDirs . $nonLinuxOSDirs . $mainLinuxDirs . $arm64LinuxDirs . $armHFLinuxDirs . $sparcLinuxDirs . $ppcLinuxDirs . $icuBigEnd . $icuNew;
 
 ## Initialize some variables we'll use later
 my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $i386, $releaseType, $release, $archType);
@@ -658,7 +690,7 @@ sub buildReadyNasV2 {
 
 	system("mv $buildDir/server/Slim $workDir/usr/share/perl5/; mv $buildDir/server/cleanup.pl $share/");
 	system("mv $buildDir/server/CPAN/* $share/CPAN/; mv $buildDir/server/lib $buildDir/server/Firmware $buildDir/server/Graphics $buildDir/server/HTML $share/");
-	system("mv $buildDir/server/IR $buildDir/server/SQL $buildDir/server/strings.txt $buildDir/server/icudt46*.dat $buildDir/server/Bin $share/");
+	system("mv $buildDir/server/IR $buildDir/server/SQL $buildDir/server/strings.txt $buildDir/server/icudt*.dat $buildDir/server/Bin $share/");
 	system("cp -r $baseDir/addons_sdk/SQUEEZEBOX/language $workDir/etc/frontview/addons/ui/SQUEEZEBOX/");
 	
 	system("mv $buildDir/server/*.conf $workDir/etc/squeezeboxserver");
