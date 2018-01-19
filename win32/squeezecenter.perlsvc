@@ -155,6 +155,7 @@ Add: Slim::Utils::Prefs::OldPrefs
 Add: Slim::Utils::Scanner::API
 Add: Slim::Utils::SQLiteHelper
 Add: Slim::Utils::Validate
+Add: Slim::Web::JS
 Add: Slim::Web::Template::Context
 Add: Slim::Web::Pages::Search
 Add: Slim::Web::Pages::BrowseDB
