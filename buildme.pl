@@ -1055,11 +1055,9 @@ sub buildWin32 {
 		unlink("$buildDir/build/Output/SqueezeCenter.wxs");
 		unlink("$buildDir/build/Output/HomeServerConsoleTab.SqueezeCenter.dll");
 
-		print "INFO: Everything is finally ready, renaming directories and building the .exe and zip files...\n";
-		print "INFO: Moving [$buildDir/build] to [$buildDir/$destPrettyDirName] for packaging\n";
-		move("$buildDir/build", "$buildDir/$destPrettyDirName");
-		print "INFO: Moving [$buildDir/$destPrettyDirName/Output/SqueezeSetup.exe] to [$destDir/$destFileName.exe]\n";
-		move("$buildDir/$destPrettyDirName/Output/SqueezeSetup.exe", "$destDir/$destFileName.exe");
+		print "INFO: Everything is finally ready, renaming the .exe and zip files...\n";
+		print "INFO: Moving [$buildDir/build/Output/SqueezeSetup.exe] to [$destDir/$destFileName.exe]\n";
+		move("$buildDir/build/Output/SqueezeSetup.exe", "$destDir/$destFileName.exe");
 		
 		# LogiSign tool should be available here:
 		# https://svn.slimdevices.com/repos/network/squeezenetwork/trunk/doc/LogiSign
@@ -1076,14 +1074,10 @@ sub buildWin32 {
 		}
 
 		# rename the Windows Home Server installer
-		print "INFO: Moving [$buildDir/$destPrettyDirName/Output/SqueezeCenter.msi] to [$destDir/$destFileName-whs.msi]\n";
-		move("$buildDir/$destPrettyDirName/Output/SqueezeCenter.msi", "$destDir/$destFileName-whs.msi");
+		print "INFO: Moving [$buildDir/build/Output/SqueezeCenter.msi] to [$destDir/$destFileName-whs.msi]\n";
+		move("$buildDir/build/Output/SqueezeCenter.msi", "$destDir/$destFileName-whs.msi");
 
-		rmtree("$buildDir/$destPrettyDirName/Output");
-
-#		print "INFO: Building zip [$destDir/$destFileName.ZIP] of [$buildDir/$destPrettyDirName]\n";
-#		unlink("$destDir/$destFileName.ZIP");
-#		system("cd $buildDir; zip -qr $destDir/$destFileName.ZIP \"$destPrettyDirName\" ");
+		rmtree("$buildDir/build/Output");
 	}
 }
 
