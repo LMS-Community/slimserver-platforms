@@ -14,7 +14,7 @@ use POSIX qw(strftime);
 
 ## Here we set some basic settings.. most of these dont need to change very often.
 my $squeezeCenterStartupScript = "server/slimserver.pl";
-my $sourceDirsToExclude = ".svn .git tests slimp3 squeezebox /softsqueeze tools ext/source ext-all-debug.js build"; 
+my $sourceDirsToExclude = ".svn .git tests slimp3 squeezebox /softsqueeze tools ext/source ext-all-debug.js build";
 my $revisionTextFile = "server/revision.txt";
 my $revision;
 my $myVersion = "0.0.3";
@@ -44,7 +44,7 @@ my $dirsToExcludeForReadyNasARM = "i386-freebsd-64int sparc-linux sparc-unknown-
 ## Initialize some variables we'll use later
 my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $i386, $releaseType, $release, $archType);
 
-## Generate a random number... used for a single instance wherever we need a temp file. 
+## Generate a random number... used for a single instance wherever we need a temp file.
 my $range = 10000;
 my $random_number = rand($range);
 
@@ -53,11 +53,11 @@ my $random_number = rand($range);
 ## Begin the main run of the build... based on input from the user, and dynamically	    ##
 ## picked up content like the version #, we'll build only the appropriate files requested   ##
 ##############################################################################################
-sub main { 
+sub main {
 	## Find out if the user gave us any data.. if not, post the help and quit
 	checkCommandOptions();
 
-	## Get our version #, based on data supplied by user	
+	## Get our version #, based on data supplied by user
 	$version = getVersion();
 
 	## Right before we start actually building stuff, print out our config options...
@@ -69,7 +69,7 @@ sub main {
 	## Set the build tree up now... we do this for every distribution we build.
 	setupBuildTree();
 
-	## Ok, begin the IF statement... what are we building? 
+	## Ok, begin the IF statement... what are we building?
 	doCommandOptions();
 }
 
@@ -77,10 +77,10 @@ sub main {
 ## Walk through the options passed in by the user, and see if they make sense. If they      ##
 ## don't, we'll exit here and show them the usage guidelines.				    ##
 ##############################################################################################
-sub checkCommandOptions { 
+sub checkCommandOptions {
 	## First, lets make sure they sent the most basic option we need, a build target...
-	GetOptions( 
-			'build=s'	=> \$build, 
+	GetOptions(
+			'build=s'	=> \$build,
 			'buildDir=s'	=> \$buildDir,
 			'sourceDir=s'	=> \$sourceDir,
 			'destName=s'	=> \$destName,
@@ -98,42 +98,42 @@ sub checkCommandOptions {
 
 
 
-	if ( !$build ) { 
+	if ( !$build ) {
 		showUsage();
 
 		exit(1);
-	}; 
+	};
 
-	if ($build eq "tarball" || $build eq 'readynasv2' || $build eq "debian" || $build eq "rpm" || $build eq "macosx" || $build eq "win32") { 
+	if ($build eq "tarball" || $build eq 'readynasv2' || $build eq "debian" || $build eq "rpm" || $build eq "macosx" || $build eq "win32") {
 		## releaseType is an option, but if its not there, we need
 		## to default it to 'nightly'
-		if (!$releaseType) { 
+		if (!$releaseType) {
 			$releaseType = "$defaultReleaseType";
-		} elsif ( $releaseType ne "nightly" && $releaseType ne "release" ) { 
+		} elsif ( $releaseType ne "nightly" && $releaseType ne "release" ) {
 			print "INFO: \$releaseType passed in is incorrect. Please use either \'nightly\' or \'release\'.\n";
 		}
 
 		## make sure that IF its a readynas package, they picked an architecture
-		if ($build eq "readynasv2" && !$archType) { 
+		if ($build eq "readynasv2" && !$archType) {
 			print "INFO: Please define an architecture.\n";
 			showUsage();
 			exit 1;
 		}
 
-		## If they passed in all the options, lets go forward... 
-		if ($buildDir && $sourceDir && $destDir) { 
+		## If they passed in all the options, lets go forward...
+		if ($buildDir && $sourceDir && $destDir) {
 			print "INFO: Required variables passed in. Moving forward.\n";
 			return $build;
 
 		## otherwise, fail and give them the usage guidelines again
-		} else { 
+		} else {
 			print "INFO: Required data missing.\n";
 			showUsage();
 			exit 1;
 		}
 
 	## Now, if they gave us a Build option, but it doesnt make sense... fail
-	} else { 
+	} else {
 		print "INFO: Invalid 'build' option passed in... \n";
 		showUsage();
 		exit 1;
@@ -143,16 +143,16 @@ sub checkCommandOptions {
 
 ##############################################################################################
 ## Here we search through the Logitech Media Server startup script to dynamically grab the version  ##
-## number for the rest of our script.							    ## 
+## number for the rest of our script.							    ##
 ##############################################################################################
 
-sub getVersion { 
+sub getVersion {
 	## We check the startup script for the version # info on this build. For now, we'll call this
-	## the source of truth for the version information. 
+	## the source of truth for the version information.
 	my @temparray;
 	open(SLIMSERVERPL, "$sourceDir/$squeezeCenterStartupScript") or die "Couldn't open $sourceDir/$squeezeCenterStartupScript to get the version # of this release: $!\n";
 	while (<SLIMSERVERPL>) {
-		if (/our \$VERSION/) { 
+		if (/our \$VERSION/) {
 			my @temparray = split(/\'/, $_);
 			$version = "$temparray[1]";
 		}
@@ -170,14 +170,14 @@ sub getVersion {
 ## Begin the main run of the build... based on input from the user, and dynamically	    ##
 ## picked up content like the version #, we'll build only the appropriate files requested   ##
 ##############################################################################################
-sub printOptions { 
+sub printOptions {
 	print "INFO: \$buildDir 	-> $buildDir\n";
 	print "INFO: \$destDir		-> $destDir\n";
 	print "INFO: \$sourceDir	-> $sourceDir\n";
-	print "INFO: \$version		-> $version\n";	
+	print "INFO: \$version		-> $version\n";
 	print "INFO: \$squeezeCenterStartupScript	-> $sourceDir/$squeezeCenterStartupScript\n";
 	print "INFO: \$releaseType	-> $releaseType\n";
-	if ($archType) { 
+	if ($archType) {
 		print "INFO: \$archType		-> $archType\n";
 	}
 }
@@ -187,23 +187,23 @@ sub printOptions {
 ## 											    ##
 ##############################################################################################
 sub setupDirectories {
-	## First, check if the buildDir exists... we need a clean directory to build our code. 
+	## First, check if the buildDir exists... we need a clean directory to build our code.
 	if (-d $buildDir) {
 		print "INFO: Source Directory ($buildDir) already existed, erasing it so we can start clean...\n";
 		rmtree($buildDir);
-	} 
+	}
 
 	## Now, create a new build directory
 	mkpath($buildDir) or die "Problem: couldn't make $buildDir!\n";
 	print "INFO: Build Directory ($buildDir) was created...\n";
 
-	## Finally, create the destination directory, if it doesnt exist. We don't care if 
-	## it exists already, because someone might want to put this into a more generic 
-	## directory that has other files in it. 
+	## Finally, create the destination directory, if it doesnt exist. We don't care if
+	## it exists already, because someone might want to put this into a more generic
+	## directory that has other files in it.
 	if (!-d $destDir) {
 		mkpath($destDir) or die "Problem: couldn't make $destDir!\n";
 		print "INFO: Dest Directory ($destDir) was created...\n";
-	} else { 
+	} else {
 		print "INFO: Dest Directory ($destDir) already existed, not creating...\n";
 	}
 }
@@ -217,12 +217,12 @@ sub setupBuildTree {
 	# Create a copy of the SVN source directory without additional
 	# directorys or .svn turd files for the build.
 
-	## Set up directories to exclude when we start the build... 
+	## Set up directories to exclude when we start the build...
 	my @sourceExcludeArray = split(/ /, $sourceDirsToExclude);
 	my $sourceExclude = join(' --exclude ', @sourceExcludeArray);
 
-	## If this is created, we need to begin it with '--exclude'... but if it doesnt, do not set it.. 
-	if ($sourceExclude) { 
+	## If this is created, we need to begin it with '--exclude'... but if it doesnt, do not set it..
+	if ($sourceExclude) {
 		$sourceExclude = "--exclude $sourceExclude";
 	}
 
@@ -250,70 +250,70 @@ sub setupBuildTree {
 		open(REV, ">$buildDir/$revisionTextFile") or die "Problem: Couldn't write out $buildDir/$revisionTextFile : $!\n";
 		print REV "$revision\n$date";
 		close(REV);
-	} 
+	}
 }
 
 ##############################################################################################
 ## Assuming everythings worked so far, we'll actually start building the packages. 	    ##
 ##############################################################################################
-sub doCommandOptions { 
+sub doCommandOptions {
 	## Check if there's a destName passed in
 	## $destName is used for Tarballs, Windows and Mac OSX packages. Linux packages
-	## have their own naming schemas. 
+	## have their own naming schemas.
 
-	if (!$destName) { 
+	if (!$destName) {
 		$destName = "$defaultDestName-$version-$revision";
 	}
 
 	## If we're building a tarball, do the tarball only...
-	if ($build eq "tarball") { 
-	
-		if ( $releaseType && $releaseType eq "release" ) { 
+	if ($build eq "tarball") {
+
+		if ( $releaseType && $releaseType eq "release" ) {
 			$destName =~ s/-$revision//;
 		}
 
 		## If we're building without CPAN libraries, make sure thats in the filename...
-		if ($noCPAN && $light) { 
+		if ($noCPAN && $light) {
 			## Use the NO CPAN Light variables
 			buildTarball($dirsToExcludeForLinuxNoCpanLightTarball, "$destDir/$destName-noCPAN-light", $dirsToIncludeForLinuxNoCpanLightTarball);
-		} elsif ($noCPAN) { 
+		} elsif ($noCPAN) {
 			## Use the NO CPAN variables
 			buildTarball($dirsToExcludeForLinuxNoCpanTarball, "$destDir/$destName-noCPAN");
-		} elsif ($freebsd) { 
+		} elsif ($freebsd) {
 			## Don't include Linux binaries
 			buildTarball($dirsToExcludeForFreeBSDTarball, "$destDir/$destName-FreeBSD");
 		} elsif ($arm) {
 			buildTarball($dirsToExcludeForARMTarball, "$destDir/$destName-arm-linux");
 		} elsif ($ppc) {
 			buildTarball($dirsToExcludeForPPCTarball, "$destDir/$destName-powerpc-linux");
-		} else { 
+		} else {
 			## Use the CPAN variables
 			buildTarball($dirsToExcludeForLinuxTarball, "$destDir/$destName");
-		}			
+		}
 
-	} elsif ($build eq "readynasv2") { 
-		## Next, we'll build the ReadyNAS add-in... 
+	} elsif ($build eq "readynasv2") {
+		## Next, we'll build the ReadyNAS add-in...
 		buildReadyNasV2();
 
-	} elsif ($build eq "debian") { 
+	} elsif ($build eq "debian") {
 		## Build a Debian Package
 		buildDebian();
 
-	} elsif ($build eq "rpm") { 
+	} elsif ($build eq "rpm") {
 		## Run the RPM
 		buildRPM();
 
-	} elsif ($build eq "macosx") { 
+	} elsif ($build eq "macosx") {
 		## Build the Mac OSX package
 		$destName =~ s/$defaultDestName/LogitechMediaServer/;
-		
-		if ( $releaseType && $releaseType eq "release" ) { 
+
+		if ( $releaseType && $releaseType eq "release" ) {
 			$destName =~ s/-$revision//;
 		}
-		
+
 		buildMacOSX("$destName");
 
-	} elsif ($build eq "win32") { 
+	} elsif ($build eq "win32") {
 		## Build the Windows 32bit Installer
 		$destName =~ s/$defaultDestName/LogitechMediaServer/;
 		buildWin32("$destName");
@@ -328,9 +328,9 @@ sub getRevisionForRepo {
 	my $revision;
 	if (-d "$sourceDir/.svn") {
 		open (SVN, "svn info $sourceDir |") or die "Problem: Couldn't run svn info $sourceDir : $!\n";
-		
+
 		while (<SVN>) {
-			if (/Last Changed Rev: (\d+)/) { 
+			if (/Last Changed Rev: (\d+)/) {
 				$revision = $1;
 			}
 		}
@@ -356,7 +356,7 @@ sub showUsage {
 	print "listed below... don't try to mix them up! :)\n";
 	print " \n";
 	print "--- Building a Linux Tarball\n";
-	print "    --build tarball <required opts below>\n"; 
+	print "    --build tarball <required opts below>\n";
 	print "    --buildDir <dir>		- The directory to do temporary work in\n";
 	print "    --sourceDir <dir>		- The location of the source code repository\n";
 	print "                                   that you've checked out from SVN\n";
@@ -422,7 +422,7 @@ sub showUsage {
 
 sub removeExclusions {
 	my ($dirsToExclude, $dirsToInclude) = @_;
-	
+
 	## First, lets make sure we get rid of the files we don't need for this install
 	my @dirsToExclude = split(/ /, $dirsToExclude);
 	my $n = 0;
@@ -435,12 +435,12 @@ sub removeExclusions {
 
 	while ($dirsToExclude[$n]) {
 		my $doInclude = '';
-		
+
 		# exclusions with a trailing ! should respect inclusions
 		if ($dirsToExclude[$n] =~ s/!$//) {
 			$doInclude = $dirsToInclude;
 		}
-		
+
 		print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
 		system("find $buildDir -depth | grep '$dirsToExclude[$n]' $doInclude | xargs rm -rf > /dev/null 2>&1");
 		$n++;
@@ -452,12 +452,12 @@ sub removeExclusions {
 ##############################################################################################
 sub buildTarball {
 	my ($dirsToExclude, $tarballName, $dirsToInclude) = @_;
-	
+
 	## Grab the variables passed to us...
-	if ( ($dirsToExclude && $tarballName) || die("Problem: Not all of the variables were passed to the BuildTarball function...") ) { 
+	if ( ($dirsToExclude && $tarballName) || die("Problem: Not all of the variables were passed to the BuildTarball function...") ) {
 
 		removeExclusions($dirsToExclude, $dirsToInclude);
-			
+
 		## We want a pretty name as the output dir, so we rename the server directory real quick
 		## (the old script would do an rsync here, but an rsync takes too long and is an unnecessary waste of space, even temorarily)
 		my ($name, $path, $suffix) = fileparse($tarballName);
@@ -479,7 +479,7 @@ sub buildRPM {
 	require File::Which;
 
 	print "INFO: Building YUM-ified RPM for RHEL/RedHat/Fedora/etc... \n";
-	
+
         # this must be a unix system
         # make the RPM if appropriate
 
@@ -490,9 +490,9 @@ sub buildRPM {
         }
 
 	print "INFO: Building xxx RPM in $buildDir... final file will be in $destDir. \n";
-	
-	## We need to setup an RPM build directory to put all of our files in... 
-	for my $path (qw(SPECS SOURCES BUILD RPMS SRPMS)) { 
+
+	## We need to setup an RPM build directory to put all of our files in...
+	for my $path (qw(SPECS SOURCES BUILD RPMS SRPMS)) {
 		print "INFO: Making directory for RPM build... ($buildDir/rpm/$path)\n";
 		mkpath("$buildDir/rpm/$path") || die "PROBLEM: I couldn't create $buildDir/rpm/$path...\n";
 	}
@@ -512,7 +512,7 @@ sub buildRPM {
         copy("$buildDir/platforms/redhat/squeezeboxserver.spec", "$buildDir/rpm/SPECS");
 
 	## Just check, if this is a 'nightly' build, pass on 'trunk' to the rpmbuild command
-	if ($releaseType eq "nightly") { 
+	if ($releaseType eq "nightly") {
 		$releaseType = "trunk";
 	}
 
@@ -534,7 +534,7 @@ sub buildRPM {
 ##############################################################################################
 sub buildDebian {
 	print "INFO: Building package for Debian Release... \n";
-	
+
 	my $suffix;
 	if ($arm) {
 		print "INFO: This is an ARM Debian build.\n";
@@ -556,13 +556,13 @@ sub buildDebian {
 	open (READ, "$sourceDir/platforms/debian/changelog") || die "Can't open changelog file to read: $!\n";
 	open (WRITE, ">$buildDir/platforms/debian/changelog") ||  die "Can't open changelog file to write: $!\n";
 
-	## Unlike the RPM, with a Debian package there's no simple way to go from a 
+	## Unlike the RPM, with a Debian package there's no simple way to go from a
 	## 'release' to a 'nightly.' We need to make that choice here, and update
 	## the changelog file accordingly.
 
 	if ($releaseType eq "nightly") {
 		$release = "$version~$revision";
-	} elsif ($releaseType eq "release") { 
+	} elsif ($releaseType eq "release") {
 		$release = "$version";
 	}
 
@@ -573,7 +573,7 @@ sub buildDebian {
 
 	close WRITE;
 	close READ;
-	
+
 	## Ok, we've set everything up... lets run the dpkg-buildpkg command...
 	if ($fakeRoot) {
 		print `cd $buildDir/platforms; fakeroot dpkg-buildpackage -b -d ;`;
@@ -605,23 +605,23 @@ sub buildReadyNasV2 {
 
 	## Check if a specific architecture was selected ...
 	my $dirsToExcludeForReadyNas;
-	if ($archType eq "i386") { 
+	if ($archType eq "i386") {
 		## Since i386 was selected, lets make sure to remove sparc libs
 		print "INFO: \$archType was provided as [$archType], removing ls other files...\n";
 		$dirsToExcludeForReadyNas = $dirsToExcludeForReadyNasi386;
 		$target_arch = 'TARGET_MACHTYPE=i386';
-		
-	} elsif ($archType =~ /arm/) { 
+
+	} elsif ($archType =~ /arm/) {
 		## Since i386 was selected, lets make sure to remove sparc libs
 		print "INFO: \$archType was provided as [$archType], removing other files...\n";
 		$dirsToExcludeForReadyNas = $dirsToExcludeForReadyNasARM;
 		$target_arch = 'TARGET_MACHTYPE=arm';
-		
-	} elsif ($archType =~ /sparc/) { 
+
+	} elsif ($archType =~ /sparc/) {
 		## In this case, we remove all the i386 libs
 		print "INFO: \$archType was provided as [$archType], removing other files...\n";
 		$dirsToExcludeForReadyNas = $dirsToExcludeForReadyNasSparc;
-		
+
 		## use sparc specific custom-convert.conf to disable transcoding to flac
 		copy("$sourceDir/platforms/readynas/custom-convert.sparc", "$buildDir/server/custom-convert.conf");
 		$target_arch = 'TARGET_MACHTYPE=sparc';
@@ -634,7 +634,7 @@ sub buildReadyNasV2 {
 	## First, lets make sure we get rid of the files we don't need for this install
 	my @dirsToExclude = split(/ /, $dirsToExcludeForReadyNas);
 	my $n = 0;
-	while ($dirsToExclude[$n]) { 
+	while ($dirsToExclude[$n]) {
 		print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
 		system("find $buildDir | grep -i $dirsToExclude[$n] | xargs rm -rf ");
 		$n++;
@@ -652,7 +652,7 @@ sub buildReadyNasV2 {
 	system("install -d -m0755 $workDir/etc/squeezeboxserver/ && install -d -m0755 $varlib/cache && install -d -m0755 $varlib/log && install -d -m0755 $varlib/prefs");
 
 	system("install -m0755 $buildDir/server/slimserver.pl $workDir/usr/sbin/squeezeboxserver && install -m0755 $buildDir/server/scanner.pl $workDir/usr/sbin/squeezeboxserver-scanner");
-	
+
 	# unfortunately GIT can't handle empty folders - let's create them here
 	system("install -d -m0755 $workDir/etc/frontview/addons/bin/SQUEEZEBOX $workDir/etc/frontview/apache/addons");
 
@@ -660,11 +660,11 @@ sub buildReadyNasV2 {
 	system("mv $buildDir/server/CPAN/* $share/CPAN/; mv $buildDir/server/lib $buildDir/server/Firmware $buildDir/server/Graphics $buildDir/server/HTML $share/");
 	system("mv $buildDir/server/IR $buildDir/server/SQL $buildDir/server/strings.txt $buildDir/server/icudt46*.dat $buildDir/server/Bin $share/");
 	system("cp -r $baseDir/addons_sdk/SQUEEZEBOX/language $workDir/etc/frontview/addons/ui/SQUEEZEBOX/");
-	
+
 	system("mv $buildDir/server/*.conf $workDir/etc/squeezeboxserver");
-	
+
 	system("install -d -m0755 $varlib/Plugins");
-	
+
 	system("mv $buildDir/server/Change* $workDir/usr/share/doc/squeezeboxserver/ && mv $buildDir/$revisionTextFile $share");
 
 	## Build the addon now
@@ -672,22 +672,22 @@ sub buildReadyNasV2 {
 	system("cd $baseDir/addons_sdk/SQUEEZEBOX; $target_arch ../bin/build_addon");
 
 	## Move the final addon into place
-	if ($releaseType eq "release") { 
+	if ($releaseType eq "release") {
 		$destName =~ s/-\d{5,}-/-/;
 	}
-	
+
 	$destName .= "-$archType-readynas.bin";
 
 	print "INFO: Moving the final addon into [$destDir] - $destName\n";
-	system("mv $baseDir/addons_sdk/SQUEEZEBOX/*.bin $destDir/$destName");	
+	system("mv $baseDir/addons_sdk/SQUEEZEBOX/*.bin $destDir/$destName");
 }
 
 ##############################################################################################
 ## Build the Mac OSX Installer Package
 ##############################################################################################
-sub buildMacOSX { 
+sub buildMacOSX {
 	## Grab the variables passed to us...
-	if ( ($_[0] ) || die("Problem: Not all of the variables were passed to the buildMacOSX function...") ) { 
+	if ( ($_[0] ) || die("Problem: Not all of the variables were passed to the buildMacOSX function...") ) {
 		## Take the filename passed to us and make sure that we build the DMG with
 		## that name, and that the 'pretty mounted name' also matches
 		my $pkgName = $_[0];
@@ -695,25 +695,25 @@ sub buildMacOSX {
 #		$pkgName =~ s/-/ /g;
 
 		print "INFO: Building package for Mac OSX (Universal)... \n";
-	
+
 		## First, lets make sure we get rid of the files we don't need for this install
 		my @dirsToExclude = split(/ /, $dirsToExcludeForMacOSX);
 		my $n = 0;
-		while ($dirsToExclude[$n]) { 
+		while ($dirsToExclude[$n]) {
 			print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
 			system("find $buildDir | grep -i $dirsToExclude[$n] | xargs rm -rf ");
 			$n++;
 		}
-		
+
 		## Now, lets make the Install Files directory
 		print "INFO: Making $buildDir/$pkgName/Install Files...\n";
 		mkpath("$buildDir/$pkgName/Install Files");
-	
+
 		## Copy in the documentation and license files..
 		print "INFO: Copying documentation & licenses...\n";
 		copy("$buildDir/server/license.txt", "$buildDir/$pkgName/License.txt");
 
-		## Set some xcodebuild paths... 
+		## Set some xcodebuild paths...
 		my $xcodeBuildDir = "$buildDir/platforms/osx/Preference Pane/build/Deployment";
 		my $prefPaneDir = "$buildDir/$pkgName/Install Files/Squeezebox.prefPane";
 		my $contentsDir = "$prefPaneDir/Contents";
@@ -721,10 +721,10 @@ sub buildMacOSX {
 		## Lets build the pref pane and installer...
 		print "INFO: Beginning PreferencePane and Installer build...\n";
 		system("cd \"$buildDir/platforms/osx/Preference Pane\"; xcodebuild -project \"SqueezeCenter.xcodeproj\" -target \"Squeezebox\" -configuration Deployment");
-	
+
 		print "INFO: Copying Preference Pane...\n";
 		system("ditto \"$xcodeBuildDir/Squeezebox.prefPane\" \"$prefPaneDir\"");
-	
+
 		system("mv \"$buildDir/server\" \"$contentsDir/\" ");
 
 		print "INFO: Create installer package $pkgName...\n";
@@ -734,7 +734,7 @@ sub buildMacOSX {
 		print "\nINFO: Add localized resource files to package...\n";
 
 		rmtree("$buildDir/lms_tmp");
-		
+
 		# we need to manually modify the Distribution file in the package to make it recognize the localizations - known bug in packagemaker
 		system("pkgutil --expand \"$destDir/$pkgName.pkg\" $buildDir/lms_tmp");
 
@@ -760,7 +760,7 @@ sub buildMacOSX {
 		system("pkgutil --flatten $buildDir/lms_tmp \"$destDir/$pkgName-unsigned.pkg\"");
 
 		if ($releaseType eq 'release') {
-#			unlink("$destDir/$pkgName.pkg");
+			unlink("$destDir/$pkgName.pkg");
 		}
 		else {
 			move("$destDir/$pkgName-unsigned.pkg", "$destDir/$pkgName.pkg");
@@ -771,21 +771,21 @@ sub buildMacOSX {
 ##############################################################################################
 ## Build the Windows32 Installer
 ##############################################################################################
-sub buildWin32 { 
+sub buildWin32 {
 	## Grab the variables passed to us...
-	if ( ($_[0] ) || die("Problem: Not all of the variables were passed to the BuildWin32 function...") ) { 
+	if ( ($_[0] ) || die("Problem: Not all of the variables were passed to the BuildWin32 function...") ) {
 		## Take the filename passed to us and make sure that we build the DMG with
 		## that name, and that the 'pretty mounted name' also matches
 		my $destFileName = $_[0];
 		my $destPrettyDirName = $_[0];
 		$destPrettyDirName =~ s/-/ /g;
-		
+
 		print "INFO: Building Win32 Installer Package...\n";
 
 		## First, lets make sure we get rid of the files we don't need for this install
 		my @dirsToExclude = split(/ /, $dirsToExcludeForWin32);
 		my $n = 0;
-		while ($dirsToExclude[$n]) { 
+		while ($dirsToExclude[$n]) {
 			print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
 			system("find $buildDir | grep -i $dirsToExclude[$n] | xargs rm -rf ");
 			$n++;
@@ -796,7 +796,7 @@ sub buildWin32 {
 
 		print "INFO: Copying server directory to $buildDir/build...\n";
 		system("cp -R $buildDir/server \"$buildDir/build/server\" ");
-	
+
 		print "INFO: Copying various documents to $buildDir/build...\n";
 		copy("$buildDir/server/CHANGELOG.html", "$buildDir/build/Release Notes.html");
 		copy("$buildDir/server/license.txt", "$buildDir/build/License.txt");
@@ -882,7 +882,7 @@ sub buildWin32 {
 
 		foreach (qw(Buttons Control Display Formats GUI Hardware Media Menu Music Networking Player Schema Utils Web)) {
 			rmtree("$buildDir/build/server/Slim/$_");
-		} 
+		}
 
 		unlink("$buildDir/build/server/Slim/Plugin/Base.pm");
 		unlink("$buildDir/build/server/Slim/Plugin/OPMLBased.pm");
@@ -896,7 +896,7 @@ sub buildWin32 {
 
 
 		print "INFO: Making installer...\n";
-		
+
 		copy("$buildDir/platforms/win32/installer/ServiceManager.iss", "$buildDir/build");
 		copy("$buildDir/platforms/win32/installer/SocketTest.iss", "$buildDir/build") || die ($!);
 		copy("$buildDir/platforms/win32/installer/strings.iss", "$buildDir/build");
@@ -904,7 +904,7 @@ sub buildWin32 {
 		copy("$buildDir/platforms/win32/installer/sockettest.dll", "$buildDir/build");
 		copy("$buildDir/platforms/win32/installer/ApplicationData.xml", "$buildDir/build");
 		copy("$buildDir/platforms/win32/lib/vcredist.exe", "$buildDir/build");
-		
+
 		copy("$buildDir/platforms/win32/InnoSetup/Languages/Danish.isl", "$buildDir/build");
 		copy("$buildDir/platforms/win32/InnoSetup/Languages/Dutch.isl", "$buildDir/build");
 		copy("$buildDir/platforms/win32/InnoSetup/Default.isl", "$buildDir/build");
@@ -920,10 +920,10 @@ sub buildWin32 {
 		copy("$buildDir/platforms/win32/InnoSetup/Languages/Russian.isl", "$buildDir/build");
 		# Swedish is 3rd party - we keep it in our installer folder
 		copy("$buildDir/platforms/win32/installer/Swedish.isl", "$buildDir/build");
-		
+
 		copy("$buildDir/platforms/win32/installer/logitech.bmp", "$buildDir/build");
 		copy("$buildDir/platforms/win32/installer/squeezebox.bmp", "$buildDir/build");
-		
+
 		# replacing build number in installer script
 		system("sed -e \"s/VersionInfoVersion=0.0.0.0/VersionInfoVersion=$rev/\" \"$buildDir/platforms/win32/installer/SqueezeCenter.iss\" > \"$buildDir/build/SqueezeCenter.iss\"");
 		system("cd $buildDir/build; \"$buildDir/platforms/win32/InnoSetup/ISCC.exe\" \/Q SqueezeCenter.iss ");
@@ -933,13 +933,13 @@ sub buildWin32 {
 		unlink("$buildDir/build/SocketTest.iss");
 		unlink("$buildDir/build/StartupModeWizardPage.iss");
 		unlink("$buildDir/build/ServiceEnabler.iss");
-		
+
 		unlink("$buildDir/build/psvince.dll");
 		unlink("$buildDir/build/sockettest.dll");
 		unlink("$buildDir/build/ApplicationData.xml");
 		unlink("$buildDir/build/slim.bmp");
 		unlink("$buildDir/build/strings.iss");
-		
+
 		unlink("$buildDir/build/Danish.isl");
 		unlink("$buildDir/build/Default.isl");
 		unlink("$buildDir/build/Dutch.isl");
@@ -964,7 +964,7 @@ sub buildWin32 {
 		copy("$buildDir/platforms/win32/WHS Add-In/SqueezeCenter/bin/Release/Jayrock.Json.dll", "$buildDir/build/Output");
 		system("cd $buildDir/build/Output; \"$buildDir/platforms/win32/WiX/candle.exe\" SqueezeCenter.wxs");
 		system("cd $buildDir/build/Output; \"$buildDir/platforms/win32/WiX/light.exe\" -sw2024 -sw1076 SqueezeCenter.wixobj");
-		
+
 		unlink("$buildDir/build/Output/SqueezeCenter.wixobj");
 		unlink("$buildDir/build/Output/SqueezeCenter.wixpdb");
 		unlink("$buildDir/build/Output/SqueezeCenter.wxs");
@@ -973,11 +973,11 @@ sub buildWin32 {
 		print "INFO: Everything is finally ready, renaming the .exe and zip files...\n";
 		print "INFO: Moving [$buildDir/build/Output/SqueezeSetup.exe] to [$destDir/$destFileName.exe]\n";
 		move("$buildDir/build/Output/SqueezeSetup.exe", "$destDir/$destFileName.exe");
-		
+
 		# LogiSign tool should be available here:
 		# https://svn.slimdevices.com/repos/network/squeezenetwork/trunk/doc/LogiSign
 		my $logiSign = "$ENV{PROGRAMFILES}/LogiSign/LogiSign.exe";
-		$logiSign =~ s/^(\w):/\/cygdrive\/\l$1/; 
+		$logiSign =~ s/^(\w):/\/cygdrive\/\l$1/;
 		if ( -f $logiSign ) {
 			print "INFO: Sign Windows installer using \"$logiSign\"";
 			my $status = `cd $destDir; "$logiSign" -file $destFileName.exe`;
