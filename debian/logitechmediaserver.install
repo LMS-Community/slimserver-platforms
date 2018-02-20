@@ -10,6 +10,7 @@
 ../server/strings.txt  usr/share/squeezeboxserver
 ../server/MySQL        usr/share/squeezeboxserver
 ../server/icudt46*.dat usr/share/squeezeboxserver
+../server/icudt58*.dat usr/share/squeezeboxserver
 ../server/*.conf       etc/squeezeboxserver
 debian/squeezeboxserver_safe  usr/sbin
 ../server/revision.txt usr/share/squeezeboxserver
