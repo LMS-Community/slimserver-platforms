@@ -30,8 +30,9 @@ my $dirsToExcludeForLinuxTarball = "i386-freebsd-64int MSWin32-x86-multi-thread 
 my $dirsToExcludeForFreeBSDTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux powerpc-linux aarch64-linux icudt46b.dat";
 my $dirsToExcludeForARMTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat";
 my $dirsToExcludeForPPCTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int aarch64-linux icudt46l.dat icudt58l.dat";
-my $dirsToExcludeForx86_64 = "MSWin32-x86-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux aarch64-linux icudt46b.dat icudt58b.dat";
-my $dirsToExcludeFori386 = "MSWin32-x86-multi-thread PreventStandby x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux aarch64-linux icudt46b.dat icudt58b.dat";
+my $dirsToExcludeForARMDeb = "$dirsToExcludeForARMTarball 5.8 5.10";
+my $dirsToExcludeForx86_64Deb = "5.8 5.10 MSWin32-x86-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux aarch64-linux icudt46b.dat icudt58b.dat";
+my $dirsToExcludeFori386Deb = "5.8 5.10 MSWin32-x86-multi-thread PreventStandby x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux aarch64-linux icudt46b.dat icudt58b.dat";
 my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-thread i86pc-solaris-thread-multi-64int darwin darwin-x86_64 i386-linux sparc-linux x86_64-linux arm-linux armhf-linux powerpc-linux aarch64-linux /arch/ PreventStandby";
 my $dirsToExcludeForLinuxNoCpanLightTarball = $dirsToExcludeForLinuxNoCpanTarball . " /Bin/ /HTML/! /Firmware/ /MySQL/ Graphics/CODE2000* Plugin/DateTime DigitalInput iTunes LineIn LineOut MusicMagic RSSNews Rescan SavePlaylist SlimTris Snow Plugin/TT/ Visualizer xPL";
 my $dirsToIncludeForLinuxNoCpanLightTarball = "EN.*html/images CPAN/HTML";
@@ -538,17 +539,17 @@ sub buildDebian {
 	my $suffix;
 	if ($arm) {
 		print "INFO: This is an ARM Debian build.\n";
-		removeExclusions($dirsToExcludeForARMTarball);
+		removeExclusions($dirsToExcludeForARMDeb);
 		$suffix = 'arm';
 	}
 	elsif ($x86_64) {
 		print "INFO: This is a x86_64 Debian build.\n";
-		removeExclusions($dirsToExcludeForx86_64);
+		removeExclusions($dirsToExcludeForx86_64Deb);
 		$suffix = 'amd64';
 	}
 	elsif ($i386) {
 		print "INFO: This is an i386 Debian build.\n";
-		removeExclusions($dirsToExcludeFori386);
+		removeExclusions($dirsToExcludeFori386Deb);
 		$suffix = 'i386';
 	}
 
