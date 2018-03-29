@@ -1058,20 +1058,6 @@ sub buildWin32 {
 		print "INFO: Everything is finally ready, renaming the .exe and zip files...\n";
 		print "INFO: Moving [$buildDir/build/Output/SqueezeSetup.exe] to [$destDir/$destFileName.exe]\n";
 		move("$buildDir/build/Output/SqueezeSetup.exe", "$destDir/$destFileName.exe");
-		
-		# LogiSign tool should be available here:
-		# https://svn.slimdevices.com/repos/network/squeezenetwork/trunk/doc/LogiSign
-		my $logiSign = "$ENV{PROGRAMFILES}/LogiSign/LogiSign.exe";
-		$logiSign =~ s/^(\w):/\/cygdrive\/\l$1/; 
-		if ( -f $logiSign ) {
-			print "INFO: Sign Windows installer using \"$logiSign\"";
-			my $status = `cd $destDir; "$logiSign" -file $destFileName.exe`;
-			print "$status\n";
-			die "Signing failed:\n$status\n" if $status =~ /ERROR/ && $releaseType eq 'release';
-		}
-		else {
-			print "INFO: didn't find signing tool $logiSign - skipping installer signing\n";
-		}
 
 		# rename the Windows Home Server installer
 		print "INFO: Moving [$buildDir/build/Output/SqueezeCenter.msi] to [$destDir/$destFileName-whs.msi]\n";
