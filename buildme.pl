@@ -673,11 +673,11 @@ sub buildReadyNasV2 {
 	system("cd $baseDir/addons_sdk/SQUEEZEBOX; $target_arch ../bin/build_addon");
 
 	## Move the final addon into place
+	$destName .= "-$archType-readynas.bin";
+
 	if ($releaseType eq "release") {
 		$destName =~ s/-\d{5,}-/-/;
 	}
-
-	$destName .= "-$archType-readynas.bin";
 
 	print "INFO: Moving the final addon into [$destDir] - $destName\n";
 	system("mv $baseDir/addons_sdk/SQUEEZEBOX/*.bin $destDir/$destName");
@@ -778,8 +778,10 @@ sub buildWin32 {
 		## Take the filename passed to us and make sure that we build the DMG with
 		## that name, and that the 'pretty mounted name' also matches
 		my $destFileName = $_[0];
-		my $destPrettyDirName = $_[0];
-		$destPrettyDirName =~ s/-/ /g;
+
+		if ( $releaseType && $releaseType eq "release" ) {
+			$destFileName =~ s/-$revision//;
+		}
 
 		print "INFO: Building Win32 Installer Package...\n";
 
