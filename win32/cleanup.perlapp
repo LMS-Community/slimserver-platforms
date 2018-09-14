@@ -28,7 +28,6 @@ Trim: Slim::Networking::**
 Trim: Slim::Player::**
 Trim: Slim::Schema::
 Trim: Slim::Utils::Misc
-Trim: Slim::Utils::Log::
 Trim: Slim::Utils::OS::*
 Trim: Slim::Utils::Prefs
 Trim: Slim::Utils::ServiceManager::*
@@ -45,7 +44,7 @@ Trim: EV
 Trim: Font::FreeType
 Trim: Image::Scale
 Trim: Locale::Hebrew
-Trim: Log::
+Trim: Log::Dispatch::Syslog
 Trim: IO::Socket::SSL
 Trim: Media::Scan
 Trim: MP3::Cut::Gapless
