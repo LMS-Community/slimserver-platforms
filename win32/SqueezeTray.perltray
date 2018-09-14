@@ -14,6 +14,10 @@ Lib: lib:..\..\server\CPAN
 Lib: lib:..\..\server\CPAN\arch\5.14\MSWin32-x86-multi-thread\auto
 Lib: lib:..\..\server\CPAN\arch\5.14\MSWin32-x86-multi-thread
 Singleton: 1
+Trim: DBD::SQLite
+Trim: Font::FreeType
+Trim: Media::Scan
+Trim: Image::Scale
 Trim: Slim::Utils::OS::*
 Trim: Slim::Utils::ServiceManager::*
 Trim: Slim::Utils::Update

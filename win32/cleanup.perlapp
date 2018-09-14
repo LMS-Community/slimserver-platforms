@@ -1,5 +1,5 @@
 PAP-Version: 1.0
-Packer: 
+Packer:
 Script: cleanup.pl
 Add: Slim::Utils::OS::Win32
 Add: Slim::Utils::ServiceManager::Win32
@@ -21,6 +21,10 @@ Lib: lib:lib
 Lib: lib:CPAN\arch\5.14\MSWin32-x86-multi-thread\auto
 Lib: lib:CPAN\arch\5.14\MSWin32-x86-multi-thread
 Lib: lib:CPAN
+Trim: DBD::SQLite
+Trim: Font::FreeType
+Trim: Media::Scan
+Trim: Image::Scale
 Trim: Slim::Utils::OS::*
 Trim: Slim::Utils::ServiceManager::*
 Trim: Slim::Utils::Update
