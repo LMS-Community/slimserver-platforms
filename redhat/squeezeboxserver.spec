@@ -110,6 +110,7 @@ cp -Rp SQL $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
 cp -p revision.txt $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
 cp -p strings.txt $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
 cp -p icudt46*.dat $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
+cp -p icudt58*.dat $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
 cp -p slimserver.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezeboxserver
 cp -p scanner.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezeboxserver-scanner
 cp -p cleanup.pl $RPM_BUILD_ROOT%{_usr}/sbin/squeezeboxserver-cleanup
