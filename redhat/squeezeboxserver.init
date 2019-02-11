@@ -28,7 +28,8 @@
 ### END INIT INFO
 # 
 
-if [ -f /etc/redhat-release ] ; then
+if [[ -n $(grep -i -E "(redhat|centos|fedora)" /etc/os-release 2>/dev/null) || -f /etc/redhat-release ]] ; then
+	redhat=yes
 
 	# Source function library.
 	. /etc/rc.d/init.d/functions
@@ -101,7 +102,8 @@ if [ -f /etc/redhat-release ] ; then
        		RETVAL=$?
 	}
 
-elif [ -f /etc/SuSE-release ] ; then
+elif [[ -n $(grep -i -E "(suse|sles)" /etc/os-release 2>/dev/null) ||  -f /etc/SuSE-release ]]; then
+	suse=yes
 
 	# Check for existence of needed config file and read it
 	SQUEEZEBOX_CONFIG=/etc/sysconfig/squeezeboxserver
@@ -158,6 +160,7 @@ elif [ -f /etc/SuSE-release ] ; then
 	}
 
 else
+	echo "Unable to detect Linux distribution."
 	exit 1
 fi
 
@@ -183,6 +186,10 @@ case "$1" in
 		exit 1
 esac
 
-[ -f /etc/redhat-release ] && exit $RETVAL
-[ -f /etc/SuSE-release ] && rc_exit
-
+if [[ -n "$redhat" ]]; then 
+   exit $RETVAL
+elif [[ -n "$suse" ]]; then
+   rc_exit
+else
+   exit 1
+fi
