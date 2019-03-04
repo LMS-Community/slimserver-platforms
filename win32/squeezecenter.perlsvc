@@ -138,6 +138,7 @@ Add: Slim::Utils::Prefs::Migration::V2
 Add: Slim::Utils::Prefs::Migration::V3
 Add: Slim::Utils::Prefs::Migration::V4
 Add: Slim::Utils::Prefs::Migration::V8
+Add: Slim::Utils::Prefs::Migration::V9
 Add: Slim::Utils::Prefs::Migration::ClientV1
 Add: Slim::Utils::Prefs::Migration::ClientV2
 Add: Slim::Utils::Prefs::Migration::ClientV3
