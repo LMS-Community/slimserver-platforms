@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 rm -r /Library/StartupItems/Slim
 rm -r /Library/StartupItems/SqueezeCenter

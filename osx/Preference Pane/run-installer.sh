@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # this script is being called from the PrefPane to launch the installer
 

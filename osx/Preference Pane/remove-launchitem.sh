@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Remove the LaunchAgent item for the server.
 

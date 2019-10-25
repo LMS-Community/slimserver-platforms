@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Create the LaunchDaemon item for the server.
 

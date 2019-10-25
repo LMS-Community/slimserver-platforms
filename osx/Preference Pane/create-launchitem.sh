@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Create the LaunchAgent item for the server.
 

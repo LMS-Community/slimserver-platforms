@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 PRODUCT_NAME=Squeezebox
 PREFPANE_TO="/Library/PreferencePanes/$PRODUCT_NAME.prefPane"

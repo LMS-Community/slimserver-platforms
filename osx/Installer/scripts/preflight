@@ -1,50 +1,67 @@
-#!/usr/bin/perl
+#!/bin/bash
 
-use strict;
+SERVER_NAME=slimserver.pl
 
-use FindBin qw($Bin);
-use lib "$Bin";
+# TODO - re-enable, one script has proved to be working
+# PERL=`which perl`
 
-use MsgBox;
-use LMSMigration;
-
-use constant SERVER_NAME => 'slimserver\.pl';
-
-my $check = 'ps -axww | grep "' . SERVER_NAME . '" | grep -v grep | cat';
-
-if ( `$check` =~ /^\s*(\d+) / ) {
-	kill 15, $1;
+check_server() {
+	ps -axw | grep $SERVER_NAME | grep -v grep | cut -d ' ' -f1 | cat
 }
 
-# Wait for it to stop
-for my $i (0 .. 9) {
-	last if !`$check`;
-	sleep 1;
+check_prefpane() {
+	ps -axww | grep "System Preferences" | grep -v grep | cat
 }
 
-# If it didn't quit, fail
-if ( `$check` ) {
-	MsgBox->show('TITLE', 'PLEASE_STOP_SERVER');
-	exit 1;
-}
+if [ "$PERL" = "" ]; then
+	echo Running bash version...
 
-$check = 'ps -axww | grep "System Preferences" | grep -v grep | cat';
+	RESULT=$(check_server)
+	if [ "$RESULT" != "" ]; then
+		kill -15 $RESULT
+	fi
 
-if ( `$check` ) {
-	system('osascript -e "tell application \"System Preferences\" to quit"');
-}
+	for i in 1 2 3 4 5 6 7 8 9 10; do
+		RESULT=$(check_server)
+		if [ "$RESULT" = "" ]; then
+			break
+		fi
+		sleep 1;
+	done
 
-for my $i (0 .. 9) {
-	last if !`$check`;
-	sleep 1;
-}
+	RESULT=$(check_server)
+	if [ "$RESULT" != "" ]; then
+		osascript -e 'tell app "System Events" to display dialog "Please stop Logitech Media Server before running the installer." buttons { "Ok" } with title "Logitech Media Server" default button 1'
+	fi
 
-if ( `$check` ) {
-	MsgBox->show('TITLE', 'PLEASE_QUIT_SYSTEMPREFERENCES');
-	exit 1;
-}
+	RESULT=$(check_prefpane)
+	if [ "$RESULT" != "" ]; then
+		osascript -e 'tell application "System Preferences" to quit'
+	fi
 
-# try to migrate LMS preferences
-LMSMigration->migrate();
+	for i in 1 2 3 4 5 6 7 8 9 10; do
+		RESULT=$(check_prefpane)
+		if [ "$RESULT" = "" ]; then
+			break
+		fi
+		sleep 1;
+	done
 
-exit 0;
+	RESULT=$(check_prefpane)
+	if [ "$RESULT" != "" ]; then
+		osascript -e 'tell app "System Events" to display dialog "Please quit System Preferences before running the installer." buttons { "Ok" } with title "Logitech Media Server" default button 1'
+	fi
+	
+	for NAME in "Squeezebox Server", "Squeezebox"; do
+		if [ -e "$HOME/Library/PreferencePanes/$NAME.prefPane" ]; then
+			rm -rf "$HOME/Library/PreferencePanes/$NAME.prefPane" 2>&1
+		fi
+		
+		if [ -e "/Library/PreferencePanes/$NAME.prefPane" ]; then
+			rm -rf "/Library/PreferencePanes/$NAME.prefPane" 2>&1
+		fi
+	done
+else
+	echo Running perl version...
+	./preflight.pl
+fi

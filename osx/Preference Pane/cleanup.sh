@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 SERVER_RUNNING=`ps -axww | grep "squeezecenter\.pl|slimp3\.pl\|slimp3d\|slimserver\.pl\|slimserver" | grep -v grep | cat`
 if [ z"$SERVER_RUNNING" = z ] ; then
 
