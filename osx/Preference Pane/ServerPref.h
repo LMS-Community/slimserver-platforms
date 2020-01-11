@@ -3,7 +3,7 @@
 //  Logitech Media Server
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
-//  Copyright 2002-2012 Logitech
+//  Copyright 2002-2020 Logitech
 //
 
 #import <PreferencePanes/PreferencePanes.h>

@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>Squeezebox</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Logitech Media Server 7.9.2, Copyright 2002-2012 Logitech</string>
+	<string>Logitech Media Server 7.9.2, Copyright 2002-2020 Logitech</string>
 	<key>CFBundleIconFile</key>
 	<string>icon.icns</string>
 	<key>CFBundleIdentifier</key>

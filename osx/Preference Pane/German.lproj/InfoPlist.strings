@@ -1,7 +1,7 @@
-﻿/* Localized versions of Info.plist keys */
+/* Localized versions of Info.plist keys */
 
 CFBundleName = "Logitech Media Server";
 CFBundleShortVersionString = "7.9.2";
-CFBundleGetInfoString = "Logitech Media Server Version 7.9.2, Copyright 2002–2011 Logitech";
-NSHumanReadableCopyright = "Copyright 2002–2011 Logitech.";
+CFBundleGetInfoString = "Logitech Media Server Version 7.9.2, Copyright 2002–2020 Logitech";
+NSHumanReadableCopyright = "Copyright 2002–2020 Logitech.";
 NSPrefPaneIconLabel = "Logitech\nMedia Server";

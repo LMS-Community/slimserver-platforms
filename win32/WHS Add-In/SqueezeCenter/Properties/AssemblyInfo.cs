@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Logitech")]
 [assembly: AssemblyProduct("SqueezeCenter")]
-[assembly: AssemblyCopyright("Copyright © Logitech 2010")]
+[assembly: AssemblyCopyright("Copyright © Logitech 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,4 +1,4 @@
-﻿
+
 /* Class = "NSWindow"; title = "Logitech Media Server"; ObjectID = "12"; */
 "12.title" = "Logitech Media Server";
 
@@ -86,8 +86,8 @@
 /* Class = "NSMenuItem"; title = "Reset logging preferences"; ObjectID = "1004"; */
 "1004.title" = "Protokolleinstellungen zurücksetzen";
 
-/* Class = "NSTextFieldCell"; title = "© 2001-2011 Logitech"; ObjectID = "1054"; */
-"1054.title" = "© 2001-2011 Logitech";
+/* Class = "NSTextFieldCell"; title = "© 2001-2020 Logitech"; ObjectID = "1054"; */
+"1054.title" = "© 2001-2020 Logitech";
 
 /* Class = "NSTextFieldCell"; title = "Version 7.9.2"; ObjectID = "1055"; */
 "1055.title" = "Version 7.9.2";

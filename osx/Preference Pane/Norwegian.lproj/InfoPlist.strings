@@ -2,6 +2,6 @@
 
 CFBundleName = "Logitech Media Server";
 CFBundleShortVersionString = "7.9.2";
-CFBundleGetInfoString = "Logitech Media Server versjon 7.9.2, opphavsrett 2002–2011 Logitech";
-NSHumanReadableCopyright = "Opphavsrett 2002–2011 Logitech";
+CFBundleGetInfoString = "Logitech Media Server versjon 7.9.2, opphavsrett 2002–2020 Logitech";
+NSHumanReadableCopyright = "Opphavsrett 2002–2020 Logitech";
 NSPrefPaneIconLabel = "Logitech\nMedia Server";

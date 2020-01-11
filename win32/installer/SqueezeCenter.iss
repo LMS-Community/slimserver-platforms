@@ -2,8 +2,6 @@
 ; InnoSetup Script for Logitech Media Server
 ;
 ; Logitech : http://www.logitech.com
-;
-; Script by Chris Eastwood, January 2003 - http://www.vbcodelibrary.co.uk
 
 #define AppName "Logitech Media Server"
 #define AppVersion "7.9.2"

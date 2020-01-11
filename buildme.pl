@@ -812,7 +812,7 @@ sub buildWin32 {
 		my @versionInfo = (
 			"CompanyName=Logitech Inc.",
 			"FileVersion=$rev",
-			"LegalCopyright=Copyright 2001-2011 Logitech Inc.",
+			"LegalCopyright=Copyright 2001-2020 Logitech Inc.",
 			"ProductVersion=$version",
 			"ProductName=Logitech Media Server",
 		);
