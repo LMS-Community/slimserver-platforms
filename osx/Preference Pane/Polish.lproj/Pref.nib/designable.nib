@@ -201,7 +201,7 @@ zDXMtc01zbXONs62zzfPuNA50LrRPNG+0j/SwdNE08bUSdTL1U7V0dZV1tjXXNfg2GTY6Nls2fHadtr7
 							<object class="NSTextFieldCell" key="NSCell" id="1055373337">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string key="NSContents">Wersja 7.9.3</string>
+								<string key="NSContents">Wersja 8.0.0</string>
 								<reference key="NSSupport" ref="976073678"/>
 								<reference key="NSControlView" ref="88621131"/>
 								<reference key="NSBackgroundColor" ref="788284320"/>
