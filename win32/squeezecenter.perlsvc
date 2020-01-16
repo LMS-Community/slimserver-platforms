@@ -4,6 +4,7 @@ Script: slimserver.pl
 Bind: grant.exe[file=Bin/MSWin32-x86-multi-thread/grant.exe,mode=666]
 Add: version
 Add: AnyEvent::Impl::EV
+Add: Async::Util
 Add: CGI
 Add: Encode::CN
 Add: Encode::JP
