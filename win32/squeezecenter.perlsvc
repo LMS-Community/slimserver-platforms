@@ -52,6 +52,7 @@ Add: Slim::Display::SqueezeboxG
 Add: Slim::Display::Text
 Add: Slim::Display::Transporter
 Add: Slim::Networking::SliMP3::Protocol
+Add: Slim::Networking::SqueezeNetwork::Sync
 Add: Slim::Player::Boom
 Add: Slim::Player::Player
 Add: Slim::Player::Receiver
