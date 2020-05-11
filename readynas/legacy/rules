@@ -100,7 +100,6 @@ install:
 
 	# Documentation
 	cp -rf ${source}/Change* ${base}/usr/share/doc/squeezeboxserver/
-	cp -rf ${source}/Installation.txt ${base}/usr/share/doc/squeezeboxserver/
 	cp -rf ${source}/License.txt $(CURDIR)/readynas/copyright
 
 	# Copy the revision file

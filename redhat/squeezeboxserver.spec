@@ -237,7 +237,7 @@ fi
 %defattr(-,root,root,-)
 
 # Documentation files
-%doc Changelog*.html Installation.txt License.* README.lib README.HTML
+%doc Changelog*.html License.* README.lib README.HTML
 
 # Main files
 %{_usr}/lib/perl5/vendor_perl/Slim

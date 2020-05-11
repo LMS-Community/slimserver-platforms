@@ -386,7 +386,7 @@ fi
 %defattr(-,root,root)
 
 # documentation files
-%doc Changelog*.html Installation.txt License.txt README.lib
+%doc Changelog*.html License.txt README.lib
 
 # library files
 %perl_sitelib/Slim
