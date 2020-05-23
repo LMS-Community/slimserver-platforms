@@ -225,9 +225,9 @@ Bind: XML/Parser/Encodings/x-sjis-unicode.enc[file=CPAN/XML/Parser/Encodings/x-s
 Clean: 1
 Dyndll: 0
 Force: 1
-Lib: lib:lib
 Lib: lib:CPAN\arch\5.14\MSWin32-x86-multi-thread\auto
 Lib: lib:CPAN\arch\5.14\MSWin32-x86-multi-thread
+Lib: lib:lib
 Lib: lib:CPAN
 Trim: Slim::Networking::IO::EV
 Trim: Slim::Utils::OS::*
