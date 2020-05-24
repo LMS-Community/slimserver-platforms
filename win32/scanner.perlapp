@@ -94,9 +94,9 @@ Add: Slim::Utils::AutoRescan::Stat::Async
 Clean: 1
 Dyndll: 0
 Force: 1
-Lib: lib:lib
 Lib: lib:CPAN\arch\5.14\MSWin32-x86-multi-thread\auto
 Lib: lib:CPAN\arch\5.14\MSWin32-x86-multi-thread
+Lib: lib:lib
 Lib: lib:CPAN
 Trim: Slim::Networking::IO::EV
 Trim: Slim::Utils::Update
