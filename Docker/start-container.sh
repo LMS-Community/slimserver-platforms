@@ -13,4 +13,4 @@ umask 0002
 #Add permissions
 chown -R squeezeboxserver:users /config /playlist
 
-/usr/bin/perl /opt/lms/slimserver.pl --user squeezeboxserver --prefsdir /config/prefs --logdir /config/logs --cachedir /config/cache
+/usr/bin/perl /lms/slimserver.pl --user squeezeboxserver --prefsdir /config/prefs --logdir /config/logs --cachedir /config/cache

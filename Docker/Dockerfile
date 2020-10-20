@@ -12,20 +12,23 @@ RUN apt-get update -qq  && \
 	apt-get clean -qy && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Add & install LMS sript
-COPY install.sh /tmp/
-RUN chmod +x /tmp/install.sh
-RUN /tmp/install.sh
-
-COPY server/ /opt/lms/
-COPY Custom-Slim-Utils-OS.pm /opt/lms/Slim/Utils/OS/Custom.pm
+# Add & configure user
+RUN useradd squeezeboxserver && \
+	usermod -u 99 squeezeboxserver && \
+	usermod -g 100 squeezeboxserver && \
+	usermod -d /home squeezeboxserver && \
+	chown -R squeezeboxserver:users /home && \
+	usermod -a -G audio squeezeboxserver
 
 # Add startup script
 COPY start-container.sh /usr/bin/start-container
 RUN chmod +x /usr/bin/start-container
 
 # Volume and port setup
-RUN mkdir -p /config /music /playlist
+RUN mkdir -p /config /music /playlist /lms
+
+COPY . /lms
+COPY Custom-Slim-Utils-OS.pm /lms/Slim/Utils/OS/Custom.pm
 
 VOLUME /config /music /playlist
 

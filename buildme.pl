@@ -465,7 +465,6 @@ sub removeExclusions {
 ## Build Docker image                                                                       ##
 ##############################################################################################
 sub buildDockerImage {
-	## Grab the variables passed to us...
 	removeExclusions($dirsToExcludeForDocker);
 
 	my $dockerDir = "$buildDir/platforms/Docker";
@@ -473,10 +472,8 @@ sub buildDockerImage {
 
 	## Make the image...
 	print "INFO: Building Docker image with source from $workDir...\n";
-	system("cp $dockerDir/* $buildDir");
-	system("cd $buildDir; docker build -t logitechmediaserver");
-	
-	# TODO - tag correctly, push etc.
+	system("cp $dockerDir/.dockerignore $dockerDir/* $workDir");
+	system("cd $workDir; docker build -t logitechmediaserver .");
 }
 
 ##############################################################################################
