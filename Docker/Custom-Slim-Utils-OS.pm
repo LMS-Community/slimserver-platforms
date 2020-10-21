@@ -22,7 +22,7 @@ sub initPrefs {
 	$prefs->{libraryname} = Slim::Utils::Strings::string('SQUEEZEBOX_SERVER');
 	
 	if (-d MUSIC_DIR) {
-		$prefs->{mediadirs} = $prefs->{ignoreInImageScan} = $prefs->{ignoreInVidoeScan} = [ MUSIC_DIR ];
+		$prefs->{mediadirs} = $prefs->{ignoreInImageScan} = $prefs->{ignoreInVideoScan} = [ MUSIC_DIR ];
 	}
 }
 
