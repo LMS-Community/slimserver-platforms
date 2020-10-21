@@ -28,7 +28,7 @@ RUN chmod +x /usr/bin/start-container
 RUN mkdir -p /config /music /playlist /lms
 
 COPY . /lms
-COPY Custom-Slim-Utils-OS.pm /lms/Slim/Utils/OS/Custom.pm
+COPY Slim-Utils-OS-Custom.pm /lms/Slim/Utils/OS/Custom.pm
 
 VOLUME /config /music /playlist
 

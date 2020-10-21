@@ -38,6 +38,28 @@ sub dirsFor {
 	return wantarray() ? @dirs : $dirs[0];
 }
 
+sub ignoredItems {
+	return (
+		# system paths in the fs root which will not contain any music
+		'bin'          => '/',
+		'boot'         => '/',
+		'config'       => '/',
+		'dev'          => '/',
+		'etc'          => '/',
+		'lib'          => '/',
+		'lib64'        => '/',
+		'opt'          => '/',
+		'proc'         => '/',
+		'run'          => '/',
+		'sbin'         => '/',
+		'srv'          => '/',
+		'sys'          => '/',
+		'tmp'          => '/',
+		'usr'          => '/',
+		'var'          => '/',
+	);
+}
+
 # TODO - update checker
 
 1;
