@@ -12,3 +12,5 @@ Bin/powerpc-linux
 Bin/sparc-linux
 icudt46b.dat
 icudt58b.dat
+Plugins/*
+.git
