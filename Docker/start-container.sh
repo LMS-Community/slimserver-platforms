@@ -2,11 +2,11 @@
 
 #Set user and group
 umask 0002
-PUID=${PUID:-id -u squeezeboxserver}
-PGID=${PGID:-id -g users}
+PUID=${PUID:-`id -u squeezeboxserver`}
+PGID=${PGID:-`id -g squeezeboxserver`}
 
 usermod -o -u "$PUID" squeezeboxserver
-groupmod -o -g "$PGID" users
+groupmod -o -g "$PGID" squeezeboxserver
 
 umask 0002
 

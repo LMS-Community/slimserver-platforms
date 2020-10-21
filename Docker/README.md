@@ -1,4 +1,4 @@
-# docker-logitechmediaserver
+# logitechmediaserver
 
 Docker image for Logitech Media Server
 
