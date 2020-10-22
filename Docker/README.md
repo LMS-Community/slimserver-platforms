@@ -1,6 +1,6 @@
 # logitechmediaserver
 
-Docker image for Logitech Media Server
+The [LMS Community](https://github.com/LMS-Community)'s Docker image for Logitech Media Server
 
 Run:
 
@@ -11,7 +11,7 @@ docker run -it \
       -v "<somewhere>":"/playlist":ro \
       -p 9000:9000/tcp \
       -p 9090:9090/tcp \
-      Logitech/slimserver
+      lmscommunity/logitechmediaserver
 ```
 
 Docker compose:
@@ -20,7 +20,7 @@ version: '3'
 services:
   lms:
     container_name: lms
-    image: Logitech/slimserver
+    image: lmscommunity/logitechmediaserver
     volumes:
       - /<somewhere>:/config:rw
       - /<somewhere>:/music:ro
