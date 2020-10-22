@@ -473,7 +473,7 @@ sub buildDockerImage {
 	## Make the image...
 	print "INFO: Building Docker image with source from $workDir...\n";
 	system("cp $dockerDir/.dockerignore $dockerDir/* $workDir");
-	system("cd $workDir; docker build -t logitechmediaserver .");
+	system("cd $workDir; docker buildx build --push --platform linux/arm/v7,linux/amd64,linux/arm64/v8 --tag lmscommunity/logitechmediaserver:latest -t lmscommunity/logitechmediaserver:$version-$revision .");
 }
 
 ##############################################################################################
