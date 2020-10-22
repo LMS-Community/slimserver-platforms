@@ -17,7 +17,7 @@ my $squeezeCenterStartupScript = "server/slimserver.pl";
 my $sourceDirsToExclude = ".svn .git .github t tests slimp3 squeezebox /softsqueeze tools ext/source ext-all-debug.js build";
 my $revisionTextFile = "server/revision.txt";
 my $revision;
-my $myVersion = "0.0.3";
+my $myVersion = "0.1.0";
 my $defaultDestName = "logitechmediaserver";
 my $defaultReleaseType = "nightly";
 
@@ -41,6 +41,9 @@ my $dirsToExcludeForWin32 = "5.8 5.10 5.12 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.
 my $dirsToExcludeForReadyNasi386 = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin darwin-x86_64 MSWin32-x86 i86pc-solaris-thread-multi-64int arm-linux armhf-linux powerpc-linux aarch64-linux 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 PreventStandby icudt46b.dat icudt58b.dat icudt58l.dat";
 my $dirsToExcludeForReadyNasSparc = "i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin darwin-x86_64 arm-linux armhf-linux MSWin32-x86 i86pc-solaris-thread-multi-64int powerpc-linux aarch64-linux 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 PreventStandby icudt46l.dat icudt58b.dat icudt58l.dat CGI/Util.pm";
 my $dirsToExcludeForReadyNasARM = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu armhf-linux i386 x86_64 darwin-thread-multi i86pc-solaris-thread-multi-64int darwin darwin-x86_64 MSWin32-x86 powerpc-linux aarch64-linux 5.8 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 PreventStandby icudt46b.dat icudt58l.dat icudt58b.dat";
+
+# for Docker we provide x86_64 and armhf for Perl 5.24 (Debian Stretch) only
+my $dirsToExcludeForDocker = "MSWin32-x86-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat 5.8 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.26 5.28 5.30";
 
 ## Initialize some variables we'll use later
 my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $i386, $releaseType, $release, $archType);
@@ -81,21 +84,21 @@ sub main {
 sub checkCommandOptions {
 	## First, lets make sure they sent the most basic option we need, a build target...
 	GetOptions(
-			'build=s'	=> \$build,
-			'buildDir=s'	=> \$buildDir,
-			'sourceDir=s'	=> \$sourceDir,
-			'destName=s'	=> \$destName,
-			'destDir=s'	=> \$destDir,
-			'noCPAN'	=> \$noCPAN,
+			'build=s'       => \$build,
+			'buildDir=s'    => \$buildDir,
+			'sourceDir=s'   => \$sourceDir,
+			'destName=s'    => \$destName,
+			'destDir=s'     => \$destDir,
+			'noCPAN'        => \$noCPAN,
 			'freebsd'       => \$freebsd,
 			'x86_64'        => \$x86_64,
 			'i386'          => \$i386,
 			'arm'           => \$arm,
 			'ppc'           => \$ppc,
 			'light'         => \$light,
-			'releaseType=s'	=> \$releaseType,
-			'archType=s'	=> \$archType,
-			'fakeRoot'	=> \$fakeRoot);
+			'releaseType=s' => \$releaseType,
+			'archType=s'    => \$archType,
+			'fakeRoot'      => \$fakeRoot);
 
 
 
@@ -105,7 +108,7 @@ sub checkCommandOptions {
 		exit(1);
 	};
 
-	if ($build eq "tarball" || $build eq 'readynasv2' || $build eq "debian" || $build eq "rpm" || $build eq "macosx" || $build eq "win32") {
+	if ($build =~ /^tarball|docker|readynasv2|debian|rpm|macosx|win32$/) {
 		## releaseType is an option, but if its not there, we need
 		## to default it to 'nightly'
 		if (!$releaseType) {
@@ -211,12 +214,12 @@ sub setupDirectories {
 
 
 ##############################################################################################
-## No matter what we are building, we're going to move it away from the SVN source directory##
+## No matter what we are building, we're going to move it away from the Git source directory##
 ## and move it into a building directory. 						    ##
 ##############################################################################################
 sub setupBuildTree {
-	# Create a copy of the SVN source directory without additional
-	# directorys or .svn turd files for the build.
+	# Create a copy of the Git source directory without additional
+	# directories or .git turd files for the build.
 
 	## Set up directories to exclude when we start the build...
 	my @sourceExcludeArray = split(/ /, $sourceDirsToExclude);
@@ -229,7 +232,7 @@ sub setupBuildTree {
 
 	print "INFO: Making copy of server source ($sourceDir -> $buildDir)\n";
 
-	## Exclude the .svn directory, and anything else we configured in the beginning of the script.
+	## Exclude the .git directory, and anything else we configured in the beginning of the script.
 	system("rsync -a --quiet $sourceExclude $sourceDir/server $sourceDir/platforms $buildDir");
 
 	## Verify that things went OK during the transfer...
@@ -291,6 +294,9 @@ sub doCommandOptions {
 			## Use the CPAN variables
 			buildTarball($dirsToExcludeForLinuxTarball, "$destDir/$destName");
 		}
+
+	} elsif ($build eq "docker") {
+		buildDockerImage();
 
 	} elsif ($build eq "readynasv2") {
 		## Next, we'll build the ReadyNAS add-in...
@@ -358,24 +364,31 @@ sub showUsage {
 	print " \n";
 	print "--- Building a Linux Tarball\n";
 	print "    --build tarball <required opts below>\n";
-	print "    --buildDir <dir>		- The directory to do temporary work in\n";
-	print "    --sourceDir <dir>		- The location of the source code repository\n";
-	print "                                   that you've checked out from SVN\n";
-	print "    --destDir <dir>		- The destination you'd like your files \n";
-	print "    --destName <filename>	- The name of the tarball you would like to\n";
+	print "    --buildDir <dir>             - The directory to do temporary work in\n";
+	print "    --sourceDir <dir>            - The location of the source code repository\n";
+	print "                                   that you've checked out from Git\n";
+	print "    --destDir <dir>              - The destination you'd like your files \n";
+	print "    --destName <filename>        - The name of the tarball you would like to\n";
 	print "       (optional)                  have made. Do not include the .tar.gz/tgz,\n";
 	print "                                   it will be appended automatically.\n";
-	print "    --freebsd (optional)     - Build a package with only FreeBSD 7.2 binaries\n";
-	print "    --arm (optional)         - Build a package with only ARM Linux binaries\n";
-	print "    --ppc (optional)         - Build a package with only PPC Linux binaries\n";
-	print "    --noCPAN (optional)		- Build a package with no CPAN modules included\n";
-	print "    --noCPAN-light (optional)- Build a package with no CPAN modules, web templates etc. included\n";
+	print "    --freebsd (optional)         - Build a package with only FreeBSD 7.2 binaries\n";
+	print "    --arm (optional)             - Build a package with only ARM Linux binaries\n";
+	print "    --ppc (optional)             - Build a package with only PPC Linux binaries\n";
+	print "    --noCPAN (optional)          - Build a package with no CPAN modules included\n";
+	print "    --noCPAN-light (optional)    - Build a package with no CPAN modules, web templates etc. included\n";
+	print "\n";
+	print "--- Building a Docker image (with only ARM and x86_64 Linux binaries)\n";
+	print "    --build docker <required opts below>\n";
+	print "    --buildDir <dir>             - The directory to do temporary work in\n";
+	print "    --sourceDir <dir>            - The location of the source code repository\n";
+	print "                                   that you've checked out from Git\n";
+	print "    --destDir <dir>              - The destination you'd like your files \n";
 	print "\n";
 	print "--- Building an RPM package\n";
 	print "    --build rpm <required opts below>\n";
 	print "    --buildDir <dir>             - The directory to do temporary work in\n";
 	print "    --sourceDir <dir>            - The location of the source code repository\n";
-	print "                                   that you've checked out from SVN\n";
+	print "                                   that you've checked out from Git\n";
 	print "    --destDir <dir>              - The destination you'd like your files \n";
 	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
 	print "        (optional)                 or you're building a nightly-style package\n";
@@ -384,7 +397,7 @@ sub showUsage {
 	print "    --build debian <required opts below>\n";
 	print "    --buildDir <dir>             - The directory to do temporary work in\n";
 	print "    --sourceDir <dir>            - The location of the source code repository\n";
-	print "                                   that you've checked out from SVN\n";
+	print "                                   that you've checked out from Git\n";
 	print "    --destDir <dir>              - The destination you'd like your files \n";
 	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
 	print "        (optional)                 or you're building a nightly-style package\n";
@@ -397,7 +410,7 @@ sub showUsage {
 	print "    --build readynasv2 <required opts below>\n";
 	print "    --buildDir <dir>             - The directory to do temporary work in\n";
 	print "    --sourceDir <dir>            - The location of the source code repository\n";
-	print "                                   that you've checked out from SVN\n";
+	print "                                   that you've checked out from Git\n";
 	print "    --destDir <dir>              - The destination you'd like your files \n";
 	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
 	print "        (optional)                 or you're building a nightly-style package\n";
@@ -408,7 +421,7 @@ sub showUsage {
 	print "    --build macosx <required opts below>\n";
 	print "    --buildDir <dir>             - The directory to do temporary work in\n";
 	print "    --sourceDir <dir>            - The location of the source code repository\n";
-	print "                                   that you've checked out from SVN\n";
+	print "                                   that you've checked out from Git\n";
 	print "    --destDir <dir>              - The destination you'd like your files \n";
 	print "    --destName <filename>        - The name of the OSX Package Name, do not \n";
 	print "       (optional)                  include the .dmg\n";
@@ -417,7 +430,7 @@ sub showUsage {
 	print "    --build win32 <required opts below>\n";
 	print "    --buildDir <dir>             - The directory to do temporary work in\n";
 	print "    --sourceDir <dir>            - The location of the source code repository\n";
-	print "                                   that you've checked out from SVN\n";
+	print "                                   that you've checked out from Git\n";
 	print "    --destDir <dir>              - The destination you'd like your files \n";
 }
 
@@ -446,6 +459,21 @@ sub removeExclusions {
 		system("find $buildDir -depth | grep '$dirsToExclude[$n]' $doInclude | xargs rm -rf > /dev/null 2>&1");
 		$n++;
 	}
+}
+
+##############################################################################################
+## Build Docker image                                                                       ##
+##############################################################################################
+sub buildDockerImage {
+	removeExclusions($dirsToExcludeForDocker);
+
+	my $dockerDir = "$buildDir/platforms/Docker";
+	my $workDir = "$buildDir/server";
+
+	## Make the image...
+	print "INFO: Building Docker image with source from $workDir...\n";
+	system("cp $dockerDir/.dockerignore $dockerDir/* $workDir");
+	system("cd $workDir; docker buildx build --push --platform linux/arm/v7,linux/amd64,linux/arm64/v8 --tag lmscommunity/logitechmediaserver:latest -t lmscommunity/logitechmediaserver:$version-$revision .");
 }
 
 ##############################################################################################
@@ -527,7 +555,6 @@ sub buildRPM {
 
 	rmtree("$buildDir/rpm");
 }
-
 
 
 ##############################################################################################

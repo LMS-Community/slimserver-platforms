@@ -1,0 +1,16 @@
+CPAN/arch/5.8
+CPAN/arch/5.1*
+CPAN/arch/5.2[0268]
+CPAN/arch/5.3*
+CPAN/arch/5.24/i386*
+Bin/arm-linux
+Bin/darwin* 
+Bin/i86* 
+Bin/i386* 
+Bin/MSWin* 
+Bin/powerpc-linux
+Bin/sparc-linux
+icudt46b.dat
+icudt58b.dat
+Plugins/*
+.git
