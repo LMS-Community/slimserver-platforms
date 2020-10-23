@@ -4,7 +4,8 @@ FROM debian:9-slim
 # Set environment variables
 ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8"
-ENV HOME="/root"
+ENV PUID=99 PGID=100
+ENV HTTP_PORT=9000
 
 # Install packages
 RUN apt-get update -qq  && \
@@ -14,10 +15,9 @@ RUN apt-get update -qq  && \
 
 # Add & configure user
 RUN useradd squeezeboxserver && \
-	usermod -u 99 squeezeboxserver && \
-	usermod -g 100 squeezeboxserver && \
+	usermod -u $PUID squeezeboxserver && \
+	usermod -g $PGID squeezeboxserver && \
 	usermod -d /home squeezeboxserver && \
-	chown -R squeezeboxserver:nogroup /home && \
 	usermod -a -G audio squeezeboxserver
 
 # Add startup script
@@ -25,14 +25,15 @@ COPY start-container.sh /usr/bin/start-container
 RUN chmod +x /usr/bin/start-container
 
 # Volume and port setup
-RUN mkdir -p /config /music /playlist /lms
+RUN mkdir -p /config /music /playlist /lms && \
+	chown -R squeezeboxserver:nogroup /config /playlist
 
 COPY . /lms
 COPY Slim-Utils-OS-Custom.pm /lms/Slim/Utils/OS/Custom.pm
 
 VOLUME /config /music /playlist
 
-EXPOSE 3483 3483/udp 9000 9090
+EXPOSE 3483 3483/udp ${HTTP_PORT} 9090
 
 #Startup setup
 WORKDIR /config
