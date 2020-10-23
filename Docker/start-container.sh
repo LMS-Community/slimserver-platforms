@@ -3,7 +3,7 @@
 #Set user and group
 umask 0002
 PUID=${PUID:-`id -u squeezeboxserver`}
-PGID=${PGID:-`id -g nogroup`}
+PGID=${PGID:-`id -g squeezeboxserver`}
 
 usermod -o -u "$PUID" squeezeboxserver
 groupmod -o -g "$PGID" nogroup
