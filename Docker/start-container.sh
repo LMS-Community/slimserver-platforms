@@ -6,11 +6,11 @@ PUID=${PUID:-`id -u squeezeboxserver`}
 PGID=${PGID:-`id -g squeezeboxserver`}
 
 usermod -o -u "$PUID" squeezeboxserver
-groupmod -o -g "$PGID" squeezeboxserver
+groupmod -o -g "$PGID" nogroup
 
 umask 0002
 
 #Add permissions
-chown -R squeezeboxserver:users /config /playlist
+chown -R squeezeboxserver:nogroup /config /playlist /lms
 
-/usr/bin/perl /lms/slimserver.pl --user squeezeboxserver --prefsdir /config/prefs --logdir /config/logs --cachedir /config/cache
+su squeezeboxserver -c '/usr/bin/perl /lms/slimserver.pl --prefsdir /config/prefs --logdir /config/logs --cachedir /config/cache'
