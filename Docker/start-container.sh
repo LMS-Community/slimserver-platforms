@@ -12,4 +12,4 @@ groupmod -o -g "$PGID" nogroup
 chown -R squeezeboxserver:nogroup /config /playlist /lms
 
 echo Starting Logitech Media Server on port $HTTP_PORT...
-su squeezeboxserver -c '/usr/bin/perl /lms/slimserver.pl --prefsdir /config/prefs --logdir /config/logs --cachedir /config/cache --httpport $HTTP_PORT'
+su squeezeboxserver -c 'LMS_STDIO=1 /usr/bin/perl /lms/slimserver.pl --prefsdir /config/prefs --logdir /config/logs --cachedir /config/cache --httpport $HTTP_PORT'
