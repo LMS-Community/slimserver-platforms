@@ -1,6 +1,6 @@
 # logitechmediaserver
 
-The [LMS Community](https://github.com/LMS-Community)'s Docker image for Logitech Media Server
+The [LMS Community](https://github.com/LMS-Community)'s Docker image for [Logitech Media Server](https://github.com/Logitech/slimserver/)
 
 Run:
 
@@ -9,6 +9,8 @@ docker run -it \
       -v "<somewhere>":"/config":rw \
       -v "<somewhere>":"/music":ro \
       -v "<somewhere>":"/playlist":ro \
+      -v "/etc/localtime":"/etc/localtime":ro \
+      -v "/etc/timezone":"/etc/timezone":ro \
       -p 9000:9000/tcp \
       -p 9090:9090/tcp \
       lmscommunity/logitechmediaserver
@@ -25,6 +27,8 @@ services:
       - /<somewhere>:/config:rw
       - /<somewhere>:/music:ro
       - /<somewhere>:/playlist:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     ports:
       - 9000:9000/tcp
       - 9090:9090/tcp
