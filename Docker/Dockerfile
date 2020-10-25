@@ -9,7 +9,7 @@ ENV HTTP_PORT=9000
 
 # Install packages
 RUN apt-get update -qq  && \
-	apt-get install --no-install-recommends -qy wget curl perl tzdata libwww-perl libio-socket-ssl-perl libnet-ssleay-perl libdata-dump-perl libcrypt-ssleay-perl && \
+	apt-get install --no-install-recommends -qy wget curl perl tzdata libwww-perl libio-socket-ssl-perl libnet-ssleay-perl libdata-dump-perl libcrypt-ssleay-perl libcrypt-openssl-rsa-perl && \
 	apt-get clean -qy && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
