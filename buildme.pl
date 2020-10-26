@@ -383,6 +383,8 @@ sub showUsage {
 	print "    --sourceDir <dir>            - The location of the source code repository\n";
 	print "                                   that you've checked out from Git\n";
 	print "    --destDir <dir>              - The destination you'd like your files \n";
+	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
+	print "        (optional)                 or you're building a nightly-style package\n";
 	print "\n";
 	print "--- Building an RPM package\n";
 	print "    --build rpm <required opts below>\n";
@@ -473,7 +475,16 @@ sub buildDockerImage {
 	## Make the image...
 	print "INFO: Building Docker image with source from $workDir...\n";
 	system("cp $dockerDir/.dockerignore $dockerDir/* $workDir");
-	system("cd $workDir; docker buildx build --push --platform linux/arm/v7,linux/amd64,linux/arm64/v8 --tag lmscommunity/logitechmediaserver:latest -t lmscommunity/logitechmediaserver:$version-$revision .");
+	
+	my @tags = $releaseType eq "release"
+		? ("stable", "$version", "$version-stable")
+		: ("latest", "$version-dev");
+		
+	my $tags = join(' ', map {
+		"--tag lmscommunity/logitechmediaserver:$_";
+	} @tags);
+
+	system("cd $workDir; docker buildx build --push --platform linux/arm/v7,linux/amd64,linux/arm64/v8 $tags .");
 }
 
 ##############################################################################################
