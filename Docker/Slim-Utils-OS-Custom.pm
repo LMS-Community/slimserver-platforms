@@ -1,6 +1,7 @@
 package Slim::Utils::OS::Custom;
 
 use strict;
+use File::Spec::Functions qw(catdir);
 
 use base qw(Slim::Utils::OS::Linux);
 
@@ -33,6 +34,10 @@ sub dirsFor {
 
 	if ($dir eq 'music' && -d MUSIC_DIR) {
 		push @dirs, MUSIC_DIR;
+	}
+	elsif ($dir eq 'Plugins') {
+		push @dirs, catdir($::cachedir, 'Plugins');
+		push @INC, $::cachedir;
 	}
 
 	return wantarray() ? @dirs : $dirs[0];
