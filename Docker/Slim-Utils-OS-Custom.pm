@@ -21,7 +21,7 @@ sub initPrefs {
 
 	$prefs->{wizardDone} = 1;
 	$prefs->{libraryname} = Slim::Utils::Strings::string('SQUEEZEBOX_SERVER');
-	
+
 	if (-d MUSIC_DIR) {
 		$prefs->{mediadirs} = $prefs->{ignoreInImageScan} = $prefs->{ignoreInVideoScan} = [ MUSIC_DIR ];
 	}
@@ -65,6 +65,16 @@ sub ignoredItems {
 	);
 }
 
+sub aclFiletest {
+	return sub {
+		my $path = shift || return;
+
+		{
+			use filetest 'access';
+			return (! -r $path) ? 0 : 1;
+		}
+	};
+}
 
 sub installerOS { 'src' };
 
@@ -72,7 +82,7 @@ sub installerOS { 'src' };
 sub canAutoUpdate {
 	# make sure auto download is always enabled - we don't rally auto-update, but this way we're called when we have update info
 	Slim::Utils::Prefs::preferences('server')->set('autoDownloadUpdate', 1);
-	
+
 	# dirty hack to only return true when called from the update checker...
 	my ($subr) = (caller(1))[3];
 	return $subr eq 'Slim::Utils::Update::checkVersion' ? 1 : 0;
