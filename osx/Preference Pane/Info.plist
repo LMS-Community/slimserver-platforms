@@ -7,23 +7,23 @@
 	<key>CFBundleExecutable</key>
 	<string>Squeezebox</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Logitech Media Server 8.0.1, Copyright 2002-2020 Logitech</string>
+	<string>Logitech Media Server 8.1.0, Copyright 2002-2020 Logitech</string>
 	<key>CFBundleIconFile</key>
 	<string>icon.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.slimdevices.slim</string>
 	<key>CFBundleInfoDictionaryVersion</key>
-	<string>8.0.1</string>
+	<string>8.1.0</string>
 	<key>CFBundleName</key>
 	<string>Squeezebox</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>8.0.1</string>
+	<string>8.1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>8.0.1</string>
+	<string>8.1.0</string>
 	<key>NSMainNibFile</key>
 	<string>Pref</string>
 	<key>NSPrefPaneIconFile</key>
