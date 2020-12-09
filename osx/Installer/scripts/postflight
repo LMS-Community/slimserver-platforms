@@ -32,6 +32,13 @@ if [ -e "/$PRODUCT_NAME.prefpane" ] ; then
 fi
 
 if [ -e "$PREFPANE_TO" ] ; then
+	# starting with Big Sur Perl 5.18 is no longer the default Version - force using it if it's available
+	if [ -x "/usr/bin/perl5.18" ]; then
+		cd "$PREFPANE_TO/Contents/server"
+		perl -i -pe 's{^#!/usr/bin/perl}{#!/usr/bin/perl5.18}' *.pl
+		perl -i -pe 's{^#!/usr/bin/env perl}{#!/usr/bin/perl5.18}' cleanup.pl
+	fi
+	
 	cd "$PREFPANE_TO/Contents/Resources"
 
 	# install SC to start at boot time if it hasn't been configured yet; update startupitem if we're updating
@@ -41,13 +48,6 @@ if [ -e "$PREFPANE_TO" ] ; then
 
 	sudo -b -H -u $USER "./start-server.sh"
 
-	# starting with Big Sur Perl 5.18 is no longer the default Version - force using it if it's available
-	if [ -x "/usr/bin/perl5.18" ]; then
-		cd "$PREFPANE_TO/Contents/server"
-		perl -i -pe 's{^#!/usr/bin/perl}{#!/usr/bin/perl5.18}' *.pl
-		perl -i -pe 's{^#!/usr/bin/env perl}{#!/usr/bin/perl5.18}' cleanup.pl
-	fi
- 
 	cd "$PREFPANE_TO/Contents/server/Bin/darwin"
 
 	sudo -b -H -u $USER osascript openprefs.scpt &
