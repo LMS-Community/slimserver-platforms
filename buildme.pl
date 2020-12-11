@@ -30,20 +30,17 @@ my $dirsToExcludeForLinuxTarball = "i386-freebsd-64int MSWin32-x86-multi-thread 
 my $dirsToExcludeForFreeBSDTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux powerpc-linux aarch64-linux icudt46b.dat";
 my $dirsToExcludeForARMTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat";
 my $dirsToExcludeForPPCTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int aarch64-linux icudt46l.dat icudt58l.dat";
-my $dirsToExcludeForARMDeb = "$dirsToExcludeForARMTarball 5.8 5.10 5.12 5.14 5.16 5.18";
-my $dirsToExcludeForx86_64Deb = "5.8 5.10 5.12 5.14 5.16 5.18 MSWin32-x86-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux aarch64-linux icudt46b.dat icudt58b.dat";
-my $dirsToExcludeFori386Deb = "5.8 5.10 5.12 MSWin32-x86-multi-thread PreventStandby x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux aarch64-linux icudt46b.dat icudt58b.dat";
+my $dirsToExcludeForARMDeb = "$dirsToExcludeForARMTarball 5.10 5.12 5.14 5.16 5.18";
+my $dirsToExcludeForx86_64Deb = "5.10 5.12 5.14 5.16 5.18 MSWin32-x86-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux aarch64-linux icudt46b.dat icudt58b.dat";
+my $dirsToExcludeFori386Deb = "5.10 5.12 MSWin32-x86-multi-thread PreventStandby x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux aarch64-linux icudt46b.dat icudt58b.dat";
 my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-thread i86pc-solaris-thread-multi-64int darwin darwin-x86_64 i386-linux sparc-linux x86_64-linux arm-linux armhf-linux powerpc-linux aarch64-linux /arch/ PreventStandby";
 my $dirsToExcludeForLinuxNoCpanLightTarball = $dirsToExcludeForLinuxNoCpanTarball . " /Bin/ /HTML/! /Firmware/ /MySQL/ Graphics/CODE2000* Plugin/DateTime DigitalInput iTunes LineIn LineOut MusicMagic RSSNews Rescan SavePlaylist SlimTris Snow Plugin/TT/ Visualizer xPL";
 my $dirsToIncludeForLinuxNoCpanLightTarball = "EN.*html/images CPAN/HTML";
 my $dirsToExcludeForMacOSX = "5.14 5.20 5.22 5.24 5.26 5.28 5.30 5.32 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi MSWin32 i86pc-solaris-thread-multi-64int arm-linux armhf-linux powerpc-linux sparc-linux aarch64-linux";
-my $dirsToExcludeForWin32 = "5.8 5.10 5.12 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5.32 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux powerpc-linux aarch64-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/ReadyNAS.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat icudt46l.dat icudt58b.dat icudt58l.dat";
-my $dirsToExcludeForReadyNasi386 = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu x86_64 darwin-thread-multi darwin darwin-x86_64 MSWin32-x86 i86pc-solaris-thread-multi-64int arm-linux armhf-linux powerpc-linux aarch64-linux 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5.32 PreventStandby icudt46b.dat icudt58b.dat icudt58l.dat";
-my $dirsToExcludeForReadyNasSparc = "i386-freebsd-64int i386 x86_64 darwin-thread-multi darwin darwin-x86_64 arm-linux armhf-linux MSWin32-x86 i86pc-solaris-thread-multi-64int powerpc-linux aarch64-linux 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5.32 PreventStandby icudt46l.dat icudt58b.dat icudt58l.dat CGI/Util.pm";
-my $dirsToExcludeForReadyNasARM = "i386-freebsd-64int sparc-linux sparc-unknown-linux-gnu armhf-linux i386 x86_64 darwin-thread-multi i86pc-solaris-thread-multi-64int darwin darwin-x86_64 MSWin32-x86 powerpc-linux aarch64-linux 5.8 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5.32 PreventStandby icudt46b.dat icudt58l.dat icudt58b.dat";
+my $dirsToExcludeForWin32 = "5.10 5.12 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5.32 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux powerpc-linux aarch64-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat icudt46l.dat icudt58b.dat icudt58l.dat";
 
 # for Docker we provide x86_64 and armhf for Perl 5.24 (Debian Stretch) only
-my $dirsToExcludeForDocker = "MSWin32-x86-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat 5.8 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.26 5.28 5.30 5.32";
+my $dirsToExcludeForDocker = "MSWin32-x86-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.26 5.28 5.30 5.32";
 
 ## Initialize some variables we'll use later
 my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $i386, $releaseType, $release, $archType);
@@ -113,20 +110,13 @@ sub checkCommandOptions {
 		exit(0);
 	}
 
-	if ($build =~ /^tarball|docker|readynasv2|debian|rpm|macosx|win32$/) {
+	if ($build =~ /^tarball|docker|debian|rpm|macosx|win32$/) {
 		## releaseType is an option, but if its not there, we need
 		## to default it to 'nightly'
 		if (!$releaseType) {
 			$releaseType = "$defaultReleaseType";
 		} elsif ( $releaseType ne "nightly" && $releaseType ne "release" ) {
 			print "INFO: \$releaseType passed in is incorrect. Please use either \'nightly\' or \'release\'.\n";
-		}
-
-		## make sure that IF its a readynas package, they picked an architecture
-		if ($build eq "readynasv2" && !$archType) {
-			print "INFO: Please define an architecture.\n";
-			showUsage();
-			exit 1;
 		}
 
 		## If they passed in all the options, lets go forward...
@@ -303,10 +293,6 @@ sub doCommandOptions {
 	} elsif ($build eq "docker") {
 		buildDockerImage();
 
-	} elsif ($build eq "readynasv2") {
-		## Next, we'll build the ReadyNAS add-in...
-		buildReadyNasV2();
-
 	} elsif ($build eq "debian") {
 		## Build a Debian Package
 		buildDebian();
@@ -412,17 +398,6 @@ sub showUsage {
 	print "    --arm (optional)             - Build a package with only ARM Linux binaries\n";
 	print "    --x86_64 (optional)          - Build a package with only x86_64 Linux binaries\n";
 	print "    --i386 (optional)            - Build a package with only i386 Linux binaries\n";
-	print "\n";
-	print "--- Building a ReadyNas Add-On\n";
-	print "    --build readynasv2 <required opts below>\n";
-	print "    --buildDir <dir>             - The directory to do temporary work in\n";
-	print "    --sourceDir <dir>            - The location of the source code repository\n";
-	print "                                   that you've checked out from Git\n";
-	print "    --destDir <dir>              - The destination you'd like your files \n";
-	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
-	print "        (optional)                 or you're building a nightly-style package\n";
-	print "    --archType <arm/i386/sparc>  - Pick the right architecture because \n";
-	print "                                   ONLY the libraries for that ARCH will be included\n";
 	print "\n";
 	print "--- Building a Mac OSX Package\n";
 	print "    --build macosx <required opts below>\n";
@@ -637,94 +612,6 @@ sub buildDebian {
 
 }
 
-
-##############################################################################################
-## Build the ReadyNas Add-On based on the second generation add-on packager 			    ##
-##############################################################################################
-sub buildReadyNasV2 {
-	print "INFO: Building package for ReadyNas Add-On... \n";
-
-	$archType ||= 'arm';
-	my $target_arch = '';
-
-	## Check if a specific architecture was selected ...
-	my $dirsToExcludeForReadyNas;
-	if ($archType eq "i386") {
-		## Since i386 was selected, lets make sure to remove sparc libs
-		print "INFO: \$archType was provided as [$archType], removing ls other files...\n";
-		$dirsToExcludeForReadyNas = $dirsToExcludeForReadyNasi386;
-		$target_arch = 'TARGET_MACHTYPE=i386';
-
-	} elsif ($archType =~ /arm/) {
-		## Since i386 was selected, lets make sure to remove sparc libs
-		print "INFO: \$archType was provided as [$archType], removing other files...\n";
-		$dirsToExcludeForReadyNas = $dirsToExcludeForReadyNasARM;
-		$target_arch = 'TARGET_MACHTYPE=arm';
-
-	} elsif ($archType =~ /sparc/) {
-		## In this case, we remove all the i386 libs
-		print "INFO: \$archType was provided as [$archType], removing other files...\n";
-		$dirsToExcludeForReadyNas = $dirsToExcludeForReadyNasSparc;
-
-		## use sparc specific custom-convert.conf to disable transcoding to flac
-		copy("$sourceDir/platforms/readynas/custom-convert.sparc", "$buildDir/server/custom-convert.conf");
-		$target_arch = 'TARGET_MACHTYPE=sparc';
-
-	} else {
-		## Fail if no architecture was specified...
-		die("No valid archType was specified. I got [$archType] submitted, but did not recognize it.");
-	}
-
-	## First, lets make sure we get rid of the files we don't need for this install
-	my @dirsToExclude = split(/ /, $dirsToExcludeForReadyNas);
-	my $n = 0;
-	while ($dirsToExclude[$n]) {
-		print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
-		system("find $buildDir | grep -i $dirsToExclude[$n] | xargs rm -rf ");
-		$n++;
-	}
-
-	my $baseDir = "$buildDir/platforms/readynas";
-	my $workDir = "$baseDir/addons_sdk/SQUEEZEBOX/files";
-	my $share   = "$workDir/usr/share/squeezeboxserver";
-	my $varlib  = "$workDir/c/.squeezeboxserver";
-
-	print "INFO: Preparing add-on build environment...\n";
-	system("mv $baseDir/addon_template $baseDir/addons_sdk/SQUEEZEBOX");
-
-	system("install -d -m0755 $workDir/usr/share/perl5/ && install -d -m0755 $share/ && install -d -m0755 $workDir/usr/share/doc/squeezeboxserver/");
-	system("install -d -m0755 $workDir/etc/squeezeboxserver/ && install -d -m0755 $varlib/cache && install -d -m0755 $varlib/log && install -d -m0755 $varlib/prefs");
-
-	system("install -m0755 $buildDir/server/slimserver.pl $workDir/usr/sbin/squeezeboxserver && install -m0755 $buildDir/server/scanner.pl $workDir/usr/sbin/squeezeboxserver-scanner");
-
-	# unfortunately GIT can't handle empty folders - let's create them here
-	system("install -d -m0755 $workDir/etc/frontview/addons/bin/SQUEEZEBOX $workDir/etc/frontview/apache/addons");
-
-	system("mv $buildDir/server/Slim $workDir/usr/share/perl5/; mv $buildDir/server/cleanup.pl $share/");
-	system("mv $buildDir/server/CPAN/* $share/CPAN/; mv $buildDir/server/lib $buildDir/server/Firmware $buildDir/server/Graphics $buildDir/server/HTML $share/");
-	system("mv $buildDir/server/IR $buildDir/server/SQL $buildDir/server/strings.txt $buildDir/server/icudt46*.dat $buildDir/server/Bin $share/");
-	system("cp -r $baseDir/addons_sdk/SQUEEZEBOX/language $workDir/etc/frontview/addons/ui/SQUEEZEBOX/");
-
-	system("mv $buildDir/server/*.conf $workDir/etc/squeezeboxserver");
-
-	system("install -d -m0755 $varlib/Plugins");
-
-	system("mv $buildDir/server/Change* $workDir/usr/share/doc/squeezeboxserver/ && mv $buildDir/$revisionTextFile $share");
-
-	## Build the addon now
-	print "INFO: Executing build_addon...\n";
-	system("cd $baseDir/addons_sdk/SQUEEZEBOX; $target_arch ../bin/build_addon");
-
-	## Move the final addon into place
-	$destName .= "-$archType-readynas.bin";
-
-	if ($releaseType eq "release") {
-		$destName =~ s/-\d{5,}-/-/;
-	}
-
-	print "INFO: Moving the final addon into [$destDir] - $destName\n";
-	system("mv $baseDir/addons_sdk/SQUEEZEBOX/*.bin $destDir/$destName");
-}
 
 ##############################################################################################
 ## Build the Mac OSX Installer Package
