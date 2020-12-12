@@ -12,12 +12,14 @@ use File::Spec::Functions qw(:ALL);
 use Getopt::Long;
 use POSIX qw(strftime);
 
+use constant DESTDIR_NOT_REQUIRED => '[not required]';
+
 ## Here we set some basic settings.. most of these dont need to change very often.
 my $squeezeCenterStartupScript = "server/slimserver.pl";
 my $sourceDirsToExclude = ".svn .git .github t tests slimp3 squeezebox /softsqueeze tools ext/source ext-all-debug.js build";
 my $revisionTextFile = "server/revision.txt";
 my $revision;
-my $myVersion = "0.1.0";
+my $myVersion = "1.1.0";
 my $defaultDestName = "logitechmediaserver";
 my $defaultReleaseType = "nightly";
 
@@ -116,6 +118,10 @@ sub checkCommandOptions {
 		} elsif ( $releaseType ne "nightly" && $releaseType ne "release" ) {
 			print "INFO: \$releaseType passed in is incorrect. Please use either \'nightly\' or \'release\'.\n";
 		}
+		
+		if ($build eq 'docker') {
+			$destDir = DESTDIR_NOT_REQUIRED;
+		}
 
 		## make sure that IF its a readynas package, they picked an architecture
 		if ($build eq "readynasv2" && !$archType) {
@@ -204,7 +210,10 @@ sub setupDirectories {
 	## Finally, create the destination directory, if it doesnt exist. We don't care if
 	## it exists already, because someone might want to put this into a more generic
 	## directory that has other files in it.
-	if (!-d $destDir) {
+	if ($destDir eq DESTDIR_NOT_REQUIRED) {
+		print "INFO: Dest Directory is not required, not creating...\n";
+	}
+	elsif (!-d $destDir) {
 		mkpath($destDir) or die "Problem: couldn't make $destDir!\n";
 		print "INFO: Dest Directory ($destDir) was created...\n";
 	} else {
@@ -382,7 +391,6 @@ sub showUsage {
 	print "    --buildDir <dir>             - The directory to do temporary work in\n";
 	print "    --sourceDir <dir>            - The location of the source code repository\n";
 	print "                                   that you've checked out from Git\n";
-	print "    --destDir <dir>              - The destination you'd like your files \n";
 	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
 	print "        (optional)                 or you're building a nightly-style package\n";
 	print "\n";
@@ -478,7 +486,7 @@ sub buildDockerImage {
 	
 	my @tags = $releaseType eq "release"
 		? ("stable", "$version", "$version-stable")
-		: ("latest", "$version-dev");
+		: ("$version-dev");
 		
 	my $tags = join(' ', map {
 		"--tag lmscommunity/logitechmediaserver:$_";
