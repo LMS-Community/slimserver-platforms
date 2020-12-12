@@ -43,7 +43,7 @@ my $dirsToExcludeForWin32 = "5.10 5.12 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5
 my $dirsToExcludeForDocker = "MSWin32-x86-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.26 5.28 5.30 5.32";
 
 ## Initialize some variables we'll use later
-my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $i386, $releaseType, $release, $archType);
+my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $i386, $releaseType, $release);
 
 ## Generate a random number... used for a single instance wherever we need a temp file.
 my $range = 10000;
@@ -94,10 +94,7 @@ sub checkCommandOptions {
 			'ppc'           => \$ppc,
 			'light'         => \$light,
 			'releaseType=s' => \$releaseType,
-			'archType=s'    => \$archType,
 			'fakeRoot'      => \$fakeRoot);
-
-
 
 	if ( !$build ) {
 		showUsage();
@@ -176,9 +173,6 @@ sub printOptions {
 	print "INFO: \$version		-> $version\n";
 	print "INFO: \$squeezeCenterStartupScript	-> $sourceDir/$squeezeCenterStartupScript\n";
 	print "INFO: \$releaseType	-> $releaseType\n";
-	if ($archType) {
-		print "INFO: \$archType		-> $archType\n";
-	}
 }
 
 ##############################################################################################
