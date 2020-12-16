@@ -8,7 +8,7 @@ Run:
 docker run -it \
       -v "<somewhere>":"/config":rw \
       -v "<somewhere>":"/music":ro \
-      -v "<somewhere>":"/playlist":ro \
+      -v "<somewhere>":"/playlist":rw \
       -v "/etc/localtime":"/etc/localtime":ro \
       -v "/etc/timezone":"/etc/timezone":ro \
       -p 9000:9000/tcp \
@@ -28,7 +28,7 @@ services:
     volumes:
       - /<somewhere>:/config:rw
       - /<somewhere>:/music:ro
-      - /<somewhere>:/playlist:ro
+      - /<somewhere>:/playlist:rw
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
     ports:
