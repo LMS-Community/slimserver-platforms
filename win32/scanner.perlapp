@@ -19,6 +19,7 @@ Add: Slim::Formats::Movie
 Add: Slim::Formats::MP3
 Add: Slim::Formats::Musepack
 Add: Slim::Formats::Ogg
+Add: Slim::Formats::OggOpus
 Add: Slim::Formats::Playlists
 Add: Slim::Formats::Playlists::ASX
 Add: Slim::Formats::Playlists::Base
