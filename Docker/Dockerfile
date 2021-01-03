@@ -1,5 +1,5 @@
 #Base image
-FROM debian:9-slim
+FROM debian:bullseye-20201209-slim
 
 # Set environment variables
 ENV DEBIAN_FRONTEND noninteractive
