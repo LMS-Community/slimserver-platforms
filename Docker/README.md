@@ -18,6 +18,23 @@ docker run -it \
       lmscommunity/logitechmediaserver
 ```
 
+Please note that the http port always has to be a 1:1 mapping. You can't do just map it like `-p 9002:9000`, as Logitech Media Server is telling players on which port to connect. Therefore if you have to use a different http port for LMS (other than 9000) you'll have to set the `HTTP_PORT` environment variable, too:
+
+```
+docker run -it \
+      -v "<somewhere>":"/config":rw \
+      -v "<somewhere>":"/music":ro \
+      -v "<somewhere>":"/playlist":rw \
+      -v "/etc/localtime":"/etc/localtime":ro \
+      -v "/etc/timezone":"/etc/timezone":ro \
+      -p 9002:9002/tcp \
+      -p 9090:9090/tcp \
+      -p 3483:3483/tcp \
+      -p 3483:3483/udp \
+      -e HTTP_PORT=9002 \
+      lmscommunity/logitechmediaserver
+```
+
 Docker compose:
 ```
 version: '3'
