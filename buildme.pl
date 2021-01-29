@@ -45,7 +45,7 @@ my $dirsToExcludeForWin32 = "5.10 5.12 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5
 my $dirsToExcludeForDocker = "MSWin32-x86-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30";
 
 ## Initialize some variables we'll use later
-my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $i386, $releaseType, $release);
+my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $i386, $releaseType, $release, $tag);
 
 ## Generate a random number... used for a single instance wherever we need a temp file.
 my $range = 10000;
@@ -96,6 +96,7 @@ sub checkCommandOptions {
 			'ppc'           => \$ppc,
 			'light'         => \$light,
 			'releaseType=s' => \$releaseType,
+			'tag=s'         => \$tag,
 			'fakeRoot'      => \$fakeRoot);
 
 	if ( !$build ) {
@@ -378,6 +379,7 @@ sub showUsage {
 	print "                                   that you've checked out from Git\n";
 	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
 	print "        (optional)                 or you're building a nightly-style package\n";
+	print "    --tag <tag>                  - additional tag for the Docker image\n";
 	print "\n";
 	print "--- Building an RPM package\n";
 	print "    --build rpm <required opts below>\n";
@@ -458,9 +460,9 @@ sub buildDockerImage {
 	print "INFO: Building Docker image with source from $workDir...\n";
 	system("cp $dockerDir/.dockerignore $dockerDir/* $workDir");
 	
-	my @tags = $releaseType eq "release"
-		? ("stable", "$version", "$version-stable")
-		: ("$version-dev");
+	my @tags = ("$version");
+	$tag ||= "latest" if $releaseType eq "release";
+	push @tags, $tag if $tag;
 		
 	my $tags = join(' ', map {
 		"--tag lmscommunity/logitechmediaserver:$_";
