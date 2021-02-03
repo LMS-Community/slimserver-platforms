@@ -12,7 +12,7 @@ source=$(CURDIR)/../server
 
 # main packaging script based on dh7 syntax
 %:
-	dh $@ 
+	dh $@ --with=systemd
 
 # Overrides for variances within Logitech Media Server file locations
 override_dh_perl:
