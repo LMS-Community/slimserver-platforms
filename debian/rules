@@ -12,7 +12,16 @@ source=$(CURDIR)/../server
 
 # main packaging script based on dh7 syntax
 %:
-	dh $@ 
+	dh $@ --with=systemd
+
+# Be nice to older systems (Debian version <= 7) by removing an 'init-system-helpers'
+# package dependency if it has been generated. These systems cannot satisfy the
+# dependency, and the LMS package cannot be easily installed if it is left in place.
+# (debhelper <= 11 may add the dependency.)
+# LMS will install successfully with or without this package.
+override_dh_gencontrol:
+	dh_gencontrol
+	sed -i '/^Depends/s/init-system-helpers[^,]*,\s*//' ${base}/DEBIAN/control
 
 # Overrides for variances within Logitech Media Server file locations
 override_dh_perl:

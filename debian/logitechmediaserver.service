@@ -1,0 +1,174 @@
+#=======================================================================
+# Unit section
+#=======================================================================
+
+[Unit]
+
+Description=Logitech Media Server
+
+# Ensures LMS is shutdown before network. And that the network service
+# has at least been started.
+
+After=network.target
+
+# Make LMS wait for network-online.target (if it gets started).
+# See notes below.
+
+After=network-online.target
+
+#-----------------------------------------------------------------------
+# Some notes on networking targets:
+#-----------------------------------------------------------------------
+
+# We leave it to the user to specify 'Wants=network-online.target' if he
+# chooses, because it may not suit all users. But we specify
+# 'After=network-online.target' because the SysV init script has
+# essentially behaved that way by virtue of the 'Required-Start: $all'
+# stanza included within it.
+# This is also the approach taken in Debian's & Ubuntu's implementation
+# of 'rc.local.service'.
+#
+# On systemd >= 217, user might execute:
+#   'systemctl add-wants logitechmediaserver.service network-online.target'
+#
+# The effects of the 'After' and 'Wants' 'network-online' stanzas are
+# very system dependent. They may or may not ensure that LMS starts up
+# after network connections have been established, and they may or may
+# not cause a delay in LMS start up.
+#
+# 'After=network-online.target' schedules LMS to start after the network
+# is fully up, whatever that may mean. But it is only effective if the
+# 'network-online.target' is active and, even then, it is only effective
+# if the user's system has been, or can be, configured to wait
+# appropriately for network connections to be established before
+# reaching this target.
+#
+# 'Wants=network-online.target' would activate (pull in) that target.
+#
+
+#=======================================================================
+# Service section
+#=======================================================================
+
+[Service]
+
+#-----------------------------------------------------------------------
+# Set run time variables, essentially replicating the SysV init script.
+#-----------------------------------------------------------------------
+
+# Use of '/etc/default/logitechmediaserver' to set run time variables
+# is supported, for consistency with the init script.
+# But setting 'SLIMUSER' is not supported. This unit file will always
+# start LMS as user 'squeezeboxserver'.
+# The user may override that, the methods available depend on the
+# installed version of systemd.
+
+# Note one consequence of this approach: LMS can now see environment
+# variables that correspond to the defined run time variables, should it
+# choose to look (it doesn't at present). This behaviour is an artefact
+# of the approach adopted by this unit file and may well change. It
+# should not be relied upon in any way.
+
+# Set PATH - same value as set by SysV init script.
+
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin"
+
+# Default run time settings. These are used as arguments to LMS when it
+# is launched.
+
+Environment="LOGDIR=/var/log/squeezeboxserver/"
+Environment="PREFSDIR=/var/lib/squeezeboxserver/prefs"
+Environment="CACHEDIR=/var/lib/squeezeboxserver/cache"
+Environment="CHARSET=utf8"
+
+# Supplementary run time settings may be defined in
+# '/etc/default/logitechmediaserver'. Entries made here would override
+# the defaults defined above.
+
+EnvironmentFile=-/etc/default/logitechmediaserver
+
+#
+# If you want to add additional options use
+#    /usr/sbin/squeezeboxserver --help
+# for the supported options and place them into the file:
+#    /etc/default/logitechmediaserver.
+# For example:
+#    SLIMOPTIONS="--failsafe --nomysqueezebox"
+#
+
+#-----------------------------------------------------------------------
+# Set up user and logging.
+#-----------------------------------------------------------------------
+
+# Remark: User can't be parameterized in a unit file. We could choose to
+# run LMS as root, and pass the USER option to it. But that adds
+# unnecessary risk.
+
+User=squeezeboxserver
+Group=nogroup
+
+# LMS will fail to start if a writeable log directory does not exist and
+# it cannot create it. This can easily happen where '/var/log' is
+# mounted on a temporary file system and requires root permissions to
+# create.
+# This stanza instructs systemd to create the standard directory
+# '/var/log/squeezeboxserver' if it does not exist, with appropriate
+# permissions and ownership.
+# The user may specify a different directory by setting the 'LOGDIR'
+# run time variable, but it is then his responsibility to ensure that
+# it exists and is writeable.
+# Note: Only effective in systemd >= 235. Earlier releases will see
+# harmless 'Unknown lvalue' messages logged.
+
+LogsDirectory=squeezeboxserver
+LogsDirectoryMode=0755
+
+#-----------------------------------------------------------------------
+# Execution start
+#-----------------------------------------------------------------------
+
+# We want LMS to handle SIGPIPE, as it can help terminate misbehaving
+# transcoder pipelines.
+
+IgnoreSIGPIPE=no
+
+# LMS is stable. So we don't want systemd to restart it if it fails.
+# That just obscures errors.
+
+Restart=no
+
+# We do not instruct LMS to daemonize with the '--daemon' option,
+# systemd prefers that we don't. We need 'Type=simple', or 'Type=exec'.
+
+# Type currently defaults to 'simple', but may usefully default to
+# 'exec' in future ('exec' available in systemd >= 240). So left unset.
+
+#Type=simple
+
+ExecStart=/usr/sbin/squeezeboxserver --prefsdir $PREFSDIR --logdir $LOGDIR --cachedir $CACHEDIR --charset $CHARSET $SLIMOPTIONS
+
+#-----------------------------------------------------------------------
+# Execution termination
+#-----------------------------------------------------------------------
+
+KillMode=control-group
+KillSignal=SIGTERM
+
+# Never send HUP, LMS uses this to reinitialize cache, etc.
+SendSIGHUP=no
+
+# Same timeout as SysV init script. We definitely want to send that
+# final SIGKILL.
+TimeoutStopSec=30
+SendSIGKILL=Yes
+
+#=======================================================================
+# Install section
+#=======================================================================
+
+[Install]
+# Directly equivalent to run levels 2,3,4.
+# Also run level 5, 'graphical.target', because that pulls in
+# 'multi-user.target'.
+
+WantedBy=multi-user.target
