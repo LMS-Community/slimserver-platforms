@@ -46,7 +46,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Vendor:		Logitech
 
 
-Requires:	perl >= 5.8.8
+Requires:	perl >= 5.10.0
 Obsoletes:	squeezeboxserver, squeezecenter, slimserver, SliMP3
 AutoReqProv:	no
 
