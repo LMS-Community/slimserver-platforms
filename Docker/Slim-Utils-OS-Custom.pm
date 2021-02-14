@@ -62,6 +62,35 @@ sub ignoredItems {
 		'tmp'          => '/',
 		'usr'          => '/',
 		'var'          => '/',
+		# Docker has become popular on Synology... add some of the Synology specific exceptions:
+		'@AntiVirus'   => 1,
+		'@appstore'    => 1,   # Synology package manager
+		'@autoupdate'  => 1,
+		'@clamav'      => 1,
+		'@cloudsync'   => 1,
+		'@database'    => 1,   # databases store
+		'@download'    => 1,
+		'@eaDir'       => 1,   # media indexer meta data
+		'@img_bkp_cache' => 1,
+		'@maillog'     => 1,
+		'@MailScanner' => 1,
+		'@optware'     => 1,   # NSLU2-Linux Optware system
+		'@postfix'     => 1,
+		'@quarantine'  => 1,
+		'@S2S'         => 1,
+		'@sharesnap'   => 1,
+		'@spool'       => 1,   # mail/print/.. spool
+		'@SynoFinder-log'             => 1,
+		'@synodlvolumeche.core'       => 1,
+		'@SynologyApplicationService' => 1,
+		'@synologydrive'              => 1,
+		'@SynologyDriveShareSync'     => 1,
+		'@synopkg'     => 1,
+		'@synovideostation'           => 1,
+		'@tmp'         => 1,   # system temporary files
+		'upd@te'       => 1,   # firmware update temporary directory
+		'#recycle'     => 1,
+		'#snapshot'    => 1,
 	);
 }
 
