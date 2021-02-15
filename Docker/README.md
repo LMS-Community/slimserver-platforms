@@ -61,10 +61,15 @@ For run add:
 ```
   -e PUID=1000 \
   -e PGID=1000
- ```
+```
 For compose add:
 ```
 environment:
   - PUID=1000
   - PGID=1000
- ```
+```
+
+## Some system specific notes
+### Docker on Synology
+* use `/etc/TZ` instead of `/etc/timezone`
+* you'll likely have to use another port than 9000. Synology traditionally used port 9002 to run Logitech Media Server on. See above note about mapping ports to make sure this is working as expected!
