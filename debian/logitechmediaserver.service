@@ -53,10 +53,10 @@ After=network-online.target
 [Service]
 
 #-----------------------------------------------------------------------
-# Set run time variables, essentially replicating the SysV init script.
+# Set start up parameters, essentially replicating the SysV init script.
 #-----------------------------------------------------------------------
 
-# Use of '/etc/default/logitechmediaserver' to set run time variables
+# Use of '/etc/default/logitechmediaserver' to set start up parameters
 # is supported, for consistency with the init script.
 # But setting 'SLIMUSER' is not supported. This unit file will always
 # start LMS as user 'squeezeboxserver'.
@@ -64,10 +64,10 @@ After=network-online.target
 # installed version of systemd.
 
 # Note one consequence of this approach: LMS can now see environment
-# variables that correspond to the defined run time variables, should it
-# choose to look (it doesn't at present). This behaviour is an artefact
-# of the approach adopted by this unit file and may well change. It
-# should not be relied upon in any way.
+# variables that correspond to the start up parameters, should it choose
+# to look (it doesn't at present). This behaviour is an artefact of the
+# approach adopted by this unit file and may well change. It should not
+# be relied upon in any way.
 
 # Set PATH - same value as set by SysV init script.
 
@@ -105,7 +105,6 @@ EnvironmentFile=-/etc/default/logitechmediaserver
 # unnecessary risk.
 
 User=squeezeboxserver
-Group=nogroup
 
 # LMS will fail to start if a writeable log directory does not exist and
 # it cannot create it. This can easily happen where '/var/log' is
