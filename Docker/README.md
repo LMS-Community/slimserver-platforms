@@ -78,6 +78,10 @@ environment:
 ```
 
 ## Some system specific notes
+
+### How to manually install plugins
+If you're a developer you might want to install plugins manually, before they are available through LMS' built-in plugin manager. In order to do so, put them inside `[config folder]/Cache/Plugins`, then restart LMS. They should be available in thereafter.
+
 ### Docker on Synology
 * use `/etc/TZ` instead of `/etc/timezone`
 * you'll likely have to use another port than 9000. Synology traditionally used port 9002 to run Logitech Media Server on. See above note about mapping ports to make sure this is working as expected!
