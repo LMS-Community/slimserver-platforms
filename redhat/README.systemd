@@ -1,0 +1,69 @@
+* BACKGROUND
+
+The fedora, RedHat, CentOS and SUSE distributions have changed the
+start-up system to systemd from SYSV. The distributions offer
+some backwards compatibility, but in the long run it is better
+to migrate the squeezeboxsserver to use a systemd unit file for
+start-up. Systemd is the future, whatever we might think about it.
+
+* More information
+
+Please read the man pages
+
+systemd.unit
+systemd.service
+
+for in depth information on how the systemd units work.
+
+* Stop/Start/Check status of squeezeboxserver
+
+sudo systemctl start squeezeboxserver
+sudo systemctl stop squeezeboxserver
+systemctl status squeezeboxserver
+sudo systemctl restart squeezeboxserver
+
+* The user running squeezeboxserver
+
+Due to the way systemd unit files work it has been deemed better not to 
+allow setting of the user id running squeezeboxserver in the
+/etc/sysconfig/squeezeboxserver file. To change the user running squeezeboxserver,
+please create a so called drop-in file in the directory:
+
+/etc/systemd/system/squeezeboxserver.service.d
+
+(you will have to create the directory). The file can be called anything, but
+it needs the string .conf at the end, e.g. 
+
+mysqueezeuser.conf
+
+The content of the file should be (without the dashed lines)
+
+-----------------------------------------------
+
+[Unit]
+
+USER=add-the-user-id-you-want-to-use-here
+
+-----------------------------------------------
+
+* Passing extra arguments to the squeezeboxserver
+
+The way the variable SQUEEZEBOX_ARGS is defined in /etc/sysconfig/squeezeboxserver
+makes it unusable in the systemd unit. If you have added parameters to this 
+variable in the file and you want to keep them, then you must instead add them 
+to the new variable SQUEEZEBOX_ADDITIONAL_ARGS. You can do this just by adding 
+the following in the /etc/sysconfig/squeezeboxserver file (without the dashed line)
+
+------------------------------------------------
+
+SQUEEZEBOX_ADDITIONAL_ARGS="--checkstrings --nomysqueezebox"
+
+------------------------------------------------
+
+***PLEASE NOTE***
+You can't use nested variables like in the past for SQUEEZEBOX_ARGS.
+
+An alternative is to create a drop-in file for systemd as described here above for the 
+USER. You can of course use the same drop-in file, just add an line like this
+
+Environment="SQUEEZEBOX_ADDITIONAL_ARGS=--checkstring --nomysqueezebox"
