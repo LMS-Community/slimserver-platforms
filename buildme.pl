@@ -533,6 +533,8 @@ sub buildRPM {
         copy("$buildDir/platforms/redhat/squeezeboxserver.config", "$buildDir/rpm/SOURCES");
         copy("$buildDir/platforms/redhat/squeezeboxserver.init", "$buildDir/rpm/SOURCES");
         copy("$buildDir/platforms/redhat/squeezeboxserver.logrotate", "$buildDir/rpm/SOURCES");
+        copy("$buildDir/platforms/redhat/squeezeboxserver.service", "$buildDir/rpm/SOURCES");
+        copy("$buildDir/platforms/redhat/README.systemd", "$buildDir/rpm/SOURCES");
         copy("$buildDir/platforms/redhat/squeezeboxserver.spec", "$buildDir/rpm/SPECS");
 
 	## Just check, if this is a 'nightly' build, pass on 'trunk' to the rpmbuild command
