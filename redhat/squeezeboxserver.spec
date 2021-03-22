@@ -42,6 +42,8 @@ Source0:	%{src_basename}.tgz
 Source1:	squeezeboxserver.config
 Source2:	squeezeboxserver.init
 Source3:	squeezeboxserver.logrotate
+Source4:	squeezeboxserver.service
+Source5:	README.systemd
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Vendor:		Logitech
 
@@ -121,8 +123,10 @@ ln -s %{_var}/lib/squeezeboxserver/Plugins \
 
 # Install init, configuration and log files
 install -Dp -m755 %SOURCE1 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/squeezeboxserver
-install -Dp -m755 %SOURCE2 $RPM_BUILD_ROOT%{_sysconfdir}/init.d/squeezeboxserver
+install -Dp -m755 %SOURCE2 $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver/squeezeboxserver.SYSV
 install -Dp -m644 %SOURCE3 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/squeezeboxserver
+install -Dp -m644 %SOURCE4 $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver/squeezeboxserver.service
+install -Dp -m644 %SOURCE5 $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver/README.systemd
 touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/server.prefs
 touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/log.conf
 cp -p convert.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezeboxserver
@@ -153,24 +157,53 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %pre
+#set -x
 getent group squeezeboxserver >/dev/null || groupadd -r squeezeboxserver
 getent passwd squeezeboxserver >/dev/null || \
 useradd -r -g squeezeboxserver -d %{_datadir}/squeezeboxserver -s /sbin/nologin \
     -c "Logitech Media Server" squeezeboxserver
+
 exit 0
 
 
 %post
-# The following commands will extract mysql port and cachedir from the prefs file
-# I'm not sure if that's the right thing to do so have left them disabled for now
-#MYSQLPORT=`perl -ne  'if (/^dbsource:.*port=(\d+)[^\d]*/) {print "$1"}'  /etc/squeezeboxserver/server.prefs`
-#[ -z "$MYSQLPORT" ] && MYSQLPORT=9092
-#CACHEDIR=`awk '/^cachedir/ {print $2}' /etc/squeezeboxserver/server.prefs`
-#[ -z "$CACHEDIR" ] && CACHEDIR=9092
-MYSQLPORT=9092
-CACHEDIR=%{_var}/lib/squeezeboxserver/cache
-if [ -f /etc/redhat-release ] ; then
+function parseSysconfigSqueezeboxserver {
+
+	# Some simple checks on the /etc/sysconfig/squeezeboxserver
+	# No guarantees that these checks will catch all changes that may have 
+	# been made that might have an impact on the move to systemd
+	. %{_sysconfdir}/sysconfig/squeezeboxserver
+	if [ "$SQUEEZEBOX_USER" != "squeezeboxserver" ] ; then
+		echo "################################################################################"
+		echo "You seem to have changed the user id used to run squeezeboxserver."
+		echo "Please read %{_datadir}/squeezeboxserver/README.systemd to find out"
+		echo "how transfer this change to the new systemd set-up."
+	fi
+
+	# Check if any additions to the SQUEEZEBOX_ARGS variable have been made.
+	# Do that by filter out the ones we know should be there.
+	extra=`echo $SQUEEZEBOX_ARGS |tr " " "\n"|grep -v -E "(--daemon|--prefsdir|--logdir|--cachedir|--charset)"` || :
+	if [ -n "$extra" ] ; then
+		echo "################################################################################"
+		echo "You seem to have changed the SQUEEZEBOX_ARGS variable in %{_sysconfdir}/sysconfig/squeezeboxserver."
+		echo "Please read %{_datadir}/squeezeboxserver/README.systemd to find out"
+                echo "how transfer this change to the new systemd set-up."
+	fi
+}
+
+function setSelinux {
+
+	# The following commands will extract mysql port and cachedir from the prefs file
+	# I'm not sure if that's the right thing to do so have left them disabled for now
+	#MYSQLPORT=`perl -ne  'if (/^dbsource:.*port=(\d+)[^\d]*/) {print "$1"}'  /etc/squeezeboxserver/server.prefs`
+	#[ -z "$MYSQLPORT" ] && MYSQLPORT=9092
+	#CACHEDIR=`awk '/^cachedir/ {print $2}' /etc/squeezeboxserver/server.prefs`
+	#[ -z "$CACHEDIR" ] && CACHEDIR=9092
+	MYSQLPORT=9092
+	CACHEDIR=%{_var}/lib/squeezeboxserver/cache
+
 	# Add SELinux contexts
+	# We need this irrespective of whether it is a systemd or SYSV server.
 	if [ -x /usr/sbin/selinuxenabled ] ; then
 		if /usr/sbin/selinuxenabled ; then
 			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage port -a -t mysqld_port_t -p tcp ${MYSQLPORT} > /dev/null 2>&1
@@ -179,54 +212,168 @@ if [ -f /etc/redhat-release ] ; then
 			/sbin/restorecon -R ${CACHEDIR}
 		fi
 	fi
-	/sbin/chkconfig --add squeezeboxserver
+}
+
+function setSYSV {
+
+	# This is a SYSV server. Copy SYSV script to the correct place.
+	cp -p %{_datadir}/squeezeboxserver/squeezeboxserver.SYSV %{_sysconfdir}/init.d/squeezeboxserver
+        
+	#SME Server uses runlevel 7
 	if [ -f /etc/e-smith-release -a -d /etc/rc7.d ] ; then
-		#SME Server uses runlevel 7
-		ln -s /etc/init.d/squeezeboxserver /etc/rc7.d/S80squeezeboxserver
+		ln -sf %{_sysconfdir}/init.d/squeezeboxserver /etc/rc7.d/S80squeezeboxserver
 		db configuration set squeezeboxserver service status enabled
 	fi
+	/sbin/chkconfig --add squeezeboxserver >/dev/null 2>&1 || :
 	/sbin/service squeezeboxserver restart >/dev/null 2>&1 || :
-elif [ -f /etc/SuSE-release ] ; then
-	# Suse is expecting us in local_perl?
-	ln -s %{_usr}/lib/perl5/vendor_perl/Slim %{_usr}/lib/perl5/site_perl/Slim
+}
 
-	/usr/lib/lsb/install_initd /etc/init.d/squeezeboxserver
-	/etc/init.d/squeezeboxserver restart  > /dev/null 2>&1
+function setSystemd {
+
+	# systemd
+	#
+	# I believe the latest version of SME Server still use SYSV,
+	# any future releases will probably not use SYSV, here I will
+	# just assume that they will use systemd in the standard way
+	#(is there any other way?)
+
+	if [ -n "$migrate" ] ; then
+		# If we currently are running through a SYSV script. First stop 
+ 		/sbin/service squeezeboxserver stop >/dev/null 2>&1 || :
+		/sbin/chkconfig --del squeezeboxserver >/dev/null 2>&1 || :
+		# We should not remove the old SYSV init file. The RPM
+		# package will take care of this when we do an upgrade.
+	fi
+	cp -p %{_datadir}/squeezeboxserver/squeezeboxserver.service /usr/lib/systemd/system/squeezeboxserver.service || :
+	/usr/bin/systemctl daemon-reload >/dev/null 2>&1 || :
+        /usr/bin/systemctl enable  squeezeboxserver.service >/dev/null 2>&1 || :
+        /usr/bin/systemctl restart squeezeboxserver.service >/dev/null 2>&1 || :
+}
+
+#set -x
+# Source /etc/os-release to find out what kind of system we are on.
+# We will use ID_LIKE from this file
+. /etc/os-release 2>/dev/null || :
+
+# If the SYSV init script exists and the server uses systemd
+# then migrate to systemd unit file.
+if [ -e /etc/init.d/squeezeboxserver -a -x /usr/bin/systemctl ] ; then
+	migrate=true
 fi
+
+	
+# Distribution dependent stuff
+if [ -f /etc/redhat-release -o -n "$(echo $ID_LIKE |/usr/bin/grep -i -E '(centos|redhat|rhel|fedora)')" ] ; then
+
+	
+        setSelinux
+
+	# 64 bit fedora/RedHat/CentOS want the Slim in /usr/lib64/perl5/vendor_perl
+        if [ ! -e /usr/lib64/perl5/vendor_perl/Slim ] ; then
+		ln -s %{_usr}/lib/perl5/vendor_perl/Slim %{_usr}/lib64/perl5/vendor_perl/Slim || :
+        fi
+
+
+elif [ -f /etc/SuSE-release -o  -n "$(echo $ID_LIKE | /usr/bin/grep -i suse)" ] ; then
+
+	# Suse is expecting us in site_perl?
+        if [ ! -e /usr/lib/perl5/site_perl/Slim ] ; then
+		ln -s %{_usr}/lib/perl5/vendor_perl/Slim %{_usr}/lib/perl5/site_perl/Slim || :
+        fi
+
+fi
+
+if [ ! -x /usr/bin/systemctl ] ; then
+	setSYSV
+else
+	setSystemd
+fi
+
 PORT=`awk '/^httpport/ {print $2}' %{_var}/lib/squeezeboxserver/prefs/server.prefs`
 [ -z "$PORT" ] && PORT=9000
 HOSTNAME=`uname -n`
+if [ -n "$migrate" ] ; then
+	echo "Squeezeboxserver was migrated from old style SYSV to systemd start-up."
+	parseSysconfigSqueezeboxserver || :
+fi
 echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure Logitech Media Server."
 
-
 %preun
-MYSQLPORT=9092
-CACHEDIR=%{_var}/lib/squeezeboxserver/cache
+# Source /etc/os-release
+
+#set -x
+function unsetSelinux {
+
+	# Remove SELinux contexts
+	MYSQLPORT=9092
+	CACHEDIR=%{_var}/lib/squeezeboxserver/cache
+	if [ -x /usr/sbin/selinuxenabled ] ; then
+		if /usr/sbin/selinuxenabled; then
+			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage port -d -t mysqld_port_t -p tcp ${MYSQLPORT}
+			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -d -t mysqld_db_t "${CACHEDIR}(/.*)?"
+			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -d -t mysqld_var_run_t "${CACHEDIR}/squeezeboxserver-mysql.sock"
+			/sbin/restorecon -R ${CACHEDIR}
+		fi
+	fi
+
+}
+
+function unsetSYSV {
+
+	/sbin/service squeezeboxserver stop >/dev/null 2>&1 || :
+	if [ -f /etc/e-smith-release -a -d /etc/rc7.d ] ; then
+		#SME Server uses runlevel 7
+		db configuration set squeezeboxserver service status disabled
+		rm /etc/rc7.d/S80squeezeboxserver
+	fi
+       	/sbin/chkconfig --del squeezeboxserver >/dev/null 2>&1
+	# Remove the SYSV file we copied in the post script.
+	rm -f /etc/init.d/squeezeboxserver || :
+
+}
+
+function unsetSystemd {
+
+	# systemd
+        /usr/bin/systemctl unmask squeezeboxserver.service >/dev/null 2>&1 || :
+	/usr/bin/systemctl disable squeezeboxserver.service >/dev/null 2>&1 || :
+	/usr/bin/systemctl stop squeezeboxserver.service || :
+	# Remove the unit file we copied in the post script.
+	rm -f /usr/lib/systemd/system/squeezeboxserver.service || :
+	/usr/bin/systemctl daemon-reload
+
+}
+
+. /etc/os-release || :
+
 if [ "$1" -eq "0" ] ; then
 	# If not upgrading
-	if [ -f /etc/redhat-release ] ; then
-		/sbin/service squeezeboxserver stop >/dev/null 2>&1 || :
-		if [ -f /etc/e-smith-release -a -d /etc/rc7.d ] ; then
-			#SME Server uses runlevel 7
-			db configuration set squeezeboxserver service status disabled
-			rm /etc/rc7.d/S80squeezeboxserver
-		fi
-        	/sbin/chkconfig --del squeezeboxserver
-		# Remove SELinux contexts
-		if [ -x /usr/sbin/selinuxenabled ] ; then
-			if /usr/sbin/selinuxenabled; then
-				[ -x /usr/sbin/semanage ] && /usr/sbin/semanage port -d -t mysqld_port_t -p tcp ${MYSQLPORT}
-				[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -d -t mysqld_db_t "${CACHEDIR}(/.*)?"
-				[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -d -t mysqld_var_run_t "${CACHEDIR}/squeezeboxserver-mysql.sock"
-				/sbin/restorecon -R ${CACHEDIR}
-			fi
-		fi
-	elif [ -f /etc/SuSE-release ] ; then
-		/etc/init.d/squeezeboxserver stop  > /dev/null 2>&1
-		/usr/lib/lsb/remove_initd /etc/init.d/squeezeboxserver
+	
+	# First stop and removethe start-up script/unit file.
+	if [ ! -x /usr/bin/systemctl ] ; then
 
-		rm -f %{_usr}/lib/perl5/site_perl/Slim
+		unsetSYSV
+
+	else 
+	
+		unsetSystemd
+
 	fi
+
+	# Continue with dsitribution dependent set-up
+	if [ -f /etc/redhat-release -o -n "$(echo $ID_LIKE |/usr/bin/grep -i -E '(centos|redhat|rhel|fedora)')" ] ; then
+		# RedHat/CentOS/Fedora
+		unsetSelinux
+
+		# Remove the symbolic link we created in the post script.
+		rm -f %{_usr}/lib64/perl5/vendor_perl/Slim 2>/dev/null || :
+
+	elif [ -f /etc/SuSE-release -o  -n "$(echo $ID_LIKE | /usr/bin/grep -i suse)" ] ; then
+
+		# Remove the symbolic link we created in the post script.
+		rm -f %{_usr}/lib/perl5/site_perl/Slim 2>/dev/null || :
+	fi
+
 fi
 
 
@@ -276,17 +423,35 @@ fi
 %attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/rescan.prefs
 %attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/rssnews.prefs
 %attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/state.prefs
-%attr(0644,squeezeboxserver,squeezeboxserver) %{_sysconfdir}/squeezeboxserver/server.conf
+%config(noreplace) %{_sysconfdir}/squeezeboxserver/server.conf
 %attr(0644,squeezeboxserver,squeezeboxserver) %config(noreplace) %{_sysconfdir}/squeezeboxserver/convert.conf
 %attr(0644,squeezeboxserver,squeezeboxserver) %config(noreplace) %{_sysconfdir}/squeezeboxserver/modules.conf
 %attr(0644,squeezeboxserver,squeezeboxserver) %config(noreplace) %{_sysconfdir}/squeezeboxserver/types.conf
-%{_sysconfdir}/init.d/squeezeboxserver
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/squeezeboxserver
 %config(noreplace) %{_sysconfdir}/logrotate.d/squeezeboxserver
 
 
 
 %changelog
+* Sun Mar 21 2021 Johan Saeaew
+- Rewrite of the post install and preuninstall scripts.
+  Taking care of whether to use SYSV or systemd unit files.
+  The RPM drops those files in /usr/share/squeezeboxserver and the 
+  post install scripts takes care of putting the one to be used
+  in the correct location and activate it. The preun scritp will
+  take care of removing the files that the post install script
+  copied to the correct location.
+- Fixed long standing issue on SUSE with creation of symbolic
+  link from /usr/lib/perl5/vendor_perl/Slim to 
+  /usr/lib/perl5/site_perl/Slim. The symbolic link is also deleted
+  during uninstall
+- The post install script creates a link of /usr/lib/perl5/vendor_perl/Slim
+  to /usr/lib64/perl5/vendor_perl/Slim (for RedHat). The preun script
+  removes this symbolic link at uninstall.
+- Added a script to parse /etc/sysconfig/squeezeboxserver to see if
+  any changes has been done to the script that will not be picked up
+  by the systemd unit file. If such changes are found a warning is
+  issued at the endof the installation procedure.
 * Wed Oct 31 2007 Robin Bowes <robin@robinbowes.com>
 - Fix SELinux contexts
 
@@ -305,7 +470,7 @@ fi
 * Tue Oct 16 2007 andy
 - Removed deps on perl-XML-Parser and perl-Digest-SHA1
 
-* Tue Apr 11 2005 dsully
+* Mon Apr 11 2005 dsully
 - Make the RPM more SuSE friendly.
 - Fix an error with printing the port number on install/upgrade. (bug 974)
 
