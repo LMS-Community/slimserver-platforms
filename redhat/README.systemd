@@ -8,12 +8,12 @@ start-up. Systemd is the future, whatever we might think about it.
 
 * More information
 
-Please read the man pages
+Please read the following man pages for in depth information on how
+the systemd unit files work.
 
 systemd.unit
 systemd.service
 
-for in depth information on how the systemd units work.
 
 * Stop/Start/Check status of squeezeboxserver
 
@@ -40,7 +40,7 @@ The content of the file should be (without the dashed lines)
 
 -----------------------------------------------
 
-[Unit]
+[Service]
 
 USER=add-the-user-id-you-want-to-use-here
 
@@ -49,10 +49,11 @@ USER=add-the-user-id-you-want-to-use-here
 * Passing extra arguments to the squeezeboxserver
 
 The way the variable SQUEEZEBOX_ARGS is defined in /etc/sysconfig/squeezeboxserver
-makes it unusable in the systemd unit. If you have added parameters to this 
-variable in the file and you want to keep them, then you must instead add them 
-to the new variable SQUEEZEBOX_ADDITIONAL_ARGS. You can do this just by adding 
-the following in the /etc/sysconfig/squeezeboxserver file (without the dashed line)
+makes it unusable in the systemd unit file. If you have added parameters to
+this variable in the file and you want to keep them, then you must instead add
+them to the new variable SQUEEZEBOX_ADDITIONAL_ARGS. You can do this by adding 
+the following in the /etc/sysconfig/squeezeboxserver file (without the dashed
+lines)
 
 ------------------------------------------------
 
@@ -63,7 +64,15 @@ SQUEEZEBOX_ADDITIONAL_ARGS="--checkstrings --nomysqueezebox"
 ***PLEASE NOTE***
 You can't use nested variables like in the past for SQUEEZEBOX_ARGS.
 
-An alternative is to create a drop-in file for systemd as described here above for the 
-USER. You can of course use the same drop-in file, just add an line like this
+An alternative is to create a drop-in file for systemd as described here above
+for the USER. You can of course use the same drop-in file, just add an
+additional line like this
 
-Environment="SQUEEZEBOX_ADDITIONAL_ARGS=--checkstring --nomysqueezebox"
+Environment="SQUEEZEBOX_ADDITIONAL_ARGS=--checkstrings --nomysqueezebox"
+
+Please remember that the content of /etc/sysconfig/squeezeboxserver will 
+override the content of the drop-in files in
+/etc/systemd/system/squeezeboxserver.service.d. This means that if you define 
+SQUEEZEBOX_ADDITIONAL_ARGS both in the drop-in file and in 
+/etc/sysconfig/squeezeboxserver, then it is the content of the latter that will
+be used.

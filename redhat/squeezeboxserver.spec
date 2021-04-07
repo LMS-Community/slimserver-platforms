@@ -207,9 +207,9 @@ function setSelinux {
 	if [ -x /usr/sbin/selinuxenabled ] ; then
 		if /usr/sbin/selinuxenabled ; then
 			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage port -a -t mysqld_port_t -p tcp ${MYSQLPORT} > /dev/null 2>&1
-			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -a -t mysqld_db_t "${CACHEDIR}(/.*)?"
-			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -a -t mysqld_var_run_t "${CACHEDIR}/squeezeboxserver-mysql.sock"
-			/sbin/restorecon -R ${CACHEDIR}
+			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -a -t mysqld_db_t "${CACHEDIR}(/.*)?" > /dev/null 2>&1
+			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -a -t mysqld_var_run_t "${CACHEDIR}/squeezeboxserver-mysql.sock" > /dev/null 2>&1
+			/sbin/restorecon -R ${CACHEDIR} > /dev/null 2>&1
 		fi
 	fi
 }
@@ -217,12 +217,12 @@ function setSelinux {
 function setSYSV {
 
 	# This is a SYSV server. Copy SYSV script to the correct place.
-	cp -p %{_datadir}/squeezeboxserver/squeezeboxserver.SYSV %{_sysconfdir}/init.d/squeezeboxserver
+	cp -p %{_datadir}/squeezeboxserver/squeezeboxserver.SYSV %{_sysconfdir}/init.d/squeezeboxserver >/dev/null 2>&1 || :
         
 	#SME Server uses runlevel 7
 	if [ -f /etc/e-smith-release -a -d /etc/rc7.d ] ; then
-		ln -sf %{_sysconfdir}/init.d/squeezeboxserver /etc/rc7.d/S80squeezeboxserver
-		db configuration set squeezeboxserver service status enabled
+		ln -sf %{_sysconfdir}/init.d/squeezeboxserver /etc/rc7.d/S80squeezeboxserver >/dev/null 2>&1 || :
+		db configuration set squeezeboxserver service status enabled >/dev/null 2>&1 || :
 	fi
 	/sbin/chkconfig --add squeezeboxserver >/dev/null 2>&1 || :
 	/sbin/service squeezeboxserver restart >/dev/null 2>&1 || :
@@ -268,18 +268,38 @@ if [ -f /etc/redhat-release -o -n "$(echo $ID_LIKE |/usr/bin/grep -i -E '(centos
 	
         setSelinux
 
-	# 64 bit fedora/RedHat/CentOS want the Slim in /usr/lib64/perl5/vendor_perl
-        if [ ! -e /usr/lib64/perl5/vendor_perl/Slim ] ; then
-		ln -s %{_usr}/lib/perl5/vendor_perl/Slim %{_usr}/lib64/perl5/vendor_perl/Slim || :
-        fi
+	# 64 bit fedora/RedHat/CentOS want the Slim in
+        # /usr/lib64/perl5/vendor_perl so we will need to create a symbolic
+        # link in that location.
+        if [ -e %{_usr}/lib64/perl5/vendor_perl/Slim ] ; then
+		# The target location exists
+                if [ ! -h %{_usr}/lib64/perl5/vendor_perl/Slim ] ; then
+			# The target location exists, but it isn't a symlink
+			# Remove this hard link or copied location to avoid
+			# anomalies with new versions of squeezeboxserver
+			/usr/bin/mv %{_usr}/lib64/perl5/vendor_perl/Slim %{_usr}/lib64/perl5/vendor_perl/Slim.rpmsave >/dev/null 2>&1 || :
+		fi
+	fi
+
+	# Force the creation of a symbolic link. 
+	/usr/bin/ln -sfT %{_usr}/lib/perl5/vendor_perl/Slim %{_usr}/lib64/perl5/vendor_perl/Slim >/dev/null 2>&1 || :
 
 
 elif [ -f /etc/SuSE-release -o  -n "$(echo $ID_LIKE | /usr/bin/grep -i suse)" ] ; then
 
 	# Suse is expecting us in site_perl?
-        if [ ! -e /usr/lib/perl5/site_perl/Slim ] ; then
-		ln -s %{_usr}/lib/perl5/vendor_perl/Slim %{_usr}/lib/perl5/site_perl/Slim || :
-        fi
+        if [ -e %{_usr}/lib/perl5/site_perl/Slim ] ; then
+		# The target location exists
+                if [ ! -h %{_usr}/lib/perl5/site_perl/Slim ] ; then
+			# The target location exists, but it isn't a symlink
+			# Remove this hard link or copied location to avoid
+			# anomalies with new versions of squeezeboxserver
+			/usr/bin/mv %{_usr}/lib/perl5/site_perl/Slim %{_usr}/lib/perl5/site_perl/Slim.rpmsave >/dev/null 2>&1 || :
+		fi
+	fi
+
+	# Force the creation of a symbolic link. 
+	/usr/bin/ln -sfT %{_usr}/lib/perl5/vendor_perl/Slim %{_usr}/lib/perl5/site_perl/Slim >/dev/null 2>&1 || :
 
 fi
 
@@ -299,7 +319,6 @@ fi
 echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure Logitech Media Server."
 
 %preun
-# Source /etc/os-release
 
 #set -x
 function unsetSelinux {
@@ -323,10 +342,10 @@ function unsetSYSV {
 	/sbin/service squeezeboxserver stop >/dev/null 2>&1 || :
 	if [ -f /etc/e-smith-release -a -d /etc/rc7.d ] ; then
 		#SME Server uses runlevel 7
-		db configuration set squeezeboxserver service status disabled
-		rm /etc/rc7.d/S80squeezeboxserver
+		db configuration set squeezeboxserver service status disabled >/dev/null 2>&1 || :
+		rm /etc/rc7.d/S80squeezeboxserver || :
 	fi
-       	/sbin/chkconfig --del squeezeboxserver >/dev/null 2>&1
+       	/sbin/chkconfig --del squeezeboxserver >/dev/null 2>&1 || :
 	# Remove the SYSV file we copied in the post script.
 	rm -f /etc/init.d/squeezeboxserver || :
 
@@ -337,10 +356,10 @@ function unsetSystemd {
 	# systemd
         /usr/bin/systemctl unmask squeezeboxserver.service >/dev/null 2>&1 || :
 	/usr/bin/systemctl disable squeezeboxserver.service >/dev/null 2>&1 || :
-	/usr/bin/systemctl stop squeezeboxserver.service || :
+	/usr/bin/systemctl stop squeezeboxserver.service >/dev/null 2>&1 || :
 	# Remove the unit file we copied in the post script.
 	rm -f /usr/lib/systemd/system/squeezeboxserver.service || :
-	/usr/bin/systemctl daemon-reload
+	/usr/bin/systemctl daemon-reload >/dev/null 2>&1 || :
 
 }
 
@@ -433,7 +452,13 @@ fi
 
 
 %changelog
-* Sun Mar 21 2021 Johan Saeaew
+* Tue Apr 06 2021 Johan S.
+- Amended post install script with better tests on the locations of the 
+  symbolic links to /usr/lib/perl5/vendor_perl/Slim, to remove any hard links
+  or copies of the target in order to ensure that the latest version of the
+  perl libraries is used.
+- Added some missing re-directs of STDOUT and STDERR to a couple of commands.
+* Sun Mar 21 2021 Johan S.
 - Rewrite of the post install and preuninstall scripts.
   Taking care of whether to use SYSV or systemd unit files.
   The RPM drops those files in /usr/share/squeezeboxserver and the 
