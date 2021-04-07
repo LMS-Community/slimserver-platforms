@@ -77,11 +77,18 @@ environment:
   - PGID=1000
 ```
 
-## Some system specific notes
-
-### How to manually install plugins
-If you're a developer you might want to install plugins manually, before they are available through LMS' built-in plugin manager. In order to do so, put them inside `[config folder]/Cache/Plugins`, then restart LMS. They should be available in thereafter.
+## Advanced configuration notes
 
 ### Docker on Synology
 * use `/etc/TZ` instead of `/etc/timezone`
 * you'll likely have to use another port than 9000. Synology traditionally used port 9002 to run Logitech Media Server on. See above note about mapping ports to make sure this is working as expected!
+
+### How to manually install plugins
+If you're a developer you might want to install plugins manually, before they are available through LMS' built-in plugin manager. In order to do so, put them inside `[config folder]/Cache/Plugins`, then restart LMS. They should be available in thereafter.
+
+### Running a script before the launch of Logitech Media Server
+You can put a script called `custom-init.sh` in the configuration folder. If that script exists, it will be executed before Logitech Media Server is launched. This would allow you to add additional software packages to the container. Eg. the following two lines put into `custom-init.sh` will install `ffmpeg` for use with some plugins:
+```
+apt-get update -qq
+apt-get install --no-install-recommends -qy ffmpeg
+```
