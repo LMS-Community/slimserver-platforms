@@ -164,6 +164,13 @@ else
 	exit 1
 fi
 
+# Do not change this, it will most likely break the squeezeboxserver
+# installation. The directory /usr/lib/perl5/vendor_perl is where the RPM
+# package drops the Slim perl modules. Setting PERL5LIB to this location will
+# make sure that the squeezebox server executable looks here before it scans the
+# directories in the perl @INC array.
+export PERL5LIB="/usr/lib/perl5/vendor_perl"
+
 # See how we were called.
 case "$1" in
 	start)

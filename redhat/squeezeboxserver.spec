@@ -157,7 +157,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %pre
-#set -x
+test -f /tmp/squeezerpmdebug && set -x
 getent group squeezeboxserver >/dev/null || groupadd -r squeezeboxserver
 getent passwd squeezeboxserver >/dev/null || \
 useradd -r -g squeezeboxserver -d %{_datadir}/squeezeboxserver -s /sbin/nologin \
@@ -230,12 +230,10 @@ function setSYSV {
 
 function setSystemd {
 
-	# systemd
-	#
 	# I believe the latest version of SME Server still use SYSV,
 	# any future releases will probably not use SYSV, here I will
 	# just assume that they will use systemd in the standard way
-	#(is there any other way?)
+	# (is there any other way?)
 
 	if [ -n "$migrate" ] ; then
 		# If we currently are running through a SYSV script. First stop 
@@ -244,16 +242,18 @@ function setSystemd {
 		# We should not remove the old SYSV init file. The RPM
 		# package will take care of this when we do an upgrade.
 	fi
+
 	cp -p %{_datadir}/squeezeboxserver/squeezeboxserver.service /usr/lib/systemd/system/squeezeboxserver.service || :
 	/usr/bin/systemctl daemon-reload >/dev/null 2>&1 || :
         /usr/bin/systemctl enable  squeezeboxserver.service >/dev/null 2>&1 || :
         /usr/bin/systemctl restart squeezeboxserver.service >/dev/null 2>&1 || :
 }
 
-#set -x
+test -f /tmp/squeezerpmdebug && set -x
+
 # Source /etc/os-release to find out what kind of system we are on.
 # We will use ID_LIKE from this file
-. /etc/os-release 2>/dev/null || :
+. /etc/os-release || :
 
 # If the SYSV init script exists and the server uses systemd
 # then migrate to systemd unit file.
@@ -261,46 +261,9 @@ if [ -e /etc/init.d/squeezeboxserver -a -x /usr/bin/systemctl ] ; then
 	migrate=true
 fi
 
-	
-# Distribution dependent stuff
+# If CentOS/RedHat/Fedora, handle selinux
 if [ -f /etc/redhat-release -o -n "$(echo $ID_LIKE |/usr/bin/grep -i -E '(centos|redhat|rhel|fedora)')" ] ; then
-
-	
         setSelinux
-
-	# 64 bit fedora/RedHat/CentOS want the Slim in
-        # /usr/lib64/perl5/vendor_perl so we will need to create a symbolic
-        # link in that location.
-        if [ -e %{_usr}/lib64/perl5/vendor_perl/Slim ] ; then
-		# The target location exists
-                if [ ! -h %{_usr}/lib64/perl5/vendor_perl/Slim ] ; then
-			# The target location exists, but it isn't a symlink
-			# Remove this hard link or copied location to avoid
-			# anomalies with new versions of squeezeboxserver
-			/usr/bin/mv %{_usr}/lib64/perl5/vendor_perl/Slim %{_usr}/lib64/perl5/vendor_perl/Slim.rpmsave >/dev/null 2>&1 || :
-		fi
-	fi
-
-	# Force the creation of a symbolic link. 
-	/usr/bin/ln -sfT %{_usr}/lib/perl5/vendor_perl/Slim %{_usr}/lib64/perl5/vendor_perl/Slim >/dev/null 2>&1 || :
-
-
-elif [ -f /etc/SuSE-release -o  -n "$(echo $ID_LIKE | /usr/bin/grep -i suse)" ] ; then
-
-	# Suse is expecting us in site_perl?
-        if [ -e %{_usr}/lib/perl5/site_perl/Slim ] ; then
-		# The target location exists
-                if [ ! -h %{_usr}/lib/perl5/site_perl/Slim ] ; then
-			# The target location exists, but it isn't a symlink
-			# Remove this hard link or copied location to avoid
-			# anomalies with new versions of squeezeboxserver
-			/usr/bin/mv %{_usr}/lib/perl5/site_perl/Slim %{_usr}/lib/perl5/site_perl/Slim.rpmsave >/dev/null 2>&1 || :
-		fi
-	fi
-
-	# Force the creation of a symbolic link. 
-	/usr/bin/ln -sfT %{_usr}/lib/perl5/vendor_perl/Slim %{_usr}/lib/perl5/site_perl/Slim >/dev/null 2>&1 || :
-
 fi
 
 if [ ! -x /usr/bin/systemctl ] ; then
@@ -319,8 +282,7 @@ fi
 echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure Logitech Media Server."
 
 %preun
-
-#set -x
+test -f /tmp/squeezerpmdebug && set -x
 function unsetSelinux {
 
 	# Remove SELinux contexts
@@ -379,18 +341,11 @@ if [ "$1" -eq "0" ] ; then
 
 	fi
 
-	# Continue with dsitribution dependent set-up
+	# If CentOS/Fedora/RedHat, remove selinux settings
 	if [ -f /etc/redhat-release -o -n "$(echo $ID_LIKE |/usr/bin/grep -i -E '(centos|redhat|rhel|fedora)')" ] ; then
-		# RedHat/CentOS/Fedora
+
 		unsetSelinux
 
-		# Remove the symbolic link we created in the post script.
-		rm -f %{_usr}/lib64/perl5/vendor_perl/Slim 2>/dev/null || :
-
-	elif [ -f /etc/SuSE-release -o  -n "$(echo $ID_LIKE | /usr/bin/grep -i suse)" ] ; then
-
-		# Remove the symbolic link we created in the post script.
-		rm -f %{_usr}/lib/perl5/site_perl/Slim 2>/dev/null || :
 	fi
 
 fi
@@ -452,31 +407,28 @@ fi
 
 
 %changelog
-* Tue Apr 06 2021 Johan S.
-- Amended post install script with better tests on the locations of the 
-  symbolic links to /usr/lib/perl5/vendor_perl/Slim, to remove any hard links
-  or copies of the target in order to ensure that the latest version of the
-  perl libraries is used.
-- Added some missing re-directs of STDOUT and STDERR to a couple of commands.
-* Sun Mar 21 2021 Johan S.
-- Rewrite of the post install and preuninstall scripts.
-  Taking care of whether to use SYSV or systemd unit files.
-  The RPM drops those files in /usr/share/squeezeboxserver and the 
-  post install scripts takes care of putting the one to be used
-  in the correct location and activate it. The preun scritp will
-  take care of removing the files that the post install script
-  copied to the correct location.
-- Fixed long standing issue on SUSE with creation of symbolic
-  link from /usr/lib/perl5/vendor_perl/Slim to 
-  /usr/lib/perl5/site_perl/Slim. The symbolic link is also deleted
-  during uninstall
-- The post install script creates a link of /usr/lib/perl5/vendor_perl/Slim
-  to /usr/lib64/perl5/vendor_perl/Slim (for RedHat). The preun script
-  removes this symbolic link at uninstall.
-- Added a script to parse /etc/sysconfig/squeezeboxserver to see if
-  any changes has been done to the script that will not be picked up
-  by the systemd unit file. If such changes are found a warning is
-  issued at the endof the installation procedure.
+* Sun Apr 11 2021 Johan S.
+- Added a systemd Unit file to the RMP package. The file is based on the systemd
+  unit file developed by mw9 & tomscytale for the Debian package.
+- Amendedments to the postinstall and preuninstall scripts to handle which
+  start-up method to install and uninstall, SYSV or systemd. Squeezebox server
+  installations running on systemd servers will be migrated to systemd start-up
+  when the logitechmediaserver RPM is upgraded.
+- Added use of PERL5LIB in SYSV init script and systemd unit file, making sure
+  that /usr/lib/perl5/site_perl is the first location where the squeezebox 
+  executable search for its needed perl modules. This will remove the need to 
+  create symbolic links to /usr/lib/perl5/vendor_perl on systems where perl 
+  expects the modules ina different location.
+- Remove the creation of symbolic link in /usr/lib/perl5/site_perl for SUSE
+  distribution in the post install script as it is no longer needed (see 
+  previous point).
+- Added a function in the post install script to parse 
+  /etc/sysconfig/squeezeboxserver to see if any changes have been done to the
+  script that will not be picked up by the systemd unit file. If such changes
+  are found a warning is issued at the end of the installation procedure. This
+  parsing of the sysconfg file is only done when the installation is migrated 
+  from SYSV to systemd.
+
 * Wed Oct 31 2007 Robin Bowes <robin@robinbowes.com>
 - Fix SELinux contexts
 

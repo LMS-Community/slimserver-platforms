@@ -6,7 +6,7 @@ After=network.target
 
 # These values can be overridden by means of a drop in file in  the
 # directory /etc/systemd/system/squeezeboxserver.service.d
-# Read man page for systemd.unit.
+# Read man page for systemd.unit and systemd.service.
 #
 # Or they can be overriden in /etc/sysconfig/squeezeboxserver
 # The first option is recommended.
@@ -22,6 +22,13 @@ Environment="SQUEEZEBOX_ADDITIONAL_ARGS="
 # in /etc/systemd/system/logitechmediaserver.service.d/*.conf
 EnvironmentFile=-/etc/sysconfig/squeezeboxserver
 
+# Do not change this, it will most likely break the squeezeboxserver
+# installation. The directory /usr/lib/perl5/vendor_perl is where the RPM
+# package drops the Slim perl modules. Setting PERL5LIB to this location will
+# make sure that the squeezebox server executable looks here before it scans the
+# directories in the perl @INC array.
+Environment="PERL5LIB=/usr/lib/perl5/vendor_perl"
+
 #Type=simple
 User=squeezeboxserver
 Group=squeezeboxserver
@@ -32,7 +39,7 @@ ExecStart=/usr/libexec/squeezeboxserver --prefsdir $SQUEEZEBOX_CFG_DIR --logdir 
 # drop-in file in /etc/systemd/system/logitechmediaserver.service.d/ if you
 # want the change to survive the next upgrade of logitechmediaserver.
 # Note: This setting may conflict with SQUEEZEBOX_LOG_DIR set here above. That 
-# is why I think it is better to keep them commented.
+# is why I think it is better to keep them commented by default.
 #LogsDirectory=squeezeboxserver
 #LogsDirectoryMode=0755
 
