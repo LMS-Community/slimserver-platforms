@@ -49,6 +49,7 @@ Vendor:		Logitech
 
 
 Requires:	perl >= 5.10.0
+Recommends:     perl(IO::Socket::SSL)
 Obsoletes:	squeezeboxserver, squeezecenter, slimserver, SliMP3
 AutoReqProv:	no
 
@@ -407,6 +408,11 @@ fi
 
 
 %changelog
+* Sat Apr 24 2021 Johan S.
+- Added a weak dependency for perl(IO::Socket:SSL). This package is almost 
+  always needed now a days. Zypper and dnf will pull in this package if it is
+  available in the repositories defined on the server. rpm will not evaluate the
+  weak dependency and neith will yum on pre CentOS/RHEL 8.0 systems.
 * Sun Apr 11 2021 Johan S.
 - Added a systemd Unit file to the RMP package. The file is based on the systemd
   unit file developed by mw9 & tomscytale for the Debian package.
