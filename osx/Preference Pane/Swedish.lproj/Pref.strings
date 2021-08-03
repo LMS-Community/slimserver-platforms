@@ -86,11 +86,11 @@
 /* Class = "NSMenuItem"; title = "Reset logging preferences"; ObjectID = "1004"; */
 "1004.title" = "Återställ loggningsinställningar";
 
-/* Class = "NSTextFieldCell"; title = "© 2001-2020 Logitech"; ObjectID = "1054"; */
-"1054.title" = "© 2001-2020 Logitech";
+/* Class = "NSTextFieldCell"; title = "© 2001-2021 Logitech"; ObjectID = "1054"; */
+"1054.title" = "© 2001-2021 Logitech";
 
-/* Class = "NSTextFieldCell"; title = "Version 8.2.0"; ObjectID = "1055"; */
-"1055.title" = "Version 8.2.0";
+/* Class = "NSTextFieldCell"; title = "Version 8.2.1"; ObjectID = "1055"; */
+"1055.title" = "Version 8.2.1";
 
 /* Class = "NSTextFieldCell"; title = "Email address"; ObjectID = "1056"; */
 "1056.title" = "E-postadress";

@@ -78,7 +78,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="328956764">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string key="NSContents">© 2001-2020 Logitech</string>
+								<string key="NSContents">© 2001-2021 Logitech</string>
 								<object class="NSFont" key="NSSupport" id="976073678">
 									<bool key="IBIsSystemFont">YES</bool>
 									<double key="NSSize">10</double>
