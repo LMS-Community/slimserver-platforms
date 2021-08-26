@@ -9,7 +9,7 @@ Package: logitechmediaserver
 Architecture: all
 Conflicts: slimp3,slimserver,squeezecenter,squeezeboxserver
 Replaces: slimp3,slimserver,squeezecenter,squeezeboxserver
-Depends: ${misc:Depends}, perl (>= 5.10.0), adduser, libc6, libgcc1, libstdc++6, zlib1g, libio-socket-ssl-perl, ca-certificates
+Depends: ${misc:Depends}, perl (>= 5.10.0), adduser, libc6, libgcc1, libstdc++6, zlib1g, libio-socket-ssl-perl, ca-certificates, libcrypt-openssl-rsa-perl
 Pre-Depends: ${misc:Pre-Depends}
 Description: Streaming Audio Server
  Logitech Media Server is a cross-platform streaming media server that supports a wide range
