@@ -5,6 +5,6 @@
 SLIMUSER=squeezeboxserver
 
 # Additional options for the server.
-# For example: SLIMOPTIONS="--failsafe --nomysqueezebox"
+# For example: SLIMOPTIONS="--d_startup --failsafe --nomysqueezebox"
 # Use '/usr/sbin/squeezeboxserver --help' to obtain a full listing.
 SLIMOPTIONS=""
