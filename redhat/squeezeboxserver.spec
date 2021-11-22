@@ -13,6 +13,12 @@
 
 %define increment 1
 
+# Turn off striping of binaries
+%global __strip /bin/true
+
+# don't terminate build due to binaries
+%global _binaries_in_noarch_packages_terminate_build 0
+
 %define build_trunk %{?_with_trunk:1}0
 %define build_branch %{?_with_branch:1}0
 %define build_release %{?_with_release:1}0
