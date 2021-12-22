@@ -8,7 +8,6 @@
 ../server/IR           usr/share/squeezeboxserver
 ../server/SQL          usr/share/squeezeboxserver
 ../server/strings.txt  usr/share/squeezeboxserver
-../server/MySQL        usr/share/squeezeboxserver
 ../server/icudt46*.dat usr/share/squeezeboxserver
 ../server/icudt58*.dat usr/share/squeezeboxserver
 ../server/*.conf       etc/squeezeboxserver

@@ -173,13 +173,6 @@ sed -i 's#This#The %_libdir/slimserver/lib#' README.lib
 # context of a Fedora RPM or just removed, as it makes the most sense
 # in its initial context for developers.
 
-# Remove unneeded mysql doc files
-rm MySQL/COPYING
-rm MySQL/README
-# Remove errmsg.sys files from the MySQL dir, since they
-# may not match up with the installed version's
-rm MySQL/errmsg.*
-
 %install
 rm -rf %buildroot
 
@@ -230,7 +223,6 @@ cp -R Graphics %buildroot%_datadir/slimserver
 cp -R HTML %buildroot%_datadir/slimserver
 cp -R IR %buildroot%_datadir/slimserver
 cp -R lib %buildroot%_datadir/slimserver
-cp -R MySQL %buildroot%_datadir/slimserver
 cp -R Plugins %buildroot%_datadir/slimserver || true
 cp -R SQL %buildroot%_datadir/slimserver
 cp revision.txt %buildroot%_datadir/slimserver

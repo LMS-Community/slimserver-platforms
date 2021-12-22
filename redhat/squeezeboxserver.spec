@@ -77,9 +77,6 @@ mv lib/README README.lib
 mv HTML/README.txt README.HTML
 
 # Remove mysqld and other unneeded files
-rm MySQL/COPYING
-rm MySQL/README
-rm MySQL/errmsg.*
 rm -rf Bin/darwin
 rm -rf Bin/i386-freebsd-64int
 rm -rf Bin/MSWin32-x86-multi-thread
@@ -113,7 +110,6 @@ cp -Rp Graphics $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
 cp -Rp HTML $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
 cp -Rp IR $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
 cp -Rp lib $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
-cp -Rp MySQL $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
 cp -Rp Slim $RPM_BUILD_ROOT%{_usr}/lib/perl5/vendor_perl
 cp -Rp SQL $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
 cp -p revision.txt $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver

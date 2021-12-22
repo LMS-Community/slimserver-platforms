@@ -70,7 +70,6 @@ install:
 	cp -rf ${source}/IR ${base}/${share}
 	cp -rf ${source}/SQL ${base}/${share}
 	cp -rf ${source}/strings.txt ${base}/${share}
-	cp -rf ${source}/MySQL ${base}/${share}
 	cp -rf ${source}/icudt46*.dat ${base}/${share}
 
 	# Make sure we copy in the Bin directory
@@ -80,10 +79,6 @@ install:
 	# and shouldn't be put into /usr. 
 	cp -rf ${source}/Plugins ${base}/${varlib} || mkdir ${base}/${varlib}/Plugins
 	ln -s /${varlib}/Plugins ${base}/${share}/Plugins
-
-	# Remove errmsg.sys files from the MySQL dir, since they may not match
-	# up with the installed version's
-	rm ${base}/${share}/MySQL/errmsg.*
 
 	# Set up the pref's file locations...
 	cp -rf ${source}/*.conf ${base}/etc/squeezeboxserver
