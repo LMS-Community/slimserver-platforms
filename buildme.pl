@@ -29,6 +29,7 @@ my $windowsPerlPath = "$windowsPerlDir\\bin\\perl.exe";
 
 ## Directories to exclude when building certain packages...
 my $dirsToExcludeForLinuxTarball = "i386-freebsd-64int MSWin32-x86-multi-thread darwin darwin-x86_64 PreventStandby";
+my $dirsToExcludeForLinuxPackage = "$dirsToExcludeForLinuxTarball 5.10 5.12 5.14 5.16 5.18";
 my $dirsToExcludeForFreeBSDTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux powerpc-linux aarch64-linux icudt46b.dat";
 my $dirsToExcludeForARMTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat";
 my $dirsToExcludeForPPCTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int aarch64-linux icudt46l.dat icudt58l.dat";
@@ -524,7 +525,7 @@ sub buildRPM {
 
 	## Now we need to build a tarball ...
 	print "INFO: Building $buildDir/$defaultDestName.tgz for the RPM...\n";
-	buildTarball($dirsToExcludeForLinuxTarball, "$buildDir/$defaultDestName");
+	buildTarball($dirsToExcludeForLinuxPackage, "$buildDir/$defaultDestName");
 
 	## We already built a tarball, so now lets use it...
 	print "INFO: Moving $buildDir/$defaultDestName.tgz to $buildDir/rpm/SOURCES...\n";
@@ -576,6 +577,9 @@ sub buildDebian {
 		print "INFO: This is an i386 Debian build.\n";
 		removeExclusions($dirsToExcludeFori386Deb);
 		$suffix = 'i386';
+	}
+	else {
+		removeExclusions($dirsToExcludeForLinuxPackage);
 	}
 
 	## Lets setup the right version/build #...
