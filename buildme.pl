@@ -525,6 +525,10 @@ sub buildRPM {
 
 	## Now we need to build a tarball ...
 	print "INFO: Building $buildDir/$defaultDestName.tgz for the RPM...\n";
+	
+	# CentOS 7 is still supported till 2024 - put 5.16 back in...
+	$dirsToExcludeForLinuxPackage =~ s/5\.16 //;
+	
 	buildTarball($dirsToExcludeForLinuxPackage, "$buildDir/$defaultDestName");
 
 	## We already built a tarball, so now lets use it...
