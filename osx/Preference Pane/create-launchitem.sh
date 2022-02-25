@@ -18,12 +18,6 @@ fi
 
 launchctl unload $PRODUCT_PLIST &> /dev/null
 
-# on Apple Silicon based systems (macOS 11+) we need to enforce use of Rosetta
-OS_MAJOR_VERSION=`sw_vers -productVersion | cut -d'.' -f1`
-if [ $OS_MAJOR_VERSION -ge 11 ]; then
-	SETARCH="<string>arch</string><string>-x86_64</string>"
-fi
-
 cat >$HOME/Library/LaunchAgents/$PRODUCT_NAME.plist << !!
 <plist version="1.0">
 	<dict>
