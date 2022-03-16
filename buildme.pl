@@ -39,7 +39,7 @@ my $dirsToExcludeFori386Deb = "5.10 5.12 5.14 5.16 5.18 MSWin32-x86-multi-thread
 my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-thread i86pc-solaris-thread-multi-64int darwin darwin-x86_64 i386-linux sparc-linux x86_64-linux arm-linux armhf-linux powerpc-linux aarch64-linux /arch/ PreventStandby";
 my $dirsToExcludeForLinuxNoCpanLightTarball = $dirsToExcludeForLinuxNoCpanTarball . " /Bin/ /HTML/! /Firmware/ /MySQL/ Graphics/CODE2000* Plugin/DateTime DigitalInput iTunes LineIn LineOut MusicMagic RSSNews Rescan SavePlaylist SlimTris Snow Plugin/TT/ Visualizer xPL";
 my $dirsToIncludeForLinuxNoCpanLightTarball = "EN.*html/images CPAN/HTML";
-my $dirsToExcludeForMacOSX = "5.10 5.12 5.14 5.16 5.20 5.22 5.24 5.26 5.28 5.30 5.32 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi MSWin32 i86pc-solaris-thread-multi-64int arm-linux armhf-linux powerpc-linux sparc-linux aarch64-linux";
+my $dirsToExcludeForMacOSX = "5.10 5.12 5.14 5.16 5.20 5.22 5.24 5.26 5.28 5.30 5.32 5.34 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi MSWin32 i86pc-solaris-thread-multi-64int arm-linux armhf-linux powerpc-linux sparc-linux aarch64-linux";
 my $dirsToExcludeForWin32 = "5.10 5.12 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5.32 5.34 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux powerpc-linux aarch64-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat icudt46l.dat icudt58b.dat icudt58l.dat";
 
 # for Docker we provide x86_64 and armhf for Perl 5.32 only
@@ -638,6 +638,8 @@ sub buildMacOSX {
 		## that name, and that the 'pretty mounted name' also matches
 		my $pkgName = $_[0];
 
+		$pkgName =~ s/LogitechMediaServer/LogitechMediaServer-Legacy/;
+
 		print "INFO: Building package for Mac OSX (Universal)... \n";
 
 		## First, lets make sure we get rid of the files we don't need for this install
@@ -670,7 +672,6 @@ sub buildMacOSX {
 		system("ditto \"$xcodeBuildDir/Squeezebox.prefPane\" \"$prefPaneDir\"");
 
 		system("mv \"$buildDir/server\" \"$contentsDir/\" ");
-		system("cd \"$contentsDir\"; mkdir perl; cd perl; tar xjf \"$buildDir/platforms/osx/Perl-5.34.0-x86_64-arm64.tar.bz2\"; chmod a+x bin/perl");
 
 		print "INFO: Create installer package $pkgName...\n";
 		system("/Developer/usr/bin/packagemaker --verbose --root-volume-only --root \"$prefPaneDir\" --scripts \"$buildDir/platforms/osx/Installer/scripts\" --out \"$destDir/$pkgName.pkg\" --target 10.5 --domain system --id com.logitech.music.Squeezebox --version 1.0 --resources \"$buildDir/platforms/osx/Installer/l10n\" --title \"Logitech Media Server\"");

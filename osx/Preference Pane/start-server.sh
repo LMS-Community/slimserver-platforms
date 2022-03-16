@@ -12,8 +12,14 @@ if [ z"$SERVER_RUNNING" = z ] ; then
 	if [ z"$USER" != zroot ] ; then
 		chown -R $USER $LOG_FOLDER
 	fi
-
+    
 	cd "`dirname $0`/../server"
-
-	./slimserver.pl --daemon $1 &> /dev/null &
+	
+	# on Apple Silicon based systems (macOS 11+) we need to enforce use of Rosetta
+	OS_MAJOR_VERSION=`sw_vers -productVersion | cut -d'.' -f1`
+	if [ $OS_MAJOR_VERSION -ge 11 ]; then
+		SETARCH="arch -x86_64"
+	fi
+	
+	$SETARCH ./slimserver.pl --daemon $1 &> /dev/null &
 fi
