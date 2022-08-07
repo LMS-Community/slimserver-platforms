@@ -27,7 +27,7 @@ if [ -e "/$PRODUCT_NAME.prefpane" ] ; then
 	if [ -e "$PREFPANE_TO" ] ; then
 		rm -rf "$PREFPANE_TO"
 	fi
-	
+
 	mv "/$PRODUCT_NAME.prefpane" "$PREFPANE_TO"
 fi
 
@@ -42,13 +42,17 @@ if [ -e "$PREFPANE_TO" ] ; then
 			cd "$PREFPANE_TO/Contents/server"
 			$CUSTOM_PERL -i -pe "s{^#!/usr/bin/perl\b}{#!$CUSTOM_PERL}" *.pl
 			$CUSTOM_PERL -i -pe "s{^#!/usr/bin/env perl\b}{#!$CUSTOM_PERL}" *.pl
+			cd "$PREFPANE_TO/Contents/server/Bin/darwin"
+			$CUSTOM_PERL -i -pe "s{^#!/usr/bin/env perl\b}{#!$CUSTOM_PERL}" *.pl
 		fi
 	fi
-	
+
 	# starting with Big Sur Perl 5.18 is no longer the default Version - force using it if it's available
 	if [ z"$CUSTOM_PERL" = z -a -x "/usr/bin/perl5.18" ]; then
 		cd "$PREFPANE_TO/Contents/server"
 		perl -i -pe 's{^#!/usr/bin/perl\b}{#!/usr/bin/perl5.18}' *.pl
+		perl -i -pe 's{^#!/usr/bin/env perl\b}{#!/usr/bin/perl5.18}' cleanup.pl
+		cd "$PREFPANE_TO/Contents/server/Bin/darwin"
 		perl -i -pe 's{^#!/usr/bin/env perl\b}{#!/usr/bin/perl5.18}' cleanup.pl
 	fi
 
