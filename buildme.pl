@@ -471,6 +471,8 @@ sub buildDockerImage {
 	} @tags);
 
 	system("cd $workDir; docker buildx build --push --platform linux/arm/v7,linux/amd64,linux/arm64/v8 $tags .");
+
+	die('Docker build failed') if $? & 127;
 }
 
 ##############################################################################################
