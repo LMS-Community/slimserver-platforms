@@ -24,10 +24,10 @@ MACOSX_DEPLOYMENT_TARGET=11.0 perlbrew install -D usethreads -D userelocatablein
 
 ## Build Dependencies
 
-* get code from https://github.com/Logitech/slimserver-vendor/tree/public/8.3/CPAN
+* get code from https://github.com/Logitech/slimserver-vendor/tree/public/x.y/CPAN
 * run `buildme.sh`:
 ```script
-./buildme.sh -p ~/path/to/new/perl5.34.0 
+./buildme.sh -p ~/path/to/new/perl5.34.0
 ```
 * build `IO::Socket::SSL` and dependencies (it's not apart of the default set of modules built above)
 ```script
@@ -44,7 +44,7 @@ MACOSX_DEPLOYMENT_TARGET=11.0 perlbrew install -D usethreads -D userelocatablein
 ```shell
 #!/usr/bin/perl
 
-$arch = "-arch x86_64 -arch amd64";
+$arch = "-arch x86_64 -arch arm64";
 print "Adding $archn";
 
 $self->{CCFLAGS} = "$arch $Config{ccflags}";
