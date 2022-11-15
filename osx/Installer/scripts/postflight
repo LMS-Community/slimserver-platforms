@@ -35,8 +35,9 @@ if [ -e "$PREFPANE_TO" ] ; then
 	# try to use our custom built perl on newer systems
 	CUSTOM_PERL="$PREFPANE_TO/Contents/perl/bin/perl"
 	if [ -x "$CUSTOM_PERL" ]; then
+		MAJOR_OS_VERSION=`sw_vers | fgrep ProductVersion | tr -dc '0-9.' | cut -d '.' -f 1`
 		PERL_VERSION=`$CUSTOM_PERL -v`
-		if [ z"$PERL_VERSION" = z ]; then
+		if [ z"$PERL_VERSION" = z -o "$MAJOR_OS_VERSION" = 10 ]; then
 			CUSTOM_PERL=
 		else
 			cd "$PREFPANE_TO/Contents/server"
