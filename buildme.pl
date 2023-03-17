@@ -467,10 +467,10 @@ sub buildDockerImage {
 	push @tags, $tag if $tag;
 
 	my $tags = join(' ', map {
-		"--tag lmscommunity/logitechmediaserver:$_";
+		"--tag ghcr.io/Logitech/logitechmediaserver:$_";
 	} @tags);
 
-	system("cd $workDir; docker buildx build --push --platform linux/arm/v7,linux/amd64,linux/arm64/v8 $tags .");
+	system("cd $workDir; echo \$GHCR_PAT | docker login ghcr.io -u mherger --password-stdin && docker buildx build --push --platform linux/arm/v7,linux/amd64,linux/arm64/v8 $tags .");
 
 	die('Docker build failed') if $? & 127;
 }
