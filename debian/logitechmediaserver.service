@@ -122,6 +122,12 @@ User=squeezeboxserver
 LogsDirectory=squeezeboxserver
 LogsDirectoryMode=0755
 
+# Since we launch LMS in the foreground (ie not daemonized) logs are
+# mirrored on stdout. Systemd normally processes logs on stdout, but
+# since LMS has its own logging framework we tell systemd to ignore
+# the stdout logs and skip log processing.
+StandardOutput=null
+
 #-----------------------------------------------------------------------
 # Execution start
 #-----------------------------------------------------------------------
