@@ -7,4 +7,7 @@ SLIMUSER=squeezeboxserver
 # Additional options for the server.
 # For example: SLIMOPTIONS="--d_startup --failsafe --nomysqueezebox"
 # Use '/usr/sbin/squeezeboxserver --help' to obtain a full listing.
-SLIMOPTIONS=""
+#
+# LMS writes logs to file so '--quiet' is used to suppress logging
+# to stdout.
+SLIMOPTIONS="--quiet"
