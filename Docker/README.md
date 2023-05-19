@@ -91,3 +91,6 @@ You can put a script called `custom-init.sh` in the configuration folder. If tha
 apt-get update -qq
 apt-get install --no-install-recommends -qy ffmpeg
 ```
+
+### Passing additional launch arguments
+An optional `EXTRA_ARGS` environment variable exists for passing additional arguments to Logitech Media Server process. For example, disabling the web interface could be achieved with `EXTRA_ARGS="--noweb"`.
