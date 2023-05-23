@@ -1,5 +1,5 @@
 PAP-Version: 1.0
-Packer: 
+Packer:
 Script: slimserver.pl
 Bind: grant.exe[file=Bin/MSWin32-x86-multi-thread/grant.exe,mode=666]
 Add: version
@@ -228,6 +228,7 @@ Dyndll: 0
 Force: 1
 Lib: lib:CPAN\arch\5.14\MSWin32-x86-multi-thread\auto
 Lib: lib:CPAN\arch\5.14\MSWin32-x86-multi-thread
+Lib: lib:CPAN\arch\5.14\
 Lib: lib:lib
 Lib: lib:CPAN
 Trim: Slim::Networking::IO::EV
