@@ -37,3 +37,4 @@ override_dh_install:
 	install -m0755 ${source}/slimserver.pl ${base}/usr/sbin/squeezeboxserver
 	install -m0755 ${source}/scanner.pl ${base}/usr/sbin/squeezeboxserver-scanner
 	install -m0755 ${source}/cleanup.pl ${base}/usr/sbin/squeezeboxserver-cleanup
+	install -m0755 ${source}/gdresized.pl ${base}/usr/sbin/squeezeboxserver-resized

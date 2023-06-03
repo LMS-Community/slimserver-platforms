@@ -41,9 +41,9 @@ Version:	%{_version}
 Release:	%{rpm_release}
 Summary:        Logitech Media Server
 
-Group:		System Environment/Daemons          
-License:	GPL and proprietary        
-URL:		http://www.mysqueezebox.com            
+Group:		System Environment/Daemons
+License:	GPL and proprietary
+URL:		http://www.mysqueezebox.com
 Source0:	%{src_basename}.tgz
 Source1:	squeezeboxserver.config
 Source2:	squeezeboxserver.init
@@ -59,11 +59,11 @@ Recommends:     perl(IO::Socket::SSL)
 Obsoletes:	squeezeboxserver, squeezecenter, slimserver, SliMP3
 AutoReqProv:	no
 
-BuildArch:	noarch       
+BuildArch:	noarch
 
 %description
-Logitech Media Server powers the Squeezebox, Transporter and SLIMP3 network music 
-players and is the best software to stream your music to any software MP3 
+Logitech Media Server powers the Squeezebox, Transporter and SLIMP3 network music
+players and is the best software to stream your music to any software MP3
 player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
 As of version 7.7 it also supports UPnP clients, serving pictures and movies too!
 
@@ -118,7 +118,8 @@ cp -p icudt46*.dat $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
 cp -p icudt58*.dat $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
 cp -p slimserver.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezeboxserver
 cp -p scanner.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezeboxserver-scanner
-cp -p cleanup.pl $RPM_BUILD_ROOT%{_usr}/sbin/squeezeboxserver-cleanup
+cp -p cleanup.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezeboxserver-cleanup
+cp -p gdresized.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezeboxserver-resized
 
 # Create symlink to 3rd Party Plugins
 ln -s %{_var}/lib/squeezeboxserver/Plugins \
@@ -135,9 +136,9 @@ touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/log.conf
 cp -p convert.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezeboxserver
 cp -p modules.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezeboxserver
 cp -p types.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezeboxserver
-touch $RPM_BUILD_ROOT%{_var}/log/squeezeboxserver/perfmon.log 
-touch $RPM_BUILD_ROOT%{_var}/log/squeezeboxserver/server.log 
-touch $RPM_BUILD_ROOT%{_var}/log/squeezeboxserver/scanner.log 
+touch $RPM_BUILD_ROOT%{_var}/log/squeezeboxserver/perfmon.log
+touch $RPM_BUILD_ROOT%{_var}/log/squeezeboxserver/server.log
+touch $RPM_BUILD_ROOT%{_var}/log/squeezeboxserver/scanner.log
 touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/cli.prefs
 touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/datetime.prefs
 touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/infobrowser.prefs
@@ -173,7 +174,7 @@ exit 0
 function parseSysconfigSqueezeboxserver {
 
 	# Some simple checks on the /etc/sysconfig/squeezeboxserver
-	# No guarantees that these checks will catch all changes that may have 
+	# No guarantees that these checks will catch all changes that may have
 	# been made that might have an impact on the move to systemd
 	. %{_sysconfdir}/sysconfig/squeezeboxserver
 	if [ "$SQUEEZEBOX_USER" != "squeezeboxserver" ] ; then
@@ -221,7 +222,7 @@ function setSYSV {
 
 	# This is a SYSV server. Copy SYSV script to the correct place.
 	cp -p %{_datadir}/squeezeboxserver/squeezeboxserver.SYSV %{_sysconfdir}/init.d/squeezeboxserver >/dev/null 2>&1 || :
-        
+
 	#SME Server uses runlevel 7
 	if [ -f /etc/e-smith-release -a -d /etc/rc7.d ] ; then
 		ln -sf %{_sysconfdir}/init.d/squeezeboxserver /etc/rc7.d/S80squeezeboxserver >/dev/null 2>&1 || :
@@ -239,7 +240,7 @@ function setSystemd {
 	# (is there any other way?)
 
 	if [ -n "$migrate" ] ; then
-		# If we currently are running through a SYSV script. First stop 
+		# If we currently are running through a SYSV script. First stop
  		/sbin/service squeezeboxserver stop >/dev/null 2>&1 || :
 		/sbin/chkconfig --del squeezeboxserver >/dev/null 2>&1 || :
 		# We should not remove the old SYSV init file. The RPM
@@ -332,14 +333,14 @@ function unsetSystemd {
 
 if [ "$1" -eq "0" ] ; then
 	# If not upgrading
-	
+
 	# First stop and removethe start-up script/unit file.
 	if [ ! -x /usr/bin/systemctl ] ; then
 
 		unsetSYSV
 
-	else 
-	
+	else
+
 		unsetSystemd
 
 	fi
@@ -375,6 +376,7 @@ fi
 # Executables
 %{_usr}/libexec/squeezeboxserver
 %{_usr}/libexec/squeezeboxserver-scanner
+%{_usr}/libexec/squeezeboxserver-resized
 %{_usr}/sbin/squeezeboxserver-cleanup
 
 # Log files
@@ -411,7 +413,7 @@ fi
 
 %changelog
 * Sat Apr 24 2021 Johan S.
-- Added a weak dependency for perl(IO::Socket:SSL). This package is almost 
+- Added a weak dependency for perl(IO::Socket:SSL). This package is almost
   always needed now a days. Zypper and dnf will pull in this package if it is
   available in the repositories defined on the server. rpm will not evaluate the
   weak dependency and neith will yum on pre CentOS/RHEL 8.0 systems.
@@ -423,18 +425,18 @@ fi
   installations running on systemd servers will be migrated to systemd start-up
   when the logitechmediaserver RPM is upgraded.
 - Added use of PERL5LIB in SYSV init script and systemd unit file, making sure
-  that /usr/lib/perl5/site_perl is the first location where the squeezebox 
-  executable search for its needed perl modules. This will remove the need to 
-  create symbolic links to /usr/lib/perl5/vendor_perl on systems where perl 
+  that /usr/lib/perl5/site_perl is the first location where the squeezebox
+  executable search for its needed perl modules. This will remove the need to
+  create symbolic links to /usr/lib/perl5/vendor_perl on systems where perl
   expects the modules ina different location.
 - Remove the creation of symbolic link in /usr/lib/perl5/site_perl for SUSE
-  distribution in the post install script as it is no longer needed (see 
+  distribution in the post install script as it is no longer needed (see
   previous point).
-- Added a function in the post install script to parse 
+- Added a function in the post install script to parse
   /etc/sysconfig/squeezeboxserver to see if any changes have been done to the
   script that will not be picked up by the systemd unit file. If such changes
   are found a warning is issued at the end of the installation procedure. This
-  parsing of the sysconfg file is only done when the installation is migrated 
+  parsing of the sysconfg file is only done when the installation is migrated
   from SYSV to systemd.
 
 * Wed Oct 31 2007 Robin Bowes <robin@robinbowes.com>
@@ -472,21 +474,21 @@ fi
 
 * Thu May 22 2003 dean
 Victor Brilon submitted a patch:
-- Got rid of the -r param. On RedHat this creates a system account w/a 
-UID lower than value of UID_MIN. I don't see why we need to do this as 
-the slimp3 user is not a priviledged user. Also, with this param, the -d 
+- Got rid of the -r param. On RedHat this creates a system account w/a
+UID lower than value of UID_MIN. I don't see why we need to do this as
+the slimp3 user is not a priviledged user. Also, with this param, the -d
 flag will never create a home dir for security reasons.
 
-- Got rid of the -s flag as this will force the system to use the 
+- Got rid of the -s flag as this will force the system to use the
 default shell for the user.
 
-- Also with useradd, if a passwd is not specified (which is exactly what 
-we're doing), the default action is to lock the account so you can't 
-login into it. This should work ok as we can still su into it to start 
+- Also with useradd, if a passwd is not specified (which is exactly what
+we're doing), the default action is to lock the account so you can't
+login into it. This should work ok as we can still su into it to start
 the slimp3 player.
 
-- The slimp3 directory hierarchy should be owned by the slimp3 user not 
-by root. Changed that as well. This should prevent some of the problems 
+- The slimp3 directory hierarchy should be owned by the slimp3 user not
+by root. Changed that as well. This should prevent some of the problems
 people were having with saving playlists and such.
 
 * Mon Feb 10 2003 DV <datavortex@datavortex.net>

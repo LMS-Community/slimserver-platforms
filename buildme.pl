@@ -244,7 +244,7 @@ sub setupBuildTree {
 	## Force some permissions, just in case they weren't already set
 	chmod 0755, "$buildDir/$squeezeCenterStartupScript";
 	chmod 0755, "$buildDir/server/scanner.pl";
-
+	chmod 0755, "$buildDir/server/gdresized.pl";
 
 	# Write out the revision number
 	if ($revision = getRevisionForRepo()) {
