@@ -377,7 +377,7 @@ fi
 %{_usr}/libexec/squeezeboxserver
 %{_usr}/libexec/squeezeboxserver-scanner
 %{_usr}/libexec/squeezeboxserver-resized
-%{_usr}/sbin/squeezeboxserver-cleanup
+%{_usr}/libexec/squeezeboxserver-cleanup
 
 # Log files
 %attr(0755,squeezeboxserver,squeezeboxserver) %dir %{_var}/log/squeezeboxserver
