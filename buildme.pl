@@ -234,7 +234,11 @@ sub setupBuildTree {
 
 	## Exclude the .git directory, and anything else we configured in the beginning of the script.
 	print("rsync -a --quiet $sourceExclude $sourceDir/server $sourceDir/platforms $buildDir\n");
-	system("rsync -a --quiet $sourceExclude $sourceDir/server $sourceDir/platforms $buildDir");
+	my $cmd = "rsync -a --quiet $sourceExclude $sourceDir/server $sourceDir/platforms $buildDir";
+	$cmd =~ s/\\/\//g;
+	$cmd = 'MSYS2_ARG_CONV_EXCL="*" MSYS_NO_PATHCONV=1 ' . $cmd;
+	print $cmd;
+	system($cmd);
 
 	## Verify that things went OK during the transfer...
 	if (!-d "$buildDir/server") {
