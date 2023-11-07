@@ -78,6 +78,14 @@ environment:
 
 ## Advanced configuration notes
 
+### If you can't map to `/etc/localtime` or `/etc/timezone`
+
+Some systems wouldn't allow you to map volumes outside specific folders, eg. Unraid. In many of these cases you can define your timezone using an environment variable:
+
+```
+  -e TZ=Europe/Zurich
+```
+
 ### Docker on Synology
 * use `/etc/TZ` instead of `/etc/timezone`
 * you'll likely have to use another port than 9000. Synology traditionally used port 9002 to run Logitech Media Server on. See above note about mapping ports to make sure this is working as expected!
