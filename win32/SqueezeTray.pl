@@ -1,6 +1,6 @@
 # Logitech Media Server Copyright 2001-2020 Logitech.
 # This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License, 
+# modify it under the terms of the GNU General Public License,
 # version 2.
 
 # SqueezeTray.exe controls the starting & stopping of the server application
@@ -25,6 +25,7 @@ use constant SB_USER_REGISTRY_KEY => 'CUser/Software/Logitech/Squeezebox';
 use constant SLIM_SERVICE => 0;
 use constant SCANNER      => 0;
 use constant ISWINDOWS    => 1;
+use constant ISACTIVEPERL => 1;
 use constant TIMERSECS    => 10;
 use constant INFOLOG      => 0;
 
@@ -54,7 +55,7 @@ Slim::Utils::Light::loadStrings();
 # Dynamically create the popup menu based on the server's state
 sub PopupMenu {
 	my @menu = ();
-	
+
 	my $type = $svcMgr->getStartupType();
 	my $state = $svcMgr->getServiceState();
 
@@ -63,7 +64,7 @@ sub PopupMenu {
 	push @menu, [($Registry->{SB_USER_REGISTRY_KEY . '/DefaultToWebUI'} ? '*' : '') . string('OPEN_SQUEEZEBOX_SERVER'), $state == SC_STATE_RUNNING ? \&openServer : undef];
 
 	if ( my $installer = Slim::Utils::Light->checkForUpdate() ) {
-		push @menu, [string('INSTALL_UPDATE'), \&updateServerSoftware];	
+		push @menu, [string('INSTALL_UPDATE'), \&updateServerSoftware];
 	}
 	push @menu, ["--------"];
 
@@ -156,7 +157,7 @@ my %toolTips;
 sub ToolTip {
 	my $state = $svcMgr->getServiceState();
 	my $stateString;
-	
+
 	return $toolTips{$state} if $toolTips{$state};
 
 	# use English if HE is selected on western systems, as these can't handle the Hebrew tooltip
@@ -165,18 +166,18 @@ sub ToolTip {
  	if ($state == SC_STATE_STARTING) {
 		$stateString = string('SQUEEZEBOX_SERVER_STARTING', $lang);
  	}
- 
+
  	elsif ($state == SC_STATE_RUNNING) {
 		$stateString = string('SQUEEZEBOX_SERVER_RUNNING', $lang);
  	}
-    
+
  	else {
 		$stateString = string('SQUEEZEBOX_SERVER_STOPPED', $lang);
  	}
- 
+
 	# try to prevent intermittent "Unknown encoding 'cp1250' at SqueezeTray.pl line 170" crasher
 	$stateString = eval { encode(($lang eq 'HE' ? 'cp1255' : 'cp1250'), $stateString); } if $lang eq 'HE';
-	
+
 	$toolTips{$state} = $stateString if $stateString;
 
 	return $stateString || 'Logitech Media Server';
@@ -193,7 +194,7 @@ sub Timer {
 		SetAnimation(TIMERSECS * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
 
 	}
-	
+
 	checkSCActive();
 }
 
@@ -251,7 +252,7 @@ sub checkAndStart {
 
 sub checkSCActive {
 	$svcMgr->checkServiceState();
-	
+
 	my $state = $svcMgr->getServiceState();
 
 	if ($state == SC_STATE_RUNNING) {
@@ -266,8 +267,8 @@ sub checkSCActive {
 sub checkForUpdate {
 	if ( $svcMgr->getServiceState() != SC_STATE_STARTING && Slim::Utils::Light->checkForUpdate() ) {
 		Balloon(string('UPDATE_AVAILABLE'), "Logitech Media Server", "info", 1);
-		
-		# once the balloon is shown, only poll every hour 
+
+		# once the balloon is shown, only poll every hour
 		SetTimer('1:00:00', \&checkForUpdate);
 	}
 }
@@ -365,11 +366,11 @@ sub stopComponents {
 
 sub updateServerSoftware {
 	stopServer(1);
-	
+
 	my $logfile  = catdir(scalar($os->dirsFor('log')), 'update.log');
-	
+
 	my $installer = Slim::Utils::Light->checkForUpdate();
-	
+
 	my $processObj;
 	Win32::Process::Create(
 		$processObj,
@@ -379,9 +380,9 @@ sub updateServerSoftware {
 		Win32::Process::DETACHED_PROCESS() | Win32::Process::CREATE_NO_WINDOW() | Win32::Process::NORMAL_PRIORITY_CLASS(),
 		'.'
 	);
-	
+
 	Slim::Utils::Light->resetUpdateCheck();
-	
+
 	uninstall();
 }
 
@@ -389,7 +390,7 @@ sub runWatchDog {
 	# cut short if file doesn't exist, don't continue if we can't delete it
 	return unless -e $restartFlag && -w _;
 
-	
+
 	my @filestat = stat(_);
 	my $age = time() - $filestat[9];
 
@@ -423,7 +424,7 @@ sub sendCLICommand {
 		print SSERVER "$cmd\n", ;
 
 		close(SSERVER);
-		
+
 		return 1;
 	}
 
@@ -446,7 +447,7 @@ sub uninstall {
 	# stop the control panel and other related processes
 	sleep 5;
 	stopComponents();
-	
+
 	$os->cleanupTempDirs();
 
 	exit;
