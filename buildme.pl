@@ -16,7 +16,7 @@ use constant DESTDIR_NOT_REQUIRED => '[not required]';
 
 ## Here we set some basic settings.. most of these dont need to change very often.
 my $squeezeCenterStartupScript = "server/slimserver.pl";
-my $sourceDirsToExclude = ".svn .git .github t tests slimp3 squeezebox /softsqueeze tools ext/source ext-all-debug.js build Firmware/*.bin";
+my $sourceDirsToExclude = ".svn .git .github t tests slimp3 squeezebox /softsqueeze tools ext/source ext-all-debug.js build Firmware/*.bin NYTProf Plugins/*";
 my $revisionTextFile = "server/revision.txt";
 my $revision;
 my $myVersion = "1.1.0";
@@ -28,29 +28,27 @@ my $windowsPerlDir = "C:\\perl";
 my $windowsPerlPath = "$windowsPerlDir\\bin\\perl.exe";
 
 ## Directories to exclude when building certain packages...
-my $dirsToExcludeForLinuxTarball = "i386-freebsd-64int MSWin32-x86-multi-thread darwin darwin-x86_64 PreventStandby";
+my $dirsToExcludeForLinuxTarball = "i386-freebsd-64int MSWin32-x86-multi-thread MSWin32-x64-multi-thread darwin darwin-x86_64 PreventStandby";
 my $dirsToExcludeForLinuxPackage = "$dirsToExcludeForLinuxTarball 5.10 5.12 5.14 5.16 5.18";
-my $dirsToExcludeForFreeBSDTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux powerpc-linux aarch64-linux icudt46b.dat";
-my $dirsToExcludeForARMTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat";
-my $dirsToExcludeForPPCTarball = "MSWin32-x86-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int aarch64-linux icudt46l.dat icudt58l.dat";
+my $dirsToExcludeForFreeBSDTarball = "MSWin32-x86-multi-thread MSWin32-x64-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux powerpc-linux aarch64-linux icudt46b.dat";
+my $dirsToExcludeForARMTarball = "MSWin32-x86-multi-thread MSWin32-x64-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat";
+my $dirsToExcludeForPPCTarball = "MSWin32-x86-multi-thread MSWin32-x64-multi-thread PreventStandby i386-linux x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int aarch64-linux icudt46l.dat icudt58l.dat";
 my $dirsToExcludeForARMDeb = "$dirsToExcludeForARMTarball 5.10 5.12 5.14 5.16 5.18";
-my $dirsToExcludeForx86_64Deb = "5.10 5.12 5.14 5.16 5.18 MSWin32-x86-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux aarch64-linux icudt46b.dat icudt58b.dat";
-my $dirsToExcludeFori386Deb = "5.10 5.12 5.14 5.16 5.18 MSWin32-x86-multi-thread PreventStandby x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux aarch64-linux icudt46b.dat icudt58b.dat";
-my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-thread i86pc-solaris-thread-multi-64int darwin darwin-x86_64 i386-linux sparc-linux x86_64-linux arm-linux armhf-linux powerpc-linux aarch64-linux /arch/ PreventStandby";
+my $dirsToExcludeForx86_64Deb = "5.10 5.12 5.14 5.16 5.18 MSWin32-x86-multi-thread MSWin32-x64-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux aarch64-linux icudt46b.dat icudt58b.dat";
+my $dirsToExcludeFori386Deb = "5.10 5.12 5.14 5.16 5.18 MSWin32-x86-multi-thread MSWin32-x64-multi-thread PreventStandby x86_64-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux i386-freebsd-64int powerpc-linux aarch64-linux icudt46b.dat icudt58b.dat";
+my $dirsToExcludeForLinuxNoCpanTarball = "i386-freebsd-64int MSWin32-x86-multi-thread MSWin32-x64-multi-thread i86pc-solaris-thread-multi-64int darwin darwin-x86_64 i386-linux sparc-linux x86_64-linux arm-linux armhf-linux powerpc-linux aarch64-linux /arch/ PreventStandby";
 my $dirsToExcludeForLinuxNoCpanLightTarball = $dirsToExcludeForLinuxNoCpanTarball . " /Bin/ /HTML/! /Firmware/ /MySQL/ Graphics/CODE2000* Plugin/DateTime DigitalInput iTunes LineIn LineOut MusicMagic RSSNews Rescan SavePlaylist SlimTris Snow Plugin/TT/ Visualizer xPL";
 my $dirsToIncludeForLinuxNoCpanLightTarball = "EN.*html/images CPAN/HTML";
 my $dirsToExcludeForMacOSX = "5.10 5.12 5.14 5.16 5.20 5.22 5.24 5.26 5.28 5.30 5.32 5.36 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi MSWin32 i86pc-solaris-thread-multi-64int arm-linux armhf-linux powerpc-linux sparc-linux aarch64-linux";
-my $dirsToExcludeForWin32 = "5.10 5.12 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5.32 5.34 5.36 i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux powerpc-linux aarch64-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat icudt46l.dat icudt58b.dat icudt58l.dat";
+my $dirsToExcludeForWin32 = "5.10 5.12 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5.32 5.34 5.36 MSWin32-x64-multi-thread i386-freebsd-64int i386-linux x86_64-linux x86_64-linux-gnu-thread-multi i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux arm-linux armhf-linux powerpc-linux aarch64-linux OS/Debian.pm OS/Linux.pm OS/Unix.pm OS/OSX.pm OS/RedHat.pm OS/Suse.pm OS/SlimService.pm OS/Synology.pm OS/SqueezeOS.pm icudt46b.dat icudt46l.dat icudt58b.dat icudt58l.dat";
+my $dirsToExcludeForWin64 = "5.14 $dirsToExcludeForWin32";
+$dirsToExcludeForWin64 =~ s/5.32 |MSWin32-x64-multi-thread //g;
 
 # for Docker we provide x86_64 and armhf for Perl 5.32 only
-my $dirsToExcludeForDocker = "5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5.34 5.36 MSWin32-x86-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat";
+my $dirsToExcludeForDocker = "5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5.34 5.36 MSWin32-x86-multi-thread MSWin32-x64-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat";
 
 ## Initialize some variables we'll use later
 my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $i386, $releaseType, $release, $tag);
-
-## Generate a random number... used for a single instance wherever we need a temp file.
-my $range = 10000;
-my $random_number = rand($range);
 
 
 ##############################################################################################
@@ -111,7 +109,7 @@ sub checkCommandOptions {
 		exit(0);
 	}
 
-	if ($build =~ /^tarball|docker|debian|rpm|macosx|win32$/) {
+	if ($build =~ /^tarball|docker|debian|rpm|macosx|win32|win64$/) {
 		## releaseType is an option, but if its not there, we need
 		## to default it to 'nightly'
 		if (!$releaseType) {
@@ -322,6 +320,12 @@ sub doCommandOptions {
 		$destName =~ s/$defaultDestName/LogitechMediaServer/;
 		buildWin32("$destName");
 
+
+	} elsif ($build eq "win64") {
+		## Build the Windows 64bit ZIP archive
+		$destName =~ s/$defaultDestName/LogitechMediaServer/;
+		buildZIPArchive($dirsToExcludeForWin64, "$destDir/$destName-win64");
+
 	}
 }
 
@@ -494,6 +498,28 @@ sub buildTarball {
 		## Make the tarball...
 		print "INFO: Building $tarballName.tgz with source from $buildDir/$name ($buildDir/server), excluding [$dirsToExclude]...\n";
 		system("cd $buildDir; tar -zcf $tarballName.tgz $name");
+
+		## Remove the link
+		system("mv $buildDir/$name $buildDir/server");
+	}
+}
+
+sub buildZIPArchive {
+	my ($dirsToExclude, $zipName, $dirsToInclude) = @_;
+
+	## Grab the variables passed to us...
+	if ( ($dirsToExclude && $zipName) || die("Problem: Not all of the variables were passed to the BuildZIPArchive function...") ) {
+
+		removeExclusions($dirsToExclude, $dirsToInclude);
+
+		## We want a pretty name as the output dir, so we rename the server directory real quick
+		## (the old script would do an rsync here, but an rsync takes too long and is an unnecessary waste of space, even temorarily)
+		my ($name, $path, $suffix) = fileparse($zipName);
+		system("mv $buildDir/server $buildDir/$name");
+
+		## Make the tarball...
+		print "INFO: Building $zipName.zip with source from $buildDir/$name ($buildDir/server), excluding [$dirsToExclude]...\n";
+		system("cd $buildDir; zip -r $zipName.zip $name");
 
 		## Remove the link
 		system("mv $buildDir/$name $buildDir/server");
