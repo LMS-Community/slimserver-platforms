@@ -878,3 +878,8 @@ PleaseInstallVCRedist2010=In order to install Logitech Media Server on this comp
 FindVCRedist2010Online=Please download it from the following link:%n%nhttp://www.microsoft.com/download/en/details.aspx?id=8328
 
 FindVCRedist=You can find a copy of the package in the Software share of your WHS.
+
+StrawberryPerl=Strawberry Perl
+NeedStrawberryPerl=Strawberry Perl is required to run Logitech Media Server
+DownloadingPerl=Installation of Strawberry Perl is only required the first time you install.
+InstallingPerl=Installing Strawberry Perl... This can take a while - please be patient!
