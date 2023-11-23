@@ -1,11 +1,11 @@
 ;
 ; InnoSetup Script for Logitech Media Server
 ;
-; Logitech : http://www.logitech.com
+; Logitech : https://www.logitech.com
 
 #define AppName "Logitech Media Server"
 #define AppVersion "8.4.0"
-#define ProductURL "http://www.mysqueezebox.com/support"
+#define ProductURL "https://forums.slimdevices.com"
 #define SSRegKey = "Software\SlimDevices\SlimServer"
 #define SCRegKey = "Software\Logitech\SqueezeCenter"
 #define SBRegKey = "Software\Logitech\Squeezebox"
@@ -14,19 +14,19 @@
 
 [Languages]
 ; order of languages is important when falling back when a localization is missing
-Name: en; MessagesFile: "Default.isl"
-Name: cz; MessagesFile: "Czech.isl"
-Name: da; MessagesFile: "Danish.isl"
-Name: de; MessagesFile: "German.isl"
-Name: es; MessagesFile: "Spanish.isl"
-Name: fi; MessagesFile: "Finnish.isl"
-Name: fr; MessagesFile: "French.isl"
-Name: it; MessagesFile: "Italian.isl"
-Name: nl; MessagesFile: "Dutch.isl"
-Name: no; MessagesFile: "Norwegian.isl"
-Name: pl; MessagesFile: "Polish.isl"
-Name: ru; MessagesFile: "Russian.isl"
-Name: sv; MessagesFile: "Swedish.isl"
+Name: "en"; MessagesFile: "compiler:Default.isl"
+Name: "cz"; MessagesFile: "compiler:Languages\Czech.isl"
+Name: "da"; MessagesFile: "compiler:Languages\Danish.isl"
+Name: "de"; MessagesFile: "compiler:Languages\German.isl"
+Name: "es"; MessagesFile: "compiler:Languages\Spanish.isl"
+Name: "fi"; MessagesFile: "compiler:Languages\Finnish.isl"
+Name: "fr"; MessagesFile: "compiler:Languages\French.isl"
+Name: "it"; MessagesFile: "compiler:Languages\Italian.isl"
+Name: "nl"; MessagesFile: "compiler:Languages\Dutch.isl"
+Name: "no"; MessagesFile: "compiler:Languages\Norwegian.isl"
+Name: "pl"; MessagesFile: "compiler:Languages\Polish.isl"
+Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl"
+Name: "sv"; MessagesFile: "Swedish.isl"
 
 [CustomMessages]
 #include "strings.iss"
@@ -39,7 +39,7 @@ VersionInfoProductName={#AppName} {#AppVersion}
 VersionInfoProductVersion={#AppVersion}
 VersionInfoVersion=0.0.0.0
 
-AppPublisher=Logitech
+AppPublisher=Logitech Inc.
 AppPublisherURL={#ProductURL}
 AppSupportURL={#ProductURL}
 AppUpdatesURL={#ProductURL}
@@ -49,11 +49,9 @@ DisableDirPage=yes
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 WizardImageFile=squeezebox.bmp
-WizardImageBackColor=$ffffff
-WizardSmallImageFile=logitech.bmp
+WizardSmallImageFile=logi.bmp
 OutputBaseFilename=SqueezeSetup
 DirExistsWarning=no
-MinVersion=0,5.1
 
 [Files]
 Source: Release Notes.html; DestDir: {app}; Flags: ignoreversion
@@ -147,10 +145,10 @@ Filename: "sc"; Parameters: "stop SqueezeMySQL"; Flags: runhidden; MinVersion: 0
 Filename: "sc"; Parameters: "delete SqueezeMySQL"; Flags: runhidden; MinVersion: 0,4.00.1381
 
 [UninstallRun]
-Filename: "sc"; Parameters: "stop squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381
-Filename: "sc"; Parameters: "delete squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381
-Filename: {app}\server\SqueezeSvr.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
-Filename: {app}\SqueezeTray.exe; Parameters: "--exit --uninstall"; WorkingDir: {app}; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381
+Filename: "sc"; Parameters: "stop squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: StopSqueezSVC
+Filename: "sc"; Parameters: "delete squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: DeleteSqueezSVC
+Filename: {app}\server\SqueezeSvr.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381; RunOnceId: SqueezeSvrExe
+Filename: {app}\SqueezeTray.exe; Parameters: "--exit --uninstall"; WorkingDir: {app}; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381; RunOnceId: SqueezeTrayExe
 
 [Code]
 #include "SocketTest.iss"
@@ -159,7 +157,7 @@ var
 	ProgressPage: TOutputProgressWizardPage;
 	StartupMode: String;
 	HttpPort: String;
-	
+
 	// custom exit codes
 	// 1001 - SC configuration was found using port 9000, but port 9000 seems to be busy with an other application (PrefsExistButPortConflict)
 	// 1002 - SC wasn't able to establish a connection to mysqueezebox.com on port 3483 (SNConnectFailed_Description)
@@ -179,7 +177,7 @@ begin
 			else
 				HttpPort := '9000';
 		end;
-		
+
 	Result := HttpPort
 end;
 
@@ -188,7 +186,7 @@ var
 	InstallFolder: String;
 begin
 	if (not RegQueryStringValue(HKLM, '{#SBRegKey}', 'Path', InstallFolder)) then
-		InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'Squeezebox';
+		InstallFolder := AddBackslash(ExpandConstant('{commonpf32}')) + 'Squeezebox';
 
 	Result := InstallFolder;
 end;
@@ -211,23 +209,23 @@ begin
 				end
 			else
 				DataPath := ExpandConstant('{commonappdata}');
-		
+
 			DataPath := AddBackslash(DataPath) + 'Squeezebox';
 		end;
 
 	Result := DataPath;
-end;	
+end;
 
 function GetPrefsFolder() : String;
 begin
 	Result := AddBackslash(GetWritablePath('')) + 'prefs'
-end;	
+end;
 
 
 function GetPrefsFile() : String;
 begin
 	Result := AddBackslash(GetPrefsFolder()) + 'server.prefs';
-end;	
+end;
 
 
 procedure RegisterPort(Port: String);
@@ -344,14 +342,14 @@ begin
 	MaxProgress := ProgressPage.ProgressBar.Position + Wait;
 	while (Wait > 0) and (IsServiceRunning(Svc) or IsServiceRunning(MySQLSvc) or IsModuleLoaded(Executable) or IsModuleLoaded(TrayExe) or IsModuleLoaded(LongExecutable)) do
 	begin
-	
+
 		if (Wait mod 10 = 0) then
 			Log('Waiting for service to stop...');
-	
+
 		ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
 		Sleep(1000);
 		Wait := Wait - 1;
-	end;	
+	end;
 end;
 
 
@@ -363,7 +361,7 @@ var
 	OldPrefsPath: String;
 	Uninstaller: String;
 	UninstallPath: String;
- 
+
 begin
 	// if we don't have a Squeezebox prefs file yet, migrate preference file before uninstalling SlimServer
 	if not FileExists(GetPrefsFile()) then
@@ -379,7 +377,7 @@ begin
 			else
 				OldPrefsPath := AddBackslash(ExpandConstant('{%ALLUSERSPROFILE}')) + 'SlimServer';
 
-			// try to migrate existing SlimServer prefs file	
+			// try to migrate existing SlimServer prefs file
 			if (FileExists(AddBackslash(OldPrefsPath) + 'slimserver.pref')) then
 				FileCopy(AddBackslash(OldPrefspath) + 'slimserver.pref', PrefsFile, true)
 			else
@@ -434,7 +432,7 @@ begin
 			PrefsFile := PrefsPath + 'server.prefs';
 
 			if ((RegQueryStringValue(HKLM, '{#SCRegKey}', 'DataPath', OldPrefsPath) and DirExists(AddBackslash(OldPrefsPath) + 'prefs'))) then begin
-			
+
 				OldPrefsPath := AddBackslash(OldPrefsPath) + AddBackslash('prefs');
 				if (FindFirst(OldPrefsPath + '*.*', FindRec)) then begin
 					try
@@ -445,7 +443,7 @@ begin
 						FindClose(FindRec);
 					end;
 				end;
-			
+
 				// migrate plugin prefs
 				OldPrefsPath := OldPrefsPath + AddBackslash('plugin');
 				if (FindFirst(OldPrefsPath + '*.*', FindRec)) then begin
@@ -457,7 +455,7 @@ begin
 						FindClose(FindRec);
 					end;
 				end;
-				
+
 			end;
 		end;
 
@@ -475,7 +473,7 @@ begin
 	// remove some legacy stuff
 	if (RegQueryStringValue(HKLM, '{#SCRegKey}', 'DataPath', OldPrefsPath)) then begin
 		OldPrefsPath := AddBackslash(OldPrefsPath);
-		
+
 		if (DirExists(AddBackslash(OldPrefsPath) + 'Cache')) then begin
 			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'Artwork', True, True, True);
 			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'DownloadedPlugins', True, True, True);
@@ -485,7 +483,7 @@ begin
 			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'MySQL', True, True, True);
 			Deltree(AddBackslash(OldPrefsPath) + AddBackslash('Cache') + 'templates', True, True, True);
 		end;
-		
+
 	end;
 
 	if (StartupMode = '') and (RegQueryStringValue(HKCU, '{#SCRegKey}', 'StartAtBoot', StartAtBoot)) then
@@ -604,7 +602,7 @@ begin
 	DelDir := AddBackslash(GetWritablePath('')) + AddBackslash('Cache');
 	Deltree(DelDir + AddBackslash('Artwork'), true, true, true);
 	Deltree(DelDir + AddBackslash('ArtworkCache'), true, true, true);
-	
+
 	// bug 17734: dito for the FileCache folder. Under certain circumstances this can have grown to tens of thousands of files
 	Deltree(DelDir + AddBackslash('FileCache'), true, true, true);
 end;
@@ -666,7 +664,7 @@ end;
 procedure CurStepChanged(CurStep: TSetupStep);
 var
 	Wait, ErrorCode, i: Integer;
-	NewServerDir, PrefsFile, PrefsPath, PrefString, PortConflict, s: String;
+	NewServerDir, PrefsFile, PrefsPath, PrefString, PortConflict: String;
 	Started, Silent, TrayIcon, NoTrayIcon, InstallService: Boolean;
 
 begin
@@ -680,17 +678,17 @@ begin
 				begin
 					// add custom progress bar to be displayed while unregistering services
 					ProgressPage := CreateOutputProgressPage(CustomMessage('UnregisterServices'), CustomMessage('UnregisterServicesDesc'));
-	
+
 					try
 						ProgressPage.setProgress(0, 170);
 						if (StartupMode = '') and (IsServiceRunning('squeezesvc') or IsServiceRunning('slimsvc') or IsModuleLoaded('SqueezeSvr.exe') or IsModuleLoaded('squeez~3.exe')
 							or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('squeezecenter.exe') or IsModuleLoaded('slimserver.exe')) then
 							StartupMode := 'running';
-	
+
 						UninstallSliMP3();
-	
+
 						ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
-	
+
 						MigrateSlimServer();
 
 						RemoveServices('SC');
@@ -700,23 +698,23 @@ begin
 						UninstallSqueezeboxServer();
 
 						RemoveServices('SB');
-	
+
 						ProgressPage.setProgress(0, 0);
 						ProgressPage.SetText(CustomMessage('RemoveLegacyFiles'), CustomMessage('RemoveLegacyFilesWarning'));
 
 						RemoveLegacyFiles();
-	
+
 					finally
 						ProgressPage.Hide;
 					end;
-	
+
 				end
 			else
 				if (StartupMode = '') then
 					StartupMode := 'logon';
 		end;
 
-	if CurStep = ssPostInstall then 
+	if CurStep = ssPostInstall then
 		begin
 
 			// remove server.version file to prevent repeated update prompts
@@ -734,7 +732,7 @@ begin
 				else if (pos('/installservice', lowercase(ParamStr(i))) > 0) then
 					InstallService := true
 			end;
-			
+
 			Silent := Silent or WizardSilent;
 
 			// run VC runtime installer if not already installed
@@ -766,12 +764,12 @@ begin
 				// Add firewall rules for Windows XP/Vista
 				if (GetWindowsVersion shr 24 >= 6) then
 					Exec('netsh', 'advfirewall firewall add rule name="{#AppName}" description="Allow {#AppName} to accept inbound connections." dir=in action=allow program="' + ExpandConstant('{app}') + '\server\SqueezeSvr.exe' + '"', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
-	
+
 				PrefsFile := GetPrefsFile();
-	
+
 				if (not DirExists(PrefsPath)) then
 					ForceDirectories(PrefsPath);
-		
+
 				if not FileExists(PrefsFile) then
 					begin
 						PrefString := '---' + #13#10 + '_version: 0' + #13#10 + 'cachedir: ' + AddBackslash(GetWritablePath('')) + 'Cache' + #13#10 + 'language: ' + AnsiUppercase(ExpandConstant('{language}')) + #13#10 + PrefString;
@@ -803,7 +801,7 @@ begin
 				RegisterPort('9090');
 				RegisterPort('9092');
 				RegisterPort('3483');
-				
+
 				if InstallService then
 				begin
 					Exec(AddBackslash(NewServerDir) + 'SqueezeSvr.exe', '-install auto', NewServerDir, SW_HIDE, ewWaitUntilIdle, ErrorCode);
@@ -827,23 +825,23 @@ begin
 						// "running" means: starting manually only, but was running when installer was launched
 						if (StartupMode = 'running') then
 							Exec(ExpandConstant('{app}') + '\SqueezeTray.exe', '--start', ExpandConstant('{app}'), SW_SHOW, ewWaitUntilIdle, ErrorCode);
-				
+
 						if (StartupMode = 'auto') or (StartupMode = 'logon') or (StartupMode = 'running') then
 							begin
 							ProgressPage.setText(CustomMessage('RegisteringServices'), '{#AppName}');
-			
+
 							// wait up to 120 seconds for the services to be started
 								Wait := 120;
 								Started := false;
-								
+
 								while (Wait > 0) do
 									begin
-									
+
 										Log('Waiting for the server to be running...');
-									
+
 										ProgressPage.setProgress(ProgressPage.ProgressBar.Position+2, ProgressPage.ProgressBar.Max);
 										Sleep(2000);
-										
+
 										if IsPortOpen('127.0.0.1', GetHttpPort('')) then
 											// SC is ready - let's give it some more time to open the browser
 											begin
@@ -854,22 +852,22 @@ begin
 													end;
 												break;
 											end
-										
+
 										else if (IsServiceRunning('squeezesvc') or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('SqueezeSvr.exe') or IsModuleLoaded('squeez~3.exe')) then
 											Started := true
-											
+
 										else if Started then
 											break;
 
 										Wait := Wait - 2;
-									end;	
+									end;
 							end;
 					end;
 
 			finally
 				ProgressPage.Hide;
 			end;
-		end;	
+		end;
 end;
 
 function GetCustomSetupExitCode: Integer;
@@ -904,7 +902,7 @@ begin
 					RegDeleteKeyIncludingSubkeys(HKCU, '{#SSRegKey}');
 					RegDeleteKeyIncludingSubkeys(HKLM, '{#SSRegKey}');
 				end;
-		end;	
+		end;
 end;
 
 

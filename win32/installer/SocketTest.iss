@@ -34,7 +34,7 @@ function GetConflictingApp(AppType: String): String;
 var
   XMLDoc, NewNode, RootNode: Variant;
   XMLFile, s: String;
-  i, x: Integer;
+  i: Integer;
 
 begin
   // Load the application data
@@ -66,7 +66,7 @@ begin
             s := CustomMessage('AppConflict_Description') + #13#10 + #13#10 + NewNode.getAttribute('ProgramName');
             if NewNode.getAttribute('Help') > '' then
               s := s + ': ' + ExpandConstant('{cm:' + String(NewNode.getAttribute('Help')) + '}');
-              
+
             Result := s;
           end
         end;

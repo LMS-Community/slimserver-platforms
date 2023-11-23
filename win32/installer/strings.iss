@@ -797,10 +797,10 @@ pl.UninstallPrefs=Czy chcesz usunąć także wszystkie preferencje i pliki dzien
 ru.UninstallPrefs=Удалить все настройки и файлы журналов?
 sv.UninstallPrefs=Vill du ta bort alla inställningar och loggfiler?
 
-en.RemoveLegacyFiles=Removing legacy files from earlier installations...
+RemoveLegacyFiles=Removing legacy files from earlier installations...
 de.RemoveLegacyFiles=Entferne nicht mehr benötigte Dateien...
 
-en.RemoveLegacyFilesWarning=Please be patient - this task can take several minutes.
+RemoveLegacyFilesWarning=Please be patient - this task can take several minutes.
 de.RemoveLegacyFilesWarning=Bitte haben Sie Geduld - diese Aktion kann mehrere Minuten dauern.
 
 cz.UninstallSqueezeCenter=Odinstalovat Logitech Media Server
@@ -873,8 +873,8 @@ pl.WaitingForServices=Trwa oczekiwanie na zatrzymanie programu Logitech Media Se
 ru.WaitingForServices=Logitech Media Server останавливается...
 sv.WaitingForServices=Väntar på att Logitech Media Server stoppas ...
 
-en.PleaseInstallVCRedist2010=In order to install Logitech Media Server on this computer you'll have to install the Microsoft Visual C++ 2010 Redistributable Package (x86).
+PleaseInstallVCRedist2010=In order to install Logitech Media Server on this computer you'll have to install the Microsoft Visual C++ 2010 Redistributable Package (x86).
 
-en.FindVCRedist2010Online=Please download it from the following link:%n%nhttp://www.microsoft.com/download/en/details.aspx?id=8328
+FindVCRedist2010Online=Please download it from the following link:%n%nhttp://www.microsoft.com/download/en/details.aspx?id=8328
 
-en.FindVCRedist=You can find a copy of the package in the Software share of your WHS.
+FindVCRedist=You can find a copy of the package in the Software share of your WHS.

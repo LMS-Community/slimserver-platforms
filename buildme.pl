@@ -896,6 +896,7 @@ sub buildWin32 {
 		# Swedish is 3rd party - we keep it in our installer folder
 		copy("$buildDir/platforms/win32/installer/Swedish.isl", "$buildDir/build");
 
+		copy("$buildDir/platforms/win32/installer/logi.bmp", "$buildDir/build");
 		copy("$buildDir/platforms/win32/installer/logitech.bmp", "$buildDir/build");
 		copy("$buildDir/platforms/win32/installer/squeezebox.bmp", "$buildDir/build");
 
@@ -912,7 +913,8 @@ sub buildWin32 {
 		unlink("$buildDir/build/psvince.dll");
 		unlink("$buildDir/build/sockettest.dll");
 		unlink("$buildDir/build/ApplicationData.xml");
-		unlink("$buildDir/build/slim.bmp");
+		unlink("$buildDir/build/logi.bmp");
+		unlink("$buildDir/build/logitech.bmp");
 		unlink("$buildDir/build/strings.iss");
 
 		unlink("$buildDir/build/Danish.isl");
@@ -931,27 +933,9 @@ sub buildWin32 {
 		unlink("$buildDir/build/Polish.isl");
 		unlink("$buildDir/build/Russian.isl");
 
-
-		print "INFO: Making Windows Home Server installer... $version.$revision \n";
-		# replacing build number in installer script
-		system("sed -e \"s/!!revision!!/$revision/\" \"$buildDir/platforms/win32/installer/SqueezeCenter.wxs\" > \"$buildDir/build/Output/SqueezeCenter.wxs\"");
-		copy("$buildDir/platforms/win32/WHS Add-In/SqueezeCenter/bin/Release/HomeServerConsoleTab.SqueezeCenter.dll", "$buildDir/build/Output");
-		copy("$buildDir/platforms/win32/WHS Add-In/SqueezeCenter/bin/Release/Jayrock.Json.dll", "$buildDir/build/Output");
-		system("cd $buildDir/build/Output; \"$buildDir/platforms/win32/WiX/candle.exe\" SqueezeCenter.wxs");
-		system("cd $buildDir/build/Output; \"$buildDir/platforms/win32/WiX/light.exe\" -sw2024 -sw1076 SqueezeCenter.wixobj");
-
-		unlink("$buildDir/build/Output/SqueezeCenter.wixobj");
-		unlink("$buildDir/build/Output/SqueezeCenter.wixpdb");
-		unlink("$buildDir/build/Output/SqueezeCenter.wxs");
-		unlink("$buildDir/build/Output/HomeServerConsoleTab.SqueezeCenter.dll");
-
 		print "INFO: Everything is finally ready, renaming the .exe and zip files...\n";
 		print "INFO: Moving [$buildDir/build/Output/SqueezeSetup.exe] to [$destDir/$destFileName.exe]\n";
 		move("$buildDir/build/Output/SqueezeSetup.exe", "$destDir/$destFileName.exe");
-
-		# rename the Windows Home Server installer
-		print "INFO: Moving [$buildDir/build/Output/SqueezeCenter.msi] to [$destDir/$destFileName-whs.msi]\n";
-		move("$buildDir/build/Output/SqueezeCenter.msi", "$destDir/$destFileName-whs.msi");
 
 		rmtree("$buildDir/build/Output");
 	}
