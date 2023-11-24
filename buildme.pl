@@ -979,6 +979,7 @@ sub buildWin64 {
 		copy("$buildDir/platforms/win32/installer/sockettest.dll", "$buildDir/build");
 		copy("$buildDir/platforms/win32/installer/ApplicationData.xml", "$buildDir/build");
 		copy("$buildDir/platforms/win32/installer/instsvc.pl", "$buildDir/build");
+		copy("$buildDir/platforms/win32/res/SqueezeCenter.ico", "$buildDir/build");
 
 		# Swedish is 3rd party - we keep it in our installer folder
 		copy("$buildDir/platforms/win32/installer/Swedish.isl", "$buildDir/build");

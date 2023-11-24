@@ -58,9 +58,7 @@ DirExistsWarning=no
 ; http://www.vincenzo.net/isxkb/index.php?title=PSVince
 Source: psvince.dll; Flags: dontcopy
 Source: instsvc.pl; Flags: dontcopy
-
-; add the english version for all languages as long as we don't have any translation
-Source: License.txt; DestName: "{cm:License}.txt"; DestDir: {app}; Flags: ignoreversion
+Source: SqueezeCenter.ico; DestDir: "{app}"
 
 ; Next line takes everything from the source '\server' directory and copies it into the setup
 ; it's output into the same location from the users choice.
@@ -72,7 +70,7 @@ Name: {app}\server\Plugins; Permissions: users-modify
 Name: {app}\server\Bin; Permissions: users-modify
 
 [Icons]
-Name: {group}\{cm:License}; Filename: {app}\{cm:License}.txt
+Name: {group}\{cm:SqueezeCenterWebInterface}; Filename: "http://localhost:{code:GetHttpPort}"; IconFilename: "{app}\SqueezeCenter.ico"
 Name: {group}\{cm:UninstallSqueezeCenter}; Filename: {uninstallexe}
 
 [Registry]
@@ -206,7 +204,7 @@ begin
 			Log(Format('  %d bytes done.', [Progress]));
 		end;
 
-	Result := True;
+	Result := not DownloadPage.AbortedByUser;
 end;
 
 function PrepareToInstall(var NeedsRestart: Boolean): String;
@@ -217,11 +215,11 @@ var
 begin
 	if not FileExists(ExpandConstant('{app}\{#LMSPerlBin}')) then
 	begin
-		// TODO allow aborting the installation?
 		DownloadPage := CreateDownloadPage(CustomMessage('StrawberryPerl'), CustomMessage('NeedStrawberryPerl'), @OnDownloadProgress);
 		DownloadPage.setText(CustomMessage('DownloadingPerl'), '');
 
 		DownloadPage.Show();
+		DownloadPage.AbortButton.Show();
 
 		try
 			Shell := CreateOleObject('Shell.Application');
