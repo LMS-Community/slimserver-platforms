@@ -107,6 +107,7 @@ Type: dirifempty; Name: {app}\server\SQL
 
 [Run]
 Filename: "sc"; Parameters: "start squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381
+Filename: "http://localhost:{code:GetHttpPort}"; Description: {cm:StartupSqueezeCenterWebInterface}; Flags: postinstall nowait skipifsilent shellexec
 
 [UninstallRun]
 Filename: "sc"; Parameters: "stop squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: StopSqueezSVC

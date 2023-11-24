@@ -615,6 +615,20 @@ pl.SqueezeCenterWebInterface=Interfejs internetowy programu Squeezebox
 ru.SqueezeCenterWebInterface=Веб-интерфейс Squeezebox
 sv.SqueezeCenterWebInterface=Webbgränssnitt för Squeezebox
 
+cz.StartupSqueezeCenterWebInterface=Spustit Webové rozhraní Squeezebox
+da.StartupSqueezeCenterWebInterface=Start webbaseret brugerflade til Squeezebox
+de.StartupSqueezeCenterWebInterface=Squeezebox-Web-Benutzeroberfläche öffnen
+en.StartupSqueezeCenterWebInterface=Start Squeezebox Web Interface
+es.StartupSqueezeCenterWebInterface=Iniciar Interfaz Web de Squeezebox
+fi.StartupSqueezeCenterWebInterface=Squeezeboxin internet-liittymä
+fr.StartupSqueezeCenterWebInterface=Démarrer l'Interface Web de la Squeezebox
+it.StartupSqueezeCenterWebInterface=Avvia la Interfaccia Web Squeezebox
+nl.StartupSqueezeCenterWebInterface=Squeezebox-webinterface starten
+no.StartupSqueezeCenterWebInterface=Start Squeezebox nettgrensesnitt
+pl.StartupSqueezeCenterWebInterface=Interfejs internetowy programu Squeezebox
+ru.StartupSqueezeCenterWebInterface=Веб-интерфейс Squeezebox
+sv.StartupSqueezeCenterWebInterface=Starta Webbgränssnitt för Squeezebox
+
 cz.StartupControlPanel=Spustit Control Panel
 da.StartupControlPanel=Start Kontrolpanel
 de.StartupControlPanel=Systemsteuerung starten
