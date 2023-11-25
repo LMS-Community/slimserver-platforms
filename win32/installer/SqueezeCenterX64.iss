@@ -32,6 +32,7 @@ Name: "sv"; MessagesFile: "Swedish.isl"
 #include "strings.iss"
 
 [Setup]
+AppId=abcf9020-4c00-4f53-a6be-ef83d0c62a47
 AppName={#AppName}
 AppVerName={#AppName} {#AppVersion}
 AppVersion={#AppVersion}

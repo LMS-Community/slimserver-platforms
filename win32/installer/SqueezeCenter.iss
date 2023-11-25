@@ -307,7 +307,7 @@ begin
 	else
 		begin
 			RegKey := '{#SSRegKey}';
-			InstallDefault := AddBackslash(ExpandConstant('{pf}')) + 'SlimServer';
+			InstallDefault := AddBackslash(ExpandConstant('{commonpf32}')) + 'SlimServer';
 			Svc := 'slimsvc';
 			Executable := 'slimserver.exe';
 			LongExecutable := Executable;
