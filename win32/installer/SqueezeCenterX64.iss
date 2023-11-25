@@ -52,6 +52,7 @@ WizardImageFile=squeezebox.bmp
 WizardSmallImageFile=logi.bmp
 OutputBaseFilename=SqueezeSetup64
 DirExistsWarning=no
+ArchitecturesAllowed=x64
 
 [Files]
 ; a dll to verify if a process is still running
