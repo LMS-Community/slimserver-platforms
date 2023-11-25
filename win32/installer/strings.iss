@@ -671,19 +671,19 @@ pl.Startup_CredentialsRequired=Jeśli nie wprowadzisz nazwy użytkownika i hasł
 ru.Startup_CredentialsRequired=Если не ввести имя пользователя и пароль, Logitech Media Server будет выполняться для анонимного пользователя, и медиатека может быть недоступна. Продолжить в качестве анонимного пользователя?
 sv.Startup_CredentialsRequired=Om du inte anger användarnamn och lösenord kommer Logitech Media Server att köras som en anonym systemanvändare och du får kanske inte tillgång till musikbiblioteket. Vill du fortsätta köra som anonym användare?
 
-cz.Startup_Description=Konfigurovat službu Squeezebox Windows
-da.Startup_Description=Konfigurer Squeezebox Windows-tjeneste
-de.Startup_Description=Logitech Media Server-Windows-Dienst konfigurieren
-en.Startup_Description=Configure Squeezebox Windows service
-es.Startup_Description=Configurar servicio de Windows de Squeezebox
-fi.Startup_Description=Määritä Squeezeboxin Windows-palvelun asetukset
-fr.Startup_Description=Configuration du service Windows de la Squeezebox
-it.Startup_Description=Configura servizio Windows per Squeezebox
-nl.Startup_Description=Windows-service van Squeezebox configureren
-no.Startup_Description=Konfigurer Squeezebox Windows-tjenesten
-pl.Startup_Description=Skonfiguruj usługę Windows programu Squeezebox
-ru.Startup_Description=Настроить службу Squeezebox Windows
-sv.Startup_Description=Konfigurera Squeezebox Windows-tjänsten
+cz.Startup_Description=Konfigurovat službu Logitech Media Server Windows
+da.Startup_Description=Konfigurer Logitech Media Server Windows-tjeneste
+de.Startup_Description=Logitech Media Server Dienst konfigurieren
+en.Startup_Description=Configure Logitech Media Server service
+es.Startup_Description=Configurar servicio de Windows de Logitech Media Server
+fi.Startup_Description=Määritä Logitech Media Server Windows-palvelun asetukset
+fr.Startup_Description=Configuration du service Logitech Media Server
+it.Startup_Description=Configura servizio Windows per Logitech Media Server
+nl.Startup_Description=Windows-service van Logitech Media Server configureren
+no.Startup_Description=Konfigurer Logitech Media Server Windows-tjenesten
+pl.Startup_Description=Skonfiguruj usługę Windows programu Logitech Media Server
+ru.Startup_Description=Настроить службу Logitech Media Server Windows
+sv.Startup_Description=Konfigurera Logitech Media Server Windows-tjänsten
 
 cz.Startup_LabelAtBootDesc_Caption0=Aby Logitech Media Server mohl získat přístup k vaší hudební knihovně, musíte zadat vaše uživatelské jméno a heslo do Windows.
 da.Startup_LabelAtBootDesc_Caption0=Du skal angive dit brugernavn og din adgangskode til Windows sådan at Logitech Media Server kan få adgang til musikbiblioteket.
@@ -894,6 +894,15 @@ FindVCRedist2010Online=Please download it from the following link:%n%nhttp://www
 FindVCRedist=You can find a copy of the package in the Software share of your WHS.
 
 StrawberryPerl=Strawberry Perl
+
 NeedStrawberryPerl=Strawberry Perl is required to run Logitech Media Server
+de.NeedStrawberryPerl=Strawberry Perl wird für die Ausführung von Logitech Media Server benötigt
+
 DownloadingPerl=Installation of Strawberry Perl is only required the first time you install.
+de.DownloadingPerl=Die Installation von Strawberry Perl wird einmalig ausgeführt.
+
 InstallingPerl=Installing Strawberry Perl... This can take a while - please be patient!
+de.InstallingPerl=Installiere Strawberry Perl... Dies kann eine Weile dauern - danke für die Geduld!
+
+ServiceEnablerNeedsLMS=Logitech Media Server can't be found. Is it correctly installed?
+de.ServiceEnablerNeedsLMS=Logitech Media Server kann nicht gefunden werden. Ist er korrekt installiert?

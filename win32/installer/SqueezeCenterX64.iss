@@ -54,6 +54,7 @@ WizardSmallImageFile=logi.bmp
 OutputBaseFilename=SqueezeSetup64
 DirExistsWarning=no
 ArchitecturesAllowed=x64
+SolidCompression=yes
 
 [Files]
 ; a dll to verify if a process is still running
@@ -109,6 +110,7 @@ Type: dirifempty; Name: {app}\server\SQL
 
 [Run]
 Filename: "sc"; Parameters: "start squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381
+Filename: "sc"; Parameters: "failure squeezesvc reset= 180 actions= restart/1000/restart/1000/restart/1000"; Flags: runhidden
 Filename: "http://localhost:{code:GetHttpPort}"; Description: {cm:StartupSqueezeCenterWebInterface}; Flags: postinstall nowait skipifsilent shellexec
 
 [UninstallRun]
