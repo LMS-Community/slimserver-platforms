@@ -322,9 +322,10 @@ sub doCommandOptions {
 
 
 	} elsif ($build eq "win64") {
-		## Build the Windows 64bit ZIP archive
+		## Build the Windows 64bit Installer
 		$destName =~ s/$defaultDestName/LogitechMediaServer/;
-		buildZIPArchive($dirsToExcludeForWin64, "$destDir/$destName-win64");
+		# buildZIPArchive($dirsToExcludeForWin64, "$destDir/$destName-win64");
+		buildWin64("$destName-win64");
 
 	}
 }
@@ -334,16 +335,7 @@ sub doCommandOptions {
 ##############################################################################################
 sub getRevisionForRepo {
 	my $revision;
-	if (-d "$sourceDir/.svn") {
-		open (SVN, "svn info $sourceDir |") or die "Problem: Couldn't run svn info $sourceDir : $!\n";
-
-		while (<SVN>) {
-			if (/Last Changed Rev: (\d+)/) {
-				$revision = $1;
-			}
-		}
-		close(SVN);
-	} elsif (-d "$sourceDir/server/.git") {
+	if (-d "$sourceDir/server/.git") {
 		$revision = `git --git-dir=$sourceDir/server/.git log -n 1 --pretty=format:%ct`;
 		$revision =~ s/\s*$//s;
 	} else {
@@ -868,7 +860,7 @@ sub buildWin32 {
 		unlink("$buildDir/build/server/slimserver.pl");
 		unlink("$buildDir/build/server/slimservice.pl");
 		unlink("$buildDir/build/server/scanner.pl");
-
+		rmtree("$buildDir/build/server/t");
 
 		print "INFO: Making installer...\n";
 
@@ -938,6 +930,72 @@ sub buildWin32 {
 		move("$buildDir/build/Output/SqueezeSetup.exe", "$destDir/$destFileName.exe");
 
 		rmtree("$buildDir/build/Output");
+	}
+}
+
+##############################################################################################
+## Build the Windows64 Installer
+##############################################################################################
+sub buildWin64 {
+	## Grab the variables passed to us...
+	if ( ($_[0] ) || die("Problem: Not all of the variables were passed to the BuildWin64 function...") ) {
+		## Take the filename passed to us and make sure that we build the DMG with
+		## that name, and that the 'pretty mounted name' also matches
+		my $destFileName = $_[0];
+
+		if ( $releaseType && $releaseType eq "release" ) {
+			$destFileName =~ s/-$revision//;
+		}
+
+		print "INFO: Building Win64 Installer Package...\n";
+
+		## First, lets make sure we get rid of the files we don't need for this install
+		my @dirsToExclude = split(/ /, $dirsToExcludeForWin64);
+		my $n = 0;
+		while ($dirsToExclude[$n]) {
+			print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
+			system("find $buildDir | grep -i $dirsToExclude[$n] | xargs rm -rf ");
+			$n++;
+		}
+		rmtree("$buildDir/build/server/t");
+
+		print "INFO: Creating $buildDir/build for the final packaging...\n";
+		mkpath("$buildDir/build");
+
+		print "INFO: Copying server directory to $buildDir/build...\n";
+		system("cp -R $buildDir/server \"$buildDir/build/server\" ");
+
+		print "INFO: Copying various documents to $buildDir/build...\n";
+		copy("$buildDir/server/license.txt", "$buildDir/build/License.txt");
+
+		my $rev = int(($revision || getRevisionForRepo() || $version) / 3600) % 65536;
+
+		print "INFO: Making installer...\n";
+
+		copy("$buildDir/platforms/win32/installer/ServiceManager.iss", "$buildDir/build");
+		copy("$buildDir/platforms/win32/installer/SocketTest.iss", "$buildDir/build") || die ($!);
+		copy("$buildDir/platforms/win32/installer/strings.iss", "$buildDir/build");
+		copy("$buildDir/platforms/win32/installer/psvince.dll", "$buildDir/build");
+		copy("$buildDir/platforms/win32/installer/sockettest.dll", "$buildDir/build");
+		copy("$buildDir/platforms/win32/installer/ApplicationData.xml", "$buildDir/build");
+		copy("$buildDir/platforms/win32/installer/instsvc.pl", "$buildDir/build");
+		copy("$buildDir/platforms/win32/res/SqueezeCenter.ico", "$buildDir/build");
+
+		# Swedish is 3rd party - we keep it in our installer folder
+		copy("$buildDir/platforms/win32/installer/Swedish.isl", "$buildDir/build");
+
+		copy("$buildDir/platforms/win32/installer/logi.bmp", "$buildDir/build");
+		copy("$buildDir/platforms/win32/installer/squeezebox.bmp", "$buildDir/build");
+
+		# replacing build number in installer script
+		system("sed -e \"s/VersionInfoVersion=0.0.0.0/VersionInfoVersion=$rev/\" \"$buildDir/platforms/win32/installer/SqueezeCenterX64.iss\" > \"$buildDir/build/SqueezeCenter.iss\"");
+		system("cd $buildDir/build; \"$buildDir/platforms/win32/InnoSetup/ISCC.exe\" \/Q SqueezeCenter.iss ");
+
+		print "INFO: Everything is finally ready, renaming the .exe and zip files...\n";
+		print "INFO: Moving [$buildDir/build/Output/SqueezeSetup.exe] to [$destDir/$destFileName.exe]\n";
+		move("$buildDir/build/Output/SqueezeSetup64.exe", "$destDir/$destFileName.exe");
+
+		rmtree("$buildDir/build");
 	}
 }
 

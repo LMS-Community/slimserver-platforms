@@ -615,6 +615,20 @@ pl.SqueezeCenterWebInterface=Interfejs internetowy programu Squeezebox
 ru.SqueezeCenterWebInterface=Веб-интерфейс Squeezebox
 sv.SqueezeCenterWebInterface=Webbgränssnitt för Squeezebox
 
+cz.StartupSqueezeCenterWebInterface=Spustit Webové rozhraní Squeezebox
+da.StartupSqueezeCenterWebInterface=Start webbaseret brugerflade til Squeezebox
+de.StartupSqueezeCenterWebInterface=Squeezebox-Web-Benutzeroberfläche öffnen
+en.StartupSqueezeCenterWebInterface=Start Squeezebox Web Interface
+es.StartupSqueezeCenterWebInterface=Iniciar Interfaz Web de Squeezebox
+fi.StartupSqueezeCenterWebInterface=Squeezeboxin internet-liittymä
+fr.StartupSqueezeCenterWebInterface=Démarrer l'Interface Web de la Squeezebox
+it.StartupSqueezeCenterWebInterface=Avvia la Interfaccia Web Squeezebox
+nl.StartupSqueezeCenterWebInterface=Squeezebox-webinterface starten
+no.StartupSqueezeCenterWebInterface=Start Squeezebox nettgrensesnitt
+pl.StartupSqueezeCenterWebInterface=Interfejs internetowy programu Squeezebox
+ru.StartupSqueezeCenterWebInterface=Веб-интерфейс Squeezebox
+sv.StartupSqueezeCenterWebInterface=Starta Webbgränssnitt för Squeezebox
+
 cz.StartupControlPanel=Spustit Control Panel
 da.StartupControlPanel=Start Kontrolpanel
 de.StartupControlPanel=Systemsteuerung starten
@@ -631,8 +645,8 @@ sv.StartupControlPanel=Starta Kontrollpanelen
 
 cz.Startup_Caption=Aktivátor služeb Squeezebox
 da.Startup_Caption=Squeezebox Tjenesteaktivering
-de.Startup_Caption=Squeezebox-Dienst aktivieren
-en.Startup_Caption=Squeezebox Service Enabler
+de.Startup_Caption=Squeezebox-Dienst verwalten
+en.Startup_Caption=Manage Squeezebox Service
 es.Startup_Caption=Activador de servicios de Squeezebox
 fi.Startup_Caption=Squeezebox-palvelun käyttöönotto
 fr.Startup_Caption=Activer le service Squeezebox
@@ -657,24 +671,24 @@ pl.Startup_CredentialsRequired=Jeśli nie wprowadzisz nazwy użytkownika i hasł
 ru.Startup_CredentialsRequired=Если не ввести имя пользователя и пароль, Logitech Media Server будет выполняться для анонимного пользователя, и медиатека может быть недоступна. Продолжить в качестве анонимного пользователя?
 sv.Startup_CredentialsRequired=Om du inte anger användarnamn och lösenord kommer Logitech Media Server att köras som en anonym systemanvändare och du får kanske inte tillgång till musikbiblioteket. Vill du fortsätta köra som anonym användare?
 
-cz.Startup_Description=Konfigurovat službu Squeezebox Windows
-da.Startup_Description=Konfigurer Squeezebox Windows-tjeneste
-de.Startup_Description=Logitech Media Server-Windows-Dienst konfigurieren
-en.Startup_Description=Configure Squeezebox Windows service
-es.Startup_Description=Configurar servicio de Windows de Squeezebox
-fi.Startup_Description=Määritä Squeezeboxin Windows-palvelun asetukset
-fr.Startup_Description=Configuration du service Windows de la Squeezebox
-it.Startup_Description=Configura servizio Windows per Squeezebox
-nl.Startup_Description=Windows-service van Squeezebox configureren
-no.Startup_Description=Konfigurer Squeezebox Windows-tjenesten
-pl.Startup_Description=Skonfiguruj usługę Windows programu Squeezebox
-ru.Startup_Description=Настроить службу Squeezebox Windows
-sv.Startup_Description=Konfigurera Squeezebox Windows-tjänsten
+cz.Startup_Description=Konfigurovat službu Logitech Media Server Windows
+da.Startup_Description=Konfigurer Logitech Media Server Windows-tjeneste
+de.Startup_Description=Logitech Media Server Dienst konfigurieren
+en.Startup_Description=Configure Logitech Media Server service
+es.Startup_Description=Configurar servicio de Windows de Logitech Media Server
+fi.Startup_Description=Määritä Logitech Media Server Windows-palvelun asetukset
+fr.Startup_Description=Configuration du service Logitech Media Server
+it.Startup_Description=Configura servizio Windows per Logitech Media Server
+nl.Startup_Description=Windows-service van Logitech Media Server configureren
+no.Startup_Description=Konfigurer Logitech Media Server Windows-tjenesten
+pl.Startup_Description=Skonfiguruj usługę Windows programu Logitech Media Server
+ru.Startup_Description=Настроить службу Logitech Media Server Windows
+sv.Startup_Description=Konfigurera Logitech Media Server Windows-tjänsten
 
 cz.Startup_LabelAtBootDesc_Caption0=Aby Logitech Media Server mohl získat přístup k vaší hudební knihovně, musíte zadat vaše uživatelské jméno a heslo do Windows.
 da.Startup_LabelAtBootDesc_Caption0=Du skal angive dit brugernavn og din adgangskode til Windows sådan at Logitech Media Server kan få adgang til musikbiblioteket.
-de.Startup_LabelAtBootDesc_Caption0=Sie müssen Ihren Windows-Benutzernamen und das -Kennwort eingeben, damit Logitech Media Server auf Ihre Musiksammlung zugreifen kann.
-en.Startup_LabelAtBootDesc_Caption0=You need to enter your Windows user name and password so Logitech Media Server can access your music library.
+de.Startup_LabelAtBootDesc_Caption0=Sie müssen Ihren Windows-Benutzernamen und das -Kennwort eingeben, falls Logitech Media Server auf eine Musiksammlung auf einer Netzwerkfreigabe (z.B. NAS) zugreifen kann.
+en.Startup_LabelAtBootDesc_Caption0=If you want Logitech Media Server to access your library on a network share (eg. NAS), you'll need to enter your Windows user name and password.
 es.Startup_LabelAtBootDesc_Caption0=Debe introducir su nombre de usuario y contraseña de Windows para que Logitech Media Server pueda acceder a su biblioteca de música.
 fi.Startup_LabelAtBootDesc_Caption0=Sinun täytyy antaa Windowsin käyttäjätunnus ja salasana, jotta Logitech Media Server voi käyttää musiikkikirjastoa.
 fr.Startup_LabelAtBootDesc_Caption0=Vous devez spécifier le nom d'utilisateur et le mot de passe Windows pour que le Logitech Media Server puisse accéder à la bibliothèque musicale.
@@ -755,19 +769,11 @@ pl.Startup_RadioAtBoot_Caption0=Uruchom program Logitech Media Server &automatyc
 ru.Startup_RadioAtBoot_Caption0=Запускать Logitech Media Server &автоматически при запуске компьютера.
 sv.Startup_RadioAtBoot_Caption0=Starta Logitech Media Server &automatiskt när datorn startas.
 
-cz.Startup_RadioAtLogin_Caption0=Spustit Logitech Media Server po &přihlášení.
-da.Startup_RadioAtLogin_Caption0=Start Logitech Media Server når jeg &logger på.
-de.Startup_RadioAtLogin_Caption0=Logitech Media Server beim &Anmelden starten.
-en.Startup_RadioAtLogin_Caption0=Start Logitech Media Server when I &log in.
-es.Startup_RadioAtLogin_Caption0=Iniciar Logitech Media Server al iniciar &sesión.
-fi.Startup_RadioAtLogin_Caption0=Käynnistä Logitech Media Server, kun &kirjaudun sisään.
-fr.Startup_RadioAtLogin_Caption0=Démarrer le Logitech Media Server à l'&ouverture de session.
-it.Startup_RadioAtLogin_Caption0=Avvia Logitech Media Server quando si esegue &l'accesso.
-nl.Startup_RadioAtLogin_Caption0=Logitech Media Server starten wanneer ik me aanmeld.
-no.Startup_RadioAtLogin_Caption0=Start Logitech Media Server når jeg &logger på.
-pl.Startup_RadioAtLogin_Caption0=Uruchom program Logitech Media Server po za&logowaniu.
-ru.Startup_RadioAtLogin_Caption0=Запускать Logitech Media Server при &входе в систему.
-sv.Startup_RadioAtLogin_Caption0=Starta Logitech Media Server vid &inloggning.
+Startup_RadioAtBootCustom_Caption0=Start Logitech Media Server &automatically using custom credentials.
+de.Startup_RadioAtBootCustom_Caption0=Logitech Media Server automatisch mit Anmeldedaten starten.
+
+Startup_DisableService_Caption0=Disable Logitech Media Server background service.
+de.Startup_DisableService_Caption0=Logitech Media Server Hintergrunddienst deaktivieren.
 
 cz.SummaryForm_Description=Souhrn
 da.SummaryForm_Description=Oversigt
@@ -883,3 +889,17 @@ fr.FindVCRedist2010Online=Veuillez le télécharger à partir du lien suivant :%
 
 FindVCRedist=You can find a copy of the package in the Software share of your WHS.
 fr.FindVCRedist=Vous pouvez trouver une copie du package dans le partage logiciel de votre WHS.
+
+StrawberryPerl=Strawberry Perl
+
+NeedStrawberryPerl=Strawberry Perl is required to run Logitech Media Server
+de.NeedStrawberryPerl=Strawberry Perl wird für die Ausführung von Logitech Media Server benötigt
+
+DownloadingPerl=Installation of Strawberry Perl is only required the first time you install.
+de.DownloadingPerl=Die Installation von Strawberry Perl wird einmalig ausgeführt.
+
+InstallingPerl=Installing Strawberry Perl... This can take a while - please be patient!
+de.InstallingPerl=Installiere Strawberry Perl... Dies kann eine Weile dauern - danke für die Geduld!
+
+ServiceEnablerNeedsLMS=Logitech Media Server can't be found. Is it correctly installed?
+de.ServiceEnablerNeedsLMS=Logitech Media Server kann nicht gefunden werden. Ist er korrekt installiert?
