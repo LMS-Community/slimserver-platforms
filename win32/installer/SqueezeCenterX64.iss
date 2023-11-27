@@ -9,6 +9,7 @@
 #define SBRegKey   "Software\Logitech\Squeezebox"
 #define LMSPerl    "Perl"
 #define LMSPerlBin "Perl\perl\bin\perl.exe"
+#define ServiceName "squeezesvc"
 #define StrawBerryPerlURL "https://strawberryperl.com/download/5.32.1.1/strawberry-perl-5.32.1.1-64bit-portable.zip"
 #define StrawBerryPerlZIP "strawberry.zip"
 
@@ -66,6 +67,7 @@ Source: SqueezeCenter.ico; DestDir: "{app}"
 ; Next line takes everything from the source '\server' directory and copies it into the setup
 ; it's output into the same location from the users choice.
 Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwin*,*linux*,*solaris*"; Flags: recursesubdirs ignoreversion
+Source: Output\SqzSvcMgr.exe; DestDir: {app}; Flags: ignoreversion
 
 [Dirs]
 Name: {commonappdata}\Squeezebox; Permissions: users-modify
@@ -74,6 +76,7 @@ Name: {app}\server\Bin; Permissions: users-modify
 
 [Icons]
 Name: {group}\{cm:SqueezeCenterWebInterface}; Filename: "http://localhost:{code:GetHttpPort}"; IconFilename: "{app}\SqueezeCenter.ico"
+Name: {group}\{cm:Startup_Caption}; Filename: {app}\sqzsvcmgr.exe
 Name: {group}\{cm:UninstallSqueezeCenter}; Filename: {uninstallexe}
 
 [Registry]
@@ -92,17 +95,18 @@ Type: dirifempty; Name: {app}\server\HTML
 Type: dirifempty; Name: {app}\server\SQL
 
 [Run]
-Filename: "sc"; Parameters: "start squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381
-Filename: "sc"; Parameters: "failure squeezesvc reset= 180 actions= restart/1000/restart/1000/restart/1000"; Flags: runhidden
+Filename: "sc"; Parameters: "failure {#ServiceName} reset= 180 actions= restart/1000/restart/1000/restart/1000"; Flags: runhidden
+Filename: "sc"; Parameters: "start {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381
 Filename: "http://localhost:{code:GetHttpPort}"; Description: {cm:StartupSqueezeCenterWebInterface}; Flags: postinstall nowait skipifsilent shellexec unchecked
+
 ; Remove old firewall rules, then add new
 Filename: "netsh"; Parameters: "advfirewall firewall delete rule name=""Logitech Media Server"""; Flags: runhidden
 Filename: "netsh"; Parameters: "advfirewall firewall delete rule name=""{#AppName} (Perl)"""; Flags: runhidden
 Filename: "netsh"; Parameters: "advfirewall firewall add rule name=""{#AppName} (Perl)"" dir=in program=""{app}\{#LMSPerlBin}"" action=allow"; Flags: runhidden
 
 [UninstallRun]
-Filename: "sc"; Parameters: "stop squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: StopSqueezSVC
-Filename: "sc"; Parameters: "delete squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: DeleteSqueezSVC
+Filename: "sc"; Parameters: "stop {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: StopSqueezSVC
+Filename: "sc"; Parameters: "delete {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: DeleteSqueezSVC
 
 [Code]
 #include "SocketTest.iss"
@@ -197,6 +201,12 @@ begin
 		end;
 
 	Result := not DownloadPage.AbortedByUser;
+end;
+
+function InitializeSetup(): Boolean;
+begin
+	StopService('{#ServiceName}');
+	Result := True;
 end;
 
 function PrepareToInstall(var NeedsRestart: Boolean): String;

@@ -950,12 +950,9 @@ sub buildWin64 {
 		print "INFO: Building Win64 Installer Package...\n";
 
 		## First, lets make sure we get rid of the files we don't need for this install
-		my @dirsToExclude = split(/ /, $dirsToExcludeForWin64);
-		my $n = 0;
-		while ($dirsToExclude[$n]) {
-			print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
-			system("find $buildDir | grep -i $dirsToExclude[$n] | xargs rm -rf ");
-			$n++;
+		foreach (split(/ /, $dirsToExcludeForWin64)) {
+			print "INFO: Removing $_ files from buildDir...\n";
+			system("find $buildDir | grep -i $_ | xargs rm -rf ");
 		}
 		rmtree("$buildDir/build/server/t");
 
@@ -972,6 +969,8 @@ sub buildWin64 {
 
 		print "INFO: Making installer...\n";
 
+		copy("$buildDir/platforms/win32/installer/ServiceEnabler.iss", "$buildDir/build");
+		copy("$buildDir/platforms/win32/installer/StartupModeWizardPage.iss", "$buildDir/build");
 		copy("$buildDir/platforms/win32/installer/ServiceManager.iss", "$buildDir/build");
 		copy("$buildDir/platforms/win32/installer/SocketTest.iss", "$buildDir/build") || die ($!);
 		copy("$buildDir/platforms/win32/installer/strings.iss", "$buildDir/build");
@@ -980,6 +979,8 @@ sub buildWin64 {
 		copy("$buildDir/platforms/win32/installer/ApplicationData.xml", "$buildDir/build");
 		copy("$buildDir/platforms/win32/installer/instsvc.pl", "$buildDir/build");
 		copy("$buildDir/platforms/win32/res/SqueezeCenter.ico", "$buildDir/build");
+		copy("$buildDir/platforms/win32/res/SqueezeCenterOff.ico", "$buildDir/build");
+		copy("$buildDir/server/Bin/MSWin32-x86-multi-thread/grant.exe", "$buildDir/build");
 
 		# Swedish is 3rd party - we keep it in our installer folder
 		copy("$buildDir/platforms/win32/installer/Swedish.isl", "$buildDir/build");
@@ -989,6 +990,7 @@ sub buildWin64 {
 
 		# replacing build number in installer script
 		system("sed -e \"s/VersionInfoVersion=0.0.0.0/VersionInfoVersion=$rev/\" \"$buildDir/platforms/win32/installer/SqueezeCenterX64.iss\" > \"$buildDir/build/SqueezeCenter.iss\"");
+		system("cd $buildDir/build; \"$buildDir/platforms/win32/InnoSetup/ISCC.exe\" \/Q ServiceEnabler.iss ");
 		system("cd $buildDir/build; \"$buildDir/platforms/win32/InnoSetup/ISCC.exe\" \/Q SqueezeCenter.iss ");
 
 		print "INFO: Everything is finally ready, renaming the .exe and zip files...\n";

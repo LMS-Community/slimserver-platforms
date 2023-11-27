@@ -4,7 +4,7 @@
 [Setup]
 AppName=Logitech Media Server Service Enabler
 AppVerName=Logitech Media Server
-OutputBaseFilename=ServiceEnabler
+OutputBaseFilename=SqzSvcMgr
 WizardImageFile=squeezebox.bmp
 WizardSmallImageFile=logi.bmp
 DefaultDirName="{commonpf64}\Squeezebox"
@@ -21,6 +21,7 @@ Uninstallable=no
 
 [Files]
 Source: instsvc.pl; Flags: dontcopy
+Source: grant.exe; Flags: dontcopy
 
 [Languages]
 ; order of languages is important when falling back when a localization is missing
@@ -118,13 +119,21 @@ begin
 				if (RadioAtBoot.checked or RadioAtBootConfig.checked) and not IsServiceInstalled('{#ServiceName}') then
 				begin
 					ServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-					Credentials := ' --username="' + EditUsername.text + '" --password="' + EditPassword1.text + '"';
+
+					if (Length(EditUsername.text) > 0) and (Length(EditPassword1.text) > 0) then
+						Credentials := ' "' + EditUsername.text + '" "' + EditPassword1.text + '"';
 
 					ExtractTemporaryFile('instsvc.pl');
+					ExtractTemporaryFile('grant.exe');
 					if not FileExists(ExpandConstant('{tmp}\instsvc.pl')) then
 						Log('Failed to extract ' + ExpandConstant('{tmp}\instsvc.pl'))
+					else if not FileExists(ExpandConstant('{tmp}\grant.exe')) then
+						Log('Failed to extract ' + ExpandConstant('{tmp}\grant.exe'))
 					else
-						Exec(ExpandConstant('{app}\{#LMSPerlBin}'), ExpandConstant('{tmp}\instsvc.pl "' + ServerDir + 'slimserver.pl"'), '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+						begin
+							Exec(ExpandConstant('{tmp}\grant.exe'), 'add SeServiceLogonRight ' + EditUsername.text, '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+							Exec(ExpandConstant('{app}\{#LMSPerlBin}'), ExpandConstant('{tmp}\instsvc.pl "' + ServerDir + 'slimserver.pl"' + Credentials), '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
+						end;
 
 				end;
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+20, ProgressPage.ProgressBar.Max);
