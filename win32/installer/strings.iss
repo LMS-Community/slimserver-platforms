@@ -645,8 +645,8 @@ sv.StartupControlPanel=Starta Kontrollpanelen
 
 cz.Startup_Caption=Aktivátor služeb Squeezebox
 da.Startup_Caption=Squeezebox Tjenesteaktivering
-de.Startup_Caption=Squeezebox-Dienst aktivieren
-en.Startup_Caption=Squeezebox Service Enabler
+de.Startup_Caption=Squeezebox-Dienst verwalten
+en.Startup_Caption=Manage Squeezebox Service
 es.Startup_Caption=Activador de servicios de Squeezebox
 fi.Startup_Caption=Squeezebox-palvelun käyttöönotto
 fr.Startup_Caption=Activer le service Squeezebox
@@ -687,8 +687,8 @@ sv.Startup_Description=Konfigurera Logitech Media Server Windows-tjänsten
 
 cz.Startup_LabelAtBootDesc_Caption0=Aby Logitech Media Server mohl získat přístup k vaší hudební knihovně, musíte zadat vaše uživatelské jméno a heslo do Windows.
 da.Startup_LabelAtBootDesc_Caption0=Du skal angive dit brugernavn og din adgangskode til Windows sådan at Logitech Media Server kan få adgang til musikbiblioteket.
-de.Startup_LabelAtBootDesc_Caption0=Sie müssen Ihren Windows-Benutzernamen und das -Kennwort eingeben, damit Logitech Media Server auf Ihre Musiksammlung zugreifen kann.
-en.Startup_LabelAtBootDesc_Caption0=You need to enter your Windows user name and password so Logitech Media Server can access your music library.
+de.Startup_LabelAtBootDesc_Caption0=Sie müssen Ihren Windows-Benutzernamen und das -Kennwort eingeben, falls Logitech Media Server auf eine Musiksammlung auf einer Netzwerkfreigabe (z.B. NAS) zugreifen kann.
+en.Startup_LabelAtBootDesc_Caption0=If you want Logitech Media Server to access your library on a network share (eg. NAS), you'll need to enter your Windows user name and password.
 es.Startup_LabelAtBootDesc_Caption0=Debe introducir su nombre de usuario y contraseña de Windows para que Logitech Media Server pueda acceder a su biblioteca de música.
 fi.Startup_LabelAtBootDesc_Caption0=Sinun täytyy antaa Windowsin käyttäjätunnus ja salasana, jotta Logitech Media Server voi käyttää musiikkikirjastoa.
 fr.Startup_LabelAtBootDesc_Caption0=Vous devez spécifier le nom d'utilisateur et le mot de passe Windows pour que le Logitech Media Server puisse accéder à la bibliothèque musicale.
@@ -769,19 +769,11 @@ pl.Startup_RadioAtBoot_Caption0=Uruchom program Logitech Media Server &automatyc
 ru.Startup_RadioAtBoot_Caption0=Запускать Logitech Media Server &автоматически при запуске компьютера.
 sv.Startup_RadioAtBoot_Caption0=Starta Logitech Media Server &automatiskt när datorn startas.
 
-cz.Startup_RadioAtLogin_Caption0=Spustit Logitech Media Server po &přihlášení.
-da.Startup_RadioAtLogin_Caption0=Start Logitech Media Server når jeg &logger på.
-de.Startup_RadioAtLogin_Caption0=Logitech Media Server beim &Anmelden starten.
-en.Startup_RadioAtLogin_Caption0=Start Logitech Media Server when I &log in.
-es.Startup_RadioAtLogin_Caption0=Iniciar Logitech Media Server al iniciar &sesión.
-fi.Startup_RadioAtLogin_Caption0=Käynnistä Logitech Media Server, kun &kirjaudun sisään.
-fr.Startup_RadioAtLogin_Caption0=Démarrer le Logitech Media Server à l'&ouverture de session.
-it.Startup_RadioAtLogin_Caption0=Avvia Logitech Media Server quando si esegue &l'accesso.
-nl.Startup_RadioAtLogin_Caption0=Logitech Media Server starten wanneer ik me aanmeld.
-no.Startup_RadioAtLogin_Caption0=Start Logitech Media Server når jeg &logger på.
-pl.Startup_RadioAtLogin_Caption0=Uruchom program Logitech Media Server po za&logowaniu.
-ru.Startup_RadioAtLogin_Caption0=Запускать Logitech Media Server при &входе в систему.
-sv.Startup_RadioAtLogin_Caption0=Starta Logitech Media Server vid &inloggning.
+Startup_RadioAtBootCustom_Caption0=Start Logitech Media Server &automatically using custom credentials.
+de.Startup_RadioAtBootCustom_Caption0=Logitech Media Server automatisch mit Anmeldedaten starten.
+
+Startup_DisableService_Caption0=Disable Logitech Media Server background service.
+de.Startup_DisableService_Caption0=Logitech Media Server Hintergrunddienst deaktivieren.
 
 cz.SummaryForm_Description=Souhrn
 da.SummaryForm_Description=Oversigt

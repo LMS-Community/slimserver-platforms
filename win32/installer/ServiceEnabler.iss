@@ -1,12 +1,13 @@
+#define ServiceName "squeezesvc"
+#define LMSPerlBin  "Perl\perl\bin\perl.exe"
+
 [Setup]
 AppName=Logitech Media Server Service Enabler
 AppVerName=Logitech Media Server
 OutputBaseFilename=ServiceEnabler
 WizardImageFile=squeezebox.bmp
-WizardImageBackColor=$ffffff
-WizardSmallImageFile=logitech.bmp
-Compression=lzma
-DefaultDirName={pf}\Squeezebox
+WizardSmallImageFile=logi.bmp
+DefaultDirName="{commonpf64}\Squeezebox"
 SolidCompression=yes
 DisableDirPage=yes
 DisableFinishedPage=yes
@@ -15,21 +16,30 @@ DisableReadyMemo=yes
 DisableReadyPage=yes
 DisableStartupPrompt=yes
 ShowLanguageDialog=no
+SetupIconFile=SqueezeCenterOff.ico
 Uninstallable=no
-MinVersion=0,4
+
+[Files]
+Source: instsvc.pl; Flags: dontcopy
 
 [Languages]
-Name: en; MessagesFile: "Default.isl"
-Name: de; MessagesFile: "German.isl"
-Name: da; MessagesFile: "Danish.isl"
-Name: es; MessagesFile: "Spanish.isl"
-Name: fr; MessagesFile: "French.isl"
-Name: fi; MessagesFile: "Finnish.isl"
-Name: he; MessagesFile: "Hebrew.isl"
-Name: it; MessagesFile: "Italian.isl"
-Name: nl; MessagesFile: "Dutch.isl"
-Name: no; MessagesFile: "Norwegian.isl"
-Name: sv; MessagesFile: "Swedish.isl"
+; order of languages is important when falling back when a localization is missing
+Name: "en"; MessagesFile: "compiler:Default.isl"
+Name: "cz"; MessagesFile: "compiler:Languages\Czech.isl"
+Name: "da"; MessagesFile: "compiler:Languages\Danish.isl"
+Name: "de"; MessagesFile: "compiler:Languages\German.isl"
+Name: "es"; MessagesFile: "compiler:Languages\Spanish.isl"
+Name: "fi"; MessagesFile: "compiler:Languages\Finnish.isl"
+Name: "fr"; MessagesFile: "compiler:Languages\French.isl"
+Name: "it"; MessagesFile: "compiler:Languages\Italian.isl"
+Name: "nl"; MessagesFile: "compiler:Languages\Dutch.isl"
+Name: "no"; MessagesFile: "compiler:Languages\Norwegian.isl"
+Name: "pl"; MessagesFile: "compiler:Languages\Polish.isl"
+Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl"
+Name: "sv"; MessagesFile: "Swedish.isl"
+
+[Run]
+Filename: "sc"; Parameters: "failure {#ServiceName} reset= 180 actions= restart/1000/restart/1000/restart/1000"; Flags: runhidden
 
 [CustomMessages]
 #include "strings.iss"
@@ -44,7 +54,7 @@ var
 
 procedure InitializeWizard();
 begin
-	StartupMode := GetStartType('squeezesvc');
+	StartupMode := GetStartType('{#ServiceName}');
 	Startup_CreatePage(wpWelcome, StartupMode);
 end;
 
@@ -55,19 +65,18 @@ begin
 	end;
 end;
 
-function GetInstallFolder(Param: String) : String;
-var
-	InstallFolder: String;
-begin
-	if (not RegQueryStringValue(HKLM, 'Software\Logitech\Squeezebox', 'Path', InstallFolder)) then
-		InstallFolder := AddBackslash(ExpandConstant('{pf}')) + 'Squeezebox';
-
-	Result := InstallFolder;
-end;
-
 function ShouldSkipPage(Page: Integer): Boolean;
 begin
   Result := (Page = wpWelcome);
+end;
+
+function PrepareToInstall(var NeedsRestart: Boolean): String;
+begin
+	if not FileExists(ExpandConstant('{app}\{#LMSPerlBin}')) then
+	begin
+		Log('{cm:ServiceEnablerNeedsLMS}');
+		Result := '{cm:ServiceEnablerNeedsLMS}';
+	end;
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
@@ -77,8 +86,6 @@ var
 	Credentials: String;
 	Wait: Integer;
 	MaxProgress: Integer;
-	TrayFolder: String;
-	TrayExe: String;
 
 begin
 	if CurStep = ssInstall then
@@ -88,58 +95,51 @@ begin
 			ProgressPage.show();
 
 			try
-				ProgressPage.setProgress(0, 120);
+				ProgressPage.setProgress(0, 150);
 
-				TrayFolder := AddBackslash(GetInstallFolder(''));
-				TrayExe := TrayFolder + 'SqueezeTray.exe';
+				StopService('{#ServiceName}');
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+20, ProgressPage.ProgressBar.Max);
 
-				if FileExists(TrayExe) then
-					Exec(TrayExe, '--exit --uninstall', TrayFolder, SW_HIDE, ewWaitUntilTerminated, ErrorCode)
+				if DisableService.checked or RadioAtBootConfig.checked then
+					RemoveService('{#ServiceName}');
 
-				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
-
-				StopService('squeezesvc');
-				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
-
-				StopService('SqueezeMySQL');
-				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
-
-				RemoveService('squeezesvc');
-				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
-
-				RemoveService('SqueezeMySQL');
-				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+20, ProgressPage.ProgressBar.Max);
 
 				Wait := 60;
 				MaxProgress := ProgressPage.ProgressBar.Position + Wait;
-				while (Wait > 0) and (IsServiceInstalled('squeezesvc') or IsServiceInstalled('SqueezeMySQL')) do
+				while (Wait > 0) and IsServiceInstalled('{#ServiceName}') and not RadioAtBoot.checked do
 				begin
 					ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
 					Sleep(1000);
 					Wait := Wait - 1;
-				end;	
-				ProgressPage.setProgress(MaxProgress, ProgressPage.ProgressBar.Max);
+				end;
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+MaxProgress, ProgressPage.ProgressBar.Max);
 
-				if (RadioAtBoot.checked) then
-					begin
-						ServerDir := AddBackslash(AddBackslash(GetInstallFolder('')) + 'server');
-						Credentials := ' --username="' + EditUsername.text + '" --password="' + EditPassword1.text + '"';
+				if (RadioAtBoot.checked or RadioAtBootConfig.checked) and not IsServiceInstalled('{#ServiceName}') then
+				begin
+					ServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
+					Credentials := ' --username="' + EditUsername.text + '" --password="' + EditPassword1.text + '"';
 
-						Exec(ServerDir + 'SqueezeSvr.exe', '-install auto' + Credentials, ServerDir, SW_HIDE, ewWaitUntilIdle, ErrorCode);
-						StartService('squeezesvc');
-						ProgressPage.setProgress(ProgressPage.ProgressBar.Max, ProgressPage.ProgressBar.Max);
-					end	 
+					ExtractTemporaryFile('instsvc.pl');
+					if not FileExists(ExpandConstant('{tmp}\instsvc.pl')) then
+						Log('Failed to extract ' + ExpandConstant('{tmp}\instsvc.pl'))
+					else
+						Exec(ExpandConstant('{app}\{#LMSPerlBin}'), ExpandConstant('{tmp}\instsvc.pl "' + ServerDir + 'slimserver.pl"'), '', SW_HIDE, ewWaitUntilTerminated, ErrorCode);
 
-				if FileExists(TrayExe) then
-					Exec(TrayExe, '--install', TrayFolder, SW_HIDE, ewWaitUntilIdle, ErrorCode)
+				end;
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+20, ProgressPage.ProgressBar.Max);
 
+				if not DisableService.checked then
+					StartService('{#ServiceName}');
+
+				ProgressPage.setProgress(ProgressPage.ProgressBar.Max-10, ProgressPage.ProgressBar.Max);
 			finally
 				ProgressPage.Hide;
 			end;
 		end;
 end;
 
-// don't ask for confirmation before canceling the dialog
+// don't ask for confirmation before cancelling the dialog
 procedure CancelButtonClick(CurPageID: Integer; var Cancel, Confirm: Boolean);
 begin
 	Confirm := False;

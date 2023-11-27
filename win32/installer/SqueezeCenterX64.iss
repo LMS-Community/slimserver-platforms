@@ -94,7 +94,7 @@ Type: dirifempty; Name: {app}\server\SQL
 [Run]
 Filename: "sc"; Parameters: "start squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381
 Filename: "sc"; Parameters: "failure squeezesvc reset= 180 actions= restart/1000/restart/1000/restart/1000"; Flags: runhidden
-Filename: "http://localhost:{code:GetHttpPort}"; Description: {cm:StartupSqueezeCenterWebInterface}; Flags: postinstall nowait skipifsilent shellexec
+Filename: "http://localhost:{code:GetHttpPort}"; Description: {cm:StartupSqueezeCenterWebInterface}; Flags: postinstall nowait skipifsilent shellexec unchecked
 ; Remove old firewall rules, then add new
 Filename: "netsh"; Parameters: "advfirewall firewall delete rule name=""Logitech Media Server"""; Flags: runhidden
 Filename: "netsh"; Parameters: "advfirewall firewall delete rule name=""{#AppName} (Perl)"""; Flags: runhidden
