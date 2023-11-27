@@ -77,23 +77,6 @@ Name: {group}\{cm:SqueezeCenterWebInterface}; Filename: "http://localhost:{code:
 Name: {group}\{cm:UninstallSqueezeCenter}; Filename: {uninstallexe}
 
 [Registry]
-;
-; The following keys open required ports in the Windows Firewall
-;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "{code:GetHttpPort}:TCP"; ValueData: "{code:GetHttpPort}:TCP:*:Enabled:{#AppName} {code:GetHttpPort} tcp (UI)"; MinVersion: 0,5.01; Flags: createvalueifdoesntexist;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9001:TCP"; ValueData: "9001:TCP:*:Enabled:{#AppName} 9001 tcp (UI)"; MinVersion: 0,5.01; Flags: createvalueifdoesntexist;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9002:TCP"; ValueData: "9002:TCP:*:Enabled:{#AppName} 9002 tcp (UI)"; MinVersion: 0,5.01; Flags: createvalueifdoesntexist;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9090:TCP"; ValueData: "9090:TCP:*:Enabled:{#AppName} 9090 tcp (UI)"; MinVersion: 0,5.01; Flags: createvalueifdoesntexist;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:{#AppName} 3483 udp"; MinVersion: 0,5.01; Flags: createvalueifdoesntexist;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:{#AppName} 3483 tcp"; MinVersion: 0,5.01; Flags: createvalueifdoesntexist;
-
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "{code:GetHttpPort}:TCP"; ValueData: "{code:GetHttpPort}:TCP:*:Enabled:{#AppName} {code:GetHttpPort} tcp (UI)"; MinVersion: 0,5.01; Flags: createvalueifdoesntexist;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9001:TCP"; ValueData: "9001:TCP:*:Enabled:{#AppName} 9001 tcp (UI)"; MinVersion: 0,5.01; Flags: createvalueifdoesntexist;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9002:TCP"; ValueData: "9002:TCP:*:Enabled:{#AppName} 9002 tcp (UI)"; MinVersion: 0,5.01; Flags: createvalueifdoesntexist;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "9090:TCP"; ValueData: "9090:TCP:*:Enabled:{#AppName} 9090 tcp (UI)"; MinVersion: 0,5.01; Flags: createvalueifdoesntexist;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:{#AppName} 3483 udp"; MinVersion: 0,5.01; Flags: createvalueifdoesntexist;
-Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:{#AppName} 3483 tcp"; MinVersion: 0,5.01; Flags: createvalueifdoesntexist;
-
 Root: HKLM; Subkey: SOFTWARE\Logitech\Squeezebox; ValueType: string; ValueName: Path64; ValueData: {app}
 Root: HKLM; Subkey: SOFTWARE\Logitech\Squeezebox; ValueType: string; ValueName: DataPath; ValueData: {code:GetWritablePath}
 
@@ -112,6 +95,10 @@ Type: dirifempty; Name: {app}\server\SQL
 Filename: "sc"; Parameters: "start squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381
 Filename: "sc"; Parameters: "failure squeezesvc reset= 180 actions= restart/1000/restart/1000/restart/1000"; Flags: runhidden
 Filename: "http://localhost:{code:GetHttpPort}"; Description: {cm:StartupSqueezeCenterWebInterface}; Flags: postinstall nowait skipifsilent shellexec
+; Remove old firewall rules, then add new
+Filename: "netsh"; Parameters: "advfirewall firewall delete rule name=""Logitech Media Server"""; Flags: runhidden
+Filename: "netsh"; Parameters: "advfirewall firewall delete rule name=""{#AppName} (Perl)"""; Flags: runhidden
+Filename: "netsh"; Parameters: "advfirewall firewall add rule name=""{#AppName} (Perl)"" dir=in program=""{app}\{#LMSPerlBin}"" action=allow"; Flags: runhidden
 
 [UninstallRun]
 Filename: "sc"; Parameters: "stop squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: StopSqueezSVC
