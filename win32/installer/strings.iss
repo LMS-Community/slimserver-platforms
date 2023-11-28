@@ -649,7 +649,7 @@ de.Startup_Caption=Squeezebox-Dienst verwalten
 en.Startup_Caption=Manage Squeezebox Service
 es.Startup_Caption=Activador de servicios de Squeezebox
 fi.Startup_Caption=Squeezebox-palvelun käyttöönotto
-fr.Startup_Caption=Activer le service Squeezebox
+fr.Startup_Caption=Gérer le service Squeezebox
 it.Startup_Caption=Attivatore del servizio Squeezebox
 nl.Startup_Caption=Service-enabler van Squeezebox
 no.Startup_Caption=Squeezebox tjenesteaktivering
@@ -691,7 +691,7 @@ de.Startup_LabelAtBootDesc_Caption0=Sie müssen Ihren Windows-Benutzernamen und 
 en.Startup_LabelAtBootDesc_Caption0=If you want Logitech Media Server to access your library on a network share (eg. NAS), you'll need to enter your Windows user name and password.
 es.Startup_LabelAtBootDesc_Caption0=Debe introducir su nombre de usuario y contraseña de Windows para que Logitech Media Server pueda acceder a su biblioteca de música.
 fi.Startup_LabelAtBootDesc_Caption0=Sinun täytyy antaa Windowsin käyttäjätunnus ja salasana, jotta Logitech Media Server voi käyttää musiikkikirjastoa.
-fr.Startup_LabelAtBootDesc_Caption0=Vous devez spécifier le nom d'utilisateur et le mot de passe Windows pour que le Logitech Media Server puisse accéder à la bibliothèque musicale.
+fr.Startup_LabelAtBootDesc_Caption0=Si vous souhaitez que le Logitech Media Server accède à votre bibliothèque sur un partage réseau (par exemple, sur un NAS), vous devrez saisir votre nom d'utilisateur et votre mot de passe Windows.
 it.Startup_LabelAtBootDesc_Caption0=Per consentire l'accesso di Logitech Media Server alla libreria musicale è necessario immettere il nome utente e la password Windows.
 nl.Startup_LabelAtBootDesc_Caption0=Voer je Windows-gebruikersnaam en -wachtwoord in om Logitech Media Server toegang tot je muziekcollectie te geven.
 no.Startup_LabelAtBootDesc_Caption0=Du må oppgi Windows-brukernavn og -passord for at Logitech Media Server skal kunne få tilgang til musikkbiblioteket ditt.
@@ -771,9 +771,11 @@ sv.Startup_RadioAtBoot_Caption0=Starta Logitech Media Server &automatiskt när d
 
 Startup_RadioAtBootCustom_Caption0=Start Logitech Media Server &automatically using custom credentials.
 de.Startup_RadioAtBootCustom_Caption0=Logitech Media Server automatisch mit Anmeldedaten starten.
+fr.Startup_RadioAtBootCustom_Caption0=Démarrer le Logitech Media Server automatiquement avec vos informations d'authentification.
 
 Startup_DisableService_Caption0=Disable Logitech Media Server background service.
 de.Startup_DisableService_Caption0=Logitech Media Server Hintergrunddienst deaktivieren.
+fr.Startup_DisableService_Caption0=Désactiver le service d'arrière-plan du Logitech Media Server.
 
 cz.SummaryForm_Description=Souhrn
 da.SummaryForm_Description=Oversigt
@@ -894,12 +896,16 @@ StrawberryPerl=Strawberry Perl
 
 NeedStrawberryPerl=Strawberry Perl is required to run Logitech Media Server
 de.NeedStrawberryPerl=Strawberry Perl wird für die Ausführung von Logitech Media Server benötigt
+fr.NeedStrawberryPerl=Strawberry Perl est nécessaire pour exécuter le Logitech Media Server
 
 DownloadingPerl=Installation of Strawberry Perl is only required the first time you install.
 de.DownloadingPerl=Die Installation von Strawberry Perl wird einmalig ausgeführt.
+fr.DownloadingPerl=L'installation de Strawberry Perl n'a lieu qu'une seule fois.
 
 InstallingPerl=Installing Strawberry Perl... This can take a while - please be patient!
 de.InstallingPerl=Installiere Strawberry Perl... Dies kann eine Weile dauern - danke für die Geduld!
+fr.InstallingPerl=Installation de Strawberry Perl... Cela peut prendre du temps. Merci pour votre patience !
 
 ServiceEnablerNeedsLMS=Logitech Media Server can't be found. Is it correctly installed?
 de.ServiceEnablerNeedsLMS=Logitech Media Server kann nicht gefunden werden. Ist er korrekt installiert?
+fr.ServiceEnablerNeedsLMS=Le Logitech Media Server est introuvable. Est-il installé correctement ?
