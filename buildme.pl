@@ -990,8 +990,9 @@ sub buildWin64 {
 
 		# replacing build number in installer script
 		system("sed -e \"s/VersionInfoVersion=0.0.0.0/VersionInfoVersion=$rev/\" \"$buildDir/platforms/win32/installer/SqueezeCenterX64.iss\" > \"$buildDir/build/SqueezeCenter.iss\"");
-		system("cd $buildDir/build; \"$buildDir/platforms/win32/InnoSetup/ISCC.exe\" \/Q ServiceEnabler.iss ");
-		system("cd $buildDir/build; \"$buildDir/platforms/win32/InnoSetup/ISCC.exe\" \/Q SqueezeCenter.iss ");
+		# don't use slashes (eg. /Q) in parameters - it confused bash on Github
+		system("cd $buildDir/build; \"$buildDir/platforms/win32/InnoSetup/ISCC.exe\" -Q ServiceEnabler.iss");
+		system("cd $buildDir/build; \"$buildDir/platforms/win32/InnoSetup/ISCC.exe\" -Q SqueezeCenter.iss");
 
 		print "INFO: Everything is finally ready, renaming the .exe and zip files...\n";
 		print "INFO: Moving [$buildDir/build/Output/SqueezeSetup.exe] to [$destDir/$destFileName.exe]\n";
