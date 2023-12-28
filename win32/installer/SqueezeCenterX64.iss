@@ -96,6 +96,7 @@ Type: dirifempty; Name: {app}\server\SQL
 
 [Run]
 Filename: "sc"; Parameters: "failure {#ServiceName} reset= 180 actions= restart/1000/restart/1000/restart/1000"; Flags: runhidden
+Filename: "sc"; Parameters: "config {#ServiceName} start= delayed-auto"; Flags: runhidden
 Filename: "sc"; Parameters: "start {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381
 Filename: "http://localhost:{code:GetHttpPort}"; Description: {cm:StartupSqueezeCenterWebInterface}; Flags: postinstall nowait skipifsilent shellexec unchecked
 
