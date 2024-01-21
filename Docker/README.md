@@ -1,6 +1,6 @@
 # logitechmediaserver
 
-The [LMS Community](https://github.com/LMS-Community)'s Docker image for [Logitech Media Server](https://github.com/Logitech/slimserver/) ([Dockerfile](https://github.com/Logitech/slimserver-platforms/tree/public/8.2/Docker)).
+The [LMS Community](https://github.com/LMS-Community)'s Docker image for [Logitech Media Server](https://github.com/Logitech/slimserver/) ([Dockerfile](https://github.com/Logitech/slimserver-platforms/tree/HEAD/Docker)).
 
 ## Tags
 * `latest`: the latest release version, currently v8.3.1
@@ -60,6 +60,8 @@ services:
       - 9090:9090/tcp
       - 3483:3483/tcp
       - 3483:3483/udp
+    environment:
+      - HTTP_PORT=9000
     restart: always
 ```
 
@@ -77,6 +79,7 @@ environment:
 ```
 
 ## Advanced configuration notes
+
 
 ### If you can't map to `/etc/localtime` or `/etc/timezone`
 
