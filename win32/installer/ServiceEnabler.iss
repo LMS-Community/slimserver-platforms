@@ -16,7 +16,7 @@ DisableReadyMemo=yes
 DisableReadyPage=yes
 DisableStartupPrompt=yes
 ShowLanguageDialog=no
-SetupIconFile=SqueezeCenterOff.ico
+SetupIconFile=SqueezeCenter.ico
 Uninstallable=no
 
 [Files]
