@@ -8,10 +8,12 @@ wget https://lms-community.github.io/lms-server-repository/servers.json
 deb=$(jq '."8.4.0".deb.url' servers.json)
 wget $deb
 sudo apt -y install ./logitechmediaserver*.deb
-
-echo 'pkill --signal 9 squeezeboxserv' >> /support/startSSHServer.sh
-echo 'pkill logger' >> /support/startSSHServer.sh
-echo 'pkill perl' >> /support/startSSHServer.sh
-echo 'service logitechmediaserver start' >> /support/startSSHServer.sh
-
+if [ $(grep -c "Starting LMS" /support/startSSHServer.sh) -eq 0 ]
+then
+  echo '## Starting LMS ##' >> /support/startSSHServer.sh
+  echo 'pkill --signal 9 squeezeboxserv' >> /support/startSSHServer.sh
+  echo 'pkill logger' >> /support/startSSHServer.sh
+  echo 'pkill perl' >> /support/startSSHServer.sh
+  echo 'service logitechmediaserver start' >> /support/startSSHServer.sh
+fi
 sudo service logitechmediaserver start
