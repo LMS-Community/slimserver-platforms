@@ -12,8 +12,8 @@ if [ $(grep -c "Starting LMS" /support/startSSHServer.sh) -eq 0 ]
 then
   echo '## Starting LMS ##' >> /support/startSSHServer.sh
   echo 'pkill --signal 9 squeezeboxserv' >> /support/startSSHServer.sh
-  echo 'pkill logger' >> /support/startSSHServer.sh
-  echo 'pkill perl' >> /support/startSSHServer.sh
+  echo 'pkill --signal 9 logger' >> /support/startSSHServer.sh
+  echo 'pkill --signal 9 perl' >> /support/startSSHServer.sh
   echo 'service logitechmediaserver start' >> /support/startSSHServer.sh
 fi
 sudo service logitechmediaserver start
