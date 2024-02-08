@@ -11,11 +11,12 @@ sudo apt -y install ./logitechmediaserver*.deb
 if [ $(grep -c "Start LMS" /support/startSSHServer.sh) -eq 0 ]
 then
   echo '## Start LMS ##' >> /support/startSSHServer.sh
-  echo 'service logitechmediaserver start' >> /support/startSSHServer.sh
-  echo 'sleep 5' >> /support/startSSHServer.sh
-  echo 'dropbearpid=$(cat /run/dropbear.pid)' >> /support/startSSHServer.sh
-  echo 'lmspid=$(cat /run/logitechmediaserver.pid)' >> /support/startSSHServer.sh
-  echo 'echo "$dropbearpid $lmspid" > /run/dropbear.pid' >> /support/startSSHServer.sh
+  echo 'nohup bash /home/userland/startlms.sh &' >> /support/startSSHServer.sh
+  echo '#!/bin/bash' > /home/userland/startlms.sh
+  echo 'service logitechmediaserver start' >> /home/userland/startlms.sh
+  echo 'dropbearpid=$(cat /run/dropbear.pid)' >> /home/userland/startlms.sh
+  echo 'lmspid=$(cat /run/logitechmediaserver.pid)' >> /home/userland/startlms.sh
+  echo 'echo "$dropbearpid $lmspid" > /run/dropbear.pid' >> /home/userland/startlms.sh
 fi
 sudo service logitechmediaserver start
 dropbearpid=$(cat /run/dropbear.pid)
