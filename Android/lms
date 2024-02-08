@@ -5,7 +5,7 @@ sudo apt -y install bash-completion jq apt-utils whiptail
 rm logitechmediaserver*.deb
 rm servers.json
 wget https://lms-community.github.io/lms-server-repository/servers.json
-deb=$(jq '."8.4.0".deb.url' servers.json)
+deb=$(jq -r '."8.4.0".deb.url' servers.json)
 wget "$deb"
 sudo apt -y install ./logitechmediaserver*.deb
 if [ $(grep -c "Starting LMS" /support/startSSHServer.sh) -eq 0 ]
