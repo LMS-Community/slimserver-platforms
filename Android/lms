@@ -12,9 +12,9 @@ if [ $(grep -c "Start LMS" /support/startSSHServer.sh) -eq 0 ]
 then
   echo '## Start LMS ##' >> /support/startSSHServer.sh
   echo 'service logitechmediaserver start' >> /support/startSSHServer.sh
-  echo 'dropbearpid=$(cat /run/dropbear.pid)' >> /support/startSSHServer.sh
-  echo 'lmspid=$(cat /run/logitechmediaserver.pid)' >> /support/startSSHServer.sh
-  echo 'echo "$dropbearpid $lmspid" > /run/dropbear.pid' >> /support/startSSHServer.sh
+  echo 'dropbearpid=\$\(cat /run/dropbear.pid\)' >> /support/startSSHServer.sh
+  echo 'lmspid=\$\(cat /run/logitechmediaserver.pid\)' >> /support/startSSHServer.sh
+  echo 'echo \"\$dropbearpid \$lmspid\" \> /run/dropbear.pid' >> /support/startSSHServer.sh
 fi
 sudo service logitechmediaserver start
 sudo echo "$dropbearpid $lmspid" > /run/dropbear.pid
