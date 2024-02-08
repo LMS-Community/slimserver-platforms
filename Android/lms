@@ -18,7 +18,4 @@ then
   echo 'lmspid=$(cat /run/logitechmediaserver.pid)' >> /home/userland/startlms.sh
   echo 'echo "$dropbearpid $lmspid" > /run/dropbear.pid' >> /home/userland/startlms.sh
 fi
-sudo service logitechmediaserver start
-dropbearpid=$(cat /run/dropbear.pid)
-lmspid=$(cat /run/logitechmediaserver.pid)
-sudo echo "$dropbearpid $lmspid" > /run/dropbear.pid
+bash startlms.sh
