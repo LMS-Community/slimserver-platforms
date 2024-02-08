@@ -13,10 +13,10 @@ then
   echo '## Start LMS ##' >> /support/startSSHServer.sh
   echo 'nohup bash /home/userland/startlms.sh &' >> /support/startSSHServer.sh
   echo '#!/bin/bash' > /home/userland/startlms.sh
-  echo 'sudo service logitechmediaserver start' >> /home/userland/startlms.sh
+  echo 'service logitechmediaserver start' >> /home/userland/startlms.sh
   echo 'sleep 30' >> /home/userland/startlms.sh
   echo 'dropbearpid=$(cat /run/dropbear.pid)' >> /home/userland/startlms.sh
   echo 'lmspid=$(cat /run/logitechmediaserver.pid)' >> /home/userland/startlms.sh
-  echo 'sudo echo "$dropbearpid $lmspid" > /run/dropbear.pid' >> /home/userland/startlms.sh
+  echo 'echo "$dropbearpid $lmspid" > /run/dropbear.pid' >> /home/userland/startlms.sh
 fi
-bash startlms.sh
+sudo bash startlms.sh
