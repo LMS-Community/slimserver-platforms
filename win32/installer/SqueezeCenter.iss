@@ -4,7 +4,7 @@
 ; Logitech : https://www.logitech.com
 
 #define AppName "Logitech Media Server"
-#define AppVersion "8.4.0"
+#define AppVersion "8.4.1"
 #define ProductURL "https://forums.slimdevices.com"
 #define SSRegKey = "Software\SlimDevices\SlimServer"
 #define SCRegKey = "Software\Logitech\SqueezeCenter"

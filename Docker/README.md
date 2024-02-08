@@ -3,9 +3,9 @@
 The [LMS Community](https://github.com/LMS-Community)'s Docker image for [Logitech Media Server](https://github.com/Logitech/slimserver/) ([Dockerfile](https://github.com/Logitech/slimserver-platforms/tree/HEAD/Docker)).
 
 ## Tags
-* `latest`: the latest release version, currently v8.3.1
-* `stable`: the [bug fix branch](https://github.com/Logitech/slimserver/tree/public/8.3) based on the latest release, currently v8.3.2
-* `dev`: the [development version](https://github.com/Logitech/slimserver/), with new features, and potentially less stability, currently v8.4.0
+* `latest`: the latest release version, currently v8.4.0
+* `stable`: the [bug fix branch](https://github.com/Logitech/slimserver/tree/public/8.4) based on the latest release, currently v8.4.1
+* `dev`: the [development version](https://github.com/Logitech/slimserver/), with new features, and potentially less stability, currently v8.4.1
 
 ## Installation
 
