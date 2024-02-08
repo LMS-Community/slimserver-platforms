@@ -5,13 +5,14 @@ sudo apt -y install bash-completion jq apt-utils whiptail
 rm logitechmediaserver*.deb
 rm servers.json
 wget --no-check-certificate https://lms-community.github.io/lms-server-repository/servers.json
-deb=$(jq -r '."8.4.0".deb.url' servers.json)
+deb=$(jq -r '.latest.deb.url' servers.json)
 wget --no-check-certificate "$deb"
 sudo apt -y install ./logitechmediaserver*.deb
 if [ $(grep -c "Start LMS" /support/startSSHServer.sh) -eq 0 ]
 then
   echo '## Start LMS ##' >> /support/startSSHServer.sh
   echo 'service logitechmediaserver start' >> /support/startSSHServer.sh
+  echo 'sleep 5' >> /support/startSSHServer.sh
   echo 'dropbearpid=$(cat /run/dropbear.pid)' >> /support/startSSHServer.sh
   echo 'lmspid=$(cat /run/logitechmediaserver.pid)' >> /support/startSSHServer.sh
   echo 'echo "$dropbearpid $lmspid" > /run/dropbear.pid' >> /support/startSSHServer.sh
