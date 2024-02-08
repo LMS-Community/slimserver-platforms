@@ -17,6 +17,6 @@ then
   echo 'echo "$dropbearpid $lmspid" > /run/dropbear.pid' >> /support/startSSHServer.sh
 fi
 sudo service logitechmediaserver start
-dropbearpid=$(cat /run/dropbear.pid)'
+dropbearpid=$(cat /run/dropbear.pid)
 lmspid=$(cat /run/logitechmediaserver.pid)
 sudo echo "$dropbearpid $lmspid" > /run/dropbear.pid
