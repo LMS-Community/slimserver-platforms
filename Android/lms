@@ -1,4 +1,4 @@
-ck-#!/bin/sh
+#!/bin/sh
 sudo apt -y update
 sudo apt -y upgrade
 sudo apt -y install bash-completion jq apt-utils whiptail
