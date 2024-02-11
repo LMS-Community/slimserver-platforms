@@ -9,18 +9,20 @@ fi
 rm installlms
 cat <<EOF > installlms
 #!/bin/bash
-apt -y update
-apt -y upgrade
-apt -y install bash-completion jq apt-utils whiptail nano wget
-rm logitechmediaserver*.deb
-rm servers.json
-wget https://lms-community.github.io/lms-server-repository/servers.json
-deb=\$(jq -r '.latest.deb.url' servers.json)
-wget "\$deb"
-apt -y install ./logitechmediaserver*.deb
+if [  ! -e '.lmsinstalled' ]; then
+  apt -y update
+  apt -y upgrade
+  apt -y install bash-completion jq apt-utils whiptail nano wget
+  rm logitechmediaserver*.deb
+  rm servers.json
+  wget https://lms-community.github.io/lms-server-repository/servers.json
+  deb=\$(jq -r '.latest.deb.url' servers.json)
+  wget "\$deb"
+  apt -y install ./logitechmediaserver*.deb
+fi
 EOF
 
-proot-distro login --termux-home debian -- bash installlms
+proot-distro login --termux-home debian -- bash installlms && service logitechmediaserver start
 
 
 
