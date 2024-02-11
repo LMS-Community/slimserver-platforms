@@ -22,6 +22,7 @@ if [  ! -e '.lmsinstalled' ]; then
   touch .lmsinstalled
 fi
 service logitechmediaserver start
+bash
 EOF
 
 proot-distro login --termux-home debian -- bash installlms
