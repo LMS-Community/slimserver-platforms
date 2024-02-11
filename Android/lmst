@@ -6,8 +6,8 @@ if [ ! -d '/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs
   proot-distro install debian
 fi
 
-rm installlms
-cat <<EOF > installlms
+rm startlms
+cat <<EOF > startlms
 #!/bin/bash
 if [  ! -e '.lmsinstalled' ]; then
   apt -y update
@@ -25,7 +25,11 @@ service logitechmediaserver start
 bash
 EOF
 
-proot-distro login --termux-home debian -- bash installlms
+if [  ! -d '~/.shortcuts/tasks' ]; then
+  mkdir -p ~/.shortcuts/tasks
+fi
+cp lms ~/.shortcuts/tasks/
+proot-distro login --termux-home debian -- bash startlms
 
 
 
