@@ -1,6 +1,6 @@
 #!/bin/bash
 pkg upgrade
-apt -y install proot proot-distro
+apt -y install proot proot-distro wget
 termux-setup-storage
 proot-distro install debian
 
@@ -8,12 +8,12 @@ cat <<EOF > installlms
 #!/bin/bash
 sudo apt -y update
 sudo apt -y upgrade
-sudo apt -y install bash-completion jq apt-utils whiptail nano
+sudo apt -y install bash-completion jq apt-utils whiptail nano wget
 rm logitechmediaserver*.deb
 rm servers.json
-wget --no-check-certificate https://lms-community.github.io/lms-server-repository/servers.json
+wget https://lms-community.github.io/lms-server-repository/servers.json
 deb=$(jq -r '.latest.deb.url' servers.json)
-wget --no-check-certificate "$deb"
+wget "$deb"
 sudo apt -y install ./logitechmediaserver*.deb
 EOF
 
