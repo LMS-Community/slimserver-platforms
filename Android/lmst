@@ -26,15 +26,15 @@ bash
 EOF
 
 if [  ! -d '~/.shortcuts/tasks' ]; then
-mkdir -p /data/data/com.termux/files/home/.shortcuts/tasks
-chmod 700 -R /data/data/com.termux/files/home/.shortcuts/tasks
-mkdir -p /data/data/com.termux/files/home/.shortcuts/icons
-chmod -R a-x,u=rwX,go-rwx /data/data/com.termux/files/home/.shortcuts/icons
+  mkdir -p /data/data/com.termux/files/home/.shortcuts/tasks
+  chmod 700 -R /data/data/com.termux/files/home/.shortcuts/tasks
+  mkdir -p /data/data/com.termux/files/home/.shortcuts/icons
+  chmod -R a-x,u=rwX,go-rwx /data/data/com.termux/files/home/.shortcuts/icons
 fi
 curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/lms.png
-cp lms ~/.shortcuts/tasks/
+echo "proot-distro login --termux-home debian -- bash startlms" > ~/.shortcuts/tasks/lms
 chmod +x ~/.shortcuts/tasks/lms
-proot-distro login --termux-home debian -- bash startlms
+
 
 
 
