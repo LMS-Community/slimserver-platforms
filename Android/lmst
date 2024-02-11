@@ -2,7 +2,7 @@
 if [ ! -d '/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian' ]; then
   apt update
   apt -y upgrade
- apt -y install proot proot-distro wget
+  apt -y install proot proot-distro wget
   termux-setup-storage
   proot-distro install debian
 fi
@@ -17,7 +17,7 @@ if [  ! -e '.lmsinstalled' ]; then
   rm logitechmediaserver*.deb
   rm servers.json
   wget https://lms-community.github.io/lms-server-repository/servers.json
-  deb=\$(jq -r '.latest.deb.url' servers.json)
+  deb=\$(jq -r '."8.4.1".deb.url' servers.json)
   wget "\$deb"
   apt -y install ./logitechmediaserver*.deb
   touch .lmsinstalled
