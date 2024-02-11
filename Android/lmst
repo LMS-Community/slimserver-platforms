@@ -12,7 +12,7 @@ cat <<EOF > installlms
 if [  ! -e '.lmsinstalled' ]; then
   apt -y update
   apt -y upgrade
-  apt -y install bash-completion jq apt-utils whiptail nano wget
+  apt -y install bash-completion jq apt-utils whiptail nano wget tree
   rm logitechmediaserver*.deb
   rm servers.json
   wget https://lms-community.github.io/lms-server-repository/servers.json
