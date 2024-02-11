@@ -1,0 +1,41 @@
+#!/bin/bash
+if [ ! -d '/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian' ]; then
+  apt update
+  apt -y -o Dpkg::Options::="--force-confnew" upgrade
+  apt -y -o Dpkg::Options::="--force-confnew" install proot proot-distro wget
+  termux-setup-storage
+  proot-distro install debian
+fi
+
+rm installlms
+cat <<EOF > installlms
+#!/bin/bash
+if [  ! -e '.lmsinstalled' ]; then
+  apt update
+  apt -y -o Dpkg::Options::="--force-confnew" upgrade
+  apt -y -o Dpkg::Options::="--force-confnew" install bash-completion jq apt-utils whiptail nano wget tree init-system-helpers
+  rm logitechmediaserver*.deb
+  rm servers.json
+  wget https://lms-community.github.io/lms-server-repository/servers.json
+  deb=\$(jq -r '."8.4.1".deb.url' servers.json)
+  wget "\$deb"
+  apt -y install ./logitechmediaserver*.deb
+  touch .lmsinstalled
+fi
+EOF
+echo "service logitechmediaserver start" > startlms
+echo "bash" >> startlms
+if [  ! -d '~/.shortcuts/tasks' ]; then
+  mkdir -p /data/data/com.termux/files/home/.shortcuts/tasks
+  chmod 700 -R /data/data/com.termux/files/home/.shortcuts/tasks
+  mkdir -p /data/data/com.termux/files/home/.shortcuts/icons
+  chmod -R a-x,u=rwX,go-rwx /data/data/com.termux/files/home/.shortcuts/icons
+fi
+curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/lms.png
+echo "proot-distro login --termux-home debian -- bash startlms" > ~/.shortcuts/tasks/lms
+chmod +x ~/.shortcuts/tasks/lms
+proot-distro login --termux-home debian -- bash installlms
+
+
+
+
