@@ -4,6 +4,7 @@ apt -y install proot proot-distro wget
 termux-setup-storage
 proot-distro install debian
 
+rm installlms
 cat <<EOF > installlms
 #!/bin/bash
 apt -y update
