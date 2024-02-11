@@ -21,9 +21,10 @@ if [  ! -e '.lmsinstalled' ]; then
   apt -y install ./logitechmediaserver*.deb
   touch .lmsinstalled
 fi
+service logitechmediaserver start
 EOF
 
-proot-distro login --termux-home debian -- bash installlms && service logitechmediaserver start
+proot-distro login --termux-home debian -- bash installlms
 
 
 
