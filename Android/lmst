@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ ! -d '/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian' ]; then
-  apt upgrade
+  apt update
   apt -y upgrade
  apt -y install proot proot-distro wget
   termux-setup-storage
