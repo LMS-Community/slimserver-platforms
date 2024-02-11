@@ -19,6 +19,7 @@ if [  ! -e '.lmsinstalled' ]; then
   deb=\$(jq -r '.latest.deb.url' servers.json)
   wget "\$deb"
   apt -y install ./logitechmediaserver*.deb
+  touch .lmsinstalled
 fi
 EOF
 
