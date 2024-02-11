@@ -1,8 +1,10 @@
 #!/bin/bash
-pkg upgrade
-apt -y install proot proot-distro wget
-termux-setup-storage
-proot-distro install debian
+if [ ! -d '/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian' ]; then
+  pkg upgrade
+  apt -y install proot proot-distro wget
+  termux-setup-storage
+  proot-distro install debian
+fi
 
 rm installlms
 cat <<EOF > installlms
@@ -18,7 +20,7 @@ wget "\$deb"
 apt -y install ./logitechmediaserver*.deb
 EOF
 
-proot-distro login --termux-home debian
+proot-distro login --termux-home debian -- bash installlms
 
 
 
