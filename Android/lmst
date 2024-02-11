@@ -26,9 +26,11 @@ bash
 EOF
 
 if [  ! -d '~/.shortcuts/tasks' ]; then
-  mkdir -p ~/.shortcuts/tasks
+mkdir -p /data/data/com.termux/files/home/.shortcuts/tasks
+chmod 700 -R /data/data/com.termux/files/home/.shortcuts/tasks
 fi
 cp lms ~/.shortcuts/tasks/
+chmod +x ~/.shortcuts/tasks/lms
 proot-distro login --termux-home debian -- bash startlms
 
 
