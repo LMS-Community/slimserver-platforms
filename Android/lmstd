@@ -31,7 +31,7 @@ if [  ! -e '.materialinstalled' ]; then
   apt -y -o Dpkg::Options::="--force-confnew" install libxml2-utils
   rm extensions.xml
   wget https://lms-community.github.io/lms-plugin-repository/extensions.xml -O extensions.xml
-  wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name=\"MaterialSkin\"]/@url)' extensions.xml) -O material.zip
+  wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O material.zip
   rm -rf MaterialSkin
   mkdir MaterialSkin
   unzip material.zip -d MaterialSkin
