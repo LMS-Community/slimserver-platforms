@@ -40,9 +40,12 @@ if [  ! -e '.materialinstalled' ]; then
   mv MaterialSkin /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
   chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
   touch .materialinstalled
+  service logitechmediaserver start
+  sleep 5
+  service logitechmediaserver stop
 fi
 EOF
-echo "service logitechmediaserver start" > startlms
+echo "service logitechmediaserver restart" > startlms
 echo "bash" >> startlms
 if [  ! -d '~/.shortcuts/tasks' ]; then
   mkdir -p /data/data/com.termux/files/home/.shortcuts/tasks
@@ -54,6 +57,9 @@ if [  ! -d '~/.shortcuts/tasks' ]; then
   chmod +x ~/.shortcuts/tasks/lms
 fi
 proot-distro login --termux-home debian -- bash installlms
+echo "===================="
+echo "LMS is now installed"
+echo "===================="
 
 
 
