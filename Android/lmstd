@@ -21,8 +21,7 @@ if [  ! -e '.lmsinstalled' ]; then
   rm logitechmediaserver*.deb
   rm servers.json
   wget https://lms-community.github.io/lms-server-repository/servers.json
-  deb=\$(jq -r '."8.4.1".deb.url' servers.json)
-  wget "\$deb"
+  wget \$(jq -r '."8.4.1".deb.url' servers.json)
   apt -y install ./logitechmediaserver*.deb
   touch .lmsinstalled
 fi
@@ -30,6 +29,15 @@ if [  ! -e '.materialinstalled' ]; then
   apt update
   apt -y -o Dpkg::Options::="--force-confnew" upgrade
   apt -y -o Dpkg::Options::="--force-confnew" install libxml2-utils
+  rm extensions.xml
+  wget https://lms-community.github.io/lms-plugin-repository/extensions.xml -O extensions.xml
+  wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name=\"MaterialSkin\"]/@url)' extensions.xml) -O material.zip
+  rm -rf MaterialSkin
+  mkdir MaterialSkin
+  unzip material.zip -d MaterialSkin
+  rm material.zip
+  mv MaterialSkin /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
+  chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
   touch .materialinstalled
 fi
 EOF
@@ -40,11 +48,11 @@ if [  ! -d '~/.shortcuts/tasks' ]; then
   chmod 700 -R /data/data/com.termux/files/home/.shortcuts/tasks
   mkdir -p /data/data/com.termux/files/home/.shortcuts/icons
   chmod -R a-x,u=rwX,go-rwx /data/data/com.termux/files/home/.shortcuts/icons
+  curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/lms.png
+  echo "proot-distro login --termux-home debian -- bash startlms" > ~/.shortcuts/tasks/lms
+  chmod +x ~/.shortcuts/tasks/lms
 fi
-curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/lms.png
-echo "proot-distro login --termux-home debian -- bash startlms" > ~/.shortcuts/tasks/lms
-chmod +x ~/.shortcuts/tasks/lms
-proot-distro login --termux-home debian -- bash installlms
+#proot-distro login --termux-home debian -- bash installlms
 
 
 
