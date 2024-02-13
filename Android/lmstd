@@ -38,11 +38,11 @@ if [  ! -e '.materialinstalled' ]; then
   rm material.zip
   mkdir -p /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
   mv MaterialSkin /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
-  chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
+  mkdir -p /var/lib/squeezeboxserver/prefs/
+  chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
+  echo "wizardDone: 1" > /var/lib/squeezeboxserver/prefs/server.prefs
+  echo "skin: Material" >> /var/lib/squeezeboxserver/prefs/server.prefs
   touch .materialinstalled
-  service logitechmediaserver start
-  sleep 5
-  service logitechmediaserver stop
 fi
 EOF
 echo "service logitechmediaserver restart" > startlms
