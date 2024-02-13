@@ -36,6 +36,7 @@ if [  ! -e '.materialinstalled' ]; then
   mkdir MaterialSkin
   unzip material.zip -d MaterialSkin
   rm material.zip
+  mkdir -p /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
   mv MaterialSkin /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
   chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
   touch .materialinstalled
