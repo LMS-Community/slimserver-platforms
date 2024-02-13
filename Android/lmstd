@@ -52,7 +52,7 @@ if [  ! -d '~/.shortcuts/tasks' ]; then
   echo "proot-distro login --termux-home debian -- bash startlms" > ~/.shortcuts/tasks/lms
   chmod +x ~/.shortcuts/tasks/lms
 fi
-#proot-distro login --termux-home debian -- bash installlms
+proot-distro login --termux-home debian -- bash installlms
 
 
 
