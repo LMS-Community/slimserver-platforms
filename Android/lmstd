@@ -2,12 +2,11 @@
 if [ ! -d '/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian' ]; then
   apt update
   apt -y -o Dpkg::Options::="--force-confnew" upgrade
-  apt -y -o Dpkg::Options::="--force-confnew" install proot proot-distro wget
+  apt -y -o Dpkg::Options::="--force-confnew" install proot proot-distro wget squeezelite
   termux-setup-storage
   proot-distro install debian
 fi
 if [ $(grep -c "allow-external-apps=true" ~/.termux/termux.properties) -eq 0 ]; then
-  apt -y -o Dpkg::Options::="--force-confnew" install squeezelite
   echo "allow-external-apps=true" >> ~/.termux/termux.properties
 fi
 
