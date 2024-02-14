@@ -2,7 +2,7 @@
 if [ ! -d '/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian' ]; then
   echo “deb https://grimler.se/termux-packages-24 stable main” > $PREFIX/etc/apt/sources.list
   echo “deb https://packages.termux.dev/apt/termux-main stable main” >> $PREFIX/etc/apt/sources.list
-  pkg upgrade -y -o Dpkg::Options::="--force-confnew"
+  pkg update -y -o Dpkg::Options::="--force-confnew"
   pkg install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite || pkg --check-mirror install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite
 #  if apt -y -o Dpkg::Options::="--force-confnew" install proot proot-distro wget squeezelite; then
 #    :
