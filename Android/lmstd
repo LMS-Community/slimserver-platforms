@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 if [ ! -d '/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian' ]; then
   apt update
   apt -y -o Dpkg::Options::="--force-confnew" upgrade
@@ -6,6 +7,7 @@ if [ ! -d '/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs
   termux-setup-storage
   proot-distro install debian
 fi
+set +e
 if [ $(grep -c "allow-external-apps=true" ~/.termux/termux.properties) -eq 0 ]; then
   echo "allow-external-apps=true" >> ~/.termux/termux.properties
 fi
