@@ -1,13 +1,25 @@
 #!/bin/bash
 if [ ! -d '/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian' ]; then
+  echo "deb https://grimler.se/termux-packages-24 stable main" > $PREFIX/etc/apt/sources.list
+  echo "deb https://packages-cf.termux.dev/apt/termux-main stable main" >> $PREFIX/etc/apt/sources.list
   apt update
-  apt -y -o Dpkg::Options::="--force-confnew" upgrade
-  apt -y -o Dpkg::Options::="--force-confnew" install proot proot-distro wget
+  apt upgrade -y -o Dpkg::Options::="--force-confnew"
+  apt install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite || pkg --check-mirror install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite
+#  if apt -y -o Dpkg::Options::="--force-confnew" install proot proot-distro wget squeezelite; then
+#    :
+#  else
+#    echo "Need to change download mirror"
+#    echo "On the following screen, touch OK, then
+#    echo "touch OK again and wait for the mirrors to be updated."
+#    echo "Press ENTER to continue"
+#    read
+#    termux-change-repo
+#    exec bash lms
+#  fi
   termux-setup-storage
   proot-distro install debian
 fi
 if [ $(grep -c "allow-external-apps=true" ~/.termux/termux.properties) -eq 0 ]; then
-  apt -y -o Dpkg::Options::="--force-confnew" install squeezelite
   echo "allow-external-apps=true" >> ~/.termux/termux.properties
 fi
 
@@ -21,21 +33,42 @@ if [  ! -e '.lmsinstalled' ]; then
   rm logitechmediaserver*.deb
   rm servers.json
   wget https://lms-community.github.io/lms-server-repository/servers.json
-  deb=\$(jq -r '."8.4.1".deb.url' servers.json)
-  wget "\$deb"
+  wget \$(jq -r '."8.4.1".deb.url' servers.json)
   apt -y install ./logitechmediaserver*.deb
   touch .lmsinstalled
 fi
+if [  ! -e '.materialinstalled' ]; then
+  apt update
+  apt -y -o Dpkg::Options::="--force-confnew" upgrade
+  apt -y -o Dpkg::Options::="--force-confnew" install libxml2-utils
+  rm extensions.xml
+  wget https://lms-community.github.io/lms-plugin-repository/extensions.xml -O extensions.xml
+  wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O material.zip
+  rm -rf MaterialSkin
+  mkdir MaterialSkin
+  unzip material.zip -d MaterialSkin
+  rm material.zip
+  mkdir -p /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
+  mv MaterialSkin /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
+  mkdir -p /var/lib/squeezeboxserver/prefs/
+  chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
+  echo "wizardDone: 1" > /var/lib/squeezeboxserver/prefs/server.prefs
+  echo "skin: material" >> /var/lib/squeezeboxserver/prefs/server.prefs
+  touch .materialinstalled
+fi
 EOF
-echo "service logitechmediaserver start" > startlms
+echo "service logitechmediaserver restart" > startlms
 echo "bash" >> startlms
 if [  ! -d '~/.shortcuts/tasks' ]; then
   mkdir -p /data/data/com.termux/files/home/.shortcuts/tasks
   chmod 700 -R /data/data/com.termux/files/home/.shortcuts/tasks
   mkdir -p /data/data/com.termux/files/home/.shortcuts/icons
   chmod -R a-x,u=rwX,go-rwx /data/data/com.termux/files/home/.shortcuts/icons
+  curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/lms.png
+  echo "proot-distro login --termux-home debian -- bash startlms" > ~/.shortcuts/tasks/lms
+  chmod +x ~/.shortcuts/tasks/lms
 fi
-curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/lms.png
-echo "proot-distro login --termux-home debian -- bash startlms" > ~/.shortcuts/tasks/lms
-chmod +x ~/.shortcuts/tasks/lms
 proot-distro login --termux-home debian -- bash installlms
+echo "===================="
+echo "LMS is now installed"
+echo "===================="
