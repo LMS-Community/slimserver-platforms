@@ -57,7 +57,7 @@ if [  ! -e '.materialinstalled' ]; then
 fi
 EOF
 echo "service logitechmediaserver restart" > startlms
-echo "bash" >> startlms
+#echo "bash" >> startlms
 if [  ! -d '~/.shortcuts/tasks' ]; then
   mkdir -p /data/data/com.termux/files/home/.shortcuts/tasks
   chmod 700 -R /data/data/com.termux/files/home/.shortcuts/tasks
