@@ -94,7 +94,7 @@ echo "proot-distro login --termux-home --no-kill-on-exit debian -- service logit
 chmod +x ~/.shortcuts/tasks/"Restart LMS"
 echo "proot-distro login --termux-home debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
 chmod +x ~/.shortcuts/tasks/"Stop LMS"
-echo "proot-distro login --termix-home debian -- bash updatelms" > ~/.shortcuts/"Update LMS"
+echo "proot-distro login --termux-home debian -- bash updatelms" > ~/.shortcuts/"Update LMS"
 proot-distro login --termux-home debian -- bash installlms
 
 echo   "======================="
