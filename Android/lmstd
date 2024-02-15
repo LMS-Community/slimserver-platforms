@@ -53,7 +53,6 @@ EOF
 
 cat <<EOF > updatelms
 #!/bin/bash
-service logitechmediaserver stop
 rm logitechmediaserver*.deb
 rm servers.json
 error=""
@@ -64,16 +63,16 @@ if [ -z "\$error" ]; then
     apt -y install ./logitechmediaserver*.deb || error="ERROR: installation failed"
   fi
 fi
-service logitechmediaserver start
 echo "========================================"
 if [ -z "\$error" ]; then
-  echo "LMS updated and restarted"
+  echo "LMS updated"
   echo
-  echo "Press Enter to close this terminal"
+  echo "Press Enter to close this terminal and restart LMS"
   read
 else
   echo \$error
-  echo "Existing LMS server restarted"
+  echo "LMS NOT updated"
+  echo "Note errors (above)"
   bash
 fi
 EOF
@@ -95,6 +94,7 @@ chmod +x ~/.shortcuts/tasks/"Restart LMS"
 echo "proot-distro login --termux-home debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
 chmod +x ~/.shortcuts/tasks/"Stop LMS"
 echo "proot-distro login --termux-home debian -- bash updatelms" > ~/.shortcuts/"Update LMS"
+echo "proot-distro login --termux-home --no-kill-on-exit debian -- service logitechmediaserver restart"
 proot-distro login --termux-home debian -- bash installlms
 
 echo   "======================="
