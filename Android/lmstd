@@ -69,7 +69,7 @@ if [ -z "\$error" ]; then
   echo "LMS updated and restarted"
   echo
   echo "Press Enter to close this terminal"
-  wait
+  read
 else
   echo \$error
   echo "Existing LMS server restarted"
