@@ -53,17 +53,16 @@ if [  ! -d ~/.shortcuts/tasks ]; then
   mkdir -p /data/data/com.termux/files/home/.shortcuts/icons
   chmod -R a-x,u=rwX,go-rwx /data/data/com.termux/files/home/.shortcuts/icons
 fi
-if [  ! -e ~/.shortcuts/tasks/"Restart LMS" ]; then
+#if [  ! -e ~/.shortcuts/tasks/"Restart LMS" ]; then
   rm ~/.shortcuts/tasks/*
   rm ~/.shortcuts/icons/*
   curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/"Restart LMS.png"
   curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms-red.png -o ~/.shortcuts/icons/"Stop LMS.png"
-  echo "proot-distro login --termux-home debian -- service logitechmediaserver restart" > ~/.shortcuts/tasks/"Restart LMS"
+  echo "proot-distro login --termux-home --no-kill-on-exit debian -- service logitechmediaserver restart" > ~/.shortcuts/tasks/"Restart LMS"
   chmod +x ~/.shortcuts/tasks/"Restart LMS"
   echo "proot-distro login --termux-home debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
   chmod +x ~/.shortcuts/tasks/"Stop LMS"
-  touch .tasksinstalled
-fi
+#fi
 proot-distro login --termux-home debian -- bash installlms
 if [ -e .lmsfirstinstall ]; then
   text=installed
