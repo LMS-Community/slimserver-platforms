@@ -5,17 +5,6 @@ if [ ! -d '/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs
   apt update
   apt upgrade -y -o Dpkg::Options::="--force-confnew"
   apt install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite || pkg --check-mirror install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite
-#  if apt -y -o Dpkg::Options::="--force-confnew" install proot proot-distro wget squeezelite; then
-#    :
-#  else
-#    echo "Need to change download mirror"
-#    echo "On the following screen, touch OK, then
-#    echo "touch OK again and wait for the mirrors to be updated."
-#    echo "Press ENTER to continue"
-#    read
-#    termux-change-repo
-#    exec bash lms
-#  fi
   termux-setup-storage
   proot-distro install debian
 fi
@@ -57,22 +46,24 @@ if [  ! -e '.materialinstalled' ]; then
   touch .materialinstalled
 fi
 EOF
-echo "service logitechmediaserver restart" > startlms
-echo "bash" >> startlms
 if [  ! -d '~/.shortcuts/tasks' ]; then
   mkdir -p /data/data/com.termux/files/home/.shortcuts/tasks
   chmod 700 -R /data/data/com.termux/files/home/.shortcuts/tasks
   mkdir -p /data/data/com.termux/files/home/.shortcuts/icons
   chmod -R a-x,u=rwX,go-rwx /data/data/com.termux/files/home/.shortcuts/icons
-  curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/lms.png
-  echo "proot-distro login --termux-home debian -- bash startlms" > ~/.shortcuts/tasks/lms
-  chmod +x ~/.shortcuts/tasks/lms
+fi
+if [  ! -e '.tasksinstalled' ]; then
+  rm ~/.shortcuts/tasks/*
+  rm ~/.shortcuts/icons/*
+  curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o '~/.shortcuts/icons/Restart LMS.png'
+  curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms-red.png -o '~/.shortcuts/icons/Stop LMS.png'
+  echo "proot-distro login --termux-home debian -- service logitechmediaserver restart" > '~/.shortcuts/tasks/Restart LMS'
+  chmod +x '~/.shortcuts/tasks/Restart LMS'
+  echo "proot-distro login --termux-home debian -- service logitechmediaserver stop" > '~/.shortcuts/tasks/Stop LMS'
+  chmod +x '~/.shortcuts/tasks/Stop LMS'
+  touch .tasksinstalled
 fi
 proot-distro login --termux-home debian -- bash installlms
 echo "===================="
 echo "LMS is now installed"
 echo "===================="
-
-
-
-
