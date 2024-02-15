@@ -86,6 +86,7 @@ fi
 
 rm ~/.shortcuts/tasks/*
 rm ~/.shortcuts/icons/*
+rm ~/.shortcuts/*
 curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/"Restart LMS.png"
 curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms-red.png -o ~/.shortcuts/icons/"Stop LMS.png"
 echo "proot-distro login --termux-home --no-kill-on-exit debian -- service logitechmediaserver restart" > ~/.shortcuts/tasks/"Restart LMS"
