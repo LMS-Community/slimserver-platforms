@@ -60,7 +60,7 @@ wget https://lms-community.github.io/lms-server-repository/servers.json || error
 if [ -z "\$error" ]; then
   wget \$(jq -r '."8.4.1".deb.url' servers.json) || error="ERROR: Can't find latest server download"
   if [ -z "\$error" ]; then
-    if [ $(apt show logitechmediaserver | grep ^Version: | cut -d' ' -f2) == $(ls logitechmediaserver* | cut -d'_' -f2) ]; then
+    if [ \$(apt show logitechmediaserver | grep ^Version: | cut -d' ' -f2) == \$(ls logitechmediaserver* | cut -d'_' -f2) ]; then
       error="You already have the latest version"
     else
       apt -y install ./logitechmediaserver*.deb || error="ERROR: installation failed"
