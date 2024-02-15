@@ -66,8 +66,8 @@ fi
 echo "========================================"
 if [ -z "\$error" ]; then
   echo "LMS updated"
-  echo
-  echo "Press Enter to close this terminal and restart LMS"
+  echo "Restart using the Termux widget"
+  echo "Press Enter to close this terminal"
   read
 else
   echo \$error
@@ -94,8 +94,7 @@ chmod +x ~/.shortcuts/tasks/"Restart LMS"
 echo "proot-distro login --termux-home debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
 chmod +x ~/.shortcuts/tasks/"Stop LMS"
 echo "proot-distro login --termux-home debian -- bash updatelms" > ~/.shortcuts/"Update LMS"
-echo "~/.shortcuts/tasks/\"Restart LMS\""
-chmod +x ~/.shortcuts/"Update LMS"
+chmod +x ~/.shortcuts/"Update LMS" 
 proot-distro login --termux-home debian -- bash installlms
 
 echo   "======================="
