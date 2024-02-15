@@ -63,7 +63,7 @@ if [ -z $error ]; then
     apt -y install ./logitechmediaserver*.deb || error="ERROR: installation failed"
   fi
 fi
-service logitechmedia server start
+service logitechmediaserver start
 echo "========================================"
 if [ -z $error ]; then
   echo "LMS updated"
