@@ -67,7 +67,9 @@ service logitechmediaserver start
 echo "========================================"
 if [ -z "\$error" ]; then
   echo "LMS updated and restarted"
-  sleep 5
+  echo
+  echo "Press Enter to close this terminal"
+  wait
 else
   echo \$error
   echo "Existing LMS server restarted"
