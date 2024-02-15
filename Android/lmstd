@@ -64,6 +64,7 @@ if [ -z "\$error" ]; then
       error="You already have the latest version"
     else
       apt -y install ./logitechmediaserver*.deb || error="ERROR: installation failed"
+    fi
   fi
 fi
 echo "========================================"
