@@ -73,6 +73,7 @@ else
   echo \$error
   echo "LMS NOT updated"
   echo "Note errors (above)"
+  echo "Type exit, press enter to close this terminal"
   bash
 fi
 EOF
