@@ -15,12 +15,13 @@ fi
 rm installlms
 rm .lmsinstalled
 rm ,materialinstalled
+
 cat <<EOF > installlms
 #!/bin/bash
 if [  ! -d '/usr/share/squeezeboxserver' ]; then
   apt update
   apt -y -o Dpkg::Options::="--force-confnew" upgrade
-  apt -y -o Dpkg::Options::="--force-confnew" install bash-completion jq apt-utils whiptail nano wget tree init-system-helpers
+  apt -y -o Dpkg::Options::="--force-confnew" install bash-completion jq apt-utils whiptail nano wget tree
   rm logitechmediaserver*.deb
   rm servers.json
   wget https://lms-community.github.io/lms-server-repository/servers.json
@@ -45,31 +46,60 @@ if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSki
   chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
   echo "wizardDone: 1" > /var/lib/squeezeboxserver/prefs/server.prefs
   echo "skin: material" >> /var/lib/squeezeboxserver/prefs/server.prefs
+  touch .materialfirstinstall
 fi
 EOF
+
+cat <<EOF > updatelms
+#!/bin/bash
+service logitechmediaserver stop
+rm logitechmediaserver*.deb
+rm servers.json
+error=""
+wget https://lms-community.github.io/lms-server-repository/servers.json || error="ERROR: Can't get latest server details"
+if [ -z $error ]; then
+  wget \$(jq -r '."8.4.1".deb.url' servers.json) || error="ERROR: Can't find latest server download"
+  if [ -z $error ]; then
+    apt -y install ./logitechmediaserver*.deb || error="ERROR: installation failed"
+  fi
+fi
+service logitechmedia server start
+echo "========================================"
+if [ -z $error ]; then
+  echo "LMS updated"
+  sleep 5
+else
+  echo $error
+  bash
+fi
+EOF
+
 if [  ! -d ~/.shortcuts/tasks ]; then
   mkdir -p /data/data/com.termux/files/home/.shortcuts/tasks
   chmod 700 -R /data/data/com.termux/files/home/.shortcuts/tasks
   mkdir -p /data/data/com.termux/files/home/.shortcuts/icons
   chmod -R a-x,u=rwX,go-rwx /data/data/com.termux/files/home/.shortcuts/icons
 fi
-#if [  ! -e ~/.shortcuts/tasks/"Restart LMS" ]; then
-  rm ~/.shortcuts/tasks/*
-  rm ~/.shortcuts/icons/*
-  curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/"Restart LMS.png"
-  curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms-red.png -o ~/.shortcuts/icons/"Stop LMS.png"
-  echo "proot-distro login --termux-home --no-kill-on-exit debian -- service logitechmediaserver restart" > ~/.shortcuts/tasks/"Restart LMS"
-  chmod +x ~/.shortcuts/tasks/"Restart LMS"
-  echo "proot-distro login --termux-home debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
-  chmod +x ~/.shortcuts/tasks/"Stop LMS"
-#fi
+
+rm ~/.shortcuts/tasks/*
+rm ~/.shortcuts/icons/*
+curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/"Restart LMS.png"
+curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms-red.png -o ~/.shortcuts/icons/"Stop LMS.png"
+echo "proot-distro login --termux-home --no-kill-on-exit debian -- service logitechmediaserver restart" > ~/.shortcuts/tasks/"Restart LMS"
+chmod +x ~/.shortcuts/tasks/"Restart LMS"
+echo "proot-distro login --termux-home debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
+chmod +x ~/.shortcuts/tasks/"Stop LMS"
+echo "proot-distro login --termix-home debian -- bash updatelms" > ~/.shortcuts/"Update LMS"
 proot-distro login --termux-home debian -- bash installlms
+
+echo   "======================="
 if [ -e .lmsfirstinstall ]; then
-  text=installed
+  echo "LMS installed"
   rm .lmsfirstinstall
-else
-  text=updated
 fi
-echo "===================="
-echo "LMS is now $text"
-echo "===================="
+if [ -e .materialfirstinstall ]; then
+  echo "Material Skin Installed"
+  rm .materialfirstinstall
+fi
+echo "Scripts updated"
+echo   "======================="
