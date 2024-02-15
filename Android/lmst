@@ -1,21 +1,11 @@
 #!/bin/bash
+cd ~
 if [ ! -d '/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian' ]; then
   echo "deb https://grimler.se/termux-packages-24 stable main" > $PREFIX/etc/apt/sources.list
   echo "deb https://packages-cf.termux.dev/apt/termux-main stable main" >> $PREFIX/etc/apt/sources.list
   apt update
   apt upgrade -y -o Dpkg::Options::="--force-confnew"
   apt install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite || pkg --check-mirror install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite
-#  if apt -y -o Dpkg::Options::="--force-confnew" install proot proot-distro wget squeezelite; then
-#    :
-#  else
-#    echo "Need to change download mirror"
-#    echo "On the following screen, touch OK, then
-#    echo "touch OK again and wait for the mirrors to be updated."
-#    echo "Press ENTER to continue"
-#    read
-#    termux-change-repo
-#    exec bash lms
-#  fi
   termux-setup-storage
   proot-distro install debian
 fi
@@ -24,20 +14,23 @@ if [ $(grep -c "allow-external-apps=true" ~/.termux/termux.properties) -eq 0 ]; 
 fi
 
 rm installlms
+rm .lmsinstalled
+rm .materialinstalled
+
 cat <<EOF > installlms
 #!/bin/bash
-if [  ! -e '.lmsinstalled' ]; then
+if [  ! -d '/usr/share/squeezeboxserver' ]; then
   apt update
   apt -y -o Dpkg::Options::="--force-confnew" upgrade
-  apt -y -o Dpkg::Options::="--force-confnew" install bash-completion jq apt-utils whiptail nano wget tree init-system-helpers
+  apt -y -o Dpkg::Options::="--force-confnew" install bash-completion jq apt-utils whiptail nano wget tree
   rm logitechmediaserver*.deb
   rm servers.json
   wget https://lms-community.github.io/lms-server-repository/servers.json
   wget \$(jq -r '."8.4.1".deb.url' servers.json)
   apt -y install ./logitechmediaserver*.deb
-  touch .lmsinstalled
+  touch .lmsfirstinstall
 fi
-if [  ! -e '.materialinstalled' ]; then
+if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin' ]; then
   apt update
   apt -y -o Dpkg::Options::="--force-confnew" upgrade
   apt -y -o Dpkg::Options::="--force-confnew" install libxml2-utils
@@ -54,21 +47,67 @@ if [  ! -e '.materialinstalled' ]; then
   chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
   echo "wizardDone: 1" > /var/lib/squeezeboxserver/prefs/server.prefs
   echo "skin: material" >> /var/lib/squeezeboxserver/prefs/server.prefs
-  touch .materialinstalled
+  touch .materialfirstinstall
 fi
 EOF
-echo "service logitechmediaserver restart" > startlms
-echo "bash" >> startlms
-if [  ! -d '~/.shortcuts/tasks' ]; then
+
+cat <<EOF > updatelms
+#!/bin/bash
+rm logitechmediaserver*.deb
+rm servers.json
+error=""
+wget https://lms-community.github.io/lms-server-repository/servers.json || error="ERROR: Can't get latest server details"
+if [ -z "\$error" ]; then
+  if [ \$(apt show logitechmediaserver | grep ^Version: | cut -d' ' -f2) == \$(jq -r '."8.4.1".deb.url' servers.json | cut -d'_' -f2) ]; then
+    error="You already have the latest version"
+  else
+    wget \$(jq -r '."8.4.1".deb.url' servers.json) || error="ERROR: Can't find latest server download"
+    if [ -z "\$error" ]; then
+      apt -y install ./logitechmediaserver*.deb || error="ERROR: installation failed"
+    fi
+  fi
+fi
+echo "========================================"
+if [ -z "\$error" ]; then
+  echo "LMS updated"
+  echo "Restart using your Termux 'Restart LMS' widget"
+else
+  echo \$error
+  echo "LMS NOT updated"
+fi
+echo "Press Enter to close this terminal"
+echo "========================================"
+read
+EOF
+
+if [  ! -d ~/.shortcuts/tasks ]; then
   mkdir -p /data/data/com.termux/files/home/.shortcuts/tasks
   chmod 700 -R /data/data/com.termux/files/home/.shortcuts/tasks
   mkdir -p /data/data/com.termux/files/home/.shortcuts/icons
   chmod -R a-x,u=rwX,go-rwx /data/data/com.termux/files/home/.shortcuts/icons
-  curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/lms.png
-  echo "proot-distro login --termux-home debian -- bash startlms" > ~/.shortcuts/tasks/lms
-  chmod +x ~/.shortcuts/tasks/lms
 fi
+
+rm ~/.shortcuts/tasks/*
+rm ~/.shortcuts/icons/*
+rm ~/.shortcuts/*
+curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/"Restart LMS.png"
+curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms-red.png -o ~/.shortcuts/icons/"Stop LMS.png"
+echo "proot-distro login --termux-home --no-kill-on-exit debian -- service logitechmediaserver restart" > ~/.shortcuts/tasks/"Restart LMS"
+chmod +x ~/.shortcuts/tasks/"Restart LMS"
+echo "proot-distro login --termux-home debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
+chmod +x ~/.shortcuts/tasks/"Stop LMS"
+echo "proot-distro login --termux-home debian -- bash updatelms" > ~/.shortcuts/"Update LMS"
+chmod +x ~/.shortcuts/"Update LMS" 
 proot-distro login --termux-home debian -- bash installlms
-echo "===================="
-echo "LMS is now installed"
-echo "===================="
+
+echo   "======================="
+if [ -e .lmsfirstinstall ]; then
+  echo "LMS installed"
+  rm .lmsfirstinstall
+fi
+if [ -e .materialfirstinstall ]; then
+  echo "Material Skin Installed"
+  rm .materialfirstinstall
+fi
+echo "Scripts updated"
+echo   "======================="
