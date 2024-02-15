@@ -60,22 +60,23 @@ wget https://lms-community.github.io/lms-server-repository/servers.json || error
 if [ -z "\$error" ]; then
   wget \$(jq -r '."8.4.1".deb.url' servers.json) || error="ERROR: Can't find latest server download"
   if [ -z "\$error" ]; then
-    apt -y install ./logitechmediaserver*.deb || error="ERROR: installation failed"
+    if [ $(apt show logitechmediaserver | grep ^Version: | cut -d' ' -f2) == $(ls logitechmediaserver* | cut -d'_' -f2) ]; then
+      error="You already have the latest version"
+    else
+      apt -y install ./logitechmediaserver*.deb || error="ERROR: installation failed"
   fi
 fi
 echo "========================================"
 if [ -z "\$error" ]; then
   echo "LMS updated"
-  echo "Restart using the Termux widget"
-  echo "Press Enter to close this terminal"
-  read
+  echo "Restart using your Termux 'Restart LMS' widget"
 else
   echo \$error
   echo "LMS NOT updated"
-  echo "Note errors (above)"
-  echo "Type exit, press enter to close this terminal"
-  bash
 fi
+echo "Press Enter to close this terminal"
+echo "========================================"
+read
 EOF
 
 if [  ! -d ~/.shortcuts/tasks ]; then
