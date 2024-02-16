@@ -47,7 +47,7 @@ if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSki
   chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
   echo "wizardDone: 1" > /var/lib/squeezeboxserver/prefs/server.prefs
   echo "skin: material" >> /var/lib/squeezeboxserver/prefs/server.prefs
-  echo "_ts_skin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/server.prefs
+  #echo "_ts_skin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/server.prefs
   touch .materialfirstinstall
 fi
 EOF
