@@ -43,10 +43,12 @@ if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSki
   #unzip material.zip -d MaterialSkin
   #rm material.zip
   #mv MaterialSkin /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
-  mkdir -p /var/lib/squeezeboxserver/prefs/
+  mkdir -p /var/lib/squeezeboxserver/prefs/plugin
   echo "wizardDone: 1" > /var/lib/squeezeboxserver/prefs/server.prefs
   echo "skin: material" >> /var/lib/squeezeboxserver/prefs/server.prefs
   echo "_ts_skin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/server.prefs
+  echo "MaterialSkin: needs-install" > /var/lib/squeezeboxserver/prefs/plugin/state.prefs
+  echo "_ts_MaterialSkin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
   chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
   touch .materialfirstinstall
 fi
