@@ -36,17 +36,18 @@ if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSki
   apt -y -o Dpkg::Options::="--force-confnew" install libxml2-utils
   rm extensions.xml
   wget https://lms-community.github.io/lms-plugin-repository/extensions.xml -O extensions.xml
-  wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O material.zip
-  rm -rf MaterialSkin
-  mkdir MaterialSkin
-  unzip material.zip -d MaterialSkin
-  rm material.zip
-  mkdir -p /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
-  mv MaterialSkin /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
+  mkdir -p /var/lib/squeezeboxserver/cache/DownloadedPlugins/
+  wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O /var/lib/squeezeboxserver/cache/DownloadedPlugins/MaterialSkin.zip
+  #rm -rf MaterialSkin
+  #mkdir MaterialSkin
+  #unzip material.zip -d MaterialSkin
+  #rm material.zip
+  #mv MaterialSkin /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
   mkdir -p /var/lib/squeezeboxserver/prefs/
-  chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
   echo "wizardDone: 1" > /var/lib/squeezeboxserver/prefs/server.prefs
   echo "skin: material" >> /var/lib/squeezeboxserver/prefs/server.prefs
+  echo "_ts_skin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/server.prefs
+  chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
   touch .materialfirstinstall
 fi
 EOF
