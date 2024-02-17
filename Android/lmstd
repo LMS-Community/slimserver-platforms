@@ -97,7 +97,7 @@ rm ~/.shortcuts/*
 curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/"Restart LMS.png"
 curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms-red.png -o ~/.shortcuts/icons/"Stop LMS.png"
 if [ $1 ]; then
-  $bind="--bind $1:/root/ExternalCard"
+  bind="--bind $1:/root/ExternalCard"
   if [ ! -d ~/ExternalCard ]; then
     mkdir ~/ExternalCard
   fi
