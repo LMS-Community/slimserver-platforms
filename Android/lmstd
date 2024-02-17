@@ -103,7 +103,7 @@ if [ $1 ]; then
   fi
 fi
 
-echo "proot-distro login --termux-home \$bind --no-kill-on-exit debian -- service logitechmediaserver restart" > ~/.shortcuts/tasks/"Restart LMS"
+echo "proot-distro login --termux-home $bind --no-kill-on-exit debian -- service logitechmediaserver restart" > ~/.shortcuts/tasks/"Restart LMS"
 chmod +x ~/.shortcuts/tasks/"Restart LMS"
 echo "proot-distro login --termux-home debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
 chmod +x ~/.shortcuts/tasks/"Stop LMS"
