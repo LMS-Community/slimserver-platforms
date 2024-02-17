@@ -96,7 +96,14 @@ rm ~/.shortcuts/icons/*
 rm ~/.shortcuts/*
 curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/"Restart LMS.png"
 curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms-red.png -o ~/.shortcuts/icons/"Stop LMS.png"
-echo "proot-distro login --termux-home --no-kill-on-exit debian -- service logitechmediaserver restart" > ~/.shortcuts/tasks/"Restart LMS"
+if [ $1 ]; then
+  $bind="--bind $1:/root/ExternalCard"
+  if [ ! -d ~/ExternalCard ]; then
+    mkdir ~/ExternalCard
+  fi
+fi
+
+echo "proot-distro login --termux-home \$bind --no-kill-on-exit debian -- service logitechmediaserver restart" > ~/.shortcuts/tasks/"Restart LMS"
 chmod +x ~/.shortcuts/tasks/"Restart LMS"
 echo "proot-distro login --termux-home debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
 chmod +x ~/.shortcuts/tasks/"Stop LMS"
