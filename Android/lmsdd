@@ -3,7 +3,7 @@
 if [ ! -f $PREFIX/var/lib/lms/${0##*/} ]; then
   mkdir $PREFIX/var/lib/lms
   mv ${0##*/} $PREFIX/var/lib/lms/${0##*/}
-  rm ~/extensions.xml ~/installlms ~/logitechmediaserver_8.4.1~1707395499_all.deb ~/servers.json ~/updatelms
+  rm ~/extensions.xml ~/installlms ~/logitechmediaserver*.deb ~/servers.json ~/updatelms
   echo "Moved LMS files to $PREFIX/var/lib/lms"
   echo $0
   exec bash $PREFIX/var/lib/lms/${0##*/} $*
@@ -33,7 +33,7 @@ cat <<EOF > $PREFIX/var/lib/lms/installlms
 if [  ! -d '/usr/share/squeezeboxserver' ]; then
   apt update
   apt -y -o Dpkg::Options::="--force-confnew" upgrade
-  apt -y -o Dpkg::Options::="--force-confnew" install bash-completion jq apt-utils whiptail nano wget tree
+  apt -y -o Dpkg::Options::="--force-confnew" install bash-completion jq apt-utils whiptail nano wget tree libxml2-utils
   rm logitechmediaserver*.deb
   rm servers.json
   wget https://lms-community.github.io/lms-server-repository/servers.json
@@ -42,9 +42,6 @@ if [  ! -d '/usr/share/squeezeboxserver' ]; then
   touch .lmsfirstinstall
 fi
 if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin' ]; then
-  apt update
-  apt -y -o Dpkg::Options::="--force-confnew" upgrade
-  apt -y -o Dpkg::Options::="--force-confnew" install libxml2-utils
   rm extensions.xml
   wget https://lms-community.github.io/lms-plugin-repository/extensions.xml -O extensions.xml
   wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O material.zip
