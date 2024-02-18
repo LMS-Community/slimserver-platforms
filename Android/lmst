@@ -88,9 +88,9 @@ if [  ! -d ~/.shortcuts/tasks ]; then
   chmod -R a-x,u=rwX,go-rwx ~/.shortcuts/icons
 fi
 
-rm ~/.shortcuts/tasks/*
-rm ~/.shortcuts/icons/*
-rm ~/.shortcuts/*
+#rm ~/.shortcuts/tasks/*
+#rm ~/.shortcuts/icons/*
+#rm ~/.shortcuts/*
 curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/"Restart LMS.png"
 curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms-red.png -o ~/.shortcuts/icons/"Stop LMS.png"
 
