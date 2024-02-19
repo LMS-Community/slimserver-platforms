@@ -1,13 +1,23 @@
 #!/bin/bash
-cd ~
+
+if [ $PREFIX/var/lib/lms/${0##*/} != $0 ]; then
+  mkdir $PREFIX/var/lib/lms
+  mv ${0##*/} $PREFIX/var/lib/lms/${0##*/}
+  rm ~/extensions.xml ~/installlms ~/logitechmediaserver*.deb ~/servers.json ~/updatelms
+  echo "Moved LMS script to $PREFIX/var/lib/lms"
+  exec bash $PREFIX/var/lib/lms/${0##*/} $*
+fi
+
 if [ ! -d $PREFIX/var/lib/proot-distro/installed-rootfs/debian ]; then
+  mv $PREFIX/etc/apt/sources.list $PREFIX/tmp/sources.list.original
   echo "deb https://grimler.se/termux-packages-24 stable main" > $PREFIX/etc/apt/sources.list
   echo "deb https://packages-cf.termux.dev/apt/termux-main stable main" >> $PREFIX/etc/apt/sources.list
   apt update
   apt upgrade -y -o Dpkg::Options::="--force-confnew"
-  apt install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite || pkg --check-mirror install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite
+  apt install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite || pkg --check-mirror install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite tree
   termux-setup-storage
   proot-distro install debian
+  mv $PREFIX/tmp/sources.list.original $PREFIX/etc/apt/sources.list
 fi
 if [ $(grep -c "allow-external-apps=true" ~/.termux/termux.properties) -eq 0 ]; then
   echo "allow-external-apps=true" >> ~/.termux/termux.properties
@@ -17,12 +27,12 @@ rm installlms
 rm .lmsinstalled
 rm .materialinstalled
 
-cat <<EOF > installlms
+cat <<EOF > $PREFIX/var/lib/lms/installlms
 #!/bin/bash
 if [  ! -d '/usr/share/squeezeboxserver' ]; then
   apt update
   apt -y -o Dpkg::Options::="--force-confnew" upgrade
-  apt -y -o Dpkg::Options::="--force-confnew" install bash-completion jq apt-utils whiptail nano wget tree
+  apt -y -o Dpkg::Options::="--force-confnew" install bash-completion jq apt-utils whiptail nano wget tree libxml2-utils
   rm logitechmediaserver*.deb
   rm servers.json
   wget https://lms-community.github.io/lms-server-repository/servers.json
@@ -31,9 +41,6 @@ if [  ! -d '/usr/share/squeezeboxserver' ]; then
   touch .lmsfirstinstall
 fi
 if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin' ]; then
-  apt update
-  apt -y -o Dpkg::Options::="--force-confnew" upgrade
-  apt -y -o Dpkg::Options::="--force-confnew" install libxml2-utils
   rm extensions.xml
   wget https://lms-community.github.io/lms-plugin-repository/extensions.xml -O extensions.xml
   wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O material.zip
@@ -52,7 +59,7 @@ if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSki
 fi
 EOF
 
-cat <<EOF > updatelms
+cat <<EOF > $PREFIX/var/lib/lms/updatelms
 #!/bin/bash
 rm logitechmediaserver*.deb
 rm servers.json
@@ -84,40 +91,60 @@ EOF
 if [  ! -d ~/.shortcuts/tasks ]; then
   mkdir -p ~/.shortcuts/tasks
   chmod 700 -R ~/.shortcuts/tasks
+fi
+if [  ! -d ~/.shortcuts/icons ]; then
   mkdir -p ~/.shortcuts/icons
   chmod -R a-x,u=rwX,go-rwx ~/.shortcuts/icons
 fi
+if [  ! -d ~/.shortcuts/Advanced ]; then
+  mkdir -p ~/.shortcuts/Advanced
+  chmod 700 -R ~/.shortcuts/Advanced
+fi
 
-#rm ~/.shortcuts/tasks/*
-#rm ~/.shortcuts/icons/*
-#rm ~/.shortcuts/*
 curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/"Restart LMS.png"
 curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms-red.png -o ~/.shortcuts/icons/"Stop LMS.png"
 
-if [ $1 ]; then
-  bind="--bind $1:/root/ExternalCard"
-  if [ ! -d ~/ExternalCard ]; then
-    mkdir ~/ExternalCard
+for cardpath in $*; do
+  if [ ! -e $PREFIX/var/lib/lms/.savedcards ] || [ $(grep -cP "$cardpath($| )" $PREFIX/var/lib/lms/.savedcards) -eq 0 ]; then
+    echo "$(cat $PREFIX/var/lib/lms/.savedcards) $cardpath" > $PREFIX/var/lib/lms/.savedcards
   fi
-fi
-echo "proot-distro login --termux-home debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Restart LMS"
+done
+for cardpath in $(grep -o "/storage/....-...." /proc/mounts); do
+  if [ ! -e $PREFIX/var/lib/lms/.savedcards ] || [ $(grep -cP "$cardpath($| )" $PREFIX/var/lib/lms/.savedcards) -eq 0 ]; then
+    echo "$(cat $PREFIX/var/lib/lms/.savedcards) $cardpath" > $PREFIX/var/lib/lms/.savedcards
+  fi
+done
+for cardpath in $(cat $PREFIX/var/lib/lms/.savedcards); do
+  card=${cardpath##*/}
+  proot-distro login debian -- mkdir /media/$card
+  bind="$bind --bind $cardpath:/media/$card"
+done
+echo $bind
+
+
+echo "proot-distro login debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Restart LMS"
 echo "sleep 5" >> ~/.shortcuts/tasks/"Restart LMS"
-echo "proot-distro login --termux-home $bind --no-kill-on-exit debian -- service logitechmediaserver start" >> ~/.shortcuts/tasks/"Restart LMS"
+echo "proot-distro login $bind --no-kill-on-exit debian -- service logitechmediaserver start" >> ~/.shortcuts/tasks/"Restart LMS"
 chmod +x ~/.shortcuts/tasks/"Restart LMS"
-echo "proot-distro login --termux-home debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
+echo "proot-distro login debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
 chmod +x ~/.shortcuts/tasks/"Stop LMS"
-echo "proot-distro login --termux-home debian -- bash updatelms" > ~/.shortcuts/"Update LMS"
-chmod +x ~/.shortcuts/"Update LMS" 
-proot-distro login --termux-home debian -- bash installlms
+echo "proot-distro login --bind $PREFIX/var/lib/lms:/root debian -- bash updatelms" > ~/.shortcuts/"Update LMS"
+chmod +x ~/.shortcuts/"Update LMS"
+echo "proot-distro login --bind $PREFIX/var/lib/lms:/root $bind debian" > ~/.shortcuts/Advanced/"Debian Terminal"
+chmod +x ~/.shortcuts/Advanced/"Debian Terminal"
+echo "curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lmst -o lms && bash lms" > ~/.shortcuts/Advanced/"Rerun LMS Setup"
+chmod +x ~/.shortcuts/Advanced/"Rerun LMS Setup"
+
+proot-distro login --bind $PREFIX/var/lib/lms:/root debian -- bash installlms
 
 echo   "======================="
-if [ -e .lmsfirstinstall ]; then
+if [ -e $PREFIX/var/lib/lms/.lmsfirstinstall ]; then
   echo "LMS installed"
-  rm .lmsfirstinstall
+  rm $PREFIX/var/lib/lms/.lmsfirstinstall
 fi
-if [ -e .materialfirstinstall ]; then
+if [ -e $PREFIX/var/lib/lms/.materialfirstinstall ]; then
   echo "Material Skin Installed"
-  rm .materialfirstinstall
+  rm $PREFIX/var/lib/lms/.materialfirstinstall
 fi
 echo "Scripts updated"
 echo   "======================="
