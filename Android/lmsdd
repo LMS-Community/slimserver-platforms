@@ -48,6 +48,7 @@ if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSki
   mkdir MaterialSkin
   unzip material.zip -d MaterialSkin
   rm material.zip
+  sed -i '/defaultState/a \ \ <enforce>1<\/enforce>' MaterialSkin/install.xml
   mkdir -p /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
   mv MaterialSkin /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
   mkdir -p /var/lib/squeezeboxserver/prefs/
@@ -132,7 +133,7 @@ echo "proot-distro login --bind $PREFIX/var/lib/lms:/root debian -- bash updatel
 chmod +x ~/.shortcuts/"Update LMS"
 echo "proot-distro login --bind $PREFIX/var/lib/lms:/root $bind debian" > ~/.shortcuts/Advanced/"Debian Terminal"
 chmod +x ~/.shortcuts/Advanced/"Debian Terminal"
-echo "curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lmst -o lms && bash lms" > ~/.shortcuts/Advanced/"Rerun LMS Setup"
+echo "curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lmst -o lms && bash lms ; bash" > ~/.shortcuts/Advanced/"Rerun LMS Setup"
 chmod +x ~/.shortcuts/Advanced/"Rerun LMS Setup"
 
 proot-distro login --bind $PREFIX/var/lib/lms:/root debian -- bash installlms
