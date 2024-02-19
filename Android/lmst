@@ -1,4 +1,4 @@
-#!/bin/bash
+  #!/bin/bash
 
 if [ $PREFIX/var/lib/lms/${0##*/} != $0 ]; then
   mkdir $PREFIX/var/lib/lms
