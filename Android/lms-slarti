@@ -132,7 +132,7 @@ echo "proot-distro login --bind $PREFIX/var/lib/lms:/root debian -- bash updatel
 chmod +x ~/.shortcuts/"Update LMS"
 echo "proot-distro login --bind $PREFIX/var/lib/lms:/root $bind debian" > ~/.shortcuts/Advanced/"Debian Terminal"
 chmod +x ~/.shortcuts/Advanced/"Debian Terminal"
-echo "curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lmst -o lms && bash lms ; bash" > ~/.shortcuts/Advanced/"Rerun LMS Setup"
+echo "curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms-slarti -o lms && bash lms ; bash" > ~/.shortcuts/Advanced/"Rerun LMS Setup"
 chmod +x ~/.shortcuts/Advanced/"Rerun LMS Setup"
 
 proot-distro login --bind $PREFIX/var/lib/lms:/root debian -- bash installlms
