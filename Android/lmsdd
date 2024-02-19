@@ -1,11 +1,10 @@
 #!/bin/bash
 
-if [ ! -f $PREFIX/var/lib/lms/${0##*/} ]; then
+if [ $PREFIX/var/lib/lms/${0##*/} != $0 ]; then
   mkdir $PREFIX/var/lib/lms
   mv ${0##*/} $PREFIX/var/lib/lms/${0##*/}
   rm ~/extensions.xml ~/installlms ~/logitechmediaserver*.deb ~/servers.json ~/updatelms
-  echo "Moved LMS files to $PREFIX/var/lib/lms"
-  echo $0
+  echo "Moved LMS script to $PREFIX/var/lib/lms"
   exec bash $PREFIX/var/lib/lms/${0##*/} $*
 fi
 
@@ -106,16 +105,22 @@ curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/An
 curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms-red.png -o ~/.shortcuts/icons/"Stop LMS.png"
 
 for cardpath in $*; do
-  card=${cardpath##*/}
-  proot-distro login debian -- mkdir /media/$card
-  bind="$bind --bind $cardpath:/media/$card"
+  if [ ! -e $PREFIX/var/lib/lms/.savedcards ] || [ $(grep -cP "$cardpath($| )" $PREFIX/var/lib/lms/.savedcards) -eq 0 ]; then
+    echo "$(cat $PREFIX/var/lib/lms/.savedcards) $cardpath" > $PREFIX/var/lib/lms/.savedcards
+  fi
 done
 for cardpath in $(grep -o "/storage/....-...." /proc/mounts); do
+  if [ ! -e $PREFIX/var/lib/lms/.savedcards ] || [ $(grep -cP "$cardpath($| )" $PREFIX/var/lib/lms/.savedcards) -eq 0 ]; then
+    echo "$(cat $PREFIX/var/lib/lms/.savedcards) $cardpath" > $PREFIX/var/lib/lms/.savedcards
+  fi
+done
+for cardpath in $(cat $PREFIX/var/lib/lms/.savedcards); do
   card=${cardpath##*/}
   proot-distro login debian -- mkdir /media/$card
   bind="$bind --bind $cardpath:/media/$card"
 done
 echo $bind
+
 
 echo "proot-distro login debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Restart LMS"
 echo "sleep 5" >> ~/.shortcuts/tasks/"Restart LMS"
