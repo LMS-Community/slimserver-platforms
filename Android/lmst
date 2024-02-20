@@ -48,13 +48,14 @@ if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSki
   mkdir MaterialSkin
   unzip material.zip -d MaterialSkin
   rm material.zip
+  sed -i '/defaultState/a \ \ <enforce>1<\/enforce>' MaterialSkin/install.xml
   mkdir -p /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
   mv MaterialSkin /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
   mkdir -p /var/lib/squeezeboxserver/prefs/
   chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
   echo "wizardDone: 1" > /var/lib/squeezeboxserver/prefs/server.prefs
   echo "skin: material" >> /var/lib/squeezeboxserver/prefs/server.prefs
-  #echo "_ts_skin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/server.prefs
+  echo "_ts_skin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/server.prefs
   touch .materialfirstinstall
 fi
 EOF
