@@ -43,19 +43,21 @@ fi
 if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin' ]; then
   rm extensions.xml
   wget https://lms-community.github.io/lms-plugin-repository/extensions.xml -O extensions.xml
-  wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O material.zip
-  rm -rf MaterialSkin
-  mkdir MaterialSkin
-  unzip material.zip -d MaterialSkin
-  rm material.zip
-  sed -i '/defaultState/a \ \ <enforce>1<\/enforce>' MaterialSkin/install.xml
-  mkdir -p /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
-  mv MaterialSkin /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
-  mkdir -p /var/lib/squeezeboxserver/prefs/
+  mkdir -p /var/lib/squeezeboxserver/prefs/plugin
   chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
   echo "wizardDone: 1" > /var/lib/squeezeboxserver/prefs/server.prefs
   echo "skin: material" >> /var/lib/squeezeboxserver/prefs/server.prefs
   echo "_ts_skin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/server.prefs
+  service logitechmediaserver start
+  until [ -e /var/lib/squeezeboxserver/prefs/plugin/state.prefs ] && [ -e /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs ] && [ -d /var/lib/squeezeboxserver/cache/DownloadedPlugins ]; do
+    sleep 1
+  done
+  wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O /var/lib/squeezeboxserver/cache/DownloadedPlugins/MaterialSkin.zip
+  chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/cache/DownloadedPlugins/MaterialSkin.zip
+  echo "MaterialSkin: needs-install" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
+  echo "_ts_MaterialSkin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
+  sed -i 's/plugin: {}/plugin:\n  MaterialSkin: 1/' /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs
+  service logitechmediaserver stop
   touch .materialfirstinstall
 fi
 EOF
@@ -122,7 +124,6 @@ for cardpath in $(cat $PREFIX/var/lib/lms/.savedcards); do
 done
 echo $bind
 
-
 echo "proot-distro login debian-oldstable -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Restart LMS"
 echo "sleep 5" >> ~/.shortcuts/tasks/"Restart LMS"
 echo "proot-distro login $bind --no-kill-on-exit debian-oldstable -- service logitechmediaserver start" >> ~/.shortcuts/tasks/"Restart LMS"
@@ -133,7 +134,7 @@ echo "proot-distro login --bind $PREFIX/var/lib/lms:/root debian-oldstable -- ba
 chmod +x ~/.shortcuts/"Update LMS"
 echo "proot-distro login --bind $PREFIX/var/lib/lms:/root $bind debian-oldstable" > ~/.shortcuts/Advanced/"debian-oldstable Terminal"
 chmod +x ~/.shortcuts/Advanced/"debian-oldstable Terminal"
-echo "curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms-slarti -o lms && bash lms ; bash" > ~/.shortcuts/Advanced/"Rerun LMS Setup"
+echo "curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lmst -o lms && bash lms ; bash" > ~/.shortcuts/Advanced/"Rerun LMS Setup"
 chmod +x ~/.shortcuts/Advanced/"Rerun LMS Setup"
 
 proot-distro login --bind $PREFIX/var/lib/lms:/root debian-oldstable -- bash installlms
