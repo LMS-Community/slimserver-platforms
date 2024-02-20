@@ -125,7 +125,6 @@ for cardpath in $(cat $PREFIX/var/lib/lms/.savedcards); do
 done
 echo $bind
 
-
 echo "proot-distro login debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Restart LMS"
 echo "sleep 5" >> ~/.shortcuts/tasks/"Restart LMS"
 echo "proot-distro login $bind --no-kill-on-exit debian -- service logitechmediaserver start" >> ~/.shortcuts/tasks/"Restart LMS"
