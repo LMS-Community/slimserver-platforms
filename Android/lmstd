@@ -43,21 +43,24 @@ fi
 if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin' ]; then
   rm extensions.xml
   wget https://lms-community.github.io/lms-plugin-repository/extensions.xml -O extensions.xml
-  mkdir -p /var/lib/squeezeboxserver/prefs/
+  mkdir -p /var/lib/squeezeboxserver/prefs/plugin
+  mkdir -p /var/lib/squeezeboxserver/cache/DownloadedPlugins
   chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
   echo "wizardDone: 1" > /var/lib/squeezeboxserver/prefs/server.prefs
   echo "skin: material" >> /var/lib/squeezeboxserver/prefs/server.prefs
   echo "_ts_skin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/server.prefs
-  read
-  service logitechmediaserver start
-  until [ -e /var/lib/squeezeboxserver/prefs/plugin/state.prefs ] && [ -d /var/lib/squeezeboxserver/cache/DownloadedPlugins ]; do
-    sleep 1
-  done
-  service logitechmediaserver stop
+  #read
+  #service logitechmediaserver start
+  #until [ -e /var/lib/squeezeboxserver/prefs/plugin/state.prefs ] && [ -d /var/lib/squeezeboxserver/cache/DownloadedPlugins ]; do
+  #  sleep 1
+  #done
+  #service logitechmediaserver stop
   wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O /var/lib/squeezeboxserver/cache/DownloadedPlugins/MaterialSkin.zip
-  read
+  #read
   echo "MaterialSkin: needs-install" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
   echo "_ts_MaterialSkin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
+  echo "plugin:" >> /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs
+  echo "  MaterialSkin: 1" >> /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs
   touch .materialfirstinstall
 fi
 EOF
