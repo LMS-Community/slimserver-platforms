@@ -43,13 +43,13 @@ fi
 if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin' ]; then
   rm extensions.xml
   wget https://lms-community.github.io/lms-plugin-repository/extensions.xml -O extensions.xml
-  #mkdir -p /var/lib/squeezeboxserver/prefs/plugin
+  mkdir -p /var/lib/squeezeboxserver/prefs/plugin
   #mkdir -p /var/lib/squeezeboxserver/cache/DownloadedPlugins
-  #chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
+  chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
   echo "wizardDone: 1" > /var/lib/squeezeboxserver/prefs/server.prefs
   echo "skin: material" >> /var/lib/squeezeboxserver/prefs/server.prefs
   echo "_ts_skin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/server.prefs
-  read
+  #read
   service logitechmediaserver start
   until [ -e /var/lib/squeezeboxserver/prefs/plugin/state.prefs ] && [ -d /var/lib/squeezeboxserver/cache/DownloadedPlugins ]; do
     sleep 1
