@@ -55,10 +55,10 @@ if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSki
     sleep 1
   done
   wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O /var/lib/squeezeboxserver/cache/DownloadedPlugins/MaterialSkin.zip
-  service logitechmediaserver stop
-  read
   echo "MaterialSkin: needs-install" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
   echo "_ts_MaterialSkin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
+  service logitechmediaserver stop
+# read
 #  echo "_ts_plugin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs
 #  echo "plugin:" >> /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs
 #  echo "  MaterialSkin: 1" >> /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs
