@@ -78,7 +78,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="328956764">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string key="NSContents">© 2001-2022 Logitech</string>
+								<string key="NSContents">© 2001-2024 Logitech</string>
 								<object class="NSFont" key="NSSupport" id="976073678">
 									<bool key="IBIsSystemFont">YES</bool>
 									<double key="NSSize">10</double>
@@ -201,7 +201,7 @@ zDXMtc01zbXONs62zzfPuNA50LrRPNG+0j/SwdNE08bUSdTL1U7V0dZV1tjXXNfg2GTY6Nls2fHadtr7
 							<object class="NSTextFieldCell" key="NSCell" id="1055373337">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string key="NSContents">Versio 8.4.1</string>
+								<string key="NSContents">Versio 8.5.0</string>
 								<reference key="NSSupport" ref="976073678"/>
 								<reference key="NSControlView" ref="88621131"/>
 								<reference key="NSBackgroundColor" ref="788284320"/>

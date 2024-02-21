@@ -4,7 +4,7 @@
 ; Logitech : https://www.logitech.com
 
 #define AppName    "Logitech Media Server"
-#define AppVersion "8.4.1"
+#define AppVersion "8.5.0"
 #define ProductURL "https://forums.slimdevices.com"
 #define SBRegKey   "Software\Logitech\Squeezebox"
 #define LMSPerl    "Perl"
