@@ -13,6 +13,8 @@ sub initDetails {
 	$class->{osDetails} = $class->SUPER::initDetails();
 	$class->{osDetails}->{osName} .= " (Docker)";
 
+	$::advertiseaddr ||= $ENV{HOST_IP_ADDRESS} unless $::advertiseaddr;
+
 	return $class->{osDetails};
 }
 
