@@ -96,12 +96,31 @@ Some systems wouldn't allow you to map volumes outside specific folders, eg. Unr
 ### How to manually install plugins
 If you're a developer you might want to install plugins manually, before they are available through LMS' built-in plugin manager. In order to do so, put them inside `[config folder]/Cache/Plugins`, then restart LMS. They should be available in thereafter.
 
+### Passing additional launch arguments
+Starting with v8.4 an optional `EXTRA_ARGS` environment variable exists for passing additional arguments to Logitech Media Server process. For example, disabling the web interface could be achieved with `EXTRA_ARGS="--noweb"`.
+
+### Define the service's IP address
+Some plugins like eg. the Sounds & Effects, require the player to know the server's IP address. In the default `bridge` networking mode, the internal IP address would be different from what the player can see. Therefore playback would fail - unless we tell Logitech Media Server what port to announce. This can be done using the above method to define the `--advertiseaddr` parameter:
+
+
+```
+docker run -it \
+      -v "<somewhere>":"/config":rw \
+      -v "<somewhere>":"/music":ro \
+      -v "<somewhere>":"/playlist":rw \
+      -v "/etc/localtime":"/etc/localtime":ro \
+      -v "/etc/timezone":"/etc/timezone":ro \
+      -p 9000:9000/tcp \
+      -p 9090:9090/tcp \
+      -p 3483:3483/tcp \
+      -p 3483:3483/udp \
+      -e EXTRA_ARGS="--advertiseaddr=192.168.0.100"
+      lmscommunity/logitechmediaserver
+```
+
 ### Running a script before the launch of Logitech Media Server (v8.2.0+)
 You can put a script called `custom-init.sh` in the configuration folder. If that script exists, it will be executed before Logitech Media Server is launched. This would allow you to add additional software packages to the container. Eg. the following two lines put into `custom-init.sh` will install `ffmpeg` for use with some plugins:
 ```
 apt-get update -qq
 apt-get install --no-install-recommends -qy ffmpeg
 ```
-
-### Passing additional launch arguments
-Starting with v8.4 an optional `EXTRA_ARGS` environment variable exists for passing additional arguments to Logitech Media Server process. For example, disabling the web interface could be achieved with `EXTRA_ARGS="--noweb"`.
