@@ -52,7 +52,6 @@ Add: Slim::Display::SqueezeboxG
 Add: Slim::Display::Text
 Add: Slim::Display::Transporter
 Add: Slim::Networking::SliMP3::Protocol
-Add: Slim::Networking::SqueezeNetwork::Sync
 Add: Slim::Player::Boom
 Add: Slim::Player::Player
 Add: Slim::Player::Receiver
@@ -188,7 +187,6 @@ Add: Slim::Web::Settings::Server::Performance
 Add: Slim::Web::Settings::Server::Plugins
 Add: Slim::Web::Settings::Server::Security
 Add: Slim::Web::Settings::Server::Software
-Add: Slim::Web::Settings::Server::SqueezeNetwork
 Add: Slim::Web::Settings::Server::Status
 Add: Slim::Web::Settings::Server::TextFormatting
 Add: Slim::Web::Settings::Server::UserInterface

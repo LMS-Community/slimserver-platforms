@@ -34,7 +34,6 @@ Add: Slim::Formats::Wav
 Add: Slim::Formats::WavPack
 Add: Slim::Formats::WMA
 Add: Slim::Formats::XML
-Add: Slim::Networking::SqueezeNetwork::Sync
 Add: Slim::Plugin::Base
 Add: Slim::Schema::Album
 Add: Slim::Schema::Comment
