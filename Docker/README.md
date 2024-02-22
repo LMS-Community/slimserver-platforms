@@ -5,7 +5,7 @@ The [LMS Community](https://github.com/LMS-Community)'s Docker image for [Logite
 ## Tags
 * `latest`: the latest release version, currently v8.4.0
 * `stable`: the [bug fix branch](https://github.com/Logitech/slimserver/tree/public/8.4) based on the latest release, currently v8.4.1
-* `dev`: the [development version](https://github.com/Logitech/slimserver/), with new features, and potentially less stability, currently v8.4.1
+* `dev`: the [development version](https://github.com/Logitech/slimserver/), with new features, and potentially less stability, currently v8.5.0
 
 ## Installation
 
