@@ -25,11 +25,11 @@ COPY start-container.sh /usr/bin/start-container
 RUN chmod +x /usr/bin/start-container
 
 # Volume and port setup
-RUN mkdir -p /config /music /playlist /lms && \
-	chown -R squeezeboxserver:nogroup /config /playlist
+RUN mkdir -p /config /music /playlist /lms
 
 COPY . /lms
 COPY Slim-Utils-OS-Custom.pm /lms/Slim/Utils/OS/Custom.pm
+RUN chown -R squeezeboxserver:nogroup /config /playlist /lms
 
 VOLUME /config /music /playlist
 
