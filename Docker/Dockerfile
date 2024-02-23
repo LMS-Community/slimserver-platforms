@@ -29,7 +29,7 @@ RUN mkdir -p /config /music /playlist /lms
 
 COPY . /lms
 COPY Slim-Utils-OS-Custom.pm /lms/Slim/Utils/OS/Custom.pm
-RUN chown -R squeezeboxserver:nogroup /config /playlist /lms
+RUN chown -R squeezeboxserver:nogroup /config /playlist && chmod -R a+rX /lms
 
 VOLUME /config /music /playlist
 
