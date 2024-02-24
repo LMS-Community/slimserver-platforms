@@ -8,7 +8,14 @@ if [ $PREFIX/var/lib/lms/${0##*/} != $0 ]; then
   exec bash $PREFIX/var/lib/lms/${0##*/} $*
 fi
 
-if [ ! -d $PREFIX/var/lib/proot-distro/installed-rootfs/debian ]; then
+version=$(getprop ro.build.version.release)
+if [ ${version%%.*} -lt 8 ]; then
+  distro=debian-oldstable
+else
+  distro=debian
+fi
+
+if [ ! -d $PREFIX/var/lib/proot-distro/installed-rootfs/$distro ]; then
   mv $PREFIX/etc/apt/sources.list $PREFIX/tmp/sources.list.original
   echo "deb https://grimler.se/termux-packages-24 stable main" > $PREFIX/etc/apt/sources.list
   echo "deb https://packages-cf.termux.dev/apt/termux-main stable main" >> $PREFIX/etc/apt/sources.list
@@ -16,7 +23,7 @@ if [ ! -d $PREFIX/var/lib/proot-distro/installed-rootfs/debian ]; then
   apt upgrade -y -o Dpkg::Options::="--force-confnew"
   apt install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite || pkg --check-mirror install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite tree
   termux-setup-storage
-  proot-distro install debian
+  proot-distro install $distro
   mv $PREFIX/tmp/sources.list.original $PREFIX/etc/apt/sources.list
 fi
 if [ $(grep -c "allow-external-apps=true" ~/.termux/termux.properties) -eq 0 ]; then
@@ -60,6 +67,21 @@ if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSki
   service logitechmediaserver stop
   touch .materialfirstinstall
 fi
+if [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
+  sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/logitechmediaserver
+  cat <<EOF2 > /usr/share/perl5/Slim/Utils/OS/Custom.pm
+package Slim::Utils::OS::Custom;
+
+# Allow server to run as root in Termux Debian proot
+
+use strict;
+use base qw(Slim::Utils::OS::Debian);
+
+sub dontSetUserAndGroup { 1 }
+
+1;
+EOF2
+fi
 EOF
 
 cat <<EOF > $PREFIX/var/lib/lms/updatelms
@@ -75,6 +97,21 @@ if [ -z "\$error" ]; then
     wget \$(jq -r '."8.4.1".deb.url' servers.json) || error="ERROR: Can't find latest server download"
     if [ -z "\$error" ]; then
       apt -y install ./logitechmediaserver*.deb || error="ERROR: installation failed"
+      if [ -z "\$error" ] && [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
+        sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/logitechmediaserver
+cat <<EOF2 > /usr/share/perl5/Slim/Utils/OS/Custom.pm
+package Slim::Utils::OS::Custom;
+
+# Allow server to run as root in Termux Debian proot
+
+use strict;
+use base qw(Slim::Utils::OS::Debian);
+
+sub dontSetUserAndGroup { 1 }
+
+1;
+EOF2
+      fi
     fi
   fi
 fi
@@ -119,25 +156,25 @@ for cardpath in $(grep -o "/storage/....-...." /proc/mounts); do
 done
 for cardpath in $(cat $PREFIX/var/lib/lms/.savedcards); do
   card=${cardpath##*/}
-  proot-distro login debian -- mkdir /media/$card
+  proot-distro login $distro -- mkdir /media/$card
   bind="$bind --bind $cardpath:/media/$card"
 done
 echo $bind
 
-echo "proot-distro login debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Restart LMS"
+echo "proot-distro login $distro -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Restart LMS"
 echo "sleep 5" >> ~/.shortcuts/tasks/"Restart LMS"
-echo "proot-distro login $bind --no-kill-on-exit debian -- service logitechmediaserver start" >> ~/.shortcuts/tasks/"Restart LMS"
+echo "proot-distro login $bind --no-kill-on-exit $distro -- service logitechmediaserver start" >> ~/.shortcuts/tasks/"Restart LMS"
 chmod +x ~/.shortcuts/tasks/"Restart LMS"
-echo "proot-distro login debian -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
+echo "proot-distro login $distro -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
 chmod +x ~/.shortcuts/tasks/"Stop LMS"
-echo "proot-distro login --bind $PREFIX/var/lib/lms:/root debian -- bash updatelms" > ~/.shortcuts/"Update LMS"
+echo "proot-distro login --bind $PREFIX/var/lib/lms:/root $distro -- bash updatelms" > ~/.shortcuts/"Update LMS"
 chmod +x ~/.shortcuts/"Update LMS"
-echo "proot-distro login --bind $PREFIX/var/lib/lms:/root $bind debian" > ~/.shortcuts/Advanced/"Debian Terminal"
+echo "proot-distro login --bind $PREFIX/var/lib/lms:/root $bind $distro" > ~/.shortcuts/Advanced/"Debian Terminal"
 chmod +x ~/.shortcuts/Advanced/"Debian Terminal"
 echo "curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lmst -o lms && bash lms ; bash" > ~/.shortcuts/Advanced/"Rerun LMS Setup"
 chmod +x ~/.shortcuts/Advanced/"Rerun LMS Setup"
 
-proot-distro login --bind $PREFIX/var/lib/lms:/root debian -- bash installlms
+proot-distro login --bind $PREFIX/var/lib/lms:/root $distro -- bash installlms
 
 echo   "======================="
 if [ -e $PREFIX/var/lib/lms/.lmsfirstinstall ]; then
