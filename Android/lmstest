@@ -68,6 +68,7 @@ if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSki
   touch .materialfirstinstall
 fi
 if [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
+  sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/logitechmediaserver
   cat <<EOF2 > /usr/share/perl5/Slim/Utils/OS/Custom.pm
 package Slim::Utils::OS::Custom;
 
