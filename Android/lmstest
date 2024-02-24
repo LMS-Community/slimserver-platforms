@@ -9,7 +9,7 @@ if [ $PREFIX/var/lib/lms/${0##*/} != $0 ]; then
 fi
 
 version=$(getprop ro.build.version.release)
-if [ ${version%%.*} -lt 9 ]; then
+if [ ${version%%.*} -lt 8 ]; then
   distro=debian-oldstable
 else
   distro=debian
@@ -66,6 +66,18 @@ if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSki
   sed -i 's/plugin: {}/plugin:\n  MaterialSkin: 1/' /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs
   service logitechmediaserver stop
   touch .materialfirstinstall
+fi
+if [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
+  cat <<EOF2 > /usr/share/perl5/Slim/Utils/OS/Custom.pm
+package Slim::Utils::OS::Custom;
+
+use strict;
+use base qw(Slim::Utils::OS::Debian);
+
+sub dontSetUserAndGroup { 1 }
+
+1;
+  EOF2
 fi
 EOF
 
