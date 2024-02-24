@@ -79,7 +79,7 @@ use base qw(Slim::Utils::OS::Debian);
 sub dontSetUserAndGroup { 1 }
 
 1;
-  EOF2
+EOF2
 fi
 EOF
 
