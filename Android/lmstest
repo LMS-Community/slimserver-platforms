@@ -71,6 +71,8 @@ if [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
   cat <<EOF2 > /usr/share/perl5/Slim/Utils/OS/Custom.pm
 package Slim::Utils::OS::Custom;
 
+# Allow server to run as root in Termux Debian proot
+
 use strict;
 use base qw(Slim::Utils::OS::Debian);
 
