@@ -78,7 +78,7 @@ sub initPrefs {
 
 sub postInitPrefs {
         my (\$class, \$prefs) = @_;
-        \$prefs->{darrell} = "yes";
+        $prefs->set("darrell", "yes");
 
         # Material Skin setup
         require Slim::Utils::Prefs;
