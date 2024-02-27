@@ -83,17 +83,17 @@ use base qw(Slim::Utils::OS::Debian);
 sub dontSetUserAndGroup { 1 }
 
 sub initPrefs {
-	my ($class, $prefs) = @_;
+	my (\$class, \$prefs) = @_;
 
 	# don't show the wizard
-	$prefs->{wizardDone} = 1;
+	\$prefs->{wizardDone} = 1;
   # default skin Material
-  $prefs->{skin} = "material";
+  \$prefs->{skin} = "material";
 
-  my $extensionPrefs = preferences('plugin.extensions');
-  $extensionPrefs->{plugin} = "MaterialSkin: 1";
-  my $statePrefs = preferences('plugin.state');
-  $statePrefs->{MaterialSkin} = "needs-install";
+  my \$extensionPrefs = preferences('plugin.extensions');
+  \$extensionPrefs->{plugin} = "MaterialSkin: 1";
+  my \$statePrefs = preferences('plugin.state');
+  \$statePrefs->{MaterialSkin} = "needs-install";
 
 }
 
