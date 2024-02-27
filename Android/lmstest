@@ -115,18 +115,6 @@ if [ -z "\$error" ]; then
       apt -y install ./logitechmediaserver*.deb || error="ERROR: installation failed"
       if [ -z "\$error" ] && [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
         sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/logitechmediaserver
-cat <<EOF2 > /usr/share/perl5/Slim/Utils/OS/Custom.pm
-package Slim::Utils::OS::Custom;
-
-# Allow server to run as root in Termux Debian proot
-
-use strict;
-use base qw(Slim::Utils::OS::Debian);
-
-sub dontSetUserAndGroup { 1 }
-
-1;
-EOF2
       fi
     fi
   fi
