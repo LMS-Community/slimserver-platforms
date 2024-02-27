@@ -72,7 +72,7 @@ fi
 if [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
   sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/logitechmediaserver
 
-  cat <<EOF2 > /usr/share/perl5/Slim/Utils/OS/Custom.pm
+  cat << 'EOF2' > /usr/share/perl5/Slim/Utils/OS/Custom.pm
 package Slim::Utils::OS::Custom;
 
 # Allow server to run as root in Termux Debian proot
@@ -83,17 +83,17 @@ use base qw(Slim::Utils::OS::Debian);
 sub dontSetUserAndGroup { 1 }
 
 sub initPrefs {
-	my (\$class, \$prefs) = @_;
+	my ($class, $prefs) = @_;
 
 	# don't show the wizard
-	\$prefs->{wizardDone} = 1;
+	$prefs->{wizardDone} = 1;
   # default skin Material
-  \$prefs->{skin} = "material";
+  $prefs->{skin} = "material";
 
-  my \$extensionPrefs = preferences('plugin.extensions');
-  \$extensionPrefs->{plugin} = "MaterialSkin: 1";
-  my \$statePrefs = preferences('plugin.state');
-  \$statePrefs->{MaterialSkin} = "needs-install";
+  my $extensionPrefs = preferences('plugin.extensions');
+  $extensionPrefs->{plugin} = "MaterialSkin: 1";
+  my $statePrefs = preferences('plugin.state');
+  $statePrefs->{MaterialSkin} = "needs-install";
 
 }
 
