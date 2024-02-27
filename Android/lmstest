@@ -75,11 +75,10 @@ if [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
   cat << 'EOF2' > /usr/share/perl5/Slim/Utils/OS/Custom.pm
 package Slim::Utils::OS::Custom;
 
-# Allow server to run as root in Termux Debian proot
-
 use strict;
 use base qw(Slim::Utils::OS::Debian);
 
+# Allow server to run as root in Termux Debian proot
 sub dontSetUserAndGroup { 1 }
 
 sub initPrefs {
@@ -87,14 +86,18 @@ sub initPrefs {
 
 	# don't show the wizard
 	\$prefs->{wizardDone} = 1;
-  # default skin Material
-  \$prefs->{skin} = "material";
+	# default skin Material
+	\$prefs->{skin} = "material";
+}
 
-  my \$extensionPrefs = preferences('plugin.extensions');
-  \$extensionPrefs->{plugin} = "MaterialSkin: 1";
-  my \$statePrefs = preferences('plugin.state');
-  \$statePrefs->{MaterialSkin} = "needs-install";
+sub postInitPrefs {
+        my ($class, $prefs) = @_;
 
+	require Slim::Utils::Prefs;
+	my \$extensionPrefs = Slim::Utils::Prefs::preferences('plugin.extensions');
+	\$extensionPrefs->{plugin} = "MaterialSkin: 1";
+	my \$statePrefs = Slim::Utils::Prefs::preferences('plugin.state');
+	\$statePrefs->{MaterialSkin} = "needs-install";
 }
 
 1;
