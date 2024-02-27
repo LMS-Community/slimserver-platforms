@@ -91,7 +91,7 @@ sub initPrefs {
 }
 
 sub postInitPrefs {
-        my ($class, $prefs) = @_;
+        my (\$class, \$prefs) = @_;
 
 	require Slim::Utils::Prefs;
 	my \$extensionPrefs = Slim::Utils::Prefs::preferences('plugin.extensions');
