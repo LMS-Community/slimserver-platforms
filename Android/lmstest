@@ -50,25 +50,28 @@ fi
 if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin' ]; then
   rm extensions.xml
   wget https://lms-community.github.io/lms-plugin-repository/extensions.xml -O extensions.xml
-  mkdir -p /var/lib/squeezeboxserver/prefs/plugin
-  chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
-  echo "wizardDone: 1" > /var/lib/squeezeboxserver/prefs/server.prefs
-  echo "skin: material" >> /var/lib/squeezeboxserver/prefs/server.prefs
-  echo "_ts_skin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/server.prefs
-  service logitechmediaserver start
-  until [ -e /var/lib/squeezeboxserver/prefs/plugin/state.prefs ] && [ -e /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs ] && [ -d /var/lib/squeezeboxserver/cache/DownloadedPlugins ]; do
-    sleep 1
-  done
+  #mkdir -p /var/lib/squeezeboxserver/prefs/plugin
+  #chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
+  #echo "wizardDone: 1" > /var/lib/squeezeboxserver/prefs/server.prefs
+  #echo "skin: material" >> /var/lib/squeezeboxserver/prefs/server.prefs
+  #echo "_ts_skin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/server.prefs
+  #service logitechmediaserver start
+  #until [ -e /var/lib/squeezeboxserver/prefs/plugin/state.prefs ] && [ -e /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs ] && [ -d /var/lib/squeezeboxserver/cache/DownloadedPlugins ]; do
+  #  sleep 1
+  #done
+  mkdir -p /var/lib/squeezeboxserver/cache/DownloadedPlugins
   wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O /var/lib/squeezeboxserver/cache/DownloadedPlugins/MaterialSkin.zip
-  chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/cache/DownloadedPlugins/MaterialSkin.zip
-  echo "MaterialSkin: needs-install" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
-  echo "_ts_MaterialSkin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
-  sed -i 's/plugin: {}/plugin:\n  MaterialSkin: 1/' /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs
-  service logitechmediaserver stop
+  chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
+  #chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/cache/DownloadedPlugins/MaterialSkin.zip
+  #echo "MaterialSkin: needs-install" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
+  #echo "_ts_MaterialSkin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
+  #sed -i 's/plugin: {}/plugin:\n  MaterialSkin: 1/' /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs
+  #service logitechmediaserver stop
   touch .materialfirstinstall
 fi
 if [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
   sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/logitechmediaserver
+
   cat <<EOF2 > /usr/share/perl5/Slim/Utils/OS/Custom.pm
 package Slim::Utils::OS::Custom;
 
@@ -79,8 +82,24 @@ use base qw(Slim::Utils::OS::Debian);
 
 sub dontSetUserAndGroup { 1 }
 
+sub initPrefs {
+	my (\$class, \$prefs) = @_;
+
+	# don't show the wizard
+	\$prefs->{wizardDone} = 1;
+  # default skin Material
+  \$prefs->{skin} = "material";
+
+  my \$extensionPrefs = preferences('plugin.extensions');
+  \$extensionPrefs->{plugin} = "MaterialSkin: 1";
+  my \$statePrefs = preferences('plugin.state');
+  \$statePrefs->{MaterialSkin} = "needs-install";
+
+}
+
 1;
 EOF2
+
 fi
 EOF
 
