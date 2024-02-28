@@ -1,0 +1,185 @@
+#!/bin/bash
+
+if [ $PREFIX/var/lib/lms/${0##*/} != $0 ]; then
+  mkdir $PREFIX/var/lib/lms
+  mv ${0##*/} $PREFIX/var/lib/lms/${0##*/}
+  rm ~/extensions.xml ~/installlms ~/logitechmediaserver*.deb ~/servers.json ~/updatelms
+  echo "Moved LMS script to $PREFIX/var/lib/lms"
+  exec bash $PREFIX/var/lib/lms/${0##*/} $*
+fi
+
+distro=debian
+
+if [ ! -d $PREFIX/var/lib/proot-distro/installed-rootfs/$distro ]; then
+  mv $PREFIX/etc/apt/sources.list $PREFIX/tmp/sources.list.original
+  echo "deb https://grimler.se/termux-packages-24 stable main" > $PREFIX/etc/apt/sources.list
+  echo "deb https://packages-cf.termux.dev/apt/termux-main stable main" >> $PREFIX/etc/apt/sources.list
+  apt update
+  apt upgrade -y -o Dpkg::Options::="--force-confnew"
+  apt install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite || pkg --check-mirror install -y -o Dpkg::Options::="--force-confnew" proot proot-distro wget squeezelite tree
+  termux-setup-storage
+  proot-distro install $distro
+  mv $PREFIX/tmp/sources.list.original $PREFIX/etc/apt/sources.list
+fi
+if [ $(grep -c "allow-external-apps=true" ~/.termux/termux.properties) -eq 0 ]; then
+  echo "allow-external-apps=true" >> ~/.termux/termux.properties
+fi
+
+rm installlms
+rm .lmsinstalled
+rm .materialinstalled
+
+cat <<EOF > $PREFIX/var/lib/lms/installlms
+#!/bin/bash
+if [  ! -d '/usr/share/squeezeboxserver' ]; then
+  apt update
+  apt -y -o Dpkg::Options::="--force-confnew" upgrade
+  apt -y -o Dpkg::Options::="--force-confnew" install bash-completion jq apt-utils whiptail nano wget tree libxml2-utils
+  rm logitechmediaserver*.deb
+  rm servers.json
+  wget https://lms-community.github.io/lms-server-repository/servers.json
+  wget \$(jq -r '."8.4.1".deb.url' servers.json)
+  apt -y install ./logitechmediaserver*.deb
+  touch .lmsfirstinstall
+fi
+if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin' ]; then
+  rm extensions.xml
+  wget https://lms-community.github.io/lms-plugin-repository/extensions.xml -O extensions.xml
+  mkdir -p /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin
+  wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O MaterialSkin.zip
+  unzip MaterialSkin -d /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin
+  chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
+  touch .materialfirstinstall
+fi
+if [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
+  sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/logitechmediaserver
+
+  cat << 'EOF2' > /usr/share/perl5/Slim/Utils/OS/Custom.pm
+package Slim::Utils::OS::Custom;
+
+use strict;
+use base qw(Slim::Utils::OS::Debian);
+
+# Allow server to run as root in Termux Debian proot
+sub dontSetUserAndGroup { 1 }
+
+sub initPrefs {
+        my (\$class, \$prefs) = @_;
+
+        # don't show the wizard
+        \$prefs->{wizardDone} = 1;
+        # default skin Material
+        \$prefs->{skin} = "material";
+}
+
+sub postInitPrefs {
+        my (\$class, \$prefs) = @_;
+
+        # Material Skin setup
+        require Slim::Utils::Prefs;
+        my \$extensionPrefs = Slim::Utils::Prefs::preferences('plugin.extensions');
+        my \$plugins = \$extensionPrefs->get('plugin');
+        if ( ! \$plugins->{"MaterialSkin"} ) {
+                \$plugins->{"MaterialSkin"} = 1;
+                \$extensionPrefs->set("plugin", \$plugins);
+        }
+}
+
+1;
+
+EOF2
+
+fi
+EOF
+
+cat <<EOF > $PREFIX/var/lib/lms/updatelms
+#!/bin/bash
+rm logitechmediaserver*.deb
+rm servers.json
+error=""
+wget https://lms-community.github.io/lms-server-repository/servers.json || error="ERROR: Can't get latest server details"
+if [ -z "\$error" ]; then
+  if [ \$(apt show logitechmediaserver | grep ^Version: | cut -d' ' -f2) == \$(jq -r '."8.4.1".deb.url' servers.json | cut -d'_' -f2) ]; then
+    error="You already have the latest version"
+  else
+    wget \$(jq -r '."8.4.1".deb.url' servers.json) || error="ERROR: Can't find latest server download"
+    if [ -z "\$error" ]; then
+      apt -y install ./logitechmediaserver*.deb || error="ERROR: installation failed"
+      if [ -z "\$error" ] && [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
+        sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/logitechmediaserver
+      fi
+    fi
+  fi
+fi
+echo "========================================"
+if [ -z "\$error" ]; then
+  echo "LMS updated"
+  echo "Restart using your Termux 'Restart LMS' widget"
+else
+  echo \$error
+  echo "LMS NOT updated"
+fi
+echo "Press Enter to close this terminal"
+echo "========================================"
+read
+EOF
+
+if [  ! -d ~/.shortcuts/tasks ]; then
+  mkdir -p ~/.shortcuts/tasks
+  chmod 700 -R ~/.shortcuts/tasks
+fi
+if [  ! -d ~/.shortcuts/icons ]; then
+  mkdir -p ~/.shortcuts/icons
+  chmod -R a-x,u=rwX,go-rwx ~/.shortcuts/icons
+fi
+if [  ! -d ~/.shortcuts/Advanced ]; then
+  mkdir -p ~/.shortcuts/Advanced
+  chmod 700 -R ~/.shortcuts/Advanced
+fi
+
+curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms.png -o ~/.shortcuts/icons/"Restart LMS.png"
+curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lms-red.png -o ~/.shortcuts/icons/"Stop LMS.png"
+
+for cardpath in $*; do
+  if [ ! -e $PREFIX/var/lib/lms/.savedcards ] || [ $(grep -cP "$cardpath($| )" $PREFIX/var/lib/lms/.savedcards) -eq 0 ]; then
+    echo "$(cat $PREFIX/var/lib/lms/.savedcards) $cardpath" > $PREFIX/var/lib/lms/.savedcards
+  fi
+done
+for cardpath in $(grep -o "/storage/....-...." /proc/mounts); do
+  if [ ! -e $PREFIX/var/lib/lms/.savedcards ] || [ $(grep -cP "$cardpath($| )" $PREFIX/var/lib/lms/.savedcards) -eq 0 ]; then
+    echo "$(cat $PREFIX/var/lib/lms/.savedcards) $cardpath" > $PREFIX/var/lib/lms/.savedcards
+  fi
+done
+for cardpath in $(cat $PREFIX/var/lib/lms/.savedcards); do
+  card=${cardpath##*/}
+  proot-distro login $distro -- mkdir /media/$card
+  bind="$bind --bind $cardpath:/media/$card"
+done
+echo $bind
+
+echo "proot-distro login $distro -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Restart LMS"
+echo "sleep 5" >> ~/.shortcuts/tasks/"Restart LMS"
+echo "proot-distro login $bind --no-kill-on-exit $distro -- service logitechmediaserver start" >> ~/.shortcuts/tasks/"Restart LMS"
+chmod +x ~/.shortcuts/tasks/"Restart LMS"
+echo "proot-distro login $distro -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
+chmod +x ~/.shortcuts/tasks/"Stop LMS"
+echo "proot-distro login --bind $PREFIX/var/lib/lms:/root $distro -- bash updatelms" > ~/.shortcuts/"Update LMS"
+chmod +x ~/.shortcuts/"Update LMS"
+echo "proot-distro login --bind $PREFIX/var/lib/lms:/root $bind $distro" > ~/.shortcuts/Advanced/"Debian Terminal"
+chmod +x ~/.shortcuts/Advanced/"Debian Terminal"
+echo "curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lmst -o lms && bash lms ; bash" > ~/.shortcuts/Advanced/"Rerun LMS Setup"
+chmod +x ~/.shortcuts/Advanced/"Rerun LMS Setup"
+
+proot-distro login --bind $PREFIX/var/lib/lms:/root $distro -- bash installlms
+
+echo   "======================="
+if [ -e $PREFIX/var/lib/lms/.lmsfirstinstall ]; then
+  echo "LMS installed"
+  rm $PREFIX/var/lib/lms/.lmsfirstinstall
+fi
+if [ -e $PREFIX/var/lib/lms/.materialfirstinstall ]; then
+  echo "Material Skin Installed"
+  rm $PREFIX/var/lib/lms/.materialfirstinstall
+fi
+echo "Scripts updated"
+echo   "======================="
