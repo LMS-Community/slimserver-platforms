@@ -88,10 +88,6 @@ sub postInitPrefs {
                 \$plugins->{"MaterialSkin"} = 1;
                 \$extensionPrefs->set("plugin", \$plugins);
         }
-        my \$statePrefs = Slim::Utils::Prefs::preferences('plugin.state');
-        if ( ! \$statePrefs->get("MaterialSkin") ) {
-                \$statePrefs->set("MaterialSkin", "enabled");
-        }
 }
 
 1;
