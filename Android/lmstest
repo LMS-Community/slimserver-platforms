@@ -52,9 +52,9 @@ if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSki
   wget https://lms-community.github.io/lms-plugin-repository/extensions.xml -O extensions.xml
   #mkdir -p /var/lib/squeezeboxserver/cache/DownloadedPlugins
   #wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O /var/lib/squeezeboxserver/cache/DownloadedPlugins/MaterialSkin.zip
-  mkdir -p /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins
+  mkdir -p /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin
   wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O MaterialSkin.zip
-  unzip MaterialSkin -d /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins
+  unzip MaterialSkin -d /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin
   chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
   touch .materialfirstinstall
 fi
