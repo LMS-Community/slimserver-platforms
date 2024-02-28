@@ -50,8 +50,11 @@ fi
 if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin' ]; then
   rm extensions.xml
   wget https://lms-community.github.io/lms-plugin-repository/extensions.xml -O extensions.xml
-  mkdir -p /var/lib/squeezeboxserver/cache/DownloadedPlugins
-  wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O /var/lib/squeezeboxserver/cache/DownloadedPlugins/MaterialSkin.zip
+  #mkdir -p /var/lib/squeezeboxserver/cache/DownloadedPlugins
+  #wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O /var/lib/squeezeboxserver/cache/DownloadedPlugins/MaterialSkin.zip
+  mkdir -p /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins
+  wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O MaterialSkin.zip
+  unzip MaterialSkin -d /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins
   chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
   touch .materialfirstinstall
 fi
@@ -90,7 +93,7 @@ sub postInitPrefs {
         }
         my \$statePrefs = Slim::Utils::Prefs::preferences('plugin.state');
         if ( ! \$statePrefs->get("MaterialSkin") ) {
-                \$statePrefs->set("MaterialSkin", "needs-install");
+                \$statePrefs->set("MaterialSkin", "installed");
         }
 }
 
