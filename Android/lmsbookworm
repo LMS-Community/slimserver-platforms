@@ -9,6 +9,7 @@ if [ $PREFIX/var/lib/lms/${0##*/} != $0 ]; then
 fi
 
 distro=debian
+kernel=$(uname -r | cut -d'-' -f1)
 
 if [ ! -d $PREFIX/var/lib/proot-distro/installed-rootfs/$distro ]; then
   mv $PREFIX/etc/apt/sources.list $PREFIX/tmp/sources.list.original
@@ -152,25 +153,25 @@ for cardpath in $(grep -o "/storage/....-...." /proc/mounts); do
 done
 for cardpath in $(cat $PREFIX/var/lib/lms/.savedcards); do
   card=${cardpath##*/}
-  proot-distro login $distro -- mkdir /media/$card
+  proot-distro login --kernel $kernel $distro -- mkdir /media/$card
   bind="$bind --bind $cardpath:/media/$card"
 done
 echo $bind
 
-echo "proot-distro login $distro -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Restart LMS"
+echo "proot-distro login --kernel $kernel $distro -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Restart LMS"
 echo "sleep 5" >> ~/.shortcuts/tasks/"Restart LMS"
-echo "proot-distro login $bind --no-kill-on-exit $distro -- service logitechmediaserver start" >> ~/.shortcuts/tasks/"Restart LMS"
+echo "proot-distro login --kernel $kernel $bind --no-kill-on-exit $distro -- service logitechmediaserver start" >> ~/.shortcuts/tasks/"Restart LMS"
 chmod +x ~/.shortcuts/tasks/"Restart LMS"
-echo "proot-distro login $distro -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
+echo "proot-distro login --kernel $kernel $distro -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
 chmod +x ~/.shortcuts/tasks/"Stop LMS"
-echo "proot-distro login --bind $PREFIX/var/lib/lms:/root $distro -- bash updatelms" > ~/.shortcuts/"Update LMS"
+echo "proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root $distro -- bash updatelms" > ~/.shortcuts/"Update LMS"
 chmod +x ~/.shortcuts/"Update LMS"
-echo "proot-distro login --bind $PREFIX/var/lib/lms:/root $bind $distro" > ~/.shortcuts/Advanced/"Debian Terminal"
+echo "proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root $bind $distro" > ~/.shortcuts/Advanced/"Debian Terminal"
 chmod +x ~/.shortcuts/Advanced/"Debian Terminal"
 echo "curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lmst -o lms && bash lms ; bash" > ~/.shortcuts/Advanced/"Rerun LMS Setup"
 chmod +x ~/.shortcuts/Advanced/"Rerun LMS Setup"
 
-proot-distro login --bind $PREFIX/var/lib/lms:/root $distro -- bash installlms
+proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root $distro -- bash installlms
 
 echo   "======================="
 if [ -e $PREFIX/var/lib/lms/.lmsfirstinstall ]; then
