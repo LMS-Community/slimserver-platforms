@@ -8,12 +8,8 @@ if [ $PREFIX/var/lib/lms/${0##*/} != $0 ]; then
   exec bash $PREFIX/var/lib/lms/${0##*/} $*
 fi
 
-version=$(getprop ro.build.version.release)
-if [ ${version%%.*} -lt 8 ]; then
-  distro=debian-oldstable
-else
-  distro=debian
-fi
+distro=debian
+kernel=$(uname -r | cut -d'-' -f1)
 
 if [ ! -d $PREFIX/var/lib/proot-distro/installed-rootfs/$distro ]; then
   mv $PREFIX/etc/apt/sources.list $PREFIX/tmp/sources.list.original
@@ -50,37 +46,50 @@ fi
 if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin' ]; then
   rm extensions.xml
   wget https://lms-community.github.io/lms-plugin-repository/extensions.xml -O extensions.xml
-  mkdir -p /var/lib/squeezeboxserver/prefs/plugin
+  mkdir -p /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin
+  wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O MaterialSkin.zip
+  unzip MaterialSkin -d /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin
   chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
-  echo "wizardDone: 1" > /var/lib/squeezeboxserver/prefs/server.prefs
-  echo "skin: material" >> /var/lib/squeezeboxserver/prefs/server.prefs
-  echo "_ts_skin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/server.prefs
-  service logitechmediaserver start
-  until [ -e /var/lib/squeezeboxserver/prefs/plugin/state.prefs ] && [ -e /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs ] && [ -d /var/lib/squeezeboxserver/cache/DownloadedPlugins ]; do
-    sleep 1
-  done
-  wget \$(xmllint --xpath 'string(//extensions/plugins/plugin[@name="MaterialSkin"]/@url)' extensions.xml) -O /var/lib/squeezeboxserver/cache/DownloadedPlugins/MaterialSkin.zip
-  chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/cache/DownloadedPlugins/MaterialSkin.zip
-  echo "MaterialSkin: needs-install" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
-  echo "_ts_MaterialSkin: \$(date +%s)" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
-  sed -i 's/plugin: {}/plugin:\n  MaterialSkin: 1/' /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs
-  service logitechmediaserver stop
   touch .materialfirstinstall
 fi
 if [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
   sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/logitechmediaserver
-  cat <<EOF2 > /usr/share/perl5/Slim/Utils/OS/Custom.pm
-package Slim::Utils::OS::Custom;
 
-# Allow server to run as root in Termux Debian proot
+  cat << 'EOF2' > /usr/share/perl5/Slim/Utils/OS/Custom.pm
+package Slim::Utils::OS::Custom;
 
 use strict;
 use base qw(Slim::Utils::OS::Debian);
 
+# Allow server to run as root in Termux Debian proot
 sub dontSetUserAndGroup { 1 }
 
+sub initPrefs {
+        my (\$class, \$prefs) = @_;
+
+        # don't show the wizard
+        \$prefs->{wizardDone} = 1;
+        # default skin Material
+        \$prefs->{skin} = "material";
+}
+
+sub postInitPrefs {
+        my (\$class, \$prefs) = @_;
+
+        # Material Skin setup
+        require Slim::Utils::Prefs;
+        my \$extensionPrefs = Slim::Utils::Prefs::preferences('plugin.extensions');
+        my \$plugins = \$extensionPrefs->get('plugin');
+        if ( ! \$plugins->{"MaterialSkin"} ) {
+                \$plugins->{"MaterialSkin"} = 1;
+                \$extensionPrefs->set("plugin", \$plugins);
+        }
+}
+
 1;
+
 EOF2
+
 fi
 EOF
 
@@ -99,18 +108,6 @@ if [ -z "\$error" ]; then
       apt -y install ./logitechmediaserver*.deb || error="ERROR: installation failed"
       if [ -z "\$error" ] && [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
         sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/logitechmediaserver
-cat <<EOF2 > /usr/share/perl5/Slim/Utils/OS/Custom.pm
-package Slim::Utils::OS::Custom;
-
-# Allow server to run as root in Termux Debian proot
-
-use strict;
-use base qw(Slim::Utils::OS::Debian);
-
-sub dontSetUserAndGroup { 1 }
-
-1;
-EOF2
       fi
     fi
   fi
@@ -156,25 +153,25 @@ for cardpath in $(grep -o "/storage/....-...." /proc/mounts); do
 done
 for cardpath in $(cat $PREFIX/var/lib/lms/.savedcards); do
   card=${cardpath##*/}
-  proot-distro login $distro -- mkdir /media/$card
+  proot-distro login --kernel $kernel $distro -- mkdir /media/$card
   bind="$bind --bind $cardpath:/media/$card"
 done
 echo $bind
 
-echo "proot-distro login $distro -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Restart LMS"
+echo "proot-distro login --kernel $kernel $distro -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Restart LMS"
 echo "sleep 5" >> ~/.shortcuts/tasks/"Restart LMS"
-echo "proot-distro login $bind --no-kill-on-exit $distro -- service logitechmediaserver start" >> ~/.shortcuts/tasks/"Restart LMS"
+echo "proot-distro login --kernel $kernel $bind --no-kill-on-exit $distro -- service logitechmediaserver start" >> ~/.shortcuts/tasks/"Restart LMS"
 chmod +x ~/.shortcuts/tasks/"Restart LMS"
-echo "proot-distro login $distro -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
+echo "proot-distro login --kernel $kernel $distro -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
 chmod +x ~/.shortcuts/tasks/"Stop LMS"
-echo "proot-distro login --bind $PREFIX/var/lib/lms:/root $distro -- bash updatelms" > ~/.shortcuts/"Update LMS"
+echo "proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root $distro -- bash updatelms" > ~/.shortcuts/"Update LMS"
 chmod +x ~/.shortcuts/"Update LMS"
-echo "proot-distro login --bind $PREFIX/var/lib/lms:/root $bind $distro" > ~/.shortcuts/Advanced/"Debian Terminal"
+echo "proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root $bind $distro" > ~/.shortcuts/Advanced/"Debian Terminal"
 chmod +x ~/.shortcuts/Advanced/"Debian Terminal"
 echo "curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lmst -o lms && bash lms ; bash" > ~/.shortcuts/Advanced/"Rerun LMS Setup"
 chmod +x ~/.shortcuts/Advanced/"Rerun LMS Setup"
 
-proot-distro login --bind $PREFIX/var/lib/lms:/root $distro -- bash installlms
+proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root $distro -- bash installlms
 
 echo   "======================="
 if [ -e $PREFIX/var/lib/lms/.lmsfirstinstall ]; then
