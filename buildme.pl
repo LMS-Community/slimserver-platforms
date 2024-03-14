@@ -722,14 +722,7 @@ sub buildMacOSX {
 
 		closedir $dirh;
 
-		system("pkgutil --flatten $buildDir/lms_tmp \"$destDir/$pkgName-unsigned.pkg\"");
-
-		if ($releaseType eq 'release') {
-			unlink("$destDir/$pkgName.pkg");
-		}
-		else {
-			move("$destDir/$pkgName-unsigned.pkg", "$destDir/$pkgName.pkg");
-		}
+		system("pkgutil --flatten $buildDir/lms_tmp \"$destDir/$pkgName.pkg\"");
 	}
 }
 
