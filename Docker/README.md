@@ -3,9 +3,9 @@
 The [LMS Community](https://github.com/LMS-Community)'s Docker image for [Logitech Media Server](https://github.com/Logitech/slimserver/) ([Dockerfile](https://github.com/Logitech/slimserver-platforms/tree/HEAD/Docker)).
 
 ## Tags
-* `latest`: the latest release version, currently v8.4.0
-* `stable`: the [bug fix branch](https://github.com/Logitech/slimserver/tree/public/8.4) based on the latest release, currently v8.4.1
-* `dev`: the [development version](https://github.com/Logitech/slimserver/), with new features, and potentially less stability, currently v8.5.0
+* `latest`: the latest release version, currently v8.5.0
+* `stable`: the [bug fix branch](https://github.com/Logitech/slimserver/tree/public/8.5) based on the latest release, currently v8.5.1
+* `dev`: the [development version](https://github.com/Logitech/slimserver/), with new features, and potentially less stability, currently v9.0.0
 
 ## Installation
 
@@ -114,7 +114,7 @@ docker run -it \
       -p 9090:9090/tcp \
       -p 3483:3483/tcp \
       -p 3483:3483/udp \
-      -e EXTRA_ARGS="--advertiseaddr=192.168.0.100"
+      -e EXTRA_ARGS="--advertiseaddr=192.168.0.100" \
       lmscommunity/logitechmediaserver
 ```
 
