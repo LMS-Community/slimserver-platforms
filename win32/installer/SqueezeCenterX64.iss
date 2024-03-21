@@ -119,7 +119,6 @@ var
 
 	// custom exit codes
 	// 1001 - SC configuration was found using port 9000, but port 9000 seems to be busy with an other application (PrefsExistButPortConflict)
-	// 1002 - SC wasn't able to establish a connection to mysqueezebox.com on port 3483 (SNConnectFailed_Description)
 	// 1101 - SliMP3 uninstall failed
 	// 1102 - SlimServer uninstall failed
 	// 1103 - SqueezeCenter uninstall failed
@@ -312,16 +311,6 @@ begin
 					end;
 
 				NewServerDir := AddBackslash(ExpandConstant('{app}')) + AddBackslash('server');
-
-				// trying to connect to SN
-				ProgressPage.setText(CustomMessage('ProgressForm_Description'), CustomMessage('SNConnecting'));
-				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
-
-				if not IsPortOpen('www.mysqueezebox.com', '3483') then
-				begin
-					SuppressibleMsgBox(CustomMessage('SNConnectFailed_Description') + #13#10 + #13#10 + CustomMessage('SNConnectFailed_Solution'), mbInformation, MB_OK, IDOK);
- 					CustomExitCode := 1002;
-				end;
 
 				ProgressPage.setText(CustomMessage('RegisteringServices'), '{#AppName}');
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);

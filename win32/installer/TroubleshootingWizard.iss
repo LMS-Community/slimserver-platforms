@@ -293,44 +293,6 @@ begin
 
       end;
 
-    	ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
-    	ProgressPage.setText('Ping www.squeezenetwork.com', '');
-      x := Ping('www.squeezenetwork.com');
-
-      if x < 0 then
-      begin
-        AllFine := false;
-
-      	Summary.Lines.add('Ping www.squeezenetwork.com');
-        Summary.Lines.add('-> nope (' + IntToStr(x) + ')');
-      	Summary.Lines.add('');
-
-        PingProblemPage := ProblemForm_CreatePage(
-          NoProblemPage,
-          ExpandConstant('{cm:PingProblem}'),
-          ExpandConstant('{cm:PingProblem_Description}') + ' (' + IntToStr(x) + ')',
-          ExpandConstant('{cm:PingProblem_Solution}')
-        );
-      end;
-
-     	ProgressPage.setProgress(ProgressPage.ProgressBar.Position+1, ProgressPage.ProgressBar.Max);
-    	ProgressPage.setText('Connecting to www.squeezenetwork.com...', '');
-    	
-    	if not IsPortOpen('www.squeezenetwork.com', '3483') then
-    	begin
-        AllFine := false;
-
-      	Summary.Lines.add('Connecting to www.squeezenetwork.com failed');
-      	Summary.Lines.add('');
-
-        PingProblemPage := ProblemForm_CreatePage(
-          NoProblemPage,
-          ExpandConstant('{cm:SNConnectFailed}'),
-          ExpandConstant('{cm:SNConnectFailed_Description}'),
-          ExpandConstant('{cm:SNConnectFailed_Solution}')
-        );
-    	end;
-
     	Summary.Lines.add('{cm:ProbingPorts}');
       ProbePortMsg('9000');
       ProbePortMsg('9090');
