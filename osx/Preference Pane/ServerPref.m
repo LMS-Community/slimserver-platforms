@@ -40,7 +40,7 @@
 	{
 		[self changeAutoStartupFrom:0 to:kStartupAtLogin];
 	}
-	
+
 	// rewrite prefs with defaults (yuk)
 
 	if (rewrite)
@@ -52,30 +52,34 @@
 	//NSLog(@"Squeezebox: initializing input values...");
 
 	[startupType selectItemAtIndex:[startupType indexOfItemWithTag:[[defaultValues objectForKey:@"StartupMenuTag"] intValue]]];
-	
+
 	scStrings = [NSMutableDictionary new];
 	mediaDirs = [[NSMutableArray alloc] init];
 
 	// monitor scan progress
 	//NSLog(@"Squeezebox: setting up status polling...");
-	
+
 	[NSTimer scheduledTimerWithTimeInterval: 1.9 target:self selector:@selector(scanPoll) userInfo:nil repeats:YES];
 	[scanProgressDesc setStringValue:@""];
 	[scanProgressDetail setStringValue:@""];
 	[scanProgressError setStringValue:@""];
-	
+
 	// check whether an update installer is available
 	//NSLog(@"Squeezebox: initializing update checker...");
 	updateTimer = [NSTimer scheduledTimerWithTimeInterval: 60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
-	
+
+	// remove MySB integration - we lack the tools to edit the .nib files
+	// remove the tab programmatically instead...
+	[prefsTab removeTabViewItem:[prefsTab tabViewItemAtIndex:2]];
+
 	[NSTimer scheduledTimerWithTimeInterval: 1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
 	[self updateUI];
 	[self updateMusicLibraryStats];
-	
+
 	[self showRevision];
-	
+
 	[self asyncJsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
-	
+
 	[self getMediaDirs];
 	[mediaDirsTable setDataSource:mediaDirs];
 }
@@ -119,7 +123,7 @@
 	**
 	**	Nasty.
 	*/
-	
+
 #ifdef AVAILABLE_DATA_LEAK_FIXED
 	while ((inData = [readHandle availableData]) && [inData length])
 		[pidString appendString:[NSString stringWithCString:[inData bytes] length:[inData length]]];
@@ -131,7 +135,7 @@
 	if ([inData length])
 		[pidString appendString:[NSString stringWithCString:[inData bytes] length:[inData length]]];
 #endif
-	
+
 	[pipeTask release];
 
 	if (sscanf([pidString UTF8String], "%d", &pid) == 1)
@@ -144,22 +148,22 @@
 -(int)serverPort
 {
 	NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"check-web.pl"];
-	
+
 	/*
 	 **  Run a simple shell script to get the server's HTTP port, if it's running.
 	 */
-	
+
 	NSTask *pipeTask = [[NSTask alloc] init];
 	NSPipe *outputPipe = [NSPipe pipe];
 	NSFileHandle *readHandle = [outputPipe fileHandleForReading];
 	NSData *inData = nil;
 	NSMutableString *portString = [NSMutableString string];
 	int port;
-	
+
 	[pipeTask setStandardOutput:outputPipe];
 	[pipeTask setLaunchPath:pathToScript];
 	[pipeTask launch];
-	
+
 	/*
 	 **	There's a pretty serious bug in the availableData API: it leaks approximately 4K
 	 ** when there's no data to read and it returns an NSData that's "empty". To get around
@@ -168,19 +172,19 @@
 	 **
 	 **	Nasty.
 	 */
-	
+
 #ifdef AVAILABLE_DATA_LEAK_FIXED
 	while ((inData = [readHandle availableData]) && [inData length])
 		[portString appendString:[NSString stringWithCString:[inData bytes] length:[inData length]]];
 #else
 	[pipeTask waitUntilExit];
-	
+
 	inData = [readHandle readDataToEndOfFile];
-	
+
 	if ([inData length])
 		[portString appendString:[NSString stringWithCString:[inData bytes] length:[inData length]]];
 #endif
-	
+
 	[pipeTask release];
 
 	if (sscanf([portString UTF8String], "%d", &port) == 1)
@@ -202,7 +206,7 @@
 		NSBeep ();
 		return NO;
 	}
-	
+
 	AuthorizationItem myItems = {kAuthorizationRightExecute, 0, NULL, 0};
 	AuthorizationRights myRights = {1, &myItems};
 
@@ -224,9 +228,9 @@
 	NSString *revisionTxt = [[[NSBundle bundleForClass:[self class]] bundlePath] stringByAppendingPathComponent:@"Contents/server/revision.txt"];
 
 	[scVersion setStringValue:LocalizedPrefString(@"Version x.y.z", "")];
-	
+
 	if (revisionTxt != nil && [[NSFileManager defaultManager] fileExistsAtPath:revisionTxt]) {
-		
+
 		NSArray *lines = [[NSString stringWithContentsOfFile:revisionTxt] componentsSeparatedByString:@"\n"];
 
 		if ([lines count] > 0) {
@@ -242,7 +246,7 @@
 
 //	NSLog(@"Squeezebox: updating UI...");
 
-	if (currentWebState && [[[prefsTab selectedTabViewItem] identifier] isEqualToString:@"status"]) 
+	if (currentWebState && [[[prefsTab selectedTabViewItem] identifier] isEqualToString:@"status"])
 	{
 		[[statusView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:statusUrl]]];
 		[[statusView mainFrame] reload];
@@ -250,7 +254,7 @@
 	[self setWebState:currentWebState];
 
 	[self setServerState:currentServerState];
-	
+
 	if (currentServerState && !currentWebState)
 	{
 		[serverStateLabel setStringValue:LocalizedPrefString(@"The server is starting", "The server is starting")];
@@ -270,14 +274,9 @@
 		isScanning = NO;
 		[toggleServerButton setEnabled:YES];
 	}
-	
+
 	[webLaunchButton setEnabled:currentWebState];
 	[advLaunchButton setEnabled:currentWebState];
-	
-	[snUsername setEnabled:serverState];
-	[snPassword setEnabled:serverState];
-	[snCheckPassword setEnabled:serverState];
-	[snStatsOptions setEnabled:serverState];
 
 	[musicLibraryName setEnabled:serverState];
 	[mediaDirsTable setEnabled:serverState];
@@ -321,55 +320,55 @@
 	NSArray *steps = nil;
 	if (libraryStats != nil)
 		steps = [libraryStats valueForKey:@"loop_loop"];
-		
+
 	if (steps != nil) {
-			
+
 		NSString *statsLabel = [self getSCString:@"INFORMATION_MENU_LIBRARY"];
-			
+
 		int x;
 		NSDictionary *statsItem;
 		for (x = 0; x < [steps count]; x++) {
 
 			statsItem = [steps objectAtIndex:x];
-				
+
 			if ([[statsItem valueForKey:@"name"] isEqualToString:statsLabel])
 				break;
 		}
-			
+
 		if (x < [steps count]) {
-				
+
 			libraryStats = [self jsonRequest:[NSString stringWithFormat:@"\"systeminfo\", \"items\", \"0\", \"999\", \"item_id:%i\"", x]];
-				
+
 			if (libraryStats != nil)
 				steps = [libraryStats valueForKey:@"loop_loop"];
 
 			if (steps != nil) {
-					
+
 				statsLabel = @"";
-					
+
 				for (x = 0; x < [steps count]; x++) {
-						
+
 					statsItem = [steps objectAtIndex:x];
-						
+
 					if ([statsItem valueForKey:@"name"] != nil)
 						statsLabel = [statsLabel stringByAppendingString:[NSString stringWithFormat:@"%@\n", [statsItem valueForKey:@"name"]]];
-			
+
 				}
-					
+
 				[musicLibraryStats setStringValue:statsLabel];
 			}
 		}
-			
+
 	}
 
 	//NSLog(@"Squeezebox: music library stats update done.");
 }
-	
+
 -(void)openWebInterface:(id)sender
 {
 	int port = [self serverPort];
 	if (!port > 0) { port = 9000; }
-	
+
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://localhost:%i/", port] ]];
 }
 
@@ -377,7 +376,7 @@
 {
 	int port = [self serverPort];
 	if (!port > 0) { port = 9000; }
-	
+
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://localhost:%i/settings/index.html", port] ]];
 }
 
@@ -390,7 +389,7 @@
 	if ([self changeAutoStartupFrom:previousStartupValue to:[startupType indexOfSelectedItem]])
 	{
 		[prefs setObject:[NSNumber numberWithInt:[startupType indexOfSelectedItem]] forKey:@"StartupMenuTag"];
-	
+
 		[[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
 		[[NSUserDefaults standardUserDefaults] setPersistentDomain:prefs forName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
 		[[NSUserDefaults standardUserDefaults] synchronize];
@@ -413,31 +412,31 @@
 			/*
 			 **  Now that we're authorized, add or remove our StartupItems entry.
 			 */
-	
+
 			NSString *scriptToRun = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent: (newStartupType == kStartupAtBoot) ? @"create-startup.sh" : @"remove-startup.sh"];
-	
+
 			OSStatus myStatus;
 			AuthorizationFlags myFlags = kAuthorizationFlagDefaults;
 			FILE *myCommunicationsPipe = NULL;
 			char myReadBuffer[128];
 			const char *myArguments[] = { NULL };
-	
+
 			/*
 			 **  OK, run the script with administrator privs, based on the token we retrieved earlier.
 			 */
-	
+
 			myStatus = AuthorizationExecuteWithPrivileges (myAuthorizationRef, (char *) [scriptToRun UTF8String], myFlags, (char **) myArguments, &myCommunicationsPipe);
-	
+
 			if (myStatus == errAuthorizationSuccess)
 			{
 				for (;;)
 				{
 					int bytesRead = read (fileno (myCommunicationsPipe), myReadBuffer, sizeof (myReadBuffer));
-		
+
 					if (bytesRead < 1)
 						break;
 				}
-				
+
 				AuthorizationFree (myAuthorizationRef, kAuthorizationFlagDefaults);
 			}
 			else
@@ -453,7 +452,7 @@
 
 	NSString *scriptToRun = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent: (newStartupType == kStartupAtLogin) ? @"create-launchitem.sh" : @"remove-launchitem.sh"];
 	[[NSWorkspace sharedWorkspace] launchApplication:scriptToRun showIcon:NO autolaunch:YES];
-	
+
 	return YES;
 }
 
@@ -468,7 +467,7 @@
 	[toggleServerButton setEnabled:NO];
 
 	int pid = [self serverPID];
-	
+
 	if (pid != 0)
 	{
 		[self asyncJsonRequest:[NSString stringWithFormat:@"\"stopserver\""]];
@@ -496,7 +495,7 @@
 	if ([pathToUpdate length] > 0) {
 		NSString *fileString = [NSString stringWithContentsOfFile:pathToUpdate];
 		NSArray *lines = [fileString componentsSeparatedByString:@"\n"];
-	
+
 		if ([lines count] > 0)
 			return [lines objectAtIndex:0];
 	}
@@ -512,16 +511,16 @@
 	{
 		// don't trigger another message as long as it's being displayed
 		[updateTimer invalidate];
-			
+
 		NSBeginAlertSheet (
 						   LocalizedPrefString(@"An updated Logitech Media Server version is available and ready to be installed.", @""),
 						   LocalizedPrefString(@"Install update", @""),
 						   LocalizedPrefString(@"Not now", @""),
-						   nil, 
-						   [[NSApplication sharedApplication] mainWindow], 
-						   self, 
+						   nil,
+						   [[NSApplication sharedApplication] mainWindow],
+						   self,
 						   @selector(installUpdateConfirmed:returnCode:contextInfo:),
-						   NULL, 
+						   NULL,
 						   @"",
 						   @""
 						   );
@@ -533,15 +532,15 @@
 	if (returnCode == NSAlertDefaultReturn) {
 
 		NSString *installer = [self getUpdateInstaller];
-		
+
 		if (installer != nil && [[NSFileManager defaultManager] fileExistsAtPath:installer]) {
-	
+
 			NSString *pathToScript = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"run-installer.sh"];
 			[NSTask launchedTaskWithLaunchPath:pathToScript arguments:[NSArray arrayWithObjects:installer,nil]];
 
 		}
 	}
-	
+
 	// don't check that often once the user has been notified
 	updateTimer = [NSTimer scheduledTimerWithTimeInterval: 60*60 target:self selector:@selector(checkUpdateInstaller) userInfo:nil repeats:YES];
 }
@@ -573,7 +572,7 @@
 {
 	NSPopUpButton *logSet = sender;
 	NSString *setId;
-	
+
 	switch ([logSet indexOfSelectedItem])
 	{
 		case 2:
@@ -607,74 +606,17 @@
 }
 
 -(void)showLog:(NSString *)whichLog
-{	
+{
 	NSString *pathToLog;
-	
-	whichLog = [logDir stringByAppendingPathComponent:whichLog];	
+
+	whichLog = [logDir stringByAppendingPathComponent:whichLog];
 
 	pathToLog = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:whichLog];
-	
+
 	if ([pathToLog length] == 0)
 		pathToLog = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES) fileName:whichLog];
-	
+
 	[[NSWorkspace sharedWorkspace] openFile:pathToLog];
-}
-
-/* SqueezeNetwork */
--(IBAction)checkSNPassword:(id)sender
-{
-	NSString *username = [snUsername stringValue];
-	NSString *password = [snPassword stringValue];
-
-	if (username != nil && password != nil && username != @"" && password != @"" && password != snPasswordPlaceholder) {
-		NSDictionary *snResult = [self saveSNCredentials];
-		
-		NSString *msg = @"";
-	
-		if (snResult == nil || [[snResult valueForKey:@"validated"] intValue] == 0)
-			msg = @"Invalid SqueezeNetwork username or password.";
-		else if (snResult != nil && [[snResult valueForKey:@"validated"] intValue] != 0) 
-			msg = @"Connected successfully to SqueezeNetwork.";
-
-		if (snResult != nil && [snResult valueForKey:@"warning"] != nil)
-			msg = LocalizedPrefString([snResult valueForKey:@"warning"], @"");
-
-		if (msg != @"")
-			NSBeginAlertSheet (LocalizedPrefString(msg, @""), LocalizedPrefString(@"Ok", @""), nil, nil,[[NSApplication sharedApplication] mainWindow], self, nil, NULL, @"", @"");
-	}
-}
-
--(IBAction)snCredentialsChanged:(id)sender
-{
-	[self saveSNCredentials];
-}
-
--(NSDictionary *)saveSNCredentials
-{
-	NSString *username = [snUsername stringValue];
-	NSString *password = [snPassword stringValue];
-	
-	NSDictionary *snResult = nil;
-	
-	if (username != nil && password != nil && username != @"" && password != @"" && password != snPasswordPlaceholder)
-		snResult = [self jsonRequest:[NSString stringWithFormat:@"\"setsncredentials\", \"%@\", \"%@\"", username, password]];
-
-	return snResult;
-}
-
--(IBAction)snStatsOptionChanged:(id)sender
-{
-	[self asyncJsonRequest:[NSString stringWithFormat:@"\"pref\", \"sn_disable_stats\", \"%@\"", [snStatsOptions objectValue]]];
-}
-
--(void)openSNSubscription:(id)sender
-{
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: @"http://www.squeezenetwork.com/" ]];
-}
-
--(void)openSNPasswordReminder:(id)sender
-{
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: @"http://www.squeezenetwork.com/user/forgotPassword" ]];
 }
 
 
@@ -682,11 +624,11 @@
 -(IBAction)doAddMediadir:(id)sender
 {
 	NSOpenPanel* openDlg = [NSOpenPanel openPanel];
-	
+
 	[openDlg setCanChooseFiles:NO];
 	[openDlg setCanChooseDirectories:YES];
 	[openDlg setAllowsMultipleSelection:NO];
-	
+
 	if ([openDlg runModalForDirectory:@"~" file:nil] == NSOKButton)
 	{
 		[mediaDirs addObject:[openDlg filename]];
@@ -697,7 +639,7 @@
 -(IBAction)doRemoveMediadir:(id)sender
 {
 	int selection = [mediaDirsTable selectedRow];
-	
+
 	if (selection >= 0 && selection < [mediaDirs count]) {
 		[mediaDirs removeObjectAtIndex:selection];
 		[self saveMediadirs:self];
@@ -708,11 +650,11 @@
 -(IBAction)doBrowsePlaylistFolder:(id)sender
 {
 	NSOpenPanel* openDlg = [NSOpenPanel openPanel];
-	
+
 	[openDlg setCanChooseFiles:NO];
 	[openDlg setCanChooseDirectories:YES];
 	[openDlg setAllowsMultipleSelection:NO];
-	
+
 	if ([openDlg runModalForDirectory:[playlistFolder stringValue] file:nil] == NSOKButton)
 	{
 		if (![[openDlg filename] isEqual:[playlistFolder stringValue]])
@@ -792,10 +734,10 @@
 				[self asyncJsonRequest:@"\"rescan\", \"playlists\""];
 				break;
 		}
-	
+
 		isScanning = YES;
 	}
-	
+
 	[self updateUI];
 }
 
@@ -807,7 +749,7 @@
 - (void)_scanPollResponse:(NSDictionary *)pollResult
 {
 	isScanning = NO;
-	
+
 	if (pollResult != nil)
 	{
 		//NSLog(@"%@", pollResult);
@@ -816,17 +758,17 @@
 		NSString *failure  = [pollResult valueForKey:@"lastscanfailed"];
 
 		isScanning = ([scanning intValue] > 0);
-		
+
 		if (scanning != nil && steps != nil)
 		{
 			[scanProgressError setStringValue:@""];
 
 			NSString *currentStep = [steps lastObject];
 			int step = [steps count];
-			
+
 			if (currentStep != nil)
 				[scanProgressDesc setStringValue:[NSString stringWithFormat:@"%d. %@", step, [self getSCString:[currentStep stringByAppendingString:@"_PROGRESS"]] ] ];
-			else 
+			else
 				[scanProgressDesc setStringValue:@""];
 
 			NSString *detail = [pollResult valueForKey:@"info"];
@@ -847,7 +789,7 @@
 			else
 				[scanProgressTime setStringValue:@"00:00:00"];
 		}
-		
+
 		else if (failure != nil)
 		{
 			[scanProgressDetail setStringValue:@""];
@@ -867,11 +809,11 @@
 						   LocalizedPrefString(@"The server has to be stopped before running the cleanup. Do you want to stop it now?", @""),
 						   LocalizedPrefString(@"Run Cleanup", @""),
 						   LocalizedPrefString(@"Cancel", @""),
-						   nil, 
-						   [[NSApplication sharedApplication] mainWindow], 
-						   self, 
+						   nil,
+						   [[NSApplication sharedApplication] mainWindow],
+						   self,
 						   @selector(cleanupStopSC:returnCode:contextInfo:),
-						   NULL, 
+						   NULL,
 						   @"",
 						   @""
 		);
@@ -900,15 +842,15 @@
 -(NSString *)getCleanupParams
 {
 	NSString *params = @"";
-	
+
 	if ([cleanupPrefs state] > 0)
 		params = [params stringByAppendingString:@" --prefs"];
-		
+
 	if ([cleanupCache state] > 0)
 		params = [params stringByAppendingString:@" --cache"];
-		
+
 	return params;
-}	
+}
 
 
 -(void)tabView:(NSTabView *)sender didSelectTabViewItem:(NSTabViewItem *)item
@@ -917,37 +859,20 @@
 	if ([[item identifier] isEqualToString:@"status"]) {
 		[[statusView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:statusUrl]]];
 	}
-	
+
 	// Music Library Stats
 	else if ([[item identifier] isEqualToString:@"1"]) {
 		[self updateMusicLibraryStats];
 	}
-	
+
 	else if ([[item identifier] isEqualToString:@"library"]) {
 		[musicLibraryName setStringValue:[self getPref:@"libraryname"]];
 
 		[self getMediaDirs];
 		[playlistFolder setStringValue:[self getPref:@"playlistdir"]];
-		
+
 		int option = [[self getPref:@"itunes" fileName:@"itunes"] intValue];
 		[useiTunes setState:(option == 1 ? 1 : 0)];
-	}
-	
-	// SqueezeNetwork settings
-	else {
-		NSString *username = [self getPref:@"sn_email"];
-		
-		if (username == nil || [username isEqual:[NSNull null]]) {
-			[snUsername setStringValue:@""];
-			[snPassword setStringValue:@""];
-		}
-		else {
-			[snUsername setStringValue:(username)];
-			[snPassword setStringValue:([self getPref:@"sn_password_sha"] != @"" ? snPasswordPlaceholder : @"")];
-		}
-		
-		int option = [[self getPref:@"sn_disable_stats"] intValue];
-		[snStatsOptions selectItemAtIndex:(option == 1 ? 1 : 0)];
 	}
 }
 
@@ -956,19 +881,19 @@
 {
 	if (![self webState])
 		return nil;
-	
+
 	int port = [self serverPort];
 	if (port == 0)
 		return nil;
-	
+
 	//NSLog(@"Squeezebox: running JSON request %@...", query);
 
 	// set up our JSON/RPC request
 	NSMutableURLRequest *request = [self _baseRequest:query port:port];
-	
+
 	// Perform request and get JSON back as a NSData object
 	NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-	
+
 	return [self _parseJsonResponse:response];
 }
 
@@ -980,7 +905,7 @@
 -(void)asyncJsonRequest:(NSString *)query timeout:(int)timeout
 {
 	//NSLog(@"Squeezebox: running async JSON request %@...", query);
-	
+
 	// set up our JSON/RPC request
 	NSMutableURLRequest *request = [self _baseRequest:query];
 	[request setTimeoutInterval:timeout];
@@ -1014,22 +939,22 @@
 
 	//NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
 	//NSLog(@"%@", receivedData);
-	
+
 	NSDictionary *pollResult = [self _parseJsonResponse:receivedData];
-	
+
 	if (pollResult != nil) {
-		
+
 		if ([pollResult valueForKey:@"rescan"] != nil) {
 			[self _scanPollResponse:pollResult];
 		}
-		
+
 		// the following is an optimistic guess, but most commands sent by asyncJsonRequest
 		// don't return much data. _updateMusicLibraryStats won't hurt if this isn't valid data
 		else if ([pollResult valueForKey:@"count"] && [[pollResult valueForKey:@"count"] intValue] > 3
 				 && [pollResult valueForKey:@"loop_loop"] && [pollResult valueForKey:@"title"]) {
 			[self _updateMusicLibraryStats:pollResult];
 		}
-		
+
 		else {
 			//NSLog(@"%@", pollResult);
 		}
@@ -1044,19 +969,19 @@
 -(NSMutableURLRequest *)_baseRequest:(NSString *)query port:(int)port
 {
 	NSString *post = [NSString stringWithFormat:@"{\"id\":1,\"method\":\"slim.request\",\"params\":[\"\",[%@]]}", query];
-	
+
 	//NSLog(@"%@", post);
 	NSData *postData = [post dataUsingEncoding:NSUTF8StringEncoding];
-	NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];	
-	
+	NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+
 	// set up our JSON/RPC request
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:%i/jsonrpc.js", port]]];
-	
+
 	[request setHTTPMethod:@"POST"];
 	[request setValue:postLength forHTTPHeaderField:@"Content-Length"];
 	[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 	[request setHTTPBody:postData];
-	
+
 	return request;
 }
 
@@ -1064,16 +989,16 @@
 {
 	NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	//NSLog(@"%@", json_string);
-	
+
 	SBJsonParser *parser = [SBJsonParser new];
 	NSDictionary *json = [parser objectWithString:json_string error:nil];
-	
-	if (json != nil) 
+
+	if (json != nil)
 		json = [json objectForKey:@"result"];
-	
+
 	//if (json != nil)
 	//	NSLog(@"Squeezebox: JSON request returning '%@'.", json);
-	
+
 	return json;
 }
 
@@ -1082,34 +1007,34 @@
 {
 	stringToken = [stringToken uppercaseString];
 	NSString *s = [scStrings objectForKey:stringToken];
-	
+
 	// if we don't have that string in our dictionary yet, fetch it from SC
 	if (s == nil)
 	{
 		// initialize entry with empty value to prevent querying string twice
 		[scStrings setObject:@"" forKey:stringToken];
-		
+
 		NSDictionary *scString = [self jsonRequest:[NSString stringWithFormat:@"\"getstring\", \"%@\"", stringToken]];
- 
-		if (scString != nil) 
+
+		if (scString != nil)
 			s = [scString valueForKey:stringToken];
 
 		// fall back to string token if lookup failed
-		if (s == nil || [s isEqualToString:@""]) 
+		if (s == nil || [s isEqualToString:@""])
 			s = stringToken;
-		else 
+		else
 			[scStrings setObject:s forKey:stringToken];
 	}
-	
+
 	//NSLog(@"Squeezebox: getting string '%@': '%@'", stringToken, s);
-	
+
 	return s;
 }
 
 -(void)getMediaDirs
 {
 	NSDictionary *prefValue = [self jsonRequest:[NSString stringWithString:@"\"pref\", \"mediadirs\", \"?\""]];
-	
+
 	if (prefValue != nil) {
 		[mediaDirs removeAllObjects];
 		NSArray *dirs = [prefValue objectForKey:@"_p2"];
@@ -1124,9 +1049,9 @@
 /* very simplistic method to read an atomic pref from the server.prefs file */
 -(NSString *)getPref:(NSString *)pref fileName:(NSString*)prefsFileName
 {
-	
+
 	NSDictionary *prefValue;
-	
+
 	if ([prefsFileName isEqualToString:@""]) {
 		prefValue = [self jsonRequest:[NSString stringWithFormat:@"\"pref\", \"%@\", \"?\"", pref]];
 	}
@@ -1136,7 +1061,7 @@
 
 	if (prefValue != nil) {
 		NSString *value = [prefValue valueForKey:@"_p2"];
-		
+
 		if (value != nil) {
 			//NSLog(@"Squeezebox: Got preference '%@' using CLI: '%@'", pref, value);
 
@@ -1144,7 +1069,7 @@
 		}
 	}
 
-	
+
 	if ([prefsFileName isEqualToString:@""]) {
 		prefsFileName = prefsFile;
 	}
@@ -1152,18 +1077,18 @@
 		prefsFileName = [pluginPrefs stringByAppendingString:prefsFileName];
 		prefsFileName = [prefsFileName stringByAppendingString:@".prefs"];
 	}
-	
+
 	NSString *pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) fileName:prefsFileName];
-	
+
 	//NSLog(@"Squeezebox: Reading preference '%@' from file '%@'", pref, pathToPrefs);
-	
+
 	if ([pathToPrefs length] == 0)
 		pathToPrefs = [self findFile:NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, YES) fileName:prefsFile];
 
 	if ([pathToPrefs length] > 0) {
 		NSString *fileString = [NSString stringWithContentsOfFile:pathToPrefs];
 		NSArray *lines = [fileString componentsSeparatedByString:@"\n"];
-		
+
 		if ([lines count] > 0)
 		{
 			int i;
@@ -1173,28 +1098,28 @@
 
 				NSMutableString *prefix = [NSMutableString stringWithFormat:@"%@", [parts objectAtIndex:0]];
 				[prefix replaceOccurrencesOfString:@" " withString:@"" options:0 range:NSMakeRange(0, [prefix length])];
-				
+
 				if ([parts count] > 1 && [prefix isEqualToString:@""] ) {
 					return [parts objectAtIndex:1];
 				}
 			}
 		}
 	}
-	
+
 	NSLog(@"Squeezebox: failed reading preference '%@' from file '%@'", pref, pathToPrefs);
-	
+
 	return @"";
 }
 
 -(NSString *)getPref:(NSString *)pref
 {
 	return [self getPref:pref fileName:@""];
-}	
+}
 
 -(NSString *)findFile:(NSArray *)paths fileName:(NSString*)fileName
 {
 	NSFileManager *mgr = [NSFileManager defaultManager];
-	
+
 	if ([paths count] > 0)
 	{
 		int i;
@@ -1202,12 +1127,12 @@
 		{
 			NSString *p;
 			p = [[paths objectAtIndex:i] stringByAppendingPathComponent:fileName];
-			
+
 			if ([mgr fileExistsAtPath:p])
 				return p;
 		}
 	}
-	
+
 	return nil;
 }
 
