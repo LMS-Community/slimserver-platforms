@@ -125,6 +125,42 @@ echo "========================================"
 read
 EOF
 
+if [ ! -d $PREFIX/var/lib/lms/storage ]; then
+  mkdir $PREFIX/var/lib/lms/storage
+fi
+
+cat <<EOF > $PREFIX/var/lib/lms/importfavs
+#!/bin/bash
+echo "=============================================="
+echo "To import your favorites from another LMS or"
+echo "mysqueezebox.com:"
+echo "1. Ensure you have saved favorites.opml to"
+echo "   your phone's Download folder (not your SD"
+echo "   card's Download folder if you have one)."
+echo "2. Press y to continue or n to exit"
+echo "=============================================="
+read -r -n 1 response
+case "\$response" in
+    [yY])
+        echo
+        echo "importing..."
+	if [ ! -e storage/downloads/favorites.opml ]; then
+		echo "Cannot find favorites.opml, Press enter to quit this terminal"
+	else
+		service logitechmediaserver stop
+		cp storage/downloads/favorites.opml /var/lib/squeezeboxserver/prefs/favorites.opml
+		echo "Favorites imported. Press enter to quit this terminal,"
+		echo "then restart LMS."
+	fi
+        ;;
+    *)
+        echo
+	echo "Cancelled. Press enter to quit this terminal"
+        ;;
+esac
+read 
+EOF
+
 if [  ! -d ~/.shortcuts/tasks ]; then
   mkdir -p ~/.shortcuts/tasks
   chmod 700 -R ~/.shortcuts/tasks
@@ -166,7 +202,9 @@ echo "proot-distro login --kernel $kernel $distro -- service logitechmediaserver
 chmod +x ~/.shortcuts/tasks/"Stop LMS"
 echo "proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root $distro -- bash updatelms" > ~/.shortcuts/"Update LMS"
 chmod +x ~/.shortcuts/"Update LMS"
-echo "proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root $bind $distro" > ~/.shortcuts/Advanced/"Debian Terminal"
+echo "proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root --bind ~/storage:/root/storage $bind $distro" > ~/.shortcuts/Advanced/"Debian Terminal"
+chmod +x ~/.shortcuts/Advanced/"Debian Terminal"
+echo "proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root --bind ~/storage:/root/storage $bind $distro -- bash importfavs" > ~/.shortcuts/"Import favorites.opml"
 chmod +x ~/.shortcuts/Advanced/"Debian Terminal"
 echo "curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lmst -o lms && bash lms ; bash" > ~/.shortcuts/Advanced/"Rerun LMS Setup"
 chmod +x ~/.shortcuts/Advanced/"Rerun LMS Setup"
