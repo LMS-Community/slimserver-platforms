@@ -92,6 +92,7 @@ Some systems wouldn't allow you to map volumes outside specific folders, eg. Unr
 ### Docker on Synology
 * use `/etc/TZ` instead of `/etc/timezone`
 * you'll likely have to use another port than 9000. Synology traditionally used port 9002 to run Logitech Media Server on. See above note about mapping ports to make sure this is working as expected!
+* you should either use `host` mode to automatically expose LMS on your network, or add another variable `EXTRA_ARG` with the value `"--advertiseaddr=192.168.0.100"` (where you'd put your NAS' IP address) - see below for details.
 
 ### How to manually install plugins
 If you're a developer you might want to install plugins manually, before they are available through LMS' built-in plugin manager. In order to do so, put them inside `[config folder]/Cache/Plugins`, then restart LMS. They should be available in thereafter.
