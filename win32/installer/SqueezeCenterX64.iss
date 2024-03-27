@@ -72,7 +72,6 @@ Source: Output\SqzSvcMgr.exe; DestDir: {app}; Flags: ignoreversion
 [Dirs]
 Name: {commonappdata}\Squeezebox; Permissions: users-modify
 Name: {app}\server\Plugins; Permissions: users-modify
-Name: {app}\server\Bin; Permissions: users-modify
 
 [Icons]
 Name: {group}\{cm:SqueezeCenterWebInterface}; Filename: "http://localhost:{code:GetHttpPort}"; IconFilename: "{app}\SqueezeCenter.ico"
@@ -85,6 +84,9 @@ Root: HKLM; Subkey: SOFTWARE\Logitech\Squeezebox; ValueType: string; ValueName: 
 
 [InstallDelete]
 Type: filesandordirs; Name: {group}
+Type: filesandordirs; Name: {app}\server\CPAN
+Type: filesandordirs; Name: {app}\server\Slim
+Type: filesandordirs; Name: {app}\server\HTML
 
 [UninstallDelete]
 Type: dirifempty; Name: {app}
