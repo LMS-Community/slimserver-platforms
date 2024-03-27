@@ -24,7 +24,7 @@ MACOSX_DEPLOYMENT_TARGET=11.0 perlbrew install -D usethreads -D userelocatablein
 
 ## Build Dependencies
 
-* get code from https://github.com/Logitech/slimserver-vendor/tree/public/x.y/CPAN
+* get code from https://github.com/LMS-Community/slimserver-vendor/tree/public/x.y/CPAN
 * run `buildme.sh`:
 ```script
 ./buildme.sh -p ~/path/to/new/perl5.34.0
