@@ -1,7 +1,7 @@
 ;
 ; InnoSetup Script for Lyrion Music Server
 ;
-; Logitech : https://www.logitech.com
+; Logitech : https://www.lyrion.org
 
 #define AppName "Lyrion Music Server"
 #define AppVersion "9.0.0"

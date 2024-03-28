@@ -1,11 +1,9 @@
-$Id$
-
 This is Lyrion Music Server for Debian.
 
 It includes all fonts, HTML & Firmware, unlike the "Official Debian Package".
 
-Please see http://www.mysqueezebox.com/ for more information.
+Please see https://www.lyrion.org/ for more information.
 
-- Matt Wise <debian | at | slimdevices.com>
+- <admin@lms-community.org>
 
 Mon Jan 30 14:16:01 PST 2006

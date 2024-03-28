@@ -1,7 +1,7 @@
 Source: logitechmediaserver
 Section: sound
 Priority: optional
-Maintainer: Logitech/Slim Devices <debian@slimdevices.com>
+Maintainer: Logitech/Slim Devices <admin@lms-community.org>
 Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5)
 Standards-Version: 3.9.5
 

@@ -3,8 +3,8 @@
 //  Lyrion Music Server
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
-//  Copyright 2002-2020 Logitech
-//
+//  Copyright 2002-2024 Logitech
+//  Lyrion Music Server Copyright 2024 Lyrion Community.
 
 #import <PreferencePanes/PreferencePanes.h>
 #import <Foundation/NSPathUtilities.h>

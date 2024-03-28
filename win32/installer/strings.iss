@@ -774,8 +774,8 @@ sv.WaitingForServices=Väntar på att Lyrion Music Server stoppas ...
 PleaseInstallVCRedist2010=In order to install Lyrion Music Server on this computer you'll have to install the Microsoft Visual C++ 2010 Redistributable Package (x86).
 fr.PleaseInstallVCRedist2010=Pour installer le Lyrion Music Server sur cet ordinateur, vous devrez installer le package redistribuable Microsoft Visual C++ 2010 (x86).
 
-FindVCRedist2010Online=Please download it from the following link:%n%nhttp://www.microsoft.com/download/en/details.aspx?id=8328
-fr.FindVCRedist2010Online=Veuillez le télécharger à partir du lien suivant :%n%nhttp://www.microsoft.com/download/en/details.aspx?id=8328
+FindVCRedist2010Online=Please download it from the following link:%n%nhttps://www.microsoft.com/download/en/details.aspx?id=8328
+fr.FindVCRedist2010Online=Veuillez le télécharger à partir du lien suivant :%n%nhttps://www.microsoft.com/download/en/details.aspx?id=8328
 
 FindVCRedist=You can find a copy of the package in the Software share of your WHS.
 fr.FindVCRedist=Vous pouvez trouver une copie du package dans le partage logiciel de votre WHS.

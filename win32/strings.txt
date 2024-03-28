@@ -178,21 +178,6 @@ SQUEEZEBOX_SERVER_STOPPED
 	RU	Logitech Media Server остановлен
 	SV	Logitech Media Server har stoppats
 
-GO_TO_WEBSITE
-	CS	Přejděte na webovou stránku Logitech
-	DA	Gå til Logitechs websted
-	DE	Logitech Website öffnen
-	EN	Go to Logitech Web Site
-	ES	Ir al sitio Web de Logitech
-	FI	Siirry Logitechin sivustoon
-	FR	Accéder au site Web de Logitech
-	IT	Vai al sito Web Logitech
-	NL	Naar de Logitech-website
-	NO	Gå til Logitechs nettside
-	PL	Przejdź do witryny sieci Web firmy Logitech
-	RU	Перейти на веб-сайт Logitech
-	SV	Gå till Logitechs webbplats
-
 EXIT
 	CS	U&končit
 	DA	&Afslut

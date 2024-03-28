@@ -36,14 +36,14 @@
 
 
 Name:		logitechmediaserver
-Packager:	Logitech - please visit www.mysqueezebox.com/support
+Packager:	Logitech - please visit www.lyrion.org
 Version:	%{_version}
 Release:	%{rpm_release}
 Summary:        Lyrion Music Server
 
 Group:		System Environment/Daemons
 License:	GPL and proprietary
-URL:		http://www.mysqueezebox.com
+URL:		https://www.lyrion.org
 Source0:	%{src_basename}.tgz
 Source1:	squeezeboxserver.config
 Source2:	squeezeboxserver.init
@@ -51,7 +51,7 @@ Source3:	squeezeboxserver.logrotate
 Source4:	squeezeboxserver.service
 Source5:	README.systemd
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
-Vendor:		Logitech
+Vendor:		Lyrion Community
 
 
 Requires:	perl >= 5.10.0
