@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# logitechmediaserver	Startup script for the Logitech Media Server
+# logitechmediaserver	Startup script for the Lyrion Music Server
 #
 # chkconfig:		345 80 30
-# description:		Logitech Media Server powers the Squeezebox, Transporter and SLIMP3 network music \
+# description:		Lyrion Music Server powers the Squeezebox, Transporter and SLIMP3 network music \
 #			players and is the best software to stream your music to any software MP3 \
 #			player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more! \
 #			As of version 7.7 it also supports UPnP clients, serving pictures and movies too!
@@ -20,13 +20,13 @@
 # Should-Stop:		$time ypbind sendmail
 # Default-Start:	3 5
 # Default-Stop:		0 1 2 6
-# Short-Description:	Startup script for the Logitech Media Server
-# Description:		Logitech Media Server powers the Squeezebox, Transporter and SLIMP3 network music \
+# Short-Description:	Startup script for the Lyrion Music Server
+# Description:		Lyrion Music Server powers the Squeezebox, Transporter and SLIMP3 network music \
 #			players and is the best software to stream your music to any software MP3 \
 #			player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more! \
 #			As of version 7.7 it also supports UPnP clients, serving pictures and movies too!
 ### END INIT INFO
-# 
+#
 
 if [[ -n $(grep -i -E "(redhat|centos|fedora)" /etc/os-release 2>/dev/null) || -f /etc/redhat-release ]] ; then
 	redhat=yes
@@ -44,13 +44,13 @@ if [[ -n $(grep -i -E "(redhat|centos|fedora)" /etc/os-release 2>/dev/null) || -
 		if [ "$1" = "stop" ]; then exit 0;
 		else exit 6; fi; }
 
-	# Read config	
+	# Read config
 	. $SQUEEZEBOX_CONFIG
 
 	# Check for missing binaries (stale symlinks should not happen)
 	# Note: Special treatment of stop for LSB conformance
 	SQUEEZEBOX_BIN="$SQUEEZEBOX_HOME/squeezeboxserver"
-	test -x $SQUEEZEBOX_BIN || { echo "$SQUEEZEBOX_BIN not installed"; 
+	test -x $SQUEEZEBOX_BIN || { echo "$SQUEEZEBOX_BIN not installed";
 		if [ "$1" = "stop" ]; then exit 0;
 		else exit 5; fi; }
 
@@ -111,13 +111,13 @@ elif [[ -n $(grep -i -E "(suse|sles)" /etc/os-release 2>/dev/null) ||  -f /etc/S
 		if [ "$1" = "stop" ]; then exit 0;
 		else exit 6; fi; }
 
-	# Read config	
+	# Read config
 	. $SQUEEZEBOX_CONFIG
 
 	# Check for missing binaries (stale symlinks should not happen)
 	# Note: Special treatment of stop for LSB conformance
 	SQUEEZEBOX_BIN="$SQUEEZEBOX_HOME/squeezeboxserver"
-	test -x $SQUEEZEBOX_BIN || { echo "$SQUEEZEBOX_BIN not installed"; 
+	test -x $SQUEEZEBOX_BIN || { echo "$SQUEEZEBOX_BIN not installed";
 		if [ "$1" = "stop" ]; then exit 0;
 		else exit 5; fi; }
 
@@ -193,7 +193,7 @@ case "$1" in
 		exit 1
 esac
 
-if [[ -n "$redhat" ]]; then 
+if [[ -n "$redhat" ]]; then
    exit $RETVAL
 elif [[ -n "$suse" ]]; then
    rc_exit

@@ -16,7 +16,7 @@ if [[ -f /config/custom-init.sh ]]; then
 	sh /config/custom-init.sh
 fi
 
-echo Starting Logitech Media Server on port $HTTP_PORT...
+echo Starting Lyrion Music Server on port $HTTP_PORT...
 if [[ -n "$EXTRA_ARGS" ]]; then
 	echo "Using additional arguments: $EXTRA_ARGS"
 fi

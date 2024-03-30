@@ -1,9 +1,9 @@
 ;
-; InnoSetup Script for Logitech Media Server
+; InnoSetup Script for Lyrion Music Server
 ;
 ; Logitech : https://www.logitech.com
 
-#define AppName "Logitech Media Server"
+#define AppName "Lyrion Music Server"
 #define AppVersion "9.0.0"
 #define ProductURL "https://forums.slimdevices.com"
 #define SBRegKey = "Software\Logitech\Squeezebox"

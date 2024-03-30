@@ -1,6 +1,6 @@
 # logitechmediaserver
 
-The [LMS Community](https://github.com/LMS-Community)'s Docker image for [Logitech Media Server](https://github.com/LMS-Community/slimserver/) ([Dockerfile](https://github.com/LMS-Community/slimserver-platforms/tree/HEAD/Docker)).
+The [LMS Community](https://github.com/LMS-Community)'s Docker image for [Lyrion Music Server](https://github.com/LMS-Community/slimserver/) ([Dockerfile](https://github.com/LMS-Community/slimserver-platforms/tree/HEAD/Docker)).
 
 ## Tags
 * `latest`: the latest release version, currently v8.5.0
@@ -25,7 +25,7 @@ docker run -it \
       lmscommunity/logitechmediaserver
 ```
 
-Please note that the http port always has to be a 1:1 mapping. You can't just map it like `-p 9002:9000`, as Logitech Media Server is telling players on which port to connect. Therefore if you have to use a different http port for LMS (other than 9000) you'll have to set the `HTTP_PORT` environment variable, too:
+Please note that the http port always has to be a 1:1 mapping. You can't just map it like `-p 9002:9000`, as Lyrion Music Server is telling players on which port to connect. Therefore if you have to use a different http port for LMS (other than 9000) you'll have to set the `HTTP_PORT` environment variable, too:
 
 ```
 docker run -it \
@@ -91,17 +91,17 @@ Some systems wouldn't allow you to map volumes outside specific folders, eg. Unr
 
 ### Docker on Synology
 * use `/etc/TZ` instead of `/etc/timezone`
-* you'll likely have to use another port than 9000. Synology traditionally used port 9002 to run Logitech Media Server on. See above note about mapping ports to make sure this is working as expected!
+* you'll likely have to use another port than 9000. Synology traditionally used port 9002 to run Lyrion Music Server on. See above note about mapping ports to make sure this is working as expected!
 * you should either use `host` mode to automatically expose LMS on your network, or add another variable `EXTRA_ARG` with the value `"--advertiseaddr=192.168.0.100"` (where you'd put your NAS' IP address) - see below for details.
 
 ### How to manually install plugins
 If you're a developer you might want to install plugins manually, before they are available through LMS' built-in plugin manager. In order to do so, put them inside `[config folder]/Cache/Plugins`, then restart LMS. They should be available in thereafter.
 
 ### Passing additional launch arguments
-Starting with v8.4 an optional `EXTRA_ARGS` environment variable exists for passing additional arguments to Logitech Media Server process. For example, disabling the web interface could be achieved with `EXTRA_ARGS="--noweb"`.
+Starting with v8.4 an optional `EXTRA_ARGS` environment variable exists for passing additional arguments to Lyrion Music Server process. For example, disabling the web interface could be achieved with `EXTRA_ARGS="--noweb"`.
 
 ### Define the service's IP address
-Some plugins like eg. the Sounds & Effects, require the player to know the server's IP address. In the default `bridge` networking mode, the internal IP address would be different from what the player can see. Therefore playback would fail - unless we tell Logitech Media Server what port to announce. This can be done using the above method to define the `--advertiseaddr` parameter:
+Some plugins like eg. the Sounds & Effects, require the player to know the server's IP address. In the default `bridge` networking mode, the internal IP address would be different from what the player can see. Therefore playback would fail - unless we tell Lyrion Music Server what port to announce. This can be done using the above method to define the `--advertiseaddr` parameter:
 
 
 ```
@@ -119,8 +119,8 @@ docker run -it \
       lmscommunity/logitechmediaserver
 ```
 
-### Running a script before the launch of Logitech Media Server (v8.2.0+)
-You can put a script called `custom-init.sh` in the configuration folder. If that script exists, it will be executed before Logitech Media Server is launched. This would allow you to add additional software packages to the container. Eg. the following two lines put into `custom-init.sh` will install `ffmpeg` for use with some plugins:
+### Running a script before the launch of Lyrion Music Server (v8.2.0+)
+You can put a script called `custom-init.sh` in the configuration folder. If that script exists, it will be executed before Lyrion Music Server is launched. This would allow you to add additional software packages to the container. Eg. the following two lines put into `custom-init.sh` will install `ffmpeg` for use with some plugins:
 ```
 apt-get update -qq
 apt-get install --no-install-recommends -qy ffmpeg

@@ -4,7 +4,7 @@
 
 [Unit]
 
-Description=Logitech Media Server
+Description=Lyrion Music Server
 
 # Ensures LMS is shutdown before network. And that the network service
 # has at least been started.

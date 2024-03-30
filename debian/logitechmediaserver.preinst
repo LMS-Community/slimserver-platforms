@@ -2,7 +2,7 @@
 
 # $Id$
 
-# preinst script for Logitech Media Server
+# preinst script for Lyrion Music Server
 
 set -e
 . /usr/share/debconf/confmodule
@@ -30,7 +30,7 @@ case "$1" in
 	fi
 
     ;;
-	
+
 esac
 
 # dh_installdeb will replace this with shell code automatically

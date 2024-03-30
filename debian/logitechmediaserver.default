@@ -1,4 +1,4 @@
-# User to run Logitech Media Server as.
+# User to run Lyrion Music Server as.
 # Only applicable to platforms that do not use systemd.
 # Running the server as a user other than the default squeezeboxserver
 # is not recommended.

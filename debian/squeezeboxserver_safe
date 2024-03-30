@@ -4,13 +4,13 @@
 
 if [ $# = 0 ]
 then
-  echo "Script to restart Logitech Media Server over and over again."
+  echo "Script to restart Lyrion Music Server over and over again."
   echo "This might need to be done since the mysql-server is sometimes"
   echo "restarted due to upgrades and log-rotation and this causes"
-  echo "Logitech Media Server to exit."
+  echo "Lyrion Music Server to exit."
   echo
-  echo "To stop Logitech Media Server, kill this script instead of the"
-  echo "actual Logitech Media Server process."
+  echo "To stop Lyrion Music Server, kill this script instead of the"
+  echo "actual Lyrion Music Server process."
   echo
   echo "Usage: $0 <squeezeboxserver-binary> <squeezeboxserver-arguments>"
   exit 1
@@ -30,8 +30,8 @@ echo `date "+%F %H:%M:%S"` "squeezeboxserver_safe started." >> /var/log/squeezeb
 while true
 do
   # From the Bash Reference Manual:
-  # When Bash receives a signal for which a trap has been set 
-  # while waiting for a command to complete, the trap will not 
+  # When Bash receives a signal for which a trap has been set
+  # while waiting for a command to complete, the trap will not
   # be executed until the command completes. When Bash is waiting
   # for an asynchronous command via the wait builtin, the reception
   # of a signal for which a trap has been set will cause the wait
@@ -40,12 +40,12 @@ do
 
   "$@" 1> >(logger) 2>&1 &
   SLIMPID=$!
-  
+
   # wait for the server to get started before wait()
   sleep 5
-  
+
   wait $SLIMPID
-  echo `date "+%F %H:%M:%S"` "Logitech Media Server died. Restarting." >> /var/log/squeezeboxserver/server.log
+  echo `date "+%F %H:%M:%S"` "Lyrion Music Server died. Restarting." >> /var/log/squeezeboxserver/server.log
 
   # Normally, when the server realizes that the mysql-connection is gone,
   # the mysql server has already been started again. So no need to sleep

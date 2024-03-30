@@ -1,6 +1,6 @@
 //
 //  ServerPref.m
-//  Logitech Media Server
+//  Lyrion Music Server
 //
 //  Created by Dave Nanian on Wed Oct 16 2002.
 //  Copyright 2002-2020 Logitech
@@ -513,7 +513,7 @@
 		[updateTimer invalidate];
 
 		NSBeginAlertSheet (
-						   LocalizedPrefString(@"An updated Logitech Media Server version is available and ready to be installed.", @""),
+						   LocalizedPrefString(@"An updated Lyrion Music Server version is available and ready to be installed.", @""),
 						   LocalizedPrefString(@"Install update", @""),
 						   LocalizedPrefString(@"Not now", @""),
 						   nil,
@@ -1002,7 +1002,7 @@
 	return json;
 }
 
-/* get localized string from Logitech Media Server; cache in a dictionary for future uses */
+/* get localized string from Lyrion Music Server; cache in a dictionary for future uses */
 -(NSString *)getSCString:(NSString *)stringToken
 {
 	stringToken = [stringToken uppercaseString];

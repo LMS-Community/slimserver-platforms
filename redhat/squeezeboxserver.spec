@@ -39,7 +39,7 @@ Name:		logitechmediaserver
 Packager:	Logitech - please visit www.mysqueezebox.com/support
 Version:	%{_version}
 Release:	%{rpm_release}
-Summary:        Logitech Media Server
+Summary:        Lyrion Music Server
 
 Group:		System Environment/Daemons
 License:	GPL and proprietary
@@ -62,7 +62,7 @@ AutoReqProv:	no
 BuildArch:	noarch
 
 %description
-Logitech Media Server powers the Squeezebox, Transporter and SLIMP3 network music
+Lyrion Music Server powers the Squeezebox, Transporter and SLIMP3 network music
 players and is the best software to stream your music to any software MP3
 player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
 As of version 7.7 it also supports UPnP clients, serving pictures and movies too!
@@ -165,7 +165,7 @@ test -f /tmp/squeezerpmdebug && set -x
 getent group squeezeboxserver >/dev/null || groupadd -r squeezeboxserver
 getent passwd squeezeboxserver >/dev/null || \
 useradd -r -g squeezeboxserver -d %{_datadir}/squeezeboxserver -s /sbin/nologin \
-    -c "Logitech Media Server" squeezeboxserver
+    -c "Lyrion Music Server" squeezeboxserver
 
 exit 0
 
@@ -283,7 +283,7 @@ if [ -n "$migrate" ] ; then
 	echo "Squeezeboxserver was migrated from old style SYSV to systemd start-up."
 	parseSysconfigSqueezeboxserver || :
 fi
-echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure Logitech Media Server."
+echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure Lyrion Music Server."
 
 %preun
 test -f /tmp/squeezerpmdebug && set -x

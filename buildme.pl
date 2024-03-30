@@ -144,7 +144,7 @@ sub checkCommandOptions {
 }
 
 ##############################################################################################
-## Here we search through the Logitech Media Server startup script to dynamically grab the version  ##
+## Here we search through the Lyrion Music Server startup script to dynamically grab the version  ##
 ## number for the rest of our script.							    ##
 ##############################################################################################
 
@@ -351,7 +351,7 @@ sub showUsage {
 	print "buildme.pl - version ($myVersion) - Help \n";
 	print "-------------------------------------------\n";
 	print "This script can build all of our versions \n";
-	print "of Logitech Media Server... but only one at a time.\n";
+	print "of Lyrion Music Server... but only one at a time.\n";
 	print "Each distribution has its own options, \n";
 	print "listed below... don't try to mix them up! :)\n";
 	print " \n";
@@ -693,7 +693,7 @@ sub buildMacOSX {
 		system("cd \"$contentsDir\"; mkdir perl; cd perl; tar xjf \"$buildDir/platforms/osx/Perl-5.34.0-x86_64-arm64.tar.bz2\"; chmod a+x bin/perl");
 
 		print "INFO: Create installer package $pkgName...\n";
-		system("/Developer/usr/bin/packagemaker --verbose --root-volume-only --root \"$prefPaneDir\" --scripts \"$buildDir/platforms/osx/Installer/scripts\" --out \"$destDir/$pkgName.pkg\" --target 10.5 --domain system --id com.logitech.music.Squeezebox --version 1.0 --resources \"$buildDir/platforms/osx/Installer/l10n\" --title \"Logitech Media Server\"");
+		system("/Developer/usr/bin/packagemaker --verbose --root-volume-only --root \"$prefPaneDir\" --scripts \"$buildDir/platforms/osx/Installer/scripts\" --out \"$destDir/$pkgName.pkg\" --target 10.5 --domain system --id com.logitech.music.Squeezebox --version 1.0 --resources \"$buildDir/platforms/osx/Installer/l10n\" --title \"Lyrion Music Server\"");
 
 		# add localized resource files to the package
 		print "\nINFO: Add localized resource files to package...\n";
@@ -771,14 +771,14 @@ sub buildWin32 {
 			"FileVersion=$rev",
 			"LegalCopyright=Copyright 2001-2020 Logitech Inc.",
 			"ProductVersion=$version",
-			"ProductName=Logitech Media Server",
+			"ProductName=Lyrion Music Server",
 		);
 
 
 		print "INFO: Building SqueezeTray executable...\n";
 
 		my $programInfo = join(';', @versionInfo, (
-			"FileDescription=Logitech Media Server Tray Icon",
+			"FileDescription=Lyrion Music Server Tray Icon",
 			"OriginalFilename=SqueezeTray",
 			"InternalName=SqueezeTray",
 		));
@@ -787,11 +787,11 @@ sub buildWin32 {
 		move("$buildDir/platforms/win32/SqueezeTray.exe", "$buildDir/build/SqueezeTray.exe");
 		copy("$buildDir/platforms/win32/strings.txt", "$buildDir/build/strings.txt");
 
-		print "INFO: Building Logitech Media Server Service Helper executable...\n";
+		print "INFO: Building Lyrion Music Server Service Helper executable...\n";
 
 
 		$programInfo = join(';', @versionInfo, (
-			"FileDescription=Logitech Media Server Service Helper",
+			"FileDescription=Lyrion Music Server Service Helper",
 			"OriginalFilename=squeezesvc",
 			"InternalName=squeezesvc",
 		));
@@ -800,10 +800,10 @@ sub buildWin32 {
 		move("$buildDir/platforms/win32/squeezesvc.exe", "$buildDir/build/server/squeezesvc.exe");
 
 
-		print "INFO: Building Logitech Media Server executable for server...\n";
+		print "INFO: Building Lyrion Music Server executable for server...\n";
 
 		$programInfo = join(';', @versionInfo, (
-			"FileDescription=Logitech Media Server",
+			"FileDescription=Lyrion Music Server",
 			"OriginalFilename=SqueezeboxServer",
 			"InternalName=SqueezeboxServer",
 		));
@@ -815,7 +815,7 @@ sub buildWin32 {
 		print "Making scanner executable...\n";
 
 		$programInfo = join(';', @versionInfo, (
-			"FileDescription=Logitech Media Server Scanner",
+			"FileDescription=Lyrion Music Server Scanner",
 			"OriginalFilename=Scanner",
 			"InternalName=Scanner",
 		));
@@ -827,7 +827,7 @@ sub buildWin32 {
 		print "Making control panel executable...\n";
 
 		$programInfo = join(';', @versionInfo, (
-			"FileDescription=Logitech Media Server Control Panel",
+			"FileDescription=Lyrion Music Server Control Panel",
 			"OriginalFilename=Cleanup",
 			"InternalName=Cleanup",
 		));

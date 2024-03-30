@@ -18,8 +18,8 @@
 # Should-Stop:       	$all
 # Default-Start:     	2 3 4 5
 # Default-Stop:      	0 1 6
-# Short-Description:	Startup script for the Logitech Media Server
-# Description:		Logitech Media Server powers the Squeezebox, Transporter and SLIMP3 network music \
+# Short-Description:	Startup script for the Lyrion Music Server
+# Description:		Lyrion Music Server powers the Squeezebox, Transporter and SLIMP3 network music \
 #			players and is the best software to stream your music to any software MP3 \
 #			player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more! \
 #			As of version 7.7 it also supports UPnP clients, serving pictures and movies too!"
@@ -30,7 +30,7 @@ set -e
 . /lib/lsb/init-functions
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DESC="Logitech Media Server"
+DESC="Lyrion Music Server"
 NAME=squeezeboxserver
 NEWNAME=logitechmediaserver
 DAEMON=/usr/sbin/$NAME
@@ -44,7 +44,7 @@ CACHEDIR=/var/lib/$NAME/cache
 CHARSET=utf8
 
 ## if you want to add additional options
-## use /usr/sbin/squeezeboxserver --help 
+## use /usr/sbin/squeezeboxserver --help
 ## for the supported options and place them
 ## into the configfile  /etc/default/logitechmediaserver
 
@@ -97,8 +97,8 @@ d_start_direct() {
 d_stop() {
 
 	## This is a bug in the start-stop-daemon that checks the PID name from the /proc/PID/stat filesystem...
-	## Unfortunately this cuts-off the name of the daemon because its longer now, and then it doesnt get 
-	## caught by the start-stop-daemon. The daemon actually reports it as squeezeboxserve instead of 
+	## Unfortunately this cuts-off the name of the daemon because its longer now, and then it doesnt get
+	## caught by the start-stop-daemon. The daemon actually reports it as squeezeboxserve instead of
 	## squeezeboxserver_safe.
 	start-stop-daemon --oknodo --stop --pidfile $PIDFILE --retry=TERM/30/KILL/5
 }
@@ -134,7 +134,7 @@ case "$1" in
 	d_start
 	echo "."
 	;;
-  status)  
+  status)
 	status_of_proc /usr/bin/$NEWNAME $NEWNAME
 	;;
   *)

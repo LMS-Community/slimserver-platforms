@@ -4,7 +4,7 @@
 
 syslog -s -k Facility com.apple.console \
              Level Error \
-             Sender "Logitech Media Server installer" \
+             Sender "Lyrion Music Server installer" \
              Message "Launching: $1"
 
 if [ -e $1 ] ; then
@@ -14,7 +14,7 @@ if [ -e $1 ] ; then
 else
 	syslog -s -k Facility com.apple.console \
 	             Level Error \
-	             Sender "Logitech Media Server installer" \
+	             Sender "Lyrion Music Server installer" \
 	             Message "Didn't find $1"
 fi
-	
+

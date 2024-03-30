@@ -23,7 +23,7 @@ override_dh_gencontrol:
 	dh_gencontrol
 	sed -i '/^Depends/s/init-system-helpers[^,]*,\s*//' ${base}/DEBIAN/control
 
-# Overrides for variances within Logitech Media Server file locations
+# Overrides for variances within Lyrion Music Server file locations
 override_dh_perl:
 	# using hard-coded dependency in control file
 

@@ -6,8 +6,8 @@
 "Expired Authorization Error" = "Unable to update firmware: authorization expired.";
 "Firmware version" = "Firmware version %@.";
 "Firmware version invalid" = "Firmware version invalid.";
-"An updated Logitech Media Server version is available and ready to be installed." = "An updated Logitech Media Server version is available and ready to be installed.";
-"There's no updated Logitech Media Server version available." = "There's no updated Logitech Media Server version available.";
+"An updated Lyrion Music Server version is available and ready to be installed." = "An updated Lyrion Music Server version is available and ready to be installed.";
+"There's no updated Lyrion Music Server version available." = "There's no updated Lyrion Music Server version available.";
 "Check for update" = "Check for update";
 "Download update" = "Download update";
 "Install update" = "Install update";

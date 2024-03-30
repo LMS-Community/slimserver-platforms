@@ -1,9 +1,9 @@
 ;
-; InnoSetup Script for Logitech Media Server
+; InnoSetup Script for Lyrion Music Server
 ;
 ; Logitech : https://www.logitech.com
 
-#define AppName    "Logitech Media Server"
+#define AppName    "Lyrion Music Server"
 #define AppVersion "9.0.0"
 #define ProductURL "https://forums.slimdevices.com"
 #define SBRegKey   "Software\Logitech\Squeezebox"
@@ -103,7 +103,7 @@ Filename: "sc"; Parameters: "start {#ServiceName}"; Flags: runhidden; MinVersion
 Filename: "http://localhost:{code:GetHttpPort}"; Description: {cm:StartupSqueezeCenterWebInterface}; Flags: postinstall nowait skipifsilent shellexec unchecked
 
 ; Remove old firewall rules, then add new
-Filename: "netsh"; Parameters: "advfirewall firewall delete rule name=""Logitech Media Server"""; Flags: runhidden
+Filename: "netsh"; Parameters: "advfirewall firewall delete rule name=""Lyrion Music Server"""; Flags: runhidden
 Filename: "netsh"; Parameters: "advfirewall firewall delete rule name=""{#AppName} (Perl)"""; Flags: runhidden
 Filename: "netsh"; Parameters: "advfirewall firewall add rule name=""{#AppName} (Perl)"" dir=in program=""{app}\{#LMSPerlBin}"" action=allow"; Flags: runhidden
 

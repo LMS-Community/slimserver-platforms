@@ -2,8 +2,8 @@
 #define LMSPerlBin  "Perl\perl\bin\perl.exe"
 
 [Setup]
-AppName=Logitech Media Server Service Enabler
-AppVerName=Logitech Media Server
+AppName=Lyrion Music Server Service Enabler
+AppVerName=Lyrion Music Server
 OutputBaseFilename=SqzSvcMgr
 WizardImageFile=squeezebox.bmp
 WizardSmallImageFile=logi.bmp

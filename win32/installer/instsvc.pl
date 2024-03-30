@@ -17,12 +17,12 @@ my $arguments = join(' ', @ARGV);
 
 my %ServiceConfig = (
 	name => "squeezesvc",
-	display => "Logitech Media Server",
+	display => "Lyrion Music Server",
 	path => $^X,
 	user => $username,
 	password => $password,
 	parameters => "\"$script\" --daemon $arguments",
-	description => "Logitech Media Server - streaming media server",
+	description => "Lyrion Music Server - streaming media server",
 );
 
 if ( Win32::Daemon::CreateService ( \%ServiceConfig ) ) {

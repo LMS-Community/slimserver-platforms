@@ -180,7 +180,7 @@ sub ToolTip {
 
 	$toolTips{$state} = $stateString if $stateString;
 
-	return $stateString || 'Logitech Media Server';
+	return $stateString || 'Lyrion Music Server';
 }
 
 # The regular (heartbeat) timer that checks the state of the server
@@ -266,7 +266,7 @@ sub checkSCActive {
 # see whether SC has downloaded an update version
 sub checkForUpdate {
 	if ( $svcMgr->getServiceState() != SC_STATE_STARTING && Slim::Utils::Light->checkForUpdate() ) {
-		Balloon(string('UPDATE_AVAILABLE'), "Logitech Media Server", "info", 1);
+		Balloon(string('UPDATE_AVAILABLE'), "Lyrion Music Server", "info", 1);
 
 		# once the balloon is shown, only poll every hour
 		SetTimer('1:00:00', \&checkForUpdate);
@@ -278,7 +278,7 @@ sub startServer {
 
 	if ($svcMgr->getServiceState() != SC_STATE_STARTING) {
 
-		Balloon(string('STARTING_SQUEEZEBOX_SERVER'), "Logitech Media Server", "", 1);
+		Balloon(string('STARTING_SQUEEZEBOX_SERVER'), "Lyrion Music Server", "", 1);
 		SetAnimation(TIMERSECS * 1000, 1000, "SqueezeCenter", "SqueezeCenterOff");
 
 	}
@@ -311,7 +311,7 @@ sub openControlPanelAsAdmin {
 sub showErrorMessage {
 	my $message = shift;
 
-	MessageBox($message, "Logitech Media Server", MB_OK | MB_ICONERROR);
+	MessageBox($message, "Lyrion Music Server", MB_OK | MB_ICONERROR);
 }
 
 sub processID {
@@ -339,7 +339,7 @@ sub stopServer {
 
 	if ($svcMgr->getServiceState() == SC_STATE_RUNNING) {
 
-		Balloon(string('STOPPING_SQUEEZEBOX_SERVER'), "Logitech Media Server", "", 1);
+		Balloon(string('STOPPING_SQUEEZEBOX_SERVER'), "Lyrion Music Server", "", 1);
 
 	}
 }

@@ -56,7 +56,7 @@
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{138, 392}, {595, 538}}</string>
 				<int key="NSWTFlags">1081606144</int>
-				<string key="NSWindowTitle">Logitech Media Server</string>
+				<string key="NSWindowTitle">Lyrion Music Server</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<object class="NSMutableString" key="NSViewClass">
 					<characters key="NS.bytes">View</characters>
