@@ -1,6 +1,6 @@
-# logitechmediaserver
+# lyrionmusicserver
 
-The [LMS Community](https://github.com/LMS-Community)'s Docker image for [Lyrion Music Server](https://github.com/LMS-Community/slimserver/) ([Dockerfile](https://github.com/LMS-Community/slimserver-platforms/tree/HEAD/Docker)).
+The [LMS Community](https://github.com/LMS-Community)'s Docker image for [Lyrion Music Server](https://github.com/LMS-Community/slimserver/) ([Dockerfile](https://github.com/LMS-Community/slimserver-platforms/tree/HEAD/Docker)). This formerly was known as `logitechmediaserver`.
 
 ## Tags
 * `latest`: the latest release version, currently v8.5.0
@@ -22,7 +22,7 @@ docker run -it \
       -p 9090:9090/tcp \
       -p 3483:3483/tcp \
       -p 3483:3483/udp \
-      lmscommunity/logitechmediaserver
+      lmscommunity/lyrionmusicserver
 ```
 
 Please note that the http port always has to be a 1:1 mapping. You can't just map it like `-p 9002:9000`, as Lyrion Music Server is telling players on which port to connect. Therefore if you have to use a different http port for LMS (other than 9000) you'll have to set the `HTTP_PORT` environment variable, too:
@@ -39,7 +39,7 @@ docker run -it \
       -p 3483:3483/tcp \
       -p 3483:3483/udp \
       -e HTTP_PORT=9002 \
-      lmscommunity/logitechmediaserver
+      lmscommunity/lyrionmusicserver
 ```
 
 Docker compose:
@@ -48,7 +48,7 @@ version: '3'
 services:
   lms:
     container_name: lms
-    image: lmscommunity/logitechmediaserver
+    image: lmscommunity/lyrionmusicserver
     volumes:
       - /<somewhere>:/config:rw
       - /<somewhere>:/music:ro
@@ -116,7 +116,7 @@ docker run -it \
       -p 3483:3483/tcp \
       -p 3483:3483/udp \
       -e EXTRA_ARGS="--advertiseaddr=192.168.0.100" \
-      lmscommunity/logitechmediaserver
+      lmscommunity/lyrionmusicserver
 ```
 
 ### Running a script before the launch of Lyrion Music Server (v8.2.0+)
