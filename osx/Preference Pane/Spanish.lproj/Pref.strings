@@ -86,8 +86,8 @@
 /* Class = "NSMenuItem"; title = "Reset logging preferences"; ObjectID = "1004"; */
 "1004.title" = "Restablecer preferencias de registro";
 
-/* Class = "NSTextFieldCell"; title = "© 2001-2024 Logitech"; ObjectID = "1054"; */
-"1054.title" = "© 2001-2024 Logitech";
+/* Class = "NSTextFieldCell"; title = "© 2001-2024 Lyrion Community"; ObjectID = "1054"; */
+"1054.title" = "© 2001-2024 Lyrion Community";
 
 /* Class = "NSTextFieldCell"; title = "Version 9.0.0"; ObjectID = "1055"; */
 "1055.title" = "Versión 9.0.0";

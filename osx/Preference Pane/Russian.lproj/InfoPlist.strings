@@ -2,6 +2,6 @@
 
 CFBundleName = "Lyrion Music Server";
 CFBundleShortVersionString = "9.0.0";
-CFBundleGetInfoString = "Lyrion Music Server, версия 9.0.0. © Logitech, 2002-2024";
-NSHumanReadableCopyright = "© Logitech, 2002-2024";
-NSPrefPaneIconLabel = "Logitech\nMedia Server";
+CFBundleGetInfoString = "Lyrion Music Server, версия 9.0.0. © Logitech, 2002-2024, Lyrion Community, 2024";
+NSHumanReadableCopyright = "© Lyrion Community, 2024";
+NSPrefPaneIconLabel = "Lyrion\nMusic Server";

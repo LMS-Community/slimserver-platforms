@@ -1,14 +1,15 @@
 package MsgBox;
 
-# Copyright 2001-2020 Logitech.
+# Copyright 2001-2024 Logitech.
+# Copyright 2024 Lyrion Community.
 # This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License, 
+# modify it under the terms of the GNU General Public License,
 # version 2.
 
 # This module provides some functions compatible with functions
 # from the core server code, without their overhead.
 # These functions are called by helper applications like the tray icon
-# or the control panel. 
+# or the control panel.
 
 use strict;
 
@@ -20,9 +21,9 @@ my $language;
 
 sub init {
 	my $class = shift;
-	
+
 	$language ||= $class->_getSystemLanguage();
-		
+
 	my $string     = '';
 	my $language   = '';
 	my $stringname = '';
@@ -36,7 +37,7 @@ sub init {
 
 	foreach my $line (<STRINGS>) {
 		chomp($line);
-		
+
 		next if $line =~ /^#/;
 		next if $line !~ /\S/;
 
@@ -60,21 +61,21 @@ sub init {
 
 sub show {
 	my ($class, $title, $msg) = @_;
-	
+
 	$class->init() if !$language;
 
 	$title = $class->string($title);
 	$msg   = $class->string($msg);
 
 	my $ok = $class->string('OK');
-	
+
 	`/usr/bin/osascript <<-EOF
-	
+
 	    tell application "System Events"
 	        activate
 	        display dialog "$msg" buttons { "$ok" } with title "$title" default button 1
 	    end tell
-	
+
 	EOF`;
 }
 
@@ -82,15 +83,15 @@ sub show {
 sub string {
 	my $class = shift;
 	my $name = shift;
-	
+
 	my $lang = shift || $language;
-	
+
 	my $string = $strings{ $name }->{ $lang } || $strings{ $name }->{ $language } || $strings{ $name }->{'EN'} || $name;
-	
+
 	if ( @_ ) {
 		$string = sprintf( $string, @_ );
-	}	
-	
+	}
+
 	return $string;
 }
 
@@ -111,7 +112,7 @@ sub _getSystemLanguage {
 
 		close(LANG);
 	}
-	
+
 	$language = uc($language);
 	$language =~ s/\.UTF.*$//;
 	$language =~ s/(?:_|-|\.)\w+$//;

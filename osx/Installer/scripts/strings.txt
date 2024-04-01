@@ -1,5 +1,5 @@
 TITLE
-	EN	Logitech Media Server
+	EN	Lyrion Music Server
 
 PLEASE_STOP_SERVER
 	CS	Před spuštěním instalačního programu zastavte chod serveru.
@@ -17,19 +17,17 @@ PLEASE_STOP_SERVER
 	SV	Stoppa servern innan du kör installationsprogrammet.
 
 PLEASE_STOP_LMS
-	CS	Před spuštěním instalačního programu zastavte chod serveru Logitech Media Server.
-	DA	Du skal stoppe Logitech Media Server før du kører installationsprogrammet.
-	DE	Vor Ausführung des Installationsprogramms muss Logitech Media Server beendet werden.
-	EN	Please stop Logitech Media Server before running the installer.
-	ES	Debe detener Logitech Media Server antes de ejecutar el instalador.
-	FI	Keskeytä Logitechin mediapalvelin ennen asennusohjelman suorittamista.
-	FR	Fermez Logitech Media Server avant d'exécuter le programme d'installation.
-	IT	Prima di eseguire il programma di installazione, arrestare Logitech Media Server.
-	NL	Stop de Logitech Media Server voordat je het installatieprogramma uitvoert.
-	NO	Stopp Logitech Media Server før du kjører installasjonsprogrammet.
-	PL	Przed uruchomieniem instalatora zatrzymaj program Logitech Media Server.
-	RU	Остановите медиасервер Logitech перед запуском программы установки.
-	SV	Stoppa Logitech Media Server innan du kör installationsprogrammet.
+	CS	Před spuštěním instalačního programu zastavte chod serveru Lyrion Music Server.
+	DA	Du skal stoppe Lyrion Music Server før du kører installationsprogrammet.
+	DE	Vor Ausführung des Installationsprogramms muss Lyrion Music Server beendet werden.
+	EN	Please stop Lyrion Music Server before running the installer.
+	ES	Debe detener Lyrion Music Server antes de ejecutar el instalador.
+	FR	Fermez Lyrion Music Server avant d'exécuter le programme d'installation.
+	IT	Prima di eseguire il programma di installazione, arrestare Lyrion Music Server.
+	NL	Stop de Lyrion Music Server voordat je het installatieprogramma uitvoert.
+	NO	Stopp Lyrion Music Server før du kjører installasjonsprogrammet.
+	PL	Przed uruchomieniem instalatora zatrzymaj program Lyrion Music Server.
+	SV	Stoppa Lyrion Music Server innan du kör installationsprogrammet.
 
 PLEASE_QUIT_SYSTEMPREFERENCES
 	CS	Před spuštěním instalačního programu ukončete předvolby systému.
