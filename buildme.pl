@@ -464,7 +464,7 @@ sub buildDockerImage {
 
 	my $tags = join(' ', map {
 		my $tag = "--tag lmscommunity/$defaultDestName:$_";
-		$tag .= " --tag lmscommunity/lyrionmusicserver:$_" $_ eq 'dev';
+		$tag .= " --tag lmscommunity/lyrionmusicserver:$_" if $_ eq 'dev';
 		$tag;
 	} @tags);
 
