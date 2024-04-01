@@ -307,7 +307,7 @@ sub doCommandOptions {
 
 	} elsif ($build eq "macosx") {
 		## Build the Mac OSX package
-		$destName =~ s/$defaultDestName/LogitechMediaServer/;
+		$destName =~ s/$defaultDestName/LyrionMusicServer/;
 
 		if ( $releaseType && $releaseType eq "release" ) {
 			$destName =~ s/-$revision//;
@@ -317,13 +317,13 @@ sub doCommandOptions {
 
 	} elsif ($build eq "win32") {
 		## Build the Windows 32bit Installer
-		$destName =~ s/$defaultDestName/LogitechMediaServer/;
+		$destName =~ s/$defaultDestName/LyrionMusicServer/;
 		buildWin32("$destName");
 
 
 	} elsif ($build eq "win64") {
 		## Build the Windows 64bit Installer
-		$destName =~ s/$defaultDestName/LogitechMediaServer/;
+		$destName =~ s/$defaultDestName/LyrionMusicServer/;
 		# buildZIPArchive($dirsToExcludeForWin64, "$destDir/$destName-win64");
 		buildWin64("$destName-win64");
 
@@ -463,8 +463,11 @@ sub buildDockerImage {
 	push @tags, $tag if $tag;
 
 	my $tags = join(' ', map {
-		"--tag lmscommunity/logitechmediaserver:$_";
+		my $tag = "--tag lmscommunity/$defaultDestName:$_";
+		$tag .= " --tag lmscommunity/lyrionmusicserver:$_" $_ eq 'dev';
+		$tag;
 	} @tags);
+
 
 	system("cd $workDir; docker buildx build --push --platform linux/arm/v7,linux/amd64,linux/arm64/v8 $tags .");
 
@@ -654,7 +657,7 @@ sub buildDebian {
 sub buildMacOSX {
 	## Grab the variables passed to us...
 	if ( ($_[0] ) || die("Problem: Not all of the variables were passed to the buildMacOSX function...") ) {
-		## Take the filename passed to us and make sure that we build the DMG with
+		## Take the filename passed to us and make sure that we build the PKG with
 		## that name, and that the 'pretty mounted name' also matches
 		my $pkgName = $_[0];
 
@@ -693,7 +696,7 @@ sub buildMacOSX {
 		system("cd \"$contentsDir\"; mkdir perl; cd perl; tar xjf \"$buildDir/platforms/osx/Perl-5.34.0-x86_64-arm64.tar.bz2\"; chmod a+x bin/perl");
 
 		print "INFO: Create installer package $pkgName...\n";
-		system("/Developer/usr/bin/packagemaker --verbose --root-volume-only --root \"$prefPaneDir\" --scripts \"$buildDir/platforms/osx/Installer/scripts\" --out \"$destDir/$pkgName.pkg\" --target 10.5 --domain system --id com.logitech.music.Squeezebox --version 1.0 --resources \"$buildDir/platforms/osx/Installer/l10n\" --title \"Lyrion Music Server\"");
+		system("/Developer/usr/bin/packagemaker --verbose --root-volume-only --root \"$prefPaneDir\" --scripts \"$buildDir/platforms/osx/Installer/scripts\" --out \"$destDir/$pkgName.pkg\" --target 10.5 --domain system --id org.lyrion.music.Squeezebox --version 1.0 --resources \"$buildDir/platforms/osx/Installer/l10n\" --title \"Lyrion Music Server\"");
 
 		# add localized resource files to the package
 		print "\nINFO: Add localized resource files to package...\n";
@@ -767,9 +770,9 @@ sub buildWin32 {
 
 		my $rev = int(($revision || getRevisionForRepo() || $version) / 3600) % 65536;
 		my @versionInfo = (
-			"CompanyName=Logitech Inc.",
+			"CompanyName=Lyrion Community",
 			"FileVersion=$rev",
-			"LegalCopyright=Copyright 2001-2020 Logitech Inc.",
+			"LegalCopyright=Copyright 2001-2024 Lyrion Community",
 			"ProductVersion=$version",
 			"ProductName=Lyrion Music Server",
 		);
