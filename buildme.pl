@@ -298,7 +298,6 @@ sub doCommandOptions {
 		buildDockerImage();
 
 	} elsif ($build eq "debian") {
-		$defaultDestName = 'logitechmediaserver';
 		## Build a Debian Package
 		buildDebian();
 

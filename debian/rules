@@ -1,12 +1,10 @@
 #!/usr/bin/make -f
 
-# $Id$
-
 # Uncomment this to turn on verbose mode.
 export DH_VERBOSE=1
 export DH_INTERNAL_BUILDFLAGS=1
 
-package=logitechmediaserver
+package=lyrionmusicserver
 base=$(CURDIR)/debian/$(package)
 source=$(CURDIR)/../server
 

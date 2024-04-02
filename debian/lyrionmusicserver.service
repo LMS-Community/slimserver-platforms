@@ -29,7 +29,7 @@ After=network-online.target
 # of 'rc.local.service'.
 #
 # On systemd >= 217, user might execute:
-#   'systemctl add-wants logitechmediaserver.service network-online.target'
+#   'systemctl add-wants lyrionmusicserver.service network-online.target'
 #
 # The effects of the 'After' and 'Wants' 'network-online' stanzas are
 # very system dependent. They may or may not ensure that LMS starts up
@@ -56,7 +56,7 @@ After=network-online.target
 # Set start up parameters, essentially replicating the SysV init script.
 #-----------------------------------------------------------------------
 
-# Use of '/etc/default/logitechmediaserver' to set start up parameters
+# Use of '/etc/default/lyrionmusicserver' to set start up parameters
 # is supported, for consistency with the init script.
 # But setting 'SLIMUSER' is not supported. This unit file will always
 # start LMS as user 'squeezeboxserver'.
@@ -82,18 +82,18 @@ Environment="CACHEDIR=/var/lib/squeezeboxserver/cache"
 Environment="CHARSET=utf8"
 
 # Supplementary run time settings may be defined in
-# '/etc/default/logitechmediaserver'. Entries made here would override
+# '/etc/default/lyrionmusicserver'. Entries made here would override
 # the defaults defined above.
 
-EnvironmentFile=-/etc/default/logitechmediaserver
+EnvironmentFile=-/etc/default/lyrionmusicserver
 
 #
 # If you want to add additional options use
 #    /usr/sbin/squeezeboxserver --help
 # for the supported options and place them into the file:
-#    /etc/default/logitechmediaserver.
+#    /etc/default/lyrionmusicserver.
 # For example:
-#    SLIMOPTIONS="--failsafe --nomysqueezebox"
+#    SLIMOPTIONS="--failsafe"
 #
 
 #-----------------------------------------------------------------------

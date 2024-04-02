@@ -1,0 +1,18 @@
+# override some policies
+# we provide tons of binaries for various platforms, thus "arch-independant" etc.
+
+lyrionmusicserver: arch-dependent-file-in-usr-share
+lyrionmusicserver: arch-independent-package-contains-binary-or-object
+lyrionmusicserver: executable-not-elf-or-script
+
+lyrionmusicserver: binary-or-shlib-defines-rpath
+lyrionmusicserver: unstripped-binary-or-object
+lyrionmusicserver: statically-linked-binary
+lyrionmusicserver: embedded-library
+
+lyrionmusicserver: copyright-file-contains-full-gpl-license
+lyrionmusicserver: copyright-should-refer-to-common-license-file-for-lgpl
+lyrionmusicserver: binary-without-manpage
+
+lyrionmusicserver: wrong-path-for-interpreter
+

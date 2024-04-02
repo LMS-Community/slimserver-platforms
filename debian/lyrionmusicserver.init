@@ -1,8 +1,6 @@
 #!/bin/sh
 #
-# $Id$
-#
-# logitechmediaserver	initscript for slimserver.pl
+# lyrionmusicserver	initscript for slimserver.pl
 #			This file should be placed in /etc/init.d.
 #
 # Original Author: Mattias Holmlund
@@ -11,7 +9,7 @@
 
 #
 ### BEGIN INIT INFO
-# Provides:          	logitechmediaserver
+# Provides:          	lyrionmusicserver
 # Required-Start:    	$all
 # Required-Stop:     	$all
 # Should-Start:      	$all
@@ -32,7 +30,7 @@ set -e
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="Lyrion Music Server"
 NAME=squeezeboxserver
-NEWNAME=logitechmediaserver
+NEWNAME=lyrionmusicserver
 DAEMON=/usr/sbin/$NAME
 DAEMON_SAFE=/usr/sbin/${NAME}_safe
 PIDFILE=/var/run/$NEWNAME.pid
@@ -46,7 +44,7 @@ CHARSET=utf8
 ## if you want to add additional options
 ## use /usr/sbin/squeezeboxserver --help
 ## for the supported options and place them
-## into the configfile  /etc/default/logitechmediaserver
+## into the configfile  /etc/default/lyrionmusicserver
 
 
 # Read config file if it is present.

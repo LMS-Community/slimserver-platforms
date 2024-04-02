@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# $Id$
-
 # postinst script for Lyrion Music Server
 
 set -e
