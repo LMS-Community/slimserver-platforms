@@ -20,7 +20,7 @@ my $sourceDirsToExclude = ".svn .git .github t tests slimp3 squeezebox /softsque
 my $revisionTextFile = "server/revision.txt";
 my $revision;
 my $myVersion = "1.1.0";
-my $defaultDestName = "logitechmediaserver";
+my $defaultDestName = "lyrionmusicserver";
 my $defaultReleaseType = "nightly";
 
 ## Windows Specific Stuff
@@ -298,10 +298,12 @@ sub doCommandOptions {
 		buildDockerImage();
 
 	} elsif ($build eq "debian") {
+		$defaultDestName = 'logitechmediaserver';
 		## Build a Debian Package
 		buildDebian();
 
 	} elsif ($build eq "rpm") {
+		$defaultDestName = 'logitechmediaserver';
 		## Run the RPM
 		buildRPM();
 
@@ -463,8 +465,8 @@ sub buildDockerImage {
 	push @tags, $tag if $tag;
 
 	my $tags = join(' ', map {
-		my $tag = "--tag lmscommunity/$defaultDestName:$_";
-		$tag .= " --tag lmscommunity/lyrionmusicserver:$_" if $_ eq 'dev';
+		my $tag = "--tag lmscommunity/logitechmediaserver:$_";
+		$tag .= " --tag lmscommunity/$defaultDestName:$_" if $_ eq 'dev';
 		$tag;
 	} @tags);
 
