@@ -182,7 +182,7 @@ for cardpath in $*; do
     echo "$(cat $PREFIX/var/lib/lms/.savedcards) $cardpath" > $PREFIX/var/lib/lms/.savedcards
   fi
 done
-for cardpath in $(grep -o "/storage/....-...." /proc/mounts); do
+for cardpath in $(grep -o "/storage/[0-9|A-F|a-f|-]\+ " /proc/mounts); do
   if [ ! -e $PREFIX/var/lib/lms/.savedcards ] || [ $(grep -cP "$cardpath($| )" $PREFIX/var/lib/lms/.savedcards) -eq 0 ]; then
     echo "$(cat $PREFIX/var/lib/lms/.savedcards) $cardpath" > $PREFIX/var/lib/lms/.savedcards
   fi
