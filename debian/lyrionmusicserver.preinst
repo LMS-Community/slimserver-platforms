@@ -6,28 +6,35 @@ set -e
 . /usr/share/debconf/confmodule
 
 case "$1" in
-    configure)
-	# we're going to replace logitechmediaserver with lyrionmusicserver
-	if [ -f /etc/init.d/logitechmediaserver ]; then
-		/etc/init.d/logitechmediaserver stop
-	fi
-
-	# move some leftovers
-	if [ -f /etc/default/logitechmediaserver ]; then
-		if [ -f /etc/default/lyrionmusicserver ]; then
-			rm -f /etc/default/lyrionmusicserver
+	configure)
+		# we're going to replace logitechmediaserver with lyrionmusicserver
+		if [ -f /etc/init.d/logitechmediaserver ]; then
+			/etc/init.d/logitechmediaserver stop
+			rm -f /etc/init.d/logitechmediaserver
 		fi
-		mv /etc/default/logitechmediaserver /etc/default/lyrionmusicserver
-	fi
 
-	if [ -f /etc/logrotate.d/logitechmediaserver ]; then
-		if [ -f /etc/logrotate.d/lyrionmusicserver ]; then
-			rm -f /etc/logrotate.d/lyrionmusicserver
+		# move some leftovers
+		if [ -f /etc/default/logitechmediaserver ]; then
+			if [ -f /etc/default/lyrionmusicserver ]; then
+				rm -f /etc/default/lyrionmusicserver
+			fi
+			mv /etc/default/logitechmediaserver /etc/default/lyrionmusicserver
 		fi
-		mv /etc/logrotate.d/logitechmediaserver /etc/logrotate.d/lyrionmusicserver
-	fi
 
-    ;;
+		if [ -f /etc/logrotate.d/logitechmediaserver ]; then
+			if [ -f /etc/logrotate.d/lyrionmusicserver ]; then
+				rm -f /etc/logrotate.d/lyrionmusicserver
+			fi
+			mv /etc/logrotate.d/logitechmediaserver /etc/logrotate.d/lyrionmusicserver
+		fi
+
+		rm -f /etc/rc*.d/[SK]*logitechmediaserver
+		rm -f /etc/logrotate.d/logitechmediaserver
+		rm -f /var/lib/dpkg/info/logitechmediaserver*
+
+		find /var -name logitechmediaserver.service -delete
+		find /etc -name logitechmediaserver.service -delete
+	;;
 
 esac
 
