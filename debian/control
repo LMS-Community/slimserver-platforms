@@ -1,15 +1,15 @@
-Source: logitechmediaserver
+Source: lyrionmusicserver
 Section: sound
 Priority: optional
-Maintainer: Logitech/Slim Devices <admin@lms-community.org>
+Maintainer: Lyrion Community <admin@lms-community.org>
 Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5)
 Standards-Version: 3.9.5
 
-Package: logitechmediaserver
+Package: lyrionmusicserver
 Architecture: all
-Conflicts: slimp3,slimserver,squeezecenter,squeezeboxserver
-Replaces: slimp3,slimserver,squeezecenter,squeezeboxserver
-Depends: ${misc:Depends}, perl (>= 5.10.0), adduser, libc6, libgcc1, libstdc++6, zlib1g, libio-socket-ssl-perl, ca-certificates, libcrypt-openssl-rsa-perl
+Conflicts: slimp3,slimserver,squeezecenter,squeezeboxserver,logitechmediaserver
+Replaces: slimp3,slimserver,squeezecenter,squeezeboxserver,logitechmediaserver
+Depends: ${misc:Depends}, perl (>= 5.14.0), adduser, libc6, libgcc1, libstdc++6, zlib1g, libio-socket-ssl-perl, ca-certificates, libcrypt-openssl-rsa-perl
 Pre-Depends: ${misc:Pre-Depends}
 Description: Streaming Audio Server
  Lyrion Music Server is a cross-platform streaming media server that supports a wide range
