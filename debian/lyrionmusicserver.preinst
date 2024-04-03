@@ -30,10 +30,6 @@ case "$1" in
 
 		rm -f /etc/rc*.d/[SK]*logitechmediaserver
 		rm -f /etc/logrotate.d/logitechmediaserver
-		rm -f /var/lib/dpkg/info/logitechmediaserver*
-
-		find /var -name logitechmediaserver.service -delete
-		find /etc -name logitechmediaserver.service -delete
 	;;
 
 esac
