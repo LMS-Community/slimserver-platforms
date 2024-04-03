@@ -56,7 +56,13 @@ Vendor:		Lyrion Community
 
 Requires:	perl >= 5.10.0
 Recommends:     perl(IO::Socket::SSL)
-Obsoletes:	squeezeboxserver, squeezecenter, slimserver, SliMP3
+
+Provides:	logitechmediaserver = %{version}-%{release}
+Obsoletes:	logitechmediaserver
+Obsoletes:	SliMP3
+Obsoletes:	slimserver
+Obsoletes:	squeezeboxserver
+Obsoletes:	squeezecenter
 AutoReqProv:	no
 
 BuildArch:	noarch
@@ -412,6 +418,9 @@ fi
 
 
 %changelog
+* Wed Apr  3 2024 Peter Oliver <rpm@mavit.org.uk>
+- lyrionmusicserver obsoletes logitechmediaserver.
+
 * Sat Apr 24 2021 Johan S.
 - Added a weak dependency for perl(IO::Socket:SSL). This package is almost
   always needed now a days. Zypper and dnf will pull in this package if it is
