@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# logitechmediaserver	Startup script for the Lyrion Music Server
+# lyrionmusicserver	Startup script for the Lyrion Music Server
 #
 # chkconfig:		345 80 30
 # description:		Lyrion Music Server powers the Squeezebox, Transporter and SLIMP3 network music \
@@ -13,7 +13,7 @@
 
 #
 ### BEGIN INIT INFO
-# Provides:		logitechmediaserver
+# Provides:		lyrionmusicserver
 # Required-Start:	$syslog $remote_fs
 # Should-Start:		$time ypbind sendmail
 # Required-Stop:	$syslog $remote_fs

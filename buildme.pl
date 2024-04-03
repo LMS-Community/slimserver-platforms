@@ -302,7 +302,6 @@ sub doCommandOptions {
 		buildDebian();
 
 	} elsif ($build eq "rpm") {
-		$defaultDestName = 'logitechmediaserver';
 		## Run the RPM
 		buildRPM();
 

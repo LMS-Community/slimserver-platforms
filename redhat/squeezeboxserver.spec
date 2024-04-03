@@ -35,8 +35,8 @@
 %endif
 
 
-Name:		logitechmediaserver
-Packager:	Logitech - please visit www.lyrion.org
+Name:		lyrionmusicserver
+Packager:	Lyrion Community - please visit www.lyrion.org
 Version:	%{_version}
 Release:	%{rpm_release}
 Summary:        Lyrion Music Server
@@ -423,7 +423,7 @@ fi
 - Amendedments to the postinstall and preuninstall scripts to handle which
   start-up method to install and uninstall, SYSV or systemd. Squeezebox server
   installations running on systemd servers will be migrated to systemd start-up
-  when the logitechmediaserver RPM is upgraded.
+  when the lyrionmusicserver RPM is upgraded.
 - Added use of PERL5LIB in SYSV init script and systemd unit file, making sure
   that /usr/lib/perl5/site_perl is the first location where the squeezebox
   executable search for its needed perl modules. This will remove the need to

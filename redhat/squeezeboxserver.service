@@ -19,7 +19,7 @@ Environment="SQUEEZEBOX_ADDITIONAL_ARGS="
 
 # The content of this file will override any setting made with the Environment
 # variables here above. It will also override any Environment variables set
-# in /etc/systemd/system/logitechmediaserver.service.d/*.conf
+# in /etc/systemd/system/lyrionmusicserver.service.d/*.conf
 EnvironmentFile=-/etc/sysconfig/squeezeboxserver
 
 # Do not change this, it will most likely break the squeezeboxserver
@@ -35,10 +35,10 @@ Group=squeezeboxserver
 ExecStart=/usr/libexec/squeezeboxserver --prefsdir $SQUEEZEBOX_CFG_DIR --logdir $SQUEEZEBOX_LOG_DIR --cachedir $SQUEEZEBOX_CACHE_DIR --charset $SQUEEZEBOX_CHARSET $SQUEEZEBOX_ADDITIONAL_ARGS
 
 # If your server uses a TEMPFS for the /var/log file system, then you probably
-# want to uncomment the two following lines, or even better, add them in a 
-# drop-in file in /etc/systemd/system/logitechmediaserver.service.d/ if you
-# want the change to survive the next upgrade of logitechmediaserver.
-# Note: This setting may conflict with SQUEEZEBOX_LOG_DIR set here above. That 
+# want to uncomment the two following lines, or even better, add them in a
+# drop-in file in /etc/systemd/system/lyrionmusicserver.service.d/ if you
+# want the change to survive the next upgrade of lyrionmusicserver.
+# Note: This setting may conflict with SQUEEZEBOX_LOG_DIR set here above. That
 # is why I think it is better to keep them commented by default.
 #LogsDirectory=squeezeboxserver
 #LogsDirectoryMode=0755
@@ -47,7 +47,7 @@ ExecStart=/usr/libexec/squeezeboxserver --prefsdir $SQUEEZEBOX_CFG_DIR --logdir 
 # transcoder pipelines.
 IgnoreSIGPIPE=no
 
-# Never send HUP, LMS uses this to re-initialise cache, etc. 
+# Never send HUP, LMS uses this to re-initialise cache, etc.
 SendSIGHUP=no
 
 [Install]
