@@ -98,15 +98,39 @@ cat <<EOF > $PREFIX/var/lib/lms/updatelms
 rm logitechmediaserver*.deb
 rm servers.json
 error=""
-wget https://lms-community.github.io/lms-server-repository/servers.json || error="ERROR: Can't get latest server details"
+wget https://lyrion.org/lms-server-repository/servers.json || error="ERROR: Can't get latest server details"
 if [ -z "\$error" ]; then
-  if [ \$(apt show logitechmediaserver | grep ^Version: | cut -d' ' -f2) == \$(jq -r '.latest.deb.url' servers.json | cut -d'_' -f2) ]; then
+  opt=0
+  versions=()
+  installed=\$(apt show logitechmediaserver 2>/dev/null | grep ^Version: | cut -d' ' -f2 | cut -d'~' -f1)
+  echo "================================================="
+  echo "Choose option, press enter."
+  echo "(choosing current version will check for updates,"
+  echo " choosing another will upgrade or downgrade.)"
+  echo "================================================="
+  for version in \$(jq -r .[].deb.version servers.json | sort); do
+    opt=\$((opt+1))
+    versions+=( \$version )
+    if [ \$installed == \$version ]; then
+      current=current
+    else
+      current=
+    fi
+    echo \$opt. \$version \$current
+  done
+  read n
+  if [ \${versions[\$n-1]} \< \$installed ]; then
+    downgrade="--allow-downgrades"
+  fi
+  url=\$(jq --arg v \${versions[\$n-1]} -r '.[].deb | select(.version == \$v) | .url' servers.json)
+  deb=\${url##*/}
+  if [ \$(apt show logitechmediaserver | grep ^Version: | cut -d' ' -f2) == \$(echo \$deb | cut -d'_' -f2) ]; then
     error="You already have the latest version"
   else
-    wget \$(jq -r '.latest.deb.url' servers.json) || error="ERROR: Can't find latest server download"
+    wget \$url || error="ERROR: Can't find latest server download"
     if [ -z "\$error" ]; then
-      apt -y install ./logitechmediaserver*.deb || error="ERROR: installation failed"
-      if [ -z "\$error" ] && [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
+      apt -y -o Dpkg::Options::="--force-confnew" install \$downgrade ./logitechmediaserver*.deb || error="ERROR: installation failed"
+      if [ -z "\$error" ]; then
         sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/logitechmediaserver
       fi
     fi
