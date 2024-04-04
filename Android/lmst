@@ -32,16 +32,20 @@ rm .materialinstalled
 
 cat <<EOF > $PREFIX/var/lib/lms/installlms
 #!/bin/bash
+rm servers.json
+wget https://lyrion.org/lms-server-repository/servers.json
+url=\$(jq -r '.latest.deb.url' servers.json)
+deb=\${url##*/}
+package=\$(echo \$deb | cut -d'_' -f1)
 if [  ! -d '/usr/share/squeezeboxserver' ]; then
   apt update
   apt -y -o Dpkg::Options::="--force-confnew" upgrade
   apt -y -o Dpkg::Options::="--force-confnew" install bash-completion jq apt-utils whiptail nano wget tree libxml2-utils
-  rm logitechmediaserver*.deb
-  rm servers.json
-  wget https://lms-community.github.io/lms-server-repository/servers.json
-  wget \$(jq -r '.latest.deb.url' servers.json)
-  apt -y install ./logitechmediaserver*.deb
+  rm logitechmediaserver*.deb lyrionmusicserver*.deb
+  wget \$url
+  apt -y -o Dpkg::Options::="--force-confnew" install ./\$deb
   touch .lmsfirstinstall
+  echo \$package > /root/lmspackage
 fi
 if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSkin' ]; then
   rm extensions.xml
@@ -52,9 +56,10 @@ if [  ! -d '/var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/MaterialSki
   chown -R squeezeboxserver:nogroup /var/lib/squeezeboxserver/
   touch .materialfirstinstall
 fi
-if [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
-  sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/logitechmediaserver
 
+sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/\$package
+
+if [ ! -f /usr/share/perl5/Slim/Utils/OS/Custom.pm ]; then
   cat << 'EOF2' > /usr/share/perl5/Slim/Utils/OS/Custom.pm
 package Slim::Utils::OS::Custom;
 
@@ -95,14 +100,17 @@ EOF
 
 cat <<EOF > $PREFIX/var/lib/lms/updatelms
 #!/bin/bash
-rm logitechmediaserver*.deb
+rm logitechmediaserver*.deb lyrionmusicserver*.deb
 rm servers.json
 error=""
 wget https://lyrion.org/lms-server-repository/servers.json || error="ERROR: Can't get latest server details"
 if [ -z "\$error" ]; then
   opt=0
   versions=()
-  installed=\$(apt show logitechmediaserver 2>/dev/null | grep ^Version: | cut -d' ' -f2 | cut -d'~' -f1)
+  installed=\$(apt show \$(cat /root/lmspackage) 2>/dev/null | grep ^Version: | cut -d' ' -f2 | cut -d'~' -f1)
+#  if [ -z "\$installed" ]; then
+#    installed=\$(apt show lyrionmusicserver 2>/dev/null | grep ^Version: | cut -d' ' -f2 | cut -d'~' -f1)
+#  fi
   echo "================================================="
   echo "Choose option, press enter."
   echo "(choosing current version will check for updates,"
@@ -124,14 +132,16 @@ if [ -z "\$error" ]; then
   fi
   url=\$(jq --arg v \${versions[\$n-1]} -r '.[].deb | select(.version == \$v) | .url' servers.json)
   deb=\${url##*/}
-  if [ \$(apt show logitechmediaserver | grep ^Version: | cut -d' ' -f2) == \$(echo \$deb | cut -d'_' -f2) ]; then
+  package=\$(echo \$deb | cut -d'_' -f1)
+  if [ \$(apt show \$package | grep ^Version: | cut -d' ' -f2) == \$(echo \$deb | cut -d'_' -f2) ]; then
     error="You already have the latest version"
   else
     wget \$url || error="ERROR: Can't find latest server download"
     if [ -z "\$error" ]; then
-      apt -y -o Dpkg::Options::="--force-confnew" install \$downgrade ./logitechmediaserver*.deb || error="ERROR: installation failed"
+      apt -y -o Dpkg::Options::="--force-confnew" install \$downgrade ./\$deb || error="ERROR: installation failed"
       if [ -z "\$error" ]; then
-        sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/logitechmediaserver
+        echo \$package > /root/lmspackage
+        sed -i 's/SLIMUSER.*/SLIMUSER=root/' /etc/default/\$package
       fi
     fi
   fi
@@ -171,7 +181,7 @@ case "\$response" in
 	if [ ! -e storage/downloads/favorites.opml ]; then
 		echo "Cannot find favorites.opml, Press enter to quit this terminal"
 	else
-		service logitechmediaserver stop
+		service \$(cat /root/lmspackage) stop
 		cp storage/downloads/favorites.opml /var/lib/squeezeboxserver/prefs/favorites.opml
 		echo "Favorites imported. Press enter to quit this terminal,"
 		echo "then restart LMS."
@@ -218,11 +228,13 @@ for cardpath in $(cat $PREFIX/var/lib/lms/.savedcards); do
 done
 echo $bind
 
-echo "proot-distro login --kernel $kernel $distro -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Restart LMS"
+proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root $distro -- bash installlms
+
+echo "proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root $distro -- bash -c 'service \$(cat /root/lmspackage) stop'" > ~/.shortcuts/tasks/"Restart LMS"
 echo "sleep 5" >> ~/.shortcuts/tasks/"Restart LMS"
-echo "proot-distro login --kernel $kernel $bind --no-kill-on-exit $distro -- service logitechmediaserver start" >> ~/.shortcuts/tasks/"Restart LMS"
+echo "proot-distro login --kernel $kernel $bind --bind $PREFIX/var/lib/lms:/root --no-kill-on-exit $distro -- bash -c 'service \$(cat /root/lmspackage) start'" >> ~/.shortcuts/tasks/"Restart LMS"
 chmod +x ~/.shortcuts/tasks/"Restart LMS"
-echo "proot-distro login --kernel $kernel $distro -- service logitechmediaserver stop" > ~/.shortcuts/tasks/"Stop LMS"
+echo "proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root $distro -- bash -c 'service \$(cat /root/lmspackage) stop'" > ~/.shortcuts/tasks/"Stop LMS"
 chmod +x ~/.shortcuts/tasks/"Stop LMS"
 echo "proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root $distro -- bash updatelms" > ~/.shortcuts/"Update LMS"
 chmod +x ~/.shortcuts/"Update LMS"
@@ -232,8 +244,6 @@ echo "proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root --bin
 chmod +x ~/.shortcuts/Advanced/"Debian Terminal"
 echo "curl https://raw.githubusercontent.com/darrell-k/slimserver-platforms/Android/Android/lmst -o lms && bash lms ; bash" > ~/.shortcuts/Advanced/"Rerun LMS Setup"
 chmod +x ~/.shortcuts/Advanced/"Rerun LMS Setup"
-
-proot-distro login --kernel $kernel --bind $PREFIX/var/lib/lms:/root $distro -- bash installlms
 
 echo   "======================="
 if [ -e $PREFIX/var/lib/lms/.lmsfirstinstall ]; then
