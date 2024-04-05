@@ -1,12 +1,14 @@
 ;
 ; InnoSetup Script for Lyrion Music Server
 ;
-; Logitech : https://www.lyrion.org
+; Lyrion Community: https://www.lyrion.org
 
 #define AppName "Lyrion Music Server"
 #define AppVersion "9.0.0"
 #define ProductURL "https://forums.slimdevices.com"
-#define SBRegKey = "Software\Logitech\Squeezebox"
+#define SBRegKey   "SOFTWARE\Lyrion\Server"
+#define LegacyRegkey "SOFTWARE\Logitech\Squeezebox"
+#define FolderName "Lyrion"
 
 #define VCRedistKey  = "SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86"
 
@@ -37,7 +39,7 @@ VersionInfoProductName={#AppName} {#AppVersion}
 VersionInfoProductVersion={#AppVersion}
 VersionInfoVersion=0.0.0.0
 
-AppPublisher=Logitech Inc.
+AppPublisher=Lyrion Community
 AppPublisherURL={#ProductURL}
 AppSupportURL={#ProductURL}
 AppUpdatesURL={#ProductURL}
@@ -68,7 +70,7 @@ Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwi
 Source: SqueezeTray.exe; DestDir: {app}; Flags: ignoreversion
 
 [Dirs]
-Name: {commonappdata}\Squeezebox; Permissions: users-modify
+Name: {commonappdata}\{#FolderName}; Permissions: users-modify
 Name: {app}\server\Plugins; Permissions: users-modify
 
 [Icons]
@@ -113,8 +115,8 @@ Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\Fi
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:UDP"; ValueData: "3483:UDP:*:Enabled:{#AppName} 3483 udp"; MinVersion: 0,5.01;
 Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\GloballyOpenPorts\List; ValueType: string; ValueName: "3483:TCP"; ValueData: "3483:TCP:*:Enabled:{#AppName} 3483 tcp"; MinVersion: 0,5.01;
 
-Root: HKLM; Subkey: SOFTWARE\Logitech\Squeezebox; ValueType: string; ValueName: Path; ValueData: {app}
-Root: HKLM; Subkey: SOFTWARE\Logitech\Squeezebox; ValueType: string; ValueName: DataPath; ValueData: {code:GetWritablePath}
+Root: HKLM; Subkey: {#SBRegKey}; ValueType: string; ValueName: "Path"; ValueData: {app}
+Root: HKLM; Subkey: {#SBRegKey}; ValueType: string; ValueName: "DataPath"; ValueData: {code:GetWritablePath}
 ; flag the squeezesvc.exe to be run as administrator on Vista
 Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers; ValueType: string; ValueName: {app}\server\squeezesvc.exe; ValueData: RUNASADMIN; Flags: uninsdeletevalue; MinVersion: 0,6.0;
 
@@ -177,7 +179,7 @@ var
 	InstallFolder: String;
 begin
 	if (not RegQueryStringValue(HKLM, '{#SBRegKey}', 'Path', InstallFolder)) then
-		InstallFolder := AddBackslash(ExpandConstant('{commonpf32}')) + 'Squeezebox';
+		InstallFolder := AddBackslash(ExpandConstant('{commonpf32}')) + '{#FolderName}';
 
 	Result := InstallFolder;
 end;
@@ -187,6 +189,12 @@ function GetWritablePath(Param: String) : String;
 var
 	DataPath: String;
 begin
+	// Migrate legacy registry key
+	if (RegQueryStringValue(HKLM, '{#LegacyRegkey}', 'DataPath', DataPath)) then
+		begin
+			RegWriteStringValue(HKLM, '{#SBRegKey}', 'DataPath', DataPath);
+			RegDeleteValue(HKLM, '{#LegacyRegkey}', 'DataPath');
+		end;
 
 	if (not RegQueryStringValue(HKLM, '{#SBRegKey}', 'DataPath', DataPath)) then
 		begin
@@ -201,7 +209,7 @@ begin
 			else
 				DataPath := ExpandConstant('{commonappdata}');
 
-			DataPath := AddBackslash(DataPath) + 'Squeezebox';
+			DataPath := AddBackslash(DataPath) + '{#FolderName}';
 		end;
 
 	Result := DataPath;

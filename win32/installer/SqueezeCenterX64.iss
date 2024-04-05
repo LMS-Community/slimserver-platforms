@@ -1,12 +1,14 @@
 ;
 ; InnoSetup Script for Lyrion Music Server
 ;
-; Logitech : https://www.lyrion.org
+; Lyrion Community: https://www.lyrion.org
 
 #define AppName    "Lyrion Music Server"
 #define AppVersion "9.0.0"
 #define ProductURL "https://forums.slimdevices.com"
-#define SBRegKey   "Software\Logitech\Squeezebox"
+#define FolderName "Lyrion"
+#define SBRegKey   "SOFTWARE\Lyrion\Server"
+#define LegacyRegkey "SOFTWARE\Logitech\Squeezebox"
 #define LMSPerl    "Perl"
 #define LMSPerlBin "Perl\perl\bin\perl.exe"
 #define ServiceName "squeezesvc"
@@ -41,11 +43,11 @@ VersionInfoProductName={#AppName} {#AppVersion}
 VersionInfoProductVersion={#AppVersion}
 VersionInfoVersion=0.0.0.0
 
-AppPublisher=Logitech Inc.
+AppPublisher=Lyrion Community
 AppPublisherURL={#ProductURL}
 AppSupportURL={#ProductURL}
 AppUpdatesURL={#ProductURL}
-DefaultDirName={commonpf64}\Squeezebox
+DefaultDirName={commonpf64}\{#FolderName}
 DefaultGroupName={#AppName}
 DisableDirPage=yes
 DisableProgramGroupPage=yes
@@ -70,7 +72,7 @@ Source: server\*.*; DestDir: {app}\server; Excludes: "*freebsd*,*openbsd*,*darwi
 Source: Output\SqzSvcMgr.exe; DestDir: {app}; Flags: ignoreversion
 
 [Dirs]
-Name: {commonappdata}\Squeezebox; Permissions: users-modify
+Name: {commonappdata}\{#FolderName}; Permissions: users-modify
 Name: {app}\server\Plugins; Permissions: users-modify
 
 [Icons]
@@ -79,8 +81,7 @@ Name: {group}\{cm:Startup_Caption}; Filename: {app}\sqzsvcmgr.exe
 Name: {group}\{cm:UninstallSqueezeCenter}; Filename: {uninstallexe}
 
 [Registry]
-Root: HKLM; Subkey: SOFTWARE\Logitech\Squeezebox; ValueType: string; ValueName: Path64; ValueData: {app}
-Root: HKLM; Subkey: SOFTWARE\Logitech\Squeezebox; ValueType: string; ValueName: DataPath; ValueData: {code:GetWritablePath}
+Root: HKLM; Subkey: {#SBRegKey}; ValueType: string; ValueName: "DataPath"; ValueData: {code:GetWritablePath}
 
 [InstallDelete]
 Type: filesandordirs; Name: {group}
@@ -145,6 +146,12 @@ function GetWritablePath(Param: String) : String;
 var
 	DataPath: String;
 begin
+	// Migrate legacy registry key
+	if (RegQueryStringValue(HKLM, '{#LegacyRegkey}', 'DataPath', DataPath)) then
+		begin
+			RegWriteStringValue(HKLM, '{#SBRegKey}', 'DataPath', DataPath);
+			RegDeleteValue(HKLM, '{#LegacyRegkey}', 'DataPath');
+		end;
 
 	if (not RegQueryStringValue(HKLM, '{#SBRegKey}', 'DataPath', DataPath)) then
 		begin
@@ -159,7 +166,7 @@ begin
 			else
 				DataPath := ExpandConstant('{commonappdata}');
 
-			DataPath := AddBackslash(DataPath) + 'Squeezebox';
+			DataPath := AddBackslash(DataPath) + '{#FolderName}';
 		end;
 
 	Result := DataPath;
@@ -351,14 +358,12 @@ begin
 			if not UninstallSilent then
 				begin
 					Deltree(ExpandConstant('{app}\server\Cache'), True, True, True);
-					Deltree(ExpandConstant('{commonappdata}\Squeezebox\Cache'), True, True, True);
 					Deltree(ExpandConstant('{code:GetWritablePath}\Cache'), True, True, True);
 				end;
 
 			if SuppressibleMsgBox(CustomMessage('UninstallPrefs'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2, IDNO) = IDYES then
 				begin
 					DelTree(GetWritablePath(''), True, True, True);
-					RegDeleteKeyIncludingSubkeys(HKCU, '{#SBRegKey}');
 					RegDeleteKeyIncludingSubkeys(HKLM, '{#SBRegKey}');
 				end;
 		end;
