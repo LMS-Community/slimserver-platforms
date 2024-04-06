@@ -166,7 +166,9 @@ begin
 			else
 				DataPath := ExpandConstant('{commonappdata}');
 
-			DataPath := AddBackslash(DataPath) + '{#FolderName}';
+			DataPath := AddBackslash(DataPath) + 'Squeezebox';
+			// TODO - need to figure out what this value isn't stored in the registry
+			// DataPath := AddBackslash(DataPath) + '{#FolderName}';
 		end;
 
 	Result := DataPath;
