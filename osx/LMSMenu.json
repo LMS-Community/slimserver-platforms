@@ -1,0 +1,18 @@
+{
+	"OPEN_SETTINGS": {
+		"DE": "Einstellungen öffnen...",
+		"EN": "Open Settings..."
+	},
+	"STOP_SERVICE": {
+		"DE": "Dienst stoppen",
+		"EN": "Stop Service"
+	},
+	"OPEN_GUI": {
+		"DE": "Web-Steuerung öffnen...",
+		"EN": "Open Web Control..."
+	},
+	"START_SERVICE": {
+		"EN": "Start Service",
+		"DE": "Dienst starten"
+	}
+}

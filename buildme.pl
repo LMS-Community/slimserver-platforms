@@ -109,7 +109,7 @@ sub checkCommandOptions {
 		exit(0);
 	}
 
-	if ($build =~ /^tarball|docker|debian|rpm|macosx|win32|win64$/) {
+	if ($build =~ /^tarball|docker|debian|rpm|macosx|macos|win32|win64$/) {
 		## releaseType is an option, but if its not there, we need
 		## to default it to 'nightly'
 		if (!$releaseType) {
@@ -315,6 +315,16 @@ sub doCommandOptions {
 
 		buildMacOSX("$destName");
 
+	} elsif ($build eq "macos") {
+		## Build the Mac OSX menu bar item
+		$destName =~ s/$defaultDestName/LyrionMusicServer/;
+
+		if ( $releaseType && $releaseType eq "release" ) {
+			$destName =~ s/-$revision//;
+		}
+
+		buildMacOS("$destName");
+
 	} elsif ($build eq "win32") {
 		## Build the Windows 32bit Installer
 		$destName =~ s/$defaultDestName/LyrionMusicServer/;
@@ -408,7 +418,16 @@ sub showUsage {
 	print "                                   that you've checked out from Git\n";
 	print "    --destDir <dir>              - The destination you'd like your files \n";
 	print "    --destName <filename>        - The name of the OSX Package Name, do not \n";
-	print "       (optional)                  include the .dmg\n";
+	print "       (optional)                  include the extension.\n";
+	print "\n";
+	print "--- Building a macOS menu bar item\n";
+	print "    --build macos <required opts below>\n";
+	print "    --buildDir <dir>             - The directory to do temporary work in\n";
+	print "    --sourceDir <dir>            - The location of the source code repository\n";
+	print "                                   that you've checked out from Git\n";
+	print "    --destDir <dir>              - The destination you'd like your files \n";
+	print "    --destName <filename>        - The name of the OSX Package Name, do not \n";
+	print "       (optional)                  include the extension.\n";
 	print "\n";
 	print "--- Building a Windows Package\n";
 	print "    --build win32 <required opts below>\n";
@@ -726,6 +745,60 @@ sub buildMacOSX {
 		closedir $dirh;
 
 		system("pkgutil --flatten $buildDir/lms_tmp \"$destDir/$pkgName.pkg\"");
+	}
+}
+
+
+##############################################################################################
+## Build the macOS package
+##############################################################################################
+sub buildMacOS {
+	## Grab the variables passed to us...
+	if ( ($_[0] ) || die("Problem: Not all of the variables were passed to the buildMacOS function...") ) {
+		## Take the filename passed to us and make sure that we build the PKG with
+		## that name, and that the 'pretty mounted name' also matches
+		my $pkgName = $_[0];
+
+		print "INFO: Building package for macOS (Universal)... \n";
+
+		## First, lets make sure we get rid of the files we don't need for this install
+		my @dirsToExclude = split(/ /, $dirsToExcludeForMacOSX);
+		my $n = 0;
+		while ($dirsToExclude[$n]) {
+			print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
+			system("find $buildDir | grep -i $dirsToExclude[$n] | xargs rm -rf ");
+			$n++;
+		}
+
+		## Copy in the documentation and license files..
+		print "INFO: Copying documentation & licenses...\n";
+		copy("$buildDir/server/license.txt", "$buildDir/$pkgName/License.txt");
+
+		system("cd \"$buildDir\"; mkdir perl; cd perl; tar xjf \"$buildDir/platforms/osx/Perl-5.34.0-x86_64-arm64.tar.bz2\"; chmod a+x bin/perl");
+
+		my @args = (
+			'--name', 'Lyrion Music Server',
+			'--interface-type', 'Status Menu',
+			'--background',
+			'--app-icon', "$buildDir/platforms/osx/Preference\ Pane/icon.icns",
+			'--app-version', $version,
+			'--author', 'Lyrion Community',
+			'--bundled-file', "$buildDir/perl/bin",
+			'--bundled-file', "$buildDir/perl/lib",
+			'--bundled-file', "$buildDir/platforms/osx/LMSMenu.pl",
+			'--bundled-file', "$buildDir/platforms/osx/LMSMenu.json",
+			'--bundled-file', "$buildDir/server/CPAN/Text",
+			'--status-item-kind', 'Icon',
+			'--status-item-icon', "$buildDir/platforms/osx/Preference\ Pane/icon.icns",
+			'--status-item-sysfont',
+			'--overwrite', "$buildDir/platforms/osx/menu.sh",
+			"$buildDir/$pkgName"
+		);
+
+		system('platypus', @args);
+
+		print "INFO: Building $pkgName.zip with source from $buildDir/$pkgName...\n";
+		system("cd $buildDir; zip -r $destDir/$pkgName.zip $pkgName.app");
 	}
 }
 
