@@ -14,5 +14,13 @@
 	"START_SERVICE": {
 		"EN": "Start Service",
 		"DE": "Dienst starten"
+	},
+	"AUTOSTART_ON": {
+		"DE": "✓ Dienst automatisch ausführen",
+		"EN": "✓ Run Service automatically"
+	},
+	"AUTOSTART_OFF": {
+		"DE": "Dienst automatisch ausführen",
+		"EN": "Run Service automatically"
 	}
 }

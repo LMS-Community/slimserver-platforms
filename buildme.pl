@@ -189,11 +189,11 @@ sub setupDirectories {
 	## First, check if the buildDir exists... we need a clean directory to build our code.
 	if (-d $buildDir) {
 		print "INFO: Source Directory ($buildDir) already existed, erasing it so we can start clean...\n";
-		rmtree($buildDir);
+		# rmtree($buildDir);
 	}
 
 	## Now, create a new build directory
-	mkpath($buildDir) or die "Problem: couldn't make $buildDir!\n";
+	# mkpath($buildDir) or die "Problem: couldn't make $buildDir!\n";
 	print "INFO: Build Directory ($buildDir) was created...\n";
 
 	## Finally, create the destination directory, if it doesnt exist. We don't care if
@@ -232,7 +232,7 @@ sub setupBuildTree {
 
 	## Exclude the .git directory, and anything else we configured in the beginning of the script.
 	print("rsync -a --quiet $sourceExclude $sourceDir/server $sourceDir/platforms $buildDir\n");
-	system("rsync -a --quiet $sourceExclude $sourceDir/server $sourceDir/platforms $buildDir");
+	system("rsync -a --quiet $sourceExclude  $sourceDir/platforms $buildDir");
 
 	## Verify that things went OK during the transfer...
 	if (!-d "$buildDir/server") {
@@ -440,6 +440,7 @@ sub showUsage {
 sub removeExclusions {
 	my ($dirsToExclude, $dirsToInclude) = @_;
 
+return;
 	## First, lets make sure we get rid of the files we don't need for this install
 	my @dirsToExclude = split(/ /, $dirsToExclude);
 	my $n = 0;
@@ -764,11 +765,11 @@ sub buildMacOS {
 		## First, lets make sure we get rid of the files we don't need for this install
 		my @dirsToExclude = split(/ /, $dirsToExcludeForMacOSX);
 		my $n = 0;
-		while ($dirsToExclude[$n]) {
-			print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
-			system("find $buildDir | grep -i $dirsToExclude[$n] | xargs rm -rf ");
-			$n++;
-		}
+		# while ($dirsToExclude[$n]) {
+		# 	print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
+		# 	system("find $buildDir | grep -i $dirsToExclude[$n] | xargs rm -rf ");
+		# 	$n++;
+		# }
 
 		## Copy in the documentation and license files..
 		print "INFO: Copying documentation & licenses...\n";
@@ -779,28 +780,32 @@ sub buildMacOS {
 		my @args = (
 			'--name', 'Lyrion Music Server',
 			'--interface-type', 'Status Menu',
-			'--interpreter', './bin/perl',
-			'--background',
-			'--app-icon', "$buildDir/platforms/osx/Preference\ Pane/icon.icns",
+			'--author', 'Lyrion Community, Michael Herger',
 			'--app-version', $version,
-			'--author', 'Lyrion Community',
-			'--bundled-file', "$buildDir/perl/bin",
-			'--bundled-file', "$buildDir/perl/lib",
-			'--bundled-file', "$buildDir/platforms/osx/LMSMenu.pl",
-			'--bundled-file', "$buildDir/platforms/osx/LMSMenu.json",
-			'--bundled-file', "$buildDir/server",
+			'--app-icon', "$buildDir/platforms/osx/Preference\ Pane/icon.icns",
 			'--status-item-kind', 'Icon',
 			'--status-item-icon', "$buildDir/platforms/osx/Preference\ Pane/icon.icns",
 			'--status-item-sysfont',
+			'--interpreter', './bin/perl',
+			'--background',
+			'--bundled-file', "$buildDir/perl/bin",
+			'--bundled-file', "$buildDir/perl/lib",
+			'--bundled-file', "$buildDir/platforms/osx/MenuBarItem/LMSMenuAction.pm",
+			'--bundled-file', "$buildDir/platforms/osx/MenuBarItem/LMSMenu.json",
+			'--bundled-file', "$buildDir/platforms/osx/MenuBarItem/start-server.sh",
+			'--bundled-file', "$buildDir/platforms/osx/MenuBarItem/stop-server.sh",
+			'--bundled-file', "$buildDir/platforms/osx/MenuBarItem/create-launchitem.sh",
+			'--bundled-file', "$buildDir/platforms/osx/MenuBarItem/remove-launchitem.sh",
+			'--bundled-file', "$buildDir/server",
 			'--overwrite',
-			"$buildDir/platforms/osx/LMSMenu.pl",
+			"$buildDir/platforms/osx/MenuBarItem/LMSMenu.pl",
 			"$buildDir/$pkgName"
 		);
 
 		system('platypus', @args);
 
 		print "INFO: Building $pkgName.zip with source from $buildDir/$pkgName...\n";
-		system("cd $buildDir; zip -r $destDir/$pkgName.zip $pkgName.app");
+		# system("cd $buildDir; zip -qr $destDir/$pkgName.zip $pkgName.app");
 	}
 }
 
