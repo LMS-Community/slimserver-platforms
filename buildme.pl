@@ -779,6 +779,7 @@ sub buildMacOS {
 		my @args = (
 			'--name', 'Lyrion Music Server',
 			'--interface-type', 'Status Menu',
+			'--interpreter', './bin/perl',
 			'--background',
 			'--app-icon', "$buildDir/platforms/osx/Preference\ Pane/icon.icns",
 			'--app-version', $version,
@@ -787,11 +788,12 @@ sub buildMacOS {
 			'--bundled-file', "$buildDir/perl/lib",
 			'--bundled-file', "$buildDir/platforms/osx/LMSMenu.pl",
 			'--bundled-file', "$buildDir/platforms/osx/LMSMenu.json",
-			'--bundled-file', "$buildDir/server/CPAN/Text",
+			'--bundled-file', "$buildDir/server",
 			'--status-item-kind', 'Icon',
 			'--status-item-icon', "$buildDir/platforms/osx/Preference\ Pane/icon.icns",
 			'--status-item-sysfont',
-			'--overwrite', "$buildDir/platforms/osx/menu.sh",
+			'--overwrite',
+			"$buildDir/platforms/osx/LMSMenu.pl",
 			"$buildDir/$pkgName"
 		);
 
