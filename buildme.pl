@@ -189,11 +189,11 @@ sub setupDirectories {
 	## First, check if the buildDir exists... we need a clean directory to build our code.
 	if (-d $buildDir) {
 		print "INFO: Source Directory ($buildDir) already existed, erasing it so we can start clean...\n";
-		# rmtree($buildDir);
+		rmtree($buildDir);
 	}
 
 	## Now, create a new build directory
-	# mkpath($buildDir) or die "Problem: couldn't make $buildDir!\n";
+	mkpath($buildDir) or die "Problem: couldn't make $buildDir!\n";
 	print "INFO: Build Directory ($buildDir) was created...\n";
 
 	## Finally, create the destination directory, if it doesnt exist. We don't care if
@@ -232,7 +232,7 @@ sub setupBuildTree {
 
 	## Exclude the .git directory, and anything else we configured in the beginning of the script.
 	print("rsync -a --quiet $sourceExclude $sourceDir/server $sourceDir/platforms $buildDir\n");
-	system("rsync -a --quiet $sourceExclude  $sourceDir/platforms $buildDir");
+	system("rsync -a --quiet $sourceExclude $sourceDir/server $sourceDir/platforms $buildDir");
 
 	## Verify that things went OK during the transfer...
 	if (!-d "$buildDir/server") {
@@ -440,7 +440,6 @@ sub showUsage {
 sub removeExclusions {
 	my ($dirsToExclude, $dirsToInclude) = @_;
 
-return;
 	## First, lets make sure we get rid of the files we don't need for this install
 	my @dirsToExclude = split(/ /, $dirsToExclude);
 	my $n = 0;
