@@ -6,6 +6,7 @@ Add: version
 Add: AnyEvent::Impl::EV
 Add: Async::Util
 Add: CGI
+Add: Crypt::Blowfish
 Add: Encode::CN
 Add: Encode::JP
 Add: Encode::KR
