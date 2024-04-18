@@ -32,15 +32,15 @@ rm .materialinstalled
 
 cat <<EOF > $PREFIX/var/lib/lms/installlms
 #!/bin/bash
+apt update
+apt -y -o Dpkg::Options::="--force-confnew" upgrade
+apt -y -o Dpkg::Options::="--force-confnew" install bash-completion jq apt-utils whiptail nano wget tree libxml2-utils
 rm servers.json
 wget https://lyrion.org/lms-server-repository/servers.json
 url=\$(jq -r '.latest.deb.url' servers.json)
 deb=\${url##*/}
 package=\$(echo \$deb | cut -d'_' -f1)
 if [  ! -d '/usr/share/squeezeboxserver' ]; then
-  apt update
-  apt -y -o Dpkg::Options::="--force-confnew" upgrade
-  apt -y -o Dpkg::Options::="--force-confnew" install bash-completion jq apt-utils whiptail nano wget tree libxml2-utils
   rm logitechmediaserver*.deb lyrionmusicserver*.deb
   wget \$url
   apt -y -o Dpkg::Options::="--force-confnew" install ./\$deb
