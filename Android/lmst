@@ -66,6 +66,15 @@ package Slim::Utils::OS::Custom;
 use strict;
 use base qw(Slim::Utils::OS::Debian);
 
+sub initDetails {
+  my \$class = shift;
+
+  \$class->{osDetails} = \$class->SUPER::initDetails();
+  \$class->{osDetails}->{osName} .= " (Android)";
+
+  return \$class->{osDetails};
+}
+
 # Allow server to run as root in Termux Debian proot
 sub dontSetUserAndGroup { 1 }
 
