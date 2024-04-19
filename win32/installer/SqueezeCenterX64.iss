@@ -9,6 +9,8 @@
 #define FolderName "Lyrion"
 #define SBRegKey   "SOFTWARE\Lyrion\Server"
 #define LegacyRegkey "SOFTWARE\Logitech\Squeezebox"
+#define LegacyUninstaller "SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Logitech Media Server_is1"
+#define W32Uninstaller "SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Lyrion Music Server_is1"
 #define LMSPerl    "Perl"
 #define LMSPerlBin "Perl\perl\bin\perl.exe"
 #define ServiceName "squeezesvc"
@@ -53,7 +55,7 @@ DisableDirPage=yes
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 WizardImageFile=squeezebox.bmp
-WizardSmallImageFile=logi.bmp
+WizardSmallImageFile=logo.bmp
 OutputBaseFilename=SqueezeSetup64
 DirExistsWarning=no
 ArchitecturesAllowed=x64
@@ -223,7 +225,8 @@ end;
 function PrepareToInstall(var NeedsRestart: Boolean): String;
 var
 	Shell, ZipFile, TargetFolder: Variant;
-	PerlPath: string;
+	PerlPath, Uninstaller: string;
+	ErrorCode: Integer;
 
 begin
 	if not FileExists(ExpandConstant('{app}\{#LMSPerlBin}')) then
@@ -259,6 +262,26 @@ begin
 		finally
 			DownloadPage.Hide();
 		end;
+	end;
+
+	if (RegQueryStringValue(HKLM, '{#LegacyUninstaller}', 'UninstallString', Uninstaller)) then
+	begin
+		try
+			StopService('{#ServiceName}');
+			RemoveService('{#ServiceName}');
+			ShellExec('', Uninstaller, '/SILENT /SUPPRESSMSGBOXES', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
+		finally
+		end;
+	end;
+
+	if (RegQueryStringValue(HKLM, '{#W32Uninstaller}', 'UninstallString', Uninstaller)) then
+	begin
+		try
+			StopService('{#ServiceName}');
+			RemoveService('{#ServiceName}');
+			ShellExec('', Uninstaller, '/SILENT /SUPPRESSMSGBOXES', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
+		finally
+		end
 	end;
 end;
 

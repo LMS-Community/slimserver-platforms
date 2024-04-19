@@ -9,7 +9,11 @@
 #define SBRegKey   "SOFTWARE\Lyrion\Server"
 #define LegacyRegkey "SOFTWARE\Logitech\Squeezebox"
 #define FolderName "Lyrion"
+#define ServiceName "squeezesvc"
 
+#define LegacyUninstaller "SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Logitech Media Server_is1"
+; this is based on the 64-bit installer's app ID
+#define W64Uninstaller "SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\abcf9020-4c00-4f53-a6be-ef83d0c62a47_is1"
 #define VCRedistKey  = "SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86"
 
 [Languages]
@@ -49,7 +53,7 @@ DisableDirPage=yes
 DisableProgramGroupPage=yes
 DisableReadyPage=yes
 WizardImageFile=squeezebox.bmp
-WizardSmallImageFile=logi.bmp
+WizardSmallImageFile=logo.bmp
 OutputBaseFilename=SqueezeSetup
 DirExistsWarning=no
 
@@ -139,8 +143,8 @@ Type: files; Name: {commonstartup}\{cm:SqueezeCenterTrayTool}.url
 Filename: {app}\server\squeezeboxcp.exe; Description: {cm:StartupControlPanel}; Flags: postinstall nowait skipifsilent
 
 [UninstallRun]
-Filename: "sc"; Parameters: "stop squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: StopSqueezSVC
-Filename: "sc"; Parameters: "delete squeezesvc"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: DeleteSqueezSVC
+Filename: "sc"; Parameters: "stop  {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: StopSqueezSVC
+Filename: "sc"; Parameters: "delete  {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: DeleteSqueezSVC
 Filename: {app}\server\SqueezeSvr.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381; RunOnceId: SqueezeSvrExe
 Filename: {app}\SqueezeTray.exe; Parameters: "--exit --uninstall"; WorkingDir: {app}; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381; RunOnceId: SqueezeTrayExe
 
@@ -253,8 +257,8 @@ begin
 	// 'logon' - to be started on at logon (application mode)
 	StartupMode := '';
 
-	if GetStartType('squeezesvc') <> '' then
-		StartupMode := GetStartType('squeezesvc')
+	if GetStartType('{#ServiceName}') <> '' then
+		StartupMode := GetStartType('{#ServiceName}')
 
 	else
 		begin
@@ -276,7 +280,30 @@ begin
 end;
 
 function PrepareToInstall(var NeedsRestart: Boolean): String;
+var
+	Uninstaller: string;
+	ErrorCode: Integer;
 begin
+	if (RegQueryStringValue(HKLM, '{#LegacyUninstaller}', 'UninstallString', Uninstaller)) then
+	begin
+		try
+			StopService('{#ServiceName}');
+			RemoveService('{#ServiceName}');
+			ShellExec('', Uninstaller, '/SILENT /SUPPRESSMSGBOXES', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
+		finally
+		end;
+	end;
+
+	if (RegQueryStringValue(HKLM, '{#W64Uninstaller}', 'UninstallString', Uninstaller)) then
+	begin
+		try
+			StopService('{#ServiceName}');
+			RemoveService('{#ServiceName}');
+			ShellExec('', Uninstaller, '/SILENT /SUPPRESSMSGBOXES', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
+		finally
+		end
+	end;
+
 	if (WizardSilent and (not HasVCRedist())) then
 		begin
 			ExtractTemporaryFile('vcredist.exe');
@@ -386,7 +413,7 @@ begin
 				end;
 
 				if StartupMode = 'auto' then
-					StartService('squeezesvc');
+					StartService('{#ServiceName}');
 
 				ProgressPage.setText(CustomMessage('RegisteringServices'), 'SqueezeTray');
 				ProgressPage.setProgress(ProgressPage.ProgressBar.Position+10, ProgressPage.ProgressBar.Max);
@@ -430,7 +457,7 @@ begin
 												break;
 											end
 
-										else if (IsServiceRunning('squeezesvc') or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('SqueezeSvr.exe') or IsModuleLoaded('squeez~3.exe')) then
+										else if (IsServiceRunning('{#ServiceName}') or IsModuleLoaded('squeez~1.exe') or IsModuleLoaded('SqueezeSvr.exe') or IsModuleLoaded('squeez~3.exe')) then
 											Started := true
 
 										else if Started then
