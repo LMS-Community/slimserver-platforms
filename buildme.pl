@@ -963,8 +963,7 @@ sub buildWin32 {
 		# Swedish is 3rd party - we keep it in our installer folder
 		copy("$buildDir/platforms/win32/installer/Swedish.isl", "$buildDir/build");
 
-		copy("$buildDir/platforms/win32/installer/logi.bmp", "$buildDir/build");
-		copy("$buildDir/platforms/win32/installer/logitech.bmp", "$buildDir/build");
+		copy("$buildDir/platforms/win32/installer/logo.bmp", "$buildDir/build");
 		copy("$buildDir/platforms/win32/installer/squeezebox.bmp", "$buildDir/build");
 
 		# replacing build number in installer script
@@ -980,8 +979,7 @@ sub buildWin32 {
 		unlink("$buildDir/build/psvince.dll");
 		unlink("$buildDir/build/sockettest.dll");
 		unlink("$buildDir/build/ApplicationData.xml");
-		unlink("$buildDir/build/logi.bmp");
-		unlink("$buildDir/build/logitech.bmp");
+		unlink("$buildDir/build/logo.bmp");
 		unlink("$buildDir/build/strings.iss");
 
 		unlink("$buildDir/build/Danish.isl");
@@ -1060,7 +1058,7 @@ sub buildWin64 {
 		# Swedish is 3rd party - we keep it in our installer folder
 		copy("$buildDir/platforms/win32/installer/Swedish.isl", "$buildDir/build");
 
-		copy("$buildDir/platforms/win32/installer/logi.bmp", "$buildDir/build");
+		copy("$buildDir/platforms/win32/installer/logo.bmp", "$buildDir/build");
 		copy("$buildDir/platforms/win32/installer/squeezebox.bmp", "$buildDir/build");
 
 		# replacing build number in installer script
