@@ -1,5 +1,5 @@
 PAP-Version: 1.0
-Packer: 
+Packer:
 Script: scanner.pl
 Add: version
 Add: I18N::LangTags
@@ -37,6 +37,7 @@ Add: Slim::Formats::XML
 Add: Slim::Plugin::Base
 Add: Slim::Schema::Album
 Add: Slim::Schema::Comment
+Add: Slim::Schema::Composer
 Add: Slim::Schema::Contributor
 Add: Slim::Schema::ContributorAlbum
 Add: Slim::Schema::ContributorTrack
@@ -50,6 +51,7 @@ Add: Slim::Schema::PlaylistTrack
 Add: Slim::Schema::Rescan
 Add: Slim::Schema::Track
 Add: Slim::Schema::TrackPersistent
+Add: Slim::Schema::Work
 Add: Slim::Schema::Year
 Add: Slim::Schema::Progress
 Add: Slim::Schema::DBI
@@ -63,6 +65,7 @@ Add: Slim::Schema::ResultSet::Genre
 Add: Slim::Schema::ResultSet::Playlist
 Add: Slim::Schema::ResultSet::PlaylistTrack
 Add: Slim::Schema::ResultSet::Track
+Add: Slim::Schema::ResultSet::Work
 Add: Slim::Schema::ResultSet::Year
 Add: Slim::Utils::MySQLHelper
 Add: Slim::Utils::Prefs::Migration

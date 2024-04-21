@@ -106,6 +106,7 @@ Add: Slim::Utils::AutoRescan::Stat::Async
 Add: Slim::Utils::AutoRescan::Win32
 Add: Slim::Schema::Album
 Add: Slim::Schema::Comment
+Add: Slim::Schema::Composer
 Add: Slim::Schema::Contributor
 Add: Slim::Schema::ContributorAlbum
 Add: Slim::Schema::ContributorTrack
@@ -119,6 +120,7 @@ Add: Slim::Schema::PlaylistTrack
 Add: Slim::Schema::Rescan
 Add: Slim::Schema::Track
 Add: Slim::Schema::TrackPersistent
+Add: Slim::Schema::Work
 Add: Slim::Schema::Year
 Add: Slim::Schema::Progress
 Add: Slim::Schema::DBI
@@ -132,6 +134,7 @@ Add: Slim::Schema::ResultSet::Genre
 Add: Slim::Schema::ResultSet::Playlist
 Add: Slim::Schema::ResultSet::PlaylistTrack
 Add: Slim::Schema::ResultSet::Track
+Add: Slim::Schema::ResultSet::Work
 Add: Slim::Schema::ResultSet::Year
 Add: Slim::Utils::OS::Win32
 Add: Slim::Utils::MySQLHelper
