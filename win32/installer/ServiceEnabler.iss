@@ -40,8 +40,8 @@ Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl"
 Name: "sv"; MessagesFile: "Swedish.isl"
 
 [Run]
-Filename: "sc"; Parameters: "failure {#ServiceName} reset= 180 actions= restart/1000/restart/1000/restart/1000"; Flags: runhidden
-Filename: "sc"; Parameters: "config {#ServiceName} start= delayed-auto"; Flags: runhidden
+Filename: {sys}\sc.exe; Parameters: "failure {#ServiceName} reset= 180 actions= restart/1000/restart/1000/restart/1000"; Flags: runhidden
+Filename: {sys}\sc.exe; Parameters: "config {#ServiceName} start= delayed-auto"; Flags: runhidden
 
 [CustomMessages]
 #include "strings.iss"

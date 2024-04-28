@@ -143,8 +143,8 @@ Type: files; Name: {commonstartup}\{cm:SqueezeCenterTrayTool}.url
 Filename: {app}\server\squeezeboxcp.exe; Description: {cm:StartupControlPanel}; Flags: postinstall nowait skipifsilent
 
 [UninstallRun]
-Filename: "sc"; Parameters: "stop  {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: StopSqueezSVC
-Filename: "sc"; Parameters: "delete  {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: DeleteSqueezSVC
+Filename: {sys}\sc.exe; Parameters: "stop  {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: StopSqueezSVC
+Filename: {sys}\sc.exe; Parameters: "delete  {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: DeleteSqueezSVC
 Filename: {app}\server\SqueezeSvr.exe; Parameters: -remove; WorkingDir: {app}\server; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381; RunOnceId: SqueezeSvrExe
 Filename: {app}\SqueezeTray.exe; Parameters: "--exit --uninstall"; WorkingDir: {app}; Flags: skipifdoesntexist runhidden; MinVersion: 0,4.00.1381; RunOnceId: SqueezeTrayExe
 

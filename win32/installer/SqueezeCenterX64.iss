@@ -100,9 +100,9 @@ Type: dirifempty; Name: {app}\server\HTML
 Type: dirifempty; Name: {app}\server\SQL
 
 [Run]
-Filename: "sc"; Parameters: "failure {#ServiceName} reset= 180 actions= restart/1000/restart/1000/restart/1000"; Flags: runhidden
-Filename: "sc"; Parameters: "config {#ServiceName} start= delayed-auto"; Flags: runhidden
-Filename: "sc"; Parameters: "start {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381
+Filename: {sys}\sc.exe; Parameters: "failure {#ServiceName} reset= 180 actions= restart/1000/restart/1000/restart/1000"; Flags: runhidden
+Filename: {sys}\sc.exe; Parameters: "config {#ServiceName} start= delayed-auto"; Flags: runhidden
+Filename: {sys}\sc.exe; Parameters: "start {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381
 Filename: "http://localhost:{code:GetHttpPort}"; Description: {cm:StartupSqueezeCenterWebInterface}; Flags: postinstall nowait skipifsilent shellexec unchecked
 
 ; Remove old firewall rules, then add new
@@ -111,8 +111,8 @@ Filename: "netsh"; Parameters: "advfirewall firewall delete rule name=""{#AppNam
 Filename: "netsh"; Parameters: "advfirewall firewall add rule name=""{#AppName} (Perl)"" dir=in program=""{app}\{#LMSPerlBin}"" action=allow"; Flags: runhidden
 
 [UninstallRun]
-Filename: "sc"; Parameters: "stop {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: StopSqueezSVC
-Filename: "sc"; Parameters: "delete {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: DeleteSqueezSVC
+Filename: {sys}\sc.exe; Parameters: "stop {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: StopSqueezSVC
+Filename: {sys}\sc.exe; Parameters: "delete {#ServiceName}"; Flags: runhidden; MinVersion: 0,4.00.1381; RunOnceId: DeleteSqueezSVC
 
 [Code]
 #include "SocketTest.iss"
@@ -267,6 +267,7 @@ begin
 	if (RegQueryStringValue(HKLM, '{#LegacyUninstaller}', 'UninstallString', Uninstaller)) then
 	begin
 		try
+			Log('Remove legacy LMS uninstaller');
 			StopService('{#ServiceName}');
 			RemoveService('{#ServiceName}');
 			ShellExec('', Uninstaller, '/SILENT /SUPPRESSMSGBOXES', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
@@ -277,6 +278,7 @@ begin
 	if (RegQueryStringValue(HKLM, '{#W32Uninstaller}', 'UninstallString', Uninstaller)) then
 	begin
 		try
+			Log('Remove 32-bit LMS uninstaller');
 			StopService('{#ServiceName}');
 			RemoveService('{#ServiceName}');
 			ShellExec('', Uninstaller, '/SILENT /SUPPRESSMSGBOXES', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
