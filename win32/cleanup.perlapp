@@ -10,7 +10,6 @@ Add: YAML::XS
 Add: auto/Win32/Process/List/autosplit.ix
 Bind: ApplicationData.xml[file=../platforms/win32/installer/ApplicationData.xml,extract,mode=444]
 Bind: lms_splash.png[file=../platforms/win32/res/lms_splash.png,extract,mode=444]
-Bind: lyrion.png[file=../platforms/win32/res/lyrion.png,extract,mode=444]
 Bind: SqueezeCenter.ico[file=../platforms/win32/res/SqueezeCenter.ico,extract,mode=444]
 #Bind: gdilib/gdiplus.dll[file=c:/Perl514/site/lib/Alien/wxWidgets/msw_2_8_12_uni_gcc_3_4/os/gdiplus.dl_,mode=444]
 Bind: strings.txt[file=strings.txt,mode=444]
