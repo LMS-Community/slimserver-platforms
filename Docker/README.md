@@ -25,7 +25,7 @@ docker run -it \
       lmscommunity/lyrionmusicserver
 ```
 
-Please note that the http port always has to be a 1:1 mapping. You can't just map it like `-p 9002:9000`, as Lyrion Music Server is telling players on which port to connect. Therefore if you have to use a different http port for LMS (other than 9000) you'll have to set the `HTTP_PORT` environment variable, too:
+Please note that both the http port 9000 and the cli port 9090 must always be mapped 1:1. You can't just map it like `-p 9002:9000`, as Lyrion Music Server is telling players on which port to connect. The cli port can be updated after you dep[ly the container via the Lyrion web ui settings page under advanced/command line interface(CLI) to match your updated 1:1 mapping. However, if you have to use a different http port for LMS (other than 9000) you'll have to set the `HTTP_PORT` environment variable, too:
 
 ```
 docker run -it \
