@@ -19,7 +19,7 @@ sub initDetails {
 sub initPrefs {
 	my ($class, $prefs) = @_;
 
-	$prefs->{wizardDone} = 1;
+	# $prefs->{wizardDone} = 1;
 	$prefs->{libraryname} = Slim::Utils::Strings::string('SQUEEZEBOX_SERVER');
 
 	if (-d MUSIC_DIR) {

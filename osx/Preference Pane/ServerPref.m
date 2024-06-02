@@ -78,7 +78,7 @@
 
 	[self showRevision];
 
-	[self asyncJsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
+	// [self asyncJsonRequest:@"\"pref\", \"wizardDone\", \"1\""];
 
 	[self getMediaDirs];
 	[mediaDirsTable setDataSource:mediaDirs];
