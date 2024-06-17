@@ -503,6 +503,10 @@ pl.SqueezeCenterTrayTool=Narzędzie paska zadań programu Lyrion Music Server
 ru.SqueezeCenterTrayTool=Утилита панели задач Lyrion Music Server
 sv.SqueezeCenterTrayTool=Lyrion Music Server-systemfältsverktyg
 
+Start_LMS=Start Logitech Media Server (if not configured to run as a service)
+de.Start_LMS=Starte Logitech Media Server (wenn nicht als Dienst konfiguriert)
+fr.Start_LMS=Démarrer Logitech Media Server (si non configuré pour s'exécuter en tant que service)
+
 cz.SqueezeCenterWebInterface=Webové rozhraní Squeezebox
 da.SqueezeCenterWebInterface=Webbaseret brugerflade til Squeezebox
 de.SqueezeCenterWebInterface=Squeezebox-Web-Benutzeroberfläche

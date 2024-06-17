@@ -81,6 +81,7 @@ Name: {app}\server\Plugins; Permissions: users-modify
 Name: {group}\{cm:SqueezeCenterWebInterface}; Filename: "http://localhost:{code:GetHttpPort}"; IconFilename: "{app}\SqueezeCenter.ico"
 Name: {group}\{cm:Startup_Caption}; Filename: {app}\sqzsvcmgr.exe
 Name: {group}\{cm:UninstallSqueezeCenter}; Filename: {uninstallexe}
+Name: {group}\{cm:Start_LMS}; Filename: "{app}\{#LMSPerlBin}"; Parameters: """{app}\server\slimserver.pl"""; WorkingDir: "{app}\server"; IconFilename: "{app}\SqueezeCenter.ico"; Flags: runminimized
 
 [Registry]
 Root: HKLM; Subkey: {#SBRegKey}; ValueType: string; ValueName: "DataPath"; ValueData: {code:GetWritablePath}
