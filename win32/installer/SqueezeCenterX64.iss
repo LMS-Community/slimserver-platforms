@@ -78,6 +78,7 @@ Name: {app}\server\Bin; Permissions: users-modify
 Name: {group}\{cm:SqueezeCenterWebInterface}; Filename: "http://localhost:{code:GetHttpPort}"; IconFilename: "{app}\SqueezeCenter.ico"
 Name: {group}\{cm:Startup_Caption}; Filename: {app}\sqzsvcmgr.exe
 Name: {group}\{cm:UninstallSqueezeCenter}; Filename: {uninstallexe}
+Name: {group}\{cm:Start_LMS}; Filename: "{app}\{#LMSPerlBin}"; Parameters: """{app}\server\slimserver.pl"""; WorkingDir: "{app}\server"; IconFilename: "{app}\SqueezeCenter.ico"; Flags: runminimized
 
 [Registry]
 Root: HKLM; Subkey: SOFTWARE\Logitech\Squeezebox; ValueType: string; ValueName: Path64; ValueData: {app}
