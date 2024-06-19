@@ -1,7 +1,7 @@
 CPAN/arch/5.8
 CPAN/arch/5.1*
 CPAN/arch/5.2*
-CPAN/arch/5.3[0468]
+CPAN/arch/5.3[0248]
 CPAN/Font
 Bin/arm-linux
 Bin/darwin* 

@@ -45,7 +45,7 @@ my $dirsToExcludeForWin64 = "5.14 $dirsToExcludeForWin32";
 $dirsToExcludeForWin64 =~ s/5.32 |MSWin32-x64-multi-thread //g;
 
 # for Docker we provide x86_64 and armhf for Perl 5.32 only
-my $dirsToExcludeForDocker = "5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5.34 5.36 5.38 MSWin32-x86-multi-thread MSWin32-x64-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat";
+my $dirsToExcludeForDocker = "5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5.32 5.34 5.38 MSWin32-x86-multi-thread MSWin32-x64-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat";
 
 ## Initialize some variables we'll use later
 my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $i386, $releaseType, $release, $tag);

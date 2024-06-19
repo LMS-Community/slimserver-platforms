@@ -1,5 +1,5 @@
 #Base image
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 # Set environment variables
 ENV DEBIAN_FRONTEND noninteractive
