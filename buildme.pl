@@ -16,7 +16,7 @@ use constant DESTDIR_NOT_REQUIRED => '[not required]';
 
 ## Here we set some basic settings.. most of these dont need to change very often.
 my $squeezeCenterStartupScript = "server/slimserver.pl";
-my $sourceDirsToExclude = ".svn .git .github t tests slimp3 squeezebox /softsqueeze tools ext/source ext-all-debug.js build Firmware/*.bin NYTProf Plugins/*";
+my $sourceDirsToExclude = ".vscode .vstags .secrets .gitignore .editorconfig .svn .git .github t tests slimp3 squeezebox /softsqueeze tools ext/source ext-all-debug.js build Firmware/*.bin NYTProf Plugins/*";
 my $revisionTextFile = "server/revision.txt";
 my $revision;
 my $myVersion = "1.1.0";
@@ -45,10 +45,13 @@ my $dirsToExcludeForWin64 = "5.14 $dirsToExcludeForWin32";
 $dirsToExcludeForWin64 =~ s/5.32 |MSWin32-x64-multi-thread //g;
 
 # for Docker we provide x86_64 and armhf for Perl 5.32 only
-my $dirsToExcludeForDocker = "5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26 5.28 5.30 5.32 5.34 5.38 MSWin32-x86-multi-thread MSWin32-x64-multi-thread PreventStandby i386-linux i86pc-solaris-thread-multi-64int darwin darwin-x86_64 sparc-linux i386-freebsd-64int powerpc-linux icudt46b.dat icudt58b.dat";
+my $dirsToExcludeForDocker = "$dirsToExcludeForLinuxPackage 5.20 5.22 5.24 5.26 5.28 5.30 5.32 5.34 5.38 i386-linux i86pc-solaris-thread-multi-64int sparc-linux powerpc-linux icudt46b.dat icudt58b.dat";
+
+# Musical Fidelity comes with Perl 5.22
+my $dirsToExcludeForEncore = "$dirsToExcludeForLinuxPackage 5.20 5.24 5.26 5.28 5.30 5.32 5.34 5.36 5.38 i386-linux arm-linux armhf-linux aarch64-linux i86pc-solaris-thread-multi-64int sparc-linux powerpc-linux icudt46b.dat icudt58b.dat";
 
 ## Initialize some variables we'll use later
-my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $ppc, $x86_64, $i386, $releaseType, $release, $tag);
+my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $encore, $ppc, $x86_64, $i386, $releaseType, $release, $tag);
 
 
 ##############################################################################################
@@ -93,6 +96,7 @@ sub checkCommandOptions {
 			'i386'          => \$i386,
 			'arm'           => \$arm,
 			'ppc'           => \$ppc,
+			'encore'        => \$encore,
 			'light'         => \$light,
 			'releaseType=s' => \$releaseType,
 			'tag=s'         => \$tag,
@@ -289,6 +293,10 @@ sub doCommandOptions {
 			buildTarball($dirsToExcludeForARMTarball, "$destDir/$destName-arm-linux");
 		} elsif ($ppc) {
 			buildTarball($dirsToExcludeForPPCTarball, "$destDir/$destName-powerpc-linux");
+		} elsif ($encore) {
+			copy("$buildDir/platforms/MusicalFidelity/Custom.pm", "$buildDir/server/Slim/Utils/OS");
+			move("$buildDir/server/CPAN/arch/5.22/x86_64-linux-thread-multi", "$buildDir/server/CPAN/arch/5.22/x86_64-linux");
+			buildTarball($dirsToExcludeForEncore, "$destDir/$destName-MusicalFidelity");
 		} else {
 			## Use the CPAN variables
 			buildTarball($dirsToExcludeForLinuxTarball, "$destDir/$destName");
@@ -364,48 +372,36 @@ sub showUsage {
 	print "of Lyrion Music Server... but only one at a time.\n";
 	print "Each distribution has its own options, \n";
 	print "listed below... don't try to mix them up! :)\n";
-	print " \n";
-	print "--- Building a Linux Tarball\n";
-	print "    --build tarball <required opts below>\n";
+	print "\n";
+	print "Parameters for all builds:\n";
 	print "    --buildDir <dir>             - The directory to do temporary work in\n";
 	print "    --sourceDir <dir>            - The location of the source code repository\n";
 	print "                                   that you've checked out from Git\n";
-	print "    --destDir <dir>              - The destination you'd like your files \n";
+	print "    --destDir <dir>              - The destination you'd like your files\n";
+	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
+	print "        (optional)                 or you're building a nightly-style package\n";
+	print "\n";
+	print "--- Building a Linux Tarball\n";
+	print "    --build tarball <required opts below>\n";
 	print "    --destName <filename>        - The name of the tarball you would like to\n";
 	print "       (optional)                  have made. Do not include the .tar.gz/tgz,\n";
 	print "                                   it will be appended automatically.\n";
 	print "    --freebsd (optional)         - Build a package with only FreeBSD 7.2 binaries\n";
 	print "    --arm (optional)             - Build a package with only ARM Linux binaries\n";
 	print "    --ppc (optional)             - Build a package with only PPC Linux binaries\n";
+	print "    --encore (optional)          - Build a package for the Musical Fidelity Encore\n";
 	print "    --noCPAN (optional)          - Build a package with no CPAN modules included\n";
 	print "    --noCPAN-light (optional)    - Build a package with no CPAN modules, web templates etc. included\n";
 	print "\n";
 	print "--- Building a Docker image (with only ARM and x86_64 Linux binaries)\n";
 	print "    --build docker <required opts below>\n";
-	print "    --buildDir <dir>             - The directory to do temporary work in\n";
-	print "    --sourceDir <dir>            - The location of the source code repository\n";
-	print "                                   that you've checked out from Git\n";
-	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
-	print "        (optional)                 or you're building a nightly-style package\n";
 	print "    --tag <tag>                  - additional tag for the Docker image\n";
 	print "\n";
 	print "--- Building an RPM package\n";
 	print "    --build rpm <required opts below>\n";
-	print "    --buildDir <dir>             - The directory to do temporary work in\n";
-	print "    --sourceDir <dir>            - The location of the source code repository\n";
-	print "                                   that you've checked out from Git\n";
-	print "    --destDir <dir>              - The destination you'd like your files \n";
-	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
-	print "        (optional)                 or you're building a nightly-style package\n";
 	print "\n";
 	print "--- Building a Debian Package\n";
 	print "    --build debian <required opts below>\n";
-	print "    --buildDir <dir>             - The directory to do temporary work in\n";
-	print "    --sourceDir <dir>            - The location of the source code repository\n";
-	print "                                   that you've checked out from Git\n";
-	print "    --destDir <dir>              - The destination you'd like your files \n";
-	print "    --releaseType <nightly/release>- Whether you're building a 'release' package, \n";
-	print "        (optional)                 or you're building a nightly-style package\n";
 	print "    --fakeroot (optional)        - Whether to use fakeroot to run the build or not. \n";
 	print "    --arm (optional)             - Build a package with only ARM Linux binaries\n";
 	print "    --x86_64 (optional)          - Build a package with only x86_64 Linux binaries\n";
@@ -413,10 +409,6 @@ sub showUsage {
 	print "\n";
 	print "--- Building a Mac OSX Package\n";
 	print "    --build macosx <required opts below>\n";
-	print "    --buildDir <dir>             - The directory to do temporary work in\n";
-	print "    --sourceDir <dir>            - The location of the source code repository\n";
-	print "                                   that you've checked out from Git\n";
-	print "    --destDir <dir>              - The destination you'd like your files \n";
 	print "    --destName <filename>        - The name of the OSX Package Name, do not \n";
 	print "       (optional)                  include the extension.\n";
 	print "\n";
@@ -431,10 +423,6 @@ sub showUsage {
 	print "\n";
 	print "--- Building a Windows Package\n";
 	print "    --build win32 <required opts below>\n";
-	print "    --buildDir <dir>             - The directory to do temporary work in\n";
-	print "    --sourceDir <dir>            - The location of the source code repository\n";
-	print "                                   that you've checked out from Git\n";
-	print "    --destDir <dir>              - The destination you'd like your files \n";
 }
 
 sub removeExclusions {
