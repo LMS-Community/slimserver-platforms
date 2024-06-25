@@ -70,7 +70,7 @@ sub initPrefs {
 	my ($class, $prefs) = @_;
 
 	# we are running in a known environment - don't show the wizard
-	$prefs->{wizardDone} = 1;
+	# $prefs->{wizardDone} = 1;
 
 	# use our custom skin
 	$prefs->{skin} = 'Encore';
