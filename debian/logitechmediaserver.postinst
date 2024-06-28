@@ -12,13 +12,13 @@ case "$1" in
     	# If it's an upgrade, make chown verbose
 	if [ "$2" != "" ] ; then
 		VERBOSE="-c"
-	else 
+	else
 		VERBOSE=""
 	fi
 
 	# Remove the old Favorites module.
 	rm -rf /var/lib/squeezeboxserver/Plugins/Favorites
-	
+
 	# Create a "squeezebox" user. This has modeled after the code in the postfix.deb
 	# postinst. We first try to set the ownership of /var/lib/squeezeboxserver. If that
 	# fails, we create the user and re-try. If that still fails, we abort.
@@ -40,10 +40,16 @@ case "$1" in
 
 	fi
 
+	# Add the squeezeboxserver user to the audio group. This is necessary for the server
+	# to be able to access the audio device(s), eg. when running the LocalPlayer plugin.
+	if ! groups squeezeboxserver | grep -o audio; then
+		usermod -a -G audio squeezeboxserver
+	fi
+
 	db_stop
 
     ;;
-	
+
     abort-upgrade|abort-remove|abort-deconfigure)
     ;;
 
