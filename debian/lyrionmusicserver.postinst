@@ -38,6 +38,12 @@ case "$1" in
 
 	fi
 
+	# Add the squeezeboxserver user to the audio group. This is necessary for the server
+	# to be able to access the audio device(s), eg. when running the LocalPlayer plugin.
+	if ! groups squeezeboxserver | grep -o audio; then
+		usermod -a -G audio squeezeboxserver
+	fi
+
 	db_stop
 
     ;;
