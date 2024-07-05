@@ -239,6 +239,7 @@ begin
 		DownloadPage.AbortButton.Show();
 
 		try
+			Log('Done downloading Strawberry Perl');
 			Shell := CreateOleObject('Shell.Application');
 
 			PerlPath := ExpandConstant('{app}\{#LMSPerl}');
@@ -256,7 +257,9 @@ begin
 			if VarIsClear(ZipFile) then
 				RaiseException(Format('ZIP file "%s" does not exist or cannot be opened', [ZipFile]));
 
+			Log(Format('Extracting Strawberry Perl to "%s"', [PerlPath]));
 			TargetFolder.CopyHere(ZipFile.Items, 16);    // SHCONTCH_RESPONDYESTOALL = 16; SHCONTCH_NOPROGRESSBOX = 4;
+			Log('Done extracting Strawberry Perl');
 		except
 			Log(GetExceptionMessage);
 			Result := GetExceptionMessage;
