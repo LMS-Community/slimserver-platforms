@@ -74,17 +74,6 @@ sub initPrefs {
 
 	# use our custom skin
 	$prefs->{skin} = 'Encore';
-
-	# override some defaults to our taste
-	$prefs->{showArtist} = 1;
-	$prefs->{useTPE2AsAlbumArtist} = 1;
-	$prefs->{useUnifiedArtistsList} = 1;
-	$prefs->{variousArtistAutoIdentification} = 1;
-	$prefs->{itemsPerPage} = 500;
-	$prefs->{groupdiscs} = 1;
-
-	$prefs->{longdateFormat} = q(%A, |%d %B %Y);
-	$prefs->{shortdateFormat} = q(%d/%m/%Y);
 }
 
 # plugins we don't even want to offer to the user
