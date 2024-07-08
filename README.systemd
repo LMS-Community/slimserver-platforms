@@ -1,0 +1,88 @@
+* BACKGROUND
+
+The fedora, RedHat, CentOS and SUSE distributions have changed the
+start-up system to systemd from SYSV. The distributions offer
+some backwards compatibility, but in the long run it is better
+to migrate the Lyrion Music Server to use a systemd unit file for
+start-up. Systemd seems to be the future for these distributions,
+whatever we might think about it.
+
+* More information
+
+Please read the following man pages for in depth information on how
+the systemd unit files work.
+
+systemd.unit
+systemd.service
+
+
+* Stop/Start/Check status of  Lyrion Music Server
+
+sudo systemctl start lyrionmusicserver
+sudo systemctl stop lyrionmusicserver
+systemctl status lyrionmusicserver
+sudo systemctl restart lyrionmusicserver
+
+* To see the contentof the systemd unit file
+
+systemctl cat lyrionmusicserver
+
+* The user running Lyrion Music server
+
+Due to the way systemd unit files work it has been deemed better not to 
+allow setting of the user id running the Lyrion Muisc server in the
+/etc/sysconfig/lyrionmusicserver file. To change the user running lyrionmusicserver,
+please create a so called drop-in file in the directory:
+
+/etc/systemd/system/lyrionmusicserver.service.d
+
+(you will have to create the directory). The file can be called anything, but
+it needs the string .conf at the end, e.g. 
+
+mylyrionuser.conf
+
+The content of the file should be (without the dashed lines)
+
+-----------------------------------------------
+
+[Service]
+
+USER=add-the-user-id-you-want-to-use-here
+
+-----------------------------------------------
+
+* Passing extra arguments to the Lyrion Music server
+
+The way the variable LYRION_ARGS is defined in /etc/sysconfig/lyrionmusicserver
+makes it unusable in the systemd unit file. If you have added parameters to
+this variable in the file and you want to keep them, then you must instead add
+them to the new variable LYRION_ADDITIONAL_ARGS. You can do this by adding 
+the following in the /etc/sysconfig/lyrionmusicserver file (without the dashed
+lines)
+
+------------------------------------------------
+
+LYRION_ADDITIONAL_ARGS="--checkstrings --nomysqueezebox"
+
+------------------------------------------------
+
+***PLEASE NOTE***
+You can't use nested variables like in the past for LYRION_ARGS.
+
+An alternative is to create a drop-in file for systemd as described here above
+for the USER. You can of course use the same drop-in file, just add an
+additional line like this
+
+Environment="LYRION_ADDITIONAL_ARGS=--checkstrings --nomysqueezebox"
+
+Please remember that the content of /etc/sysconfig/lyrionmusicserver will 
+override the content of the drop-in files in
+/etc/systemd/system/lyrionmusicserver.service.d. This means that if you define 
+LYRION_ADDITIONAL_ARGS both in the drop-in file and in 
+/etc/sysconfig/lyrionmusicserver, then it is the content of the latter that will
+be used.
+
+I strongly recommend to either delete the file /etc/sysconfig/lyrionmusicserver or
+comment out all lines in the file and entirely rely on the drop in file in 
+/etc/systemd/system/lyrionmusicserver.service.d if you want to make any changes
+to the way the Lyrion Music server is started.
