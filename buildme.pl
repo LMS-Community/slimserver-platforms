@@ -499,8 +499,8 @@ sub buildTarball {
 
 		## Make the tarball...
 		print "INFO: Building $tarballName.tgz with source from $buildDir/$name ($buildDir/server), excluding [$dirsToExclude]...\n";
-		system("cd $buildDir;pwd; ls -l; tar -zcf $tarballName.tgz $name");
-		#system("cd $buildDir; pwd; ls -l; tar -zcf $tarballName.tgz server");
+		system("cd $buildDir; tar -zcf $tarballName.tgz $name");
+		
 
 		## Remove the link
 		system("mv $buildDir/$name $buildDir/server");
