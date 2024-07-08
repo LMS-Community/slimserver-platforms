@@ -1,46 +1,46 @@
 [Unit]
-Description=Squeezeboxserver
+Description=Lyrion Music Server
 After=network.target
 
 [Service]
 
 # These values can be overridden by means of a drop in file in  the
-# directory /etc/systemd/system/squeezeboxserver.service.d
+# directory /etc/systemd/system/lyrionmusicserver.service.d
 # Read man page for systemd.unit and systemd.service.
 #
-# Or they can be overriden in /etc/sysconfig/squeezeboxserver
+# Or they can be overriden in /etc/sysconfig/lyrionmusicserver
 # The first option is recommended.
-Environment="SQUEEZEBOX_HOME=/usr/libexec"
-Environment="SQUEEZEBOX_CFG_DIR=/var/lib/squeezeboxserver/prefs"
-Environment="SQUEEZEBOX_LOG_DIR=/var/log/squeezeboxserver"
-Environment="SQUEEZEBOX_CACHE_DIR=/var/lib/squeezeboxserver/cache"
-Environment="SQUEEZEBOX_CHARSET=utf8"
-Environment="SQUEEZEBOX_ADDITIONAL_ARGS="
+Environment="LYRION_HOME=/usr/libexec"
+Environment="LYRION_CFG_DIR=/var/lib/lyrionmusicserver/prefs"
+Environment="LYRION_LOG_DIR=/var/log/lyrionmusicserver"
+Environment="LYRION_CACHE_DIR=/var/lib/lyrionmusicserver/cache"
+Environment="LYRION_CHARSET=utf8"
+Environment="LYRION_ADDITIONAL_ARGS="
 
 # The content of this file will override any setting made with the Environment
 # variables here above. It will also override any Environment variables set
 # in /etc/systemd/system/lyrionmusicserver.service.d/*.conf
-EnvironmentFile=-/etc/sysconfig/squeezeboxserver
+EnvironmentFile=-/etc/sysconfig/lyrionmusicserver
 
-# Do not change this, it will most likely break the squeezeboxserver
+# Do not change this, it will most likely break the lyrionmusicserver
 # installation. The directory /usr/lib/perl5/vendor_perl is where the RPM
 # package drops the Slim perl modules. Setting PERL5LIB to this location will
-# make sure that the squeezebox server executable looks here before it scans the
+# make sure that the lyrionmusicserver executable looks here before it scans the
 # directories in the perl @INC array.
 Environment="PERL5LIB=/usr/lib/perl5/vendor_perl"
 
 #Type=simple
-User=squeezeboxserver
-Group=squeezeboxserver
-ExecStart=/usr/libexec/squeezeboxserver --prefsdir $SQUEEZEBOX_CFG_DIR --logdir $SQUEEZEBOX_LOG_DIR --cachedir $SQUEEZEBOX_CACHE_DIR --charset $SQUEEZEBOX_CHARSET $SQUEEZEBOX_ADDITIONAL_ARGS
+User=lyrionmusicserver
+Group=lyrionmusicserver
+ExecStart=/usr/libexec/lyrionmusicserver --prefsdir $LYRION_CFG_DIR --logdir $LYRION_LOG_DIR --cachedir $LYRION_CACHE_DIR --charset $LYRION_CHARSET $LYRION_ADDITIONAL_ARGS
 
 # If your server uses a TEMPFS for the /var/log file system, then you probably
 # want to uncomment the two following lines, or even better, add them in a
 # drop-in file in /etc/systemd/system/lyrionmusicserver.service.d/ if you
 # want the change to survive the next upgrade of lyrionmusicserver.
-# Note: This setting may conflict with SQUEEZEBOX_LOG_DIR set here above. That
+# Note: This setting may conflict with LYRION_LOG_DIR set here above. That
 # is why I think it is better to keep them commented by default.
-#LogsDirectory=squeezeboxserver
+#LogsDirectory=lyrionmusicserver
 #LogsDirectoryMode=0755
 
 # We want LMS to handle SIGPIPE, as it can help terminate misbehaving
