@@ -62,7 +62,7 @@ lines)
 
 ------------------------------------------------
 
-LYRION_ADDITIONAL_ARGS="--checkstrings --nomysqueezebox"
+LYRION_ADDITIONAL_ARGS="--d_startup"
 
 ------------------------------------------------
 
@@ -73,7 +73,7 @@ An alternative is to create a drop-in file for systemd as described here above
 for the USER. You can of course use the same drop-in file, just add an
 additional line like this
 
-Environment="LYRION_ADDITIONAL_ARGS=--checkstrings --nomysqueezebox"
+Environment="LYRION_ADDITIONAL_ARGS=--d_startup"
 
 Please remember that the content of /etc/sysconfig/lyrionmusicserver will 
 override the content of the drop-in files in
