@@ -1,0 +1,14 @@
+/var/log/squeezeboxserver/server.log {
+    missingok
+    notifempty
+    sharedscripts
+    postrotate
+        /bin/kill -USR1 `pgrep squeezeboxserve >/dev/null 2>&1` >/dev/null 2>&1 || true
+    endscript
+}
+
+/var/log/squeezeboxserver/scanner.log {
+    missingok
+    notifempty
+    sharedscripts
+}

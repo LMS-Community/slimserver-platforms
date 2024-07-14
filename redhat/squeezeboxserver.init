@@ -7,9 +7,9 @@
 #			players and is the best software to stream your music to any software MP3 \
 #			player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more! \
 #			As of version 7.7 it also supports UPnP clients, serving pictures and movies too!
-# processname:		lyrionmusicserver
-# config: 		/etc/lyrionmusicserver/lyrionmusicserver.conf
-# config:		/etc/sysconfig/lyrionmusicserver
+# processname:		squeezeboxserver
+# config: 		/etc/squeezeboxserver/squeezeboxserver.conf
+# config:		/etc/sysconfig/squeezeboxserver
 
 #
 ### BEGIN INIT INFO
@@ -39,27 +39,27 @@ if [[ -n $(grep -i -E "(redhat|centos|fedora)" /etc/os-release 2>/dev/null) || -
 	[ "${NETWORKING}" = "no" ] && exit 0
 
 	# Check for existence of needed config file and read it
-	LYRION_CONFIG=/etc/sysconfig/lyrionmusicserver
-	test -r $LYRION_CONFIG || { echo "$LYRION_CONFIG not existing";
+	SQUEEZEBOX_CONFIG=/etc/sysconfig/squeezeboxserver
+	test -r $SQUEEZEBOX_CONFIG || { echo "$SQUEEZEBOX_CONFIG not existing";
 		if [ "$1" = "stop" ]; then exit 0;
 		else exit 6; fi; }
 
 	# Read config
-	. $LYRION_CONFIG
+	. $SQUEEZEBOX_CONFIG
 
 	# Check for missing binaries (stale symlinks should not happen)
 	# Note: Special treatment of stop for LSB conformance
-	LYRION_BIN="$LYRION_HOME/lyrionmusicserver"
-	test -x $LYRION_BIN || { echo "$LYRION_BIN not installed";
+	SQUEEZEBOX_BIN="$SQUEEZEBOX_HOME/squeezeboxserver"
+	test -x $SQUEEZEBOX_BIN || { echo "$SQUEEZEBOX_BIN not installed";
 		if [ "$1" = "stop" ]; then exit 0;
 		else exit 5; fi; }
 
-	LOCKFILE="/var/lock/subsys/lyrionmusicserver"
+	LOCKFILE="/var/lock/subsys/squeezeboxserver"
 	RETVAL=0
 
 	start() {
-		echo -n "Starting Lyrion Music Server: "
-		daemon --user $LYRION_USER $LYRION_BIN $LYRION_ARGS
+		echo -n "Starting Squeezebox Server: "
+		daemon --user $SQUEEZEBOX_USER $SQUEEZEBOX_BIN $SQUEEZEBOX_ARGS
 		RETVAL=$?
 		echo
 		[ $RETVAL -eq 0 ] && touch $LOCKFILE
@@ -67,17 +67,17 @@ if [[ -n $(grep -i -E "(redhat|centos|fedora)" /etc/os-release 2>/dev/null) || -
 	}
 
 	stop() {
-		echo -n "Stopping Lyrion Music Server: "
+		echo -n "Stopping Squeezebox Server: "
 		# Support old versions of RHEL and still fix bug 5620
 		KILLPROC_ARGS=""
 		if [ `grep -c 'Usage: killproc.*-d delay' /etc/init.d/functions` -ge 1 ]; then
 			KILLPROC_ARGS="-d 6"
 		fi
-		killproc $KILLPROC_ARGS $LYRION_BIN
+		killproc $KILLPROC_ARGS $SQUEEZEBOX_BIN
 		RETVAL=$?
                 if [ $RETVAL -ne 0 ]; then
                         # If killproc fails, try killall (fix for RHEL4)
-                        killall lyrionmusicserver
+                        killall squeezeboxserver
                         RETVAL=$?
                         [ $RETVAL -eq 0 ] && echo_success
                         [ $RETVAL -ne 0 ] && echo_failure
@@ -98,7 +98,7 @@ if [[ -n $(grep -i -E "(redhat|centos|fedora)" /etc/os-release 2>/dev/null) || -
 	}
 
 	fdr_status() {
-        	status $LYRION_BIN
+        	status $SQUEEZEBOX_BIN
        		RETVAL=$?
 	}
 
@@ -106,18 +106,18 @@ elif [[ -n $(grep -i -E "(suse|sles)" /etc/os-release 2>/dev/null) ||  -f /etc/S
 	suse=yes
 
 	# Check for existence of needed config file and read it
-	LYRION_CONFIG=/etc/sysconfig/lyrionmusicserver
-	test -r $LYRION_CONFIG || { echo "$LYRION_CONFIG not existing";
+	SQUEEZEBOX_CONFIG=/etc/sysconfig/squeezeboxserver
+	test -r $SQUEEZEBOX_CONFIG || { echo "$SQUEEZEBOX_CONFIG not existing";
 		if [ "$1" = "stop" ]; then exit 0;
 		else exit 6; fi; }
 
 	# Read config
-	. $LYRION_CONFIG
+	. $SQUEEZEBOX_CONFIG
 
 	# Check for missing binaries (stale symlinks should not happen)
 	# Note: Special treatment of stop for LSB conformance
-	LYRION_BIN="$LYRION_HOME/lyrionmusicserver"
-	test -x $LYRION_BIN || { echo "$LYRION_BIN not installed";
+	SQUEEZEBOX_BIN="$SQUEEZEBOX_HOME/squeezeboxserver"
+	test -x $SQUEEZEBOX_BIN || { echo "$SQUEEZEBOX_BIN not installed";
 		if [ "$1" = "stop" ]; then exit 0;
 		else exit 5; fi; }
 
@@ -126,15 +126,15 @@ elif [[ -n $(grep -i -E "(suse|sles)" /etc/os-release 2>/dev/null) ||  -f /etc/S
 	rc_reset
 
 	start() {
-		echo -n "Starting Lyrion Music Server: "
-		export HOME=$LYRION_HOME
-		startproc -u $LYRION_USER $LYRION_BIN $LYRION_ARGS
+		echo -n "Starting Squeezebox Server: "
+		export HOME=$SQUEEZEBOX_HOME
+		startproc -u $SQUEEZEBOX_USER $SQUEEZEBOX_BIN $SQUEEZEBOX_ARGS
 		rc_status -v
 	}
 
 	stop() {
-		echo -n "Stopping Lyrion Music Server: "
-		killproc -TERM $LYRION_BIN
+		echo -n "Stopping Squeezebox Server: "
+		killproc -TERM $SQUEEZEBOX_BIN
 		rc_status -v
 	}
 
@@ -155,7 +155,7 @@ elif [[ -n $(grep -i -E "(suse|sles)" /etc/os-release 2>/dev/null) ||  -f /etc/S
 	}
 
 	fdr_status() {
-		/sbin/checkproc $LYRION_BIN
+		/sbin/checkproc $SQUEEZEBOX_BIN
 		rc_status -v
 	}
 
@@ -164,10 +164,10 @@ else
 	exit 1
 fi
 
-# Do not change this, it will most likely break the lyrionmusicserver
+# Do not change this, it will most likely break the squeezeboxserver
 # installation. The directory /usr/lib/perl5/vendor_perl is where the RPM
 # package drops the Slim perl modules. Setting PERL5LIB to this location will
-# make sure that the Lyrion Music server executable looks here before it scans the
+# make sure that the squeezebox server executable looks here before it scans the
 # directories in the perl @INC array.
 export PERL5LIB="/usr/lib/perl5/vendor_perl"
 
