@@ -11,6 +11,31 @@
 # The following is required with _with_branch
 # %%define _branch 7.7
 
+# As from version 9.0.0 the logitech media server has been re-branded 
+# to Lyrion Music Server. It was decided to also properly re-name all
+# components in the RPM package that have been using the string
+# squeezeboxserver for the executables and for locations in the file
+# systems. It was also decided to use new user and group names to own 
+# the files and to run the daemons.
+#
+# The new user id is lyrionmusicserver
+# Then new group is lyrionmusicserver
+#
+# And the string "lyrionmusicserver" will be used to name executables,
+# systemd unid and the SYSV init script and all the locations in the file
+# systems where previously "squeezeboxserver" was used.
+#
+# This change is rather fundamental and requires some extra handling
+# in the pre and post scripts of the RPM package.
+#
+# If the upgrade/installation of Lyrion Music Server is replacing
+# a Logitech Media Server installation (or an early development 
+# installation of the Lyrion Music Server), i.e. 9.0.0), then the RPM 
+# will attempt to migrate the old configuration to the new Lyrion
+# Music server. This migration will only be attempted if the old 
+# configuration is in the default locations AND if the location
+# /var/lib/lyrionmusicserver does not exist.
+
 %define increment 1
 
 # Turn off striping of binaries
@@ -34,8 +59,21 @@
 %define rpm_release 1
 %endif
 
+# The variable src_basename  is passed to the build by the buildme.pl script.
+# At the moment the value is lyrionmusicserver. We could thus use that 
+# variable everywhere in the RPM spec file where we want to use that 
+# string, like naming directories or files. But in the past it was for long
+# period of times the case that the software used the name squeezeboxserver
+# and the package was called logitechemediaserver. If this situation would
+# arise again it would be inconvenient to use that variable to name all the 
+# executables and file paths. Thus I add these extra variables her for this
+# purpose.
 
-Name:		lyrionmusicserver
+%global userd lyrionmusicserver
+%global groupd lyrionmusicserver
+%global shortname lyrionmusicserver
+
+Name:		%{src_basename}
 Packager:	Lyrion Community - please visit www.lyrion.org
 Version:	%{_version}
 Release:	%{rpm_release}
@@ -45,11 +83,12 @@ Group:		System Environment/Daemons
 License:	GPL and proprietary
 URL:		https://www.lyrion.org
 Source0:	%{src_basename}.tgz
-Source1:	squeezeboxserver.config
-Source2:	squeezeboxserver.init
-Source3:	squeezeboxserver.logrotate
-Source4:	squeezeboxserver.service
+Source1:	%{shortname}.config
+Source2:	%{shortname}.init
+Source3:	%{shortname}.logrotate
+Source4:	%{shortname}.service
 Source5:	README.systemd
+Source6:        README.rebranding
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Vendor:		Lyrion Community
 
@@ -57,7 +96,7 @@ Vendor:		Lyrion Community
 Requires:	perl >= 5.10.0
 Recommends:     perl(IO::Socket::SSL)
 
-Provides:	logitechmediaserver = %{version}-%{release}
+Provides:	%{src_basename} = %{version}-%{release}
 Obsoletes:	logitechmediaserver
 Obsoletes:	SliMP3
 Obsoletes:	slimserver
@@ -72,6 +111,7 @@ Lyrion Music Server powers the Squeezebox, Transporter and SLIMP3 network music
 players and is the best software to stream your music to any software MP3
 player. It supports MP3, AAC, WMA, FLAC, Ogg Vorbis, WAV and more!
 As of version 7.7 it also supports UPnP clients, serving pictures and movies too!
+
 
 %prep
 %setup -q -n %{src_basename}
@@ -97,69 +137,70 @@ rm -rf $RPM_BUILD_ROOT
 # FHS compatible directory structure
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/init.d
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/squeezeboxserver
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/%{shortname}
 mkdir -p $RPM_BUILD_ROOT%{_usr}/lib/perl5/vendor_perl
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{shortname}
 mkdir -p $RPM_BUILD_ROOT%{_usr}/libexec
 mkdir -p $RPM_BUILD_ROOT%{_usr}/sbin
-mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/cache
-mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/Plugins
-mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs
-mkdir -p $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin
-mkdir -p $RPM_BUILD_ROOT%{_var}/log/squeezeboxserver
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/cache
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/Plugins
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs/plugin
+mkdir -p $RPM_BUILD_ROOT%{_var}/log/%{shortname}
 
 # Copy over the files
-cp -Rp Bin $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
-cp -Rp CPAN $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
-cp -Rp Firmware $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
-cp -Rp Graphics $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
-cp -Rp HTML $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
-cp -Rp IR $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
-cp -Rp lib $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
+cp -Rp Bin $RPM_BUILD_ROOT%{_datadir}/%{shortname}
+cp -Rp CPAN $RPM_BUILD_ROOT%{_datadir}/%{shortname}
+cp -Rp Firmware $RPM_BUILD_ROOT%{_datadir}/%{shortname}
+cp -Rp Graphics $RPM_BUILD_ROOT%{_datadir}/%{shortname}
+cp -Rp HTML $RPM_BUILD_ROOT%{_datadir}/%{shortname}
+cp -Rp IR $RPM_BUILD_ROOT%{_datadir}/%{shortname}
+cp -Rp lib $RPM_BUILD_ROOT%{_datadir}/%{shortname}
 cp -Rp Slim $RPM_BUILD_ROOT%{_usr}/lib/perl5/vendor_perl
-cp -Rp SQL $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
-cp -p revision.txt $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
-cp -p strings.txt $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
-cp -p icudt46*.dat $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
-cp -p icudt58*.dat $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver
-cp -p slimserver.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezeboxserver
-cp -p scanner.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezeboxserver-scanner
-cp -p cleanup.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezeboxserver-cleanup
-cp -p gdresized.pl $RPM_BUILD_ROOT%{_usr}/libexec/squeezeboxserver-resized
+cp -Rp SQL $RPM_BUILD_ROOT%{_datadir}/%{shortname}
+cp -p revision.txt $RPM_BUILD_ROOT%{_datadir}/%{shortname}
+cp -p strings.txt $RPM_BUILD_ROOT%{_datadir}/%{shortname}
+cp -p icudt46*.dat $RPM_BUILD_ROOT%{_datadir}/%{shortname}
+cp -p icudt58*.dat $RPM_BUILD_ROOT%{_datadir}/%{shortname}
+cp -p slimserver.pl $RPM_BUILD_ROOT%{_usr}/libexec/%{shortname}
+cp -p scanner.pl $RPM_BUILD_ROOT%{_usr}/libexec/%{shortname}-scanner
+cp -p cleanup.pl $RPM_BUILD_ROOT%{_usr}/libexec/%{shortname}-cleanup
+cp -p gdresized.pl $RPM_BUILD_ROOT%{_usr}/libexec/%{shortname}-resized
 
 # Create symlink to 3rd Party Plugins
-ln -s %{_var}/lib/squeezeboxserver/Plugins \
-	$RPM_BUILD_ROOT%{_datadir}/squeezeboxserver/Plugins
+ln -s %{_var}/lib/%{shortname}/Plugins \
+	$RPM_BUILD_ROOT%{_datadir}/%{shortname}/Plugins
 
 # Install init, configuration and log files
-install -Dp -m755 %SOURCE1 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/squeezeboxserver
-install -Dp -m755 %SOURCE2 $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver/squeezeboxserver.SYSV
-install -Dp -m644 %SOURCE3 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/squeezeboxserver
-install -Dp -m644 %SOURCE4 $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver/squeezeboxserver.service
-install -Dp -m644 %SOURCE5 $RPM_BUILD_ROOT%{_datadir}/squeezeboxserver/README.systemd
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/server.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/log.conf
-cp -p convert.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezeboxserver
-cp -p modules.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezeboxserver
-cp -p types.conf $RPM_BUILD_ROOT%{_sysconfdir}/squeezeboxserver
-touch $RPM_BUILD_ROOT%{_var}/log/squeezeboxserver/perfmon.log
-touch $RPM_BUILD_ROOT%{_var}/log/squeezeboxserver/server.log
-touch $RPM_BUILD_ROOT%{_var}/log/squeezeboxserver/scanner.log
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/cli.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/datetime.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/infobrowser.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/itunes.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/musicmagic.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/podcast.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/radiotime.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/randomplay.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/rescan.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/rssnews.prefs
-touch $RPM_BUILD_ROOT%{_var}/lib/squeezeboxserver/prefs/plugin/state.prefs
+install -Dp -m755 %SOURCE1 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{shortname}
+install -Dp -m755 %SOURCE2 $RPM_BUILD_ROOT%{_datadir}/%{shortname}/%{shortname}.SYSV
+install -Dp -m644 %SOURCE3 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{shortname}
+install -Dp -m644 %SOURCE4 $RPM_BUILD_ROOT%{_datadir}/%{shortname}/%{shortname}.service
+install -Dp -m644 %SOURCE5 $RPM_BUILD_ROOT%{_datadir}/%{shortname}/README.systemd
+install -Dp -m644 %SOURCE6 $RPM_BUILD_ROOT%{_datadir}/%{shortname}/README.rebranding
+touch $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs/server.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs/log.conf
+cp -p convert.conf $RPM_BUILD_ROOT%{_sysconfdir}/%{shortname}
+cp -p modules.conf $RPM_BUILD_ROOT%{_sysconfdir}/%{shortname}
+cp -p types.conf $RPM_BUILD_ROOT%{_sysconfdir}/%{shortname}
+touch $RPM_BUILD_ROOT%{_var}/log/%{shortname}/perfmon.log
+touch $RPM_BUILD_ROOT%{_var}/log/%{shortname}/server.log
+touch $RPM_BUILD_ROOT%{_var}/log/%{shortname}/scanner.log
+touch $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs/plugin/cli.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs/plugin/datetime.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs/plugin/infobrowser.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs/plugin/itunes.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs/plugin/musicmagic.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs/plugin/podcast.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs/plugin/radiotime.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs/plugin/randomplay.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs/plugin/rescan.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs/plugin/rssnews.prefs
+touch $RPM_BUILD_ROOT%{_var}/lib/%{shortname}/prefs/plugin/state.prefs
 
 # Create symlink to server prefs file
-ln -s %{_var}/lib/squeezeboxserver/prefs/server.prefs \
-	$RPM_BUILD_ROOT%{_sysconfdir}/squeezeboxserver/server.conf
+ln -s %{_var}/lib/%{shortname}/prefs/server.prefs \
+	$RPM_BUILD_ROOT%{_sysconfdir}/%{shortname}/server.conf
 
 
 %clean
@@ -167,11 +208,129 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %pre
+function checkConfigMigration () {
+
+   test -f /tmp/squeezerpmdebug && set -x
+
+   # We need to check if we are upgrading from the logitechmedia server
+   # package to the lyrionmusic server package. If we are doing that
+   # we must try to migrate the squeezeboxserver prefs files to
+   # the new location of the lyrionmusicserver prefs files.
+   # The prefs files must also be edited to replace the paths
+   # pointing to the old squeezeboxserver prefs location
+   # to the new locations of lyrionmusicserver.
+   #
+
+   # Start with checking if there is a Lyrion Muix server configuration file.
+   # If there is, we will do no migration and just return immediately.
+   if [ -f /var/lib/%{shortname}/prefs/server.prefs ]; then
+      return 1
+   fi
+
+   # First see if currently the logitechmediaserver package is installed.
+   currentPkg=`/usr/bin/rpm -q logitechmediaserver |/usr/bin/grep -v 'is not' | /usr/bin/awk -F "-" '{printf "%s %s\n",$1,$2}'` || :
+
+   # Very early version of lyrionmusicserver also used the squeezeboxnaming
+   # so we need to check for that too if the query for logitechmediaserver
+   # did not return anything.
+   if [ -z "$currentPkg" ]; then
+      currentPkg=`/usr/bin/rpm -q lyrionmusicserver |/usr/bin/grep -v 'is not' | /usr/bin/awk -F "-" '{printf "%s %s\n",$1,$2}'` || :
+   fi
+
+   if [ -n "$currentPkg" ]; then
+
+      # Either logitechmediaserver or lyrionmediaserver is installed
+      name=`echo $currentPkg | awk '{print $1}'` || :
+      version=`echo $currentPkg | awk '{print $2}'` || :
+   
+      # Touch a file to allow the post script to know that we are moving
+      # from squeezeboxserver to lyrionmusicserver
+      /usr/bin/touch /var/tmp/SqueezeToLyrion || :
+
+      if [ "$name" = "logitechmediaserver" ]; then
+
+
+         # The current installation is a logitechmediaserver, check if the config
+         # is in the default location.
+         if [[ -f /var/lib/squeezeboxserver/prefs/server.prefs ]]; then
+            echo ""
+            echo "#######################################################################"
+            echo "INFORMATION"
+            echo "Upgrading from a logitechmediaserver package to a lyrionmusicserver"
+            echo "package!"
+            echo "Will attempt to migrate the logitechmedia configuration in"
+            echo "/var/lib/squeezeboxserver to the new lyrionmusicserver configuration in"
+            echo "/var/lib/lyrionmusicserver."
+            echo "#######################################################################"
+            echo ""
+
+            # Touch a file to allow the post script to know that the squeezeboxserver
+            # config should be migrated.
+            /usr/bin/touch /var/tmp/migrateSqueezeboxserverConfig || :
+            
+         else
+            echo ""
+            echo "#######################################################################"
+            echo "** N O T E **"
+            echo "Upgrading from a logitechmediaserver package to a lyrionmusicserver"
+            echo " package!"
+            echo "logitechmediaserver configuration is not in the default location!"
+            echo "You will have to either reconfigure the Lyrion Music Server, or migrate"
+            echo "your old configuration manually."
+            echo "#######################################################################"
+            echo ""
+         fi
+
+
+      elif [ "$name" = "lyrionmusicserver" ] && [ "$version" = "9.0.0" ]; then
+
+         # The current installation is a lyrion music server version 9.0.0, early adopters
+         # might still have the config in /var/lib/squeezeboxserver. This needs to be fixed.
+         if [ -f /var/lib/squeezeboxserver/prefs/server.prefs ]; then
+            echo ""
+            echo "#######################################################################"
+            echo "INFORMATION"
+            echo "Upgrading from an early Lyrion Music Server beta package to a later"
+            echo "Lyrion Music server package!"
+            echo "Will attempt to migrate the configuration in /var/lib/squeezeboxserver"
+            echo "to the new lyrionmusicserver configuration in"
+            echo "/var/lib/lyrionmusicserver."
+            echo "#######################################################################"
+            echo ""
+
+            # Touch a file to allow the post script to know that the squeezeboxserver
+            # config should be migrated.
+            /usr/bin/touch /var/tmp/migrateSqueezeboxserverConfig || :
+            
+         else
+            echo ""
+            echo "#######################################################################"
+            echo "** N O T E **"
+            echo "Upgrading from an early Lyrion Music Server beta package to a later"
+            echo "Lyrion Music Server package!"
+            echo "The configuration is not in the default location!"
+            echo "You will have to either reconfigure the Lyrion Music Server, or migrate"
+            echo "your old configuration manually."
+            echo "#######################################################################"
+            echo ""
+
+         fi
+      fi
+   fi
+
+   return 0
+}
+
 test -f /tmp/squeezerpmdebug && set -x
-getent group squeezeboxserver >/dev/null || groupadd -r squeezeboxserver
-getent passwd squeezeboxserver >/dev/null || \
-useradd -r -g squeezeboxserver -d %{_datadir}/squeezeboxserver -s /sbin/nologin \
-    -c "Lyrion Music Server" squeezeboxserver
+getent group %{groupd} >/dev/null || groupadd -r %{groupd}
+getent passwd %{userd} >/dev/null || \
+useradd -r -g %{groupd} -d %{_datadir}/%{shortname} -s /sbin/nologin \
+    -c "Lyrion Music Server" %{userd}
+
+# This function will set flags for the post script so that the post script will
+# know if a migration from squeezeboxserver configuration to lyrionmusicserver
+# configuration is necessary
+checkConfigMigration
 
 exit 0
 
@@ -179,38 +338,42 @@ exit 0
 %post
 function parseSysconfigSqueezeboxserver {
 
+        test -f /tmp/squeezerpmdebug && set -x
+
 	# Some simple checks on the /etc/sysconfig/squeezeboxserver
 	# No guarantees that these checks will catch all changes that may have
 	# been made that might have an impact on the move to systemd
-	. %{_sysconfdir}/sysconfig/squeezeboxserver
-	if [ "$SQUEEZEBOX_USER" != "squeezeboxserver" ] ; then
-		echo "################################################################################"
-		echo "You seem to have changed the user id used to run squeezeboxserver."
-		echo "Please read %{_datadir}/squeezeboxserver/README.systemd to find out"
+	. %{_sysconfdir}/sysconfig/%{shortname}
+	if [ "$LYRION_USER" != "%{userd}" ] ; then
+                echo ""
+                echo "#######################################################################"
+		echo "You seem to have changed the user id used to run %{shortname}."
+		echo "Please read %{_datadir}/%{shortname}/README.systemd to find out"
 		echo "how transfer this change to the new systemd set-up."
+                echo "#######################################################################"
+                echo ""
 	fi
 
-	# Check if any additions to the SQUEEZEBOX_ARGS variable have been made.
+	# Check if any additions to the LYRION_ARGS variable have been made.
 	# Do that by filter out the ones we know should be there.
-	extra=`echo $SQUEEZEBOX_ARGS |tr " " "\n"|grep -v -E "(--daemon|--prefsdir|--logdir|--cachedir|--charset)"` || :
+	extra=`echo $LYRION_ARGS |tr " " "\n"|grep -v -E "(--daemon|--prefsdir|--logdir|--cachedir|--charset)"` || :
 	if [ -n "$extra" ] ; then
-		echo "################################################################################"
-		echo "You seem to have changed the SQUEEZEBOX_ARGS variable in %{_sysconfdir}/sysconfig/squeezeboxserver."
-		echo "Please read %{_datadir}/squeezeboxserver/README.systemd to find out"
+                echo ""
+                echo "#######################################################################"
+		echo "You seem to have changed the LYRION_ARGS variable in %{_sysconfdir}/sysconfig/%{shortname}."
+		echo "Please read %{_datadir}/%{shortname}/README.systemd to find out"
                 echo "how transfer this change to the new systemd set-up."
+                echo "#######################################################################"
+                echo ""
 	fi
 }
 
 function setSelinux {
 
-	# The following commands will extract mysql port and cachedir from the prefs file
-	# I'm not sure if that's the right thing to do so have left them disabled for now
-	#MYSQLPORT=`perl -ne  'if (/^dbsource:.*port=(\d+)[^\d]*/) {print "$1"}'  /etc/squeezeboxserver/server.prefs`
-	#[ -z "$MYSQLPORT" ] && MYSQLPORT=9092
-	#CACHEDIR=`awk '/^cachedir/ {print $2}' /etc/squeezeboxserver/server.prefs`
-	#[ -z "$CACHEDIR" ] && CACHEDIR=9092
+        test -f /tmp/squeezerpmdebug && set -x
+
 	MYSQLPORT=9092
-	CACHEDIR=%{_var}/lib/squeezeboxserver/cache
+	CACHEDIR=%{_var}/lib/%{shortname}/cache
 
 	# Add SELinux contexts
 	# We need this irrespective of whether it is a systemd or SYSV server.
@@ -218,7 +381,7 @@ function setSelinux {
 		if /usr/sbin/selinuxenabled ; then
 			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage port -a -t mysqld_port_t -p tcp ${MYSQLPORT} > /dev/null 2>&1
 			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -a -t mysqld_db_t "${CACHEDIR}(/.*)?" > /dev/null 2>&1
-			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -a -t mysqld_var_run_t "${CACHEDIR}/squeezeboxserver-mysql.sock" > /dev/null 2>&1
+			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -a -t mysqld_var_run_t "${CACHEDIR}/%{shortname}-mysql.sock" > /dev/null 2>&1
 			/sbin/restorecon -R ${CACHEDIR} > /dev/null 2>&1
 		fi
 	fi
@@ -226,37 +389,123 @@ function setSelinux {
 
 function setSYSV {
 
-	# This is a SYSV server. Copy SYSV script to the correct place.
-	cp -p %{_datadir}/squeezeboxserver/squeezeboxserver.SYSV %{_sysconfdir}/init.d/squeezeboxserver >/dev/null 2>&1 || :
+        test -f /tmp/squeezerpmdebug && set -x
 
-	#SME Server uses runlevel 7
+	# This is a SYSV server. Copy SYSV script to the correct place.
+	cp -p %{_datadir}/%{shortname}/%{shortname}.SYSV %{_sysconfdir}/init.d/%{shortname} >/dev/null 2>&1 || :
+
+	#Koozali SME Server pre version 10 uses SYSV init and uses runlevel 7
+        # I have no idea if the release file is still called /etc/e-smit-release.
 	if [ -f /etc/e-smith-release -a -d /etc/rc7.d ] ; then
-		ln -sf %{_sysconfdir}/init.d/squeezeboxserver /etc/rc7.d/S80squeezeboxserver >/dev/null 2>&1 || :
-		db configuration set squeezeboxserver service status enabled >/dev/null 2>&1 || :
+		ln -sf %{_sysconfdir}/init.d/%{shortname} /etc/rc7.d/S80%{shortname} >/dev/null 2>&1 || :
+		db configuration set %{shortname} service status enabled >/dev/null 2>&1 || :
 	fi
-	/sbin/chkconfig --add squeezeboxserver >/dev/null 2>&1 || :
-	/sbin/service squeezeboxserver restart >/dev/null 2>&1 || :
+
+        # Check if we are moving from squeezeboxserver to lyrionmusicserver
+        # if we are, then we must explicitly stop the squeezeboxserver, 
+        # otherwise the start of the lyrionmusicserver will fail.
+        if [ -f /var/tmp/SqueezeToLyrion ]; then
+           /sbin/service squeezeboxserver stop || :
+           /usr/bin/rm -f /var/tmp/SqueezeToLyrion || :
+        fi
+
+	/sbin/chkconfig --add %{shortname} >/dev/null 2>&1 || :
+	/sbin/service %{shortname} restart >/dev/null 2>&1 || :
 }
 
 function setSystemd {
 
-	# I believe the latest version of SME Server still use SYSV,
-	# any future releases will probably not use SYSV, here I will
-	# just assume that they will use systemd in the standard way
-	# (is there any other way?)
+        test -f /tmp/squeezerpmdebug && set -x
+	# The SME server (now a days Koozali SME) started using systemd with
+        # version 10 (based on CentOS 7). Next version is based on Rocky Linux.
+        # So we don't need any special handling for Koozali SME here.
 
 	if [ -n "$migrate" ] ; then
 		# If we currently are running through a SYSV script. First stop
- 		/sbin/service squeezeboxserver stop >/dev/null 2>&1 || :
-		/sbin/chkconfig --del squeezeboxserver >/dev/null 2>&1 || :
+ 		/sbin/service %{shortname} stop >/dev/null 2>&1 || :
+		/sbin/chkconfig --del %{shortname} >/dev/null 2>&1 || :
 		# We should not remove the old SYSV init file. The RPM
 		# package will take care of this when we do an upgrade.
 	fi
 
-	cp -p %{_datadir}/squeezeboxserver/squeezeboxserver.service /usr/lib/systemd/system/squeezeboxserver.service || :
+        # Check if we are moving from squeezeboxserver to lyrionmusicserver
+        # if we are, then we must explicitly stop the squeezeboxserver, 
+        # otherwise the start of the lyrionmusicserver will fail.
+        if [ -f /var/tmp/SqueezeToLyrion ]; then
+           /usr/bin/systemctl stop squeezeboxserver.service >/dev/null 2>&1 || :
+           /usr/bin/rm -f /var/tmp/SqueezeToLyrion || :
+        fi
+
+	cp -p %{_datadir}/%{shortname}/%{shortname}.service /usr/lib/systemd/system/%{shortname}.service || :
 	/usr/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-        /usr/bin/systemctl enable  squeezeboxserver.service >/dev/null 2>&1 || :
-        /usr/bin/systemctl restart squeezeboxserver.service >/dev/null 2>&1 || :
+        /usr/bin/systemctl enable  %{shortname}.service >/dev/null 2>&1 || :
+        /usr/bin/systemctl restart %{shortname}.service >/dev/null 2>&1 || :
+}
+
+function migrateSqueezeboxServerConfig {
+
+   test -f /tmp/squeezerpmdebug && set -x
+
+   if ! /usr/bin/cp -pr /var/lib/%{shortname} /var/lib/%{shortname}.bck >/dev/null 2>&1; then
+
+      # Make a safety copy of the empty lyrion config.
+      echo "WARNING, failed migrating old configuration. You will need to migrate it manually or configure Lyrion Music Server from scratch."
+      # Remove the safety copy (or whatever was created).
+      rm -fr /var/lib/%{shortname}.bck >/dev/null 2>&1 || :
+      return 1
+
+   fi
+
+   if ! /usr/bin/cp -pr /var/lib/squeezeboxserver/* /var/lib/%{shortname} >/dev/null 2>&1; then
+
+      echo "WARNING, failed migrating old configuration. You will need to migrate it manually or configure Lyrion Music Server from scratch."
+      # Restore the safety copy
+      rm -f -r /var/lib/%{shortname} >/dev/null 2>&1 || :
+      mv /var/lib/%{shortname}.bck /var/lib/%{shortname} >/dev/null 2>&1 || :
+      return 1
+
+   else
+
+      if ! /usr/bin/find /var/lib/%{shortname} -type f -name "*.prefs" -exec sed -i 's#/squeezeboxserver#/%{shortname}#g' {} \; >/dev/null 2>&1; then
+         echo "WARNING, failed migrating old configuration. You will need to migrate it manually or configure Lyrion Music Server from scratch."
+         # Restore the safety copy
+         rm -fr /var/lib/%{shortname} >/dev/null 2>&1 || :
+         mv /var/lib/%{shortname}.bck /var/lib/%{shortname} || :
+         return 1
+      fi
+
+
+      if ! /usr/bin/chown -R %{userd}:%{groupd} /var/lib/%{shortname} >/dev/null 2>&1; then
+         echo "WARNING, failed migrating old configuration. You will need to migrate it manually or configure Lyrion Music Server from scratch."
+         # Restore the safety copy
+         rm -fr /var/lib/%{shortname} >/dev/null 2>&1 || :
+         mv /var/lib/%{shortname}.bck /var/lib/%{shortname} || :
+         return 1
+      fi
+
+   fi
+
+   # Remove safety backup 
+   rm -fr /var/lib/%{shortname}.bck >/dev/null 2>&1 || :
+
+   # Remove migratiopn flag file
+   /usr/bin/rm -f /var/tmp/migrateSqueezeboxserverConfig
+
+   # Print message about rebranding.
+   echo ""
+   echo "#######################################################################"
+   echo "NOTE"
+   echo "From version 9.0.0 the Logitech Media Server has been rebranded Lyrion Music Server."
+   echo "All Components of the software have been re-branded from squeezeboxserver to"
+   echo "lyrionmusicserver. To stop and start the software use:"
+   echo "systemd start lyrionmusicserver (on systemd systems)"
+   echo "/sbin/service lyrionmusicserver start (on SYSV Init systems)."
+   echo "and analogous for stop, status etc."
+   echo ""
+   echo "For more information, read %{_datadir}/%{shortname}/README.rebranding."
+   echo "#######################################################################"
+   echo ""
+
 }
 
 test -f /tmp/squeezerpmdebug && set -x
@@ -267,7 +516,7 @@ test -f /tmp/squeezerpmdebug && set -x
 
 # If the SYSV init script exists and the server uses systemd
 # then migrate to systemd unit file.
-if [ -e /etc/init.d/squeezeboxserver -a -x /usr/bin/systemctl ] ; then
+if [ -e /etc/init.d/%{shortname} -a -x /usr/bin/systemctl ] ; then
 	migrate=true
 fi
 
@@ -276,19 +525,29 @@ if [ -f /etc/redhat-release -o -n "$(echo $ID_LIKE |/usr/bin/grep -i -E '(centos
         setSelinux
 fi
 
+# Check if we need to migrate a squeezeboxserver config to lyrion music server
+
+if [ -f /var/tmp/migrateSqueezeboxserverConfig ]; then
+
+   migrateSqueezeboxServerConfig
+
+fi
+
 if [ ! -x /usr/bin/systemctl ] ; then
 	setSYSV
 else
 	setSystemd
 fi
 
-PORT=`awk '/^httpport/ {print $2}' %{_var}/lib/squeezeboxserver/prefs/server.prefs`
+PORT=`awk '/^httpport/ {print $2}' %{_var}/lib/%{shortname}/prefs/server.prefs`
 [ -z "$PORT" ] && PORT=9000
 HOSTNAME=`uname -n`
+
 if [ -n "$migrate" ] ; then
-	echo "Squeezeboxserver was migrated from old style SYSV to systemd start-up."
+	echo "Lyrion Music Server was migrated from old style SYSV to systemd start-up."
 	parseSysconfigSqueezeboxserver || :
 fi
+
 echo "Point your web browser to http://$HOSTNAME:$PORT/ to configure Lyrion Music Server."
 
 %preun
@@ -297,12 +556,12 @@ function unsetSelinux {
 
 	# Remove SELinux contexts
 	MYSQLPORT=9092
-	CACHEDIR=%{_var}/lib/squeezeboxserver/cache
+	CACHEDIR=%{_var}/lib/%{shortname}/cache
 	if [ -x /usr/sbin/selinuxenabled ] ; then
 		if /usr/sbin/selinuxenabled; then
 			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage port -d -t mysqld_port_t -p tcp ${MYSQLPORT}
 			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -d -t mysqld_db_t "${CACHEDIR}(/.*)?"
-			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -d -t mysqld_var_run_t "${CACHEDIR}/squeezeboxserver-mysql.sock"
+			[ -x /usr/sbin/semanage ] && /usr/sbin/semanage fcontext -d -t mysqld_var_run_t "${CACHEDIR}/%{shortname}-mysql.sock"
 			/sbin/restorecon -R ${CACHEDIR}
 		fi
 	fi
@@ -311,26 +570,26 @@ function unsetSelinux {
 
 function unsetSYSV {
 
-	/sbin/service squeezeboxserver stop >/dev/null 2>&1 || :
+	/sbin/service %{shortname} stop >/dev/null 2>&1 || :
 	if [ -f /etc/e-smith-release -a -d /etc/rc7.d ] ; then
 		#SME Server uses runlevel 7
-		db configuration set squeezeboxserver service status disabled >/dev/null 2>&1 || :
-		rm /etc/rc7.d/S80squeezeboxserver || :
+		db configuration set %{shortname} service status disabled >/dev/null 2>&1 || :
+		rm /etc/rc7.d/S80%{shortname} || :
 	fi
-       	/sbin/chkconfig --del squeezeboxserver >/dev/null 2>&1 || :
+       	/sbin/chkconfig --del %{shortname} >/dev/null 2>&1 || :
 	# Remove the SYSV file we copied in the post script.
-	rm -f /etc/init.d/squeezeboxserver || :
+	rm -f /etc/init.d/%{shortname} || :
 
 }
 
 function unsetSystemd {
 
 	# systemd
-        /usr/bin/systemctl unmask squeezeboxserver.service >/dev/null 2>&1 || :
-	/usr/bin/systemctl disable squeezeboxserver.service >/dev/null 2>&1 || :
-	/usr/bin/systemctl stop squeezeboxserver.service >/dev/null 2>&1 || :
+        /usr/bin/systemctl unmask %{shortname}.service >/dev/null 2>&1 || :
+	/usr/bin/systemctl disable %{shortname}.service >/dev/null 2>&1 || :
+	/usr/bin/systemctl stop %{shortname}.service >/dev/null 2>&1 || :
 	# Remove the unit file we copied in the post script.
-	rm -f /usr/lib/systemd/system/squeezeboxserver.service || :
+	rm -f /usr/lib/systemd/system/%{shortname}.service || :
 	/usr/bin/systemctl daemon-reload >/dev/null 2>&1 || :
 
 }
@@ -372,52 +631,69 @@ fi
 
 # Main files
 %{_usr}/lib/perl5/vendor_perl/Slim
-%{_datadir}/squeezeboxserver
+%{_datadir}/%{shortname}
 
 # Empty directories
-%attr(0755,squeezeboxserver,squeezeboxserver) %dir %{_var}/lib/squeezeboxserver
-%attr(0755,squeezeboxserver,squeezeboxserver) %dir %{_var}/lib/squeezeboxserver/cache
-%attr(0755,squeezeboxserver,squeezeboxserver) %dir %{_var}/lib/squeezeboxserver/Plugins
+%attr(0755,%{userd},%{groupd}) %dir %{_var}/lib/%{shortname}
+%attr(0755,%{userd},%{groupd}) %dir %{_var}/lib/%{shortname}/cache
+%attr(0755,%{userd},%{groupd}) %dir %{_var}/lib/%{shortname}/Plugins
 
 # Executables
-%{_usr}/libexec/squeezeboxserver
-%{_usr}/libexec/squeezeboxserver-scanner
-%{_usr}/libexec/squeezeboxserver-resized
-%{_usr}/libexec/squeezeboxserver-cleanup
+%{_usr}/libexec/%{shortname}
+%{_usr}/libexec/%{shortname}-scanner
+%{_usr}/libexec/%{shortname}-resized
+%{_usr}/libexec/%{shortname}-cleanup
 
 # Log files
-%attr(0755,squeezeboxserver,squeezeboxserver) %dir %{_var}/log/squeezeboxserver
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/log/squeezeboxserver/perfmon.log
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/log/squeezeboxserver/server.log
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/log/squeezeboxserver/scanner.log
+%attr(0755,%{userd},%{groupd}) %dir %{_var}/log/%{shortname}
+%attr(0644,%{userd},%{groupd}) %ghost %{_var}/log/%{shortname}/perfmon.log
+%attr(0644,%{userd},%{groupd}) %ghost %{_var}/log/%{shortname}/server.log
+%attr(0644,%{userd},%{groupd}) %ghost %{_var}/log/%{shortname}/scanner.log
 
 # Configuration files and init script
-%dir %{_sysconfdir}/squeezeboxserver
-%attr(0755,squeezeboxserver,squeezeboxserver) %dir %{_var}/lib/squeezeboxserver/prefs
-%attr(0644,squeezeboxserver,squeezeboxserver) %config(noreplace) %{_var}/lib/squeezeboxserver/prefs/server.prefs
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/log.conf
-%attr(0755,squeezeboxserver,squeezeboxserver) %dir %{_var}/lib/squeezeboxserver/prefs/plugin
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/cli.prefs
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/datetime.prefs
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/infobrowser.prefs
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/itunes.prefs
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/musicmagic.prefs
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/podcast.prefs
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/radiotime.prefs
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/randomplay.prefs
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/rescan.prefs
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/rssnews.prefs
-%attr(0644,squeezeboxserver,squeezeboxserver) %ghost %{_var}/lib/squeezeboxserver/prefs/plugin/state.prefs
-%config(noreplace) %{_sysconfdir}/squeezeboxserver/server.conf
-%attr(0644,squeezeboxserver,squeezeboxserver) %config(noreplace) %{_sysconfdir}/squeezeboxserver/convert.conf
-%attr(0644,squeezeboxserver,squeezeboxserver) %config(noreplace) %{_sysconfdir}/squeezeboxserver/modules.conf
-%attr(0644,squeezeboxserver,squeezeboxserver) %config(noreplace) %{_sysconfdir}/squeezeboxserver/types.conf
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/squeezeboxserver
-%config(noreplace) %{_sysconfdir}/logrotate.d/squeezeboxserver
+%dir %{_sysconfdir}/%{shortname}
+%attr(0755,%{userd},%{groupd}) %dir %{_var}/lib/%{shortname}/prefs
+%attr(0644,%{userd},%{groupd}) %config(noreplace) %{_var}/lib/%{shortname}/prefs/server.prefs
+%attr(0644,%{userd},%{groupd}) %ghost %config(noreplace) %{_var}/lib/%{shortname}/prefs/log.conf
+%attr(0755,%{userd},%{groupd}) %dir %{_var}/lib/%{shortname}/prefs/plugin
+%attr(0644,%{userd},%{groupd}) %ghost %config(noreplace) %{_var}/lib/%{shortname}/prefs/plugin/cli.prefs
+%attr(0644,%{userd},%{groupd}) %ghost %config(noreplace) %{_var}/lib/%{shortname}/prefs/plugin/datetime.prefs
+%attr(0644,%{userd},%{groupd}) %ghost %config(noreplace) %{_var}/lib/%{shortname}/prefs/plugin/infobrowser.prefs
+%attr(0644,%{userd},%{groupd}) %ghost %config(noreplace) %{_var}/lib/%{shortname}/prefs/plugin/itunes.prefs
+%attr(0644,%{userd},%{groupd}) %ghost %config(noreplace) %{_var}/lib/%{shortname}/prefs/plugin/musicmagic.prefs
+%attr(0644,%{userd},%{groupd}) %ghost %config(noreplace) %{_var}/lib/%{shortname}/prefs/plugin/podcast.prefs
+%attr(0644,%{userd},%{groupd}) %ghost %config(noreplace) %{_var}/lib/%{shortname}/prefs/plugin/radiotime.prefs
+%attr(0644,%{userd},%{groupd}) %ghost %config(noreplace) %{_var}/lib/%{shortname}/prefs/plugin/randomplay.prefs
+%attr(0644,%{userd},%{groupd}) %ghost %config(noreplace) %{_var}/lib/%{shortname}/prefs/plugin/rescan.prefs
+%attr(0644,%{userd},%{groupd}) %ghost %config(noreplace) %{_var}/lib/%{shortname}/prefs/plugin/rssnews.prefs
+%attr(0644,%{userd},%{groupd}) %ghost %config(noreplace) %{_var}/lib/%{shortname}/prefs/plugin/state.prefs
+%config(noreplace) %{_sysconfdir}/%{shortname}/server.conf
+%attr(0644,%{userd},%{groupd}) %config(noreplace) %{_sysconfdir}/%{shortname}/convert.conf
+%attr(0644,%{userd},%{groupd}) %config(noreplace) %{_sysconfdir}/%{shortname}/modules.conf
+%attr(0644,%{userd},%{groupd}) %config(noreplace) %{_sysconfdir}/%{shortname}/types.conf
+%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/%{shortname}
+%config(noreplace) %{_sysconfdir}/logrotate.d/%{shortname}
 
 
 
 %changelog
+* Sun Jul 21 2024 Johan Saaw
+-  As from version 9.0.0 the logitechmediaserver is called Lyrion Music Server.
+   Re-branding everything to Lyrion Music server.
+     - All components have been re-branded, everything that was called
+       squeezeboxserver is now called lyrionmusicserver, the executables,
+       all locations in the file systems.
+     - The SYSV init script, the systemd unit have consequently also changed 
+       name to lyrionmusicserver.
+     - The daemons run under the user id and group lyrionmusicserver.
+     - When a logitechmediaserver installation is upgraded to a 
+       lyrionmusicserver installation, then the configuration of the 
+       logitechmediaserver installation will be migrated to the 
+       lyrionmusicserver if the config is in the default location and 
+       /var/lib/lyrionmusicserver does not already exist. If these conditions
+       are not met, then the lyrionmusicserver will have to be configured from
+       scratch.
+
 * Wed Apr  3 2024 Peter Oliver <rpm@mavit.org.uk>
 - lyrionmusicserver obsoletes logitechmediaserver.
 
