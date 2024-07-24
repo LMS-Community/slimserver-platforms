@@ -581,7 +581,7 @@ sub buildRPM {
 
         # Do it
         my $date = strftime('%Y-%m-%d', localtime());
-        print `rpmbuild -v -bb --with $releaseType --define="src_basename $defaultDestName" --define="_version $version" --define="_src_date $date" --define="_revision $revision" --define='_topdir $buildDir/rpm' $buildDir/rpm/SPECS/lyrionmusicserver.spec`;
+        print `rpmbuild -bb --with $releaseType --define="src_basename $defaultDestName" --define="_version $version" --define="_src_date $date" --define="_revision $revision" --define='_topdir $buildDir/rpm' $buildDir/rpm/SPECS/lyrionmusicserver.spec`;
 
 	## Just move the file out of the building directory, and put it into the destDir
 	print "INFO: Moving $buildDir/rpm/RPMS/noarch/*.rpm to $destDir\n";
