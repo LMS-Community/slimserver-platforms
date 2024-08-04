@@ -566,12 +566,13 @@ sub buildRPM {
 	system("mv $buildDir/$defaultDestName.tgz $buildDir/rpm/SOURCES");
 
 	## Copy the various SPEC< Config, etc files into the right dirs...
-        copy("$buildDir/platforms/redhat/squeezeboxserver.config", "$buildDir/rpm/SOURCES");
-        copy("$buildDir/platforms/redhat/squeezeboxserver.init", "$buildDir/rpm/SOURCES");
-        copy("$buildDir/platforms/redhat/squeezeboxserver.logrotate", "$buildDir/rpm/SOURCES");
-        copy("$buildDir/platforms/redhat/squeezeboxserver.service", "$buildDir/rpm/SOURCES");
+        copy("$buildDir/platforms/redhat/lyrionmusicserver.config", "$buildDir/rpm/SOURCES");
+        copy("$buildDir/platforms/redhat/lyrionmusicserver.init", "$buildDir/rpm/SOURCES");
+        copy("$buildDir/platforms/redhat/lyrionmusicserver.logrotate", "$buildDir/rpm/SOURCES");
+        copy("$buildDir/platforms/redhat/lyrionmusicserver.service", "$buildDir/rpm/SOURCES");
         copy("$buildDir/platforms/redhat/README.systemd", "$buildDir/rpm/SOURCES");
-        copy("$buildDir/platforms/redhat/squeezeboxserver.spec", "$buildDir/rpm/SPECS");
+        copy("$buildDir/platforms/redhat/README.rebranding", "$buildDir/rpm/SOURCES");
+        copy("$buildDir/platforms/redhat/lyrionmusicserver.spec", "$buildDir/rpm/SPECS");
 
 	## Just check, if this is a 'nightly' build, pass on 'trunk' to the rpmbuild command
 	if ($releaseType eq "nightly") {
@@ -580,7 +581,7 @@ sub buildRPM {
 
         # Do it
         my $date = strftime('%Y-%m-%d', localtime());
-        print `rpmbuild -bb --with $releaseType --define="src_basename $defaultDestName" --define="_version $version" --define="_src_date $date" --define="_revision $revision" --define='_topdir $buildDir/rpm' $buildDir/rpm/SPECS/squeezeboxserver.spec`;
+        print `rpmbuild -bb --with $releaseType --define="src_basename $defaultDestName" --define="_version $version" --define="_src_date $date" --define="_revision $revision" --define='_topdir $buildDir/rpm' $buildDir/rpm/SPECS/lyrionmusicserver.spec`;
 
 	## Just move the file out of the building directory, and put it into the destDir
 	print "INFO: Moving $buildDir/rpm/RPMS/noarch/*.rpm to $destDir\n";

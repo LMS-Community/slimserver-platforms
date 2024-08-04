@@ -1,0 +1,56 @@
+As from version 9.0.0 the Logitech Media Server has been rebranded Lyrion Music
+Server.
+
+In previous versions of the RPM package, the different components of the
+Logitech Media Server have been called squeezeboxserver (the exec, locations in
+the file system etc). As from version 9.0.0 the RPM package will use the string
+"lyrionmusicserver" everywhere where previously the string "squeezeboxserver" 
+was used. This change means that the way the Lyrion Music Server is started and
+stopped also changes.
+
+- systemd systems
+
+  systemctl enable lyrionmusicserver -> Enables the music server to start at 
+                                        boot time.
+  systemctl start lyrionmusicserver  -> Starts the music server 
+  systemctl stop lyrionmusicserver   -> Stops the music server 
+  systemctl status lyrionmusicserver -> Shows the status of the music server 
+
+  The configuration of the server is now in /var/lib/lyrionmusicserver
+
+- SYSV init system
+
+  /etc/init.d/lyrionmusicserver start  -> Starts the music server 
+  /etc/init.d/lyrionmusicserver stop   -> Stops the music server 
+  /etc/init.d/lyrionmusicserver status -> Shows the status of the music server 
+
+Configuration files are in
+
+  /var/lib/lyrionmusicserver
+  /etc/lyrionmusicserver
+  /etc/sysconfig/lyrionmusicserver
+
+Log files in
+
+  /var/log/lyrionmusicserver
+
+The user id and group used to run the music server components are
+
+User: lyrionmusicserver
+Group: lyrionmusicserver
+
+** N O T E **
+When you upgrade from an earlier version to version 9.0.0, the RPM package
+will attempt to migrate the configuration of the squeezeboxserver to the new
+locations of the Lyrion Music Server. This will be done if, and only if
+
+ - The squeezeboxserver has the configuration in the default location
+   (/var/lib/squeezeboxserver)
+ 
+ and
+
+ - The location /var/lib/lyrionmusicserver does not exist.
+ 
+If these two conditions are not met, then the Lyrion Music Server must be 
+configured from scratch or you can migrate your configuration manually.
+
