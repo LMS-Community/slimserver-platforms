@@ -3,7 +3,7 @@ package Slim::Utils::OS::Custom;
 use strict;
 use base qw(Slim::Utils::OS::Linux);
 
-# IMPORTANT: The folloiwng file will be used to verify we're an Encore device.
+# IMPORTANT: The following file will be used to verify we're an Encore device.
 #            Initialization will fail if it does not exist.
 use constant ENCORE_VERSION_FILE => '/usr/encore/encore-release';
 
@@ -30,7 +30,7 @@ sub dirsFor {
 
 	} elsif ($dir eq 'log') {
 
-		push @dirs, $::logdir || "/usr/encore/server/Logs";
+		push @dirs, $::logdir || "/media/data/Logs/server";
 
 	} elsif ($dir eq 'cache') {
 
@@ -82,9 +82,7 @@ sub skipPlugins {
 
 	return (
 		qw(
-			ACLFileTest ImageBrowser SN
-			PreventStandby MusicMagic
-			UPnP
+			ACLFileTest PreventStandby
 		),
 		$class->SUPER::skipPlugins(),
 	);
