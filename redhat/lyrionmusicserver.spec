@@ -92,7 +92,7 @@ Source6:        README.rebranding
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Vendor:		Lyrion Community
 
-
+Requires:	/usr/bin/awk
 Requires:	perl >= 5.10.0
 Recommends:     perl(IO::Socket::SSL)
 
