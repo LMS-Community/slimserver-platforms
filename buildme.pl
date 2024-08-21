@@ -294,12 +294,11 @@ sub doCommandOptions {
 		} elsif ($ppc) {
 			buildTarball($dirsToExcludeForPPCTarball, "$destDir/$destName-powerpc-linux");
 		} elsif ($encore) {
-			$sourceDirsToExclude =~ s/ Plugins\/\*//;
-			system("mkdir -p \"$buildDir/build/server/Plugins\"; rm -rf \"$buildDir/build/server/Plugins/*\"");
-			system("cp -R \"$buildDir/platforms/MusicalFidelity/M6Encore\" \"$buildDir/build/server/Plugins/\" ");
+			system("mkdir -p \"$buildDir/server/Plugins\"; rm -rf \"$buildDir/server/Plugins/*\"");
+			system("cp -R \"$buildDir/platforms/MusicalFidelity/M6Encore\" \"$buildDir/server/Plugins/\" ");
 			copy("$buildDir/platforms/MusicalFidelity/Custom.pm", "$buildDir/server/Slim/Utils/OS");
 			move("$buildDir/server/CPAN/arch/5.22/x86_64-linux-thread-multi", "$buildDir/server/CPAN/arch/5.22/x86_64-linux");
-			buildTarball($dirsToExcludeForEncore, "$destDir/$destName-MusicalFidelity");
+			buildTarball($dirsToExcludeForEncore, "$destDir/$destName-MusicalFidelity", "Plugins/M6Encore");
 		} else {
 			## Use the CPAN variables
 			buildTarball($dirsToExcludeForLinuxTarball, "$destDir/$destName");
