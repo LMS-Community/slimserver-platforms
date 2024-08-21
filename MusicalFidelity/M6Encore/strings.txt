@@ -1,0 +1,61 @@
+# String file for Encore plugin
+
+PLUGIN_M6ENCORE
+	EN	Musical Fidelity M6 Encore
+
+PLUGIN_M6ENCORE_INPUT
+	CS	Vstupy
+	DA	Indgange
+	DE	Eingänge
+	EN	Inputs
+	ES	Entradas 
+	FI	Tulot
+	FR	Entrées
+	HE	פריטי קלט דיגיטלי
+	IT	Ingressi
+	NL	Ingangen
+	NO	Innganger
+	PL	Wejścia cyfrowe
+	RU	Цифровые входы
+	SV	Ingångar
+
+PLUGIN_M6ENCORE_DESC
+	EN	Support for Musical Fidelity M6 Encore
+
+PLUGIN_M6ENCORE_INPUT_CHOOSE_BELOW
+	CS	Vyberte níže uvedenou možnost vstupu:
+	DA	Vælg indgang nedenfor:
+	DE	Wählen Sie einen Eingang:
+	EN	Choose an Input option below:
+	ES	Elija una opción de entrada:
+	FI	Valitse tulovaihtoehto alta:
+	FR	Sélectionnez une option d'entrée ci-dessous:
+	IT	Scegliere una delle seguenti opzioni di ingresso:
+	NL	Kies hieronder een ingangsoptie:
+	NO	Velg et alternativ for inngang nedenfor:
+	SV	Välj ingång nedan:
+
+PLUGIN_M6ENCORE_INPUT_A1
+	EN	Analog 1
+
+PLUGIN_M6ENCORE_INPUT_A2
+	EN	Analog 2
+
+PLUGIN_M6ENCORE_INPUT_A3
+	EN	Analog 3
+
+PLUGIN_M6ENCORE_INPUT_OPT1
+	EN	Optical Digital 1
+
+PLUGIN_M6ENCORE_INPUT_OPT2
+	EN	Optical Digital 2
+
+PLUGIN_M6ENCORE_INPUT_COAX1
+	EN	Coax (RCA) Digital 1
+
+PLUGIN_M6ENCORE_INPUT_COAX2
+	EN	Coax (RCA) Digital 2
+
+PLUGIN_M6ENCORE_INPUT_CD
+	EN	Compact Disc
+

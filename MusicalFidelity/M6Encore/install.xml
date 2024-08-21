@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<extension>
+	<id>6800a631-a0b6-4387-9c50-27a3ecdb54e9</id>
+	<name>PLUGIN_M6ENCORE</name>
+	<module>Plugins::M6Encore::Plugin</module>
+	<version>0.1.0</version>
+	<description>PLUGIN_M6ENCORE_DESC</description>
+	<creator>Michael Herger</creator>
+
+	<defaultState>enabled</defaultState>
+
+	<homepageURL>http://encore.musicalfidelity.com/</homepageURL>
+	<icon>plugins/M6Encore/html/images/icon.png</icon>
+	<type>2</type>
+
+	<targetApplication>
+		<id>Musical Fidelity Encore Server</id>
+		<minVersion>7.0a</minVersion>
+		<maxVersion>*</maxVersion>
+	</targetApplication>
+
+</extension>
