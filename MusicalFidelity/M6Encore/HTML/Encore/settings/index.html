@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=9" />
+		<title>[% "SERVER_SETTINGS" | string %]</title>
+
+		<link rel="stylesheet" type="text/css" href="/html/ext/resources/css/ext-all-notheme.css" />
+		<link rel="stylesheet" type="text/css" href="[% webroot %]slimserver.css?r=[% revision %]" />
+		<link rel="stylesheet" type="text/css" href="[% webroot %]skin.css?r=[% revision %]" />
+
+		<style>
+			html { background: #666666; }
+		</style>
+
+		<script type="text/javascript">[% PROCESS html/vars.js %]</script>
+		<script type="text/javascript" src="[% webroot %]html/js.html?r=[% revision %]"></script>
+		<script type="text/javascript">[% PROCESS html/SqueezeJS/Strings.js %]</script>
+
+		<script type="text/javascript">
+			[% PROCESS jsString id='APPLY' jsId='' %]
+			[% PROCESS jsString id='SETTINGS' jsId='' %]
+			[% PROCESS jsString id='SETTINGS_CHANGED_CONFIRM' jsId='' %]
+
+			Ext.onReady(function(){
+				Settings.init([
+				[%- activeTab = 0 -%]
+				[%- FOREACH tab = topLevelItems -%]
+					[%- IF tab.0 == 'BASIC_PLAYER_SETTINGS';
+						tab.0 = 'PLAYER';
+						tab.1 = playersetup.BASIC_PLAYER_SETTINGS || 'settings/player/basic.html?';
+					 -%]
+					[%- ELSIF tab.0 == 'ADVANCED_SETTINGS'; tab.1 = additionalLinks.setup.FORMATTING_SETTINGS -%]
+					[%- ELSIF tab.0 == 'BEHAVIOR_SETTINGS'; tab.0 = 'MY_MUSIC' -%]
+					[%- ELSIF tab.0 == 'SERVER_STATUS'; tab.0 = 'INFORMATION' -%]
+					[%- END -%]
+
+					[%-
+					IF tab.0 == activePage;
+						activeTab = loop.index; 
+					ELSIF activePage && tab.0 == 'PLAYER' && playersetup.${activePage};
+						activeTab = loop.index;
+						tab.1 = playersetup.${activePage}; 
+					END 
+					-%]
+
+					{
+						title: '[% tab.0 | string %]',
+						url: '[%- tab.1 -%]',
+						id: '[% tab.0 %]'
+					}[% loop.last ? '' : ',' %]
+				[% END -%]
+				], [% activeTab %]);
+			}, Settings, true);
+		</script>
+
+		<link rel="apple-touch-icon" href="[% webroot %]html/images/apple-touch-icon.png"/>
+	</head>
+
+	<body class="singlePanel settingsFrame">
+		<img id="background" src="[% webroot %]html/images/spacer.gif" />
+
+		<div id="header">
+			<div id="header_left"></div>
+			<div id="header_content">
+				<span><a href="[% webroot %]" target="sc_main"><img src="[% webroot %]html/images/spacer.gif" id="squeezeboxLogo"></a></span>
+				<span><a href="http://www.musicalfidelity.com" target="_blank"><img src="[% webroot %]html/images/spacer.gif" id="MFLogo"></a></span>
+			</div>
+		</div>
+
+		<div id="inner_header">
+			<div class="inner">
+				<div class="inner_top"></div>
+				<div id="settingsTabs"></div>
+			</div>
+		</div>
+
+		<iframe src="[% webroot %]settings/server/basic.html" name="settings" width="100%" id="maincontent" frameborder="0" scrolling="auto"></iframe>
+
+		<div id="inner_footer">
+				<div id="infoTab" class="buttonbar">
+					<table id="buttonbar">
+						<tr>
+							<td><span id="cancel"></span></td>
+							<td><span id="save"></span></td>
+						<tr>
+					</table>
+				</div>				
+			<div class="inner">
+				<div class="inner_bottom"></div>
+			</div>
+		</div>
+
+		<div id="footer">
+			<div id="footer_left"></div>
+			<div id="footer_content">
+			</div>
+		</div>
+	</body>
+</html>
