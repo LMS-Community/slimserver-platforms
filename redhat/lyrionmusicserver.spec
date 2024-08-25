@@ -308,7 +308,7 @@ function parseSysconfigSqueezeboxserver {
 
 	# Check if any additions to the LYRION_ARGS variable have been made.
 	# Do that by filter out the ones we know should be there.
-	extra=`echo $LYRION_ARGS |/usr/bin/tr " " "\n"||/usr/bin/perl -lane "/(--daemon|--prefsdir|--logdir|--cachedir|--charset)/i or print"` || :
+	extra=`echo $LYRION_ARGS |/usr/bin/tr " " "\n"|/usr/bin/perl -lane "/(--daemon|--prefsdir|--logdir|--cachedir|--charset)/i or print"` || :
 	if [ -n "$extra" ] ; then
                 echo ""
                 echo "#######################################################################"
