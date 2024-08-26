@@ -491,7 +491,7 @@ else
 	setSystemd
 fi
 
-PORT=`/usr/bin/perl -lane  'if ( /^httpport:/) {print $F[1]}' %{_var}/lib/%{shortname}/prefs/server.prefs`
+PORT=`/usr/bin/perl -lane  'if ( /^httpport:/) {print $F[1]; exit}' %{_var}/lib/%{shortname}/prefs/server.prefs`
 [ -z "$PORT" ] && PORT=9000
 HOSTNAME=`uname -n`
 
