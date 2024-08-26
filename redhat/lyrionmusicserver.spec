@@ -93,10 +93,17 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Vendor:		Lyrion Community
 
 
-Requires:	perl >= 5.10.0
-PreReq:         /bin/bash /usr/bin/getent /usr/bin/cp /usr/bin/ln
-PreReq:         /usr/sbin/useradd /usr/sbin/groupadd /usr/bin/find
-Recommends:     perl(IO::Socket::SSL)
+Requires(pre):   /usr/bin/getent
+Requires(pre):   /usr/bin/touch
+Requires(pre):   /usr/sbin/groupadd
+Requires(pre):   /usr/sbin/useradd
+Requires(preun): /usr/bin/rm
+Requires(post):  /usr/bin/cp
+Requires(post):  /usr/bin/ln
+Requires(post):  /usr/bin/mv
+Requires(post):  /usr/bin/rm
+Requires:        perl >= 5.10.0
+Recommends:      perl(IO::Socket::SSL)
 
 Provides:	%{src_basename} = %{version}-%{release}
 Obsoletes:	logitechmediaserver
@@ -308,7 +315,7 @@ function parseSysconfigSqueezeboxserver {
 
 	# Check if any additions to the LYRION_ARGS variable have been made.
 	# Do that by filter out the ones we know should be there.
-	extra=`echo $LYRION_ARGS |/usr/bin/tr " " "\n"|/usr/bin/perl -lane "/(--daemon|--prefsdir|--logdir|--cachedir|--charset)/i or print"` || :
+	extra=`echo $LYRION_ARGS |/usr/bin/perl -lane 'print foreach grep { not m/^(?:--daemon|--prefsdir|--logdir|--cachedir|--charset)(?:=|$)/  } @F'` || :
 	if [ -n "$extra" ] ; then
                 echo ""
                 echo "#######################################################################"
@@ -418,7 +425,7 @@ function migrateSqueezeboxServerConfig {
 
    else
 
-      if ! /usr/bin/find /var/lib/%{shortname} -type f -name "*.prefs" -exec /usr/bin/perl -i.pre-squeeze-to-lyrion -pe "s/\/squeezeboxserver/\/lyrionmusicserver/" {} \; >/dev/null 2>&1; then
+      if ! /usr/bin/find /var/lib/%{shortname} -type f -name "*.prefs" -exec /usr/bin/perl -i.pre-squeeze-to-lyrion -pe 's#/squeezeboxserver#/%{shortname}#' {} \; >/dev/null 2>&1; then
          echo "WARNING, failed migrating old configuration. You will need to migrate it manually or configure Lyrion Music Server from scratch."
          # Restore the safety copy
          /usr/bin/rm -fr /var/lib/%{shortname} >/dev/null 2>&1 || :
@@ -563,7 +570,7 @@ if [ "$1" -eq "0" ] ; then
 	fi
 
 	# If CentOS/Fedora/RedHat, remove selinux settings
-	if [ -f /etc/redhat-release -o -n "$(echo \"$ID_LIKE $ID\" | /usr/bin/perl -lane '/(fedora|centos|rhel|redhat|rocky|alma)/i and print')" ] ; then
+	if [ -f /etc/redhat-release -o -n "$(echo \"$ID_LIKE $ID\" | /usr/bin/perl -ne '/(fedora|centos|rhel|redhat|rocky|alma)/i and print')" ] ; then
 
 		unsetSelinux
 
