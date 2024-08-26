@@ -473,7 +473,7 @@ if [ -e /etc/init.d/%{shortname} -a -x /usr/bin/systemctl ] ; then
 fi
 
 # If CentOS/RedHat/Fedora, handle selinux
-if [ -f /etc/redhat-release -o -n "$(echo \"$ID_LIKE $ID\" | /usr/bin/perl -lane '/(fedora|centos|rhel|redhat|rocky|alma)/i and print')" ] ; then
+if [ -f /etc/redhat-release -o -n "$(echo \"$ID_LIKE $ID\" | /usr/bin/perl -ne '/(fedora|centos|rhel|redhat|rocky|alma)/i and print')" ] ; then
         setSelinux
 fi
 
