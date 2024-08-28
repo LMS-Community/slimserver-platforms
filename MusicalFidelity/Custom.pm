@@ -92,6 +92,11 @@ sub skipPlugins {
 # this system but let the players download directly
 sub directFirmwareDownload { 1 };
 
+sub restartServer {
+	exec("/etc/init.d/encoreserver", "restart");
+	return 1;
+}
+
 # ignore this configuration unless we are running it on a Encore system
 if (-f ENCORE_VERSION_FILE) {
 	return 1;
