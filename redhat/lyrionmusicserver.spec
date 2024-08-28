@@ -93,8 +93,17 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Vendor:		Lyrion Community
 
 
-Requires:	perl >= 5.10.0
-Recommends:     perl(IO::Socket::SSL)
+Requires(pre):   /usr/bin/getent
+Requires(pre):   /usr/bin/touch
+Requires(pre):   /usr/sbin/groupadd
+Requires(pre):   /usr/sbin/useradd
+Requires(preun): /usr/bin/rm
+Requires(post):  /usr/bin/cp
+Requires(post):  /usr/bin/ln
+Requires(post):  /usr/bin/mv
+Requires(post):  /usr/bin/rm
+Requires:        perl >= 5.10.0
+Recommends:      perl(IO::Socket::SSL)
 
 Provides:	%{src_basename} = %{version}-%{release}
 Obsoletes:	logitechmediaserver
@@ -219,112 +228,62 @@ function checkConfigMigration () {
    # The prefs files must also be edited to replace the paths
    # pointing to the old squeezeboxserver prefs location
    # to the new locations of lyrionmusicserver.
-   #
 
-   # Start with checking if there is a Lyrion Muix server configuration file.
+   # Start with checking if there is a Lyrion Music server configuration file.
    # If there is, we will do no migration and just return immediately.
    if [ -f /var/lib/%{shortname}/prefs/server.prefs ]; then
-      return 1
+      return 0
    fi
 
+   # To check if an old logitechmediaserver RPM is currently installed, we check
+   # if /usr/libexec/squeezeboxserver * AND * 
+   # /var/lib/squeezeboxserver/prefs/server.prefs exist. Only if both these 
+   # exist we will attempt a migration.
    # First see if currently the logitechmediaserver package is installed.
-   currentPkg=`/usr/bin/rpm -q logitechmediaserver |/usr/bin/grep -v 'is not' | /usr/bin/awk -F "-" '{printf "%s %s\n",$1,$2}'` || :
 
-   # Very early version of lyrionmusicserver also used the squeezeboxnaming
-   # so we need to check for that too if the query for logitechmediaserver
-   # did not return anything.
-   if [ -z "$currentPkg" ]; then
-      currentPkg=`/usr/bin/rpm -q lyrionmusicserver |/usr/bin/grep -v 'is not' | /usr/bin/awk -F "-" '{printf "%s %s\n",$1,$2}'` || :
-   fi
+   if [ -f /usr/libexec/squeezeboxserver ]; then
+     
+     # Touch a file to allow the post script to know that we are moving
+     # from squeezeboxserver to lyrionmusicserver
+     /usr/bin/touch /var/tmp/SqueezeToLyrion || :
+ 
 
-   if [ -n "$currentPkg" ]; then
+     if [ -f /var/lib/squeezeboxserver/prefs/server.prefs ]; then
 
-      # Either logitechmediaserver or lyrionmediaserver is installed
-      name=`echo $currentPkg | awk '{print $1}'` || :
-      version=`echo $currentPkg | awk '{print $2}'` || :
-   
-      # Touch a file to allow the post script to know that we are moving
-      # from squeezeboxserver to lyrionmusicserver
-      /usr/bin/touch /var/tmp/SqueezeToLyrion || :
+       # config should be migrated.
+       /usr/bin/touch /var/tmp/migrateSqueezeboxserverConfig || :
+ 
+       echo ""
+       echo "#######################################################################"
+       echo "** INFORMATION **"
+       echo "Upgrading from squeezeboxserver to lyrionmusicserver!"
+       echo "Will attempt to migrate the squeezeboxserver configuration in"
+       echo "/var/lib/squeezeboxserver to the new lyrionmusicserver configuration"
+       echo "in /var/lib/lyrionmusicserver."
+       echo "#######################################################################"
+       echo ""
 
-      if [ "$name" = "logitechmediaserver" ]; then
+     else 
 
-
-         # The current installation is a logitechmediaserver, check if the config
-         # is in the default location.
-         if [[ -f /var/lib/squeezeboxserver/prefs/server.prefs ]]; then
-            echo ""
-            echo "#######################################################################"
-            echo "INFORMATION"
-            echo "Upgrading from a logitechmediaserver package to a lyrionmusicserver"
-            echo "package!"
-            echo "Will attempt to migrate the logitechmedia configuration in"
-            echo "/var/lib/squeezeboxserver to the new lyrionmusicserver configuration in"
-            echo "/var/lib/lyrionmusicserver."
-            echo "#######################################################################"
-            echo ""
-
-            # Touch a file to allow the post script to know that the squeezeboxserver
-            # config should be migrated.
-            /usr/bin/touch /var/tmp/migrateSqueezeboxserverConfig || :
-            
-         else
-            echo ""
-            echo "#######################################################################"
-            echo "** N O T E **"
-            echo "Upgrading from a logitechmediaserver package to a lyrionmusicserver"
-            echo " package!"
-            echo "logitechmediaserver configuration is not in the default location!"
-            echo "You will have to either reconfigure the Lyrion Music Server, or migrate"
-            echo "your old configuration manually."
-            echo "#######################################################################"
-            echo ""
-         fi
-
-
-      elif [ "$name" = "lyrionmusicserver" ] && [ "$version" = "9.0.0" ]; then
-
-         # The current installation is a lyrion music server version 9.0.0, early adopters
-         # might still have the config in /var/lib/squeezeboxserver. This needs to be fixed.
-         if [ -f /var/lib/squeezeboxserver/prefs/server.prefs ]; then
-            echo ""
-            echo "#######################################################################"
-            echo "INFORMATION"
-            echo "Upgrading from an early Lyrion Music Server beta package to a later"
-            echo "Lyrion Music server package!"
-            echo "Will attempt to migrate the configuration in /var/lib/squeezeboxserver"
-            echo "to the new lyrionmusicserver configuration in"
-            echo "/var/lib/lyrionmusicserver."
-            echo "#######################################################################"
-            echo ""
-
-            # Touch a file to allow the post script to know that the squeezeboxserver
-            # config should be migrated.
-            /usr/bin/touch /var/tmp/migrateSqueezeboxserverConfig || :
-            
-         else
-            echo ""
-            echo "#######################################################################"
-            echo "** N O T E **"
-            echo "Upgrading from an early Lyrion Music Server beta package to a later"
-            echo "Lyrion Music Server package!"
-            echo "The configuration is not in the default location!"
-            echo "You will have to either reconfigure the Lyrion Music Server, or migrate"
-            echo "your old configuration manually."
-            echo "#######################################################################"
-            echo ""
-
-         fi
-      fi
+       echo ""
+       echo "#######################################################################"
+       echo "** N O T E **"
+       echo "Upgrading from a squeezeboxserver to a lyrionmusicserver!"
+       echo "The squeezeboxserver configuration is not in the standard location."
+       echo "You will have to either configure the Lyrion Music Server from scratch,"
+       echo "or migrate your old configuration manually."
+       echo "#######################################################################"
+       echo ""
+     fi
    fi
 
    return 0
 }
 
 test -f /tmp/squeezerpmdebug && set -x
-getent group %{groupd} >/dev/null || groupadd -r %{groupd}
-getent passwd %{userd} >/dev/null || \
-useradd -r -g %{groupd} -d %{_datadir}/%{shortname} -s /sbin/nologin \
+/usr/bin/getent group %{groupd} >/dev/null || /usr/sbin/groupadd -r %{groupd}
+/usr/bin/getent passwd %{userd} >/dev/null || \
+/usr/sbin/useradd -r -g %{groupd} -d %{_datadir}/%{shortname} -s /sbin/nologin \
     -c "Lyrion Music Server" %{userd}
 
 # This function will set flags for the post script so that the post script will
@@ -356,7 +315,7 @@ function parseSysconfigSqueezeboxserver {
 
 	# Check if any additions to the LYRION_ARGS variable have been made.
 	# Do that by filter out the ones we know should be there.
-	extra=`echo $LYRION_ARGS |tr " " "\n"|grep -v -E "(--daemon|--prefsdir|--logdir|--cachedir|--charset)"` || :
+	extra=`echo $LYRION_ARGS |/usr/bin/perl -lane 'print foreach grep { not m/^(?:--daemon|--prefsdir|--logdir|--cachedir|--charset)(?:=|$)/  } @F'` || :
 	if [ -n "$extra" ] ; then
                 echo ""
                 echo "#######################################################################"
@@ -392,12 +351,12 @@ function setSYSV {
         test -f /tmp/squeezerpmdebug && set -x
 
 	# This is a SYSV server. Copy SYSV script to the correct place.
-	cp -p %{_datadir}/%{shortname}/%{shortname}.SYSV %{_sysconfdir}/init.d/%{shortname} >/dev/null 2>&1 || :
+	/usr/bin/cp -p %{_datadir}/%{shortname}/%{shortname}.SYSV %{_sysconfdir}/init.d/%{shortname} >/dev/null 2>&1 || :
 
-	#Koozali SME Server pre version 10 uses SYSV init and uses runlevel 7
+	# Koozali SME Server pre version 10 uses SYSV init and uses runlevel 7
         # I have no idea if the release file is still called /etc/e-smit-release.
 	if [ -f /etc/e-smith-release -a -d /etc/rc7.d ] ; then
-		ln -sf %{_sysconfdir}/init.d/%{shortname} /etc/rc7.d/S80%{shortname} >/dev/null 2>&1 || :
+		/usr/bin/ln -sf %{_sysconfdir}/init.d/%{shortname} /etc/rc7.d/S80%{shortname} >/dev/null 2>&1 || :
 		db configuration set %{shortname} service status enabled >/dev/null 2>&1 || :
 	fi
 
@@ -436,7 +395,7 @@ function setSystemd {
            /usr/bin/rm -f /var/tmp/SqueezeToLyrion || :
         fi
 
-	cp -p %{_datadir}/%{shortname}/%{shortname}.service /usr/lib/systemd/system/%{shortname}.service || :
+	/usr/bin/cp -p %{_datadir}/%{shortname}/%{shortname}.service /usr/lib/systemd/system/%{shortname}.service || :
 	/usr/bin/systemctl daemon-reload >/dev/null 2>&1 || :
         /usr/bin/systemctl enable  %{shortname}.service >/dev/null 2>&1 || :
         /usr/bin/systemctl restart %{shortname}.service >/dev/null 2>&1 || :
@@ -446,12 +405,12 @@ function migrateSqueezeboxServerConfig {
 
    test -f /tmp/squeezerpmdebug && set -x
 
+   # Make a safety copy of the empty lyrion config.
    if ! /usr/bin/cp -pr /var/lib/%{shortname} /var/lib/%{shortname}.bck >/dev/null 2>&1; then
 
-      # Make a safety copy of the empty lyrion config.
       echo "WARNING, failed migrating old configuration. You will need to migrate it manually or configure Lyrion Music Server from scratch."
       # Remove the safety copy (or whatever was created).
-      rm -fr /var/lib/%{shortname}.bck >/dev/null 2>&1 || :
+      /usr/bin/rm -fr /var/lib/%{shortname}.bck >/dev/null 2>&1 || :
       return 1
 
    fi
@@ -460,17 +419,17 @@ function migrateSqueezeboxServerConfig {
 
       echo "WARNING, failed migrating old configuration. You will need to migrate it manually or configure Lyrion Music Server from scratch."
       # Restore the safety copy
-      rm -f -r /var/lib/%{shortname} >/dev/null 2>&1 || :
-      mv /var/lib/%{shortname}.bck /var/lib/%{shortname} >/dev/null 2>&1 || :
+      /usr/bin/rm -f -r /var/lib/%{shortname} >/dev/null 2>&1 || :
+      /usr/bin/mv /var/lib/%{shortname}.bck /var/lib/%{shortname} >/dev/null 2>&1 || :
       return 1
 
    else
 
-      if ! /usr/bin/find /var/lib/%{shortname} -type f -name "*.prefs" -exec sed -i 's#/squeezeboxserver#/%{shortname}#g' {} \; >/dev/null 2>&1; then
+      if ! /usr/bin/find /var/lib/%{shortname} -type f -name "*.prefs" -exec /usr/bin/perl -i.pre-squeeze-to-lyrion -pe 's#/squeezeboxserver#/%{shortname}#' {} \; >/dev/null 2>&1; then
          echo "WARNING, failed migrating old configuration. You will need to migrate it manually or configure Lyrion Music Server from scratch."
          # Restore the safety copy
-         rm -fr /var/lib/%{shortname} >/dev/null 2>&1 || :
-         mv /var/lib/%{shortname}.bck /var/lib/%{shortname} || :
+         /usr/bin/rm -fr /var/lib/%{shortname} >/dev/null 2>&1 || :
+         /usr/bin/mv /var/lib/%{shortname}.bck /var/lib/%{shortname} || :
          return 1
       fi
 
@@ -478,17 +437,17 @@ function migrateSqueezeboxServerConfig {
       if ! /usr/bin/chown -R %{userd}:%{groupd} /var/lib/%{shortname} >/dev/null 2>&1; then
          echo "WARNING, failed migrating old configuration. You will need to migrate it manually or configure Lyrion Music Server from scratch."
          # Restore the safety copy
-         rm -fr /var/lib/%{shortname} >/dev/null 2>&1 || :
-         mv /var/lib/%{shortname}.bck /var/lib/%{shortname} || :
+         /usr/bin/rm -fr /var/lib/%{shortname} >/dev/null 2>&1 || :
+         /usr/bin/mv /var/lib/%{shortname}.bck /var/lib/%{shortname} || :
          return 1
       fi
 
    fi
 
    # Remove safety backup 
-   rm -fr /var/lib/%{shortname}.bck >/dev/null 2>&1 || :
+   /usr/bin/rm -fr /var/lib/%{shortname}.bck >/dev/null 2>&1 || :
 
-   # Remove migratiopn flag file
+   # Remove migration flag file
    /usr/bin/rm -f /var/tmp/migrateSqueezeboxserverConfig
 
    # Print message about rebranding.
@@ -511,7 +470,7 @@ function migrateSqueezeboxServerConfig {
 test -f /tmp/squeezerpmdebug && set -x
 
 # Source /etc/os-release to find out what kind of system we are on.
-# We will use ID_LIKE from this file
+# We will use ID_LIKE and ID from this file
 . /etc/os-release || :
 
 # If the SYSV init script exists and the server uses systemd
@@ -521,7 +480,7 @@ if [ -e /etc/init.d/%{shortname} -a -x /usr/bin/systemctl ] ; then
 fi
 
 # If CentOS/RedHat/Fedora, handle selinux
-if [ -f /etc/redhat-release -o -n "$(echo $ID_LIKE |/usr/bin/grep -i -E '(centos|redhat|rhel|fedora)')" ] ; then
+if [ -f /etc/redhat-release -o -n "$(echo \"$ID_LIKE $ID\" | /usr/bin/perl -ne '/(fedora|centos|rhel|redhat|rocky|alma)/i and print')" ] ; then
         setSelinux
 fi
 
@@ -539,7 +498,7 @@ else
 	setSystemd
 fi
 
-PORT=`awk '/^httpport/ {print $2}' %{_var}/lib/%{shortname}/prefs/server.prefs`
+PORT=`/usr/bin/perl -lane  'if ( /^httpport:/) {print $F[1]; exit}' %{_var}/lib/%{shortname}/prefs/server.prefs`
 [ -z "$PORT" ] && PORT=9000
 HOSTNAME=`uname -n`
 
@@ -574,11 +533,11 @@ function unsetSYSV {
 	if [ -f /etc/e-smith-release -a -d /etc/rc7.d ] ; then
 		#SME Server uses runlevel 7
 		db configuration set %{shortname} service status disabled >/dev/null 2>&1 || :
-		rm /etc/rc7.d/S80%{shortname} || :
+		/usr/bin/rm /etc/rc7.d/S80%{shortname} || :
 	fi
        	/sbin/chkconfig --del %{shortname} >/dev/null 2>&1 || :
 	# Remove the SYSV file we copied in the post script.
-	rm -f /etc/init.d/%{shortname} || :
+	/usr/bin/rm -f /etc/init.d/%{shortname} || :
 
 }
 
@@ -589,7 +548,7 @@ function unsetSystemd {
 	/usr/bin/systemctl disable %{shortname}.service >/dev/null 2>&1 || :
 	/usr/bin/systemctl stop %{shortname}.service >/dev/null 2>&1 || :
 	# Remove the unit file we copied in the post script.
-	rm -f /usr/lib/systemd/system/%{shortname}.service || :
+	/usr/bin/rm -f /usr/lib/systemd/system/%{shortname}.service || :
 	/usr/bin/systemctl daemon-reload >/dev/null 2>&1 || :
 
 }
@@ -611,7 +570,7 @@ if [ "$1" -eq "0" ] ; then
 	fi
 
 	# If CentOS/Fedora/RedHat, remove selinux settings
-	if [ -f /etc/redhat-release -o -n "$(echo $ID_LIKE |/usr/bin/grep -i -E '(centos|redhat|rhel|fedora)')" ] ; then
+	if [ -f /etc/redhat-release -o -n "$(echo \"$ID_LIKE $ID\" | /usr/bin/perl -ne '/(fedora|centos|rhel|redhat|rocky|alma)/i and print')" ] ; then
 
 		unsetSelinux
 
@@ -677,6 +636,13 @@ fi
 
 
 %changelog
+* Sat Aug 24 2024 Johan Saaw
+- Simplified the logic around detecting whether a migration from 
+  squeezeboxserver config to lyrionmusicserver configuration is needed.
+  Removed dependecies on awk and grep in the pre and post scripts, replaced
+  with in-line perl code.
+  Added PreReqs for /bin/sh, getent, adduser and addgroup
+  General clean-up in pre and post scripts. Using full paths
 * Sun Jul 21 2024 Johan Saaw
 -  As from version 9.0.0 the logitechmediaserver is called Lyrion Music Server.
    Re-branding everything to Lyrion Music server.
