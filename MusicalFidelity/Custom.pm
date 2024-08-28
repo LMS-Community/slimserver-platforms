@@ -110,6 +110,8 @@ sub restartServer {
 	return 1;
 }
 
+sub installerOS { 'encore' };
+
 # ignore this configuration unless we are running it on a Encore system
 if (-f ENCORE_VERSION_FILE) {
 	return 1;
