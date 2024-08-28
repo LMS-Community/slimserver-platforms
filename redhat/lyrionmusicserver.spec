@@ -235,8 +235,8 @@ function checkConfigMigration () {
       return 0
    fi
 
-   # To check if an old logitecgmediaserver RPM is currently installed, we check
-   # if /usr/libexec/squeezeboxserver * AND * /
+   # To check if an old logitehmediaserver RPM is currently installed, we check
+   # if /usr/libexec/squeezeboxserver * AND * 
    # /var/lib/squeezeboxserver/prefs/server.prefs exist. Only if both these 
    # exist we will attempt a migration.
    # First see if currently the logitechmediaserver package is installed.
@@ -256,7 +256,7 @@ function checkConfigMigration () {
        echo ""
        echo "#######################################################################"
        echo "** INFORMATION **"
-       echo "Upgrading from a squeezeboxserver to a lyrionmusicserver!"
+       echo "Upgrading from squeezeboxserver to lyrionmusicserver!"
        echo "Will attempt to migrate the squeezeboxserver configuration in"
        echo "/var/lib/squeezeboxserver to the new lyrionmusicserver configuration"
        echo "in /var/lib/lyrionmusicserver."
