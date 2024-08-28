@@ -235,7 +235,7 @@ function checkConfigMigration () {
       return 0
    fi
 
-   # To check if an old logitehmediaserver RPM is currently installed, we check
+   # To check if an old logitechmediaserver RPM is currently installed, we check
    # if /usr/libexec/squeezeboxserver * AND * 
    # /var/lib/squeezeboxserver/prefs/server.prefs exist. Only if both these 
    # exist we will attempt a migration.
