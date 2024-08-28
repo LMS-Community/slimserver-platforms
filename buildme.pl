@@ -48,7 +48,7 @@ $dirsToExcludeForWin64 =~ s/5.32 |MSWin32-x64-multi-thread //g;
 my $dirsToExcludeForDocker = "$dirsToExcludeForLinuxPackage 5.20 5.22 5.24 5.26 5.28 5.30 5.32 5.34 5.38 i386-linux i86pc-solaris-thread-multi-64int sparc-linux powerpc-linux icudt46b.dat icudt58b.dat";
 
 # Musical Fidelity comes with Perl 5.22
-my $dirsToExcludeForEncore = "$dirsToExcludeForLinuxPackage 5.20 5.24 5.26 5.28 5.30 5.32 5.34 5.36 5.38 i386-linux arm-linux armhf-linux aarch64-linux i86pc-solaris-thread-multi-64int sparc-linux powerpc-linux icudt58l.dat icudt58b.dat";
+my $dirsToExcludeForEncore = "$dirsToExcludeForLinuxPackage 5.20 5.24 5.26 5.28 5.30 5.32 5.34 5.36 5.38 i386-linux arm-linux armhf-linux aarch64-linux i86pc-solaris-thread-multi-64int sparc-linux powerpc-linux icudt46l.dat icudt46b.dat";
 
 ## Initialize some variables we'll use later
 my ($build, $destName, $destDir, $buildDir, $sourceDir, $version, $noCPAN, $fakeRoot, $light, $freebsd, $arm, $encore, $ppc, $x86_64, $i386, $releaseType, $release, $tag);
