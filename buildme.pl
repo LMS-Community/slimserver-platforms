@@ -674,12 +674,9 @@ sub buildMacOSX {
 		print "INFO: Building package for Mac OSX (Universal)... \n";
 
 		## First, lets make sure we get rid of the files we don't need for this install
-		my @dirsToExclude = split(/ /, $dirsToExcludeForMacOSX);
-		my $n = 0;
-		while ($dirsToExclude[$n]) {
-			print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
-			system("find $buildDir | grep -i $dirsToExclude[$n] | xargs rm -rf ");
-			$n++;
+		foreach (split(/ /, $dirsToExcludeForMacOSX)) {
+			print "INFO: Removing $_ files from buildDir...\n";
+			system("find $buildDir | grep -i $_ | xargs rm -rf ");
 		}
 
 		## Now, lets make the Install Files directory
@@ -753,13 +750,10 @@ sub buildMacOS {
 		print "INFO: Building package for macOS (Universal)... \n";
 
 		## First, lets make sure we get rid of the files we don't need for this install
-		my @dirsToExclude = split(/ /, $dirsToExcludeForMacOSX);
-		my $n = 0;
-		# while ($dirsToExclude[$n]) {
-		# 	print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
-		# 	system("find $buildDir | grep -i $dirsToExclude[$n] | xargs rm -rf ");
-		# 	$n++;
-		# }
+		foreach (split(/ /, $dirsToExcludeForMacOSX)) {
+			print "INFO: Removing $_ files from buildDir...\n";
+			system("find $buildDir | grep -i $_ | xargs rm -rf ");
+		}
 
 		## Copy in the documentation and license files..
 		print "INFO: Copying documentation & licenses...\n";
@@ -795,7 +789,10 @@ sub buildMacOS {
 		system('platypus', @args);
 
 		print "INFO: Building $pkgName.zip with source from $buildDir/$pkgName...\n";
-		# system("cd $buildDir; zip -qr $destDir/$pkgName.zip $pkgName.app");
+		my $realName = $pkgName;
+		$realName =~ s/-.*//;
+		$realName =~ s/(.)([A-Z])/$1 $2/g;
+		system("cd $buildDir; mv $pkgName.app '$realName.app'; zip -qr9 $destDir/$pkgName.zip '$realName.app'");
 	}
 }
 
@@ -816,12 +813,9 @@ sub buildWin32 {
 		print "INFO: Building Win32 Installer Package...\n";
 
 		## First, lets make sure we get rid of the files we don't need for this install
-		my @dirsToExclude = split(/ /, $dirsToExcludeForWin32);
-		my $n = 0;
-		while ($dirsToExclude[$n]) {
-			print "INFO: Removing $dirsToExclude[$n] files from buildDir...\n";
-			system("find $buildDir | grep -i $dirsToExclude[$n] | xargs rm -rf ");
-			$n++;
+		foreach (split(/ /, $dirsToExcludeForWin32)) {
+			print "INFO: Removing $_ files from buildDir...\n";
+			system("find $buildDir | grep -i $_ | xargs rm -rf ");
 		}
 
 		print "INFO: Creating $buildDir/build for the final packaging...\n";
