@@ -750,7 +750,7 @@ sub buildMacOS {
 		print "INFO: Building package for macOS (Universal)... \n";
 
 		## First, lets make sure we get rid of the files we don't need for this install
-		foreach (split(/ /, $dirsToExcludeForMacOSX)) {
+		foreach (split(/ /, $dirsToExcludeForMacOSX), '5.18') {
 			print "INFO: Removing $_ files from buildDir...\n";
 			system("find $buildDir | grep -i $_ | xargs rm -rf ");
 		}
@@ -792,7 +792,7 @@ sub buildMacOS {
 		my $realName = $pkgName;
 		$realName =~ s/-.*//;
 		$realName =~ s/(.)([A-Z])/$1 $2/g;
-		system("cd $buildDir; mv $pkgName.app '$realName.app'; zip -qr9 $destDir/$pkgName.zip '$realName.app'");
+		system("cd $buildDir; mv $pkgName.app '$realName.app'; zip -qr9 $destDir/$pkgName-macOS.zip '$realName.app'");
 	}
 }
 
