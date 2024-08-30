@@ -40,7 +40,7 @@ sub handleAction {
 }
 
 sub runScript {
-	system(catfile(cwd(), shift));
+	system('"' . catfile(cwd(), shift) . '"');
 }
 
 sub getMenuItem {
