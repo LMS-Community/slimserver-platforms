@@ -1,26 +1,32 @@
 {
 	"OPEN_SETTINGS": {
 		"DE": "Einstellungen öffnen...",
-		"EN": "Open Settings..."
+		"EN": "Open Settings...",
+		"FR": "Ouvrir les paramètres..."
 	},
 	"STOP_SERVICE": {
 		"DE": "Dienst stoppen",
-		"EN": "Stop Service"
+		"EN": "Stop Service",
+		"FR": "Arrêter le service"
 	},
 	"OPEN_GUI": {
 		"DE": "Web-Steuerung öffnen...",
-		"EN": "Open Web Control..."
+		"EN": "Open Web Control...",
+		"FR": "Ouvrir le contrôle Web..."
 	},
 	"START_SERVICE": {
 		"EN": "Start Service",
-		"DE": "Dienst starten"
+		"DE": "Dienst starten",
+		"FR": "Démarrer le service"
 	},
 	"AUTOSTART_ON": {
 		"DE": "✓ Dienst automatisch ausführen",
-		"EN": "✓ Run Service automatically"
+		"EN": "✓ Run Service automatically",
+		"FR": "✓ Exécuter le service automatiquement"
 	},
 	"AUTOSTART_OFF": {
 		"DE": "Dienst automatisch ausführen",
-		"EN": "Run Service automatically"
+		"EN": "Run Service automatically",
+		"FR": "Exécuter le service automatiquement"
 	}
 }
