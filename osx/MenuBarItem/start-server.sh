@@ -13,7 +13,8 @@ if [ z"$SERVER_RUNNING" = z ] ; then
 		chown -R $USER "$LOG_FOLDER"
 	fi
 
-	cd "`dirname \"$0\"`/server"
+	BASE_FOLDER=$(cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)
+	cd "$BASE_FOLDER/server"
 
-	./slimserver.pl --daemon $1 &> /dev/null &
+	"$BASE_FOLDER/bin/perl" slimserver.pl --daemon $1 &> /dev/null &
 fi
