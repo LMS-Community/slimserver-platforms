@@ -7,18 +7,16 @@ use Encode qw(decode_utf8);
 use File::Spec::Functions qw(catfile);
 use Text::Unidecode;
 
-my $http_port;
-
 sub handleAction {
-	($http_port) = @_;
+	my ($httpPort, $updatesFolder) = @_;
 
 	my $item = getMenuItem();
 
 	if ($item eq 'OPEN_GUI') {
-		system("open http://localhost:$http_port/");
+		system("open http://localhost:$httpPort/");
 	}
 	elsif ($item eq 'OPEN_SETTINGS') {
-		system("open http://localhost:$http_port/settings/index.html");
+		system("open http://localhost:$httpPort/settings/index.html");
 	}
 	elsif ($item eq 'START_SERVICE') {
 		# we're going to re-use a shell script which will be used elsewhere, too
@@ -32,6 +30,13 @@ sub handleAction {
 	}
 	elsif ($item eq 'AUTOSTART_OFF') {
 		runScript('create-launchitem.sh');
+	}
+	elsif ($item eq 'UPDATE_AVAILABLE') {
+		system("cd $updatesFolder; unzip LyrionMusicServer-*macOS.zip; open $updatesFolder");
+		my $title = main::getString('UPDATE_TITLE');
+		my $message = main::getString('INSTALL_UPDATE');
+		print("ALERT:$title|$message\n");
+		# print("QUITAPP\n");
 	}
 	else {
 		my $x = unidecode(join(' ', @ARGV));

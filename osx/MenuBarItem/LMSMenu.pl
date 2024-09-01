@@ -8,8 +8,6 @@ use JSON::PP;
 
 use LMSMenuAction;
 
-my $http_port;
-
 binmode(STDOUT, ":utf8");
 our $STRINGS = decode_json(do {
     local $/ = undef;
@@ -25,53 +23,89 @@ use constant PRODUCT_NAME => 'Squeezebox';
 use constant PREFS_FILE => catfile($ENV{HOME}, 'Library', 'Application Support', PRODUCT_NAME, 'server.prefs');
 
 sub getPort {
-	$http_port = undef;
-	if (-f PREFS_FILE) {
-		open(FH, '<', PREFS_FILE) or return;
+	my $port = getPref('httpport');
+	my $remote = IO::Socket::INET->new(
+		Proto    => 'tcp',
+		PeerAddr => '127.0.0.1',
+		PeerPort => $port,
+	);
 
-		while (<FH>) {
-			if (/^httpport: ['"]?(\d+)['"]?/) {
-				my $port = $1;
-				my $remote = IO::Socket::INET->new(
-					Proto    => 'tcp',
-					PeerAddr => '127.0.0.1',
-					PeerPort => $port,
-				);
+	if ( $remote ) {
+		close $remote;
+		return $port;
+	}
 
-				if ( $remote ) {
-					close $remote;
-					$http_port = $port;
-				}
+	return;
+}
 
+sub getUpdate {
+	my $updatesFolder = catfile(getPref('cachedir'), 'updates');
+	my $updatesFile = catfile($updatesFolder, 'server.version');
+	my $update;
+
+	if (-r $updatesFile) {
+		open(UPDATE, '<', $updatesFile) or return;
+
+		while (<UPDATE>) {
+			if ($_ && -r $_) {
+				$update = $_;
 				last;
 			}
 		}
 
-		close FH;
+		close(UPDATE);
 	}
 
-	return $http_port;
+	return $update && $updatesFolder;
+}
+
+sub getPref {
+	my $pref = shift;
+	my $ret;
+
+	if (-r PREFS_FILE) {
+		open(PREF, '<', PREFS_FILE) or return;
+
+		while (<PREF>) {
+			if (/^$pref: ['"]?(.*)['"]?/) {
+				$ret = $1;
+				$ret =~ s/^['"]//;
+				$ret =~ s/['"\s]*$//s;
+				last;
+			}
+		}
+
+		close(PREF);
+	}
+
+	return $ret;
+}
+
+sub getString {
+	my ($token) = @_;
+	return $STRINGS->{$token}->{$lang} || $STRINGS->{$token}->{EN};
 }
 
 sub printMenuItem {
 	my ($token, $icon) = @_;
 	$icon = "MENUITEMICON|$icon|" if $icon;
 
-	my $string = $STRINGS->{$token}->{$lang} || $STRINGS->{$token}->{EN};
+	my $string = getString($token) || $token;
 	print "$icon$string\n";
 }
 
-getPort();
+my $httpPort = getPort();
+my $updatesFolder = getUpdate();
 
 if (scalar @ARGV > 0) {
-	LMSMenuAction::handleAction($http_port);
+	LMSMenuAction::handleAction($httpPort, $updatesFolder);
 }
 else {
 	my $autoStartItem = -f catfile($ENV{HOME}, 'Library', 'LaunchAgents', 'Squeezebox.plist')
 		? 'AUTOSTART_ON'
 		: 'AUTOSTART_OFF';
 
-	if ($http_port) {
+	if ($httpPort) {
 		printMenuItem('OPEN_GUI');
 		printMenuItem('OPEN_SETTINGS');
 		print("----\n");
@@ -82,7 +116,13 @@ else {
 		printMenuItem('START_SERVICE');
 		printMenuItem($autoStartItem);
 	}
-}
 
+	if ($updatesFolder) {
+		print("----\n");
+		printMenuItem('UPDATE_AVAILABLE');
+		# print("STATUSTITLE|✨\n");
+	}
+
+}
 
 1;

@@ -28,5 +28,20 @@
 		"DE": "Dienst automatisch ausführen",
 		"EN": "Run Service automatically",
 		"FR": "Exécuter le service automatiquement"
+	},
+	"UPDATE_AVAILABLE": {
+		"DE": "✨ Eine aktualisierte Version ist verfügbar",
+		"EN": "✨ An updated version is available",
+		"FR": "✨ Une nouvelle version est disponible"
+	},
+	"UPDATE_TITLE": {
+		"DE": "Lyrion Music Server Aktualisierung",
+		"EN": "Lyrion Music Server Update",
+		"FR": "Mise à jour Lyrion Music Server"
+	},
+	"INSTALL_UPDATE": {
+		"DE": "Um die aktualisierte Version von Lyrion Music Server zu installieren, stoppen Sie den Dienst, beenden Sie das Element in der Menüzeile, und verschieben Sie die \"Lyrion Music Server\" Anwendung in den \"Programme\" Ordner.",
+		"EN": "In order to update your Lyrion Music Server, stop the service, quit the menu bar item, and move the \"Lyrion Music Server\" application to your \"Applications\" folder.",
+		"FR": "Pour mettre à jour votre Lyrion Music Server, arrêtez le service, quittez l'élément de la barre de menu et déplacez l'application « Lyrion Music Server » dans votre dossier « Applications »."
 	}
 }
