@@ -32,10 +32,11 @@ sub handleAction {
 		runScript('create-launchitem.sh');
 	}
 	elsif ($item eq 'UPDATE_AVAILABLE') {
-		system("cd $updatesFolder; unzip LyrionMusicServer-*macOS.zip; open $updatesFolder");
+		system("open $updatesFolder; cd $updatesFolder && unzip LyrionMusicServer-*macOS.zip");
 		my $title = main::getString('UPDATE_TITLE');
 		my $message = main::getString('INSTALL_UPDATE');
 		print("ALERT:$title|$message\n");
+		# TODO - we don't quit yet, as the user will have to stop the service first... needs more work!
 		# print("QUITAPP\n");
 	}
 	else {
