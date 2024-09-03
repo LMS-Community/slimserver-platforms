@@ -450,19 +450,33 @@ function migrateSqueezeboxServerConfig {
    # Remove migration flag file
    /usr/bin/rm -f /var/tmp/migrateSqueezeboxserverConfig
 
+   # Some plugin requires the user id that is used to run
+   # the music server to be in specific groups. Thus, add
+   # the user id lyrionmusicserver (%{shortname} to the same
+   # groups as the user id squeezeboxserver is in. This will
+   # help those users who have added such plugins.
+   groups=`groups squeezeboxserver |/usr/bin/perl -lane 'print foreach grep { not m/^(squeezeboxserver|\:)/   } @F'`
+   for group in $groups; do
+      /usr/sbin/usermod -aG $group %{shortname} 
+   done
+
    # Print message about rebranding.
    echo ""
-   echo "#######################################################################"
+   echo "################################################################################"
    echo "NOTE"
-   echo "From version 9.0.0 the Logitech Media Server has been rebranded Lyrion Music Server."
-   echo "All Components of the software have been re-branded from squeezeboxserver to"
-   echo "lyrionmusicserver. To stop and start the software use:"
+   echo "From version 9.0.0 the Logitech Media Server has been rebranded Lyrion Music"
+   echo "Server. All Components of the software have been re-branded from"
+   echo "squeezeboxserver to lyrionmusicserver." 
+   echo "To stop and start the software use:"
    echo "systemd start lyrionmusicserver (on systemd systems)"
    echo "/sbin/service lyrionmusicserver start (on SYSV Init systems)."
    echo "and analogous for stop, status etc."
    echo ""
+   echo "If you have made changes to /etc/sysconfig/squeezeboxserver, then you"
+   echo "must transfer those changes yourself to /etc/sysconfig/%{shortname}."
+   echo ""
    echo "For more information, read %{_datadir}/%{shortname}/README.rebranding."
-   echo "#######################################################################"
+   echo "################################################################################"
    echo ""
 
 }
