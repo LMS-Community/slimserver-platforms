@@ -643,9 +643,9 @@ sub buildDebian {
 
 	## Ok, we've set everything up... lets run the dpkg-buildpkg command...
 	if ($fakeRoot) {
-		print `cd $buildDir/platforms; fakeroot dpkg-buildpackage -b -d ;`;
+		print `cd $buildDir/platforms; fakeroot dpkg-buildpackage -b -d -Zxz ;`;
 	} else {
-		print `cd $buildDir/platforms; dpkg-buildpackage -b -d ;`;
+		print `cd $buildDir/platforms; dpkg-buildpackage -b -d -Zxz ;`;
 	}
 
 	if ($suffix) {
