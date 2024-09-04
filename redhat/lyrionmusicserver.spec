@@ -102,6 +102,7 @@ Requires(post):  /usr/bin/cp
 Requires(post):  /usr/bin/ln
 Requires(post):  /usr/bin/mv
 Requires(post):  /usr/bin/rm
+Requires(post):  /usr/sbin/usermod
 Requires:        perl >= 5.10.0
 Recommends:      perl(IO::Socket::SSL)
 
