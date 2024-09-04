@@ -16,8 +16,6 @@ stopped also changes.
   systemctl stop lyrionmusicserver   -> Stops the music server 
   systemctl status lyrionmusicserver -> Shows the status of the music server 
 
-  The configuration of the server is now in /var/lib/lyrionmusicserver
-
 - SYSV init system
 
   /etc/init.d/lyrionmusicserver start  -> Starts the music server 
@@ -54,3 +52,13 @@ locations of the Lyrion Music Server. This will be done if, and only if
 If these two conditions are not met, then the Lyrion Music Server must be 
 configured from scratch or you can migrate your configuration manually.
 
+** NOTE **
+If you have made changes to /etc/sysconfig/squeezeboxserver, then you must 
+do those changes to /etc/sysconfig/lyrionmusicserver yourself, if you want
+to keep them.
+
+** NOTE ** 
+If you have created a drop-in file for the systemd service squeezeboxserver,
+then you must create the corresponding drop-in file for the systemd service
+lyrionmusicserver.service if you want to keep the changes you implemented
+with the drop-in file.
