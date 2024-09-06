@@ -473,7 +473,8 @@ sub buildDockerImage {
 
 	my $tags = join(' ', map {
 		my $tag = "--tag lmscommunity/logitechmediaserver:$_";
-		$tag .= " --tag lmscommunity/$defaultDestName:$_" if $_ eq 'dev';
+		# TODO - remove once we go all in on lyrionmusicserver!
+		$tag .= " --tag lmscommunity/$defaultDestName:$_" if $tag eq 'dev';
 		$tag;
 	} @tags);
 
