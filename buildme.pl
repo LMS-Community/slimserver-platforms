@@ -472,10 +472,10 @@ sub buildDockerImage {
 	push @tags, $tag if $tag;
 
 	my $tags = join(' ', map {
-		my $tag = "--tag lmscommunity/logitechmediaserver:$_";
+		my $additionalTag = "--tag lmscommunity/logitechmediaserver:$_";
 		# TODO - remove once we go all in on lyrionmusicserver!
-		$tag .= " --tag lmscommunity/$defaultDestName:$_" if $tag eq 'dev';
-		$tag;
+		$additionalTag .= " --tag lmscommunity/$defaultDestName:$_" if $tag eq 'dev';
+		$additionalTag;
 	} @tags);
 
 
