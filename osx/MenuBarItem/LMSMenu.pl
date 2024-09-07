@@ -101,7 +101,7 @@ if (scalar @ARGV > 0) {
 	LMSMenuAction::handleAction($httpPort, $updatesFolder);
 }
 else {
-	my $autoStartItem = -f catfile($ENV{HOME}, 'Library', 'LaunchAgents', 'Squeezebox.plist')
+	my $autoStartItem = -f catfile($ENV{HOME}, 'Library', 'LaunchAgents', 'org.lyrion.lyrionmusicserver.plist')
 		? 'AUTOSTART_ON'
 		: 'AUTOSTART_OFF';
 
