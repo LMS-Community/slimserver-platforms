@@ -12,6 +12,7 @@ APP_FOLDER="${PWD%/*/*}"
 mkdir -p $LOG_FOLDER
 mkdir -p $HOME/Library/LaunchAgents
 
+PERL_BINARY="$PWD/bin/perl"
 PRODUCT_FOLDER="$PWD/server"
 
 launchctl unload "$PRODUCT_PLIST" &> /dev/null
@@ -25,6 +26,7 @@ cat > "$PRODUCT_PLIST" << !!
 		<true />
 		<key>ProgramArguments</key>
 		<array>
+			<string>$PERL_BINARY</string>
 			<string>$PRODUCT_FOLDER/slimserver.pl</string>
 		</array>
 		<key>WorkingDirectory</key>
