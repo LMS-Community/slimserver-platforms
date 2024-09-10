@@ -39,12 +39,12 @@ sub getPort {
 }
 
 sub getUpdate {
-	my $updatesFolder = catfile(getPref('cachedir'), 'updates');
-	my $updatesFile = catfile($updatesFolder, 'server.version');
+	my $updatesFile = catfile(getPref('cachedir'), 'updates', 'server.version');
 	my $update;
 
 	if (-r $updatesFile) {
 		open(UPDATE, '<', $updatesFile) or return;
+		chomp $_;
 
 		while (<UPDATE>) {
 			if ($_ && -r $_) {
@@ -56,7 +56,7 @@ sub getUpdate {
 		close(UPDATE);
 	}
 
-	return $update && $updatesFolder;
+	return $update;
 }
 
 sub getPref {
@@ -95,10 +95,10 @@ sub printMenuItem {
 }
 
 my $httpPort = getPort();
-my $updatesFolder = getUpdate();
+my $update = getUpdate();
 
 if (scalar @ARGV > 0) {
-	LMSMenuAction::handleAction($httpPort, $updatesFolder);
+	LMSMenuAction::handleAction($httpPort, $update);
 }
 else {
 	my $autoStartItem = -f catfile($ENV{HOME}, 'Library', 'LaunchAgents', 'org.lyrion.lyrionmusicserver.plist')
@@ -117,7 +117,7 @@ else {
 		printMenuItem($autoStartItem);
 	}
 
-	if ($updatesFolder) {
+	if ($update) {
 		print("----\n");
 		printMenuItem('UPDATE_AVAILABLE');
 		# print("STATUSTITLE|✨\n");

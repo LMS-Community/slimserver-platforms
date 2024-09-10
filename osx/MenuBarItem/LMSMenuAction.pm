@@ -8,7 +8,7 @@ use File::Spec::Functions qw(catfile);
 use Text::Unidecode;
 
 sub handleAction {
-	my ($httpPort, $updatesFolder) = @_;
+	my ($httpPort, $update) = @_;
 
 	my $item = getMenuItem();
 
@@ -32,7 +32,7 @@ sub handleAction {
 		runScript('create-launchitem.sh');
 	}
 	elsif ($item eq 'UPDATE_AVAILABLE') {
-		system("open $updatesFolder; cd $updatesFolder && unzip LyrionMusicServer-*macOS.zip");
+		system("open \"$update\"");
 		my $title = main::getString('UPDATE_TITLE');
 		my $message = main::getString('INSTALL_UPDATE');
 		print("ALERT:$title|$message\n");
