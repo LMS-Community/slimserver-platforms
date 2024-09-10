@@ -795,6 +795,12 @@ sub buildMacOS {
 		$realName =~ s/-.*//;
 		$realName =~ s/(.)([A-Z])/$1 $2/g;
 		system("cd $buildDir; mv $pkgName.app '$realName.app'; zip -qr9 $destDir/$pkgName-macOS.zip '$realName.app'");
+
+		# if we have NodeJS installed, try to create a DMG file
+		if (`which npx`) {
+			print "INFO: Building $pkgName.dmg with source from $buildDir/$pkgName...\n";
+			system("cd $buildDir; mv $pkgName.app '$realName.app'; npx --yes create-dmg --overwrite '$realName.app'; mv -f L*.dmg '$destDir/$pkgName.dmg'");
+		}
 	}
 }
 
