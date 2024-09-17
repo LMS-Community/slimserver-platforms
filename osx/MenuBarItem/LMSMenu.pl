@@ -94,8 +94,13 @@ sub printMenuItem {
 	print "$icon$string\n";
 }
 
+sub getPrefPane {
+	-e '/Library/PreferencePanes/Squeezebox.prefPane' || -e catfile($ENV{HOME}, 'Library/PreferencePanes/Squeezebox.prefPane');
+}
+
 my $httpPort = getPort();
 my $update = getUpdate();
+my $hasPrefPane = getPrefPane();
 
 if (scalar @ARGV > 0) {
 	LMSMenuAction::handleAction($httpPort, $update);
@@ -123,6 +128,10 @@ else {
 		# print("STATUSTITLE|✨\n");
 	}
 
+	if ($hasPrefPane) {
+		print("----\n");
+		printMenuItem('UNINSTALL_PREFPANE');
+	}
 }
 
 1;

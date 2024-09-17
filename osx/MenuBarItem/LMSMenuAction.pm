@@ -39,6 +39,9 @@ sub handleAction {
 		# TODO - we don't quit yet, as the user will have to stop the service first... needs more work!
 		# print("QUITAPP\n");
 	}
+	elsif ($item eq 'UNINSTALL_PREFPANE') {
+		system("open https://lyrion.org/reference/uninstall-legacy-mac/");
+	}
 	else {
 		my $x = unidecode(join(' ', @ARGV));
 		print "ALERT:Selected Item...|$item $x\n";
