@@ -58,7 +58,7 @@ WizardImageFile=squeezebox.bmp
 WizardSmallImageFile=logo.bmp
 OutputBaseFilename=SqueezeSetup64
 DirExistsWarning=no
-ArchitecturesAllowed=x64
+ArchitecturesAllowed=x64compatible
 SolidCompression=yes
 
 [Files]
