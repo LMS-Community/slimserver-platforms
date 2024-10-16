@@ -751,7 +751,7 @@ sub buildMacOS {
 		print "INFO: Building package for macOS (Universal)... \n";
 
 		## First, lets make sure we get rid of the files we don't need for this install
-		foreach (split(/ /, $dirsToExcludeForMacOSX), '5.18') {
+		foreach (split(/ /, $dirsToExcludeForMacOSX)) {
 			print "INFO: Removing $_ files from buildDir...\n";
 			system("find $buildDir | grep -i $_ | xargs rm -rf ");
 		}
@@ -790,16 +790,16 @@ sub buildMacOS {
 
 		system('platypus', @args);
 
-		print "INFO: Building $pkgName.zip with source from $buildDir/$pkgName...\n";
 		my $realName = $pkgName;
 		$realName =~ s/-.*//;
 		$realName =~ s/(.)([A-Z])/$1 $2/g;
-		system("cd $buildDir; mv $pkgName.app '$realName.app'; zip -qr9 $destDir/$pkgName-macOS.zip '$realName.app'");
+		print "INFO: Building $realName.app with source from $buildDir/$pkgName...\n";
+		system("cd $buildDir && rm -rf '$destDir/$realName.app' && mv '$pkgName.app' '$destDir/$realName.app'");
 
 		# if we have NodeJS installed, try to create a DMG file - see https://github.com/sindresorhus/create-dmg
 		if (`which npx`) {
-			print "INFO: Building $pkgName.dmg with source from $buildDir/$pkgName...\n";
-			system("cd $buildDir; mv $pkgName.app '$realName.app'; npx --yes create-dmg --overwrite '$realName.app'; mv -f L*.dmg '$destDir/$pkgName.dmg'");
+			print "INFO: Building $pkgName.dmg using $realName.app...\n";
+			system("cd $destDir; npx --yes create-dmg --overwrite '$realName.app'; mv -f L*.dmg '$pkgName.dmg'");
 		}
 	}
 }
