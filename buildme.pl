@@ -384,7 +384,7 @@ sub showUsage {
 	print "        (optional)                 or you're building a nightly-style package\n";
 	print "\n";
 	print "--- Building a Linux Tarball\n";
-	print "    --build tarball <required opts below>\n";
+	print "    --build tarball <required opts above>\n";
 	print "    --destName <filename>        - The name of the tarball you would like to\n";
 	print "       (optional)                  have made. Do not include the .tar.gz/tgz,\n";
 	print "                                   it will be appended automatically.\n";
@@ -396,35 +396,31 @@ sub showUsage {
 	print "    --noCPAN-light (optional)    - Build a package with no CPAN modules, web templates etc. included\n";
 	print "\n";
 	print "--- Building a Docker image (with only ARM and x86_64 Linux binaries)\n";
-	print "    --build docker <required opts below>\n";
+	print "    --build docker <required opts above>\n";
 	print "    --tag <tag>                  - additional tag for the Docker image\n";
 	print "\n";
 	print "--- Building an RPM package\n";
-	print "    --build rpm <required opts below>\n";
+	print "    --build rpm <required opts above>\n";
 	print "\n";
 	print "--- Building a Debian Package\n";
-	print "    --build debian <required opts below>\n";
+	print "    --build debian <required opts above>\n";
 	print "    --fakeroot (optional)        - Whether to use fakeroot to run the build or not. \n";
 	print "    --arm (optional)             - Build a package with only ARM Linux binaries\n";
 	print "    --x86_64 (optional)          - Build a package with only x86_64 Linux binaries\n";
 	print "    --i386 (optional)            - Build a package with only i386 Linux binaries\n";
 	print "\n";
 	print "--- Building a Mac OSX Package\n";
-	print "    --build macosx <required opts below>\n";
+	print "    --build macosx <required opts above>\n";
 	print "    --destName <filename>        - The name of the OSX Package Name, do not \n";
 	print "       (optional)                  include the extension.\n";
 	print "\n";
 	print "--- Building a macOS menu bar item\n";
-	print "    --build macos <required opts below>\n";
-	print "    --buildDir <dir>             - The directory to do temporary work in\n";
-	print "    --sourceDir <dir>            - The location of the source code repository\n";
-	print "                                   that you've checked out from Git\n";
-	print "    --destDir <dir>              - The destination you'd like your files \n";
+	print "    --build macos <required opts above>\n";
 	print "    --destName <filename>        - The name of the OSX Package Name, do not \n";
 	print "       (optional)                  include the extension.\n";
 	print "\n";
 	print "--- Building a Windows Package\n";
-	print "    --build win32 <required opts below>\n";
+	print "    --build win32 <required opts above>\n";
 }
 
 sub removeExclusions {
