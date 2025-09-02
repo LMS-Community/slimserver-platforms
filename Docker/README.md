@@ -156,3 +156,25 @@ You can put a script called `custom-init.sh` in the configuration folder. If tha
 apt-get update -qq
 apt-get install --no-install-recommends -qy ffmpeg
 ```
+### Running a logrotate service to clean up your Lyrion logs
+
+Using Docker compose:
+
+Add this to the beginning of your current docker-compose.yml just after the "version" line:
+```
+include:
+  - docker-compose-logrotate.yml
+```
+
+copy docker-compose-logrotate.yml and the entire logrotate directory to the directory that currently contains your docker-compose.yml.
+
+Edit the docker-compose-logrotate.yml file to correctly point to your logs files.
+
+For example I had to change:
+```
+      - <somewhere>:/logs:rw
+```
+to
+```
+      - ./config/logs:/logs:rw
+```

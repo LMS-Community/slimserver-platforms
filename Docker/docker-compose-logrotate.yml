@@ -1,0 +1,15 @@
+---
+services:
+  logrotate:
+    build: logrotate
+    container_name: logrotate
+    depends_on:
+      - lms
+    volumes:
+      - <somewhere>:/logs:rw
+      - ./logrotate/conf:/conf:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    network_mode: none
+    restart: unless-stopped
+    init: true
