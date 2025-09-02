@@ -166,7 +166,7 @@ include:
   - docker-compose-logrotate.yml
 ```
 
-copy docker-compose-logrotate.yml and the entire logrotate directory to the directory that currently contains your docker-compose.yml.
+copy docker-compose-logrotate.yml then the entire logrotate directory to the directory that currently contains your docker-compose.yml.
 
 Edit the docker-compose-logrotate.yml file to correctly point to your logs files.
 
@@ -178,3 +178,8 @@ to
 ```
       - ./config/logs:/logs:rw
 ```
+Logrotate is by default configured with reasonable values for most uses. If you want to change this you can edit 
+```
+./logrotate/confs/logrotate.conf
+```
+with standard logrotate syntax and restart the container.
