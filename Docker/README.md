@@ -160,7 +160,7 @@ apt-get install --no-install-recommends -qy ffmpeg
 
 Using Docker compose:
 
-Add this to the beginning of your current docker-compose.yml just after the "version" line:
+Add this to the beginning of your current `docker-compose.yml` just after the "version" line:
 ```
 include:
   - docker-compose-logrotate.yml
@@ -174,7 +174,7 @@ services:
   lms:
 ```
 
-copy docker-compose-logrotate.yml, then the entire logrotate directory to the directory that currently contains your docker-compose.yml.
+copy `docker-compose-logrotate.yml`, then the entire `logrotate` directory to the directory that currently contains your `docker-compose.yml`.
 
 The directory you run docker-compose from should look somewhat like:
 ```
@@ -190,7 +190,7 @@ The directory you run docker-compose from should look somewhat like:
 ```
 
 │
-Edit the docker-compose-logrotate.yml file to correctly point to your log files.
+Edit the `docker-compose-logrotate.yml` file to correctly point to your log files.
 
 For example I had to change:
 ```
