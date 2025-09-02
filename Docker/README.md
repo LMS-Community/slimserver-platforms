@@ -165,10 +165,32 @@ Add this to the beginning of your current docker-compose.yml just after the "ver
 include:
   - docker-compose-logrotate.yml
 ```
+should look like:
+```
+version: '3'
+include:
+  - docker-compose-logrotate.yml
+services:
+  lms:
+```
 
-copy docker-compose-logrotate.yml then the entire logrotate directory to the directory that currently contains your docker-compose.yml.
+copy docker-compose-logrotate.yml, then the entire logrotate directory to the directory that currently contains your docker-compose.yml.
 
-Edit the docker-compose-logrotate.yml file to correctly point to your logs files.
+The directory you run docker-compose from should look somewhat like:
+```
+├── config
+│       └── logs
+├── docker-compose-logrotate.yml
+├── docker-compose.yml
+├── logrotate
+│   ├── conf
+│   │   ├── crontab
+│   │   └── logrotate.conf
+│   ├── Dockerfile
+```
+
+│
+Edit the docker-compose-logrotate.yml file to correctly point to your log files.
 
 For example I had to change:
 ```
