@@ -291,7 +291,7 @@ function checkConfigMigration () {
      if [ -f /var/lib/squeezeboxserver/prefs/server.prefs ]; then
 
        # config should be migrated.
-       /usr/bin/touch /var/tmp/migrateSqueezeboxserverConfig || :
+       /usr/bin/touch %{_tmppath}/migrateSqueezeboxserverConfig || :
  
        echo ""
        echo "#######################################################################"
@@ -393,7 +393,7 @@ function migrateSqueezeboxServerConfig {
    /usr/bin/rm -fr /var/lib/%{shortname}.bck >/dev/null 2>&1 || :
 
    # Remove migration flag file
-   /usr/bin/rm -f /var/tmp/migrateSqueezeboxserverConfig >/dev/null 2>&1 || :
+   /usr/bin/rm -f %{_tmppath}/migrateSqueezeboxserverConfig >/dev/null 2>&1 || :
 
    # Some plugin requires the user id that is used to run
    # the music server to be in specific groups. Thus, add
@@ -417,8 +417,8 @@ function migrateSqueezeboxServerConfig {
    echo "and analogous for stop, status etc."
    echo ""
    echo ""
-   echo "For more information, read %{_datadir}/%{shortname}/README.rebranding."
-   echo "For more information, read %{_datadir}/%{shortname}/README.systemd."
+   echo "For more information, read %{_docdir}/%{shortname}/README.rebranding."
+   echo "For more information, read %{_docdir}/%{shortname}/README.systemd."
    echo "################################################################################"
    echo ""
 
@@ -428,7 +428,7 @@ test -f /tmp/squeezerpmdebug && echo "post script"
 test -f /tmp/squeezerpmdebug && set -x
 
 # Check if we need to migrate a squeezeboxserver config to lyrion music server
-if [ -f /var/tmp/migrateSqueezeboxserverConfig ]; then
+if [ -f %{_tmppath}/migrateSqueezeboxserverConfig ]; then
 
    migrateSqueezeboxServerConfig
 
