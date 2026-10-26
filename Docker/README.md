@@ -105,6 +105,19 @@ Some systems wouldn't allow you to map volumes outside specific folders, eg. Unr
   -e TZ=Europe/Zurich
 ```
 
+### Using an init process
+Some plugins start helper processes. To make sure these are cleaned up properly, it's recommended to run the container with Docker's built-in init process.
+
+For `docker run` add:
+```
+  --init
+```
+
+For `docker compose` add (at the same level as `container_name`):
+```
+    init: true
+```
+
 ### Docker on Synology
 * use `/etc/TZ` instead of `/etc/timezone`
 * you'll likely have to use another port than 9000. Synology traditionally used port 9002 to run Lyrion Music Server on. See above note about mapping ports to make sure this is working as expected!
