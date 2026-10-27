@@ -13,7 +13,6 @@ Run:
 
 ```
 docker run -it \
-      --init \
       -v "<somewhere>":"/config":rw \
       -v "<somewhere>":"/music":ro \
       -v "<somewhere>":"/playlist":rw \
@@ -30,7 +29,6 @@ Please note that both the http port 9000 and the cli port 9090 must always be ma
 
 ```
 docker run -it \
-      --init \
       -v "<somewhere>":"/config":rw \
       -v "<somewhere>":"/music":ro \
       -v "<somewhere>":"/playlist":rw \
@@ -50,7 +48,6 @@ version: '3'
 services:
   lms:
     container_name: lms
-    init: true
     image: lmscommunity/lyrionmusicserver
     volumes:
       - /<somewhere>:/config:rw
@@ -108,9 +105,6 @@ Some systems wouldn't allow you to map volumes outside specific folders, eg. Unr
   -e TZ=Europe/Zurich
 ```
 
-### Using an init process
-The examples above use `--init` (or `init: true` for `docker compose`) to run the container with Docker's built-in init process. Some plugins start helper processes, and the init process makes sure these are cleaned up properly. It's recommended to keep this option.
-
 ### Docker on Synology
 * use `/etc/TZ` instead of `/etc/timezone`
 * you'll likely have to use another port than 9000. Synology traditionally used port 9002 to run Lyrion Music Server on. See above note about mapping ports to make sure this is working as expected!
@@ -128,7 +122,6 @@ Some plugins like eg. the Sounds & Effects, require the player to know the serve
 
 ```
 docker run -it \
-      --init \
       -v "<somewhere>":"/config":rw \
       -v "<somewhere>":"/music":ro \
       -v "<somewhere>":"/playlist":rw \
