@@ -27,4 +27,8 @@ echo Starting Lyrion Music Server on port $HTTP_PORT...
 if [[ -n "$EXTRA_ARGS" ]]; then
 	echo "Using additional arguments: $EXTRA_ARGS"
 fi
-su squeezeboxserver -s /bin/sh -c '/usr/bin/perl /lms/slimserver.pl --prefsdir /config/prefs --logdir /config/logs --cachedir /config/cache --httpport $HTTP_PORT $EXTRA_ARGS'
+# Use exec so LMS replaces this script and receives SIGTERM from `docker stop`.
+# setpriv drops privileges without leaving a parent process (unlike su).
+exec setpriv --reuid=squeezeboxserver --regid=squeezeboxserver --init-groups \
+	env HOME="$(getent passwd squeezeboxserver | cut -d: -f6)" USER=squeezeboxserver LOGNAME=squeezeboxserver SHELL=/bin/sh \
+	/usr/bin/perl /lms/slimserver.pl --prefsdir /config/prefs --logdir /config/logs --cachedir /config/cache --httpport "$HTTP_PORT" $EXTRA_ARGS
