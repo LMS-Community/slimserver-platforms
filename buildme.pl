@@ -58,9 +58,9 @@ $dirsToExcludeForLinuxNoCpanTarball .= " CPAN lib";
 # https://github.com/LMS-Community/slimserver-platforms/pull/99#issuecomment-3423325041
 my $dirsToExcludeForRPM = "$dirsToExcludeForLinuxPackage 5.20";
 
-# for Docker we provide x86_64 and armhf for Perl 5.36 only
+# for Docker we provide x86_64 and armhf for Perl 5.40 only
 # Dont't forget to keep this list in sync with the file "Docker/.dockerignore"
-my $dirsToExcludeForDocker = "$dirsToExcludeForLinuxPackage 5.20 5.22 5.24 5.26 5.28 5.30 5.32 5.34 5.38 5.40 5.42 i386-linux icudt46b.dat icudt58b.dat";
+my $dirsToExcludeForDocker = "$dirsToExcludeForLinuxPackage 5.20 5.22 5.24 5.26 5.28 5.30 5.32 5.34 5.36 5.38 5.42 i386-linux icudt46b.dat icudt58b.dat";
 
 # Musical Fidelity comes with Perl 5.22
 my $dirsToExcludeForEncore = "$dirsToExcludeForLinuxPackage 5.20 5.24 5.26 5.28 5.30 5.32 5.34 5.36 5.38 5.40 5.42 i386-linux arm-linux armhf-linux aarch64-linux i86pc-solaris-thread-multi-64int sparc-linux powerpc-linux icudt46l.dat icudt46b.dat";

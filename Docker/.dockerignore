@@ -1,11 +1,11 @@
 #
 # Directories to exclude when building the docker image:
-# For Docker we provide x86_64 and armhf for Perl 5.36 only
+# For Docker we provide x86_64 and armhf for Perl 5.40 only
 #
 CPAN/arch/5.1*
 CPAN/arch/5.2*
-CPAN/arch/5.3[0248]
-CPAN/arch/5.40
+CPAN/arch/5.3*
+CPAN/arch/5.4[2468]
 Bin/arm-linux
 Bin/darwin* 
 Bin/i86* 

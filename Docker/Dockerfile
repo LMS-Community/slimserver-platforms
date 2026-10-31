@@ -1,5 +1,5 @@
 #Base image
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -10,14 +10,13 @@ ENV HTTP_PORT=9000
 # Install packages
 RUN apt-get update -qq  && \
 	apt-get install --no-install-recommends -qy procps psmisc wget curl perl tzdata libcrypt-blowfish-perl libwww-perl libfont-freetype-perl liblinux-inotify2-perl \
-	libdata-dump-perl libio-socket-ssl-perl libnet-ssleay-perl libcrypt-ssleay-perl libcrypt-openssl-rsa-perl libssl-dev libgomp1 libasound2 lame opus-tools && \
+	libdata-dump-perl libio-socket-ssl-perl libnet-ssleay-perl libcrypt-ssleay-perl libcrypt-openssl-rsa-perl libssl-dev libgomp1 libasound2t64 lame opus-tools && \
 	apt-get clean -qy && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add & configure user
-RUN adduser --system --group -uid=$PUID squeezeboxserver && \
+RUN useradd --system --no-create-home -d /home -s /usr/sbin/nologin --uid $PUID --user-group squeezeboxserver && \
 	usermod -g $PGID squeezeboxserver && \
-	usermod -d /home squeezeboxserver && \
 	usermod -a -G audio squeezeboxserver
 
 # Add startup script
