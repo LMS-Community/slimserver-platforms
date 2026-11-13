@@ -16,7 +16,7 @@ use constant DESTDIR_NOT_REQUIRED => '[not required]';
 
 ## Here we set some basic settings.. most of these dont need to change very often.
 my $squeezeCenterStartupScript = "server/slimserver.pl";
-my $sourceDirsToExclude = ".vscode .vstags .secrets .gitignore .editorconfig .svn .git .github t tests slimp3 squeezebox /softsqueeze tools ext/source ext-all-debug.js build Firmware/*.bin Graphics/*.TTF Graphics/*.ttf NYTProf Plugins/*";
+my $sourceDirsToExclude = ".devcontainer .vscode .vstags .secrets .gitignore .editorconfig .svn .git .github t tests slimp3 squeezebox /softsqueeze tools ext/source ext-all-debug.js build Firmware/*.bin Graphics/*.TTF Graphics/*.ttf NYTProf Plugins/*";
 my $revisionTextFile = "server/revision.txt";
 my $revision;
 my $myVersion = "1.1.0";
