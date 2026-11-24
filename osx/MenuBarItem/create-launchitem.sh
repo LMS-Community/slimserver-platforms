@@ -40,6 +40,10 @@ cat > "$PRODUCT_PLIST" << !!
 		<string>$LOG_FILE</string>
 		<key>StandardErrorPath</key>
 		<string>$LOG_FILE</string>
+		<key>AssociatedBundleIdentifiers</key>
+		<array>
+			<string>$PRODUCT_ID</string>
+		</array>
 	</dict>
 </plist>
 !!
