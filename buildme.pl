@@ -767,6 +767,8 @@ sub buildMacOS {
 			'--name', 'Lyrion Music Server',
 			'--interface-type', 'None',
 			'--author', 'Lyrion Community, Michael Herger',
+			# without an explicit ID Platypus derives one from --author, which contains a comma
+			'--bundle-identifier', 'org.lyrion.lyrionmusicserver',
 			'--app-version', $version,
 			'--app-icon', "$buildDir/platforms/osx/MenuBarItem/icon.icns",
 			'--quit-after-execution',
@@ -782,6 +784,7 @@ sub buildMacOS {
 			'--name', 'Lyrion Music Server',
 			'--interface-type', 'Status Menu',
 			'--author', 'Lyrion Community, Michael Herger',
+			'--bundle-identifier', 'org.lyrion.lyrionmusicserver.menubar',
 			'--app-version', $version,
 			'--app-icon', "$buildDir/platforms/osx/MenuBarItem/icon.icns",
 			'--status-item-kind', 'Icon',
@@ -814,6 +817,12 @@ sub buildMacOS {
 		# copy the menu bar item inside the launcher
 		system("cd $buildDir && mv '$pkgName.app' '$destDir/$realName.app/Contents/MacOS/$realName.app'");
 
+		# macOS shows this text when asking for Local Network access
+		my $localNetworkUsage = 'Lyrion Music Server streams audio to and from players and media servers on your local network.';
+		foreach my $plist ("$destDir/$realName.app/Contents/Info.plist", "$destDir/$realName.app/Contents/MacOS/$realName.app/Contents/Info.plist") {
+			system('/usr/libexec/PlistBuddy', '-c', "Add :NSLocalNetworkUsageDescription string $localNetworkUsage", $plist);
+		}
+
 		# see whether we have certificates to sign the binaries
 		# "$ENV{HOME}/Library/Developer/Xcode/UserData/Provisioning\ Profiles/build_pp.provisionprofile";
 		my $hasCerts;
@@ -822,7 +831,8 @@ sub buildMacOS {
 			print "INFO: Signing $realName.app...\n";
 			# we must --force the signature to replace existing signatures
 			# the menu bar item is inside the launcher, so we need to sign it twice
-			system("cd '$destDir/$realName.app/Contents/MacOS/$realName.app/Contents/MacOS/'; ls | grep -v Server | xargs codesign -s \"$ENV{DEV_CERT_NAME}\" -o runtime --force ");
+			# --prefix gives helper binaries like perl a unique identifier (org.lyrion.perl) instead of the bare file name
+			system("cd '$destDir/$realName.app/Contents/MacOS/$realName.app/Contents/MacOS/'; ls | grep -v Server | xargs codesign -s \"$ENV{DEV_CERT_NAME}\" -o runtime --prefix org.lyrion. --force ");
 			system("cd '$destDir/$realName.app/Contents/MacOS/'; codesign -s \"$ENV{DEV_CERT_NAME}\" -o runtime '$realName.app'");
 			system("codesign -v -s \"$ENV{DEV_CERT_NAME}\" -o runtime '$destDir/$realName.app'");
 		}
